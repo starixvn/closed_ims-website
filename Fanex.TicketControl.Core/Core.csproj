@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Fanex.TicketControl.Core</RootNamespace>
+    <AssemblyName>Fanex.TicketControl.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ExcelUtil">
+      <HintPath>..\_Dependency\ExcelUtil.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common">
+      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Logging">
+      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.MailDeliver.MailClient">
+      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.MailDeliver.MailClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Core">
+      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.NAP.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.NAP.Framework">
+      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="IBCFile">
+      <HintPath>..\_Dependency\RemotingRef\IBCFile.dll</HintPath>
+    </Reference>
+    <Reference Include="RemotingRef">
+      <HintPath>..\_Dependency\RemotingRef\RemotingRef.dll</HintPath>
+    </Reference>
+    <Reference Include="SPSRemoting">
+      <HintPath>..\_Dependency\RemotingRef\SPSRemoting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Configurations\AppSettings.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Criteria\BalanceUpCriteria.cs" />
+    <Compile Include="Criteria\DeleteMostVisitedPagesCriteria.cs" />
+    <Compile Include="Criteria\GetExchangeCurrenciesCriteria.cs" />
+    <Compile Include="Criteria\SelectMostvisitedPageCriteria.cs" />
+    <Compile Include="Criteria\UpdateMostVisitedPageCountCriteria.cs" />
+    <Compile Include="Criteria\UpdateMostVisitedPagePositionCriteria.cs" />
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
+    <Compile Include="Extensions\ExcelExtensions.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
+    <Compile Include="Extensions\NumberExtensions.cs" />
+    <Compile Include="Helper\SportHelper\Betteam.cs" />
+    <Compile Include="Helper\SportHelper\Bettype.cs" />
+    <Compile Include="Helper\SportHelper\CalcOdds.cs" />
+    <Compile Include="Models\BalanceUp.cs" />
+    <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\DownTime.cs" />
+    <Compile Include="Models\EntityBase.cs" />
+    <Compile Include="Models\MailItem.cs" />
+    <Compile Include="Models\MostVisitedPage.cs" />
+    <Compile Include="Models\Report.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\Impl\BaseRepository.cs" />
+    <Compile Include="Repository\Impl\ExchangeCurrencyRepository.cs" />
+    <Compile Include="Repository\Impl\MostVisitedPagesRepository.cs" />
+    <Compile Include="Repository\Interface\IExchangeCurrencyRepository.cs" />
+    <Compile Include="Repository\Interface\IMostVisitedPagesRepository.cs" />
+    <Compile Include="Resources\BalanceResources.Designer.cs" />
+    <Compile Include="Resources\Labels.Designer.cs" />
+    <Compile Include="Resources\LicenseeResource.Designer.cs" />
+    <Compile Include="Resources\Messages.Designer.cs" />
+    <Compile Include="Resources\MiscResource.Designer.cs" />
+    <Compile Include="Resources\SpecialResource.Designer.cs" />
+    <Compile Include="Services\Impl\CacheRef.cs" />
+    <Compile Include="Services\Impl\LoggingHandler.cs" />
+    <Compile Include="Services\Impl\MailService.cs" />
+    <Compile Include="Services\Impl\MenuService.cs" />
+    <Compile Include="Services\Impl\MostVisitedPagesService.cs" />
+    <Compile Include="Services\Impl\PermissionService.cs" />
+    <Compile Include="Services\Impl\ReportService.cs" />
+    <Compile Include="Services\Impl\ServiceBase.cs" />
+    <Compile Include="Services\Impl\Worker\BaseWorker.cs" />
+    <Compile Include="Services\Impl\Worker\MostVisitedPageSavingWorker.cs" />
+    <Compile Include="Services\Interface\IMostVisitedPagesService.cs" />
+    <Compile Include="Services\Interface\IServiceBase.cs" />
+    <Compile Include="Web\AccReportFunctionKeys.cs" />
+    <Compile Include="Web\AppSession.cs" />
+    <Compile Include="Web\CacheManager.cs" />
+    <Compile Include="Web\Controllers\BaseController.cs" />
+    <Compile Include="Web\CustomResults\CsvResult.cs" />
+    <Compile Include="Web\CustomResults\ExcelResult.cs" />
+    <Compile Include="Web\CustomResults\SpreadSheetResult.cs" />
+    <Compile Include="Web\SessionManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BalanceResources.resx" />
+    <EmbeddedResource Include="Resources\Labels.resx" />
+    <EmbeddedResource Include="Resources\LicenseeResource.resx" />
+    <EmbeddedResource Include="Resources\Messages.resx" />
+    <EmbeddedResource Include="Resources\MiscResource.resx" />
+    <EmbeddedResource Include="Resources\SpecialResource.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utils\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

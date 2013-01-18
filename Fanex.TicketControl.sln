@@ -1,8 +1,38 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{38A87FC9-4BEC-449E-8997-373D447CA4FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.TicketControl.Website", "Fanex.TicketControl.Website\Fanex.TicketControl.Website.csproj", "{E40C7EE5-0817-4EFD-A9AA-DE52F0B85B30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Fanex.TicketControl.Core\Core.csproj", "{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.TicketControl.SingleTicket", "Fanex.TicketControl.SingleTicket\Fanex.TicketControl.SingleTicket.csproj", "{6B7729BC-9216-4037-9F09-0BF116BB753C}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E40C7EE5-0817-4EFD-A9AA-DE52F0B85B30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E40C7EE5-0817-4EFD-A9AA-DE52F0B85B30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E40C7EE5-0817-4EFD-A9AA-DE52F0B85B30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E40C7EE5-0817-4EFD-A9AA-DE52F0B85B30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B7729BC-9216-4037-9F09-0BF116BB753C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B7729BC-9216-4037-9F09-0BF116BB753C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B7729BC-9216-4037-9F09-0BF116BB753C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B7729BC-9216-4037-9F09-0BF116BB753C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7} = {38A87FC9-4BEC-449E-8997-373D447CA4FA}
+		{6B7729BC-9216-4037-9F09-0BF116BB753C} = {38A87FC9-4BEC-449E-8997-373D447CA4FA}
 	EndGlobalSection
 EndGlobal
