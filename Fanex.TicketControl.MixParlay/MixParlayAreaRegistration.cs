@@ -19,15 +19,15 @@ namespace Fanex.TicketControl.MixParlay
         {
             get
             {
-                return "TicketControl";
+                return "MixParlay";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "TicketControl_default",
-                "TicketControl/{controller}/{action}/{id}",
+                "MixParlay_default",
+                "MixParlay/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
                 new[] { "Fanex.TicketControl.MixParlay.Controllers" });
         }

@@ -19,15 +19,15 @@ namespace Fanex.AccountingReports.Licensee
         {
             get
             {
-                return "TicketControl";
+                return "SingleBet";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "TicketControl_default",
-                "TicketControl/{controller}/{action}/{id}",
+                "SingleBet_default",
+                "SingleBet/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
                 new[] { "Fanex.TicketControl.SingleTicket.Controllers" });
         }
