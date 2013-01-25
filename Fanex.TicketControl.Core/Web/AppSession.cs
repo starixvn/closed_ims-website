@@ -86,22 +86,6 @@ namespace Fanex.TicketControl.Core.Web
             }
         }
 
-        /// <summary>
-        /// Gets or sets IsTrackedMenu: determine current working on menu is
-        /// tracked for page tracking or not
-        /// </summary>
-        public static bool IsTrackedMenu
-        {
-            get
-            {
-                return SessionManager.Get<bool>(Constants.IS_TRACKED_MENU);
-            }
-
-            set
-            {
-                SessionManager.Set<bool>(Constants.IS_TRACKED_MENU, value);
-            }
-        }
 
         /// <summary>
         /// Gets or sets IsTrackedMenu: determine current working on menu is

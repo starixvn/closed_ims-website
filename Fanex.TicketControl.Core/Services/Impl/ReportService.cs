@@ -23,8 +23,8 @@ namespace Fanex.TicketControl.Core.Services.Impl
     {
         #region StaticFields
 
-        public const string CACHE_BALANCE_UP = "Fanex.AccountingReports.Core.ReportUtils.BalanceUp";
-        public const string CACHE_EXCHANGE_CURRENCIES = "Fanex.AccountingReports.Core.ReportService.ExchangeCurrencies";
+        public const string CACHE_BALANCE_UP = "Fanex.TicketControl.Core.ReportUtils.BalanceUp";
+        public const string CACHE_EXCHANGE_CURRENCIES = "Fanex.TicketControl.Core.ReportService.ExchangeCurrencies";
         public const string BET_TRANS14_SP_SUFFIX = "_14";
         public const string WARE_HOUSE_SP_SUFFIX = "_WH";
         private static readonly IDynamicRepository _balanceUpRepository;
@@ -54,37 +54,6 @@ namespace Fanex.TicketControl.Core.Services.Impl
             }
         }
 
-        public static Dictionary<int, string> ExchangeCurrencies
-        {
-            get
-            {
-                var exchangeCurrencies = CacheManager.Get<Dictionary<int, string>>(CACHE_EXCHANGE_CURRENCIES);
-                if (exchangeCurrencies == null)
-                {
-                    exchangeCurrencies = GetExchangeCurrencies(new GetExchangeCurrenciesCriteria());
-                    CacheManager.Set<Dictionary<int, string>>(CACHE_EXCHANGE_CURRENCIES, exchangeCurrencies, new TimeSpan(5, 0, 0, 0));
-                }
-                return exchangeCurrencies;
-            }
-        }
-
-        public static string GetCurrencyNameById(int Id)
-        {
-            string currencyName = "";
-            if (ExchangeCurrencies.ContainsKey(Id))
-            {
-                currencyName = ExchangeCurrencies[Id];
-            }
-            else
-            {
-                UpdateLatestExchangeCurrencies();
-                if (ExchangeCurrencies.ContainsKey(Id))
-                {
-                    currencyName = ExchangeCurrencies[Id];
-                }
-            }
-            return currencyName;
-        }
 
         #endregion StaticProperties
 
@@ -104,41 +73,6 @@ namespace Fanex.TicketControl.Core.Services.Impl
             {
                 return WARE_HOUSE_SP_SUFFIX;
             }
-        }
-
-        public static void UpdateLatestExchangeCurrencies()
-        {
-            var exchangeCurrencies = GetExchangeCurrencies(new GetExchangeCurrenciesCriteria());
-            if(exchangeCurrencies.Count > 0)
-            {
-                CacheManager.Set<Dictionary<int, string>>(CACHE_EXCHANGE_CURRENCIES, exchangeCurrencies, new TimeSpan(5, 0, 0, 0));
-            }
-        }
-
-        private static Dictionary<int, string> GetExchangeCurrencies(GetExchangeCurrenciesCriteria criteria)
-        {
-            var exchangeCurrencies = new Dictionary<int, string>();
-            try
-            {
-                var rawData = (new ExchangeCurrencyRepository()).GetExchangeCurrencies(criteria);
-                if (rawData != null)
-                {
-                    rawData.ForEach(currency =>
-                    {
-                        if (!exchangeCurrencies.ContainsKey(currency.CurrencyId))
-                        {
-                            exchangeCurrencies.Add(currency.CurrencyId, currency.CurrencyName);
-                        }
-                    });
-                }
-
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-
-            return exchangeCurrencies;
         }
 
         #endregion StaticMethods

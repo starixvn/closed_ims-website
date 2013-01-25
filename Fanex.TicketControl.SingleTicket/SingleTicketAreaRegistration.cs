@@ -13,21 +13,21 @@ namespace Fanex.AccountingReports.Licensee
     using System.Web.Mvc;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class LicenseeAreaRegistration : AreaRegistration
+    public class SingleTicketAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
             get
             {
-                return "SingleBet";
+                return "SingleTicket";
             }
         }
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "SingleBet_default",
-                "SingleBet/{controller}/{action}/{id}",
+                "SingleTicket_default",
+                "SingleTicket/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
                 new[] { "Fanex.TicketControl.SingleTicket.Controllers" });
         }
