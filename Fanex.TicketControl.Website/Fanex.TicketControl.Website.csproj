@@ -177,6 +177,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
