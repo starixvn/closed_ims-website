@@ -18,6 +18,7 @@ namespace Fanex.TicketControl.Website.Controllers
     using Fanex.TicketControl.Core.Web.Controllers;
     using Fanex.NAP.Core.Web.Attribute;
     using System.Diagnostics.CodeAnalysis;
+    using Fanex.TicketControl.Core.Web;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     [NapSuperAuth]
