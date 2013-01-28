@@ -49,6 +49,7 @@ D:\WORK\PROJECT\TicketControl\Main\ticketcontrol\Fanex.TicketControl.Website\bin
 D:\WORK\PROJECT\TicketControl\Main\ticketcontrol\Fanex.TicketControl.Website\bin\IBCFile.dll
 D:\WORK\PROJECT\TicketControl\Main\ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.Core.pdb
 D:\WORK\PROJECT\TicketControl\Main\ticketcontrol\Fanex.TicketControl.Website\bin\dotless.Core.dll
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\obj\Debug\ResolveAssemblyReference.cache
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.Website.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.Website.pdb
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Antlr3.Runtime.dll
@@ -64,8 +65,11 @@ D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.MailDelive
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.NAP.Core.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.NAP.Framework.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.Core.dll
-D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.MixParlay.dll
-D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.SingleTicket.dll
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.LiveCasino.dll
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.NumberGame.dll
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.Others.dll
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.SportBook.dll
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.VirtualSport.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Microsoft.Web.Infrastructure.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Newtonsoft.Json.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\RemotingRef.dll
@@ -93,8 +97,11 @@ D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Microsoft.Practi
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\IBCFile.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Microsoft.Practices.Unity.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.Core.pdb
-D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.MixParlay.pdb
-D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.SingleTicket.pdb
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.LiveCasino.pdb
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.NumberGame.pdb
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.Others.pdb
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.SportBook.pdb
+D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Fanex.TicketControl.VirtualSport.pdb
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\EntityFramework.xml
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\Newtonsoft.Json.xml
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\System.Net.Http.xml
@@ -107,6 +114,5 @@ D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\System.Web.Razor
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\System.Web.WebPages.xml
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\System.Web.WebPages.Deployment.xml
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\bin\System.Web.WebPages.Razor.xml
-D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\obj\Debug\ResolveAssemblyReference.cache
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\obj\Debug\Fanex.TicketControl.Website.dll
 D:\GitProject\nap-ticketcontrol\Fanex.TicketControl.Website\obj\Debug\Fanex.TicketControl.Website.pdb

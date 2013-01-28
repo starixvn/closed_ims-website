@@ -740,7 +740,7 @@
     <Content Include="Areas\UserControl\Views\User\ChangePassword.cshtml" />
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
-    <Content Include="Areas\SingleTicket\Views\DeleteSingleBet\Index.cshtml" />
+    <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Index.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
@@ -781,20 +781,32 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\SingleTicket\Views\Web.config" />
+    <Content Include="Areas\SportBook\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.TicketControl.Core\Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.MixParlay\MixParlay.csproj">
-      <Project>{BFC94379-39B2-4399-8423-72CEFAF86820}</Project>
-      <Name>MixParlay</Name>
+    <ProjectReference Include="..\Fanex.TicketControl.LiveCasino\LiveCasino.csproj">
+      <Project>{4FB6569A-1A4B-434B-BB19-9766686CB542}</Project>
+      <Name>LiveCasino</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.SingleTicket\SingleTicket.csproj">
-      <Project>{6B7729BC-9216-4037-9F09-0BF116BB753C}</Project>
-      <Name>SingleTicket</Name>
+    <ProjectReference Include="..\Fanex.TicketControl.NumberGame\NumberGame.csproj">
+      <Project>{8803C284-30F6-4FD8-A474-D49CD092A378}</Project>
+      <Name>NumberGame</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.Others\Others.csproj">
+      <Project>{84CE3192-1718-48D7-A559-BB8C83E73A93}</Project>
+      <Name>Others</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.SportBook\SportBook.csproj">
+      <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
+      <Name>SportBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.VirtualSport\VirtualSport.csproj">
+      <Project>{A953A720-081C-450D-9A26-234E9DA2377A}</Project>
+      <Name>VirtualSport</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
