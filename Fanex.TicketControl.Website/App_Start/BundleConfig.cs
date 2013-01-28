@@ -31,6 +31,7 @@ namespace Fanex.TicketControl.Website
                        "~/Scripts/NapAccReports.js"
                         ));
             #endregion
+
             #region Multiselect Plugin
             bundles.Add(new StyleBundle("~/Scripts/_Libs/MultipleSelect/style").Include(
             "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"
