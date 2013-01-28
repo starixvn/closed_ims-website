@@ -272,7 +272,7 @@
     <value>No</value>
   </data>
   <data name="SendMailFail" xml:space="preserve">
-    <value>Send Mail Fail.</value>
+    <value>Send Mail Fail .</value>
   </data>
   <data name="PinToDashboard" xml:space="preserve">
     <value>Pin to Dashboard</value>
