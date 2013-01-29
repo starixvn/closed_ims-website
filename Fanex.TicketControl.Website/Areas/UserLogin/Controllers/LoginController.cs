@@ -220,7 +220,7 @@ namespace Fanex.TicketControl.Website.Areas.UserLogin.Controllers
 
                                         if (userIsActiveOnThisSite)
                                         {
-                                            AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
+                                            //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
                                             return Redirect(FormsAuthentication.DefaultUrl);
                                         }
                                         else
@@ -231,7 +231,7 @@ namespace Fanex.TicketControl.Website.Areas.UserLogin.Controllers
                                     }
                                     else
                                     {
-                                        AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
+                                        //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
                                         // user has access to multiple sites
                                         if (siteLevelList.Count() > 1)
                                         {

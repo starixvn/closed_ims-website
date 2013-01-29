@@ -96,7 +96,7 @@ namespace Fanex.TicketControl.Website.Areas.UserLogin.Controllers
 
                     AppSession.CurrentUser = user;
                     AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
-                    AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
+                    //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
 
                     if (this.SiteId != 0)
                     {

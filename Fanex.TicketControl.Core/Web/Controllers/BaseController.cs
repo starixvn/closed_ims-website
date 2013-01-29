@@ -39,8 +39,6 @@ namespace Fanex.TicketControl.Core.Web.Controllers
 
         protected ViewFlags _viewFlags;
 
-        private MenuService _menuService;
-
         protected ViewFlags ViewFlags
         {
             get
@@ -71,7 +69,6 @@ namespace Fanex.TicketControl.Core.Web.Controllers
                 // IsNapAdminSite = _siteId == NapAdminId,
                 HasEditRight = false
             };
-            this._menuService = new MenuService();
         }
 
         /// <summary>
@@ -87,13 +84,6 @@ namespace Fanex.TicketControl.Core.Web.Controllers
 
         protected override void OnResultExecuting(ResultExecutingContext filterContext)
         {
-            // Get current working on menu for getting display name,... on webpage
-            if (filterContext.Result is ViewResult && string.Equals(AppSession.CurrentActionName, "Index", StringComparison.OrdinalIgnoreCase))
-            {
-                var menuPath = MenuService.GetMenuPathFromRequestFilePath(filterContext.HttpContext.Request.FilePath, Request.ApplicationPath);
-                string controllerName = (string)filterContext.RouteData.Values["controller"];
-                AppSession.CurrentWorkingOnMenu = this._menuService.GetMenuByURL(menuPath);
-            }
         }
 
         /// <summary>

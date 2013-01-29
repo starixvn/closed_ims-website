@@ -37,28 +37,43 @@
   <ItemGroup>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\Fanex.NAP.Framework\Couchbase.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\Couchbase.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core">
-      <HintPath>..\_Dependency\Fanex.NAP.Framework\dotless.Core.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\dotless.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching">
+      <HintPath>..\_Dependency\FanexLibs\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common">
-      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.Common.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Common.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Data, Version=0.5.404.59, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.Data.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Data.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Logging">
-      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.Logging.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.MailDeliver.MailClient">
+      <HintPath>..\_Dependency\FanexLibs\Fanex.MailDeliver.MailClient.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.NAP.Core">
-      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.NAP.Core.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.NAP.Core.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.NAP.Framework">
-      <HintPath>..\_Dependency\Fanex.NAP.Framework\Fanex.NAP.Framework.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RemotingRef">
+      <HintPath>..\_Dependency\FanexLibs\RemotingRef.dll</HintPath>
+    </Reference>
+    <Reference Include="SPSRemoting">
+      <HintPath>..\_Dependency\FanexLibs\SPSRemoting.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -131,6 +146,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="UMControllerLibrary">
+      <HintPath>..\_Dependency\FanexLibs\UMControllerLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
@@ -141,6 +159,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -158,7 +177,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Areas\SingleTicket\Views\Scripts\SingleTicket" />
+    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
+    <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
@@ -183,78 +203,530 @@
     <Content Include="Areas\UserLogin\Views\Common\Style\AccessDenied.css" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\accessDenied.gif" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\UnderMaintenance.gif" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\jquery-ui.css" />
-    <Content Include="Content\themes\base\jquery.ui.accordion.css" />
-    <Content Include="Content\themes\base\jquery.ui.all.css" />
-    <Content Include="Content\themes\base\jquery.ui.autocomplete.css" />
-    <Content Include="Content\themes\base\jquery.ui.base.css" />
-    <Content Include="Content\themes\base\jquery.ui.button.css" />
-    <Content Include="Content\themes\base\jquery.ui.core.css" />
-    <Content Include="Content\themes\base\jquery.ui.datepicker.css" />
-    <Content Include="Content\themes\base\jquery.ui.dialog.css" />
-    <Content Include="Content\themes\base\jquery.ui.progressbar.css" />
-    <Content Include="Content\themes\base\jquery.ui.resizable.css" />
-    <Content Include="Content\themes\base\jquery.ui.selectable.css" />
-    <Content Include="Content\themes\base\jquery.ui.slider.css" />
-    <Content Include="Content\themes\base\jquery.ui.tabs.css" />
-    <Content Include="Content\themes\base\jquery.ui.theme.css" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_0_aaaaaa_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_flat_75_ffffff_40x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_55_fbf9ee_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_65_ffffff_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_dadada_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_75_e6e6e6_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_glass_95_fef1ec_1x400.png" />
-    <Content Include="Content\themes\base\minified\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_222222_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_454545_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_888888_256x240.png" />
-    <Content Include="Content\themes\base\minified\images\ui-icons_cd0a0a_256x240.png" />
-    <Content Include="Content\themes\base\minified\jquery-ui.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.accordion.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.autocomplete.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.button.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.core.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.datepicker.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.dialog.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.progressbar.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.resizable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.selectable.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
-    <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.20.js" />
-    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
-    <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="Scripts\NapTicketControl.js" />
+    <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.js" />
+    <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.min.js" />
+    <Content Include="Scripts\_Libs\DatePicker\Demo.htm" />
+    <Content Include="Scripts\_Libs\DatePicker\images\icon-calendar.png" />
+    <Content Include="Scripts\_Libs\DatePicker\jquery.nexDatePicker.css" />
+    <Content Include="Scripts\_Libs\DatePicker\jquery.nexDatePicker.js" />
+    <Content Include="Scripts\_Libs\DatePicker\jquery.nexDatePicker.min.js" />
+    <Content Include="Scripts\_Libs\FanexGrid\Fanex.Grid.css" />
+    <Content Include="Scripts\_Libs\FanexGrid\Fanex.Grid.js" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\1350530947_page_excel.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\ajax-loader.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\back-icon.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\bgtitle.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\bg_gloss_wave.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\collapse-icon.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\collapse-small.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\email.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\excel-icon.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\expand-icon.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\expand-small.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\icn_add.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\icn_del.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\icn_edit.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\refresh_icon.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\report_check.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\send-mail.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\setting.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\sort-icon-new.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\sort-icon-new1.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\sort-icon-new3.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\sort-icon.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\sorting_asc.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\sorting_bg.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\sorting_desc.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\white-top-bottom.gif" />
+    <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.js" />
+    <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.min.js" />
+    <Content Include="Scripts\_Libs\FormatLibs\jquery.customformat.js" />
+    <Content Include="Scripts\_Libs\FormatLibs\NumberFormat\numeral-min.js" />
+    <Content Include="Scripts\_Libs\FormatLibs\NumberFormat\numeral.js" />
+    <Content Include="Scripts\_Libs\GridScroller\gridscroller.css" />
+    <Content Include="Scripts\_Libs\GridScroller\images\1350530947_page_excel.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\ajax-loader.gif" />
+    <Content Include="Scripts\_Libs\GridScroller\images\back-icon.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\bgtitle.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\bg_gloss_wave.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\collapse-icon.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\collapse-small.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\email.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\excel-icon.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\expand-icon.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\expand-small.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\icn_add.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\icn_del.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\icn_edit.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\refresh_icon.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\report_check.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\send-mail.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\setting.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\sort-icon.png" />
+    <Content Include="Scripts\_Libs\GridScroller\images\sorting_asc.gif" />
+    <Content Include="Scripts\_Libs\GridScroller\images\sorting_bg.gif" />
+    <Content Include="Scripts\_Libs\GridScroller\images\sorting_desc.gif" />
+    <Content Include="Scripts\_Libs\GridScroller\images\white-top-bottom.gif" />
+    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscroller.1.0.js" />
+    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscroller.1.1.js" />
+    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscroller.js" />
+    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.0.js" />
+    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.1.js" />
+    <Content Include="Scripts\_Libs\jQuery\classList.js" />
+    <Content Include="Scripts\_Libs\Utils\html5shiv.js" />
+    <Content Include="Scripts\_Libs\Utils\html5shiv.min.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery-1.8.2.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery-1.8.2.min.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery-ui-1.9.1.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery-ui-1.9.1.min.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.cookie.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.fixedsortable.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.validate.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.validate.min.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\_Libs\jQuery\_references.js" />
+    <Content Include="Scripts\_Libs\knockout\knockout-2.1.0.debug.js" />
+    <Content Include="Scripts\_Libs\knockout\knockout-2.1.0.js" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\bg-demo-docs-param.gif" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\demo-spindown-closed.gif" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\demo-spindown-open.gif" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\dropdown-icon.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\icon-left.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\icon-right.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\spindown-closed.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\images\spindown-open.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.css" />
+    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.js" />
+    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.min.css" />
+    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.min.js" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\redmond\jquery-ui-1.8.17.css" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-icons_222222_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-icons_888888_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\smoothness\jquery-ui-1.8.17.css" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_diagonals-medium_20_d34d17_40x40.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_flat_30_cccccc_40x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_flat_50_5c5c5c_40x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_gloss-wave_45_817865_500x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_gloss-wave_60_fece2f_500x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_gloss-wave_70_ffdd57_500x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_gloss-wave_90_fff9e5_500x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_highlight-soft_100_feeebd_1x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-bg_inset-soft_30_ffffff_1x100.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-icons_3d3d3d_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-icons_bd7b00_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-icons_d19405_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-icons_eb990f_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-icons_ed9f26_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-icons_fadc7a_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\images\ui-icons_ffe180_256x240.png" />
+    <Content Include="Scripts\_Libs\MonthPicker\sunny\jquery-ui-1.8.17.css" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\BottomLine.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\FirstNodeSpan.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\MiddleLine.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\NodeSpan.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\PlusMinus.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\sprites.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\TopLine.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\ui-icons_2e83ff_256x240-1.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\ui-icons_2e83ff_256x240-2.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiselect.css" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiselect.js" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiselect.min.js" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.nextreeview.css" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.nextreeview.js" />
+    <Content Include="Scripts\_Libs\Pager\go-hover-icon.png" />
+    <Content Include="Scripts\_Libs\Pager\icon_page.gif" />
+    <Content Include="Scripts\_Libs\Pager\jpager.js" />
+    <Content Include="Scripts\_Libs\Pager\pagination.css" />
+    <Content Include="Scripts\_Libs\Pager\seperations.png" />
+    <Content Include="Scripts\_Libs\PopUp\dialogbox.js" />
+    <Content Include="Scripts\_Libs\TemplateRender\doT\doT.js" />
+    <Content Include="Scripts\_Libs\TemplateRender\doT\doT.min.js" />
+    <Content Include="Scripts\_Libs\Tooltip\Demo.htm" />
+    <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.js" />
+    <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.min.js" />
+    <Content Include="Scripts\_Libs\Tooltip\tipsy.css" />
+    <Content Include="Scripts\_Libs\Utils\jquery.fixBugsBrowser.js" />
+    <Content Include="Themes\accounting-site5_02.jpg" />
+    <Content Include="Themes\base\img\1350530947_page_excel.png" />
+    <Content Include="Themes\base\img\actions\add-user.png" />
+    <Content Include="Themes\base\img\actions\chgpwd-ico.png" />
+    <Content Include="Themes\base\img\actions\dd\action-ico.png" />
+    <Content Include="Themes\base\img\actions\dd\chgpwd-ico.png" />
+    <Content Include="Themes\base\img\actions\dd\edit-ico.png" />
+    <Content Include="Themes\base\img\actions\dd\permission-ico.png" />
+    <Content Include="Themes\base\img\actions\dd\site-ico.png" />
+    <Content Include="Themes\base\img\actions\dd\user-info-ico.png" />
+    <Content Include="Themes\base\img\actions\edit-ico.png" />
+    <Content Include="Themes\base\img\actions\permission-ico.png" />
+    <Content Include="Themes\base\img\actions\site-ico.png" />
+    <Content Include="Themes\base\img\actions\url-ico.png" />
+    <Content Include="Themes\base\img\actions\user-info-ico.png" />
+    <Content Include="Themes\base\img\arrow-down.png" />
+    <Content Include="Themes\base\img\arrow-up.png" />
+    <Content Include="Themes\base\img\bg-menu.png" />
+    <Content Include="Themes\base\img\bg-submenu-more.png" />
+    <Content Include="Themes\base\img\bgmenu-hover.png" />
+    <Content Include="Themes\base\img\bgmenu-more.png" />
+    <Content Include="Themes\base\img\bg_body.png" />
+    <Content Include="Themes\base\img\bg_footer.jpg" />
+    <Content Include="Themes\base\img\bg_header.png" />
+    <Content Include="Themes\base\img\blank.png" />
+    <Content Include="Themes\base\img\btn-edit.png" />
+    <Content Include="Themes\base\img\chosen-sprite.png" />
+    <Content Include="Themes\base\img\collapse-small.png" />
+    <Content Include="Themes\base\img\collapsed.png" />
+    <Content Include="Themes\base\img\combo-pickr\bottom.png" />
+    <Content Include="Themes\base\img\combo-pickr\closebutton.png" />
+    <Content Include="Themes\base\img\combo-pickr\inner.png" />
+    <Content Include="Themes\base\img\combo-pickr\link-overlay.png" />
+    <Content Include="Themes\base\img\combo-pickr\mainbg.png" />
+    <Content Include="Themes\base\img\combo-pickr\openbutton.png" />
+    <Content Include="Themes\base\img\Controls.png" />
+    <Content Include="Themes\base\img\edit-icon.png" />
+    <Content Include="Themes\base\img\expand-small.png" />
+    <Content Include="Themes\base\img\expanded.png" />
+    <Content Include="Themes\base\img\favorite-icon.png" />
+    <Content Include="Themes\base\img\grid-view.png" />
+    <Content Include="Themes\base\img\hub.png" />
+    <Content Include="Themes\base\img\icon-calendar.png" />
+    <Content Include="Themes\base\img\info-square-blue.png" />
+    <Content Include="Themes\base\img\information-icon.png" />
+    <Content Include="Themes\base\img\information-icon2.png" />
+    <Content Include="Themes\base\img\info_blue.png" />
+    <Content Include="Themes\base\img\lnk-white.png" />
+    <Content Include="Themes\base\img\loading.gif" />
+    <Content Include="Themes\base\img\logo.png" />
+    <Content Include="Themes\base\img\logo1.png" />
+    <Content Include="Themes\base\img\logo2.png" />
+    <Content Include="Themes\base\img\logo3.png" />
+    <Content Include="Themes\base\img\moreinfo.png" />
+    <Content Include="Themes\base\img\report-icon.png" />
+    <Content Include="Themes\base\img\seperation.png" />
+    <Content Include="Themes\base\img\setting.png" />
+    <Content Include="Themes\base\img\small-arrow-down.png" />
+    <Content Include="Themes\base\img\sort-icon.png" />
+    <Content Include="Themes\base\img\sprites-image.png" />
+    <Content Include="Themes\base\img\sprites.png" />
+    <Content Include="Themes\base\img\textures\fabric.png" />
+    <Content Include="Themes\base\img\textures\grid.png" />
+    <Content Include="Themes\base\img\textures\scratches.png" />
+    <Content Include="Themes\base\img\tick-ico-16.png" />
+    <Content Include="Themes\base\img\tree-view.png" />
+    <Content Include="Themes\base\img\ui-modal-btn.png" />
+    <Content Include="Themes\base\img\user.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_flat_60_4264ac_40x100.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_flat_75_5476bb_40x100.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_flat_90_466bb9_40x100.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_flat_90_aaaaaa_40x100.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_glass_45_f4f3f1_1x400.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_highlight-soft_90_999999_1x100.png" />
+    <Content Include="Themes\base\jquery\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Themes\base\jquery\images\ui-icons_4264ac_256x240.png" />
+    <Content Include="Themes\base\jquery\images\ui-icons_c6cddc_256x240.png" />
+    <Content Include="Themes\base\jquery\images\ui-icons_cbd4e6_256x240.png" />
+    <Content Include="Themes\base\jquery\images\ui-icons_d0d9ec_256x240.png" />
+    <Content Include="Themes\base\jquery\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Themes\base\jquery\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Themes\base\jquery\jquery-ui-1.9.1.custom.css" />
+    <Content Include="Themes\base\jquery\jquery-ui-1.9.1.custom.min.css" />
+    <Content Include="Themes\easyui\default\accordion.css" />
+    <Content Include="Themes\easyui\default\calendar.css" />
+    <Content Include="Themes\easyui\default\combo.css" />
+    <Content Include="Themes\easyui\default\combobox.css" />
+    <Content Include="Themes\easyui\default\datagrid.css" />
+    <Content Include="Themes\easyui\default\datebox.css" />
+    <Content Include="Themes\easyui\default\dialog.css" />
+    <Content Include="Themes\easyui\default\easyui.css" />
+    <Content Include="Themes\easyui\default\images\accordion_collapse.png" />
+    <Content Include="Themes\easyui\default\images\accordion_expand.png" />
+    <Content Include="Themes\easyui\default\images\blank.gif" />
+    <Content Include="Themes\easyui\default\images\button_a_bg.gif" />
+    <Content Include="Themes\easyui\default\images\button_plain_hover.png" />
+    <Content Include="Themes\easyui\default\images\button_span_bg.gif" />
+    <Content Include="Themes\easyui\default\images\calendar_nextmonth.gif" />
+    <Content Include="Themes\easyui\default\images\calendar_nextyear.gif" />
+    <Content Include="Themes\easyui\default\images\calendar_prevmonth.gif" />
+    <Content Include="Themes\easyui\default\images\calendar_prevyear.gif" />
+    <Content Include="Themes\easyui\default\images\combo_arrow.gif" />
+    <Content Include="Themes\easyui\default\images\datagrid_header_bg.gif" />
+    <Content Include="Themes\easyui\default\images\datagrid_row_collapse.gif" />
+    <Content Include="Themes\easyui\default\images\datagrid_row_expand.gif" />
+    <Content Include="Themes\easyui\default\images\datagrid_sort_asc.gif" />
+    <Content Include="Themes\easyui\default\images\datagrid_sort_desc.gif" />
+    <Content Include="Themes\easyui\default\images\datagrid_title_bg.png" />
+    <Content Include="Themes\easyui\default\images\datebox_arrow.png" />
+    <Content Include="Themes\easyui\default\images\layout_arrows.png" />
+    <Content Include="Themes\easyui\default\images\menu.gif" />
+    <Content Include="Themes\easyui\default\images\menu_downarrow.png" />
+    <Content Include="Themes\easyui\default\images\menu_rightarrow.png" />
+    <Content Include="Themes\easyui\default\images\menu_sep.png" />
+    <Content Include="Themes\easyui\default\images\menu_split_downarrow.png" />
+    <Content Include="Themes\easyui\default\images\messager_error.gif" />
+    <Content Include="Themes\easyui\default\images\messager_info.gif" />
+    <Content Include="Themes\easyui\default\images\messager_question.gif" />
+    <Content Include="Themes\easyui\default\images\messager_warning.gif" />
+    <Content Include="Themes\easyui\default\images\pagination_first.gif" />
+    <Content Include="Themes\easyui\default\images\pagination_last.gif" />
+    <Content Include="Themes\easyui\default\images\pagination_load.png" />
+    <Content Include="Themes\easyui\default\images\pagination_loading.gif" />
+    <Content Include="Themes\easyui\default\images\pagination_next.gif" />
+    <Content Include="Themes\easyui\default\images\pagination_prev.gif" />
+    <Content Include="Themes\easyui\default\images\panel_loading.gif" />
+    <Content Include="Themes\easyui\default\images\panel_title.png" />
+    <Content Include="Themes\easyui\default\images\panel_tools.gif" />
+    <Content Include="Themes\easyui\default\images\searchbox_button.png" />
+    <Content Include="Themes\easyui\default\images\slider_handle.png" />
+    <Content Include="Themes\easyui\default\images\spinner_arrow_down.gif" />
+    <Content Include="Themes\easyui\default\images\spinner_arrow_up.gif" />
+    <Content Include="Themes\easyui\default\images\tabs_active.png" />
+    <Content Include="Themes\easyui\default\images\tabs_close.gif" />
+    <Content Include="Themes\easyui\default\images\tabs_enabled.png" />
+    <Content Include="Themes\easyui\default\images\tabs_leftarrow.png" />
+    <Content Include="Themes\easyui\default\images\tabs_rightarrow.png" />
+    <Content Include="Themes\easyui\default\images\tree_arrows.gif" />
+    <Content Include="Themes\easyui\default\images\tree_checkbox_0.gif" />
+    <Content Include="Themes\easyui\default\images\tree_checkbox_1.gif" />
+    <Content Include="Themes\easyui\default\images\tree_checkbox_2.gif" />
+    <Content Include="Themes\easyui\default\images\tree_dnd_no.png" />
+    <Content Include="Themes\easyui\default\images\tree_dnd_yes.png" />
+    <Content Include="Themes\easyui\default\images\tree_elbow.png" />
+    <Content Include="Themes\easyui\default\images\tree_file.gif" />
+    <Content Include="Themes\easyui\default\images\tree_folder.gif" />
+    <Content Include="Themes\easyui\default\images\tree_folder_open.gif" />
+    <Content Include="Themes\easyui\default\images\tree_loading.gif" />
+    <Content Include="Themes\easyui\default\images\validatebox_pointer.gif" />
+    <Content Include="Themes\easyui\default\images\validatebox_warning.png" />
+    <Content Include="Themes\easyui\default\layout.css" />
+    <Content Include="Themes\easyui\default\linkbutton.css" />
+    <Content Include="Themes\easyui\default\menu.css" />
+    <Content Include="Themes\easyui\default\menubutton.css" />
+    <Content Include="Themes\easyui\default\messager.css" />
+    <Content Include="Themes\easyui\default\pagination.css" />
+    <Content Include="Themes\easyui\default\panel.css" />
+    <Content Include="Themes\easyui\default\progressbar.css" />
+    <Content Include="Themes\easyui\default\propertygrid.css" />
+    <Content Include="Themes\easyui\default\searchbox.css" />
+    <Content Include="Themes\easyui\default\slider.css" />
+    <Content Include="Themes\easyui\default\spinner.css" />
+    <Content Include="Themes\easyui\default\splitbutton.css" />
+    <Content Include="Themes\easyui\default\tabs.css" />
+    <Content Include="Themes\easyui\default\tree.css" />
+    <Content Include="Themes\easyui\default\validatebox.css" />
+    <Content Include="Themes\easyui\default\window.css" />
+    <Content Include="Themes\easyui\gray\accordion.css" />
+    <Content Include="Themes\easyui\gray\calendar.css" />
+    <Content Include="Themes\easyui\gray\combo.css" />
+    <Content Include="Themes\easyui\gray\combobox.css" />
+    <Content Include="Themes\easyui\gray\datagrid.css" />
+    <Content Include="Themes\easyui\gray\datebox.css" />
+    <Content Include="Themes\easyui\gray\dialog.css" />
+    <Content Include="Themes\easyui\gray\easyui.css" />
+    <Content Include="Themes\easyui\gray\images\accordion_collapse.png" />
+    <Content Include="Themes\easyui\gray\images\accordion_expand.png" />
+    <Content Include="Themes\easyui\gray\images\blank.gif" />
+    <Content Include="Themes\easyui\gray\images\button_a_bg.gif" />
+    <Content Include="Themes\easyui\gray\images\button_plain_hover.png" />
+    <Content Include="Themes\easyui\gray\images\button_span_bg.gif" />
+    <Content Include="Themes\easyui\gray\images\calendar_nextmonth.gif" />
+    <Content Include="Themes\easyui\gray\images\calendar_nextyear.gif" />
+    <Content Include="Themes\easyui\gray\images\calendar_prevmonth.gif" />
+    <Content Include="Themes\easyui\gray\images\calendar_prevyear.gif" />
+    <Content Include="Themes\easyui\gray\images\combo_arrow.gif" />
+    <Content Include="Themes\easyui\gray\images\datagrid_header_bg.gif" />
+    <Content Include="Themes\easyui\gray\images\datagrid_row_collapse.gif" />
+    <Content Include="Themes\easyui\gray\images\datagrid_row_expand.gif" />
+    <Content Include="Themes\easyui\gray\images\datagrid_sort_asc.gif" />
+    <Content Include="Themes\easyui\gray\images\datagrid_sort_desc.gif" />
+    <Content Include="Themes\easyui\gray\images\datagrid_title_bg.gif" />
+    <Content Include="Themes\easyui\gray\images\datebox_arrow.png" />
+    <Content Include="Themes\easyui\gray\images\layout_arrows.png" />
+    <Content Include="Themes\easyui\gray\images\menu.gif" />
+    <Content Include="Themes\easyui\gray\images\menu_downarrow.png" />
+    <Content Include="Themes\easyui\gray\images\menu_rightarrow.png" />
+    <Content Include="Themes\easyui\gray\images\menu_sep.png" />
+    <Content Include="Themes\easyui\gray\images\menu_split_downarrow.png" />
+    <Content Include="Themes\easyui\gray\images\messager_error.gif" />
+    <Content Include="Themes\easyui\gray\images\messager_info.gif" />
+    <Content Include="Themes\easyui\gray\images\messager_question.gif" />
+    <Content Include="Themes\easyui\gray\images\messager_warning.gif" />
+    <Content Include="Themes\easyui\gray\images\pagination_first.gif" />
+    <Content Include="Themes\easyui\gray\images\pagination_last.gif" />
+    <Content Include="Themes\easyui\gray\images\pagination_load.png" />
+    <Content Include="Themes\easyui\gray\images\pagination_loading.gif" />
+    <Content Include="Themes\easyui\gray\images\pagination_next.gif" />
+    <Content Include="Themes\easyui\gray\images\pagination_prev.gif" />
+    <Content Include="Themes\easyui\gray\images\panel_loading.gif" />
+    <Content Include="Themes\easyui\gray\images\panel_title.gif" />
+    <Content Include="Themes\easyui\gray\images\panel_tools.gif" />
+    <Content Include="Themes\easyui\gray\images\searchbox_button.png" />
+    <Content Include="Themes\easyui\gray\images\slider_handle.png" />
+    <Content Include="Themes\easyui\gray\images\spinner_arrow_down.gif" />
+    <Content Include="Themes\easyui\gray\images\spinner_arrow_up.gif" />
+    <Content Include="Themes\easyui\gray\images\tabs_close.gif" />
+    <Content Include="Themes\easyui\gray\images\tabs_enabled.gif" />
+    <Content Include="Themes\easyui\gray\images\tabs_leftarrow.png" />
+    <Content Include="Themes\easyui\gray\images\tabs_rightarrow.png" />
+    <Content Include="Themes\easyui\gray\images\tree_arrows.gif" />
+    <Content Include="Themes\easyui\gray\images\tree_checkbox_0.gif" />
+    <Content Include="Themes\easyui\gray\images\tree_checkbox_1.gif" />
+    <Content Include="Themes\easyui\gray\images\tree_checkbox_2.gif" />
+    <Content Include="Themes\easyui\gray\images\tree_dnd_no.png" />
+    <Content Include="Themes\easyui\gray\images\tree_dnd_yes.png" />
+    <Content Include="Themes\easyui\gray\images\tree_elbow.png" />
+    <Content Include="Themes\easyui\gray\images\tree_file.gif" />
+    <Content Include="Themes\easyui\gray\images\tree_folder.gif" />
+    <Content Include="Themes\easyui\gray\images\tree_folder_open.gif" />
+    <Content Include="Themes\easyui\gray\images\tree_loading.gif" />
+    <Content Include="Themes\easyui\gray\images\validatebox_pointer.gif" />
+    <Content Include="Themes\easyui\gray\images\validatebox_warning.png" />
+    <Content Include="Themes\easyui\gray\layout.css" />
+    <Content Include="Themes\easyui\gray\linkbutton.css" />
+    <Content Include="Themes\easyui\gray\menu.css" />
+    <Content Include="Themes\easyui\gray\menubutton.css" />
+    <Content Include="Themes\easyui\gray\messager.css" />
+    <Content Include="Themes\easyui\gray\pagination.css" />
+    <Content Include="Themes\easyui\gray\panel.css" />
+    <Content Include="Themes\easyui\gray\progressbar.css" />
+    <Content Include="Themes\easyui\gray\propertygrid.css" />
+    <Content Include="Themes\easyui\gray\searchbox.css" />
+    <Content Include="Themes\easyui\gray\slider.css" />
+    <Content Include="Themes\easyui\gray\spinner.css" />
+    <Content Include="Themes\easyui\gray\splitbutton.css" />
+    <Content Include="Themes\easyui\gray\tabs.css" />
+    <Content Include="Themes\easyui\gray\tree.css" />
+    <Content Include="Themes\easyui\gray\validatebox.css" />
+    <Content Include="Themes\easyui\gray\window.css" />
+    <Content Include="Themes\easyui\icon.css" />
+    <Content Include="Themes\easyui\icons\back.png" />
+    <Content Include="Themes\easyui\icons\blank.gif" />
+    <Content Include="Themes\easyui\icons\cancel.png" />
+    <Content Include="Themes\easyui\icons\cut.png" />
+    <Content Include="Themes\easyui\icons\edit_add.png" />
+    <Content Include="Themes\easyui\icons\edit_remove.png" />
+    <Content Include="Themes\easyui\icons\filesave.png" />
+    <Content Include="Themes\easyui\icons\help.png" />
+    <Content Include="Themes\easyui\icons\mini_add.png" />
+    <Content Include="Themes\easyui\icons\mini_edit.png" />
+    <Content Include="Themes\easyui\icons\mini_refresh.png" />
+    <Content Include="Themes\easyui\icons\no.png" />
+    <Content Include="Themes\easyui\icons\ok.png" />
+    <Content Include="Themes\easyui\icons\pencil.png" />
+    <Content Include="Themes\easyui\icons\print.png" />
+    <Content Include="Themes\easyui\icons\redo.png" />
+    <Content Include="Themes\easyui\icons\reload.png" />
+    <Content Include="Themes\easyui\icons\search.png" />
+    <Content Include="Themes\easyui\icons\sum.png" />
+    <Content Include="Themes\easyui\icons\tip.png" />
+    <Content Include="Themes\easyui\icons\undo.png" />
+    <Content Include="Themes\easyui\metro\accordion.css" />
+    <Content Include="Themes\easyui\metro\calendar.css" />
+    <Content Include="Themes\easyui\metro\combo.css" />
+    <Content Include="Themes\easyui\metro\combobox.css" />
+    <Content Include="Themes\easyui\metro\datagrid.css" />
+    <Content Include="Themes\easyui\metro\datebox.css" />
+    <Content Include="Themes\easyui\metro\dialog.css" />
+    <Content Include="Themes\easyui\metro\easyui.css" />
+    <Content Include="Themes\easyui\metro\images\accordion_collapse.png" />
+    <Content Include="Themes\easyui\metro\images\accordion_expand.png" />
+    <Content Include="Themes\easyui\metro\images\blank.gif" />
+    <Content Include="Themes\easyui\metro\images\calendar_nextmonth.gif" />
+    <Content Include="Themes\easyui\metro\images\calendar_nextyear.gif" />
+    <Content Include="Themes\easyui\metro\images\calendar_prevmonth.gif" />
+    <Content Include="Themes\easyui\metro\images\calendar_prevyear.gif" />
+    <Content Include="Themes\easyui\metro\images\combo_arrow.gif" />
+    <Content Include="Themes\easyui\metro\images\datagrid_row_collapse.gif" />
+    <Content Include="Themes\easyui\metro\images\datagrid_row_expand.gif" />
+    <Content Include="Themes\easyui\metro\images\datagrid_sort_asc.gif" />
+    <Content Include="Themes\easyui\metro\images\datagrid_sort_desc.gif" />
+    <Content Include="Themes\easyui\metro\images\datebox_arrow.png" />
+    <Content Include="Themes\easyui\metro\images\layout_arrows.png" />
+    <Content Include="Themes\easyui\metro\images\menu_downarrow.png" />
+    <Content Include="Themes\easyui\metro\images\menu_rightarrow.png" />
+    <Content Include="Themes\easyui\metro\images\menu_sep.png" />
+    <Content Include="Themes\easyui\metro\images\menu_split_downarrow.png" />
+    <Content Include="Themes\easyui\metro\images\messager_error.gif" />
+    <Content Include="Themes\easyui\metro\images\messager_info.gif" />
+    <Content Include="Themes\easyui\metro\images\messager_question.gif" />
+    <Content Include="Themes\easyui\metro\images\messager_warning.gif" />
+    <Content Include="Themes\easyui\metro\images\pagination_first.gif" />
+    <Content Include="Themes\easyui\metro\images\pagination_last.gif" />
+    <Content Include="Themes\easyui\metro\images\pagination_load.png" />
+    <Content Include="Themes\easyui\metro\images\pagination_loading.gif" />
+    <Content Include="Themes\easyui\metro\images\pagination_next.gif" />
+    <Content Include="Themes\easyui\metro\images\pagination_prev.gif" />
+    <Content Include="Themes\easyui\metro\images\panel_loading.gif" />
+    <Content Include="Themes\easyui\metro\images\panel_tools.gif" />
+    <Content Include="Themes\easyui\metro\images\searchbox_button.png" />
+    <Content Include="Themes\easyui\metro\images\slider_handle.png" />
+    <Content Include="Themes\easyui\metro\images\tabs_close.gif" />
+    <Content Include="Themes\easyui\metro\images\tabs_leftarrow.png" />
+    <Content Include="Themes\easyui\metro\images\tabs_rightarrow.png" />
+    <Content Include="Themes\easyui\metro\images\tree_arrows.gif" />
+    <Content Include="Themes\easyui\metro\images\tree_checkbox_0.gif" />
+    <Content Include="Themes\easyui\metro\images\tree_checkbox_1.gif" />
+    <Content Include="Themes\easyui\metro\images\tree_checkbox_2.gif" />
+    <Content Include="Themes\easyui\metro\images\tree_dnd_no.png" />
+    <Content Include="Themes\easyui\metro\images\tree_dnd_yes.png" />
+    <Content Include="Themes\easyui\metro\images\tree_elbow.png" />
+    <Content Include="Themes\easyui\metro\images\tree_file.gif" />
+    <Content Include="Themes\easyui\metro\images\tree_folder.gif" />
+    <Content Include="Themes\easyui\metro\images\tree_folder_open.gif" />
+    <Content Include="Themes\easyui\metro\images\tree_loading.gif" />
+    <Content Include="Themes\easyui\metro\images\validatebox_warning.png" />
+    <Content Include="Themes\easyui\metro\layout.css" />
+    <Content Include="Themes\easyui\metro\linkbutton.css" />
+    <Content Include="Themes\easyui\metro\menu.css" />
+    <Content Include="Themes\easyui\metro\menubutton.css" />
+    <Content Include="Themes\easyui\metro\messager.css" />
+    <Content Include="Themes\easyui\metro\pagination.css" />
+    <Content Include="Themes\easyui\metro\panel.css" />
+    <Content Include="Themes\easyui\metro\progressbar.css" />
+    <Content Include="Themes\easyui\metro\propertygrid.css" />
+    <Content Include="Themes\easyui\metro\searchbox.css" />
+    <Content Include="Themes\easyui\metro\slider.css" />
+    <Content Include="Themes\easyui\metro\splitbutton.css" />
+    <Content Include="Themes\easyui\metro\tabs.css" />
+    <Content Include="Themes\easyui\metro\tree.css" />
+    <Content Include="Themes\easyui\metro\validatebox.css" />
+    <Content Include="Themes\easyui\metro\window.css" />
+    <Content Include="Themes\reset.css" />
+    <Content Include="Themes\Site.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -269,6 +741,7 @@
     <Content Include="Areas\UserControl\Views\User\ChangePassword.cshtml" />
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
+    <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Index.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
@@ -283,26 +756,58 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Web.AppSettings.config" />
     <Content Include="Web.ConnectionString.config" />
+    <None Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
+    <None Include="Themes\base\colors.less" />
+    <None Include="Themes\base\common.less" />
+    <None Include="Themes\base\fonts.less" />
+    <None Include="Themes\base\grid.less" />
+    <None Include="Themes\base\jqueryuicustom.less" />
+    <None Include="Themes\base\style.less" />
+    <None Include="Themes\base\themes.less" />
+    <None Include="Themes\easyui\default\images\Thumbs.db" />
+    <None Include="Themes\easyui\gray\images\Thumbs.db" />
+    <None Include="Themes\fonts\OpenSans.woff" />
+    <None Include="Themes\fonts\YanoneKaffeesatz.woff" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
     <Folder Include="Models\" />
+    <Folder Include="Scripts\_Libs\BlockUI\img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\SingleTicket\Views\Web.config" />
-    <Content Include="Areas\SingleTicket\Views\Index.cshtml" />
-    <None Include="Areas\SingleTicket\Views\Styles\SingleTicket.less" />
+    <Content Include="Areas\SportBook\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.TicketControl.Core\Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.LiveCasino\LiveCasino.csproj">
+      <Project>{4FB6569A-1A4B-434B-BB19-9766686CB542}</Project>
+      <Name>LiveCasino</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.NumberGame\NumberGame.csproj">
+      <Project>{8803C284-30F6-4FD8-A474-D49CD092A378}</Project>
+      <Name>NumberGame</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.Others\Others.csproj">
+      <Project>{84CE3192-1718-48D7-A559-BB8C83E73A93}</Project>
+      <Name>Others</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.SportBook\SportBook.csproj">
+      <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
+      <Name>SportBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.VirtualSport\VirtualSport.csproj">
+      <Project>{A953A720-081C-450D-9A26-234E9DA2377A}</Project>
+      <Name>VirtualSport</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
