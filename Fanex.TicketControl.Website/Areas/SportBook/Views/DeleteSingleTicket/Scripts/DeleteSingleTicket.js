@@ -10,32 +10,37 @@ $(document).ready(function () {
 
 var test = {
 
-    TicketControlMode : {
-        SingleTicket : 0,
-        NumberGame : 1,
-        EarlyKO : 2,
-        TicketListing : 3,
-        MixParlay : 4
+   TicketControlMode : {
+        SingleTicket: 0,
+        NumberGame: 1,
+        EarlyKO: 2,
+        TicketListing: 3,
+        MixParlay: 4
     },
 
     selBettype: function () {
+
+        var param = {
+            Mode: test.TicketControlMode.TicketListing
+        };
+
         $.ajax({
             type: "POST",
             url: window.rootUrl + "SportBook/DeleteSingleTicket/SelBettype",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: JSON.stringify(test.TicketControlMode.SingleTicket),
+            data: JSON.stringify(param),
             beforeSend: function () {
-              
+
             },
             success: function (rs) {
-                alert(rs);
+                //alert(rs);
             },
             error: function (event, jqXHR, ajaxSettings) {
-            
+
             },
             complete: function () {
-                
+
             }
         });
     }
