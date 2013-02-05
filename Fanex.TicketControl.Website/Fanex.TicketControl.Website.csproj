@@ -179,6 +179,7 @@
   <ItemGroup>
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
+    <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\DeleteSingleTicket.js" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
@@ -775,7 +776,6 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
