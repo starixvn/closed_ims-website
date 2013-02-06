@@ -754,6 +754,8 @@
     <Content Include="Areas\Misc\Views\TicketListing\Index.cshtml" />
     <Content Include="Areas\Misc\Views\Web.config" />
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
+    <Content Include="Areas\Gaming\Views\DeleteTicketLiveCasino\Index.cshtml" />
+    <Content Include="Areas\Gaming\Views\Web.config" />
     <None Include="Areas\Misc\Views\TicketListing\TicketListing.less" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
@@ -805,25 +807,9 @@
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.LiveCasino\LiveCasino.csproj">
-      <Project>{4FB6569A-1A4B-434B-BB19-9766686CB542}</Project>
-      <Name>LiveCasino</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.NumberGame\NumberGame.csproj">
-      <Project>{8803C284-30F6-4FD8-A474-D49CD092A378}</Project>
-      <Name>NumberGame</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.Others\Others.csproj">
-      <Project>{84CE3192-1718-48D7-A559-BB8C83E73A93}</Project>
-      <Name>Others</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.TicketControl.SportBook\SportBook.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>SportBook</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.VirtualSport\VirtualSport.csproj">
-      <Project>{A953A720-081C-450D-9A26-234E9DA2377A}</Project>
-      <Name>VirtualSport</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

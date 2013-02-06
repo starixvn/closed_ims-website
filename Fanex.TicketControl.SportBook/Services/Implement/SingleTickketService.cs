@@ -30,7 +30,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             List<Bettype> bettypes = new List<Bettype>();
             try
             {
-                var rawData = base.GetReportData<dynamic>(criteria);
+                var rawData = base.GetListData<dynamic>(criteria);
                 foreach (var row in rawData)
                 {
                     bettypes.Add(new Bettype() { 
