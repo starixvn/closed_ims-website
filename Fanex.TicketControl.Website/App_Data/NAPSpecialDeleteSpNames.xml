@@ -1,4 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
-
+  <Function Name="Misc">
+    <Setting Key="Misc_Acc_SiteSel_Licensee" SpName="Acc_SiteSel_Licensee" DbName="archive" />
+  </Function>
 </Functions>

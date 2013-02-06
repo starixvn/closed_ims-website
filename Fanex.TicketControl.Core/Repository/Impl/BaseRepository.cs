@@ -20,7 +20,7 @@ namespace Fanex.TicketControl.Core.Repository.Impl
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class BaseRepository<T> : ReadonlyRepository<T>
+    public class BaseRepository : DynamicRepository
     {
         /// <summary>
         /// Fetch Data from Criteria
@@ -30,9 +30,9 @@ namespace Fanex.TicketControl.Core.Repository.Impl
         /// <param name="serverName">Server Name will be executed sp</param>
         /// <param name="mapObjectFunction">Read data reader and pass object</param>
         /// <returns>Collection of object</returns>
-        public virtual List<S> Fetch<S>(ICriteria criteria, Func<IDataReader, S> mapObjectFunction) where S : class
+        public virtual IList<S> Fetch<S>(ICriteria criteria, Func<IDataReader, S> mapObjectFunction) where S : class
         {
-            List<S> listObject = new List<S>();
+            IList<S> listObject = new List<S>();
             if (criteria.IsValid())
             {
                 using (var db = new ObjectDb(criteria.GetSettingKey()))

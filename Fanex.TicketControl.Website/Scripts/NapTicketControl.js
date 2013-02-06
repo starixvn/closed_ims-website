@@ -1,6 +1,6 @@
 ﻿/* File Created: January 28, 2013 */
 
-var AccReport = function ($) {
+var NapTicketControl = function ($) {
     var MessageType = {
         Success: 1,
         Warning: 2,
@@ -17,32 +17,32 @@ var AccReport = function ($) {
         {
             arrayHighLightControl: [],
             show: function (message, targets, messageType) {
-                AccReport.accReportPopUp
+                NapTicketControl.NapTicketControlPopUp
                 .removeClass("err")
                 .removeClass("info")
                 .empty()
                 .text(message);
 
                 var bodyWith = $(body).width();
-                var popUpWidth = AccReport.accReportPopUp.width();
+                var popUpWidth = NapTicketControl.NapTicketControlPopUp.width();
                 var leftPosition = Math.round((bodyWith - popUpWidth) / 2);
-                AccReport.accReportPopUp.css("left", leftPosition);
+                NapTicketControl.NapTicketControlPopUp.css("left", leftPosition);
                 //// 1: Infor, 2: Warning, 3: undefined, Error
                 if (typeof (messageType) == 'undefined') {
-                    AccReport.accReportPopUp
+                    NapTicketControl.NapTicketControlPopUp
                     .addClass("err")
-                    .append('<a class="close" title="Close Message" href="javascript:AccReport.popUp.hide();"></a>');
+                    .append('<a class="close" title="Close Message" href="javascript:NapTicketControl.popUp.hide();"></a>');
 
                     if (typeof (targets) != 'undefined') {
-                        AccReport.popUp.highLightControl(targets);
+                        NapTicketControl.popUp.highLightControl(targets);
                     }
                 }
                 else {
                     switch (messageType) {
                         case MessageType.Success: ////Success
-                            AccReport.accReportPopUp.addClass("info");
+                            NapTicketControl.NapTicketControlPopUp.addClass("info");
                             setTimeout(function () {
-                                AccReport.accReportPopUp.hide();
+                                NapTicketControl.NapTicketControlPopUp.hide();
                             }, 4000);
                             break;
                         case MessageType.Warning:
@@ -52,10 +52,10 @@ var AccReport = function ($) {
                     }
                 }
 
-                AccReport.accReportPopUp.show();
+                NapTicketControl.NapTicketControlPopUp.show();
             },
             hide: function () {
-                AccReport.accReportPopUp.hide();
+                NapTicketControl.NapTicketControlPopUp.hide();
             },
             highLightControl: function (targets) {
                 var controlIds = targets.split(',');
@@ -64,32 +64,32 @@ var AccReport = function ($) {
                     if (controlId.indexOf("#") < 0) {
                         controlId = "#" + controlId;
                     }
-                    AccReport.popUp.arrayHighLightControl.push(controlId);
+                    NapTicketControl.popUp.arrayHighLightControl.push(controlId);
                     $(controlId).addClass("input-validation-error");
                 }
 
             },
             removeHighLight: function () {
-                var controlIds = AccReport.popUp.arrayHighLightControl;
+                var controlIds = NapTicketControl.popUp.arrayHighLightControl;
                 for (var i = 0; i < controlIds.length; i++) {
                     $(controlIds[i]).removeClass("input-validation-error");
                 }
-                AccReport.popUp.arrayHighLightControl = [];
-                AccReport.popUp.hide();
+                NapTicketControl.popUp.arrayHighLightControl = [];
+                NapTicketControl.popUp.hide();
             },
             reCheckIn: function () {
                 $.ajax({
-                    url: AccReport.accReportRoot + "UserLogin/Login/ReCheckLogin",
+                    url: NapTicketControl.NapTicketControlRoot + "UserLogin/Login/ReCheckLogin",
                     type: "POST",
                     dataType: "json",
                     success: function (result) {
                         if (typeof (result) != 'undefined' && result != null) {
                             if (result.IsKickedOut == "1" || result.IsKickedOut == "2") {
                                 alert('Another session has been logged in or your session is expired. Forced to logout!');
-                                window.location.href = AccReport.accReportRoot + "UserLogin/Login/LogOut";
+                                window.location.href = NapTicketControl.NapTicketControlRoot + "UserLogin/Login/LogOut";
                             }
                             else if (result.IsKickedOut == "3") {
-                                window.location.href = AccReport.accReportRoot + "UserLogin/Common/Offline";
+                                window.location.href = NapTicketControl.NapTicketControlRoot + "UserLogin/Common/Offline";
                             }
                         }
                     },

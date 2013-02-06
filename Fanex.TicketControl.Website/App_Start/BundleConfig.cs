@@ -21,6 +21,9 @@ namespace Fanex.TicketControl.Website
             bundles.Add(new StyleBundle("~/Scripts/_Libs/Pager/style").Include(
             "~/Scripts/_Libs/Pager/pagination.css"
             ));
+            bundles.Add(new StyleBundle("~/Scripts/_Libs/MessageNotifier/style").Include(
+           "~/Scripts/_Libs/MessageNotifier/jquery.messagenotifier.css"
+           ));
             bundles.Add(new ScriptBundle("~/Scripts-bundle/jquery").Include(
                        "~/Scripts/_Libs/jQuery/jquery-*",
                        "~/Scripts/_Libs/BlockUI/jquery.blockUI.1.33.js",
@@ -28,7 +31,8 @@ namespace Fanex.TicketControl.Website
                        "~/Scripts/_Libs/FanexGrid/Fanex.Grid.js",
                        "~/Scripts/_Libs/Pager/jpager.js",
                        "~/Scripts/_Libs/Tooltip/jquery.tipsy.js",
-                       "~/Scripts/NapAccReports.js"
+                       "~/Scripts/_Libs/MessageNotifier/jquery.messagenotifier.js",
+                       "~/Scripts/NapTicketControl.js"
                         ));
             #endregion
 

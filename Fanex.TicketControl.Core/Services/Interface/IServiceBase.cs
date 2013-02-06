@@ -23,6 +23,6 @@ namespace Fanex.TicketControl.Core.Services.Interface
         /// <typeparam name="T"></typeparam>
         /// <param name="criteria"></param>
         /// <returns></returns>
-        IEnumerable<T> GetReportData<T>(ICriteria criteria);
+        IEnumerable<T> GetListData<T>(ICriteria criteria);
     }
 }

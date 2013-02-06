@@ -179,6 +179,8 @@
   <ItemGroup>
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
+    <Content Include="Areas\Misc\Views\TicketListing\TicketListingManager.js" />
+    <Content Include="Areas\Misc\Views\TicketListing\TicketListing.js" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
@@ -275,6 +277,10 @@
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.0.js" />
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.1.js" />
     <Content Include="Scripts\_Libs\jQuery\classList.js" />
+    <Content Include="Scripts\_Libs\MessageNotifier\Images\error.png" />
+    <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
+    <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />
+    <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.js" />
     <Content Include="Scripts\_Libs\Utils\html5shiv.js" />
     <Content Include="Scripts\_Libs\Utils\html5shiv.min.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery-1.8.2.js" />
@@ -380,6 +386,7 @@
     <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.min.js" />
     <Content Include="Scripts\_Libs\Tooltip\tipsy.css" />
     <Content Include="Scripts\_Libs\Utils\jquery.fixBugsBrowser.js" />
+    <Content Include="Scripts\_Libs\Utils\Namespace.js" />
     <Content Include="Themes\accounting-site5_02.jpg" />
     <Content Include="Themes\base\img\1350530947_page_excel.png" />
     <Content Include="Themes\base\img\actions\add-user.png" />
@@ -746,6 +753,10 @@
     <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Index.cshtml" />
     <Content Include="Areas\Gaming\Views\DeleteTicketLiveCasino\Index.cshtml" />
     <Content Include="Areas\Gaming\Views\Web.config" />
+    <Content Include="Areas\Misc\Views\TicketListing\Index.cshtml" />
+    <Content Include="Areas\Misc\Views\Web.config" />
+    <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
+    <None Include="Areas\Misc\Views\TicketListing\TicketListing.less" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
@@ -760,6 +771,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Web.AppSettings.config" />
     <Content Include="Web.ConnectionString.config" />
+    <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.css" />
     <None Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
     <None Include="Themes\base\colors.less" />
     <None Include="Themes\base\common.less" />

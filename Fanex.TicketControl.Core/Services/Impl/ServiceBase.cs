@@ -51,7 +51,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
         /// <typeparam name="T">Type of Object return</typeparam>
         /// <param name="criteria">Criteria to Query DB</param>
         /// <returns>Enumerable of Type T</returns>
-        public virtual IEnumerable<T> GetReportData<T>(ICriteria criteria)
+        public virtual IEnumerable<T> GetListData<T>(ICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
 
