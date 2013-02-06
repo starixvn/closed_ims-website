@@ -53,14 +53,8 @@
             @RenderBody()
         </div>
     </section>
-    <div id="dialog-message">
-    </div>
-    <div id="dialog-popup">
-    </div>
 </body>
 </html>
-@Html.Hidden("TicketControlRoot", Url.Content("~/Admin/"))
-@Html.Hidden("NapRoot", Url.Content("~/"))
 @Scripts.Render("~/Scripts-bundle/jquery")
 <script type="text/javascript">
     window.rootUrl = '@Url.Content("~")';
