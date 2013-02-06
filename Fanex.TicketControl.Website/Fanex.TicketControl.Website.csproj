@@ -181,6 +181,7 @@
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="Areas\Misc\Views\TicketListing\TicketListingManager.js" />
     <Content Include="Areas\Misc\Views\TicketListing\TicketListing.js" />
+    <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\DeleteSingleTicket.js" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
@@ -734,9 +735,7 @@
     <Content Include="Themes\easyui\metro\window.css" />
     <Content Include="Themes\reset.css" />
     <Content Include="Themes\Site.css" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -751,8 +750,7 @@
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
     <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Index.cshtml" />
-    <Content Include="Areas\Gaming\Views\DeleteTicketLiveCasino\Index.cshtml" />
-    <Content Include="Areas\Gaming\Views\Web.config" />
+    <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Styles\DeleteSingleTicket.css" />
     <Content Include="Areas\Misc\Views\TicketListing\Index.cshtml" />
     <Content Include="Areas\Misc\Views\Web.config" />
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
@@ -769,7 +767,9 @@
     <Content Include="Areas\UserLogin\Views\UserSite\Site.cshtml" />
     <Content Include="Areas\UserLogin\Views\Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Web.AppSettings.config" />
+    <Content Include="Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.ConnectionString.config" />
     <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.css" />
     <None Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
@@ -805,17 +805,25 @@
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.Gaming\Gaming.csproj">
-      <Project>{87CAE325-ECE6-4EF6-9C35-5396DCF60AF5}</Project>
-      <Name>Gaming</Name>
+    <ProjectReference Include="..\Fanex.TicketControl.LiveCasino\LiveCasino.csproj">
+      <Project>{4FB6569A-1A4B-434B-BB19-9766686CB542}</Project>
+      <Name>LiveCasino</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.Misc\Misc.csproj">
-      <Project>{AA985430-B9B0-4321-B874-D99926D5E986}</Project>
-      <Name>Misc</Name>
+    <ProjectReference Include="..\Fanex.TicketControl.NumberGame\NumberGame.csproj">
+      <Project>{8803C284-30F6-4FD8-A474-D49CD092A378}</Project>
+      <Name>NumberGame</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.Others\Others.csproj">
+      <Project>{84CE3192-1718-48D7-A559-BB8C83E73A93}</Project>
+      <Name>Others</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.TicketControl.SportBook\SportBook.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>SportBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.TicketControl.VirtualSport\VirtualSport.csproj">
+      <Project>{A953A720-081C-450D-9A26-234E9DA2377A}</Project>
+      <Name>VirtualSport</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
