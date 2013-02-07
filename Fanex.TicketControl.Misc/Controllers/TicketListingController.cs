@@ -16,6 +16,7 @@ namespace Fanex.TicketControl.Misc.Controllers
     using System.Web.Mvc;
     using Fanex.TicketControl.Misc.Services.Interface;
     using Fanex.TicketControl.Misc.Services.Impl;
+    using Fanex.TicketControl.Misc.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -36,7 +37,8 @@ namespace Fanex.TicketControl.Misc.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var model = new GetTicketsListingCriteria();
+            return View(model);
         }
 
         [HttpPost]

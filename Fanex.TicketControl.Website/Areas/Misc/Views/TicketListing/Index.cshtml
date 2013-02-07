@@ -1,8 +1,11 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@model Fanex.TicketControl.Misc.Criteria.GetTicketsListingCriteria
+
 @section Head {
-    <link href="~/Areas/Misc/Views/TicketListing/TicketListing.less" rel="stylesheet"
+    <link href="~/Areas/Misc/Views/TicketListing/Styles/TicketListing.less" rel="stylesheet"
         type="text/css" />
 }
 @section Headline {
@@ -19,64 +22,103 @@
         <div class="filter-row">
             <div class="filter-cell">
                 <div class="lbl-field col_2 align-right">
-                    MatchId
+                    @Html.LabelFor(m => m.MatchID)
                 </div>
                 <div class="edit-field  col_7">
-                    <input name="input-field" class="col_6" type="text" value="" class="" />
+                    @Html.TextBox("MatchID", string.Empty, new { @class="col_6" })
                 </div>
             </div>
             <div class="filter-cell">
                 <div class="lbl-field col_3 align-right">
-                    Licensee
+                    @Html.LabelFor(m => m.LicenseeID)
                 </div>
                 <div class="edit-field col_8">
-                    <select id="licenseeDropDown" class="col180">
-                        <option value="0">All</option>
-                        <option value="-1">IBC Group</option>
-                        <optgroup label="Licensee">
-                        </optgroup>
-                    </select>
+                @{
+                    var licenseeList = new List<SelectListItem>{
+                        new SelectListItem {
+                            Text = "All",
+                            Value = "0"
+                        }, 
+                        new SelectListItem {
+                            Text = "IBC Group",
+                            Value = "-1"
+                        }
+                    };
+                }
+                    @Html.DropDownList("LicenseeID", licenseeList, new { 
+                        @class = "col180",
+                        id = "ddlLicensee"
+                    })
                 </div>
             </div>
             <div class="filter-cell">
                 <div class="lbl-field col_3 align-right">
-                    Group By
+                    @Html.LabelFor(m => m.GroupBy)
                 </div>
                 <div class="edit-field  col_8">
-                    <select id="groupByDropDown" class="col180">
-                        <option value="0">1</option>
-                        <option value="-1">2</option>
-                        <optgroup label="Licensee">
-                        </optgroup>
-                    </select>
+                    @{
+                        var groupByList = new List<SelectListItem> { 
+                            new SelectListItem {
+                                Text = "Licensee and Bet type",
+                                Value = "0"
+                            }, 
+                            new SelectListItem {
+                                Text = "Bet type and Licensee",
+                                Value = "1"
+                            }
+                        };
+                    }
+                    @Html.DropDownList("GroupBy", groupByList, new { @class="col180"})
                 </div>
             </div>
             <div class="filter-cell">
                 <div class="lbl-field col_3 align-right">
-                    Filter By
+                    @Html.LabelFor(m => m.SAFilter)
                 </div>
                 <div class="edit-field col3">
-                    <select id="filterByDropDown" class="col180">
-                        <option value="0">1</option>
-                        <option value="-1">2</option>
-                        <optgroup label="Licensee">
-                        </optgroup>
-                    </select>
+                    @{
+                        var filterByList = new List<SelectListItem> { 
+                            new SelectListItem {
+                                Text = "All",
+                                Value = "0"
+                            }, 
+                            new SelectListItem {
+                                Text = "Normal Tickets",
+                                Value = "1"
+                            },
+                            new SelectListItem {
+                                Text = "SA Tickets", 
+                                Value = "2"
+                            }
+                        };
+                    }
+                    @Html.DropDownList("SAFilter", filterByList, new { @class="col180"})
                 </div>
             </div>
         </div>
         <div class="filter-row">
             <div class="filter-cell">
                 <div class="lbl-field col_2 align-right">
-                    Type
+                    @Html.LabelFor(m => m.LiveType)
                 </div>
                 <div class="edit-field  col_7">
-                    <select id="typeDropDown" class="col_6">
-                        <option value="0">1</option>
-                        <option value="-1">2</option>
-                        <optgroup label="Licensee">
-                        </optgroup>
-                    </select>
+                @{
+                    var typeList = new List<SelectListItem> { 
+                        new SelectListItem {
+                            Text = "All",
+                            Value = "2"
+                        }, 
+                        new SelectListItem {
+                            Text = "Live Ball",
+                            Value = "0"
+                        },
+                        new SelectListItem {
+                            Text = "Dead Ball",
+                            Value = "1"
+                        }
+                    };
+                }
+                    @Html.DropDownList("Type", typeList, new { @class="col_6"})
                 </div>
             </div>
             <div class="filter-cell type-title">
@@ -84,36 +126,36 @@
                 <fieldset>
                     <legend>Title</legend>
                     <div class="lbl-field col_3 align-left bold">
-                        LiveScore</div>
-                    <div class="lbl-field  col60">
-                        <label for="home1" class="">
-                            Home</label>
-                        <input id="home1" class="home1" type="checkbox" checked="checked" />
+                        Live Score
                     </div>
-                    <div class="lbl-field  col60">
-                        <label for="away" class="">
-                            Away</label>
-                        <input id="away" class="away" type="checkbox" checked="checked" />
+                    <div class="lbl-field  col80">
+                        @Html.LabelFor(m => m.LiveHomeScore)
+                        @Html.TextBox("LiveHomeScore", string.Empty, new { @class = "col20" })
+                    </div>
+                    <div class="lbl-field  col80">
+                        @Html.LabelFor(m => m.LiveAwayScore)
+                        @Html.TextBox("LiveAwayScore", string.Empty, new { @class = "col20" })                        
                     </div>
                     <div class="lbl-field col170 align-center bold">
-                            Date Time (GMT+ 8)</div>
-                    <div class="lbl-field  col_1">
-                        <input id="datetime2" class="datetime2" type="checkbox" checked="checked" />
+                        Date Time (GMT+ 8)
+                    </div>
+                    <div class="lbl-field  col_1">                        
+                        <input type="checkbox" id="chkRangDate" />
                     </div>
                     <div class="lbl-field col_2 align-right">
-                        From</div>
+                        @Html.LabelFor( m => m.FromTransDate)
+                    </div>
                     <div class="edit-field col_6">
-                        <input id="datetimefrom" class="" type="text" value="" name="input-field" />
+                        @Html.TextBox("FromTransDate", string.Empty)
                     </div>
                     <div class="lbl-field col_1">
-                        <label class="">
-                            To</label>
+                        @Html.LabelFor( m => m.ToTransDate)
                     </div>
                     <div class="edit-field col_6">
-                        <input id="datetimeto" class="" type="text" value="" name="input-field" />
+                        @Html.TextBox("ToTransDate", string.Empty)
                     </div>
-                </fieldset>
-                </form>
+                </fieldset>       
+                </form>         
             </div>
         </div>
         @*<div class="filter-row">
@@ -126,6 +168,10 @@
                 </div>
             </div>
         </div>*@
+        <div class="filter-row">
+            <div class="filter-cell">
+            </div>
+        </div>
         <div class="filter-row">
             <table class="normal-table">
                 <thead>
@@ -215,6 +261,6 @@
     </script>
 }
 @section Foot {
-    <script src="~/Areas/Misc/Views/TicketListing/TicketListing.js" type="text/javascript"></script>
-    <script src="~/Areas/Misc/Views/TicketListing/TicketListingManager.js" type="text/javascript"></script>
+    <script src="~/Areas/Misc/Views/TicketListing/Scripts/TicketListing.js" type="text/javascript"></script>
+    <script src="~/Areas/Misc/Views/TicketListing/Scripts/TicketListingManager.js" type="text/javascript"></script>
 }

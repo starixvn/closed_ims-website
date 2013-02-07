@@ -179,8 +179,8 @@
   <ItemGroup>
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
-    <Content Include="Areas\Misc\Views\TicketListing\TicketListingManager.js" />
-    <Content Include="Areas\Misc\Views\TicketListing\TicketListing.js" />
+    <Content Include="Areas\Misc\Views\TicketListing\Scripts\TicketListingManager.js" />
+    <Content Include="Areas\Misc\Views\TicketListing\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\DeleteSingleTicket.js" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
@@ -756,7 +756,7 @@
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Gaming\Views\DeleteTicketLiveCasino\Index.cshtml" />
     <Content Include="Areas\Gaming\Views\Web.config" />
-    <None Include="Areas\Misc\Views\TicketListing\TicketListing.less" />
+    <Content Include="Areas\Misc\Views\TicketListing\Styles\TicketListing.less" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
