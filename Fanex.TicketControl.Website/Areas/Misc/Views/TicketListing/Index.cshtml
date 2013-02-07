@@ -122,8 +122,7 @@
                 </div>
             </div>
             <div class="filter-cell type-title">
-                <form>
-                <fieldset>
+                <fieldset >
                     <legend>Title</legend>
                     <div class="lbl-field col_3 align-left bold">
                         Live Score
@@ -154,8 +153,7 @@
                     <div class="edit-field col_6">
                         @Html.TextBox("ToTransDate", string.Empty)
                     </div>
-                </fieldset>       
-                </form>         
+                </fieldset>            
             </div>
         </div>
         @*<div class="filter-row">
@@ -169,11 +167,18 @@
             </div>
         </div>*@
         <div class="filter-row">
-            <div class="filter-cell">
-                
+            <div class="filter-cell products">
+                <input type="radio" name="Type" class="product" id="Sportsbook" />
+                <label for="Sportsbook">Sportsbook</label>
+                &nbsp;
+                <input type="radio" name="Type" class="product" id="NumberGame" />
+                <label for="NumberGame">Number Game</label>
+                &nbsp;
+                <input type="radio" name="Type" class="product" id="VirtualSports" />
+                <label for="VirtualSports">Virtual Sports</label>
             </div>
         </div>
-        <div class="filter-row">
+        <div class="filter-row bettypes">
             <table class="normal-table">
                 <thead>
                     <tr>

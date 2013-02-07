@@ -2,7 +2,7 @@
 function TicketListing() {
     this.DOMElement =
     {
-  $ddlLiccensee: null, 
+        $ddlLiccensee: null 
     };
 };
 
