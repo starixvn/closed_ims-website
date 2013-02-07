@@ -20,6 +20,8 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using System.Data;
     using Fanex.TicketControl.Misc.Criteria;
     using Fanex.Common.Extensions;
+using Fanex.TicketControl.Core.Services.Interface;
+using Fanex.TicketControl.Core.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -27,9 +29,11 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     public class TicketListingService : ServiceBase, ITicketListingService
     {
         private readonly BaseRepository _ticketListingRepository;
+        private readonly ICommonService _commonService;
         public TicketListingService()
         {
             _ticketListingRepository = new BaseRepository();
+            _commonService = new CommonService();
         }
 
         public IList<Licensee> GetAllLicensees()
@@ -44,6 +48,12 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
             IList<Licensee> licensees = _ticketListingRepository.Fetch<Licensee>(new GetAllLicenseeCriteria(), mappingFunc);
             return licensees;
+        }
+
+
+        public IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria)
+        {
+            return _commonService.SelBettypes(criteria);
         }
     }
 }

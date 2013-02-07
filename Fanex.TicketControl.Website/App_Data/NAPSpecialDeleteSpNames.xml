@@ -2,8 +2,6 @@
 <Functions>
   <Function Name="Misc">
     <Setting Key="Misc_Acc_SiteSel_Licensee" SpName="Acc_SiteSel_Licensee" DbName="archive" />
-  </Function>
-  <Function Name="Common">
-    <Setting Key="Common_SelBettype" SpName="Acc_BetTypeSel" DbName="db053"  ></Setting>
-  </Function>
+    <Setting Key="Misc_SelBettype" SpName="Acc_BetTypeSel" DbName="db053"  ></Setting>
+  </Function>  
 </Functions>

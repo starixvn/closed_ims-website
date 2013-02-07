@@ -15,6 +15,7 @@ namespace Fanex.TicketControl.Misc.Services.Interface
     using System.Linq;
     using System.Text;
     using Fanex.TicketControl.Core.Models;
+    using Fanex.TicketControl.Core.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -22,5 +23,7 @@ namespace Fanex.TicketControl.Misc.Services.Interface
     public interface ITicketListingService
     {
         IList<Licensee> GetAllLicensees();
+
+        IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria);
     }
 }
