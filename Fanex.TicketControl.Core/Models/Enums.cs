@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BaseModel.cs" company="Microsoft">
+// <copyright file="Enums.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,7 +8,7 @@
 // </history>
 
 
-namespace Fanex.TicketControl.SportBook.Models
+namespace Fanex.TicketControl.Core.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,12 +19,17 @@ namespace Fanex.TicketControl.SportBook.Models
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [Serializable]
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class BaseModel
+    public class Enums
     {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
+        public enum TicketControlMode
+        {
+            SingleTicket = 0,
+            NumberGame = 1,
+            EarlyKO = 2,
+            TicketListing = 3,
+            MixParlay = 4,
+            VirtualSports = 5
+        }
     }
 }

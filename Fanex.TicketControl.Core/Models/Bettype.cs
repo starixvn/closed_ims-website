@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GetBettypeCriteria.cs" company="Microsoft">
+// <copyright file="Bettype.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,33 +8,21 @@
 // </history>
 
 
-namespace Fanex.TicketControl.SportBook.Criteria
+namespace Fanex.TicketControl.Core.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Fanex.NAP.Framework.Data;
-    using Fanex.TicketControl.SportBook.Common;
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [Serializable]
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class GetBettypeCriteria : CriteriaBase
+    public class Bettypes:BaseModel
     {
-
-        public Enums.TicketControlMode Mode { get; set; }
-
-        public override string GetSettingKey()
-        {
-            return "Common_SelBettype";
-        }
-
-        public override bool IsValid()
-        {
-            return true;
-        }
+        public bool LiveIndicator { get; set; }
     }
 }

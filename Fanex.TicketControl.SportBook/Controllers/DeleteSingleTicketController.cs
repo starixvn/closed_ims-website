@@ -18,19 +18,18 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.NAP.Core.Business;
-using Fanex.TicketControl.SportBook.Criteria;
-using Fanex.TicketControl.SportBook.Services.Interface;
-    using Fanex.TicketControl.SportBook.Services.Implement;
+
+    
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     [NapSuperAuth]
     public class DeleteSingleTicketController : Controller
     {
-        ISingleTickketService _service;
+        
 
         public DeleteSingleTicketController()
         {
-            _service = new SingleTickketService();
+            
         }
 
         [HttpGet]
@@ -41,11 +40,7 @@ using Fanex.TicketControl.SportBook.Services.Interface;
         }
                
 
-        [HttpPost]
-        public JsonResult SelBettype(GetBettypeCriteria criteria)
-        {
-            var bettypes = _service.SelBettype(criteria);
-            return base.Json(bettypes, JsonRequestBehavior.AllowGet); 
-        }
+        
+        
     }
 }

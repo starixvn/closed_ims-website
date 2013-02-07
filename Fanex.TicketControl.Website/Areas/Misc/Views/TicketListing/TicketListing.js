@@ -2,11 +2,17 @@
 function TicketListing() {
     this.DOMElement =
     {
-        $liccenseeDropDownList: null
+        $liccenseeDropDownList: null        
     };
 };
 
 TicketListing.prototype.Init = function () {
+    var self = this;
+    self.GetLicensees();
+    self.GetBettypes(self.Mode.VirtualSports);
+};
+
+TicketListing.prototype.GetLicensees = function () {
     var self = this;
     self.CacheDOMElement();
     $.ajax({
@@ -31,6 +37,7 @@ TicketListing.prototype.Init = function () {
         }
     });
 };
+
 TicketListing.prototype.RenderLicenseeDropDownList = function (licensees) {
     var self = this;
     var licenseeLength = licensees.length;
@@ -42,6 +49,48 @@ TicketListing.prototype.RenderLicenseeDropDownList = function (licensees) {
     }
     $licensee.find('optgroup').append(licenseeHtml);
 };
+
+TicketListing.prototype.Mode = {
+    SingleTicket: 0,
+    NumberGame: 1,
+    EarlyKO: 2,
+    TicketListing: 3,
+    MixParlay: 4,
+    VirtualSports:5
+};
+
+TicketListing.prototype.GetBettypes = function (mode) {
+    var self = this;
+    self.CacheDOMElement();
+
+    var param = {
+        mode: mode
+    };
+
+    $.ajax({
+        type: "POST",
+        url: window.rootUrl + "Misc/TicketListing/GetBettypes",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(param),
+        beforeSend: function () {
+            NapTicketControl.disableInput();
+        },
+        success: function (bettypes) {
+            if (bettypes) {
+                //self.RenderLicenseeDropDownList(licensees);
+            }
+        },
+        error: function () {
+
+        },
+        complete: function () {
+            NapTicketControl.enableInput();
+        }
+    });
+};
+
+
 TicketListing.prototype.CacheDOMElement = function () {
     var self = this;
     self.DOMElement.$liccenseeDropDownList = $('#licenseeDropDown');
