@@ -1,0 +1,220 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Head {
+    <link href="~/Areas/Misc/Views/TicketListing/TicketListing.less" rel="stylesheet"
+        type="text/css" />
+}
+@section Headline {
+    <div class="title">
+        <div>
+            <span>Special Delete / </span><span class="curr">Ticket Listing</span>
+        </div>
+        <div id="ErrMsg" class="col_35 display-none width-auto">
+        </div>
+    </div>
+}
+<div id="filter-bar">
+    <div class="filter-form">
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="lbl-field col_2 align-right">
+                    MatchId
+                </div>
+                <div class="edit-field  col_7">
+                    <input name="input-field" class="col_6" type="text" value="" class="" />
+                </div>
+            </div>
+            <div class="filter-cell">
+                <div class="lbl-field col_3 align-right">
+                    Licensee
+                </div>
+                <div class="edit-field col_8">
+                    <select id="licenseeDropDown" class="col180">
+                        <option value="0">All</option>
+                        <option value="-1">IBC Group</option>
+                        <optgroup label="Licensee">
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-cell">
+                <div class="lbl-field col_3 align-right">
+                    Group By
+                </div>
+                <div class="edit-field  col_8">
+                    <select id="groupByDropDown" class="col180">
+                        <option value="0">1</option>
+                        <option value="-1">2</option>
+                        <optgroup label="Licensee">
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-cell">
+                <div class="lbl-field col_3 align-right">
+                    Filter By
+                </div>
+                <div class="edit-field col3">
+                    <select id="filterByDropDown" class="col180">
+                        <option value="0">1</option>
+                        <option value="-1">2</option>
+                        <optgroup label="Licensee">
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="lbl-field col_2 align-right">
+                    Type
+                </div>
+                <div class="edit-field  col_7">
+                    <select id="typeDropDown" class="col_6">
+                        <option value="0">1</option>
+                        <option value="-1">2</option>
+                        <optgroup label="Licensee">
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-cell type-title">
+                <form>
+                <fieldset>
+                    <legend>Title</legend>
+                    <div class="lbl-field col_3 align-left bold">
+                        LiveScore</div>
+                    <div class="lbl-field  col60">
+                        <label for="home1" class="">
+                            Home</label>
+                        <input id="home1" class="home1" type="checkbox" checked="checked" />
+                    </div>
+                    <div class="lbl-field  col60">
+                        <label for="away" class="">
+                            Away</label>
+                        <input id="away" class="away" type="checkbox" checked="checked" />
+                    </div>
+                    <div class="lbl-field col170 align-center bold">
+                            Date Time (GMT+ 8)</div>
+                    <div class="lbl-field  col_1">
+                        <input id="datetime2" class="datetime2" type="checkbox" checked="checked" />
+                    </div>
+                    <div class="lbl-field col_2 align-right">
+                        From</div>
+                    <div class="edit-field col_6">
+                        <input id="datetimefrom" class="" type="text" value="" name="input-field" />
+                    </div>
+                    <div class="lbl-field col_1">
+                        <label class="">
+                            To</label>
+                    </div>
+                    <div class="edit-field col_6">
+                        <input id="datetimeto" class="" type="text" value="" name="input-field" />
+                    </div>
+                </fieldset>
+                </form>
+            </div>
+        </div>
+        @*<div class="filter-row">
+            <div class="filter-cell">
+                <div id="ErrMsg" class="col_35 display-none width-auto">
+                </div>
+                <div id="ErrMsg1" class="col_35 display-none width-auto">
+                </div>
+                <div id="ErrMsg2" class="col_35 display-none width-auto">
+                </div>
+            </div>
+        </div>*@
+        <div class="filter-row">
+            <table class="normal-table">
+                <thead>
+                    <tr>
+                        <th colspan="5">
+                            <input id="chkallbettype" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkallbettype">
+                                All Bet types</label>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="l col150">
+                            <input id="chkbettype_1" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_1">
+                                Handicap</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_2" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_2">
+                                Odd/Even</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_3" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_3">
+                                Over/Under</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_4" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_4">
+                                Correct Score</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_5" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_5">
+                                FT.1X2</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="l col150">
+                            <input id="chkbettype_11" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_11">
+                                Handicap</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_21" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_21">
+                                Odd/Even</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_31" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_31">
+                                Over/Under</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_41" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_41">
+                                Correct Score</label>
+                        </td>
+                        <td class="l col150">
+                            <input id="chkbettype_51" class="chkbettype" type="checkbox" checked="checked">
+                            <label for="chkbettype_51">
+                                FT.1X2</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="submit width-auto col_4">
+                    <input id="btnGenerate" name="btnGenerate" type="submit" value="SHOW" class="" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#ErrMsg').showErrorMessage(["Demo Message", "Demo Message", "Demo Message"]);
+            $('#ErrMsg1').showWarningMessage("Demo Message");
+            $('#ErrMsg2').showSuccessMessage("Demo Message");
+        });
+    </script>
+}
+@section Foot {
+    <script src="~/Areas/Misc/Views/TicketListing/TicketListing.js" type="text/javascript"></script>
+    <script src="~/Areas/Misc/Views/TicketListing/TicketListingManager.js" type="text/javascript"></script>
+}
