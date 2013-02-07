@@ -51,17 +51,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Enums.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
-    <Compile Include="Criteria\GetBettypeCriteria.cs" />
-    <Compile Include="Models\BaseModel.cs" />
-    <Compile Include="Models\SingleTicket\SingleTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implement\SingleTickketService.cs" />
     <Compile Include="Services\Interface\ISingleTickketService.cs" />
     <Compile Include="SportBookAreaRegistration.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Criteria\" />
+    <Folder Include="Models\SingleTicket\" />
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>

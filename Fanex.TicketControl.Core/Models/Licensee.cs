@@ -15,9 +15,8 @@ namespace Fanex.TicketControl.Core.Models
     /// TODO: Update summary.
     /// </summary>
     [Serializable]
-    public class Licensee
+    public class Licensee: BaseModel
     {
-        public string Name { get; set; }
-        public int Id { get; set; }
+      
     }
 }

@@ -8,32 +8,19 @@ namespace Fanex.TicketControl.Website
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            #region Common Scripts every page will use
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/Tooltip/style").Include(
-            "~/Scripts/_Libs/Tooltip/tipsy.css"
+            #region Common Scripts
+
+            bundles.Add(new ScriptBundle("~/scripts/common").Include(
+                "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
+                "~/Scripts/_Libs/BlockUI/jquery.blockUI.1.33.js",
+                "~/Scripts/_Libs/FormatLibs/NumberFormat/numeral.js",
+                "~/Scripts/_Libs/FanexGrid/Fanex.Grid.js",
+                "~/Scripts/_Libs/Pager/jpager.js",
+                "~/Scripts/_Libs/Tooltip/jquery.tipsy.js",
+                "~/Scripts/_Libs/MessageNotifier/jquery.messagenotifier.js",
+                "~/Scripts/NapTicketControl.js"
             ));
-            bundles.Add(new StyleBundle("~/Themes/base/jquery/style").Include(
-            "~/Themes/base/jquery/jquery-ui-1.9.1.custom.css"
-            ));
-            bundles.Add(new StyleBundle("~/Themes/style").Include(
-            "~/Themes/reset.css"
-            ));
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/Pager/style").Include(
-            "~/Scripts/_Libs/Pager/pagination.css"
-            ));
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/MessageNotifier/style").Include(
-           "~/Scripts/_Libs/MessageNotifier/jquery.messagenotifier.css"
-           ));
-            bundles.Add(new ScriptBundle("~/Scripts-bundle/jquery").Include(
-                       "~/Scripts/_Libs/jQuery/jquery-*",
-                       "~/Scripts/_Libs/BlockUI/jquery.blockUI.1.33.js",
-                       "~/Scripts/_Libs/FormatLibs/NumberFormat/numeral.js",
-                       "~/Scripts/_Libs/FanexGrid/Fanex.Grid.js",
-                       "~/Scripts/_Libs/Pager/jpager.js",
-                       "~/Scripts/_Libs/Tooltip/jquery.tipsy.js",
-                       "~/Scripts/_Libs/MessageNotifier/jquery.messagenotifier.js",
-                       "~/Scripts/NapTicketControl.js"
-                        ));
+
             #endregion
 
             #region Multiselect Plugin
