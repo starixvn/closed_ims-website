@@ -182,8 +182,6 @@
   <ItemGroup>
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
-    <Content Include="Areas\Misc\Views\TicketListing\Scripts\TicketListingManager.js" />
-    <Content Include="Areas\Misc\Views\TicketListing\Scripts\TicketListing.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\DeleteSingleTicket.js" />
@@ -468,8 +466,7 @@
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Gaming\Views\DeleteTicketLiveCasino\Index.cshtml" />
     <Content Include="Areas\Gaming\Views\Web.config" />
-    <Content Include="Areas\Misc\Views\TicketListing\Styles\TicketListing.less" />
-    <None Include="Areas\Misc\Styles\TicketListing.less" />
+    <Content Include="Areas\Misc\Styles\TicketListing.less" />
     <Content Include="Areas\Misc\Views\_ViewStart.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />

@@ -2,7 +2,7 @@
 function TicketListing() {
     this.DOMElement =
     {
-        $liccenseeDropDownList: null
+        $ddlLiccensee: null 
     };
 };
 
@@ -41,14 +41,18 @@ TicketListing.prototype.GetLicensees = function () {
 TicketListing.prototype.RenderLicenseeDropDownList = function (licensees) {
     var self = this;
     var licenseeLength = licensees.length;
-    var $licensee = self.DOMElement.$liccenseeDropDownList;
+    var $licensee = self.DOMElement.$ddlLiccensee;
     var licenseeHtml = '';
+    
     for (var index = 0; index < licenseeLength; index++) {
         var currentLicensee = licensees[index];
         licenseeHtml += '<option value="' + currentLicensee.Id + '">' + currentLicensee.Name + '</option>';
     }
+
+    $licensee.append("<optgroup label='Licensee'></optgroup>");
     $licensee.find('optgroup').append(licenseeHtml);
 };
+
 
 TicketListing.prototype.Mode = {
     SingleTicket: 0,
@@ -56,7 +60,7 @@ TicketListing.prototype.Mode = {
     EarlyKO: 2,
     TicketListing: 3,
     MixParlay: 4,
-    VirtualSports: 5
+    VirtualSports:5
 };
 
 TicketListing.prototype.GetBettypes = function (mode) {
@@ -93,5 +97,5 @@ TicketListing.prototype.GetBettypes = function (mode) {
 
 TicketListing.prototype.CacheDOMElement = function () {
     var self = this;
-    self.DOMElement.$liccenseeDropDownList = $('#licenseeDropDown');
+    self.DOMElement.$ddlLiccensee = $('#ddlLicensee');
 }
