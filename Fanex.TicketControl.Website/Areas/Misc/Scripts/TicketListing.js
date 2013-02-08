@@ -2,7 +2,8 @@
 function TicketListing() {
     this.DOMElement =
     {
-        $ddlLiccensee: null 
+        $ddlLiccensee: null,
+        $ddlLiveType: null
     };
 };
 
@@ -10,6 +11,15 @@ TicketListing.prototype.Init = function () {
     var self = this;
     self.GetLicensees();
     self.GetBettypes(self.Mode.VirtualSports);
+    self.CacheDOMElement.$ddlLiveType.change(function () {
+        var livetype = $(this).val(); // live type drop down list
+
+        if (livetype === '0') {
+            $('.type-title').show();
+        } else {
+            $('.type-title').hide();
+        }
+    });
 };
 
 TicketListing.prototype.GetLicensees = function () {
@@ -94,8 +104,19 @@ TicketListing.prototype.GetBettypes = function (mode) {
     });
 };
 
+TicketListing.prototype.ChangeLiveType = function () {
+    var livetype = $(this).val(); // live type drop down list
+
+    if (livetype === '0') {
+        $('type-title').show();
+    } else {
+        $('type-title').hide();
+    }
+}
+
 
 TicketListing.prototype.CacheDOMElement = function () {
     var self = this;
     self.DOMElement.$ddlLiccensee = $('#ddlLicensee');
+    self.CacheDOMElement.$ddlLiveType = $('#ddlLiveType');
 }
