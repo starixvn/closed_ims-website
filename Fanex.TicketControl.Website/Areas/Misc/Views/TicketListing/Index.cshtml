@@ -95,7 +95,7 @@
                 </div>
             </div>
         </div>
-        <div class="filter-row">
+        <div class="filter-row control-live-type">
             <div class="filter-cell">
                 <div class="lbl-field col_2 align-right">
                     @Html.LabelFor(m => m.LiveType)
@@ -108,12 +108,12 @@
                             Value = "2"
                         }, 
                         new SelectListItem {
-                            Text = "Live Ball",
-                            Value = "0"
-                        },
-                        new SelectListItem {
                             Text = "Dead Ball",
                             Value = "1"
+                        },
+                        new SelectListItem {
+                            Text = "Live Ball",
+                            Value = "0"
                         }
                     };
                 }
@@ -138,19 +138,19 @@
                         Date Time (GMT+ 8)
                     </div>
                     <div class="lbl-field  col_1">                        
-                        <input type="checkbox" id="chkRangDate" />
+                        <input type="checkbox" class="chkDateRange" />
                     </div>
                     <div class="lbl-field col_2 align-right">
                         @Html.LabelFor( m => m.FromTransDate)
                     </div>
                     <div class="edit-field col_6">
-                        @Html.TextBox("FromTransDate", string.Empty)
+                        @Html.TextBox("FromTransDate", string.Empty, new { @class="txtCalendar"})
                     </div>
                     <div class="lbl-field col_1">
                         @Html.LabelFor( m => m.ToTransDate)
                     </div>
                     <div class="edit-field col_6">
-                        @Html.TextBox("ToTransDate", string.Empty)
+                        @Html.TextBox("ToTransDate", string.Empty, new { @class="txtCalendar"})
                     </div>
                 </fieldset>            
             </div>
@@ -167,14 +167,17 @@
         </div>*@
         <div class="filter-row">
             <div class="filter-cell products">
-                <div class="edit-field col_13">
-                    <input type="radio" name="Type" class="product" id="Sportsbook" checked="checked" />
+                <div class="edit-field col_17">
+                    <input type="radio" name="Type" id="Sportsbook" class="product" checked="checked" value="Sportsbook" />
                     <label for="Sportsbook">Sportsbook</label>
                     &nbsp;
-                    <input type="radio" name="Type" class="product" id="NumberGame" />
+                    <input type="radio" name="Type" id="NumberGame" class="product" value="NumberGame" />
                     <label for="NumberGame">Number Game</label>
                     &nbsp;
-                    <input type="radio" name="Type" class="product" id="VirtualSports" />
+                    <input type="radio" name="Type" id="LiveCasino" class="product" value="LiveCasino" />
+                    <label for="LiveCasino">Live Casino</label>
+                    &nbsp;
+                    <input type="radio" name="Type" id="VirtualSports" class="product" value="VirtualSports"/>
                     <label for="VirtualSports">Virtual Sports</label>
                 </div>
             </div>
@@ -259,6 +262,9 @@
 </div>
 
 @section Foot {
+    <script src="../../../../Scripts/_Libs/jQuery/jquery-ui-1.9.1.min.js" type="text/javascript"></script>
+    <script src="../../../../Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js"
+        type="text/javascript"></script>
     <script src="~/Areas/Misc/Scripts/TicketListing.js" type="text/javascript"></script>
     <script src="~/Areas/Misc/Scripts/TicketListingManager.js" type="text/javascript"></script>
 

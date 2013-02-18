@@ -1,6 +1,6 @@
 ﻿/* File Created: January 28, 2013 */
 
-var NapTicketControl = function ($) {
+var NapTicketControl = (function ($) {
     var MessageType = {
         Success: 1,
         Warning: 2,
@@ -99,4 +99,4 @@ var NapTicketControl = function ($) {
             }
         }
     };
-} (jQuery);
+} (jQuery));

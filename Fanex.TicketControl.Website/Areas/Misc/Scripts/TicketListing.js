@@ -3,23 +3,42 @@ function TicketListing() {
     this.DOMElement =
     {
         $ddlLiccensee: null,
-        $ddlLiveType: null
+        $ddlLiveType: null,
+        $product: null
     };
 };
+
+TicketListing.prototype.CurDate = new Date();
 
 TicketListing.prototype.Init = function () {
     var self = this;
     self.GetLicensees();
     self.GetBettypes(self.Mode.VirtualSports);
-    self.CacheDOMElement.$ddlLiveType.change(function () {
-        var livetype = $(this).val(); // live type drop down list
 
-        if (livetype === '0') {
-            $('.type-title').show();
-        } else {
-            $('.type-title').hide();
+    var CurDate = new Date();
+    TicketListing.prototype.SetupCalendar(CurDate.toDateString(), '#FromTransDate');
+    TicketListing.prototype.SetupCalendar(CurDate.toDateString(), '#ToTransDate');
+
+
+
+    // handle events from DOM element
+    self.DOMElement.$ddlLiveType.change(TicketListing.prototype.ChangeLiveType);
+    self.DOMElement.$product.click(function () {
+        var product = $(this).val();
+
+        switch (product) {
+            case 'Sportsbook':
+                // show Live Type drop down
+                $('.control-live-type').show();
+                break;
+            case 'NumberGame':
+            case 'VirtualSports':
+                // hide Live Type drop down                
+                $('.control-live-type').hide();
+                break;
         }
     });
+
 };
 
 TicketListing.prototype.GetLicensees = function () {
@@ -108,15 +127,31 @@ TicketListing.prototype.ChangeLiveType = function () {
     var livetype = $(this).val(); // live type drop down list
 
     if (livetype === '0') {
-        $('type-title').show();
+        $('.type-title').show();
     } else {
-        $('type-title').hide();
+        $('.type-title').hide();
     }
 }
 
+TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
+    $(txtdate).datetimepicker({
+        showSecond: true,
+        timeFormat: 'hh:mm:ss',
+        stepHour: 1,
+        stepMinute: 1,
+        stepSecond: 1,
+        hourGrid: 3,
+        minuteGrid: 5,
+        secondGrid: 5
+    });
+    if (strdatetime != null && strdatetime != "") {
+        $(txtdate).val(strdatetime).datetimepicker('setDate', (new Date(strdatetime)));
+    }
+}
 
 TicketListing.prototype.CacheDOMElement = function () {
     var self = this;
     self.DOMElement.$ddlLiccensee = $('#ddlLicensee');
-    self.CacheDOMElement.$ddlLiveType = $('#ddlLiveType');
+    self.DOMElement.$ddlLiveType = $('#ddlLiveType');
+    self.DOMElement.$product = $('.product');
 }
