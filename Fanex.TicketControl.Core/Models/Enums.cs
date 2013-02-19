@@ -24,7 +24,7 @@ namespace Fanex.TicketControl.Core.Models
     {
         public enum TicketControlMode
         {
-            SingleTicket = 0,
+            Sportsbook = 0,
             NumberGame = 1,
             EarlyKO = 2,
             TicketListing = 3,
