@@ -227,14 +227,14 @@ TicketListing.prototype.RenderBettypes = function (product, livetype) {
         case 'NumberGame':
             // render dead ball bettypes
             html += '<tr> <td colspan="5">' + 'Dead ball' + '</td></tr>';
-            html += self.RenderDetailBettypes(deadBallBettypes);
+            html += self.RenderDetailBettypes(deadBallBettypes, 0, 'chkbettype-deadtype');
 
             // render live ball bettype
             html += '<tr> <td colspan="5">' + 'Live ball' + '</td></tr>';
-            html += self.RenderDetailBettypes(deadBallBettypes);
+            html += self.RenderDetailBettypes(liveBallBettypes, deadBallBettypes.length, 'chkbettype-livetype');
             break;
         default:
-            html += self.RenderDetailBettypes(bettypes);
+            html += self.RenderDetailBettypes(bettypes, 0);
             break;
     }
 
@@ -243,27 +243,38 @@ TicketListing.prototype.RenderBettypes = function (product, livetype) {
     return html;
 };
 
-TicketListing.prototype.RenderDetailBettypes = function (bettypes) {
+TicketListing.prototype.RenderDetailBettypes = function (bettypes, startPosition, classbet) {
     var length = bettypes.length;
     var step = 5;
     var repeatTime = length / step;
     var html = '';
 
+    if(startPosition === undefined){
+        startPosition = 0;
+    }
+
+    if(classbet === undefined){
+        classbet = '';
+    }
+    
     for (var i = 0; i < repeatTime; i++) {
         var offset = i * step;
         html += '<tr>';
         for (var j = 0; j < step; j++) {
             if (offset + j < length) {
                 var bt = bettypes[offset + j];
-                var id = 'chkbettype_' + bt.Id;
+                var id = 'chkbettype_' + startPosition;
 
                 html += '<td>';
-                html += '<input type="checkbox" checked="checked" class="bettype"' + 'id=' + id + ' />';
+                html += '<input type="checkbox" checked="checked" class="bettype ' + classbet 
+                    + '" id=' + id + ' value=' +  bt.Id  + ' />';
                 html += '<label for="' + id + '">' + bt.Name + '</label>';
                 html += '</td>';
             } else {
                 html += '<td>&nbsp;</td>';
             }
+
+            startPosition ++;
         }
         html += '</tr>';
     }
