@@ -13,8 +13,9 @@
     <!--[if lt IE 9]><script src="~/scripts/_libs/utils/html5shiv.min.js" type="text/javascript"></script><![endif]-->
 
     <link href="~/content/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet" type="text/css" />
-    <link href="~/scripts/_libs/messagenotifier/jquery.messagenotifier.css" rel="stylesheet" type="text/css" />
     <link href="~/scripts/_libs/fanexgrid/fanex.grid.css" rel="stylesheet" type="text/css" />
+
+@RenderSection("Head", false)
 
 @if (IsSectionDefined("Styles"))
 {
@@ -22,8 +23,6 @@
 } else {
     <link href="~/content/base/styles.less" rel="stylesheet" type="text/css" />
 }
-
-    @RenderSection("Head", false)
 </head>
 <body>
     <header>
@@ -50,10 +49,14 @@
         @RenderBody()
     </section>
 
-    <div class="alert alert-error" id="msg-box">
+    <div class="alert alert-success" id="msg-box">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <div class="alert-content">
-            <strong>Error!</strong> Best check yo self, you're not looking too good.
+            <b>Bet transactions deleted!</b>
+            <span class="error">Email sent to ricky shit</span><br />
+            <span class="success">Email sent to ricky shit</span><br />
+            Email sent to ricky shit<br />
+            Email sent to ricky shit<br />
         </div>
     </div>
 
