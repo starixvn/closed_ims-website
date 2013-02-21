@@ -1340,7 +1340,7 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trans Date (GMT+8).
+        ///   Looks up a localized string similar to Trans Date (GMT+ 8).
         /// </summary>
         public static string Trans_Date_GMT8 {
             get {
