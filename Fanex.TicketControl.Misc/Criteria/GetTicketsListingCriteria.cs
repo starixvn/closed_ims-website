@@ -4,22 +4,24 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using Fanex.NAP.Framework.Data;
+using Fanex.TicketControl.Core.Models;
 
 namespace Fanex.TicketControl.Misc.Criteria
 {
     public class GetTicketsListingCriteria : CriteriaBase
     {        
+        
         public int MatchID { get; set; }
 
         [Display(Name = "Licensee")]
         public int LicenseeID { get; set; }
 
-        public string BetTypes { get; set; }
+        public string[] BetTypes { get; set; } // DeadBettypes
 
-        public string BetTypesLive { get; set; }
+        public string[] LiveBetTypes { get; set; }
 
-        [Display(Name="Type")]
-        public int LiveType { get; set; }
+        [Display(Name="Event Type")]
+        public int EventType { get; set; } // live type
 
         [Display(Name="Home")]
         public int LiveHomeScore { get; set; }
@@ -33,10 +35,10 @@ namespace Fanex.TicketControl.Misc.Criteria
         [Display(Name = "To")]
         public DateTime ToTransDate { get; set; }
 
-        public int Type { get; set; }
+        public ProductType Product { get; set; } // type
 
-        [Display(Name="Filter By")]
-        public int SAFilter { get; set; }
+        [Display(Name="Ticket Type")]
+        public int TicketType { get; set; } // SA Filter
 
         [SpParam(Ignored = true)]
         [Display(Name = "Group By")]
