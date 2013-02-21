@@ -20,7 +20,7 @@ namespace Fanex.TicketControl.Core.Criteria
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class GetBettypeCriteria : CriteriaBase
     {
-        public Enums.TicketControlMode Mode { get; set; }
+        public ProductType Mode { get; set; }
 
         public override string GetSettingKey()
         {

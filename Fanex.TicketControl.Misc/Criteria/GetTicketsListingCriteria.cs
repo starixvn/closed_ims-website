@@ -35,7 +35,7 @@ namespace Fanex.TicketControl.Misc.Criteria
         [Display(Name = "To")]
         public DateTime ToTransDate { get; set; }
 
-        public Enums.TicketControlMode Product { get; set; } // type
+        public ProductType Product { get; set; } // type
 
         [Display(Name="Ticket Type")]
         public int TicketType { get; set; } // SA Filter

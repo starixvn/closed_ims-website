@@ -5,6 +5,7 @@ using System.Text;
 using Fanex.TicketControl.Misc.Repositories.Interface;
 using Fanex.TicketControl.Core.Repository.Impl;
 using Fanex.TicketControl.Misc.Criteria;
+using Fanex.TicketControl.Core.Models;
 
 namespace Fanex.TicketControl.Misc.Repositories.Impl
 {
@@ -15,13 +16,13 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
             switch (criteria.Product)
             {
-                case Fanex.TicketControl.Core.Models.Enums.TicketControlMode.Sportsbook:
+                case ProductType.Sportsbook:
                     break;
-                case Fanex.TicketControl.Core.Models.Enums.TicketControlMode.NumberGame:
+                case ProductType.NumberGame:
                     break;
-                case Fanex.TicketControl.Core.Models.Enums.TicketControlMode.VirtualSports:
+                case ProductType.VirtualSports:
                     break;
-                case Fanex.TicketControl.Core.Models.Enums.TicketControlMode.LiveCasino:
+                case ProductType.LiveCasino:
                     break;
                 default:
                     break;

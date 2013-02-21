@@ -36,6 +36,12 @@ namespace Fanex.TicketControl.Misc.Controllers
             return View();
         }
 
+        public ActionResult LewisIndex()
+        {
+            return View();
+        }
+
+
         public ActionResult Index()
         {
             return View();
