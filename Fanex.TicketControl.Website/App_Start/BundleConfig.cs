@@ -59,6 +59,7 @@ namespace Fanex.TicketControl.Website
             bundles.Add(new ScriptBundle("~/scripts-bundle/knockout").Include(
                         "~/Scripts/_Libs/knockout*"));
             #endregion
+
         }
     }
 }
