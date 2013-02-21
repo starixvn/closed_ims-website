@@ -29,7 +29,10 @@ namespace Fanex.TicketControl.Core.Models
             EarlyKO = 2,
             TicketListing = 3,
             MixParlay = 4,
-            VirtualSports = 5
+            VirtualSports = 5,
+            LiveCasino = 6
         }
     }
+
+    
 }

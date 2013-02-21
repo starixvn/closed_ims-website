@@ -447,6 +447,7 @@
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
     <None Include="Content\reset.less" />
+    <Content Include="Scripts\_Libs\Utils\stdlib.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

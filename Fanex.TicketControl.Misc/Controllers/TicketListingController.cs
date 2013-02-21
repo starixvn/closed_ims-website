@@ -17,6 +17,7 @@ namespace Fanex.TicketControl.Misc.Controllers
     using Fanex.TicketControl.Misc.Services.Interface;
     using Fanex.TicketControl.Misc.Services.Impl;
     using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Misc.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -41,14 +42,23 @@ namespace Fanex.TicketControl.Misc.Controllers
         }
 
         [HttpPost]
+        public ActionResult Index(GetTicketsListingCriteria criteria)
+        {
+            return View();
+        }
+
+        [HttpPost]
         public JsonResult GetLicensees()
         {
             return Json(_ticketListingService.GetAllLicensees());
         }
 
+        [HttpPost]
         public JsonResult GetBettypes(GetBettypeCriteria criteria)
         {
             return Json(_ticketListingService.GetAllBettypes(criteria));
         }
+
+        
     }
 }

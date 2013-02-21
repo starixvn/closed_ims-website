@@ -5,10 +5,10 @@ function TicketListing() {
         $ddlLiccensee: null,
         $ddlLiveType: null,
         $product: null,
-        $bettypes: null,
+        $controlBettypes: null,
+        $chkTransDateRange: null,
+        $txtCalendar: null
     };
-
-    this.CurDate = new Date();
 };
 
 TicketListing.prototype.Mode = {
@@ -25,16 +25,25 @@ TicketListing.prototype.BetTypes = {
     LiveCasino: null
 };
 
+TicketListing.prototype.CacheDOMElement = function () {
+    var self = this;
+
+    self.DOMElement.$ddlLiccensee = $('#ddlLicensee');
+    self.DOMElement.$ddlLiveType = $('#ddlLiveType');
+    self.DOMElement.$product = $('.product');
+    self.DOMElement.$controlBettypes = $('.control-bettypes');
+    self.DOMElement.$chkTransDateRange = $('.chkTransDateRange');
+    self.DOMElement.$txtCalendar = $('.txtCalendar');
+}
+
 TicketListing.prototype.Init = function () {
     var self = this;
 
     self.CacheDOMElement();
     self.GetLicensees();
     self.GetBettypes('Sportsbook');
-    
-    self.SetupCalendar(self.CurDate.toDateString(), '#FromTransDate');
-    self.SetupCalendar(self.CurDate.toDateString(), '#ToTransDate');
 
+    self.SetupCalendar('', '.txtCalendar');
     // handle events from DOM element
 
     // change live type
@@ -51,8 +60,20 @@ TicketListing.prototype.Init = function () {
         if (TicketListing.prototype.BetTypes['Sportsbook'] === null) {
             TicketListing.prototype.GetBettypes('Sportsbook');
         } else {
-            var html = self.RenderBettypes('Sportsbook', livetype);            
-            self.DOMElement.$bettypes.html(html);
+            var html = self.RenderBettypes('Sportsbook', livetype);
+            self.DOMElement.$controlBettypes.html(html);
+        }
+    });
+
+    // enable/disable Trans Date
+    self.DOMElement.$chkTransDateRange.click(function () {
+        if ($(this).prop('checked')) {
+            // fill in current date
+            var today = new Date();
+            self.SetupCalendar(today.format('m/d/Y H:i:s'), '.txtCalendar');
+        } else {
+            // clear text box
+            $('.txtCalendar').val('');
         }
     });
 
@@ -81,34 +102,30 @@ TicketListing.prototype.Init = function () {
     });
 
     // check all bettypes
-    $('body').delegate('#chkallbettype', 'click', function() {  
-        if($('#chkallbettype').prop('checked')){
+    $('body').delegate('#chkallbettype', 'click', function () {
+        if ($('#chkallbettype').prop('checked')) {
             $('.bettype').attr('checked', 'checked')
-        }else {
+        } else {
             $('.bettype').removeAttr('checked');
         }
     });
 
-    $('body').delegate('.bettype', 'click', function(){
+    $('body').delegate('.bettype', 'click', function () {
         var selectedItems = $('#tblbettype tbody input:checked').length;
         var totalItems = $('#tblbettype tbody input:checkbox').length;
 
-        if(selectedItems === totalItems){
+        if (selectedItems === totalItems) {
             $('#chkallbettype').attr('checked', 'checked');
-        }else {
+        } else {
             $('#chkallbettype').removeAttr('checked');
         }
     });
+
+    // submit data to server
+    $('input[type="submit"]').click(function () {
+        var params = $("#TicketListingForm").serialize();
+    });
 };
-
-TicketListing.prototype.CacheDOMElement = function () {
-    var self = this;
-
-    self.DOMElement.$ddlLiccensee = $('#ddlLicensee');
-    self.DOMElement.$ddlLiveType = $('#ddlLiveType');
-    self.DOMElement.$product = $('.product');   
-    self.DOMElement.$bettypes = $('.bettypes'); 
-}
 
 TicketListing.prototype.GetLicensees = function () {
     var self = this;
@@ -155,7 +172,8 @@ TicketListing.prototype.GetBettypes = function (product) {
     var self = this;
 
     var param = {
-        mode: TicketListing.prototype.Mode[product]
+        //mode: TicketListing.prototype.Mode[product]
+        mode: product
     };
 
     $.ajax({
@@ -172,7 +190,7 @@ TicketListing.prototype.GetBettypes = function (product) {
                 TicketListing.prototype.BetTypes[product] = bettypes;
                 var livetype = $('#ddlLiveType').val();
                 var html = TicketListing.prototype.RenderBettypes(product, livetype);
-                self.DOMElement.$bettypes.html(html);
+                self.DOMElement.$controlBettypes.html(html);
             }
         },
         error: function () {
@@ -201,8 +219,7 @@ TicketListing.prototype.RenderBettypes = function (product, livetype) {
     });
 
     var html = '<table id="tblbettype">';
-    html += '<thead> <tr style="background-color: #c3c3c3"> '
-        + '<td colspan="5">'
+    html += '<thead> <tr style="background-color: #c3c3c3"> <td colspan="5">'
         + '<input type="checkbox" id="chkallbettype" checked="checked">'
         + '<label for="chkallbettype"> All Bet types'
         + '</td></tr></thead>';
@@ -212,29 +229,29 @@ TicketListing.prototype.RenderBettypes = function (product, livetype) {
             switch (livetype) {
                 case '0':
                     // render only dead ball bettypes
-                    html += self.RenderDetailBettypes(deadBallBettypes);
+                    html += self.RenderBettypesDetail(deadBallBettypes, 'BetTypes');
                     break;
                 case '1':
                     // render only live ball bettypes
-                    html += self.RenderDetailBettypes(liveBallBettypes);
+                    html += self.RenderBettypesDetail(liveBallBettypes, 'BetTypes');
                     break;
                 default:
                     // render all bettypes
-                    html += self.RenderDetailBettypes(bettypes);
+                    html += self.RenderBettypesDetail(bettypes, 'BetTypes');
                     break;
             }
             break;
         case 'NumberGame':
             // render dead ball bettypes
             html += '<tr> <td colspan="5">' + 'Dead ball' + '</td></tr>';
-            html += self.RenderDetailBettypes(deadBallBettypes, 0, 'chkbettype-deadtype');
+            html += self.RenderBettypesDetail(deadBallBettypes, 'BetTypes', 0, 'chkbettype-deadtype');
 
             // render live ball bettype
             html += '<tr> <td colspan="5">' + 'Live ball' + '</td></tr>';
-            html += self.RenderDetailBettypes(liveBallBettypes, deadBallBettypes.length, 'chkbettype-livetype');
+            html += self.RenderBettypesDetail(liveBallBettypes, 'LiveBetTypes', deadBallBettypes.length, 'chkbettype-livetype');
             break;
         default:
-            html += self.RenderDetailBettypes(bettypes, 0);
+            html += self.RenderBettypesDetail(bettypes, 'BetTypes');
             break;
     }
 
@@ -243,7 +260,7 @@ TicketListing.prototype.RenderBettypes = function (product, livetype) {
     return html;
 };
 
-TicketListing.prototype.RenderDetailBettypes = function (bettypes, startPosition, classbet) {
+TicketListing.prototype.RenderBettypesDetail = function (bettypes, name, startPosition, classbet) {
     var length = bettypes.length;
     var step = 5;
     var repeatTime = length / step;
@@ -253,10 +270,10 @@ TicketListing.prototype.RenderDetailBettypes = function (bettypes, startPosition
         startPosition = 0;
     }
 
-    if(classbet === undefined){
+    if (classbet === undefined) {
         classbet = '';
     }
-    
+   
     for (var i = 0; i < repeatTime; i++) {
         var offset = i * step;
         html += '<tr>';
@@ -267,7 +284,7 @@ TicketListing.prototype.RenderDetailBettypes = function (bettypes, startPosition
 
                 html += '<td>';
                 html += '<input type="checkbox" checked="checked" class="bettype ' + classbet 
-                    + '" id=' + id + ' value=' +  bt.Id  + ' />';
+                    + '" id=' + id + ' value=' +  bt.Id  + ' name=' + name + ' />';
                 html += '<label for="' + id + '">' + bt.Name + '</label>';
                 html += '</td>';
             } else {
@@ -296,9 +313,9 @@ TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
     }
 }
 
-TicketListing.prototype.CollectSelectedBettypes = function () {
-    var self = this;
-
-    self;
+TicketListing.prototype.CollectData = function () {
+    var params = $("#TicketListingForm").serialize();
 }
+
+
 
