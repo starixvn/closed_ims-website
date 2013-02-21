@@ -7,8 +7,10 @@
 @model Fanex.TicketControl.Misc.Criteria.GetTicketsListingCriteria
 
 @section Head {    
-    <link href="../../../../Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.css"
-        rel="stylesheet" type="text/css" />
+    <link href="~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css" />
+}
+
+@section Styles {
     <link href="~/Areas/Misc/Styles/TicketListing.less" rel="stylesheet" type="text/css" />
 }
 
@@ -173,7 +175,4 @@
 
 @section Foot {
     @Scripts.Render("~/areas/misc/ticketlisting")
-    <script src="~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.min.js" type="text/javascript"></script>
-    <script src="~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js" type="text/javascript"></script>    
-    <script src="~/Scripts/_Libs/Utils/stdlib.js" type="text/javascript"></script>
 }

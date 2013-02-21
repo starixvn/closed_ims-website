@@ -467,7 +467,6 @@
     <Content Include="Content\jquery-ui\images\ui-icons_fcd113_256x240.png" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
-    <Content Include="Areas\Misc\Views\TicketListing\Index.lewis.cshtml" />
     <Content Include="Areas\Misc\Views\TicketListing\LewisIndex.cshtml" />
     <None Include="Content\base\Copy of styles.less" />
     <None Include="Content\base\temp.less" />
