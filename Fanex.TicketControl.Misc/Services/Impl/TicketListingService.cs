@@ -22,17 +22,20 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using Fanex.Common.Extensions;
     using Fanex.TicketControl.Core.Services.Interface;
     using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Misc.Repositories.Impl;
+    using Fanex.TicketControl.Misc.DTO;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class TicketListingService : ServiceBase, ITicketListingService
     {
-        private readonly BaseRepository _ticketListingRepository;
+        private readonly TicketListingRepository _ticketListingRepository;
         private readonly ICommonService _commonService;
+
         public TicketListingService()
         {
-            _ticketListingRepository = new BaseRepository();
+            _ticketListingRepository = new TicketListingRepository();
             _commonService = new CommonService();
         }
 
@@ -55,9 +58,9 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             return _commonService.SelBettypes(criteria);
         }
 
-        public void GetTicketListing(GetTicketsListingCriteria criteria)
+        public ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria)
         {
-            throw new NotImplementedException();
+            return _ticketListingRepository.GetTicketListing(criteria);
         }
     }
 }

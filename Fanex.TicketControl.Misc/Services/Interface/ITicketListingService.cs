@@ -16,7 +16,8 @@ namespace Fanex.TicketControl.Misc.Services.Interface
     using System.Text;
     using Fanex.TicketControl.Core.Models;
     using Fanex.TicketControl.Core.Criteria;
-using Fanex.TicketControl.Misc.Criteria;
+    using Fanex.TicketControl.Misc.Criteria;
+    using Fanex.TicketControl.Misc.DTO;
 
     /// <summary>
     /// TODO: Update summary.
@@ -27,6 +28,6 @@ using Fanex.TicketControl.Misc.Criteria;
 
         IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria);
 
-        void GetTicketListing(GetTicketsListingCriteria criteria);
+        ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria);
     }
 }

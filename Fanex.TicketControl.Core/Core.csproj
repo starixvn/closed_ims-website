@@ -92,6 +92,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Licensee.cs" />
     <Compile Include="Models\MailItem.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Impl\BaseRepository.cs" />
     <Compile Include="Resources\Labels.Designer.cs">

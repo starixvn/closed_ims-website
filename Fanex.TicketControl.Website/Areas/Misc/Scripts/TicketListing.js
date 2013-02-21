@@ -48,6 +48,8 @@ TicketListing.prototype.Init = function () {
     self.GetBettypes('Sportsbook');
 
     self.SetupCalendar('', '.txtCalendar');
+    $('.txtCalendar').attr('disabled', 'disabled');
+
     // handle events from DOM element
 
     // change live type
@@ -60,13 +62,13 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        // render bet type which correspond to with selected eventType
-        //        if (TicketListing.prototype.BetTypes['Sportsbook'] === null) {
-        //            TicketListing.prototype.GetBettypes('Sportsbook');
-        //        } else {
-        //            var html = self.RenderBettypes('Sportsbook', eventType);
-        //            self.DOMElement.$controlBettypes.html(html);
-        //        }
+        //render bet type which correspond to with selected eventType
+        if (TicketListing.prototype.BetTypes['Sportsbook'] === null) {
+            TicketListing.prototype.GetBettypes('Sportsbook');
+        } else {
+            var html = self.RenderBettypes('Sportsbook', eventType);
+            self.DOMElement.$bettypeWrp.html(html);
+        }
     });
 
     // enable/disable Trans Date
@@ -74,10 +76,12 @@ TicketListing.prototype.Init = function () {
         if ($(this).prop('checked')) {
             // fill in current date
             var today = new Date();
+            $('.txtCalendar').removeAttr('disabled');
             self.SetupCalendar(today.format('m/d/Y H:i:s'), '.txtCalendar');
+
         } else {
             // clear text box
-            $('.txtCalendar').val('');
+            $('.txtCalendar').val('').attr('disabled', 'disabled');
         }
     });
 
@@ -102,28 +106,28 @@ TicketListing.prototype.Init = function () {
         }
 
         // get the list of bet types belong selected product        
-//        if (TicketListing.prototype.BetTypes[product] === null) {
-//            self.GetBettypes(product);
-//        }
-//        else {
-//            var livetype = $('#ddlLiveType').val();
-//            var html = self.RenderBettypes(product, livetype);
-//            self.DOMElement.$bettypes.html(html);
-//        }
+        if (TicketListing.prototype.BetTypes[product] === null) {
+            self.GetBettypes(product);
+        }
+        else {
+            var eventType = $('#ddlEventType').val();
+            var html = self.RenderBettypes(product, eventType);
+            self.DOMElement.$bettypeWrp.html(html);
+        }
     });
 
     // check all bettypes
     $('body').delegate('#chkallbettype', 'click', function () {
         if ($('#chkallbettype').prop('checked')) {
-            $('.bettype').attr('checked', 'checked')
+            $('.chkbettype').attr('checked', 'checked')
         } else {
-            $('.bettype').removeAttr('checked');
+            $('.chkbettype').removeAttr('checked');
         }
     });
 
-    $('body').delegate('.bettype', 'click', function () {
-        var selectedItems = $('#tbl-bettype tbody input:checked').length;
-        var totalItems = $('#tbl-bettype tbody input:checkbox').length;
+    $('body').delegate('.chkbettype', 'click', function () {
+        var selectedItems = $('.tbl-bettype tbody input:checked').length;
+        var totalItems = $('.tbl-bettype tbody input:checkbox').length;
 
         if (selectedItems === totalItems) {
             $('#chkallbettype').attr('checked', 'checked');
@@ -133,8 +137,27 @@ TicketListing.prototype.Init = function () {
     });
 
     // submit data to server
-    $('input[type="submit"]').click(function () {
+    $('.submit').click(function () {
         var params = $("#TicketListingForm").serialize();
+        var url = $("#TicketListingForm").attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: params,
+            beforeSend: function () {
+                NapTicketControl.disableInput();
+            },
+            success: function (ticketlisting) {
+                alert(ticketlisting.toString());
+            },
+            error: function () {
+                console.log('has error :(');
+            },
+            complete: function () {
+                NapTicketControl.enableInput();
+            }
+        });
     });
 };
 
@@ -229,11 +252,11 @@ TicketListing.prototype.RenderBettypes = function (product, eventType) {
         return value.LiveIndicator === true;
     });
 
-    var html = '<table id="tbl-bettype">';
-    html += '<thead><tr><td colspan="5">'
+    var html = '<table class="tbl-bettype">';
+    html += '<thead><tr><th colspan="5">'
         + '<input type="checkbox" id="chkallbettype" checked="checked" />'
-        + '<label for="chkallbettype"> All Bet types'
-        + '</td></tr></thead>';
+        + '<label for="chkallbettype"><b>All Bet types</b>'
+        + '</th></tr></thead>';
 
     switch (product) {
         case 'Sportsbook':
@@ -254,11 +277,11 @@ TicketListing.prototype.RenderBettypes = function (product, eventType) {
             break;
         case 'NumberGame':
             // render dead ball bettypes
-            html += '<tr class="betgroup-title"> <td colspan="5">' + 'Dead ball' + '</td></tr>';
+            html += '<tr class="bettype-group-title"> <td colspan="5">' + 'Dead ball' + '</td></tr>';
             html += self.RenderBettypesDetail(deadBallBettypes, 'BetTypes', 0);
 
             // render live ball bettype
-            html += '<tr class="betgroup-title"> <td colspan="5">' + 'Live ball' + '</td></tr>';
+            html += '<tr class="bettype-group-title"> <td colspan="5">' + 'Live ball' + '</td></tr>';
             html += self.RenderBettypesDetail(liveBallBettypes, 'LiveBetTypes', deadBallBettypes.length);
             break;
         default:
@@ -277,7 +300,7 @@ TicketListing.prototype.RenderBettypesDetail = function (bettypes, name, startPo
     var repeatTime = length / step;
     var html = '';
 
-    if(startPosition === undefined){
+    if (startPosition === undefined) {
         startPosition = 0;
     }
 
@@ -285,20 +308,41 @@ TicketListing.prototype.RenderBettypesDetail = function (bettypes, name, startPo
         var offset = i * step;
         html += '<tr>';
         for (var j = 0; j < step; j++) {
+
             if (offset + j < length) {
                 var bt = bettypes[offset + j];
-                var id = 'chkbettype_' + startPosition;
+                var id = 'chk-bettype-' + startPosition;
+                var betname = bt.Name;
 
+                switch (bt.Id) {
+                    case 85:
+                        betname = "Next Over/Under";
+                        break;
+                    case 86:
+                        if (bt.LiveIndicator === true) {
+                            betname = "Next Odd/Even";
+                        } else {
+                            betname = "FT. Odd/Even";
+                        }
+                        break;
+                    case 90:
+                        if (bt.LiveIndicator === true) {
+                            betname += " (Live Game)";
+                        } else {
+                            betname += " (Pre Game)";
+                        }
+                        break;
+                }
                 html += '<td>';
                 html += '<input type="checkbox" checked="checked" class="chkbettype"'
-                    + ' id=' + id + ' value=' +  bt.Id  + ' name=' + name + ' />';
-                html += '<label for="' + id + '">' + bt.Name + '</label>';
+                    + ' id=' + id + ' value=' + bt.Id + ' name=' + name + ' />';
+                html += '<label for="' + id + '">' + betname + '</label>';
                 html += '</td>';
             } else {
                 html += '<td>&nbsp;</td>';
             }
 
-            startPosition ++;
+            startPosition++;
         }
         html += '</tr>';
     }
