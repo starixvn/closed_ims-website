@@ -9,8 +9,8 @@ using Fanex.TicketControl.Core.Models;
 namespace Fanex.TicketControl.Misc.Criteria
 {
     public class GetTicketsListingCriteria : CriteriaBase
-    {        
-        
+    {
+        [Display(Name = "MatchId")]
         public int MatchID { get; set; }
 
         [Display(Name = "Licensee")]
