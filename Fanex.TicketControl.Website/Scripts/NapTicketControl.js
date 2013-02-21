@@ -1,20 +1,28 @@
 ﻿/* File Created: January 28, 2013 */
 
-var NapTicketControl = (function ($) {
+var NapTicketControl = function ($) {
     var MessageType = {
         Success: 1,
         Warning: 2,
         Error: 3
     };
+
     return {
+        miniMenu: null,
+
+        init: function () {
+            NapTicketControl.miniMenu = $('header .mini-menu').change(function () {
+                window.location.replace($(this).val());
+            });
+        },
+
         disableInput: function () {
             try { $.blockUI(); } catch (e) { }
         },
         enableInput: function () {
             try { $.unblockUI(); } catch (e) { }
         },
-        popUp:
-        {
+        popUp: {
             arrayHighLightControl: [],
             show: function (message, targets, messageType) {
                 NapTicketControl.NapTicketControlPopUp
@@ -99,4 +107,8 @@ var NapTicketControl = (function ($) {
             }
         }
     };
-} (jQuery));
+} (jQuery);
+
+$(document).ready(function () {
+    NapTicketControl.init();
+});
