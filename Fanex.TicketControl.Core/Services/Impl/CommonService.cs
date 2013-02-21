@@ -43,7 +43,6 @@ using Fanex.TicketControl.Core.Repository.Impl;
                     LiveIndicator = r.ToBool("liveindicator")
                 };
             };
-
             IList<Bettypes> bettypes = _repository.Fetch<Bettypes>(criteria, mappingFunc);
             return bettypes;
         }

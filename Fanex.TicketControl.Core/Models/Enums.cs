@@ -20,16 +20,11 @@ namespace Fanex.TicketControl.Core.Models
     /// TODO: Update summary.
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class Enums
+    public enum ProductType
     {
-        public enum TicketControlMode
-        {
-            Sportsbook = 0,
-            NumberGame = 1,
-            EarlyKO = 2,
-            TicketListing = 3,
-            MixParlay = 4,
-            VirtualSports = 5
-        }
+        Sportsbook = 0,
+        NumberGame = 1,
+        VirtualSports = 5,
+        LiveCasino = 6
     }
 }

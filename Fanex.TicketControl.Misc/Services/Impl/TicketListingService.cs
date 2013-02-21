@@ -20,8 +20,8 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using System.Data;
     using Fanex.TicketControl.Misc.Criteria;
     using Fanex.Common.Extensions;
-using Fanex.TicketControl.Core.Services.Interface;
-using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Core.Services.Interface;
+    using Fanex.TicketControl.Core.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -50,10 +50,14 @@ using Fanex.TicketControl.Core.Criteria;
             return licensees;
         }
 
-
         public IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria)
         {
             return _commonService.SelBettypes(criteria);
+        }
+
+        public void GetTicketListing(GetTicketsListingCriteria criteria)
+        {
+            throw new NotImplementedException();
         }
     }
 }
