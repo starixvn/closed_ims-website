@@ -43,13 +43,15 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                     product.Result = GetResultInfo(objectDb);
 
 
+                    
                     if(product.Result.Code == 0 ) // no error
                     {
                         // get match info 
                         var matchTbl = dataset.Tables[0];
                         
-                        // get the ticket list
+                        // get the tickets listing
                         var mainTable = dataset.Tables[1];
+
                     }
                 }
             }
