@@ -16,8 +16,10 @@ using Fanex.TicketControl.Core.Criteria;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public interface ICommonService
+    public interface ICoreService
     {
-        IList<Bettypes> SelBettypes(GetBettypeCriteria criteria);
+        IList<Bettypes> GetBettypes(GetBettypeCriteria criteria);
+
+        IList<Licensee> GetAllLicensees();
     }
 }
