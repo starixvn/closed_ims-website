@@ -547,3 +547,37 @@ fieldset.form {
 	.box-shadow(0 0 5px @grayLight);
 	display: none;
 }
+
+
+/* The hint to Hide and Show */
+.hint
+{
+	display: none;
+	position: absolute;
+	min-width: 150px;
+	margin-top: -4px;
+	border: 1px solid #c93;
+	padding: 10px 12px;
+	background: #ffc;
+}
+
+/* The pointer image is hadded by using another span */
+.hint .hint-pointer
+{
+	position: absolute;
+	left: 10px;
+	top: 38px;
+	width: 20px;
+	height: 19px;
+	background: url('img/pointer.png') left top no-repeat;
+}
+
+.hint ul
+{
+	margin: 5px 0px 0px 0px;
+}
+
+.hint ul li
+{
+	line-height: 18px;
+}

@@ -213,6 +213,7 @@
     <Content Include="Content\base\img\dot-white.png" />
     <Content Include="Content\base\img\icon-excel.gif" />
     <Content Include="Content\base\img\icons\appbar.clear.reflect.horizontal.white.png" />
+    <Content Include="Content\base\img\pointer.png" />
     <Content Include="Content\img\BetList.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
