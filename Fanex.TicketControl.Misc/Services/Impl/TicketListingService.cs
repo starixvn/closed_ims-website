@@ -39,11 +39,6 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             _coreService = new CoreService();
         }
 
-        public IList<Licensee> GetAllLicensees()
-        {
-            return _coreService.GetAllLicensees();
-        }
-
         public IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria)
         {
             return _coreService.GetBettypes(criteria);

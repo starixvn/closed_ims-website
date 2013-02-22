@@ -43,10 +43,10 @@ namespace Fanex.TicketControl.Core.Services.Impl
                     LiveIndicator = r.ToBool("liveindicator")
                 };
             };
+
             IList<Bettypes> bettypes = _repository.Fetch<Bettypes>(criteria, mappingFunc);
             return bettypes;
         }
-
 
         public IList<Licensee> GetAllLicensees()
         {

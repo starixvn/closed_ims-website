@@ -24,8 +24,6 @@ namespace Fanex.TicketControl.Misc.Services.Interface
     /// </summary>
     public interface ITicketListingService
     {
-        IList<Licensee> GetAllLicensees();
-
         IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria);
 
         ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria);
