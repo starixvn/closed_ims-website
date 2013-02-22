@@ -18,11 +18,12 @@ namespace Fanex.TicketControl.Misc.Controllers
     using Fanex.TicketControl.Misc.Services.Impl;
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.Misc.Criteria;
+    using Fanex.TicketControl.Core.Web.Controllers;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class TicketListingController : Controller
+    public class TicketListingController : BaseController
     {
         private readonly ITicketListingService _ticketListingService;
 
@@ -48,9 +49,9 @@ namespace Fanex.TicketControl.Misc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(GetTicketsListingCriteria criteria)
+        public JsonResult Index(GetTicketsListingCriteria criteria)
         {
-            return View();
+            return Json(_ticketListingService.GetTicketListing(criteria));
         }
 
         [HttpPost]

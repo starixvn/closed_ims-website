@@ -9,31 +9,31 @@ using Fanex.TicketControl.Core.Models;
 namespace Fanex.TicketControl.Misc.Criteria
 {
     public class GetTicketsListingCriteria : CriteriaBase
-    {        
-        
+    {
+        [Display(Name = "MatchId")]
         public int MatchID { get; set; }
 
         [Display(Name = "Licensee")]
         public int LicenseeID { get; set; }
 
-        public string[] BetTypes { get; set; } // DeadBettypes
+        public string[] BetTypes { get; set; } // Dead Bettypes
 
-        public string[] LiveBetTypes { get; set; }
+        public string[] LiveBetTypes { get; set; } // Live Bettypes
 
         [Display(Name="Event Type")]
-        public int EventType { get; set; } // live type
+        public int EventType { get; set; } 
 
         [Display(Name="Home")]
-        public int LiveHomeScore { get; set; }
+        public int? LiveHomeScore { get; set; }
 
         [Display(Name = "Away")]
-        public int LiveAwayScore { get; set; }
+        public int? LiveAwayScore { get; set; }
 
         [Display(Name="From")]
-        public DateTime FromTransDate { get; set; }
+        public DateTime? FromTransDate { get; set; }
 
         [Display(Name = "To")]
-        public DateTime ToTransDate { get; set; }
+        public DateTime? ToTransDate { get; set; }
 
         public ProductType Product { get; set; } // type
 

@@ -3,5 +3,6 @@
   <Function Name="Misc">
     <Setting Key="Misc_Acc_SiteSel_Licensee" SpName="Acc_SiteSel_Licensee" DbName="archive" />
     <Setting Key="Misc_SelBettype" SpName="Acc_BetTypeSel" DbName="db053"  ></Setting>
+    <Setting Key="Acc_Rpt_TicketsListing" SpName="Acc_Rpt_TicketsListing" DbName="db053"  ></Setting>
   </Function>  
 </Functions>

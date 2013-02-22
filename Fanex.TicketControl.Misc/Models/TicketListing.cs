@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Fanex.TicketControl.Core.Models;
 
 namespace Fanex.TicketControl.Misc.DTO
 {
@@ -12,9 +13,7 @@ namespace Fanex.TicketControl.Misc.DTO
 
         public MatchInfo MatchInfo { get; set; }
 
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
+        public Result Result { get; set; }
     }
 
     [Serializable]

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fanex.TicketControl.Misc.Criteria;
+using Fanex.TicketControl.Misc.DTO;
 
 namespace Fanex.TicketControl.Misc.Repositories.Interface
 {
     public interface ITicketListingRepository
     {
-        void GetTicketListing(GetTicketsListingCriteria criteria);
+        ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria);
     }
 }
