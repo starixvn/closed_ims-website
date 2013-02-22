@@ -182,6 +182,7 @@
   <ItemGroup>
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
+    <Content Include="Areas\Misc\Scripts\Core.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\DeleteSingleTicket.js" />

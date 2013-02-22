@@ -174,8 +174,8 @@ TicketListing.prototype.GetLicensees = function () {
             NapTicketControl.disableInput();
         },
         success: function (licensees) {
-            if (licensees) {
-                self.RenderLicenseeDropDownList(licensees);
+            if (licensees) {                
+                core.RenderLicenseeDropDownList(licensees);
             }
         },
         error: function () {
@@ -187,20 +187,7 @@ TicketListing.prototype.GetLicensees = function () {
     });
 };
 
-TicketListing.prototype.RenderLicenseeDropDownList = function (licensees) {
-    var self = this;
-    var licenseeLength = licensees.length;
-    var $licensee = self.DOMElement.$ddlLiccensee;
-    var licenseeHtml = '';
-    
-    for (var index = 0; index < licenseeLength; index++) {
-        var currentLicensee = licensees[index];
-        licenseeHtml += '<option value="' + currentLicensee.Id + '">' + currentLicensee.Name + '</option>';
-    }
 
-    $licensee.append("<optgroup label='Licensee'></optgroup>");
-    $licensee.find('optgroup').append(licenseeHtml);
-};
 
 TicketListing.prototype.GetBettypes = function (product) {
     var self = this;
