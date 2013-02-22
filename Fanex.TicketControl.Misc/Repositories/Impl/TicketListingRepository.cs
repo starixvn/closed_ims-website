@@ -17,7 +17,9 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
     {
         public ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria)
         {
-            ProductListingDTO product = new ProductListingDTO(); 
+            ProductListingDTO product = new ProductListingDTO();
+
+            string name = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(1);
 
             try
             {

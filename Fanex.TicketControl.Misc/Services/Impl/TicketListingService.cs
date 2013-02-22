@@ -31,31 +31,22 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     public class TicketListingService : ServiceBase, ITicketListingService
     {
         private readonly TicketListingRepository _ticketListingRepository;
-        private readonly ICommonService _commonService;
+        private readonly ICoreService _coreService;
 
         public TicketListingService()
         {
             _ticketListingRepository = new TicketListingRepository();
-            _commonService = new CommonService();
+            _coreService = new CoreService();
         }
 
         public IList<Licensee> GetAllLicensees()
         {
-            Func<IDataReader, Licensee> mappingFunc = r =>
-                {
-                    return new Licensee { 
-                        Id = r.ToInt("LicenseeID"),
-                        Name = r.ToString("LicenseeName")
-                    };
-                };
-
-            IList<Licensee> licensees = _ticketListingRepository.Fetch<Licensee>(new GetAllLicenseeCriteria(), mappingFunc);
-            return licensees;
+            return _coreService.GetAllLicensees();
         }
 
         public IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria)
         {
-            return _commonService.SelBettypes(criteria);
+            return _coreService.GetBettypes(criteria);
         }
 
         public ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria)

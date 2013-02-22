@@ -20,21 +20,21 @@ namespace Fanex.TicketControl.Core.Services.Impl
     using Fanex.TicketControl.Core.Criteria;
     using System.Data;
     using Fanex.Common.Extensions;
-using Fanex.TicketControl.Core.Repository.Impl;
+    using Fanex.TicketControl.Core.Repository.Impl;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class CommonService : ServiceBase, ICommonService
+    public class CoreService : ServiceBase, ICoreService
     {
         private readonly BaseRepository _repository;
 
-        public CommonService()
+        public CoreService()
         {
             _repository = new BaseRepository();
         }
 
-        public IList<Bettypes> SelBettypes(GetBettypeCriteria criteria)
+        public IList<Bettypes> GetBettypes(GetBettypeCriteria criteria)
         {
             Func<IDataReader, Bettypes> mappingFunc = r => {
                 return new Bettypes { 
@@ -45,6 +45,22 @@ using Fanex.TicketControl.Core.Repository.Impl;
             };
             IList<Bettypes> bettypes = _repository.Fetch<Bettypes>(criteria, mappingFunc);
             return bettypes;
+        }
+
+
+        public IList<Licensee> GetAllLicensees()
+        {
+            Func<IDataReader, Licensee> mappingFunc = r =>
+            {
+                return new Licensee
+                {
+                    Id = r.ToInt("LicenseeID"),
+                    Name = r.ToString("LicenseeName")
+                };
+            };
+
+            IList<Licensee> licensees = _repository.Fetch<Licensee>(new GetAllLicenseeCriteria(), mappingFunc);
+            return licensees;
         }
     }
 }
