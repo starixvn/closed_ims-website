@@ -8,7 +8,7 @@
         {
             context.MapRoute(
                 areaName + "_Default",
-                "Misc/{controller}/{action}/{id}",
+                "Misc/{controller}/{action}/{id}",                
                 new { action = "Index", id = UrlParameter.Optional },
                 new[] { "Fanex.TicketControl.Misc.Controllers" });
         }

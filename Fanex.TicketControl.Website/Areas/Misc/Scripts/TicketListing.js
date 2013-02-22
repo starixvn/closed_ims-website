@@ -43,8 +43,9 @@ TicketListing.prototype.CacheDOMElement = function () {
 TicketListing.prototype.Init = function () {
     var self = this;
 
-    self.CacheDOMElement();
-    self.GetLicensees();
+    self.CacheDOMElement();    
+    core.GetLicensees();
+
     self.GetBettypes('Sportsbook');
 
     self.SetupCalendar('', '.txtCalendar');
@@ -160,33 +161,6 @@ TicketListing.prototype.Init = function () {
         });
     });
 };
-
-TicketListing.prototype.GetLicensees = function () {
-    var self = this;
-
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "Misc/TicketListing/GetLicensees",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: null,
-        beforeSend: function () {
-            NapTicketControl.disableInput();
-        },
-        success: function (licensees) {
-            if (licensees) {                
-                core.RenderLicenseeDropDownList(licensees);
-            }
-        },
-        error: function () {
-
-        },
-        complete: function () {
-            NapTicketControl.enableInput();
-        }
-    });
-};
-
 
 
 TicketListing.prototype.GetBettypes = function (product) {
