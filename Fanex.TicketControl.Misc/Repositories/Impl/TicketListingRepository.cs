@@ -10,6 +10,7 @@ using Fanex.Data;
 using System.Data;
 using Fanex.Common;
 using Fanex.TicketControl.Misc.DTO;
+using Fanex.TicketControl.Core.Services.Impl;
 
 namespace Fanex.TicketControl.Misc.Repositories.Impl
 {
@@ -42,15 +43,34 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                     // get result info
                     product.Result = GetResultInfo(objectDb);
 
-
-                    
-                    if(product.Result.Code == 0 ) // no error
+                    if(product.Result.Id == 0 ) // no error
                     {
                         // get match info 
                         var matchTbl = dataset.Tables[0];
-                        
+                        var matchInfo = new MatchInfo();
+                        matchInfo.MatchCode = Converter.ToString2(matchTbl.Rows[0]["matchcode"]);
+                        matchInfo.EventDate = Converter.ToDateTime(matchTbl.Rows[0]["eventdate"]).ToShortDateString();
+                        var homeId = Converter.ToInt(matchTbl.Rows[0]["homeid"]);
+                        matchInfo.Home = CacheRef.GetTeamName(homeId);
+                        matchInfo.Away = CacheRef.GetTeamName(matchTbl.Rows[0]["awayid"]);
+                        product.MatchInfo = matchInfo;
+
+                        // need the function get team name from team id
+
                         // get the tickets listing
                         var mainTable = dataset.Tables[1];
+
+                        // GroupBy ways:
+                        // 0: Licensee and bettype
+                        // 1: Bettype and licensee
+                        if (criteria.GroupBy == 0)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
 
                     }
                 }
@@ -70,8 +90,8 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             // get result message
             var result = new Result
             {
-                Code = Converter.ToInt(errorCode),
-                Message = Converter.ToString2(errorMessage)
+                Id = Converter.ToInt(errorCode),
+                Name = Converter.ToString2(errorMessage)
             };
 
             return result;
