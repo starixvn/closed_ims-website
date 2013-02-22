@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\TicketListingController.cs" />
-    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
     <Compile Include="Criteria\GetTicketsListingCriteria.cs" />
     <Compile Include="Models\TicketListing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
