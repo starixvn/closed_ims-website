@@ -1,5 +1,6 @@
 ﻿@import "../bootstrap/bootstrap.less";
 @import "colors.less";
+@import "mixins.less";
 
 /********************************************************/
 /*                     FONTS                            */
@@ -108,18 +109,10 @@ p, ul, ol, dl {
 }
 
 .submit {
-	display: inline-block;
-	padding: 3px 16px;
-	background-color: @primaryColor;
-	border: 1px solid @primaryColor;
-	color: @white;
-	text-transform: uppercase;
-	&:hover {
-		background-color: darken(@primaryColor, 10%);
-		text-decoration: none;
-		color: @white;
-	}
-	&:active, &:focus { .box-shadow(0 0 0 1px @white inset) }
+	.btn-2D(@primaryColor);
+}
+.submit-3D {
+	.btn-3D(@primaryColor);
 }
 
 /********************************************************/
