@@ -17,7 +17,8 @@ namespace Fanex.TicketControl.Core.Controllers
     /// </summary>
     public class CommonController : BaseController
     {
-        ICoreService _coreService;
+        private ICoreService _coreService;
+
         public CommonController() {
             _coreService = new CoreService();
         }

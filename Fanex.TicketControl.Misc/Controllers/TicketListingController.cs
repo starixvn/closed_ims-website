@@ -55,17 +55,10 @@ namespace Fanex.TicketControl.Misc.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetLicensees()
-        {
-            return Json(_ticketListingService.GetAllLicensees());
-        }
-
-        [HttpPost]
         public JsonResult GetBettypes(GetBettypeCriteria criteria)
         {
             return Json(_ticketListingService.GetAllBettypes(criteria));
         }
 
-        
     }
 }

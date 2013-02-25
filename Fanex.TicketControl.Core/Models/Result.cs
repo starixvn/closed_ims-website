@@ -6,13 +6,12 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace Fanex.TicketControl.Core.Models
 {
-
     [Serializable]
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class Result
+    public class Result : BaseModel
     {
-        public int Code { get; set; }
-
-        public string Message { get; set; }
+        // Convention:
+        // Id: is Error Code
+        // Name: is Error Message
     }
 }
