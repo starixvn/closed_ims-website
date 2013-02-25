@@ -126,7 +126,7 @@ TicketListing.prototype.Init = function () {
         var url = $("#TicketListingForm").attr('action');
 
         var matchid = document.getElementById('MatchID');
-        Validators.show(matchid, 'Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID');
+        Validator.show(matchid, 'Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID');
 
         return;
 

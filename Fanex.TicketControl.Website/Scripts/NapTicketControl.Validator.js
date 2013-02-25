@@ -60,7 +60,7 @@
                 hint.style.height = height + 'px';
                 hintPointer.style.left = (pointerXPos + 'px');
                 hintPointer.style.top = (pointerYPos + 'px');
-                var pos = Validators.utils.findPos(elementInput);
+                var pos = Validator.utils.findPos(elementInput);
                 hint.style.left = (pos[0] + xPos) + 'px';
                 hint.style.top = (pos[1] + yPos) + 'px';
                 elementInput.onchange = function () {
