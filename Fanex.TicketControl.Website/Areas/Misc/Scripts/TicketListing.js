@@ -125,10 +125,9 @@ TicketListing.prototype.Init = function () {
         var params = $("#TicketListingForm").serialize();
         var url = $("#TicketListingForm").attr('action');
 
-        var matchid = document.getElementById('MatchID');
-        Validator.show(matchid, 'Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID');
-
-        return;
+//        var matchid = document.getElementById('MatchID');
+//        Validator.show(matchid, 'Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID');
+//        return;       
 
         $.ajax({
             type: "POST",
@@ -139,6 +138,9 @@ TicketListing.prototype.Init = function () {
             },
             success: function (ticketlisting) {
                 alert(ticketlisting.toString());
+
+                // check result to see any error from server
+//                ticketlisting.Result.
             },
             error: function () {
                 console.log('has error :(');
@@ -164,6 +166,10 @@ TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
     }
 }
 
+TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
+
+};
+
 TicketListing.prototype.CollectData = function () {
     var params = $("#TicketListingForm").serialize();
-}
+};
