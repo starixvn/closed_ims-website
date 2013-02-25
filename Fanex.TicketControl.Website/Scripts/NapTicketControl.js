@@ -7,6 +7,7 @@ var NapTicketControl = function ($) {
         Error: 3
     };
 
+
     return {
         miniMenu: null,
 
@@ -105,7 +106,8 @@ var NapTicketControl = function ($) {
                     }
                 });
             }
-        }
+        }, 
+
     };
 } (jQuery);
 
