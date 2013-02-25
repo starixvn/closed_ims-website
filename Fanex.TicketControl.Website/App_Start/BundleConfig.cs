@@ -19,7 +19,8 @@ namespace Fanex.TicketControl.Website
                 "~/Scripts/_Libs/FanexGrid/Fanex.Grid.js",
                 "~/Scripts/NapTicketControl.js",
                 "~/Scripts/NapTicketControl.Helper.js",
-                "~/Scripts/NapTicketControl.Validator.js"
+                "~/Scripts/NapTicketControl.Validator.js",
+                "~/Scripts/_Libs/Validation/jquery.validationEngine.js"
 
             ));
 
@@ -61,7 +62,6 @@ namespace Fanex.TicketControl.Website
             bundles.Add(new ScriptBundle("~/scripts-bundle/knockout").Include(
                         "~/Scripts/_Libs/knockout*"));
             #endregion
-
         }
     }
 }
