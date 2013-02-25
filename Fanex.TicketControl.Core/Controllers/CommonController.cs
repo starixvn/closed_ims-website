@@ -10,6 +10,7 @@ namespace Fanex.TicketControl.Core.Controllers
     using Fanex.TicketControl.Core.Services.Impl;
     using Fanex.TicketControl.Core.Services.Interface;
     using Fanex.TicketControl.Core.Web.Controllers;
+    using Fanex.TicketControl.Core.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -25,6 +26,12 @@ namespace Fanex.TicketControl.Core.Controllers
         public JsonResult GetLicensees()
         {
             return Json(_coreService.GetAllLicensees());
+        }
+
+        [HttpPost]
+        public JsonResult GetBettypes(GetBettypeCriteria criteria)
+        {
+            return Json(_coreService.GetBettypes(criteria));
         }
     }
 }
