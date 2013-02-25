@@ -1,4 +1,4 @@
-﻿/* File Created: February 5, 2013 */
+/* File Created: February 5, 2013 */
 function TicketListing() {
     this.DOMElement =
     {
@@ -44,8 +44,8 @@ TicketListing.prototype.Init = function () {
     var self = this;
 
     self.CacheDOMElement();
-    Helper.GetLicensees();
-    Helper.GetBettypes('Sportsbook');
+    Core.GetLicensees();
+    Core.GetBettypes('Sportsbook');
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
 
@@ -60,7 +60,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes('Sportsbook', eventType);
+        Core.GetBettypes('Sportsbook', eventType);
     });
 
     // enable/disable Trans Date
@@ -97,7 +97,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes(product, eventType);
+        Core.GetBettypes(product, eventType);
     });
 
     // check all bettypes

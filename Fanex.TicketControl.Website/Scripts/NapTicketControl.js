@@ -1,4 +1,4 @@
-﻿/* File Created: January 28, 2013 */
+/* File Created: January 28, 2013 */
 
 var NapTicketControl = function ($) {
     var MessageType = {
@@ -6,7 +6,6 @@ var NapTicketControl = function ($) {
         Warning: 2,
         Error: 3
     };
-
 
     return {
         miniMenu: null,
@@ -106,8 +105,7 @@ var NapTicketControl = function ($) {
                     }
                 });
             }
-        }, 
-
+        }
     };
 } (jQuery);
 
