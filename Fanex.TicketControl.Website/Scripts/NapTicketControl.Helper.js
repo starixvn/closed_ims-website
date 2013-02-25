@@ -35,7 +35,6 @@
                     }
                 },
                 error: function () {
-
                 },
                 complete: function () {
                     NapTicketControl.enableInput();

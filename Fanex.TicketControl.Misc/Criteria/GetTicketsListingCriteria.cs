@@ -16,12 +16,12 @@ namespace Fanex.TicketControl.Misc.Criteria
         [Display(Name = "Licensee")]
         public int LicenseeID { get; set; }
 
-        public string[] BetTypes { get; set; } // Dead Bettypes
+        public string BetTypes { get; set; } // Dead Bettypes
 
-        public string[] LiveBetTypes { get; set; } // Live Bettypes
+        public string LiveBetTypes { get; set; } // Live Bettypes
 
         [Display(Name="Event Type")]
-        public int EventType { get; set; } 
+        public int EventType { get; set; } // old is Live Type
 
         [Display(Name="Home")]
         public int? LiveHomeScore { get; set; }
@@ -43,10 +43,6 @@ namespace Fanex.TicketControl.Misc.Criteria
         [SpParam(Ignored = true)]
         [Display(Name = "Group By")]
         public int GroupBy { get; set; }
-
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
 
         public override string GetSettingKey()
         {

@@ -24,10 +24,12 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             {
                 using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
                 {
+
+                    
                     objectDb.AddInParameter("MatchID", DbType.Int32, criteria.MatchID);
                     objectDb.AddInParameter("LicenseeID", DbType.Int32, criteria.LicenseeID);
-                    objectDb.AddInParameter("Bettypes", DbType.String, criteria.BetTypes == null ? null : string.Join(",", criteria.BetTypes));
-                    objectDb.AddInParameter("BettypesLive", DbType.String, criteria.LiveBetTypes == null ? null : string.Join(",", criteria.LiveBetTypes));
+                    objectDb.AddInParameter("Bettypes", DbType.String, criteria.BetTypes);
+                    objectDb.AddInParameter("BettypesLive", DbType.String, criteria.LiveBetTypes);
                     objectDb.AddInParameter("LiveType", DbType.Int16, criteria.EventType);
                     objectDb.AddInParameter("Livehomescore", DbType.Int16, criteria.LiveHomeScore);
                     objectDb.AddInParameter("Liveawayscore", DbType.Int16, criteria.LiveAwayScore);

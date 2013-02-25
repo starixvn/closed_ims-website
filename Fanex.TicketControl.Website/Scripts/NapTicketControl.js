@@ -1,4 +1,4 @@
-/* File Created: January 28, 2013 */
+﻿/* File Created: January 28, 2013 */
 
 var NapTicketControl = function ($) {
     var MessageType = {
@@ -19,9 +19,11 @@ var NapTicketControl = function ($) {
         disableInput: function () {
             try { $.blockUI(); } catch (e) { }
         },
+
         enableInput: function () {
             try { $.unblockUI(); } catch (e) { }
         },
+
         popUp: {
             arrayHighLightControl: [],
             show: function (message, targets, messageType) {
@@ -62,9 +64,11 @@ var NapTicketControl = function ($) {
 
                 NapTicketControl.NapTicketControlPopUp.show();
             },
+
             hide: function () {
                 NapTicketControl.NapTicketControlPopUp.hide();
             },
+
             highLightControl: function (targets) {
                 var controlIds = targets.split(',');
                 for (var i = 0; i < controlIds.length; i++) {
@@ -77,6 +81,7 @@ var NapTicketControl = function ($) {
                 }
 
             },
+
             removeHighLight: function () {
                 var controlIds = NapTicketControl.popUp.arrayHighLightControl;
                 for (var i = 0; i < controlIds.length; i++) {
@@ -85,6 +90,7 @@ var NapTicketControl = function ($) {
                 NapTicketControl.popUp.arrayHighLightControl = [];
                 NapTicketControl.popUp.hide();
             },
+
             reCheckIn: function () {
                 $.ajax({
                     url: NapTicketControl.NapTicketControlRoot + "UserLogin/Login/ReCheckLogin",
@@ -105,7 +111,24 @@ var NapTicketControl = function ($) {
                     }
                 });
             }
+        },
+
+        showMessageBox: function (type, msg) {
+            var msgbox = $('#msg-box');
+
+            if (msgbox.length == 0) {
+                msgbox = $(
+                    '<div class="alert alert-error" id="msg-box">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        '<div class="alert-content">' +
+                        '</div>' +
+                    '</div>').prependTo('body');
+            }
+
+            msgbox.attr('class', type).find('.alert-content').html(msg);
+            msgbox.fadeIn();
         }
+
     };
 } (jQuery);
 
