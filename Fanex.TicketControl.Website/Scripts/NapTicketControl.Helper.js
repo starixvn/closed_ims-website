@@ -31,7 +31,7 @@
                 },
                 success: function (licensees) {
                     if (licensees) {
-                        Core.RenderLicenseeDropDownList(licensees);
+                        Helper.RenderLicenseeDropDownList(licensees);
                     }
                 },
                 error: function () {

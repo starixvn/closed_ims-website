@@ -125,10 +125,10 @@ TicketListing.prototype.Init = function () {
         var params = $("#TicketListingForm").serialize();
         var url = $("#TicketListingForm").attr('action');
 
-        //var matchid = document.getElementById('MatchID');
-        //Validator.show(matchid, 'Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID');
+        var matchid = document.getElementById('MatchID');
+        Validator.show(matchid, 'Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID');
 
-      //  return;
+        return;
 
         $.ajax({
             type: "POST",
