@@ -17,7 +17,10 @@ namespace Fanex.TicketControl.Website
                 "~/Scripts/_Libs/Bootstrap/bootstrap-tooltip.js",
                 "~/Scripts/_Libs/BlockUI/jquery.blockUI.1.33.js",
                 "~/Scripts/_Libs/FanexGrid/Fanex.Grid.js",
-                "~/Scripts/NapTicketControl.js"
+                "~/Scripts/NapTicketControl.js",
+                "~/Scripts/NapTicketControl.Helper.js",
+                "~/Scripts/NapTicketControl.Validator.js"
+
             ));
 
             #endregion

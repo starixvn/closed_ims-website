@@ -1,4 +1,4 @@
-﻿/* File Created: January 28, 2013 */
+/* File Created: January 28, 2013 */
 
 var NapTicketControl = function ($) {
     var MessageType = {
