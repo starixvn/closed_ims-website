@@ -1,4 +1,4 @@
-﻿/* File Created: February 5, 2013 */
+/* File Created: February 5, 2013 */
 function TicketListing() {
     this.DOMElement =
     {
@@ -48,8 +48,8 @@ TicketListing.prototype.Init = function () {
     var self = this;
 
     self.CacheDOMElement();
-    Helper.GetLicensees();
-    Helper.GetBettypes('Sportsbook');
+    Core.GetLicensees();
+    Core.GetBettypes('Sportsbook');
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
 
@@ -64,7 +64,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes('Sportsbook', eventType);
+        Core.GetBettypes('Sportsbook', eventType);
     });
 
     // enable/disable Trans Date
@@ -101,7 +101,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes(product, eventType);
+        Core.GetBettypes(product, eventType);
     });
 
     // check all bettypes
@@ -204,7 +204,6 @@ TicketListing.prototype.Init = function () {
                 NapTicketControl.disableInput();
             },
             success: function (ticketlisting) {
-                // check result to see any error from server
                 if (ticketlisting.Result.Id !== 0) {
                     NapTicketControl.showMessageBox('alert alert-error', ticketlisting.Result.Name);
                 }else {
@@ -259,7 +258,6 @@ TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
 
 TicketListing.prototype.RenderTickets = function (items) {
     var self = this;
-
     if($('.tbl-tickets').length > 0){
         // remove it
         $('.tbl-tickets').remove();
@@ -300,4 +298,4 @@ TicketListing.prototype.RenderTickets = function (items) {
 
 TicketListing.prototype.CollectData = function () {
     var params = $("#TicketListingForm").serialize();
-};
+}

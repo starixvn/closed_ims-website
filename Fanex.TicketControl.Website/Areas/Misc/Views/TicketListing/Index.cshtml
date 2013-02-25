@@ -30,7 +30,8 @@
                 @Html.LabelFor(m => m.MatchID)
             </div>
             <div class="edit-field span4">
-                @Html.TextBox("MatchID", string.Empty)
+                @Html.TextBox("MatchID", string.Empty, new {maxlength=10 })
+                
             </div>
         </div>
         <div class="filter-cell">

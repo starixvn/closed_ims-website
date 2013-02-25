@@ -471,6 +471,7 @@
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
     <Content Include="Areas\Misc\Views\TicketListing\LewisIndex.cshtml" />
+    <None Include="Content\base\mixins.less" />
     <None Include="Content\base\report.less" />
     <None Include="Content\bootstrap\accordion.less" />
     <None Include="Content\bootstrap\alerts.less" />
