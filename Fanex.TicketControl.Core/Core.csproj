@@ -79,7 +79,9 @@
   <ItemGroup>
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Criteria\BalanceUpCriteria.cs" />
+    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
     <Compile Include="Criteria\GetBettypeCriteria.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
@@ -106,14 +108,15 @@
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
     <Compile Include="Services\Impl\CacheRef.cs" />
-    <Compile Include="Services\Impl\CommonService.cs" />
+    <Compile Include="Services\Impl\CoreService.cs" />
     <Compile Include="Services\Impl\LoggingHandler.cs" />
     <Compile Include="Services\Impl\MailService.cs" />
     <Compile Include="Services\Impl\PermissionService.cs" />
     <Compile Include="Services\Impl\ReportService.cs" />
     <Compile Include="Services\Impl\ServiceBase.cs" />
-    <Compile Include="Services\Interface\ICommonService.cs" />
+    <Compile Include="Services\Interface\ICoreService.cs" />
     <Compile Include="Services\Interface\IServiceBase.cs" />
+    <Compile Include="CoreAreaRegistration.cs" />
     <Compile Include="Web\AppSession.cs" />
     <Compile Include="Web\CacheManager.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />

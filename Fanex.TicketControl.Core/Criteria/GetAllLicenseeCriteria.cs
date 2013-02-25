@@ -1,24 +1,22 @@
-﻿// --------------------------------------------------------------------------
-// <copyright file="GetAllLicensee.cs" company="Nexcel Solutions Vietnam">
-// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+﻿// -----------------------------------------------------------------------
+// <copyright file="GetAllLicenseeCriteria.cs" company="Microsoft">
+// TODO: Update copyright text.
 // </copyright>
-// --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2013.2.4">Created</change>
-// </history>
+// -----------------------------------------------------------------------
 
-
-namespace Fanex.TicketControl.Misc.Criteria
+namespace Fanex.TicketControl.Core.Criteria
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using Fanex.NAP.Framework.Data;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class GetAllLicenseeCriteria : CriteriaBase
     {
         /// <summary>

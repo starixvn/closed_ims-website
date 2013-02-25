@@ -182,6 +182,7 @@
   <ItemGroup>
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
+    <Content Include="Areas\Misc\Scripts\Core.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\DeleteSingleTicket.js" />
@@ -212,6 +213,7 @@
     <Content Include="Content\base\img\dot-white.png" />
     <Content Include="Content\base\img\icon-excel.gif" />
     <Content Include="Content\base\img\icons\appbar.clear.reflect.horizontal.white.png" />
+    <Content Include="Content\base\img\pointer.png" />
     <Content Include="Content\img\BetList.png" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />

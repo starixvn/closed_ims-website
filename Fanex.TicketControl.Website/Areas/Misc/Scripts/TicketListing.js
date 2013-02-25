@@ -1,4 +1,4 @@
-﻿/* File Created: February 5, 2013 */
+/* File Created: February 5, 2013 */
 function TicketListing() {
     this.DOMElement =
     {
@@ -43,8 +43,9 @@ TicketListing.prototype.CacheDOMElement = function () {
 TicketListing.prototype.Init = function () {
     var self = this;
 
-    self.CacheDOMElement();
-    self.GetLicensees();
+    self.CacheDOMElement();    
+    core.GetLicensees();
+
     self.GetBettypes('Sportsbook');
 
     self.SetupCalendar('', '.txtCalendar');
@@ -161,46 +162,6 @@ TicketListing.prototype.Init = function () {
     });
 };
 
-TicketListing.prototype.GetLicensees = function () {
-    var self = this;
-
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "Misc/TicketListing/GetLicensees",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: null,
-        beforeSend: function () {
-            NapTicketControl.disableInput();
-        },
-        success: function (licensees) {
-            if (licensees) {
-                self.RenderLicenseeDropDownList(licensees);
-            }
-        },
-        error: function () {
-
-        },
-        complete: function () {
-            NapTicketControl.enableInput();
-        }
-    });
-};
-
-TicketListing.prototype.RenderLicenseeDropDownList = function (licensees) {
-    var self = this;
-    var licenseeLength = licensees.length;
-    var $licensee = self.DOMElement.$ddlLiccensee;
-    var licenseeHtml = '';
-    
-    for (var index = 0; index < licenseeLength; index++) {
-        var currentLicensee = licensees[index];
-        licenseeHtml += '<option value="' + currentLicensee.Id + '">' + currentLicensee.Name + '</option>';
-    }
-
-    $licensee.append("<optgroup label='Licensee'></optgroup>");
-    $licensee.find('optgroup').append(licenseeHtml);
-};
 
 TicketListing.prototype.GetBettypes = function (product) {
     var self = this;

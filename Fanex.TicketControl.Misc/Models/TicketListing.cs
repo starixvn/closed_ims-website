@@ -31,15 +31,15 @@ namespace Fanex.TicketControl.Misc.DTO
     [Serializable]
     public class ProductListing
     {
-        public string Id { get; set; }
+        public string Id { get; set; }   
 
-        public string Name { get; set; }
+        public string Name { get; set; } 
 
-        public int LiveIndicator { get; set; }
+        public bool LiveIndicator { get; set; }
 
         public int TotalTrans { get; set; }
 
         public List<ProductListing> Items { get; set; }
-
+ 
     }
 }
