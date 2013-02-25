@@ -1,6 +1,5 @@
 ﻿var Core = (function ($) {
     // define some private variables
-
     var _productTypes = {
         Sportsbook: 0,
         NumberGame: 1,

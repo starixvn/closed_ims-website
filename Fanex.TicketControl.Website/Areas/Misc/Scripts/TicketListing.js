@@ -1,4 +1,4 @@
-﻿/* File Created: February 5, 2013 */
+/* File Created: February 5, 2013 */
 function TicketListing() {
     this.DOMElement =
     {
@@ -124,7 +124,12 @@ TicketListing.prototype.Init = function () {
     $('.submit').click(function () {
         var params = $("#TicketListingForm").serialize();
         var url = $("#TicketListingForm").attr('action');
-        
+
+        var matchid = document.getElementById('MatchID');
+        Validators.show(matchid, 'Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID Invalid Match ID');
+
+        return;
+
         $.ajax({
             type: "POST",
             url: url,
