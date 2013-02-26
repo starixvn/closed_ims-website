@@ -1,87 +1,179 @@
 ﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Ticket Listing";
 }
-@section Head {
-    <link rel="stylesheet" type="text/css" href="~/Areas/SportBook/Views/DeleteSingleTicket/Styles/DeleteSingleTicket.css" />
+
+@using Fanex.TicketControl.Core.Resources
+@using Fanex.TicketControl.Core.Models
+@model Fanex.TicketControl.Misc.Criteria.GetTicketsListingCriteria
+
+@section Head {    
+    <link href="~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css" />
 }
+
+@section Styles {
+    <link href="~/Areas/Misc/Styles/TicketListing.less" rel="stylesheet" type="text/css" />
+}
+
 @section Headline {
     <div class="title">
-        <div>
-            <span>Special Delete / </span><span class="curr">Delete Single</span>
-        </div>
+        <a href="~/">Home</a> / Ticket Listing
     </div>
 }
-<div id="filter-bar">
-    <div class="filter-form">
-        <div class="filter-row">
-            <div class="filter-cell">
-                <div class="lbl-field align-left width-auto">
-                    <div class="alertboxwrn">
-                        <div>
-                            You can only delete the unsettled tickets and refunded ones</div>
-                    </div>
+
+@using (Html.BeginForm("Index", "TicketListing", FormMethod.Post, new { id = "TicketListingForm" }))
+{
+<div class="filter-bar">
+    <div class="filter-bar-inner">
+    <div class="filter-row">
+        <div class="filter-cell">
+            <div class="lbl-field span2">
+                @Html.LabelFor(m => m.MatchID)
+            </div>
+            <div class="edit-field span4">
+                @Html.TextBox("MatchID", string.Empty, new {maxlength=10, @class="validate[required,custom[integer]] text-input" })
+                
+            </div>
+        </div>
+        <div class="filter-cell">
+            <div class="lbl-field span3">                
+                @Html.LabelFor(m => m.LicenseeID)
+            </div>
+            <div class="edit-field span4">
+            @{
+                var licenseeList = new List<SelectListItem>{
+                    new SelectListItem {
+                        Text = "All",
+                        Value = "0"
+                    }, 
+                    new SelectListItem {
+                        Text = "IBC Group",
+                        Value = "-1"
+                    }
+                };
+            }
+                @Html.DropDownList("LicenseeID", licenseeList, new { @class = "ddlLicensee" })
+            </div>
+        </div>
+        <div class="filter-cell">
+            <div class="lbl-field span3">
+                @Html.LabelFor(m => m.GroupBy)
+            </div>
+            <div class="edit-field span6">
+            @{
+                var groupByList = new List<SelectListItem> { 
+                    new SelectListItem {
+                        Text = "Licensee and Bet type",
+                        Value = "0"
+                    }, 
+                    new SelectListItem {
+                        Text = "Bet type and Licensee",
+                        Value = "1"
+                    }
+                };
+             }
+                @Html.DropDownList("GroupBy", groupByList)
+            </div>
+        </div>
+        <div class="filter-cell">
+            <div class="lbl-field span3">
+                @Html.LabelFor(m => m.TicketType)
+            </div>
+            <div class="edit-field span5">
+            @{
+                var filterByList = new List<SelectListItem> { 
+                    new SelectListItem {
+                        Text = "All",
+                        Value = "0"
+                    }, 
+                    new SelectListItem {
+                        Text = "Normal Tickets",
+                        Value = "1"
+                    },
+                    new SelectListItem {
+                        Text = "SA Tickets", 
+                        Value = "2"
+                    }
+                };
+            }
+                @Html.DropDownList("TicketType", filterByList, new { @class = "span5" })
+            </div>
+        </div>
+    </div>
+    <div class="filter-row">
+        <div class="filter-cell">
+            <div class="edit-field span13">
+                <div class="tick-list">
+                    <input type="radio" id="Sportsbook" name="Product" class="product" checked="checked" value="@ProductType.Sportsbook" />
+                    <label for="Sportsbook">@Labels.Sportsbook</label>
+                    <input type="radio" id="NumberGame" name="Product" class="product" value="@ProductType.NumberGame" />
+                    <label for="NumberGame">@Labels.Number_Game</label>
+                    <input type="radio" id="LiveCasino" name="Product" class="product" value="@ProductType.LiveCasino" />
+                    <label for="LiveCasino">@Labels.Live_Casino</label>
+                    <input type="radio" id="VirtualSports" name="Product" class="product" value="@ProductType.VirtualSports" />
+                    <label for="VirtualSports">@Labels.Virtual_Sports</label>
                 </div>
             </div>
         </div>
-        <div class="filter-row">
-            <div class="filter-cell">
-                <div class="lbl-field col_3 align-right">
-                    Match Id
-                </div>
-                <div class="edit-field col_6">
-                    <input name="input-field" type="text" value="" class="edit-field" />
-                </div>
-                <div class="lbl-field col_4 align-right">
-                    From TransId
-                </div>
-                <div class="edit-field col_6">
-                    <input name="input-field" type="text" value="" class="" />
-                </div>
-                <div class="lbl-field col_4 align-right">
-                    To TransId
-                </div>
-                <div class="edit-field col_6">
-                    <input name="input-field" type="text" value="" class="" />
-                </div>
-                <div class="lbl-field col_4 align-right">
-                    Filter by
-                </div>
-                <div class="edit-field col_6">
-                    <select id="ddlSAFilter" name="ddlSAFilter" class="col_5">
-                        <option selected="selected" value="0">All</option>
-                        <option value="1">Normal</option>
-                        <option value="2">SA Ticket</option>
-                    </select>
-                </div>
-                @*<div class="submit width-auto col_4">
-                    <input id="btnGenerate" name="btnGenerate" type="submit" value="SHOW" class="" />
-                </div>*@
+        <div class="filter-cell event-type-wrp">
+            <div class="lbl-field span3">
+                @Html.LabelFor(m => m.EventType)
+            </div>
+            <div class="edit-field span4">
+            @{
+                var typeList = new List<SelectListItem> { 
+                    new SelectListItem {
+                        Text = "All",
+                        Value = "2"
+                    }, 
+                    new SelectListItem {
+                        Text = "Dead Ball",
+                        Value = "1"
+                    },
+                    new SelectListItem {
+                        Text = "Live Ball",
+                        Value = "0"
+                    }
+                };
+            }
+                @Html.DropDownList("EventType", typeList, new { @class = "ddlEventType" })
             </div>
         </div>
-        <div class="filter-row">
-            <div class="filter-cell">
-                <div class="lbl-field col_3 align-right">
-                    Type
-                </div>
-                <div class="edit-field col_5" >
-                    <select id="ddlLiveIndicator" name="ddlLiveIndicator" class="col_5  alpha omega">
-                        <option value="All" selected="selected">All</option>
-                        <option value="0">Dead Ball</option>
-                        <option value="1">Live Ball</option>
-                    </select>
-                </div>
-                <div class="lbl-field col_2">
-                </div>
-                <div class="lbl-field col_20 align-left alpha">
-                    <input type="text" />
-                </div>
+    </div>
+    <div class="filter-row opt-filters" style="display: none;">
+        <fieldset>
+            <legend><i class="icon-filter"></i>Optional Filters</legend>
+            <div class="lbl-field">
+                <label for="LiveHomeScore" class="bold">@Labels.Live_Score: </label>
             </div>
+            <div class="edit-field live-score">
+                @Html.LabelFor(m => m.LiveHomeScore)
+                @Html.TextBox("LiveHomeScore", string.Empty)
+                @Html.LabelFor(m => m.LiveAwayScore)
+                @Html.TextBox("LiveAwayScore", string.Empty)        
+            </div>
+            <div class="lbl-field span5">
+                <label for="TransDate" class="bold">@Labels.Trans_Date_GMT8:</label>
+            </div>
+            <div class="edit-field datetime">
+                <input type="checkbox" class="chkTransDateRange" id="TransDate"/>
+                @Html.LabelFor(m => m.FromTransDate)                
+                @Html.TextBox("FromTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
+                @Html.LabelFor(m => m.ToTransDate)
+                @Html.TextBox("ToTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
+            </div>
+        </fieldset>
+    </div>
+    <div class="filter-row tick-list bettype-wrp">
+    </div>
+    <div class="filter-row">
+        <div class="filter-cell">            
+            <input type="submit" class="submit" value="Generate"/>
         </div>
+    </div>
     </div>
 </div>
-@section scripts
-{
-    <script type="text/javascript" src="~/Areas/SportBook/Views/DeleteSingleTicket/Scripts/DeleteSingleTicket.js"></script>
 }
+
 @section Foot {
+    @Scripts.Render("~/areas/misc/ticketlisting")
 }

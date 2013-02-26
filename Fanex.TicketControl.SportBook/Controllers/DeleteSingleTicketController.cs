@@ -18,12 +18,12 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.NAP.Core.Business;
+    using Fanex.TicketControl.Core.Web.Controllers;
 
     
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    [NapSuperAuth]
-    public class DeleteSingleTicketController : Controller
+    public class DeleteSingleTicketController : BaseController
     {
         
 
@@ -32,8 +32,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             
         }
 
-        [HttpGet]
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        
         public ActionResult Index()
         {
             return View();

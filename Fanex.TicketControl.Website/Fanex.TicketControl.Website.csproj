@@ -167,6 +167,9 @@
     <Compile Include="Areas\Misc\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Misc\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
+    <Compile Include="Areas\SportBook\Area_Start\BundleConfig.cs" />
+    <Compile Include="Areas\SportBook\Area_Start\RouteConfig.cs" />
+    <Compile Include="Areas\SportBook\SportBookAreaRegistration.cs" />
     <Compile Include="Areas\UserControl\Controllers\UserController.cs" />
     <Compile Include="Areas\UserControl\UserControlAreaRegistration.cs" />
     <Compile Include="Areas\UserLogin\Controllers\CommonController.cs" />
@@ -184,7 +187,8 @@
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
-    <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Scripts\DeleteSingleTicket.js" />
+    <Content Include="Areas\SportBook\Scripts\TicketListing.js" />
+    <Content Include="Areas\SportBook\Scripts\TicketListingManager.js" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
@@ -471,6 +475,8 @@
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
     <Content Include="Areas\Misc\Views\TicketListing\LewisIndex.cshtml" />
+    <Content Include="Areas\SportBook\Styles\TicketListing.less" />
+    <Content Include="Areas\SportBook\Views\_ViewStart.cshtml" />
     <None Include="Content\base\mixins.less" />
     <None Include="Content\base\report.less" />
     <None Include="Content\bootstrap\accordion.less" />
@@ -535,7 +541,6 @@
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
     <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Index.cshtml" />
-    <Content Include="Areas\SportBook\Views\DeleteSingleTicket\Styles\DeleteSingleTicket.css" />
     <Content Include="Areas\Misc\Views\TicketListing\Index.cshtml" />
     <Content Include="Areas\Misc\Views\Web.config" />
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
