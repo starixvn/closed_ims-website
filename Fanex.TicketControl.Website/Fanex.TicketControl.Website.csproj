@@ -518,6 +518,7 @@
     <None Include="Content\fonts\ProximaNovaBold.woff" />
     <None Include="Content\fonts\ProximaNovaReg.woff" />
     <None Include="Content\reset.less" />
+    <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
     <Content Include="Web.config" />

@@ -45,6 +45,15 @@ TicketListing.prototype.CacheDOMElement = function () {
 }
 
 TicketListing.prototype.Init = function () {
+
+    //jQuery("#TicketListingForm").validationEngine('attach', {promptPosition : "bottomLeft", autoPositionUpdate : true});
+
+    jQuery("#TicketListingForm").validationEngine({
+				ajaxFormValidation: true,
+				ajaxFormValidationMethod: 'post',
+				onAjaxFormComplete: TicketListing.GenData
+			});
+
     var self = this;
 
     self.CacheDOMElement();
@@ -154,15 +163,19 @@ TicketListing.prototype.Init = function () {
         }
     });
 
-    // submit data to server
+ 
+};
+
+TicketListing.prototype.GenData = function (){
+   // submit data to server
     $('.submit').click(function () {
         var url = $("#TicketListingForm").attr('action');
-        var matchIdEle = document.getElementById('MatchID');
-        var matchId = new Number(matchIdEle.value);
-        if (matchId <= 0 || isNaN(matchId)) {
-            Validator.show(matchIdEle, 'MatchId is required and must be a number.');
-            return;
-        }
+//        var matchIdEle = document.getElementById('MatchID');
+//        var matchId = new Number(matchIdEle.value);
+//        if (matchId <= 0 || isNaN(matchId)) {
+//            Validator.show(matchIdEle, 'MatchId is required and must be a number.');
+//            return;
+//        }
 
         // should save old params
         var params = $("#TicketListingForm").serializeArray();
@@ -221,6 +234,7 @@ TicketListing.prototype.Init = function () {
         });
     });
 };
+
 
 TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
     $(txtdate).datetimepicker({

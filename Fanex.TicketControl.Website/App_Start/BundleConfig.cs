@@ -20,6 +20,7 @@ namespace Fanex.TicketControl.Website
                 "~/Scripts/NapTicketControl.js",
                 "~/Scripts/NapTicketControl.Helper.js",
                 "~/Scripts/NapTicketControl.Validator.js",
+                "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js"
 
             ));

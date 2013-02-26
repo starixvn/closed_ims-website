@@ -30,7 +30,7 @@
                 @Html.LabelFor(m => m.MatchID)
             </div>
             <div class="edit-field span4">
-                @Html.TextBox("MatchID", string.Empty, new {maxlength=10 })
+                @Html.TextBox("MatchID", string.Empty, new {maxlength=10, @class="validate[required,custom[integer]] text-input" })
                 
             </div>
         </div>
@@ -166,8 +166,8 @@
     <div class="filter-row tick-list bettype-wrp">
     </div>
     <div class="filter-row">
-        <div class="filter-cell">
-            <a href="javascript:void(0);" class="submit">Generate</a>
+        <div class="filter-cell">            
+            <input type="submit" class="submit" value="Generate"/>
         </div>
     </div>
     </div>
