@@ -18,10 +18,10 @@ namespace Fanex.TicketControl.Misc.Criteria
 
         public string BetTypes { get; set; } // Dead Bettypes
 
-        public string LiveBetTypes { get; set; } // Live Bettypes
+        public string BetTypesLive { get; set; } // Live Bettypes
 
         [Display(Name="Event Type")]
-        public int EventType { get; set; } // old is Live Type
+        public int LiveType { get; set; } // old is Live Type
 
         [Display(Name="Home")]
         public int? LiveHomeScore { get; set; }
@@ -35,14 +35,18 @@ namespace Fanex.TicketControl.Misc.Criteria
         [Display(Name = "To")]
         public DateTime? ToTransDate { get; set; }
 
-        public ProductType Product { get; set; } // type
+        public ProductType Type { get; set; } // type
 
         [Display(Name="Ticket Type")]
-        public int TicketType { get; set; } // SA Filter
+        public int SAFilter { get; set; } // SA Filter
 
         [SpParam(Ignored = true)]
         [Display(Name = "Group By")]
         public int GroupBy { get; set; }
+
+        public int ErrCode { get; set; }
+
+        public string ErrMsg { get; set; }
 
         public override string GetSettingKey()
         {
@@ -56,6 +60,12 @@ namespace Fanex.TicketControl.Misc.Criteria
         public override bool IsValid()
         {
             return true;
+        }
+
+        public GetTicketsListingCriteria() 
+        {
+            BetTypes = string.Empty;
+            BetTypesLive = string.Empty;
         }
     }
 }

@@ -76,7 +76,7 @@
         </div>
         <div class="filter-cell">
             <div class="lbl-field span3">
-                @Html.LabelFor(m => m.TicketType)
+                @Html.LabelFor(m => m.SAFilter)
             </div>
             <div class="edit-field span5">
             @{
@@ -95,7 +95,7 @@
                     }
                 };
             }
-                @Html.DropDownList("TicketType", filterByList, new { @class = "span5" })
+                @Html.DropDownList("SAFilter", filterByList, new { @class = "span5" })
             </div>
         </div>
     </div>
@@ -116,7 +116,7 @@
         </div>
         <div class="filter-cell event-type-wrp">
             <div class="lbl-field span3">
-                @Html.LabelFor(m => m.EventType)
+                @Html.LabelFor(m => m.LiveType)
             </div>
             <div class="edit-field span4">
             @{
@@ -135,7 +135,7 @@
                     }
                 };
             }
-                @Html.DropDownList("EventType", typeList, new { @class = "ddlEventType" })
+                @Html.DropDownList("LiveType", typeList, new { @class = "ddlEventType" })
             </div>
         </div>
     </div>

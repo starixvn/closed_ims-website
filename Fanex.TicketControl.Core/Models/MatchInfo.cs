@@ -8,10 +8,15 @@ namespace Fanex.TicketControl.Core.Models
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
     using System.Linq;
     using System.Text;
+    using Fanex.Common;
+    using Fanex.Data;
+    using Fanex.TicketControl.Core.Models;
+    using Fanex.TicketControl.Core.Repository.Impl;
     using Fanex.TicketControl.Core.Services.Impl;
-
+    using Fanex.TicketControl.Core.Services.Impl;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -27,29 +32,21 @@ namespace Fanex.TicketControl.Core.Models
 
         public int AwayId { get; set; }
 
-        private string _HomeName = "";
         public string HomeName
         {
-            get { return _HomeName; }
-            private set
+            get
             {
-                //get from RemoteRef
-                _HomeName = CacheRef.GetTeamName(HomeId);
+                return CacheRef.GetTeamName(HomeId) ?? string.Empty;
             }
         }
 
-        private string _AwayName = "";
         public string AwayName
         {
-            get { return _AwayName; }
-            private set
+            get
             {
-                //get from Remote Ref
-                _AwayName = CacheRef.GetTeamName(HomeId);
+                return CacheRef.GetTeamName(AwayId) ?? string.Empty;
             }
         }
-
-
 
     }
 }
