@@ -30,7 +30,7 @@
                 <label for="MatchID">Match ID</label>
             </div>
             <div class="edit-field span4">                
-                <input type="text" id="txtMatchId" maxlength="10" class="validate[required,custom[integer]] text-input" />
+                <input type="text" id="txtMatchId" maxlength="10"  class="validate[required, custom[integer],maxSize[10]]" data-prompt-position="bottomLeft" />
             </div>
         </div>
         <div class="filter-cell">
@@ -38,7 +38,7 @@
                 <label for="fromRefno">From Refno</label>
             </div>
             <div class="edit-field span4">
-            <input type="text" id="fromRefno" maxlength="10" class="validate[required,custom[integer]] text-input" />
+            <input type="text" id="fromRefno" maxlength="10" class="validate[required, custom[integer],maxSize[10]]" data-prompt-position="bottomLeft" />
             </div>
         </div>
         <div class="filter-cell">
@@ -46,7 +46,7 @@
                 <label for="toRefno">To Refno</label>
             </div>
             <div class="edit-field span4">
-            <input type="text" id="toRefno" maxlength="10" class="validate[required,custom[integer]] text-input" />
+            <input type="text" id="toRefno" maxlength="10" class="validate[required, custom[integer],maxSize[10]]" data-prompt-position="bottomLeft" />
             </div>
         </div>
         <div class="filter-cell">
@@ -373,11 +373,13 @@
 
     <div class="filter-row">
         <div class="filter-cell">            
-            <input type="submit" class="submit" value="Search"/>
+            <input type="button" id="btnSearch" class="submit" value="Search"/>
         </div>
     </div>
     </div>
 </div>
+    
+   <div id="msg"></div> 
 }
 
 @section Foot {

@@ -54,6 +54,16 @@ var helper = {
 
 
 
+var singleDetete = {
+    search: function(){
+        jQuery("#DeleteSingleTicketForm").validationEngine('validate');
+
+        $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
+    }
+};
+
+
+
 function DelSingleTicket() {
     this.DOMElement =
     {
@@ -90,11 +100,8 @@ DelSingleTicket.prototype.CacheDOMElement = function () {
 }
 
 DelSingleTicket.prototype.Init = function () {
-    jQuery("#DelSingleTicketForm").validationEngine({
-				ajaxFormValidation: true,
-				ajaxFormValidationMethod: 'post',
-				onAjaxFormComplete: DelSingleTicket.GenData
-			});
+    
+    jQuery("#DeleteSingleTicketForm").validationEngine();
 
     var self = this;
 
@@ -165,6 +172,11 @@ DelSingleTicket.prototype.Init = function () {
      $('body').delegate('.chk-score', 'click', function () {
         helper.eventSubAdvanceCS();
     });
+  
+    
+     $('body').delegate('#btnSearch', 'click', function () {
+        singleDetete.search();
+     });
 };
 
 
@@ -181,7 +193,5 @@ DelSingleTicket.prototype.SetupCalendar = function (strdatetime, txtdate) {
         $(txtdate).val(strdatetime).datetimepicker('setDate', (new Date(strdatetime)));
     }
 }
-
-
 
 
