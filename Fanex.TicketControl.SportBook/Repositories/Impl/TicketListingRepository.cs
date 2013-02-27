@@ -9,7 +9,7 @@ using Fanex.TicketControl.Core.Models;
 using Fanex.Data;
 using System.Data;
 using Fanex.Common;
-using Fanex.TicketControl.Misc.DTO;
+
 using Fanex.TicketControl.Core.Services.Impl;
 
 namespace Fanex.TicketControl.Misc.Repositories.Impl

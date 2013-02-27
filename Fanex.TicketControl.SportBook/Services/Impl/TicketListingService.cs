@@ -23,7 +23,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using Fanex.TicketControl.Core.Services.Interface;
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.Misc.Repositories.Impl;
-    using Fanex.TicketControl.Misc.DTO;
+    
 
     /// <summary>
     /// TODO: Update summary.

@@ -17,7 +17,7 @@ namespace Fanex.TicketControl.Misc.Services.Interface
     using Fanex.TicketControl.Core.Models;
     using Fanex.TicketControl.Core.Criteria;
     
-    using Fanex.TicketControl.Misc.DTO;
+    
 
     /// <summary>
     /// TODO: Update summary.
