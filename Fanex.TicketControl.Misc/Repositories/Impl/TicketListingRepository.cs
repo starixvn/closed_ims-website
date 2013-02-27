@@ -133,13 +133,13 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             return prodListingDTO;
         }
         
-        private Result GetResultInfo(ObjectDb db) 
+        private ActionResult GetResultInfo(ObjectDb db) 
         {
             var errorCode = db.GetParameterValue("ErrCode");
             var errorMessage = db.GetParameterValue("ErrMsg");
 
             // get result message
-            var result = new Result
+            var result = new ActionResult
             {
                 Id = Converter.ToInt(errorCode),
                 Name = Converter.ToString2(errorMessage)

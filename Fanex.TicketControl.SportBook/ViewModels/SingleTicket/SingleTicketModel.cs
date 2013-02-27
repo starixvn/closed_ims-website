@@ -1,21 +1,21 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SingleTicket.cs" company="Microsoft">
+// <copyright file="SingleTicketModel.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.TicketControl.SportBook.Models.SingleTicket
+namespace Fanex.TicketControl.SportBook.ViewModels.SingleTicket
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Fanex.TicketControl.SportBook.Models.SingleTicket;
+    using Fanex.TicketControl.SportBook.Models;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    /// 
-
     public class SingleTicketModel
     {
         public SingleTicketModel()
@@ -26,16 +26,16 @@ namespace Fanex.TicketControl.SportBook.Models.SingleTicket
         public MatchInfo MatchInfo { get; set; }
 
         public List<Licensee> Licensees { get; set; }
-        
+
     }
 
     public class Licensee
     {
-        public Licensee ()
+        public Licensee()
         {
             Tickets = new List<TicketInfo>();
             Name = string.Empty;
-            TicketInfo c = new TicketInfo();           
+            TicketInfo c = new TicketInfo();
         }
 
         public string Name { get; set; }
@@ -44,6 +44,6 @@ namespace Fanex.TicketControl.SportBook.Models.SingleTicket
 
         public bool DeleteOtionDefault { get; set; }
 
-        public List<TicketInfo> Tickets {get;set;}
+        public List<TicketInfo> Tickets { get; set; }
     }
 }

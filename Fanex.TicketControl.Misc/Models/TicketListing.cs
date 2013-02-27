@@ -13,7 +13,7 @@ namespace Fanex.TicketControl.Misc.DTO
 
         public MatchInfo MatchInfo { get; set; }
 
-        public Result Result { get; set; }
+        public ActionResult Result { get; set; }
     }
 
     [Serializable]
