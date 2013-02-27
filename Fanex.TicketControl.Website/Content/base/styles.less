@@ -384,7 +384,7 @@ header {
 	}
 }
 
-.tbl-tickets, .tbl-match {
+.tbl-tickets, .tbl-match,  {
 	border-collapse: collapse;
 	margin: 20px 10px;
 
@@ -446,6 +446,23 @@ header {
 		&:hover {
 			background: none;
 		}
+	}
+}
+
+.freegrid 
+{
+    a {
+		i {
+			margin-top: 3px;
+			.transition(all .1s);
+		}
+		&:hover {
+			i {.rotate(30deg) }
+		}
+	}
+	.lnk-toggle-all {
+		float: left;
+		color: @white;
 	}
 }
 

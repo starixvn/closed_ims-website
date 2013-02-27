@@ -46,13 +46,7 @@ TicketListing.prototype.CacheDOMElement = function () {
 
 TicketListing.prototype.Init = function () {
 
-    //jQuery("#TicketListingForm").validationEngine('attach', {promptPosition : "bottomLeft", autoPositionUpdate : true});
-
-    jQuery("#TicketListingForm").validationEngine({
-				ajaxFormValidation: true,
-				ajaxFormValidationMethod: 'post',
-				onAjaxFormComplete: TicketListing.GenData
-			});
+    jQuery("#TicketListingForm").validationEngine();
 
     var self = this;
 
@@ -133,108 +127,99 @@ TicketListing.prototype.Init = function () {
         }
     });
 
-    // toggle each licensee group and toggle all 
-    $('body').delegate('.lnk-toggle', 'click', function () {
-        var $this = $(this),
-            icon = $this.find('i');
+//    // toggle each licensee group and toggle all 
+//    $('body').delegate('.lnk-toggle', 'click', function () {
+//        var $this = $(this),
+//            icon = $this.find('i');
 
-        $this.parents('table').find('tr[pid=' + $this.parents('tr').attr('id') + ']').fadeToggle('fast');
+//        $this.parents('table').find('tr[pid=' + $this.parents('tr').attr('id') + ']').fadeToggle('fast');
 
-        if (icon.hasClass('icon-plus-sign')) {
-            icon.addClass('icon-minus-sign').removeClass('icon-plus-sign');
-        } else {
-            icon.addClass('icon-plus-sign').removeClass('icon-minus-sign');
-        }
-    });
-
-    $('body').delegate('.lnk-toggle-all', 'click', function () {
-        var $this = $(this),
-            icon = $this.find('i'),
-            tBody = $this.parents('table').find('tbody');
-
-        if (icon.hasClass('icon-plus-sign')) {
-            tBody.find('tr:not(.lic)').fadeIn('fast');
-            icon.addClass('icon-minus-sign').removeClass('icon-plus-sign');
-            tBody.find('.lnk-toggle i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
-        } else {
-            tBody.find('tr:not(.lic)').fadeOut('fast');
-            icon.addClass('icon-plus-sign').removeClass('icon-minus-sign');
-            tBody.find('.lnk-toggle i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
-        }
-    });
-
- 
-};
-
-TicketListing.prototype.GenData = function (){
-   // submit data to server
-    $('.submit').click(function () {
-        var url = $("#TicketListingForm").attr('action');
-//        var matchIdEle = document.getElementById('MatchID');
-//        var matchId = new Number(matchIdEle.value);
-//        if (matchId <= 0 || isNaN(matchId)) {
-//            Validator.show(matchIdEle, 'MatchId is required and must be a number.');
-//            return;
+//        if (icon.hasClass('icon-plus-sign')) {
+//            icon.addClass('icon-minus-sign').removeClass('icon-plus-sign');
+//        } else {
+//            icon.addClass('icon-plus-sign').removeClass('icon-minus-sign');
 //        }
+//    });
 
-        // should save old params
-        var params = $("#TicketListingForm").serializeArray();
-        var dataReq = {};
-        for (var i = 0; i < params.length; i++) {   
-            switch(params[i].name) {
-                case 'BetTypes':
-                    if(dataReq[params[i].name] === undefined)
-                    {
-                        dataReq[params[i].name] = params[i].value;
-                    }
-                    else {
-                        dataReq[params[i].name] += ',' + params[i].value;
-                    }
-                    break;
-                case 'LiveBetTypes':
-                    if(dataReq[params[i].name] === undefined)
-                    {
-                        dataReq[params[i].name] = params[i].value;
-                    }
-                    else {
-                        dataReq[params[i].name] += ',' + params[i].value;
-                    }
-                    break;
-                default:
-                    dataReq[params[i].name] = params[i].value;
-                    break;
-            }
-        }
-        // save old data request, to serve for follow-up requests
-        self.OldDataRequest = dataReq;
+//    $('body').delegate('.lnk-toggle-all', 'click', function () {
+//        var $this = $(this),
+//            icon = $this.find('i'),
+//            tBody = $this.parents('table').find('tbody');
 
-        $.ajax({
-            type: "POST",
-            url: url,            
-            dataType: "json",
-            data: dataReq,
-            beforeSend: function () {
-                NapTicketControl.disableInput();
-            },
-            success: function (ticketlisting) {
-                // check result to see any error from server
-                if (ticketlisting.Result.Id !== 0) {
-                    NapTicketControl.showMessageBox('alert alert-error', ticketlisting.Result.Name);
-                }else {
-                    self.RenderMatchInfo(ticketlisting.MatchInfo);
-                    self.RenderTickets(ticketlisting.Items);
+//        if (icon.hasClass('icon-plus-sign')) {
+//            tBody.find('tr:not(.lic)').fadeIn('fast');
+//            icon.addClass('icon-minus-sign').removeClass('icon-plus-sign');
+//            tBody.find('.lnk-toggle i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
+//        } else {
+//            tBody.find('tr:not(.lic)').fadeOut('fast');
+//            icon.addClass('icon-plus-sign').removeClass('icon-minus-sign');
+//            tBody.find('.lnk-toggle i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
+//        }
+//    });
+
+    // submit data to server
+    $('.submit').click(function () {
+        if ($("#TicketListingForm").validationEngine('validate') === true){
+            var url = $("#TicketListingForm").attr('action');
+            // should save old params
+            var params = $("#TicketListingForm").serializeArray();
+            var dataReq = {};
+            for (var i = 0; i < params.length; i++) {   
+                switch(params[i].name) {
+                    case 'BetTypes':
+                        if(dataReq[params[i].name] === undefined)
+                        {
+                            dataReq[params[i].name] = params[i].value;
+                        }
+                        else {
+                            dataReq[params[i].name] += ',' + params[i].value;
+                        }
+                        break;
+                    case 'LiveBetTypes':
+                        if(dataReq[params[i].name] === undefined)
+                        {
+                            dataReq[params[i].name] = params[i].value;
+                        }
+                        else {
+                            dataReq[params[i].name] += ',' + params[i].value;
+                        }
+                        break;
+                    default:
+                        dataReq[params[i].name] = params[i].value;
+                        break;
                 }
-            },
-            error: function () {
-                console.log('has error :(');
-            },
-            complete: function () {
-                NapTicketControl.enableInput();
             }
-        });
+            // save old data request, to serve for follow-up requests
+            self.OldDataRequest = dataReq;
+
+            $.ajax({
+                type: "POST",
+                url: url,            
+                dataType: "json",
+                data: dataReq,
+                beforeSend: function () {
+                    NapTicketControl.disableInput();
+                },
+                success: function (ticketlisting) {
+                    // check result to see any error from server
+                    if (ticketlisting.Result.Id !== 0) {
+                        NapTicketControl.showMessageBox('alert alert-error', ticketlisting.Result.Name);
+                    }else {
+                        self.RenderMatchInfo(ticketlisting.MatchInfo);
+                        self.RenderTickets(ticketlisting.Items);
+                    }
+                },
+                error: function () {
+                    console.log('has error :(');
+                },
+                complete: function () {
+                    NapTicketControl.enableInput();
+                }
+            });
+        }
+        return false;
     });
 };
-
 
 TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
     $(txtdate).datetimepicker({
@@ -253,65 +238,120 @@ TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
 TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
     var self = this;
 
-    if($('.tbl-match').length > 0){
-        // remove it
-        $('.tbl-match').remove();
+    var id = 'match-info-container';
+    if($('#' + id).length > 0){
+        $('#' + id).remove(); // remove it
     }
 
-    var html = '<table class="tbl-match">'
-    + '<thead><tr><th>code</th>'
-    + '<th>matchevent</th>'
-    + '<th>event date</th></tr></thead>'
-    + '<tbody><tr>'
-    + '<td>' + matchInfo.MatchCode + '</td>'
-    + '<td>' + matchInfo.Home + ' -vs- ' + matchInfo.Away + '</td>'
-    + '<td>' + matchInfo.EventDate + '</td>'
-    + '</tr></tbody>'
-    + '</table>';
-    self.DOMElement.$body.append(html);
+    var matchContainer = '<div class="freegrid  content-grid" id="' + id + '"></div>';
+    var gridOptions = {
+        columns: [
+            { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+        ],
+        bodyRows: self.GenerateMatchInfo(matchInfo)
+    };
+
+    self.DOMElement.$body.append(matchContainer);
+
+    $('#' + id).fanexGrid(gridOptions);
 };
 
-TicketListing.prototype.RenderTickets = function (items) {
+TicketListing.prototype.GenerateMatchInfo = function(matchInfo){
+    var rows = [];
+    rows.push({
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
+            { Name: "matchEvent", Value: (matchInfo.Home + ' -vs- ' + matchInfo.Away)},
+            { Name: "eventDate", Value:  matchInfo.EventDate}
+    ]});
+
+    return rows;
+};
+
+TicketListing.prototype.RenderTickets = function (tickets) {
     var self = this;
 
-    if($('.tbl-tickets').length > 0){
-        // remove it
-        $('.tbl-tickets').remove();
+    var id = 'tickets-container';
+    if($('#' + id).length > 0){
+        $('#' + id).remove(); // remove it
     }
 
-    var html = '<table class="tbl-tickets">'
-    + '<thead><tr>'
-    + '<th style="min-width: 300px">'
-    + '<a title="" href="javascript:void(0);" class="lnk-toggle-all" data-original-title="toggle all"> <i class="icon-plus-sign icon-white"></i></a>'
-    + 'licensee</th>'
-    + '<th>total trans</th>'
-    + '<th>export excel</th></tr></thead>'
-    + '<tbody>';
+    var matchContainer = '<div class="freegrid  content-grid" id="' + id + '"></div>';
+    var gridOptions = {
+        columns: [
+            { HeaderText: "Licensee", Name: "licensee", Width: 100, HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+            { HeaderText: "Total Trans", Name: "totalTrans", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Export Excel", Name: "export", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+        ],
+        bodyRows: self.GenerateTickets(tickets),
+        showTree: true
+    };
 
-    $.each(items, function(idx, group){
-        // tr-groups
+    self.DOMElement.$body.append(matchContainer);
 
-        html += '<tr class="lic" pid=' + 'lic-' + group.Id +  '>'
-        + '<td><a href="javascript:void(0);" class="lnk-toggle"><i class="icon-plus-sign"></i> ' + group.Name + '</a></td>'
-        + '<td class="align-right"><a href="javascript:void(0);" class="lnk-totaltrans">'+ group.TotalTrans + '</a></td>'
-        + '<td class="align-center"><a href="javascript:void(0);" class="lnk-excel"><i class="icon-excel"></i></a></td>'
-        + '</tr>';
+    $('#' + id).fanexGrid(gridOptions);
+};
 
-        // tr-details
-        $.each(group.Items, function(idx, item){
-            html += '<tr>'
-            + '<td class="bettype">' + item.Name + '</td>'
-            + '<td class="align-right"><a href="javascript:void(0);" class="lnk-totaltrans">' + item.TotalTrans + '</a></td>'
-            + '<td class="align-center"><a href="javascript:void(0);" class="lnk-excel"><i class="icon-excel"></i></a></td>'
-            + '</tr>';
-        })
+TicketListing.prototype.GenerateTickets = function(tickets){
+    var self = this;
+    var rows = [];
+
+    $.each(tickets, function(idx, group) {
+        var currentGroup = {
+            Columns: [
+                    { Name: "licensee", Value: group.Name},
+                    { Name: "totalTrans", Value: group.TotalTrans},
+                    { Name: "export", Value: 'Export'}
+                ],
+            SubRows: self.GenerateTicketDetails(group.Items)
+        };
+
+        currentGroup.Columns[1].CustomCellRender = function(cell){
+            return TicketListing.prototype.RenderTotalTransCell(cell);
+        };
+        currentGroup.Columns[2].CustomCellRender = function(cell){
+            return TicketListing.prototype.RenderExportCell();
+        }
+
+        // add additional attributes
+
+        rows.push(currentGroup);
     });
-    
-    + '</tbody></table>';
-    self.DOMElement.$body.append(html);
-    $('.lnk-toggle-all').tooltip({ placement: 'right' })
+
+    return rows;
 };
 
-TicketListing.prototype.CollectData = function () {
-    var params = $("#TicketListingForm").serialize();
-};
+TicketListing.prototype.GenerateTicketDetails = function(items){
+    var self = this;
+    var rows = [];
+
+     $.each(items, function(idx, item){
+        var currentRow = {
+            Columns: [
+                    { Name: "licensee", Value: item.Name},
+                    { Name: "totalTrans", Value: item.TotalTrans},
+                    { Name: "export", Value: 'Export' }
+                ]
+        }
+
+        currentRow.Columns[1].CustomCellRender = function(cell){
+            return TicketListing.prototype.RenderTotalTransCell(cell);
+        };
+        currentRow.Columns[2].CustomCellRender = function(cell){
+            return TicketListing.prototype.RenderExportCell();
+        }
+
+        rows.push(currentRow);
+     });
+
+    return rows;
+}
+
+TicketListing.prototype.RenderTotalTransCell = function(cell){
+    return '<a href="javascript:void(0);" class="lnk-totaltrans">' + cell.Value + '</a>';
+}
+
+TicketListing.prototype.RenderExportCell = function(cell){
+    return '<a href="javascript:;" class="lnk-excel"><i class="icon-excel"></i></a>';
+}
