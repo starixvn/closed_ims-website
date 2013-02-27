@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.TicketControl.SportBook.Models
+namespace Fanex.TicketControl.Core.Models
 {
     using System;
     using System.Collections.Generic;

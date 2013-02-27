@@ -12,6 +12,7 @@ namespace Fanex.TicketControl.SportBook.ViewModels.SingleTicket
     using System.Text;
     using Fanex.TicketControl.SportBook.Models.SingleTicket;
     using Fanex.TicketControl.SportBook.Models;
+    using Fanex.TicketControl.Core.Models;
 
     /// <summary>
     /// TODO: Update summary.

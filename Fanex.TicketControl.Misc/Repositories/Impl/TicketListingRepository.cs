@@ -52,8 +52,8 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                         var matchInfo = new MatchInfo();
                         matchInfo.MatchCode = Converter.ToString2(matchTbl.Rows[0]["matchcode"]);
                         matchInfo.EventDate = Converter.ToDateTime(matchTbl.Rows[0]["eventdate"]).ToShortDateString();
-                        matchInfo.Home = CacheRef.GetTeamName(matchTbl.Rows[0]["homeid"]);
-                        matchInfo.Away = CacheRef.GetTeamName(matchTbl.Rows[0]["awayid"]);
+                        matchInfo.HomeId = Convert.ToInt32(matchTbl.Rows[0]["homeid"]);
+                        matchInfo.AwayId = Convert.ToInt32(matchTbl.Rows[0]["awayid"]);
                         prodListingDTO.MatchInfo = matchInfo;
 
                         // need the function get team name from team id
