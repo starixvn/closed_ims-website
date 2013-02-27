@@ -16,7 +16,6 @@ namespace Fanex.TicketControl.Core.Models
     using Fanex.TicketControl.Core.Models;
     using Fanex.TicketControl.Core.Repository.Impl;
     using Fanex.TicketControl.Core.Services.Impl;
-    using Fanex.TicketControl.Core.Services.Impl;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

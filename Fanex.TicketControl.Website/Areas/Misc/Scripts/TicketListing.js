@@ -52,7 +52,7 @@ TicketListing.prototype.Init = function () {
 
     self.CacheDOMElement();
     Helper.GetLicensees();
-    Helper.GetBettypes('Sportsbook');
+    Helper.GetBettypes(self.CollectSelectedProduct());
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
 
@@ -201,7 +201,7 @@ TicketListing.prototype.Init = function () {
                 success: function (ticketlisting) {
                     // check result to see any error from server
                     if (ticketlisting.Result.ErrorCode !== 0) {
-                        NapTicketControl.showMessageBox('alert alert-error', ticketlisting.Result.Name);
+                        NapTicketControl.showMessageBox('alert alert-error', ticketlisting.Result.ErrorMsg);
                     }else {
                         self.RenderMatchInfo(ticketlisting.MatchInfo);
                         self.RenderTickets(ticketlisting.Items);
@@ -237,7 +237,7 @@ TicketListing.prototype.CollectSelectedLiveBettypes = function(){
     var livebettypes = '';
     
     $('input[name=LiveBetTypes]:checked').each(function(){
-        livebettypes += (this).val() + ',';
+        livebettypes += $(this).val() + ',';
     })
     console.log(livebettypes);
     return livebettypes.substring(0, livebettypes.length - 1);
@@ -302,7 +302,7 @@ TicketListing.prototype.RenderTickets = function (tickets) {
     var matchContainer = '<div class="freegrid  content-grid" id="' + id + '"></div>';
     var gridOptions = {
         columns: [
-            { HeaderText: "Licensee", Name: "licensee", Width: 100, HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+            { HeaderText: "Licensee", Name: "licensee", Width: 150, HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
             { HeaderText: "Total Trans", Name: "totalTrans", Width: 80, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Export Excel", Name: "export", Width: 80, HeaderAlign: "center", CellAlign: "center" },
         ],
@@ -323,17 +323,17 @@ TicketListing.prototype.GenerateTicketsData = function(tickets){
         var currentGroup = {
             Columns: [
                     { Name: "licensee", Value: group.Name },
-                    { Name: "totalTrans", Value: { groupId: group.Name, TotalTrans: group.TotalTrans} },
-                    { Name: "export", Value: group }
+                    { Name: "totalTrans", Value: { groupId: group.Id, childId: '', liveIndicator: group.LiveIndicator, TotalTrans: group.TotalTrans} },
+                    { Name: "export", Value: { groupId: group.Id, childId: '', liveIndicator: group.LiveIndicator} }
                 ],
-            SubRows: self.GenerateTicketDetailsData(group.Items)
+            SubRows: self.GenerateTicketDetailsData(group.Id, group.Items)
         };
 
         currentGroup.Columns[1].CustomCellRender = function(cell){
             return TicketListing.prototype.RenderTotalTransCell(cell);
         };
         currentGroup.Columns[2].CustomCellRender = function(cell){
-            return TicketListing.prototype.RenderExportCell();
+            return TicketListing.prototype.RenderExportCell(cell);
         }
 
         // add additional attributes
@@ -344,26 +344,25 @@ TicketListing.prototype.GenerateTicketsData = function(tickets){
     return rows;
 };
 
-TicketListing.prototype.GenerateTicketDetailsData = function(items){
+TicketListing.prototype.GenerateTicketDetailsData = function(parent, items){
     var self = this;
     var rows = [];
-    var GroupNames = ["Licensee", "Bettype"];
 
      $.each(items, function(idx, item){
-
         var currentRow = {
             Columns: [
                     { Name: "licensee", Value: item.Name },
-                    { Name: "totalTrans", Value: item },
-                    { Name: "export", Value: item }
+                    { Name: "totalTrans", Value:  { groupId: parent, childId: item.Name, liveIndicator: item.LiveIndicator, TotalTrans: item.TotalTrans}},
+                    { Name: "export", Value: { groupId: parent, childId: item.Name, liveIndicator: item.LiveIndicator } }
                 ]
         }
 
         currentRow.Columns[1].CustomCellRender = function(cell){
             return TicketListing.prototype.RenderTotalTransCell(cell);
         };
+
         currentRow.Columns[2].CustomCellRender = function(cell){
-            return TicketListing.prototype.RenderExportCell();
+            return TicketListing.prototype.RenderExportCell(cell);
         }
 
         rows.push(currentRow);
@@ -374,12 +373,14 @@ TicketListing.prototype.GenerateTicketDetailsData = function(items){
 
 TicketListing.prototype.RenderTotalTransCell = function(cell){
     return '<a href="javascript:void(0);" class="lnk-totaltrans" ' 
-    + 'groupId="' + cell.Name + '" >'
-    + cell.TotalTrans + '</a>';
+    + 'groupId="' + cell.Value.groupId + '" childId="' + cell.Value.childId 
+    + '" liveIndicator="' + cell.Value.liveIndicator + '" >'
+    + cell.Value.TotalTrans + '</a>';
 }
 
 TicketListing.prototype.RenderExportCell = function(cell){
     return '<a href="javascript:;" class="lnk-excel" '
-    + 'groupId="' + cell.Name + '">'
-    + '><i class="icon-excel"></i></a>';
+    + 'groupId="' + cell.Value.groupId + '" childId="' + cell.Value.childId 
+    + '" liveIndicator="' + cell.Value.liveIndicator + '" >'
+    + '<i class="icon-excel"></i></a>';
 }

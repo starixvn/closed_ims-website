@@ -32,7 +32,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                         // get result info
                         ticketListingModel.Result = GetResultInfo(objectDb);
 
-                        if (ticketListingModel.Result.Id == 0) // no error
+                        if (ticketListingModel.Result.ErrorCode == 0) // no error
                         {
                             // get match info 
                             var matchTbl = dataset.Tables[0];
