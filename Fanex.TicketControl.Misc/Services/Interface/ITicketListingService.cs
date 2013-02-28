@@ -27,5 +27,11 @@ namespace Fanex.TicketControl.Misc.Services.Interface
         IList<Bettypes> GetAllBettypes(GetBettypeCriteria criteria);
 
         TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria);
+
+        TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria);
+
+        void ExportTicketListing(GetTicketsListingCriteria criteria);
+
+        void ExportTicketListingBetList(GetTicketsListingCriteria criteria);
     }
 }

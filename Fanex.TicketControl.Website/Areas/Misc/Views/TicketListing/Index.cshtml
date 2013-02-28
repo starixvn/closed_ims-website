@@ -35,50 +35,10 @@
             </div>
         </div>
         <div class="filter-cell">
-            <div class="lbl-field span3">                
-                @Html.LabelFor(m => m.LicenseeID)
-            </div>
-            <div class="edit-field span4">
-            @{
-                var licenseeList = new List<SelectListItem>{
-                    new SelectListItem {
-                        Text = "All",
-                        Value = "0"
-                    }, 
-                    new SelectListItem {
-                        Text = "IBC Group",
-                        Value = "-1"
-                    }
-                };
-            }
-                @Html.DropDownList("LicenseeID", licenseeList, new { @class = "ddlLicensee" })
-            </div>
-        </div>
-        <div class="filter-cell">
-            <div class="lbl-field span3">
-                @Html.LabelFor(m => m.GroupBy)
-            </div>
-            <div class="edit-field span6">
-            @{
-                var groupByList = new List<SelectListItem> { 
-                    new SelectListItem {
-                        Text = "Licensee and Bet type",
-                        Value = "0"
-                    }, 
-                    new SelectListItem {
-                        Text = "Bet type and Licensee",
-                        Value = "1"
-                    }
-                };
-             }
-                @Html.DropDownList("GroupBy", groupByList)
-            </div>
-        </div>
-        <div class="filter-cell">
             <div class="lbl-field span3">
                 @Html.LabelFor(m => m.SAFilter)
             </div>
-            <div class="edit-field span5">
+            <div class="edit-field span4">
             @{
                 var filterByList = new List<SelectListItem> { 
                     new SelectListItem {
@@ -101,16 +61,12 @@
     </div>
     <div class="filter-row">
         <div class="filter-cell">
-            <div class="edit-field span13">
+            <div class="edit-field span6">
                 <div class="tick-list">
                     <input type="radio" id="Sportsbook" name="Product" class="product" checked="checked" value="@ProductType.Sportsbook" />
                     <label for="Sportsbook">@Labels.Sportsbook</label>
                     <input type="radio" id="NumberGame" name="Product" class="product" value="@ProductType.NumberGame" />
                     <label for="NumberGame">@Labels.Number_Game</label>
-                    <input type="radio" id="LiveCasino" name="Product" class="product" value="@ProductType.LiveCasino" />
-                    <label for="LiveCasino">@Labels.Live_Casino</label>
-                    <input type="radio" id="VirtualSports" name="Product" class="product" value="@ProductType.VirtualSports" />
-                    <label for="VirtualSports">@Labels.Virtual_Sports</label>
                 </div>
             </div>
         </div>
@@ -173,6 +129,11 @@
     </div>
 </div>
 }
+
+<div class="freegrid  content-grid" id="match-info-container"></div>
+<div class="freegrid  content-grid" id="tickets-container"></div>
+<div class="freegrid  content-grid" id="betlist-container"></div>
+
 
 @section Foot {
     @Scripts.Render("~/areas/misc/ticketlisting")

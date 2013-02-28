@@ -11,16 +11,7 @@ namespace Fanex.TicketControl.Misc.Criteria
     {
         public int MatchID { get; set; }
 
-        /// <summary>
-        /// Convention: 
-        ///    + Specific value: IBC, 12bet
-        ///    + General value: All, when not choosing any licensee
-        /// </summary>
-        public string LicenseeNames { get; set; }
-
-        public string BetTypes { get; set; } // Dead Bettypes
-
-        public string LiveBetTypes { get; set; } // Live Bettypes
+        public int BetTypeID { get; set; }
 
         public int EventType { get; set; } 
 

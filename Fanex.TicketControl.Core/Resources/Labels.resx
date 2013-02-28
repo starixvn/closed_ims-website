@@ -589,4 +589,10 @@
   <data name="You_have_no_menu_permission" xml:space="preserve">
     <value>You have no permission on any Menu</value>
   </data>
+  <data name="TicketList" xml:space="preserve">
+    <value>TicketList {0}</value>
+  </data>
+  <data name="Tickets_Listing_for_MatchID_Bettype" xml:space="preserve">
+    <value>Tickets Listing for - Match ID: {0} - Bet type: {1}</value>
+  </data>
 </root>
