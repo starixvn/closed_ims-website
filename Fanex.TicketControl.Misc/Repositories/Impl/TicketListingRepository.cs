@@ -9,117 +9,107 @@ using Fanex.TicketControl.Core.Models;
 using Fanex.Data;
 using System.Data;
 using Fanex.Common;
-using Fanex.TicketControl.Misc.DTO;
 using Fanex.TicketControl.Core.Services.Impl;
+using Fanex.TicketControl.Misc.ViewModels;
+using Fanex.TicketControl.Misc.Entities;
 
 namespace Fanex.TicketControl.Misc.Repositories.Impl
 {
     public class TicketListingRepository : BaseRepository, ITicketListingRepository
     {
-        public ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria)
+        public TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria)
         {
-            ProductListingDTO prodListingDTO = new ProductListingDTO();
+            TicketListingModel ticketListingModel = new TicketListingModel();
 
             try
             {
-                using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
+                if (criteria.IsValid())
                 {
-
-                    
-                    objectDb.AddInParameter("MatchID", DbType.Int32, criteria.MatchID);
-                    objectDb.AddInParameter("LicenseeID", DbType.Int32, criteria.LicenseeID);
-                    objectDb.AddInParameter("Bettypes", DbType.String, criteria.BetTypes);
-                    objectDb.AddInParameter("BettypesLive", DbType.String, criteria.LiveBetTypes);
-                    objectDb.AddInParameter("LiveType", DbType.Int16, criteria.EventType);
-                    objectDb.AddInParameter("Livehomescore", DbType.Int16, criteria.LiveHomeScore);
-                    objectDb.AddInParameter("Liveawayscore", DbType.Int16, criteria.LiveAwayScore);
-                    objectDb.AddInParameter("FromTransdate", DbType.DateTime, criteria.FromTransDate);
-                    objectDb.AddInParameter("ToTransdate", DbType.DateTime, criteria.ToTransDate);
-                    objectDb.AddInParameter("Type", DbType.Int16, (int)criteria.Product);
-                    objectDb.AddInParameter("SAFilter", DbType.Int16, criteria.TicketType);
-                    objectDb.AddOutParameter("ErrCode", DbType.Int16, 0);
-                    objectDb.AddOutParameter("ErrMsg", DbType.String, 1000);
-
-                    DataSet dataset = objectDb.ExecuteDataSet();
-
-                    // get result info
-                    prodListingDTO.Result = GetResultInfo(objectDb);
-
-                    if(prodListingDTO.Result.Id == 0 ) // no error
+                    using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
                     {
-                        // get match info 
-                        var matchTbl = dataset.Tables[0];
-                        var matchInfo = new MatchInfo();
-                        matchInfo.MatchCode = Converter.ToString2(matchTbl.Rows[0]["matchcode"]);
-                        matchInfo.EventDate = Converter.ToDateTime(matchTbl.Rows[0]["eventdate"]).ToShortDateString();
-                        matchInfo.HomeId = Convert.ToInt32(matchTbl.Rows[0]["homeid"]);
-                        matchInfo.AwayId = Convert.ToInt32(matchTbl.Rows[0]["awayid"]);
-                        prodListingDTO.MatchInfo = matchInfo;
+                        DataSet dataset = objectDb.ExecuteDataSet(criteria.GetSpParams());
 
-                        // need the function get team name from team id
+                        // get result info
+                        ticketListingModel.Result = GetResultInfo(objectDb);
 
-                        // get the tickets listing
-                        var mainTable = dataset.Tables[1];
-
-                        var rawData = mainTable.AsEnumerable().Select(t => new
+                        if (ticketListingModel.Result.ErrorCode == 0) // no error
                         {
-                            TotalTrans = Converter.ToInt(t["TotalTrans"]),
-                            Bettype = Converter.ToInt(t["bettype"]),
-                            LiveIndicator = Converter.ToBool(t["LiveIndicator"]),
-                            LicenseeName = Converter.ToString2(t["LicenseeName"])
-                        });
+                            // get match info 
+                            var matchTbl = dataset.Tables[0];
+                            var matchInfo = new MatchInfo();
+                            matchInfo.MatchCode = Converter.ToString2(matchTbl.Rows[0]["matchcode"]);
+                            matchInfo.EventDate = Converter.ToDateTime(matchTbl.Rows[0]["eventdate"]).ToShortDateString();
+                            matchInfo.HomeId = Convert.ToInt32(matchTbl.Rows[0]["homeid"]);
+                            matchInfo.AwayId = Convert.ToInt32(matchTbl.Rows[0]["awayid"]);
+                            ticketListingModel.MatchInfo = matchInfo;
 
-                        // GroupBy ways:
-                        // 0: Licensee and bettype
-                        // 1: Bettype and licensee
-                        prodListingDTO.Items = new List<ProductListing>();
+                            // need the function get team name from team id
 
-                        if (criteria.GroupBy == 0)
-                        {
-                            var groupByLicensee = rawData.GroupBy(t => t.LicenseeName);
-                            foreach (var licensee in groupByLicensee)
+                            // get the tickets listing
+                            var mainTable = dataset.Tables[1];
+
+                            var rawData = mainTable.AsEnumerable().Select(t => new
                             {
-                                var prodListing = new ProductListing { 
-                                    Id = licensee.Key,  // licensee name
-                                    Name = licensee.Key,
-                                    LiveIndicator = false,
-                                    TotalTrans = licensee.Sum(t => t.TotalTrans)
-                                };
-                                
-                                prodListing.Items = licensee.Select(t => new ProductListing
-                                {
-                                    Id = t.Bettype.ToString(),
-                                    Name = this.GetBettypeName(t.Bettype, t.LiveIndicator),
-                                    LiveIndicator = t.LiveIndicator,
-                                    TotalTrans = t.TotalTrans
-                                }).ToList();
+                                TotalTrans = Converter.ToInt(t["TotalTrans"]),
+                                Bettype = Converter.ToInt(t["bettype"]),
+                                LiveIndicator = Converter.ToBool(t["LiveIndicator"]),
+                                LicenseeName = Converter.ToString2(t["LicenseeName"])
+                            });
 
-                                prodListingDTO.Items.Add(prodListing);
+                            // GroupBy ways:
+                            // 0: Licensee and bettype
+                            // 1: Bettype and licensee
+                            ticketListingModel.Items = new List<TicketListing>();
+
+                            if (criteria.GroupBy == 0)
+                            {
+                                var groupByLicensee = rawData.GroupBy(t => t.LicenseeName);
+                                foreach (var licensee in groupByLicensee)
+                                {
+                                    var prodListing = new TicketListing
+                                    {
+                                        Id = licensee.Key,  // licensee name
+                                        Name = licensee.Key,
+                                        LiveIndicator = false,
+                                        TotalTrans = licensee.Sum(t => t.TotalTrans)
+                                    };
+
+                                    prodListing.Items = licensee.Select(t => new TicketListing
+                                    {
+                                        Id = t.Bettype.ToString(),
+                                        Name = this.GetBettypeName(t.Bettype, t.LiveIndicator),
+                                        LiveIndicator = t.LiveIndicator,
+                                        TotalTrans = t.TotalTrans
+                                    }).ToList();
+
+                                    ticketListingModel.Items.Add(prodListing);
+                                }
                             }
-                        }
-                        else
-                        {
-                            // group 
-                            var groupByBettype = rawData.GroupBy(t => new { t.Bettype, t.LiveIndicator });
-
-                            foreach (var bettype in groupByBettype)
+                            else
                             {
-                                var prodListing = new ProductListing { 
-                                    Id = bettype.Key.Bettype.ToString(),  // bettypeId
-                                    Name = this.GetBettypeName(bettype.Key.Bettype, bettype.Key.LiveIndicator),
-                                    LiveIndicator = bettype.Key.LiveIndicator,
-                                    TotalTrans = bettype.Sum(t => t.TotalTrans)
-                                };
+                                // group 
+                                var groupByBettype = rawData.GroupBy(t => new { t.Bettype, t.LiveIndicator });
 
-                                prodListing.Items = bettype.Select(t => new ProductListing
+                                foreach (var bettype in groupByBettype)
                                 {
-                                    Id = t.LicenseeName,
-                                    Name = t.LicenseeName,
-                                    LiveIndicator = t.LiveIndicator,
-                                    TotalTrans = t.TotalTrans
-                                }).ToList();
+                                    var prodListing = new TicketListing
+                                    {
+                                        Id = bettype.Key.Bettype.ToString(),  // bettypeId
+                                        Name = this.GetBettypeName(bettype.Key.Bettype, bettype.Key.LiveIndicator),
+                                        LiveIndicator = bettype.Key.LiveIndicator,
+                                        TotalTrans = bettype.Sum(t => t.TotalTrans)
+                                    };
 
-                                prodListingDTO.Items.Add(prodListing);
+                                    prodListing.Items = bettype.Select(t => new TicketListing
+                                    {
+                                        Id = t.LicenseeName,
+                                        Name = t.LicenseeName,
+                                        LiveIndicator = t.LiveIndicator,
+                                        TotalTrans = t.TotalTrans
+                                    }).ToList();
+
+                                    ticketListingModel.Items.Add(prodListing);
+                                }
                             }
                         }
                     }
@@ -130,7 +120,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                 throw ex;
             }
 
-            return prodListingDTO;
+            return ticketListingModel;
         }
         
         private ActionResult GetResultInfo(ObjectDb db) 
@@ -141,8 +131,8 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             // get result message
             var result = new ActionResult
             {
-                Id = Converter.ToInt(errorCode),
-                Name = Converter.ToString2(errorMessage)
+                ErrorCode = Converter.ToInt(errorCode),
+                ErrorMsg = Converter.ToString2(errorMessage)
             };
 
             return result;
@@ -170,12 +160,12 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             return bettypeName;
         }
 
-        private List<ProductListing> getTicketsListingGroupByLicensee(DataTable tb)
+        private List<TicketListing> getTicketsListingGroupByLicensee(DataTable tb)
         {
             throw new NotImplementedException();
         }
 
-        private List<ProductListing> getTicketsListingGroupByBettype(DataTable tb)
+        private List<TicketListing> getTicketsListingGroupByBettype(DataTable tb)
         {
             throw new NotImplementedException();
         }

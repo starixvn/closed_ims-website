@@ -23,7 +23,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using Fanex.TicketControl.Core.Services.Interface;
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.Misc.Repositories.Impl;
-    using Fanex.TicketControl.Misc.DTO;
+    using Fanex.TicketControl.Misc.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
@@ -44,7 +44,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             return _coreService.GetBettypes(criteria);
         }
 
-        public ProductListingDTO GetTicketListing(GetTicketsListingCriteria criteria)
+        public TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria)
         {
             return _ticketListingRepository.GetTicketListing(criteria);
         }
