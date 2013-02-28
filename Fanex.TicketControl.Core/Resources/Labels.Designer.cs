@@ -1268,6 +1268,24 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to TicketList {0}.
+        /// </summary>
+        public static string TicketList {
+            get {
+                return ResourceManager.GetString("TicketList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tickets Listing for - Match ID: {0} - Bet type: {1}.
+        /// </summary>
+        public static string Tickets_Listing_for_MatchID_Bettype {
+            get {
+                return ResourceManager.GetString("Tickets_Listing_for_MatchID_Bettype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Title.
         /// </summary>
         public static string Title {

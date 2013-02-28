@@ -127,36 +127,6 @@ TicketListing.prototype.Init = function () {
         }
     });
 
-//    // toggle each licensee group and toggle all 
-//    $('body').delegate('.lnk-toggle', 'click', function () {
-//        var $this = $(this),
-//            icon = $this.find('i');
-
-//        $this.parents('table').find('tr[pid=' + $this.parents('tr').attr('id') + ']').fadeToggle('fast');
-
-//        if (icon.hasClass('icon-plus-sign')) {
-//            icon.addClass('icon-minus-sign').removeClass('icon-plus-sign');
-//        } else {
-//            icon.addClass('icon-plus-sign').removeClass('icon-minus-sign');
-//        }
-//    });
-
-//    $('body').delegate('.lnk-toggle-all', 'click', function () {
-//        var $this = $(this),
-//            icon = $this.find('i'),
-//            tBody = $this.parents('table').find('tbody');
-
-//        if (icon.hasClass('icon-plus-sign')) {
-//            tBody.find('tr:not(.lic)').fadeIn('fast');
-//            icon.addClass('icon-minus-sign').removeClass('icon-plus-sign');
-//            tBody.find('.lnk-toggle i').addClass('icon-minus-sign').removeClass('icon-plus-sign');
-//        } else {
-//            tBody.find('tr:not(.lic)').fadeOut('fast');
-//            icon.addClass('icon-plus-sign').removeClass('icon-minus-sign');
-//            tBody.find('.lnk-toggle i').addClass('icon-plus-sign').removeClass('icon-minus-sign');
-//        }
-//    });
-
     // submit data to server
     $('.submit').click(function () {
         if ($("#TicketListingForm").validationEngine('validate') === true){
@@ -260,24 +230,16 @@ TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
 TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
     var self = this;
 
-    var id = 'match-info-container';
-    if($('#' + id).length > 0){
-        $('#' + id).remove(); // remove it
-    }
-
-    var matchContainer = '<div class="freegrid  content-grid" id="' + id + '"></div>';
     var gridOptions = {
         columns: [
             { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
         ],
-        bodyRows: self.GenerateMatchInfoData(matchInfo)
+        bodyRows: []
     };
 
-    self.DOMElement.$body.append(matchContainer);
-
-    $('#' + id).fanexGrid(gridOptions);
+    $('#match-info-container').fanexGrid(gridOptions);
 };
 
 TicketListing.prototype.GenerateMatchInfoData = function(matchInfo){
@@ -294,12 +256,6 @@ TicketListing.prototype.GenerateMatchInfoData = function(matchInfo){
 TicketListing.prototype.RenderTickets = function (tickets) {
     var self = this;
 
-    var id = 'tickets-container';
-    if($('#' + id).length > 0){
-        $('#' + id).remove(); // remove it
-    }
-
-    var matchContainer = '<div class="freegrid  content-grid" id="' + id + '"></div>';
     var gridOptions = {
         columns: [
             { HeaderText: "Licensee", Name: "licensee", Width: 150, HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
@@ -310,9 +266,7 @@ TicketListing.prototype.RenderTickets = function (tickets) {
         showTree: true
     };
 
-    self.DOMElement.$body.append(matchContainer);
-
-    $('#' + id).fanexGrid(gridOptions);
+    $('#tickets-container').fanexGrid(gridOptions);
 };
 
 TicketListing.prototype.GenerateTicketsData = function(tickets){
@@ -383,4 +337,46 @@ TicketListing.prototype.RenderExportCell = function(cell){
     + 'groupId="' + cell.Value.groupId + '" childId="' + cell.Value.childId 
     + '" liveIndicator="' + cell.Value.liveIndicator + '" >'
     + '<i class="icon-excel"></i></a>';
+}
+
+// Detail Betlist for TicketListing
+TicketListing.prototype.RequestDataForBetlist = function(){
+    // get selected BettypeID, and merge it old data request.
+    // request data on server
+    
+}
+
+TicketListing.prototype.RenderTicketListingBetlist = function(betlist){
+    var self = this;
+
+    var gridOptions = {
+        
+        titleInfo: {
+                text: "Tickets Listing for - Match ID: xxx - Bet type: yyy",
+                showExcelButton: true,
+                exportExcelFunction: function () {
+                    alert("Export Excel Button Clicked");
+                },
+                showBackButton: true,
+                backFunction: function () {
+                    alert("Back Button Clicked");
+                }
+            },
+        showTitle: true,
+        columns: [
+            { HeaderText: "Bet ID", Name: "betId", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Trans.Date", Name: "transDate", Width: 80, HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Player", Name: "player", Width: 80, HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Choice", Name: "choice", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Odds", Name: "odds", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Stake", Name: "stake", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Winloss", Name: "winloss", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Currency", Name: "currency", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "Status", Name: "status", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "S.A", Name: "sa", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+        ],
+        bodyRows: []
+    };
+
+    $('#betlist-container').fanexGrid(gridOptions);
 }

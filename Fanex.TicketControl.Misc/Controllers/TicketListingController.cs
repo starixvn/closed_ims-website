@@ -42,7 +42,6 @@ namespace Fanex.TicketControl.Misc.Controllers
             return View();
         }
 
-
         public ActionResult Index()
         {
             return View();
@@ -55,10 +54,9 @@ namespace Fanex.TicketControl.Misc.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetBettypes(GetBettypeCriteria criteria)
+        public JsonResult GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
-            return Json(_ticketListingService.GetAllBettypes(criteria));
+            return Json(_ticketListingService.GetTicketListingBetList(criteria));
         }
-
     }
 }

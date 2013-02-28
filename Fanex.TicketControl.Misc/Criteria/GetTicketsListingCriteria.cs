@@ -13,15 +13,12 @@ namespace Fanex.TicketControl.Misc.Criteria
         [Display(Name = "MatchId")]
         public int MatchID { get; set; }
 
-        [Display(Name = "Licensee")]
-        public int LicenseeID { get; set; }
-
         public string BetTypes { get; set; } // Dead Bettypes
 
         public string BetTypesLive { get; set; } // Live Bettypes
 
         [Display(Name="Event Type")]
-        public int LiveType { get; set; } // old is Live Type
+        public int LiveType { get; set; }
 
         [Display(Name="Home")]
         public int? LiveHomeScore { get; set; }
@@ -35,14 +32,10 @@ namespace Fanex.TicketControl.Misc.Criteria
         [Display(Name = "To")]
         public DateTime? ToTransDate { get; set; }
 
-        public ProductType Type { get; set; } // type
+        public ProductType Type { get; set; } // product
 
         [Display(Name="Ticket Type")]
-        public int SAFilter { get; set; } // SA Filter
-
-        [SpParam(Ignored = true)]
-        [Display(Name = "Group By")]
-        public int GroupBy { get; set; }
+        public int SAFilter { get; set; }
 
         public int ErrCode { get; set; }
 

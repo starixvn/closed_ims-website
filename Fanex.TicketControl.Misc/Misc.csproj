@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExcelUtil, Version=29.3.0.1000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\ExcelUtil.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Fanex.Common.dll</HintPath>
@@ -48,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -60,12 +65,14 @@
     <Compile Include="Controllers\TicketListingController.cs" />
     <Compile Include="Criteria\GetTicketsListingCriteria.cs" />
     <Compile Include="Criteria\GetTicketsListingDetailCriteria.cs" />
+    <Compile Include="Entities\TicketListingBetList.cs" />
     <Compile Include="Entities\TicketListing.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\TicketListingRepository.cs" />
     <Compile Include="Repositories\Interface\ITicketListingRepository.cs" />
     <Compile Include="Services\Impl\TicketListingService.cs" />
     <Compile Include="Services\Interface\ITicketListingService.cs" />
+    <Compile Include="ViewModels\TicketListingBetListModel.cs" />
     <Compile Include="ViewModels\TicketListingModel.cs" />
   </ItemGroup>
   <ItemGroup />

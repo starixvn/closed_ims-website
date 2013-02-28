@@ -10,5 +10,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Interface
     public interface ITicketListingRepository
     {
         TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria);
+
+        TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria);
     }
 }
