@@ -4,7 +4,7 @@
 
 @using Fanex.TicketControl.Core.Resources
 @using Fanex.TicketControl.Core.Models
-@model Fanex.TicketControl.Misc.Criteria.GetTicketsListingCriteria
+
 
 @section Head {    
     <link href="~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css" />
@@ -27,7 +27,7 @@
     <div class="filter-row">
         <div class="filter-cell">
             <div class="lbl-field span3">                
-                <label for="MatchID">Match ID</label>
+                <label for="txtMatchId">Match ID</label>
             </div>
             <div class="edit-field span4">                
                 <input type="text" id="txtMatchId" maxlength="10"  class="validate[required, custom[integer],maxSize[10]]" data-prompt-position="bottomLeft" />
@@ -51,7 +51,7 @@
         </div>
         <div class="filter-cell">
             <div class="lbl-field span3">
-                @Html.LabelFor(m => m.TicketType)
+                <label>Ticket type</label>
             </div>
             <div class="edit-field span5">
             @{
@@ -77,7 +77,7 @@
     <div class="filter-row">
         <div class="filter-cell event-type-wrp">
             <div class="lbl-field span3">
-                @Html.LabelFor(m => m.EventType)
+                <label>Event Type</label>
             </div>
             <div class="edit-field span4">
             @{
@@ -106,20 +106,20 @@
             <div class="lbl-field">
                 <label for="LiveHomeScore" class="bold">@Labels.Live_Score: </label>
             </div>
-            <div class="edit-field live-score">
-                @Html.LabelFor(m => m.LiveHomeScore)
+            <div class="edit-field live-score">                
+                <label for="LiveHomeScore">Live Home Score</label>
                 @Html.TextBox("LiveHomeScore", string.Empty)
-                @Html.LabelFor(m => m.LiveAwayScore)
+                <label for="LiveAwayScore">Live Away Score</label>
                 @Html.TextBox("LiveAwayScore", string.Empty)        
             </div>
             <div class="lbl-field span5">
                 <label for="TransDate" class="bold">@Labels.Trans_Date_GMT8:</label>
             </div>
             <div class="edit-field datetime">
-                <input type="checkbox" class="chkTransDateRange" id="TransDate"/>
-                @Html.LabelFor(m => m.FromTransDate)                
+                <input type="checkbox" class="chkTransDateRange" id="TransDate"/>                
+                <label for="FromTransDate">From Trans Date</label>
                 @Html.TextBox("FromTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
-                @Html.LabelFor(m => m.ToTransDate)
+                <label for="ToTransDate">To Trans Date</label>
                 @Html.TextBox("ToTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
             </div>
         </fieldset>

@@ -6,9 +6,11 @@ var helper = {
     setStatusAllBettype: function (status){
         if (status) {
             $('.chkbettype').attr('checked', 'checked')
+            $('#chkallbettype').attr('checked', 'checked')
             helper.setStatusAllAdvanceCS(true);        
         } else {
             $('.chkbettype').removeAttr('checked');
+            $('#chkallbettype').removeAttr('checked');
             helper.setStatusAllAdvanceCS(false);        
         }
     },
@@ -109,6 +111,7 @@ DelSingleTicket.prototype.Init = function () {
     Helper.GetBettypes('Sportsbook');
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
+    helper.setStatusAllBettype(false);
 
     // handle events from DOM element
     // change live type
@@ -122,6 +125,7 @@ DelSingleTicket.prototype.Init = function () {
         }
 
         Helper.GetBettypes('Sportsbook', eventType);
+        helper.setStatusAllBettype(false);
     });
 
     // enable/disable Trans Date
