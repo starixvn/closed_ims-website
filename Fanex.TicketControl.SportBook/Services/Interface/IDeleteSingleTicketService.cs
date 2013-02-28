@@ -16,6 +16,8 @@ namespace Fanex.TicketControl.SportBook.Services.Interface
     using System.Diagnostics.CodeAnalysis;
 using Fanex.TicketControl.Core.Models;
 using Fanex.TicketControl.Core.Criteria;
+using Fanex.TicketControl.SportBook.ViewModels.SingleTicket;
+using Fanex.TicketControl.SportBook.Criteria;
 
 
     /// <summary>
@@ -24,6 +26,6 @@ using Fanex.TicketControl.Core.Criteria;
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public interface IDeleteSingleTicketService
     {
-        MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria);
+        SingleTicketModel GetSingleTicket(GetSingleTicketCriteria criteria);
     }
 }

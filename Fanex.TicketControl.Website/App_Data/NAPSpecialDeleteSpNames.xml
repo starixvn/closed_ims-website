@@ -3,11 +3,16 @@
 
   <Function Name="Core">
     <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="archive" />
+    <Setting Key="Core_ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="archive" />
   </Function>
   
   <Function Name="Misc">
     <Setting Key="Misc_Acc_SiteSel_Licensee" SpName="Acc_SiteSel_Licensee" DbName="archive" />
     <Setting Key="Misc_SelBettype" SpName="Acc_BetTypeSel" DbName="db053"  ></Setting>
     <Setting Key="Acc_Rpt_TicketsListing" SpName="Acc_Rpt_TicketsListing" DbName="db053"  ></Setting>
-  </Function>  
+  </Function>
+
+  <Function Name="SingleTicket">
+    <Setting Key="SingleTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel" DbName="archive" />
+  </Function>
 </Functions>

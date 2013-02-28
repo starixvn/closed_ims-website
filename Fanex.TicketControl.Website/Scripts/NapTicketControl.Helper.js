@@ -76,6 +76,7 @@
                     url: window.rootUrl + "Core/Common/GetBettypes",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
+                    async: false,
                     data: JSON.stringify(param),
                     beforeSend: function () {
                         NapTicketControl.disableInput();

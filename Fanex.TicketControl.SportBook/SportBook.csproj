@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
+    <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Entities\SingleTicket\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,9 +69,7 @@
     <Compile Include="Services\Interface\IDeleteSingleTicketService.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Criteria\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Fanex.TicketControl.Core\Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>

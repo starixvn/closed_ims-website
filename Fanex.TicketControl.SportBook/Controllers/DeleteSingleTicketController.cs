@@ -16,6 +16,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using Fanex.TicketControl.SportBook.Services.Implement;
     using Fanex.TicketControl.SportBook.Services.Interface;
     using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.SportBook.Criteria;
 
     
 
@@ -37,9 +38,9 @@ namespace Fanex.TicketControl.SportBook.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetMatchInfo(GetMatchInfoCriteria criteria)
+        public JsonResult GetSingleTicket(GetSingleTicketCriteria criteria)
         {
-            return Json(_deleteSingleTicketService.GetMatchInfo(criteria));
+            return Json(_deleteSingleTicketService.GetSingleTicket(criteria));
         }
         
         

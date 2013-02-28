@@ -15,6 +15,9 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
     using Fanex.TicketControl.Core.Services.Impl;
     using Fanex.TicketControl.Core.Services.Interface;
     using Fanex.TicketControl.SportBook.Services.Interface;
+    using Fanex.TicketControl.SportBook.ViewModels.SingleTicket;
+    using Fanex.TicketControl.SportBook.Criteria;
+    using System;
 
     /// <summary>
     /// TODO: Update summary.
@@ -28,9 +31,23 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             _coreService = new CoreService();
         }
 
-        public MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria)
+        public SingleTicketModel GetSingleTicket(GetSingleTicketCriteria criteria)
         {
-            return _coreService.GetMatchInfo(criteria);
+            SingleTicketModel model = new SingleTicketModel();
+            
+            try
+            {
+                GetMatchInfoCriteria criteriaMatchInfo = new GetMatchInfoCriteria();
+                criteriaMatchInfo.MatchId = criteria.MatchId;
+
+                model.MatchInfo = _coreService.GetMatchInfo(criteriaMatchInfo);
+                
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return model;
         }
     }
 }

@@ -84,6 +84,7 @@
     <Compile Include="Criteria\BalanceUpCriteria.cs" />
     <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
     <Compile Include="Criteria\GetBettypeCriteria.cs" />
+    <Compile Include="Criteria\GetCurrencyCriteria.cs" />
     <Compile Include="Criteria\GetMatchInfoCriteria.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Models\BalanceUp.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Bettype.cs" />
+    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Licensee.cs" />
     <Compile Include="Models\MailItem.cs" />
@@ -119,6 +121,8 @@
     <Compile Include="Services\Impl\ServiceBase.cs" />
     <Compile Include="Services\Interface\ICoreService.cs" />
     <Compile Include="Services\Interface\IServiceBase.cs" />
+    <Compile Include="Utils\CacheServiceKey.cs" />
+    <Compile Include="Utils\Helper.cs" />
     <Compile Include="Web\AppSession.cs" />
     <Compile Include="Web\CacheManager.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
@@ -140,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repository\Interface\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

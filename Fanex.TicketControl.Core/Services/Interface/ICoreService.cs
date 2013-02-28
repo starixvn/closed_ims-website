@@ -10,8 +10,8 @@ namespace Fanex.TicketControl.Core.Services.Interface
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-using Fanex.TicketControl.Core.Models;
-using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Core.Models;
+    using Fanex.TicketControl.Core.Criteria;
 
     /// <summary>
     /// TODO: Update summary.
@@ -23,5 +23,7 @@ using Fanex.TicketControl.Core.Criteria;
         IList<Licensee> GetAllLicensees();
 
         MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria);
+
+        IList<Currency> GetCurrency();
     }
 }

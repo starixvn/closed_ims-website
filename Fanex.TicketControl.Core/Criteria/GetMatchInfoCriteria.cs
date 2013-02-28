@@ -18,7 +18,7 @@ namespace Fanex.TicketControl.Core.Criteria
     public class GetMatchInfoCriteria : CriteriaBase
     {
 
-        public string MatchId { get; set; }
+        public int MatchId { get; set; }
 
         public override string GetSettingKey()
         {

@@ -80,5 +80,20 @@ namespace Fanex.TicketControl.Core.Services.Impl
             var matchInfo = _repository.Fetch<MatchInfo>(criteria, mappingFunc).FirstOrDefault();
             return matchInfo;
         }
+
+        public IList<Currency> GetCurrency()
+        {
+            Func<IDataReader, Currency> mappingFunc = r =>
+            {
+                return new Currency
+                {
+                    Id = r.ToInt("exchangeid"),
+                    Name = r.ToString("currency")
+                };
+            };
+
+            var obj = _repository.Fetch<Currency>(new GetCurrencyCriteria(), mappingFunc);
+            return obj;
+        }
     }
 }

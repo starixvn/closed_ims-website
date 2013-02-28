@@ -8,22 +8,31 @@ var helper = {
             $('.chkbettype').attr('checked', 'checked')
             $('#chkallbettype').attr('checked', 'checked')
             helper.setStatusAllAdvanceCS(true);        
+            helper.setEnableAllAdvanceCS(true);
+            helper.setStatusAllAdvanceTG(true);
+            helper.setEnableAllAdvanceTG(true);
         } else {
             $('.chkbettype').removeAttr('checked');
             $('#chkallbettype').removeAttr('checked');
             helper.setStatusAllAdvanceCS(false);        
+            helper.setEnableAllAdvanceCS(false);
+            helper.setStatusAllAdvanceTG(false);
+            helper.setEnableAllAdvanceTG(false);
         }
     },
 
     setStatusAllAdvanceCS: function (status){
         if (status) {
-            $('.chk-score').attr('checked', 'checked');
-            $('.chk-score').attr('disabled', false);
+            $('.chk-score').attr('checked', 'checked');               
         } else {
-            $('.chk-score').removeAttr('checked');
-            $('.chk-score').attr('disabled', true);
+            $('.chk-score').removeAttr('checked');                        
         }
     },
+
+    setEnableAllAdvanceCS: function(isEnable){
+         $('.chk-score').attr('disabled', !isEnable);            
+    },
+
 
     eventSubAdvanceCS: function (){
         var selectedItems = $('.all-chk-score tbody input:checked').length;
@@ -33,6 +42,29 @@ var helper = {
             $('#chk-score-all').attr('checked', 'checked');
         } else {
             $('#chk-score-all').removeAttr('checked');
+        }
+    },
+
+    setStatusAllAdvanceTG: function (status){
+        if (status) {
+            $('.chk-tg').attr('checked', 'checked');
+        } else {
+            $('.chk-tg').removeAttr('checked');            
+        }
+    },
+
+    setEnableAllAdvanceTG: function(isEnable){
+         $('.chk-tg').attr('disabled', !isEnable);            
+    },
+
+    eventSubAdvanceTG: function (){
+        var selectedItems = $('.advance-item-tg .chk-tg:input:checked').length;
+        var totalItems =    $('.advance-item-tg .chk-tg:input:checkbox').length;
+
+        if (selectedItems === totalItems) {
+            $('#chk-tg-all').attr('checked', 'checked');
+        } else {
+            $('#chk-tg-all').removeAttr('checked');
         }
     },
 
@@ -51,7 +83,35 @@ var helper = {
         }
 
         return isSelected;
+    },
+
+    GetBettypesChecked: function (){
+        var checkedVals = $('.chkbettype:checkbox:checked').map(function() {
+            return this.value;
+        }).get().join('^');
+
+        return checkedVals;
+    },
+
+    GetBetteam430: function(){
+        var checkedVals = '';
+        checkedVals = $('.all-chk-score .chk-score:checkbox:checked').map(function() {
+                return this.value;
+            }).get().join('^'); 
+
+        return checkedVals;
+    },
+
+    GetBetteam6: function(){
+        var checkedVals = '';
+        checkedVals = $('.chk-tg:checkbox:checked').not('#chk-tg-all').map(function() {
+                return this.value;
+            }).get().join('^'); 
+
+        return checkedVals;
     }
+
+    
 };
 
 
@@ -62,47 +122,44 @@ var singleDetete = {
 
         $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
 
+        alert(helper.GetBetteam430());
+        return;
+                
         //Load Match Info
-        singleDetete.loadMatchInfo();
+        singleDetete.getSingleTicket();
     },
 
-    loadMatchInfo: function (){
-        
+    getSingleTicket: function (){
+
          var param = {
-            MatchId: $('#txtMatchId').val()
+            MatchId: $('#txtMatchId').val(),
+            FromRefNo: $('#fromRefno').val(),
+            ToRefNo: $('#toRefno').val(),
+            Hdp: $('#hdp').val() == '' ? '999' :  $('#hdp').val(),
+            LiveIndicator: $('#EventType').val(),
+            LiveHomeScore: $('#LiveHomeScore').val(),
+            LiveAwayScore: $('#LiveAwayScore').val(),
+            FromTransdate: $('#FromTransDate').val(),
+            ToTransdate: $('#ToTransdate').val(),
+            Bettypes: helper.GetBettypesChecked(),
+            Betteam1378: $('#ddlBetTeam1378').val(),
+            Betteam515: $('#ddlBetTeam515').val(),
+            Betteam430: helper.GetBetteam430(),
+            Betteam6: helper.GetBetteam6()
          };
 
          $.ajax({
                 type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/GetMatchInfo",
+                url: window.rootUrl + "SportBook/DeleteSingleTicket/GetSingleTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),
                 beforeSend: function () {
                     NapTicketControl.disableInput();
                 },
-                success: function (matchInfo) {
-                    // check result to see any error from server
-                    
-                    var rows = [];
-                     rows.push({
-                        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-                            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-                            { Name: "eventDate", Value:  matchInfo.EventDate}
-                    ]});
-
-                    var id = 'matchInfo';
-                    var gridOptions = {
-                        columns: [
-                            { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                            { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                            { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-                        ],
-                        bodyRows: rows
-                    };
-
-                    $('#' + id).fanexGrid(gridOptions);
-
+                success: function (rs) {
+                    //render match info
+                    singleDetete.loadMatchInfo(rs.MatchInfo) ;
                 },
                 error: function () {
                     console.log('has error :(');
@@ -111,7 +168,30 @@ var singleDetete = {
                     NapTicketControl.enableInput();
                 }
             });
+    },
+
+    loadMatchInfo: function(matchInfo){
+        var rows = [];
+        rows.push({
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
+            { Name: "eventDate", Value:  matchInfo.EventDate}
+        ]});
+
+        var id = 'matchInfo';
+        var gridOptions = {
+            columns: [
+                { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            ],
+            bodyRows: rows
+        };
+
+        $('#' + id).fanexGrid(gridOptions);
     }
+        
+    
 };
 
 
@@ -161,6 +241,7 @@ DelSingleTicket.prototype.Init = function () {
     Helper.GetBettypes('Sportsbook');
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
+
     helper.setStatusAllBettype(false);
 
     // handle events from DOM element
@@ -196,10 +277,16 @@ DelSingleTicket.prototype.Init = function () {
     $('body').delegate('#chkallbettype', 'click', function () {
         if ($('#chkallbettype').prop('checked')) {
             $('.chkbettype').attr('checked', 'checked')
-            helper.setStatusAllAdvanceCS(true);        
+            helper.setStatusAllAdvanceCS(true);    
+            helper.setEnableAllAdvanceCS(true);           
+            helper.setStatusAllAdvanceTG(true);
+            helper.setEnableAllAdvanceTG(true);
         } else {
             $('.chkbettype').removeAttr('checked');
             helper.setStatusAllAdvanceCS(false);        
+            helper.setEnableAllAdvanceCS(false);           
+            helper.setStatusAllAdvanceTG(false);
+            helper.setEnableAllAdvanceTG(false);
         }
     });
 
@@ -214,7 +301,12 @@ DelSingleTicket.prototype.Init = function () {
         }
         
         var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
-        helper.setStatusAllAdvanceCS(IsSelectedCS);        
+        helper.setStatusAllAdvanceCS(IsSelectedCS); 
+        helper.setEnableAllAdvanceCS(IsSelectedCS);       
+        
+        var IsSelectedTG = helper.IsSelectedBettype(6);
+        helper.setStatusAllAdvanceTG(IsSelectedTG);
+        helper.setEnableAllAdvanceTG(IsSelectedTG);
     });
 
     //Correct Scores check all
@@ -225,6 +317,18 @@ DelSingleTicket.prototype.Init = function () {
     //Correct Scores uncheck any item
      $('body').delegate('.chk-score', 'click', function () {
         helper.eventSubAdvanceCS();
+    });
+
+
+     //TG check all
+     $('body').delegate('#chk-tg-all', 'click', function () {
+        helper.setStatusAllAdvanceTG(this.checked);
+    });
+
+
+     //TG uncheck any item
+     $('body').delegate('.chk-tg', 'click', function () {
+        helper.eventSubAdvanceTG();
     });
   
     

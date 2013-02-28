@@ -10,25 +10,37 @@ namespace Fanex.TicketControl.SportBook.Models
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Fanex.TicketControl.Core.Services.Impl;
+    
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class BaseTicketInfo
     {
-        public int Index { get; set; }
+        public int No { get; set; }
 
-        public string TransId { get; set; }
+        public string BetId { get; set; }
 
-        public string UserName { get; set; }
+        public string Player { get; set; }
 
-        public string TransTime { get; set; }
+        public string TransDate { get; set; }
 
         public int BetType { get; set; }
 
-        public string BetTypeName { get; set; }
+        private string _BetTypeName;
+        public string BetTypeName {
+            get 
+            {
+                return _BetTypeName;
+            } 
+            private set
+            {
+                _BetTypeName = CacheRef.GetBettype(BetType);
+            } 
+        }
 
-        public string Betteam { get; set; }
+        public string Choice { get; set; }
 
         public string Stake { get; set; }
 
@@ -43,6 +55,7 @@ namespace Fanex.TicketControl.SportBook.Models
         public string Score { get; set; }
 
         public string Creator { get; set; }
+
         
     }
 }
