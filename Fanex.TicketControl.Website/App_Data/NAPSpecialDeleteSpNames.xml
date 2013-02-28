@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
+
+  <Function Name="Core">
+    <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="archive" />
+  </Function>
+  
   <Function Name="Misc">
     <Setting Key="Misc_Acc_SiteSel_Licensee" SpName="Acc_SiteSel_Licensee" DbName="archive" />
     <Setting Key="Misc_SelBettype" SpName="Acc_BetTypeSel" DbName="db053"  ></Setting>

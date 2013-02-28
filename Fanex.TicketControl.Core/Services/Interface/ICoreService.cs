@@ -21,5 +21,7 @@ using Fanex.TicketControl.Core.Criteria;
         IList<Bettypes> GetBettypes(GetBettypeCriteria criteria);
 
         IList<Licensee> GetAllLicensees();
+
+        MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria);
     }
 }

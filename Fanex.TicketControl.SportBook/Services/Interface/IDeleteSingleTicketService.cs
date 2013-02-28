@@ -14,15 +14,16 @@ namespace Fanex.TicketControl.SportBook.Services.Interface
     using System.Linq;
     using System.Text;
     using System.Diagnostics.CodeAnalysis;
-//using Fanex.TicketControl.SportBook.Models.SingleTicket;
-//using Fanex.TicketControl.SportBook.Criteria;
+using Fanex.TicketControl.Core.Models;
+using Fanex.TicketControl.Core.Criteria;
+
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public interface ISingleTickketService
+    public interface IDeleteSingleTicketService
     {
-        //List<Bettype> SelBettype(GetBettypeCriteria criteria);
+        MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria);
     }
 }

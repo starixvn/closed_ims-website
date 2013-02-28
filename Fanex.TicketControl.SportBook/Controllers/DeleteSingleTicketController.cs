@@ -10,26 +10,24 @@
 
 namespace Fanex.TicketControl.SportBook.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web;
-    using System.Web.Mvc;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.NAP.Core.Business;
+    using System.Web.Mvc;
     using Fanex.TicketControl.Core.Web.Controllers;
+    using Fanex.TicketControl.SportBook.Services.Implement;
+    using Fanex.TicketControl.SportBook.Services.Interface;
+    using Fanex.TicketControl.Core.Criteria;
 
     
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class DeleteSingleTicketController : BaseController
     {
-        
+
+        IDeleteSingleTicketService _deleteSingleTicketService;
 
         public DeleteSingleTicketController()
         {
-            
+            _deleteSingleTicketService = new DeleteSingleTicketService();            
         }
 
         
@@ -37,8 +35,12 @@ namespace Fanex.TicketControl.SportBook.Controllers
         {
             return View();
         }
-               
 
+        [HttpPost]
+        public JsonResult GetMatchInfo(GetMatchInfoCriteria criteria)
+        {
+            return Json(_deleteSingleTicketService.GetMatchInfo(criteria));
+        }
         
         
     }

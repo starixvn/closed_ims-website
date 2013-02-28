@@ -62,5 +62,23 @@ namespace Fanex.TicketControl.Core.Services.Impl
             IList<Licensee> licensees = _repository.Fetch<Licensee>(new GetAllLicenseeCriteria(), mappingFunc);
             return licensees;
         }
+
+        public MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria)
+        {
+            Func<IDataReader, MatchInfo>  mappingFunc = r =>
+            {
+                return new MatchInfo 
+                {
+                    MatchId = r.ToInt("MatchId"),
+                    HomeId = r.ToInt("HomeId"),
+                    AwayId = r.ToInt("AwayId"),
+                    MatchCode = r.ToString("MatchCode"),
+                    EventDate = r.ToDateTime("EventDate").ToShortDateString(),
+                };
+            };
+
+            var matchInfo = _repository.Fetch<MatchInfo>(criteria, mappingFunc).FirstOrDefault();
+            return matchInfo;
+        }
     }
 }

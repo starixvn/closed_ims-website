@@ -61,6 +61,56 @@ var singleDetete = {
         jQuery("#DeleteSingleTicketForm").validationEngine('validate');
 
         $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
+
+        //Load Match Info
+        singleDetete.loadMatchInfo();
+    },
+
+    loadMatchInfo: function (){
+        
+         var param = {
+            MatchId: $('#txtMatchId').val()
+         };
+
+         $.ajax({
+                type: "POST",
+                url: window.rootUrl + "SportBook/DeleteSingleTicket/GetMatchInfo",
+                contentType: "application/json; charset=utf-8", 
+                dataType: "json",
+                data: JSON.stringify(param),
+                beforeSend: function () {
+                    NapTicketControl.disableInput();
+                },
+                success: function (matchInfo) {
+                    // check result to see any error from server
+                    
+                    var rows = [];
+                     rows.push({
+                        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
+                            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
+                            { Name: "eventDate", Value:  matchInfo.EventDate}
+                    ]});
+
+                    var id = 'matchInfo';
+                    var gridOptions = {
+                        columns: [
+                            { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                            { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
+                            { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                        ],
+                        bodyRows: rows
+                    };
+
+                    $('#' + id).fanexGrid(gridOptions);
+
+                },
+                error: function () {
+                    console.log('has error :(');
+                },
+                complete: function () {
+                    NapTicketControl.enableInput();
+                }
+            });
     }
 };
 

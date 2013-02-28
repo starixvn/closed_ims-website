@@ -84,6 +84,7 @@
     <Compile Include="Criteria\BalanceUpCriteria.cs" />
     <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
     <Compile Include="Criteria\GetBettypeCriteria.cs" />
+    <Compile Include="Criteria\GetMatchInfoCriteria.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
