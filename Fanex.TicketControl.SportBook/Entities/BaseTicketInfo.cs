@@ -28,16 +28,10 @@ namespace Fanex.TicketControl.SportBook.Models
 
         public int BetType { get; set; }
 
-        private string _BetTypeName;
-        public string BetTypeName {
-            get 
-            {
-                return _BetTypeName;
-            } 
-            private set
-            {
-                _BetTypeName = CacheRef.GetBettype(BetType);
-            } 
+        public string BetTypeName
+        {
+            get;
+            set;
         }
 
         public string Choice { get; set; }

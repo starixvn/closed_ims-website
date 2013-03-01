@@ -12,6 +12,7 @@ var helper = {
             helper.setStatusAllAdvanceHDP(true);
             helper.setStatusAllAdvance1X2(true);
             helper.setStatusAllAdvanceHTFT(true, true);
+            helper.setStatusAllAdvanceFGLG(true, true);
         } else {
             $('.chkbettype').removeAttr('checked');
             $('#chkallbettype').removeAttr('checked');
@@ -20,6 +21,7 @@ var helper = {
             helper.setStatusAllAdvanceHDP(false);
             helper.setStatusAllAdvance1X2(false);
             helper.setStatusAllAdvanceHTFT(false, false);
+            helper.setStatusAllAdvanceFGLG(false, false);
         }
     },
 
@@ -95,6 +97,27 @@ var helper = {
         }
     },
 
+    setStatusAllAdvanceFGLG: function (isChecked, isEnable){
+        if (isChecked) {
+            $('.chk-flg').attr('checked', 'checked');
+        } else {
+            $('.chk-flg').removeAttr('checked');            
+        }
+
+        $('.chk-flg').attr('disabled', !isEnable);            
+    },
+
+     eventSubAdvanceFGLG: function (){
+        var selectedItems = $('.advance-item-flg .chk-flg:input:checked').not('#chk-flg-all').length;
+        var totalItems =    $('.advance-item-flg .chk-flg:input:checkbox').not('#chk-flg-all').length;
+
+        if (selectedItems === totalItems) {
+            $('#chk-flg-all').attr('checked', 'checked');
+        } else {
+            $('#chk-flg-all').removeAttr('checked');
+        }
+    },
+
     IsSelectedBettype: function (bettypeId){
         var checkedVals = $('.chkbettype:checkbox:checked').map(function() {
             return this.value;
@@ -136,6 +159,24 @@ var helper = {
             }).get().join('^'); 
 
         return checkedVals;
+    },
+
+    GetBetteam14: function (){
+        var checkedVals = '';
+        checkedVals = $('.chk-flg:checkbox:checked').not('#chk-flg-all').map(function() {
+                return this.value;
+            }).get().join('^'); 
+
+        return checkedVals;
+    },
+
+    GetBetteam16: function (){
+        var checkedVals = '';
+        checkedVals = $('.chk-htft:checkbox:checked').not('#chk-htft-all').map(function() {
+                return this.value;
+            }).get().join('^'); 
+
+        return checkedVals;
     }
 
     
@@ -149,8 +190,8 @@ var singleDetete = {
 
         $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
 
-        //alert(helper.GetBetteam430());
-        //return;
+     //   alert(helper.GetBetteam16());
+       // return;
                 
         //Load Match Info
         singleDetete.getSingleTicket();
@@ -172,7 +213,10 @@ var singleDetete = {
             Betteam1378: $('#ddlBetTeam1378').val(),
             Betteam515: $('#ddlBetTeam515').val(),
             Betteam430: helper.GetBetteam430(),
-            Betteam6: helper.GetBetteam6()
+            Betteam6: helper.GetBetteam6(),
+            Betteam14: helper.GetBetteam14(),
+            Betteam16: helper.GetBetteam16(),
+            SAFilter: $('#TicketType').val()
          };
 
          $.ajax({
@@ -309,6 +353,7 @@ DelSingleTicket.prototype.Init = function () {
             helper.setStatusAllAdvanceHDP(true);
             helper.setStatusAllAdvance1X2(true);
             helper.setStatusAllAdvanceHTFT(true, true);
+            helper.setStatusAllAdvanceFGLG(true, true);
         } else {
             $('.chkbettype').removeAttr('checked');
             helper.setStatusAllAdvanceCS(false, false);        
@@ -316,6 +361,7 @@ DelSingleTicket.prototype.Init = function () {
             helper.setStatusAllAdvanceHDP(false);
             helper.setStatusAllAdvance1X2(false);
             helper.setStatusAllAdvanceHTFT(false, false);
+            helper.setStatusAllAdvanceFGLG(false, false);
         }
     });
 
@@ -345,6 +391,9 @@ DelSingleTicket.prototype.Init = function () {
 
         var IsSelected1X2 =  helper.IsSelectedBettype(16);
         helper.setStatusAllAdvanceHTFT(IsSelected1X2, IsSelected1X2);
+
+        var IsSelectedGFLG =  helper.IsSelectedBettype(14);
+        helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
     });
 
     //Correct Scores check all
@@ -374,6 +423,16 @@ DelSingleTicket.prototype.Init = function () {
   
     //HTFT uncheck any item
     $('body').delegate('.chk-htft', 'click', function () {
+        helper.eventSubAdvanceHTFT();
+    });
+
+      //FGLG check all 
+    $('body').delegate('#chk-flg-all', 'click', function () {        
+        helper.setStatusAllAdvanceFGLG(this.checked, true);
+    });
+  
+    //FGLG uncheck any item
+    $('body').delegate('.chk-flg', 'click', function () {
         helper.eventSubAdvanceHTFT();
     });
     

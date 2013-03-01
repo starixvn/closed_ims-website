@@ -24,11 +24,11 @@ namespace Fanex.TicketControl.SportBook.Controllers
     public class DeleteSingleTicketController : BaseController
     {
 
-        IDeleteSingleTicketService _deleteSingleTicketService;
+        IVoidSingleTicketService _deleteSingleTicketService;
 
         public DeleteSingleTicketController()
         {
-            _deleteSingleTicketService = new DeleteSingleTicketService();            
+            _deleteSingleTicketService = new VoidSingleTicketService();            
         }
 
         
@@ -40,6 +40,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
         [HttpPost]
         public JsonResult GetSingleTicket(GetSingleTicketCriteria criteria)
         {
+            criteria.UserName = CurrentSession.Username;
             return Json(_deleteSingleTicketService.GetSingleTicket(criteria));
         }
         

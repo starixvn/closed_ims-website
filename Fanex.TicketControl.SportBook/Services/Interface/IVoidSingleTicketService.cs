@@ -24,7 +24,7 @@ using Fanex.TicketControl.SportBook.Criteria;
     /// TODO: Update summary.
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public interface IDeleteSingleTicketService
+    public interface IVoidSingleTicketService
     {
         SingleTicketModel GetSingleTicket(GetSingleTicketCriteria criteria);
     }

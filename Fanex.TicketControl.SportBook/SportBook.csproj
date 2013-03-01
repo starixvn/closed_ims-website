@@ -63,10 +63,10 @@
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Entities\SingleTicket\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Impl\TicketListingRepository.cs" />
-    <Compile Include="Repositories\Interface\ITicketListingRepository.cs" />
-    <Compile Include="Services\Implement\DeleteSingleTicketService.cs" />
-    <Compile Include="Services\Interface\IDeleteSingleTicketService.cs" />
+    <Compile Include="Repositories\Impl\VoidSingleTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
+    <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
   </ItemGroup>
   <ItemGroup />
