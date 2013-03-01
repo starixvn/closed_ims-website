@@ -48,7 +48,7 @@ namespace Fanex.TicketControl.SportBook.Models
 
         public string Score { get; set; }
 
-        public string Creator { get; set; }
+        public string SA { get; set; }
 
         
     }

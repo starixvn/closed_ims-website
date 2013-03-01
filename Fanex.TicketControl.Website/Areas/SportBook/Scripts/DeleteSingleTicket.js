@@ -231,6 +231,7 @@ var singleDetete = {
                 success: function (rs) {
                     //render match info
                     singleDetete.loadMatchInfo(rs.MatchInfo) ;
+                    singleDetete.loadSingleTicket(rs.Groups);
                 },
                 error: function () {
                     console.log('has error :(');
@@ -254,14 +255,60 @@ var singleDetete = {
             columns: [
                 { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
             ],
             bodyRows: rows
         };
 
         $('#' + id).fanexGrid(gridOptions);
-    }
-        
+    },
+
+    loadSingleTicket : function(groups)
+    {
+        var rows = [];
+        var length = groups[0].Tickets.length;
+        for (var index = 0; index < length; index++) {
+            var currentRow = groups[0].Tickets[index];
+            rows.push({
+                Columns:[
+                    { Name: "No", Value: currentRow.No  },
+                    { Name: "Player", Value: currentRow.Player },
+                    { Name: "BetId", Value: currentRow.BetId },                    
+                    { Name: "TransDate", Value:currentRow.TransDate  },
+                    { Name: "BetTypeName", Value:currentRow.BetTypeName },
+                    { Name: "Odds", Value:currentRow.Odds},
+                    { Name: "Choice", Value:currentRow.Choice},
+                    { Name: "Stake", Value: currentRow.Stake},
+                    { Name: "CurrencyName", Value:currentRow.CurrencyName  },
+                    { Name: "Score", Value: currentRow.Score },
+                    { Name: "Status", Value: currentRow.Status },
+                    { Name: "SA", Value: currentRow.SA },
+                    { Name: "SA", Value: "<input type='checkbox' checked='checked'/>" }
+                ]
+            });
+        };
+
+        var gridOptions = {
+            columns: [
+                { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Player", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Odds", Name: "Odds", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Stake", Name: "Stake", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "S.A", Name: "SA", Width: 100, HeaderAlign: "center", CellAlign: "center" } ,
+                { HeaderText: "<div><span>Option</span><span><input type='checkbox' checked='checked'/></span></div>", Name: "SA", Width: 100, HeaderAlign: "center", CellAlign: "center" } 
+            ],
+            bodyRows: rows
+        };
+
+         $('#ticketInfo').fanexGrid(gridOptions);
+    }    
     
 };
 

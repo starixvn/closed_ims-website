@@ -94,7 +94,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         CurrencyName = Helper.CurrencyById(Convert.ToInt32(row["currency"])),
                         Status = Convert.ToString(row["status"]),
                         Score = Convert.ToString(row["livehomescore"]) + "-" + Convert.ToString(row["liveawayscore"]),
-                        Creator = Convert.ToString(row["creator"]),
+                        SA = Convert.ToInt32(row["SecAcceptFlag"]) == 1 ? "" : "<span class='icon-tick'></span>",
                         IsDelete = true,
                         BetTypeName = CacheRef.GetBettype(row["bettype"]),
                         Choice = "WHAT???"
