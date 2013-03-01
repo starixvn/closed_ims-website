@@ -2,7 +2,7 @@
 <Functions>
 
   <Function Name="Test">
-    <Setting Key="Test_BetTypeSel" SpName="Acc_BetTypeSel" DbName="apolo_db006" />
+    <Setting Key="Test_BetTypeSel" SpName="Acc_BetTypeSel" DbName="apollo_db06" />
   </Function>  
   
   <Function Name="Core">
