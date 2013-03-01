@@ -95,5 +95,12 @@ namespace Fanex.TicketControl.Core.Services.Impl
             var obj = _repository.Fetch<Currency>(new GetCurrencyCriteria(), mappingFunc);
             return obj;
         }
+
+
+        public void Test()
+        {
+            DataTable dt = _repository.Fetch(new TestCriteria());
+            int c = dt.Rows.Count;
+        }
     }
 }

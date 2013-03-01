@@ -41,7 +41,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 criteriaMatchInfo.MatchId = criteria.MatchId;
 
                 model.MatchInfo = _coreService.GetMatchInfo(criteriaMatchInfo);
-                
+                _coreService.Test();
             }
             catch (Exception ex)
             {

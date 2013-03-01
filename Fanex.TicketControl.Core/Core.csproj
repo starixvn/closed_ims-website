@@ -86,6 +86,7 @@
     <Compile Include="Criteria\GetBettypeCriteria.cs" />
     <Compile Include="Criteria\GetCurrencyCriteria.cs" />
     <Compile Include="Criteria\GetMatchInfoCriteria.cs" />
+    <Compile Include="Criteria\TestCriteria.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />

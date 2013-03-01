@@ -3,36 +3,35 @@
 
 var helper = {
 
-    setStatusAllBettype: function (status){
-        if (status) {
+    setStatusAllBettype: function (isChecked){
+        if (isChecked) {
             $('.chkbettype').attr('checked', 'checked')
             $('#chkallbettype').attr('checked', 'checked')
-            helper.setStatusAllAdvanceCS(true);        
-            helper.setEnableAllAdvanceCS(true);
-            helper.setStatusAllAdvanceTG(true);
-            helper.setEnableAllAdvanceTG(true);
+            helper.setStatusAllAdvanceCS(true, true);        
+            helper.setStatusAllAdvanceTG(true, true);
+            helper.setStatusAllAdvanceHDP(true);
+            helper.setStatusAllAdvance1X2(true);
+            helper.setStatusAllAdvanceHTFT(true, true);
         } else {
             $('.chkbettype').removeAttr('checked');
             $('#chkallbettype').removeAttr('checked');
-            helper.setStatusAllAdvanceCS(false);        
-            helper.setEnableAllAdvanceCS(false);
-            helper.setStatusAllAdvanceTG(false);
-            helper.setEnableAllAdvanceTG(false);
+            helper.setStatusAllAdvanceCS(false, false);        
+            helper.setStatusAllAdvanceTG(false, false);
+            helper.setStatusAllAdvanceHDP(false);
+            helper.setStatusAllAdvance1X2(false);
+            helper.setStatusAllAdvanceHTFT(false, false);
         }
     },
 
-    setStatusAllAdvanceCS: function (status){
-        if (status) {
+    setStatusAllAdvanceCS: function (isChecked, isEnable){
+        if (isChecked) {
             $('.chk-score').attr('checked', 'checked');               
         } else {
             $('.chk-score').removeAttr('checked');                        
         }
-    },
 
-    setEnableAllAdvanceCS: function(isEnable){
-         $('.chk-score').attr('disabled', !isEnable);            
+        $('.chk-score').attr('disabled', !isEnable);            
     },
-
 
     eventSubAdvanceCS: function (){
         var selectedItems = $('.all-chk-score tbody input:checked').length;
@@ -45,16 +44,14 @@ var helper = {
         }
     },
 
-    setStatusAllAdvanceTG: function (status){
-        if (status) {
+    setStatusAllAdvanceTG: function (isChecked, isEnable){
+        if (isChecked) {
             $('.chk-tg').attr('checked', 'checked');
         } else {
             $('.chk-tg').removeAttr('checked');            
         }
-    },
 
-    setEnableAllAdvanceTG: function(isEnable){
-         $('.chk-tg').attr('disabled', !isEnable);            
+        $('.chk-tg').attr('disabled', !isEnable);            
     },
 
     eventSubAdvanceTG: function (){
@@ -65,6 +62,36 @@ var helper = {
             $('#chk-tg-all').attr('checked', 'checked');
         } else {
             $('#chk-tg-all').removeAttr('checked');
+        }
+    },
+
+    setStatusAllAdvanceHDP: function (isEnable){
+        $('#ddlBetTeam1378').attr('disabled', !isEnable);
+        $('#hdp').attr('disabled', !isEnable);
+    },
+
+    setStatusAllAdvance1X2: function (isEnable){
+        $('#ddlBetTeam515').attr('disabled', !isEnable);        
+    },
+
+    setStatusAllAdvanceHTFT: function (isChecked, isEnable){
+        if (isChecked) {
+            $('.chk-htft').attr('checked', 'checked');
+        } else {
+            $('.chk-htft').removeAttr('checked');            
+        }
+
+        $('.chk-htft').attr('disabled', !isEnable);            
+    },
+
+    eventSubAdvanceHTFT: function (){
+        var selectedItems = $('.advance-item-htft .chk-htft:input:checked').not('#chk-htft-all').length;
+        var totalItems =    $('.advance-item-htft .chk-htft:input:checkbox').not('#chk-htft-all').length;
+
+        if (selectedItems === totalItems) {
+            $('#chk-htft-all').attr('checked', 'checked');
+        } else {
+            $('#chk-htft-all').removeAttr('checked');
         }
     },
 
@@ -122,8 +149,8 @@ var singleDetete = {
 
         $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
 
-        alert(helper.GetBetteam430());
-        return;
+        //alert(helper.GetBetteam430());
+        //return;
                 
         //Load Match Info
         singleDetete.getSingleTicket();
@@ -277,16 +304,18 @@ DelSingleTicket.prototype.Init = function () {
     $('body').delegate('#chkallbettype', 'click', function () {
         if ($('#chkallbettype').prop('checked')) {
             $('.chkbettype').attr('checked', 'checked')
-            helper.setStatusAllAdvanceCS(true);    
-            helper.setEnableAllAdvanceCS(true);           
-            helper.setStatusAllAdvanceTG(true);
-            helper.setEnableAllAdvanceTG(true);
+            helper.setStatusAllAdvanceCS(true, true);    
+            helper.setStatusAllAdvanceTG(true, true);
+            helper.setStatusAllAdvanceHDP(true);
+            helper.setStatusAllAdvance1X2(true);
+            helper.setStatusAllAdvanceHTFT(true, true);
         } else {
             $('.chkbettype').removeAttr('checked');
-            helper.setStatusAllAdvanceCS(false);        
-            helper.setEnableAllAdvanceCS(false);           
-            helper.setStatusAllAdvanceTG(false);
-            helper.setEnableAllAdvanceTG(false);
+            helper.setStatusAllAdvanceCS(false, false);        
+            helper.setStatusAllAdvanceTG(false, false);
+            helper.setStatusAllAdvanceHDP(false);
+            helper.setStatusAllAdvance1X2(false);
+            helper.setStatusAllAdvanceHTFT(false, false);
         }
     });
 
@@ -301,40 +330,56 @@ DelSingleTicket.prototype.Init = function () {
         }
         
         var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
-        helper.setStatusAllAdvanceCS(IsSelectedCS); 
-        helper.setEnableAllAdvanceCS(IsSelectedCS);       
+        helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS); 
         
         var IsSelectedTG = helper.IsSelectedBettype(6);
-        helper.setStatusAllAdvanceTG(IsSelectedTG);
-        helper.setEnableAllAdvanceTG(IsSelectedTG);
+        helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
+
+        var IsSelectedHDP = helper.IsSelectedBettype(1) || helper.IsSelectedBettype(7) 
+                            || helper.IsSelectedBettype(3) || helper.IsSelectedBettype(8)
+                            || helper.IsSelectedBettype(2) || helper.IsSelectedBettype(12);
+        helper.setStatusAllAdvanceHDP(IsSelectedHDP);
+
+        var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
+        helper.setStatusAllAdvance1X2(IsSelected1X2);
+
+        var IsSelected1X2 =  helper.IsSelectedBettype(16);
+        helper.setStatusAllAdvanceHTFT(IsSelected1X2, IsSelected1X2);
     });
 
     //Correct Scores check all
-     $('body').delegate('#chk-score-all', 'click', function () {
-        helper.setStatusAllAdvanceCS(this.checked);
+    $('body').delegate('#chk-score-all', 'click', function () {
+        helper.setStatusAllAdvanceCS(this.checked, true);
     });
 
     //Correct Scores uncheck any item
-     $('body').delegate('.chk-score', 'click', function () {
+    $('body').delegate('.chk-score', 'click', function () {
         helper.eventSubAdvanceCS();
     });
 
-
      //TG check all
-     $('body').delegate('#chk-tg-all', 'click', function () {
-        helper.setStatusAllAdvanceTG(this.checked);
+    $('body').delegate('#chk-tg-all', 'click', function () {
+        helper.setStatusAllAdvanceTG(this.checked, true);
     });
-
 
      //TG uncheck any item
-     $('body').delegate('.chk-tg', 'click', function () {
+    $('body').delegate('.chk-tg', 'click', function () {
         helper.eventSubAdvanceTG();
     });
+
+     //HTFT check all 
+    $('body').delegate('#chk-htft-all', 'click', function () {        
+        helper.setStatusAllAdvanceHTFT(this.checked, true);
+    });
   
+    //HTFT uncheck any item
+    $('body').delegate('.chk-htft', 'click', function () {
+        helper.eventSubAdvanceHTFT();
+    });
     
-     $('body').delegate('#btnSearch', 'click', function () {
+    $('body').delegate('#btnSearch', 'click', function () {
         singleDetete.search();
-     });
+    });
 };
 
 

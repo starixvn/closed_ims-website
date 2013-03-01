@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
 
+  <Function Name="Test">
+    <Setting Key="Test_BetTypeSel" SpName="Acc_BetTypeSel" DbName="apolo_db006" />
+  </Function>  
+  
   <Function Name="Core">
     <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="archive" />
     <Setting Key="Core_ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="archive" />

@@ -25,5 +25,7 @@ namespace Fanex.TicketControl.Core.Services.Interface
         MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria);
 
         IList<Currency> GetCurrency();
+
+        void Test();
     }
 }
