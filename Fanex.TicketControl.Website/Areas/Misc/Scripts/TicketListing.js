@@ -2,7 +2,6 @@
 function TicketListing() {
     this.DOMElement =
     {
-        $ddlLiccensee: null,
         $ddlEventType: null,
         $product: null,
         $bettypeWrp: null,
@@ -33,7 +32,6 @@ TicketListing.prototype.BetTypes = {
 TicketListing.prototype.CacheDOMElement = function () {
     var self = this;
 
-    self.DOMElement.$ddlLiccensee = $('.ddlLicensee');
     self.DOMElement.$ddlEventType = $('.ddlEventType');
     self.DOMElement.$product = $('.product');
     self.DOMElement.$bettypeWrp = $('.bettype-wrp');
@@ -187,6 +185,64 @@ TicketListing.prototype.Init = function () {
         }
         return false;
     });
+
+    // handle request  to get ticket detail
+    $('body').delegate('.lnk-totaltrans', 'click', function(){
+        var $this = $(this);
+        var bettypeId = $(this).attr('bettypeid'); 
+        var liveIndicator = $(this).attr('liveindicator');
+        var newAttributes = {};
+
+        // Selected Product is 'Number Game'
+        if(self.OldDataRequest.Type === 'NumberGame')
+        {
+            if(liveIndicator ===  'true') // is Live Ball
+            {
+                newAttributes.BetTypes = null;
+                newAttributes.BetTypesLive = bettypeId;
+            }else { // is Dead Ball
+                newAttributes.BetTypes = bettypeId;
+                newAttributes.BetTypesLive = null;
+            }
+        }else 
+        {
+            newAttributes.BetTypes = bettypeId;
+
+            if(liveIndicator === 'true'){ // is Live Ball
+                newAttributes.LiveType = 1;
+            }else {  // is Dead Ball
+                newAttributes.LiveType = 0;
+            }
+        }
+
+        // get new Data Request Object to get ticket details
+        var newDataReq = {};
+        $.extend(true, newDataReq, self.OldDataRequest, newAttributes);
+        console.log(newDataReq.toString());
+
+        $.ajax({
+                type: "POST",
+                url: window.rootUrl + "Misc/TicketListing/GetTicketListingBetList",           
+                contentType: "application/json; charset=utf-8", 
+                dataType: "json",
+                data: JSON.stringify(newDataReq),
+                beforeSend: function () {
+                    NapTicketControl.disableInput();
+                },
+                success: function (betlist) {
+                    // check result to see any error from server
+                    console.log('render bet list here.');
+                    self.RenderTicketListingBetlist(betlist);
+                },
+                error: function () {
+                    console.log('has error :(');
+                },
+                complete: function () {
+                    NapTicketControl.enableInput();
+                }
+            });
+    });
+
 };
 
 TicketListing.prototype.CollectSelectedProduct = function(){
@@ -232,11 +288,11 @@ TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
 
     var gridOptions = {
         columns: [
-            { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "CODE", Name: "code", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "MATCH EVENT", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "EVENT DATE", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
         ],
-        bodyRows: []
+        bodyRows: self.GenerateMatchInfoData(matchInfo)
     };
 
     $('#match-info-container').fanexGrid(gridOptions);
@@ -258,9 +314,9 @@ TicketListing.prototype.RenderTickets = function (tickets) {
 
     var gridOptions = {
         columns: [
-            { HeaderText: "Licensee", Name: "licensee", Width: 150, HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
-            { HeaderText: "Total Trans", Name: "totalTrans", Width: 80, HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Export Excel", Name: "export", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "BET TYPES", Name: "bettypes", Width: 150, HeaderAlign: "center", CellAlign: "left", ShowCollapseExpand: true },
+            { HeaderText: "TOTAL BETS", Name: "totalBets", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "EXPORT", Name: "export", Width: 80, HeaderAlign: "center", CellAlign: "center" },
         ],
         bodyRows: self.GenerateTicketsData(tickets),
         showTree: true
@@ -273,78 +329,46 @@ TicketListing.prototype.GenerateTicketsData = function(tickets){
     var self = this;
     var rows = [];
 
-    $.each(tickets, function(idx, group) {
-        var currentGroup = {
+    $.each(tickets, function(idx, ticket) {
+        var currentTicket = {
             Columns: [
-                    { Name: "licensee", Value: group.Name },
-                    { Name: "totalTrans", Value: { groupId: group.Id, childId: '', liveIndicator: group.LiveIndicator, TotalTrans: group.TotalTrans} },
-                    { Name: "export", Value: { groupId: group.Id, childId: '', liveIndicator: group.LiveIndicator} }
-                ],
-            SubRows: self.GenerateTicketDetailsData(group.Id, group.Items)
+                    { Name: "bettypes", Value: ticket.BetTypeName },
+                    { Name: "totalBets", Value: { bettypeID: ticket.BetTypeID, liveIndicator: ticket.LiveIndicator, TotalTrans: ticket.TotalTrans} },
+                    { Name: "export", Value: { bettypeID: ticket.BetTypeID, liveIndicator: ticket.LiveIndicator} }
+                ]
         };
 
-        currentGroup.Columns[1].CustomCellRender = function(cell){
+        currentTicket.Columns[1].CustomCellRender = function(cell){
             return TicketListing.prototype.RenderTotalTransCell(cell);
         };
-        currentGroup.Columns[2].CustomCellRender = function(cell){
+
+        currentTicket.Columns[2].CustomCellRender = function(cell){
             return TicketListing.prototype.RenderExportCell(cell);
         }
 
         // add additional attributes
-        currentGroup.Columns[1].CustomAttr = 'groupId="' + group.Name + '"';
-        rows.push(currentGroup);
+        currentTicket.Columns[1].CustomAttr = 'bettypeID="' + ticket.BetTypeID + '"';
+        rows.push(currentTicket);
     });
 
     return rows;
 };
 
-TicketListing.prototype.GenerateTicketDetailsData = function(parent, items){
-    var self = this;
-    var rows = [];
-
-     $.each(items, function(idx, item){
-        var currentRow = {
-            Columns: [
-                    { Name: "licensee", Value: item.Name },
-                    { Name: "totalTrans", Value:  { groupId: parent, childId: item.Name, liveIndicator: item.LiveIndicator, TotalTrans: item.TotalTrans}},
-                    { Name: "export", Value: { groupId: parent, childId: item.Name, liveIndicator: item.LiveIndicator } }
-                ]
-        }
-
-        currentRow.Columns[1].CustomCellRender = function(cell){
-            return TicketListing.prototype.RenderTotalTransCell(cell);
-        };
-
-        currentRow.Columns[2].CustomCellRender = function(cell){
-            return TicketListing.prototype.RenderExportCell(cell);
-        }
-
-        rows.push(currentRow);
-     });
-
-    return rows;
-}
-
 TicketListing.prototype.RenderTotalTransCell = function(cell){
     return '<a href="javascript:void(0);" class="lnk-totaltrans" ' 
-    + 'groupId="' + cell.Value.groupId + '" childId="' + cell.Value.childId 
+    + 'bettypeID="' + cell.Value.bettypeID 
     + '" liveIndicator="' + cell.Value.liveIndicator + '" >'
     + cell.Value.TotalTrans + '</a>';
 }
 
 TicketListing.prototype.RenderExportCell = function(cell){
     return '<a href="javascript:;" class="lnk-excel" '
-    + 'groupId="' + cell.Value.groupId + '" childId="' + cell.Value.childId 
+    + 'bettypeID="' + cell.Value.bettypeID 
     + '" liveIndicator="' + cell.Value.liveIndicator + '" >'
     + '<i class="icon-excel"></i></a>';
 }
 
 // Detail Betlist for TicketListing
-TicketListing.prototype.RequestDataForBetlist = function(){
-    // get selected BettypeID, and merge it old data request.
-    // request data on server
-    
-}
 
 TicketListing.prototype.RenderTicketListingBetlist = function(betlist){
     var self = this;
@@ -364,7 +388,7 @@ TicketListing.prototype.RenderTicketListingBetlist = function(betlist){
             },
         showTitle: true,
         columns: [
-            { HeaderText: "Bet ID", Name: "betId", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "BetID", Name: "betId", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Trans.Date", Name: "transDate", Width: 80, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Player", Name: "player", Width: 80, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Choice", Name: "choice", Width: 80, HeaderAlign: "center", CellAlign: "right" },
@@ -375,8 +399,34 @@ TicketListing.prototype.RenderTicketListingBetlist = function(betlist){
             { HeaderText: "Status", Name: "status", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "S.A", Name: "sa", Width: 80, HeaderAlign: "center", CellAlign: "center" },
         ],
-        bodyRows: []
+        bodyRows: self.GenerateBetListData(betlist.Items)
     };
 
     $('#betlist-container').fanexGrid(gridOptions);
 }
+
+
+TicketListing.prototype.GenerateBetListData = function(betlist){
+    var self = this;
+    var rows = [];
+
+    $.each(betlist, function(idx, bet) {
+        var currentBet = {
+            Columns: [
+                    { Name: "betId", Value: bet.Ticket.TransId },
+                    { Name: "transDate", Value: bet.TransDate },
+                    { Name: "player", Value: bet.Ticket.UserName },
+                    { Name: "choice", Value: bet.Choice },
+                    { Name: "odds", Value: bet.OddsHtml },
+                    { Name: "stake", Value: bet.Ticket.Stake },
+                    { Name: "winloss", Value: bet.Ticket.Winlost },
+                    { Name: "currency", Value: bet.Currency },
+                    { Name: "status", Value: bet.Ticket.Status },
+                    { Name: "sa", Value: bet.SAFlag }
+                ]
+        };
+        rows.push(currentBet);
+    });
+
+    return rows;
+};

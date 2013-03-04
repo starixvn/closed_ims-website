@@ -183,7 +183,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
+    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
@@ -570,7 +572,9 @@
     <Content Include="Web.AppSettings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.ConnectionString.config" />
+    <Content Include="Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.css" />
     <None Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
     <None Include="Content\base\colors.less" />

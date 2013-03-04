@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fanex.TicketControl.Core.Models;
 using Fanex.TicketControl.Core.Services.Impl;
+using Fanex.BetList.Core.Entities;
 
 namespace Fanex.TicketControl.Misc.Entities
 {

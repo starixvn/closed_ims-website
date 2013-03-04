@@ -8,6 +8,8 @@ namespace Fanex.TicketControl.Misc.ViewModels
 {
     public class TicketListingBetListModel
     {
-        public List<TicketListingBetList> Items { get; set; }
+        public List<TicketListingDetail> Items { get; set; }
+
+        public int TotalItem { get; set; }
     }
 }

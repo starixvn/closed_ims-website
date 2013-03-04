@@ -256,7 +256,7 @@
     <value>Event</value>
   </data>
   <data name="Event_Date" xml:space="preserve">
-    <value>Event Date</value>
+    <value>EVENT DATE</value>
   </data>
   <data name="Exchange" xml:space="preserve">
     <value>Exchange</value>
@@ -331,7 +331,7 @@
     <value>MatchID</value>
   </data>
   <data name="Match_Code" xml:space="preserve">
-    <value>Match Code</value>
+    <value>CODE</value>
   </data>
   <data name="Member" xml:space="preserve">
     <value>Member</value>
@@ -594,5 +594,14 @@
   </data>
   <data name="Tickets_Listing_for_MatchID_Bettype" xml:space="preserve">
     <value>Tickets Listing for - Match ID: {0} - Bet type: {1}</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>CODE</value>
+  </data>
+  <data name="EventDate" xml:space="preserve">
+    <value>EVENT DATE</value>
+  </data>
+  <data name="Match_Event" xml:space="preserve">
+    <value>MATCH EVENT</value>
   </data>
 </root>

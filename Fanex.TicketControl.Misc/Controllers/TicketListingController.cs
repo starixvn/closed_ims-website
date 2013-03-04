@@ -58,5 +58,12 @@ namespace Fanex.TicketControl.Misc.Controllers
         {
             return Json(_ticketListingService.GetTicketListingBetList(criteria));
         }
+
+        [HttpPost]
+        public void ExportTicketListingBetList(GetTicketsListingDetailCriteria criteria)
+        {
+            // call service export here
+        }
+
     }
 }

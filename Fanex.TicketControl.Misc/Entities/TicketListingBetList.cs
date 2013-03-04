@@ -1,32 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using Fanex.BetList.Core.Entities;
 
 namespace Fanex.TicketControl.Misc.Entities
 {
     [Serializable]
-    public class TicketListingBetList
+    public class TicketListingDetail
     {
-        public int TransID { get; set; }
+        // Convention:
+        // Field TransID is Bet ID
 
-        public DateTime TransDate { get; set; }
+        public ITicket Ticket { get; set; }
 
-        public string Player { get; set; }
+        public string TransDate { get; set; }
 
-        public string Choice { get; set; }
+        public string ChoiceHtml { get; set; } // html 
 
-        public float Odds { get; set; }
+        public string OddsHtml { get; set; }
 
-        public float Stake { get; set; }
+        public string Currency { get; set; }
 
-        public float Winloss { get; set; }
+        #region additional fields for mix parlay
+        
+        public bool IsMixParlay { get; set; }
 
-        public string Currence { get; set; }
+        public int BettypeM { get; set; }
 
-        public string Status { get; set; }
+        public string Selection { get; set; }
 
-        public bool SA { get; set; }
+        #endregion
+
+        public bool SAFlag { get; set; } // second accept flag
+
     }
 }
 

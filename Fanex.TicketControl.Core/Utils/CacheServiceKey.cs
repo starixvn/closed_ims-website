@@ -17,5 +17,7 @@ namespace Fanex.TicketControl.Core.Utils
     public class CacheServiceKey
     {
         public const string KeyCurrency = "Core.Key.Currency";
+
+        public const string KeyNumberWheelChoice = "Core.Key.NumberWheelChoice";
     }
 }
