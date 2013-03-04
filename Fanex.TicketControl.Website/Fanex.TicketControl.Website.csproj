@@ -183,9 +183,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
@@ -219,10 +217,17 @@
     <Content Include="Content\base\img\icon-excel.gif" />
     <Content Include="Content\base\img\icons\appbar.clear.reflect.horizontal.white.png" />
     <Content Include="Content\base\img\pointer.png" />
+    <Content Include="Content\BetList.css" />
     <Content Include="Content\img\BetList.png" />
+    <Content Include="Content\img\bgHeader.jpg" />
+    <Content Include="Content\img\firstGoal.gif" />
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
+    <Content Include="Content\img\green-star.gif" />
+    <Content Include="Content\img\lastGoal.gif" />
     <Content Include="Content\img\loader.gif" />
+    <Content Include="Content\img\q_Icon2_1.png" />
+    <Content Include="Content\img\q_Icon_2.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\NapTicketControl.Helper.js" />
@@ -572,9 +577,7 @@
     <Content Include="Web.AppSettings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.ConnectionString.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.ConnectionString.config" />
     <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.css" />
     <None Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
     <None Include="Content\base\colors.less" />
