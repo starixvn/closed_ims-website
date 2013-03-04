@@ -106,6 +106,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         IsDelete = true,
                         BetTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(row["bettype"]),
 
+                        
                     };
 
                     tickets.Add(ticketInfo);
@@ -152,8 +153,11 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         Handicap1 = Convert.ToDecimal(row["hdp1"]),
                         Handicap2 = Convert.ToDecimal(row["hdp2"]),
 
-                        Status = Convert.ToString(row["status"])
-
+                        Status = Convert.ToString(row["status"]),
+                        HomeId = 2888,
+                        AwayId = 7675,
+                        LeagueId = 137,
+                        SportTypeId = 1
                     };
 
                     ITicketHelper ticketHelper = new TicketHelper();

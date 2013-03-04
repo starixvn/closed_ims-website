@@ -318,7 +318,7 @@ var singleDetete = {
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: "Stake", Name: "Stake", Width: 80, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
