@@ -177,7 +177,29 @@ var helper = {
             }).get().join('^'); 
 
         return checkedVals;
+    },
+
+    setStausAllCheckTicket: function ()
+    {
+        var isChecked = $('#chk-ticket-all').prop('checked');
+         if (isChecked) {
+            $('.chk-ticket').attr('checked', 'checked');
+        } else {
+            $('.chk-ticket').removeAttr('checked');            
+        }
+    },
+
+    eventSubTicket: function (){
+        var selectedItems = $('.chk-ticket:input:checked').length;
+        var totalItems =    $('.chk-ticket:input:checkbox').length;
+
+        if (selectedItems === totalItems) {
+            $('#chk-ticket-all').attr('checked', 'checked');
+        } else {
+            $('#chk-ticket-all').removeAttr('checked');
+        }
     }
+   
 
     
 };
@@ -189,9 +211,7 @@ var singleDetete = {
         jQuery("#DeleteSingleTicketForm").validationEngine('validate');
 
         $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
-
-     //   alert(helper.GetBetteam16());
-       // return;
+        
                 
         //Load Match Info
         singleDetete.getSingleTicket();
@@ -283,11 +303,13 @@ var singleDetete = {
                     { Name: "Score", Value: currentRow.Score },
                     { Name: "Status", Value: currentRow.Status },
                     { Name: "SA", Value: currentRow.SA },
-                    { Name: "SA", Value: "<input type='checkbox' checked='checked'/>" }
-                ]
+                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
+                ],
+                CssClass: "DemoCss"
             });
         };
 
+        
         var gridOptions = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
@@ -297,22 +319,29 @@ var singleDetete = {
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Stake", Name: "Stake", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Stake", Name: "Stake", Width: 80, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "S.A", Name: "SA", Width: 100, HeaderAlign: "center", CellAlign: "center" } ,
-                { HeaderText: "<div><span>Option</span><span><input type='checkbox' checked='checked'/></span></div>", Name: "SA", Width: 100, HeaderAlign: "center", CellAlign: "center" } 
+                { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
+                { HeaderText: "<div><span>Option</span><span><input onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 100, HeaderAlign: "center", CellAlign: "center", CustomCellRender: singleDetete.optionCustomRender } 
             ],
             bodyRows: rows
         };
 
-         $('#ticketInfo').fanexGrid(gridOptions);
-    }    
+        $('#ticketInfo').fanexGrid(gridOptions);
+       
+    },
+
+    optionCustomRender: function (cell)
+    {
+        return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
+    }
+
     
 };
 
-
+ 
 
 function DelSingleTicket() {
     this.DOMElement =

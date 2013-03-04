@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.BetList.Core, Version=1.0.4805.29417, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\accountingreports\_Dependencies\Fanex.NAP.Framework\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core.TicketHelper, Version=1.0.4805.29420, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\accountingreports\_Dependencies\Fanex.NAP.Framework\Fanex.BetList.Core.TicketHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Common.dll</HintPath>
     </Reference>
@@ -56,6 +62,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="TplCore">
+      <HintPath>..\..\..\..\..\TplBuilder2010\TplCore.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />

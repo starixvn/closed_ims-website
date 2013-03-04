@@ -1,5 +1,6 @@
 ﻿body
 {
+    /*overflow: hidden;*/
     margin: 0;
     padding: 0;
 }
@@ -158,9 +159,9 @@
 {
     display: table-cell;
     vertical-align: middle;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;         /* Opera/IE 8+ */
+    /*-webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;  
+    box-sizing: border-box;   */   
 }
 .freegrid .wordwarp
 {
@@ -458,8 +459,8 @@ div.divSorter.desc
 div.divSorter.desc {
     background-position: 0 -53px !important;
 }
-.freegrid .parent-row td 
-{
+
+.freegrid .parent-row td {
     color: #30465D;
     font-weight: bold;
 }
@@ -476,17 +477,16 @@ div.divSorter.desc {
 }
 
 .freegrid .parent-level-3 td {
-    background-color: #C2DDEC;
+    background-color: #EFFEFD;
 }
 
 .freegrid .parent-level-4 td {
-    background-color: #C2DEEC;
+    background-color: #FFFEFD;
 }
 
 .freegrid .parent-level-5 td {
-    background-color: #C2E2EC;
+    background-color: #FFFFFD;
 }
-
 .freegrid .parent-row .tr-grid-collapse-expand {
     cursor: pointer;
 }
@@ -500,6 +500,9 @@ div.divSorter.desc {
 .freegrid span.grid-collapse{
 	padding:8px;
 	background: url(images/collapse-small.png) 4px center no-repeat;
+}
+.freegrid span.grid-collapse-expand-noitem{
+	padding:8px;
 }
 .freegrid .freegrid-even td 
 {
