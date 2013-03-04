@@ -20,8 +20,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 {
     public class TicketListingRepository : BaseRepository, ITicketListingRepository
     {
-
-        
         public TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria)
         {
             TicketListingModel ticketListingModel = new TicketListingModel();

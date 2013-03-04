@@ -393,8 +393,8 @@ TicketListing.prototype.RenderTicketListingBetlist = function(betlist){
             { HeaderText: "Player", Name: "player", Width: 80, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Choice", Name: "choice", Width: 80, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Odds", Name: "odds", Width: 80, HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Stake", Name: "stake", Width: 80, HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Winloss", Name: "winloss", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Stake", Name: "stake", Width: 80, HeaderAlign: "center", CellAlign: "right"},
+            { HeaderText: "Winloss", Name: "winloss", Width: 80, HeaderAlign: "center", CellAlign: "right"},
             { HeaderText: "Currency", Name: "currency", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Status", Name: "status", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "S.A", Name: "sa", Width: 80, HeaderAlign: "center", CellAlign: "center" },
@@ -416,7 +416,7 @@ TicketListing.prototype.GenerateBetListData = function(betlist){
                     { Name: "betId", Value: bet.Ticket.TransId },
                     { Name: "transDate", Value: bet.TransDate },
                     { Name: "player", Value: bet.Ticket.UserName },
-                    { Name: "choice", Value: bet.Choice },
+                    { Name: "choice", Value: bet },
                     { Name: "odds", Value: bet.OddsHtml },
                     { Name: "stake", Value: bet.Ticket.Stake },
                     { Name: "winloss", Value: bet.Ticket.Winlost },
@@ -425,8 +425,53 @@ TicketListing.prototype.GenerateBetListData = function(betlist){
                     { Name: "sa", Value: bet.SAFlag }
                 ]
         };
+
+        currentBet.Columns[3].CustomCellRender = function(cell){
+            return TicketListing.prototype.RenderChoiceCell(cell);
+        };
+        currentBet.Columns[6].CustomCellRender = function(cell){
+            return TicketListing.prototype.RenderWinlossCell(cell);
+        };
+
         rows.push(currentBet);
     });
 
     return rows;
 };
+
+TicketListing.prototype.RenderChoiceCell = function(cell){
+    var html = '';
+    var isMixParlay = cell.Value.IsMixParlay;
+    if(cell.Value.SAFlag === 'False')
+    {
+        html += '<span class="bl-choice b">' + cell.Value.SportEvent.Choice + '</span>'
+            + '<span class="b">' + cell.Value.SportEvent.Hdp + '</span>'
+            + '<span class="bl-choice b">' + (cell.Value.Ticket.IsLive ? cell.Value.SportEvent.LiveScore : '') + '</span>'
+            + '<span class="b">' + (isMixParlay ? ('@' + cell.Value.Ticket.Odds) : '') + '</span>'
+            + (isMixParlay ? ('<br><span class="bl_bettypem">' + cell.Value.SportEvent.BetType + '</span>') : '');
+    }
+    else {
+        html += '<span class="bl-choice b">' + cell.Value.SportEvent.Choice + '</span>'
+            + '<span class="b">' + cell.Value.SportEvent.Hdp + '</span>'
+            + '<span class="bl-choice b">' + (cell.Value.Ticket.IsLive ? cell.Value.SportEvent.LiveScore : '') + '</span>'
+            + '<span class="b">' + (isMixParlay ? ('@' + cell.Value.Ticket.Odds) : '') + '</span>'
+            + (isMixParlay ? ('<br><span class="bl_bettypem">' + cell.Value.SportEvent.BetType + '</span>') : '');
+    }
+    return html;
+}
+
+TicketListing.prototype.RenderWinlossCell = function(cell){
+    var html = '';
+    if(cell.Value < 0){
+        html += '<span style="color: Red;">' + -1*cell.Value + '</span>';
+    }else {
+        html += '<span style="color: Black;">' + cell.Value + '</span>';
+    }
+
+    return ;
+}
+
+TicketListing.prototype.RenderStakeCell = function(cell){
+    return ;
+}
+

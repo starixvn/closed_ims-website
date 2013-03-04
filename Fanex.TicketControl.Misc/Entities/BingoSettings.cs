@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
+using Fanex.Common;
 
 namespace Fanex.TicketControl.Misc.Entities
 {
@@ -11,29 +13,30 @@ namespace Fanex.TicketControl.Misc.Entities
         {
             get
             {
-                return 1;
+                return Converter.ToInt(ConfigurationManager.AppSettings["MaxBall"]);
             }
         }
 
-        public static double MaxCommission
+        public static decimal MaxCommission
         {
             get
             {
-                return 1.0;
+                return Converter.ToDecimal(ConfigurationManager.AppSettings["MaxCommission"]);
             }
         }
 
-        public static double MaxPt
+        public static decimal MaxPt
         {
             get
             {
-                return 1.0;
+                return Converter.ToDecimal(ConfigurationManager.AppSettings["MaxPt"]);
             }
         }
 
-        public static double MinPt {
+        public static decimal MinPt
+        {
             get {
-                return 2.0;
+                return Converter.ToDecimal(ConfigurationManager.AppSettings["MinPt"]);
             }
         }
     }
