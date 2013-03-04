@@ -34,5 +34,23 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             }
             return ds;
         }
+
+
+        public IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria)
+        {
+            IList<ActionResult> results = new List<ActionResult>();
+            try
+            {
+                using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return results;
+        }
     }
 }

@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
     <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
+    <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Entities\SingleTicket\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
