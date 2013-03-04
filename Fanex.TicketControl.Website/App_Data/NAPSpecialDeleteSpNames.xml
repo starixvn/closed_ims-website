@@ -8,6 +8,8 @@
   <Function Name="Core">
     <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="archive" />
     <Setting Key="Core_ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="archive" />
+    <Setting Key="Core_Dot_Msg_SetMessage" SpName="Dot_Msg_SetMessage" DbName="message" />
+    <Setting Key="Core_Dot_Msg_SetUsrMessage" SpName="Dot_Msg_SetUsrMessage" DbName="message" />
   </Function>
   
   <Function Name="Misc">
