@@ -241,6 +241,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CODE.
+        /// </summary>
+        public static string Code {
+            get {
+                return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comm.
         /// </summary>
         public static string Comm {
@@ -475,11 +484,20 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Event Date.
+        ///   Looks up a localized string similar to EVENT DATE.
         /// </summary>
         public static string Event_Date {
             get {
                 return ResourceManager.GetString("Event_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to EVENT DATE.
+        /// </summary>
+        public static string EventDate {
+            get {
+                return ResourceManager.GetString("EventDate", resourceCulture);
             }
         }
         
@@ -691,11 +709,20 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Match Code.
+        ///   Looks up a localized string similar to CODE.
         /// </summary>
         public static string Match_Code {
             get {
                 return ResourceManager.GetString("Match_Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to MATCH EVENT.
+        /// </summary>
+        public static string Match_Event {
+            get {
+                return ResourceManager.GetString("Match_Event", resourceCulture);
             }
         }
         

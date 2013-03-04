@@ -31,6 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.BetList.Core, Version=1.0.4752.30046, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core.TicketHelper, Version=1.0.4752.30047, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.TicketHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Common">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Common.dll</HintPath>
     </Reference>
@@ -74,14 +82,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\1.VS2010-Svr210\Fanex\Sources\Fanex.BetList.Core.TicketHelper\Fanex.BetList.Core.TicketHelper.csproj">
-      <Project>{5384E9C5-8CF1-42F8-8D12-8089EA725351}</Project>
-      <Name>Fanex.BetList.Core.TicketHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\1.VS2010-Svr210\Fanex\Sources\Fanex.BetList.Core\Fanex.BetList.Core.csproj">
-      <Project>{B0838D04-2306-4362-AF22-9FCD0BE6F8E7}</Project>
-      <Name>Fanex.BetList.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.TicketControl.Core\Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>Core</Name>

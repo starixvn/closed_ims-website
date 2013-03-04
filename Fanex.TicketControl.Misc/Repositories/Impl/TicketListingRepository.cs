@@ -11,11 +11,17 @@ using Fanex.TicketControl.Misc.Criteria;
 using Fanex.TicketControl.Misc.Entities;
 using Fanex.TicketControl.Misc.Repositories.Interface;
 using Fanex.TicketControl.Misc.ViewModels;
+using Fanex.BetList.Core.Entities;
+using Fanex.BetList.Core.Factories;
+using Fanex.BetList.Core.Builder;
+using Fanex.BetList.Core.TicketHelper;
 
 namespace Fanex.TicketControl.Misc.Repositories.Impl
 {
     public class TicketListingRepository : BaseRepository, ITicketListingRepository
     {
+
+        
         public TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria)
         {
             TicketListingModel ticketListingModel = new TicketListingModel();
@@ -37,7 +43,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                             var matchTbl = dataset.Tables[0];
                             var matchInfo = new MatchInfo();
                             matchInfo.MatchCode = Converter.ToString2(matchTbl.Rows[0]["matchcode"]);
-                            matchInfo.EventDate = Converter.ToDateTime(matchTbl.Rows[0]["eventdate"]).ToShortDateString();
+                            matchInfo.EventDate = Converter.ToDateTime(matchTbl.Rows[0]["eventdate"]).ToString("yyyy-MM-dd");
                             matchInfo.HomeId = Convert.ToInt32(matchTbl.Rows[0]["homeid"]);
                             matchInfo.AwayId = Convert.ToInt32(matchTbl.Rows[0]["awayid"]);
                             ticketListingModel.MatchInfo = matchInfo;
@@ -48,12 +54,12 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                             var mainTable = dataset.Tables[1];
 
                             var ticketListing = mainTable.AsEnumerable().Select(t => new TicketListing {
-                                BetTypeID = Converter.ToInt(t["bettype"]),
+                                BetTypeID = Converter.ToInt(t["BetType"]),
                                 LiveIndicator = Converter.ToBool(t["LiveIndicator"]),
-                                TotalTrans = Converter.ToInt(t["totalTrans"])
+                                TotalTrans = Converter.ToInt(t["TotalTrans"])
                             }).ToList();
 
-                            ticketListingModel.Items =ticketListing;
+                            ticketListingModel.Items = ticketListing;
                         }
                     }
                 }
@@ -65,8 +71,87 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
             return ticketListingModel;
         }
-        
-        private ActionResult GetResultInfo(ObjectDb db) 
+
+        public TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
+        {
+            var ticketListingBetList = new TicketListingBetListModel { 
+                Items = new List<TicketListingDetail>(),
+                TotalItem = 0
+            };
+            const string FormatDate = "yyyy-MM-dd HH:mm:ss tt";
+
+            try
+            {
+                if (criteria.IsValid())
+                {
+                    using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
+                    {
+                        
+                        DataSet dataset = objectDb.ExecuteDataSet(criteria.GetSpParams());
+
+                        if (dataset != null && dataset.Tables != null && dataset.Tables.Count > 1)
+                        {
+                            var singleTicketRowList = dataset.Tables[0].AsEnumerable(); // single ticket result
+                            var mixParlayTicketRowList = dataset.Tables[1].AsEnumerable(); // mix parlay ticket result
+                            BetListHTMLFactory factory = new BetListHTMLFactory();
+                            BetListHTMLBuilder builder = factory.CreateBuilder();
+                            ITicketHelper ticketHelper = new TicketHelper();
+                            GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
+
+                            #region Single Ticket
+
+                            foreach (var row in singleTicketRowList)
+                            {
+                                var ticket = MappingTicket(row);
+
+                                ticketListingBetList.Items.Add(new TicketListingDetail { 
+                                    Ticket = ticket,
+                                    TransDate = ticket.TransDate.ToString(FormatDate),
+                                    ChoiceHtml = ticket.BetTeam,
+                                    OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
+                                    Currency = Converter.ToString2(row["currencyName"]),
+                                    SAFlag = Converter.ToBool(row["SecAcceptFlag"])
+                                });
+                            }
+
+                            #endregion
+
+                            #region Mix Parlay Ticket
+
+                            foreach (var row in mixParlayTicketRowList)
+                            {
+                                var ticket = MappingTicket(row);
+
+                                ticketListingBetList.Items.Add(new TicketListingDetail
+                                {
+                                    Ticket = ticket,
+                                    TransDate = ticket.TransDate.ToString(FormatDate),
+                                    Currency = Converter.ToString2(row["currencyName"]),
+                                    SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
+                                    IsMixParlay = Converter.ToBool(row["isMP"]),
+                                    Selection = Converter.ToString2(row["selection"]),
+                                    BettypeM = Converter.ToInt(row["bettypem"])
+                                });
+                            }
+
+                            #endregion
+
+                            ticketListingBetList.TotalItem = ticketListingBetList.Items.Count;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return ticketListingBetList;
+        }
+
+        #region Helpers
+
+        private ActionResult GetResultInfo(ObjectDb db)
         {
             var errorCode = db.GetParameterValue("ErrCode");
             var errorMessage = db.GetParameterValue("ErrMsg");
@@ -83,7 +168,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
         private string GetBetTypeName(int bettype, bool liveIndicator)
         {
-            var bettypeName = CacheRef.GetBettype(bettype);
+            var bettypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(bettype);
 
             switch (bettype)
             {
@@ -103,9 +188,33 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             return bettypeName;
         }
 
-        public TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
+        private static Ticket MappingTicket(DataRow row)
         {
-            throw new NotImplementedException();
-        }
+            var ticket = new Ticket
+            {
+                UserName = Converter.ToString2(row["username"]),
+                TransId = Converter.ToInt(row["transid"]),
+                TransDate = Converter.ToDateTime(row["transdate"]),
+                Odds = Converter.ToDecimal(row["odds"]),
+                Stake = Converter.ToDecimal(row["stake"]),
+                Status = Converter.ToString2(row["status"]),
+                HomeId = Converter.ToInt(row["homeID"]),
+                AwayId = Converter.ToInt(row["awayID"]),                
+                BetTeam = Converter.ToString2(row["betteam"]),
+                BetTypeId = Converter.ToInt(row["bettype"]),
+                Handicap1 = Converter.ToDecimal(row["hdp1"]),
+                Handicap2 = Converter.ToDecimal(row["hdp2"]),
+                LiveHomeScore = Converter.ToInt(row["livehomescore"]),
+                LiveAwayScore = Converter.ToInt(row["liveawayscore"]),
+                IsLive = Converter.ToBool(row["liveindicator"]),
+                IsNeutral = Converter.ToBool(row["isNeutral"]),
+                OddsType = Converter.ToString2(row["OddsType"]),
+                Winlost = Converter.ToDecimal(row["winlost"]),
+                BetId = Converter.ToInt(row["betid"])
+            };
+            return ticket;
+        } 
+
+        #endregion
     }
 }
