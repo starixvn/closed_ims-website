@@ -1,5 +1,6 @@
 ﻿using System;
 using Fanex.BetList.Core.Entities;
+using Fanex.TicketControl.Misc.Services.Impl;
 
 namespace Fanex.TicketControl.Misc.Entities
 {
@@ -11,6 +12,15 @@ namespace Fanex.TicketControl.Misc.Entities
 
         public ITicket Ticket { get; set; }
 
+        public SportEvent SportEvent
+        {
+            get
+            {
+                var sportEventService = new SportEventService(this);
+                return sportEventService.GetSportEvent();
+            }
+        }
+
         public string TransDate { get; set; }
 
         public string ChoiceHtml { get; set; } // html 
@@ -20,7 +30,7 @@ namespace Fanex.TicketControl.Misc.Entities
         public string Currency { get; set; }
 
         #region additional fields for mix parlay
-        
+
         public bool IsMixParlay { get; set; }
 
         public int BettypeM { get; set; }

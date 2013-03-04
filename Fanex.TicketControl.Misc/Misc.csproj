@@ -54,6 +54,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -74,7 +75,7 @@
     <Compile Include="Entities\BingoSettings.cs" />
     <Compile Include="Entities\NumberWheelChoice.cs" />
     <Compile Include="Entities\SportEvent.cs" />
-    <Compile Include="Entities\TicketListingBetList.cs" />
+    <Compile Include="Entities\TicketListingDetail.cs" />
     <Compile Include="Entities\TicketListing.cs" />
     <Compile Include="Services\Impl\NumberWheelService.cs" />
     <Compile Include="Services\Impl\SportEventService.cs" />
