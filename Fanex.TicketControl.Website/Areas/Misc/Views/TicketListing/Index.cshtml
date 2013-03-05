@@ -123,17 +123,27 @@
     </div>
     <div class="filter-row">
         <div class="filter-cell">            
-            <input type="submit" class="submit" value="Generate"/>
+            <input type="submit" class="submit" value="Search"/>
         </div>
     </div>
     </div>
 </div>
 }
+<div class="display-none content-grid">
+    <div class="freegrid" id="match-info-container" ></div>
+    <br />
+</div>
+<div class="display-none content-grid">
+    <div class="freegrid" id="tickets-container" ></div>    
+    <br />
+</div>
 
-<div class="freegrid  content-grid" id="match-info-container"></div>
-<div class="freegrid  content-grid" id="tickets-container"></div>
-<div class="freegrid  content-grid" id="betlist-container"></div>
+<div class="display-none content-grid">
+    <div class="freegrid" id="betlist-container" ></div>
+    <br />
+</div>
 
+<div id="msg"></div>
 
 @section Foot {
     @Scripts.Render("~/areas/misc/ticketlisting")

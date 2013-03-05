@@ -311,7 +311,7 @@
             };
             $(me.$grid).initGrid({
                 isShowPager: (options.showPager && (options.bodyRows.length > 0))
-            }).gridScroller(me.gridOptions);
+            }).gridScroller(me.gridOptions) ;
 
             //// Render Pager
             if (options.showPager == true) {

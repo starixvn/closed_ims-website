@@ -5,6 +5,11 @@
     padding: 0;
 }
 
+.display-none
+{
+    display: none;
+}
+
 .freegrid
 {
     overflow: hidden;

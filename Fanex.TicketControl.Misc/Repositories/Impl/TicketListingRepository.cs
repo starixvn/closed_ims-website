@@ -72,11 +72,11 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
         public TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
+            const string FormatDate = "yyyy-MM-dd HH:mm:ss tt";
             var ticketListingBetList = new TicketListingBetListModel { 
                 Items = new List<TicketListingDetail>(),
                 TotalItem = 0
             };
-            const string FormatDate = "yyyy-MM-dd HH:mm:ss tt";
 
             try
             {
@@ -134,7 +134,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
                             #endregion
 
-                            ticketListingBetList.TotalItem = ticketListingBetList.Items.Count;
                         }
                     }
                 }
@@ -144,6 +143,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                 throw ex;
             }
 
+            ticketListingBetList.TotalItem = ticketListingBetList.Items.Count;
             return ticketListingBetList;
         }
 
@@ -210,6 +210,10 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                 Winlost = Converter.ToDecimal(row["winlost"]),
                 BetId = Converter.ToInt(row["betid"])
             };
+
+            long transid;
+            bool result = long.TryParse(row["transid"].ToString(), out transid);
+            ticket.TransId = transid;
             return ticket;
         } 
 

@@ -42,8 +42,8 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             try
             {
                 using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
-                {
-                    dsOutData = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                {                    
+                    var ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
                     var hashOutputParams = objectDb.GetOuputParams();
 
                     results.Add(new ActionResult() { 
