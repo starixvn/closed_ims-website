@@ -170,7 +170,7 @@ using Fanex.TicketControl.Core.Repository.Interface;
                     GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
 
                     if (bettype == 9 || bettype == 29) {
-                        ticketHelper.IsShowOddsWithChoice = true;
+                        //ticketHelper.IsShowOddsWithChoice = true;
                     }
 
                     ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, true);

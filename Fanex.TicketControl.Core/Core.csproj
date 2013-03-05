@@ -34,6 +34,10 @@
     <Reference Include="ExcelUtil">
       <HintPath>..\_Dependency\ExcelUtil.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.BetList.Core, Version=1.0.4752.30046, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
@@ -158,12 +162,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Messages.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\1.VS2010-Svr210\Fanex\Sources\Fanex.BetList.Core\Fanex.BetList.Core.csproj">
-      <Project>{B0838D04-2306-4362-AF22-9FCD0BE6F8E7}</Project>
-      <Name>Fanex.BetList.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
