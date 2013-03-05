@@ -43,7 +43,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             {
                 using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
                 {
-                    ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                    var ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
                 }
             }
             catch (Exception ex)
