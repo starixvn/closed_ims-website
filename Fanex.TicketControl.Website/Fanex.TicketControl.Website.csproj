@@ -185,6 +185,7 @@
   <ItemGroup>
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
+    <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Scripts\DeleteSingleTicket.js" />

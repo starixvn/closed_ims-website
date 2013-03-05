@@ -67,7 +67,6 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 ExcelWorksheetCollection worksheets = excelFile.Worksheets;
                 string sheetName = "Tickets Listing";
                 ExcelWorksheet workSheet = worksheets.Add(sheetName);
-                int startColumn = 0, startRow = 0;
                 int currentRow = 0, currentColumn = 0;
                 CellRange currentCellRange;
                 ExcelCell currentCell;
