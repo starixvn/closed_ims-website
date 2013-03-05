@@ -62,7 +62,7 @@ namespace Fanex.TicketControl.Misc.Controllers
         [HttpPost]
         public void ExportTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
-            // call service export here
+            Console.Write("Export");
         }
 
     }

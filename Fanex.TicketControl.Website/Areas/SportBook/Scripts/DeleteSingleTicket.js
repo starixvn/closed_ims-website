@@ -226,9 +226,6 @@ var helper = {
     displayFormMsg: function(){
         $('.form').show();
     }
-   
-
-    
 };
 
 

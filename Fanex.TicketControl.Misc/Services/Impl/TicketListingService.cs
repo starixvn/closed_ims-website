@@ -10,6 +10,7 @@
 namespace Fanex.TicketControl.Misc.Services.Impl
 {
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using ExcelUtil.Spreadsheet;
     using Fanex.TicketControl.Core.Criteria;
@@ -48,7 +49,10 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
         public TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
-            return _ticketListingRepository.GetTicketListingBetList(criteria);
+            int skip = criteria.PageIndex * criteria.PageSize;
+            var result = _ticketListingRepository.GetTicketListingBetList(criteria);
+            result.Items = result.Items.Skip(skip).Take(criteria.PageSize).ToList();
+            return result;
         }
 
         public void ExportTicketListing(GetTicketsListingDetailCriteria criteria)
@@ -63,7 +67,6 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 ExcelWorksheetCollection worksheets = excelFile.Worksheets;
                 string sheetName = "Tickets Listing";
                 ExcelWorksheet workSheet = worksheets.Add(sheetName);
-                int startColumn = 0, startRow = 0;
                 int currentRow = 0, currentColumn = 0;
                 CellRange currentCellRange;
                 ExcelCell currentCell;
@@ -128,8 +131,6 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 }
 
                 #endregion
-
-                
 
                 // finally, define report file name
                 var reportName = "Report File Name";

@@ -10,9 +10,16 @@ function TicketListing() {
         $optFilters: null,
         $eventTypeWrp: null,
         $body: null,
+        $msg: null,
+        $matchInfoContainer: null,
+        $ticketsContainer: null,
+        $betlistContainer: null
     };
 
-    this.OldDataRequest = null;
+    // store old params and cache match info
+    this.TicketListingDataReq = null; 
+    this.BetListDataRequest = null;
+    this.MatchInfo = null;
 };
 
 TicketListing.prototype.Mode = {
@@ -40,6 +47,11 @@ TicketListing.prototype.CacheDOMElement = function () {
     self.DOMElement.$optFilters = $('.opt-filters');
     self.DOMElement.$eventTypeWrp = $('.event-type-wrp');
     self.DOMElement.$body = $('#body');
+    self.DOMElement.$msg = $('#msg');
+    self.DOMElement.$matchInfoContainer = $('#match-info-container');
+    self.DOMElement.$ticketsContainer = $('#tickets-container');
+    self.DOMElement.$betlistContainer = $('#betlist-container');
+
 }
 
 TicketListing.prototype.Init = function () {
@@ -59,9 +71,9 @@ TicketListing.prototype.Init = function () {
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
 
-        if (eventType === '0') {
+        if (eventType === '1') { // live ball
             self.DOMElement.$optFilters.show();
-        } else {
+        } else {  // dead ball
             self.DOMElement.$optFilters.hide();
         }
 
@@ -127,10 +139,12 @@ TicketListing.prototype.Init = function () {
 
     // submit data to server
     $('.submit').click(function () {
-        if ($("#TicketListingForm").validationEngine('validate') === true){
+
+        if ($("#TicketListingForm").validationEngine('validate') === true) {
 
             var url = $("#TicketListingForm").attr('action');
-            
+            self.HideContainers();
+
             // should save old params
             var type = self.CollectSelectedProduct();
             var bettypes = self.CollectSelectedBettypes();
@@ -149,18 +163,20 @@ TicketListing.prototype.Init = function () {
                 BetTypesLive: livebettypes
             };
 
-            if(dataReq.BetTypesLive.length === 0)
-            {
+            if (!dataReq.BetTypesLive || dataReq.BetTypesLive.length === 0) {
                 delete dataReq.BetTypesLive;
             }
-            
+
+            if (!dataReq.BetTypes || dataReq.BetTypes.length === 0) {
+                delete dataReq.BetTypes;
+            }
             // save old data request, to serve for follow-up requests
-            self.OldDataRequest = dataReq;
+            self.TicketListingDataReq = dataReq;
 
             $.ajax({
                 type: "POST",
-                url: url,           
-                contentType: "application/json; charset=utf-8", 
+                url: url,
+                contentType: "application/vnd.ms-excel",
                 dataType: "json",
                 data: JSON.stringify(dataReq),
                 beforeSend: function () {
@@ -169,8 +185,12 @@ TicketListing.prototype.Init = function () {
                 success: function (ticketlisting) {
                     // check result to see any error from server
                     if (ticketlisting.Result.ErrorCode !== 0) {
-                        NapTicketControl.showMessageBox('alert alert-error', ticketlisting.Result.ErrorMsg);
-                    }else {
+                        $('#msg').html(tooltip.show('MatchID', ticketlisting.Result.ErrorMsg));
+                    } else {
+                        self.MatchInfo = ticketlisting.MatchInfo;
+                        delete self.MatchInfo.MatchId;
+
+                        // render result
                         self.RenderMatchInfo(ticketlisting.MatchInfo);
                         self.RenderTickets(ticketlisting.Items);
                     }
@@ -187,63 +207,95 @@ TicketListing.prototype.Init = function () {
     });
 
     // handle request  to get ticket detail
-    $('body').delegate('.lnk-totaltrans', 'click', function(){
+    $('body').delegate('.lnk-totaltrans', 'click', function () {
         var $this = $(this);
-        var bettypeId = $(this).attr('bettypeid'); 
+        var bettypeId = $(this).attr('bettypeid');
+        var bettypeName = $(this).attr('bettypename');
         var liveIndicator = $(this).attr('liveindicator');
-        var newAttributes = {};
+        var params = {};
+        params.BetTypeName = bettypeName;
+        params.PageIndex = "0";
+        params.PageSize = "50";
 
         // Selected Product is 'Number Game'
-        if(self.OldDataRequest.Type === 'NumberGame')
-        {
-            if(liveIndicator ===  'true') // is Live Ball
+        if (self.TicketListingDataReq.Type === 'NumberGame') {
+            if (liveIndicator === 'true') // is Live Ball
             {
-                newAttributes.BetTypes = null;
-                newAttributes.BetTypesLive = bettypeId;
-            }else { // is Dead Ball
-                newAttributes.BetTypes = bettypeId;
-                newAttributes.BetTypesLive = null;
+                params.BetTypes = null;
+                params.BetTypesLive = bettypeId;
+            } else { // is Dead Ball
+                params.BetTypes = bettypeId;
+                params.BetTypesLive = null;
             }
-        }else 
-        {
-            newAttributes.BetTypes = bettypeId;
-
-            if(liveIndicator === 'true'){ // is Live Ball
-                newAttributes.LiveType = 1;
-            }else {  // is Dead Ball
-                newAttributes.LiveType = 0;
-            }
+        } else {
+            params.BetTypes = bettypeId;
         }
 
-        // get new Data Request Object to get ticket details
-        var newDataReq = {};
-        $.extend(true, newDataReq, self.OldDataRequest, newAttributes);
-        console.log(newDataReq.toString());
+        // build dataReq to get ticket details
+        var dataReq = {};
+        $.extend(true, dataReq, self.TicketListingDataReq, params);
+        if (!dataReq.BetTypesLive || dataReq.BetTypesLive.length === 0) {
+            delete dataReq.BetTypesLive;
+        }
 
-        $.ajax({
-                type: "POST",
-                url: window.rootUrl + "Misc/TicketListing/GetTicketListingBetList",           
-                contentType: "application/json; charset=utf-8", 
-                dataType: "json",
-                data: JSON.stringify(newDataReq),
-                beforeSend: function () {
-                    NapTicketControl.disableInput();
-                },
-                success: function (betlist) {
-                    // check result to see any error from server
-                    console.log('render bet list here.');
-                    self.RenderTicketListingBetlist(betlist);
-                },
-                error: function () {
-                    console.log('has error :(');
-                },
-                complete: function () {
-                    NapTicketControl.enableInput();
-                }
-            });
+        if (!dataReq.BetTypes || dataReq.BetTypes.length === 0) {
+            delete dataReq.BetTypes;
+        }
+
+        self.BetListDataRequest = dataReq;
+        self.RequestBetList(dataReq);
     });
 
+    $('body').delegate('.lnk-excel', 'click', function () {
+        var $this = $(this);
+        var bettypeId = $(this).attr('bettypeid');
+        var bettypeName = $(this).attr('bettypename');
+        var liveIndicator = $(this).attr('liveindicator');
+
+        var params = {};
+        params.BetTypeName = bettypeName;
+
+        // Selected Product is 'Number Game'
+        if (self.TicketListingDataReq.Type === 'NumberGame') {
+            if (liveIndicator === 'true') // is Live Ball
+            {
+                params.BetTypes = null;
+                params.BetTypesLive = bettypeId;
+            } else { // is Dead Ball
+                params.BetTypes = bettypeId;
+                params.BetTypesLive = null;
+            }
+        } else {
+            params.BetTypes = bettypeId;
+        }
+        // merge with match info
+        $.extend(true, params, self.MatchInfo);
+
+        // build dataReq to get ticket details
+
+        var dataReq = {};
+        $.extend(true, dataReq, self.TicketListingDataReq, params);
+
+        if (!dataReq.BetTypesLive || dataReq.BetTypesLive.length === 0) {
+            delete dataReq.BetTypesLive;
+        }
+
+        if (!dataReq.BetTypes || dataReq.BetTypes.length === 0) {
+            delete dataReq.BetTypes;
+        }
+
+        self.RequestExport(dataReq);
+    });
 };
+
+TicketListing.prototype.HideContainers = function () {
+    var self = this;
+
+    self.DOMElement.$msg.html('');
+    self.DOMElement.$matchInfoContainer.parent().addClass('display-none');
+    self.DOMElement.$ticketsContainer.parent().addClass('display-none');
+    self.DOMElement.$betlistContainer.parent().addClass('display-none');
+}
 
 TicketListing.prototype.CollectSelectedProduct = function(){
     return $('input[name=Product]:checked').val();
@@ -295,7 +347,7 @@ TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
         bodyRows: self.GenerateMatchInfoData(matchInfo)
     };
 
-    $('#match-info-container').fanexGrid(gridOptions);
+    self.DOMElement.$matchInfoContainer.fanexGrid(gridOptions);
 };
 
 TicketListing.prototype.GenerateMatchInfoData = function(matchInfo){
@@ -321,8 +373,7 @@ TicketListing.prototype.RenderTickets = function (tickets) {
         bodyRows: self.GenerateTicketsData(tickets),
         showTree: true
     };
-
-    $('#tickets-container').fanexGrid(gridOptions);
+    self.DOMElement.$ticketsContainer.fanexGrid(gridOptions);
 };
 
 TicketListing.prototype.GenerateTicketsData = function(tickets){
@@ -333,8 +384,8 @@ TicketListing.prototype.GenerateTicketsData = function(tickets){
         var currentTicket = {
             Columns: [
                     { Name: "bettypes", Value: ticket.BetTypeName },
-                    { Name: "totalBets", Value: { bettypeID: ticket.BetTypeID, liveIndicator: ticket.LiveIndicator, TotalTrans: ticket.TotalTrans} },
-                    { Name: "export", Value: { bettypeID: ticket.BetTypeID, liveIndicator: ticket.LiveIndicator} }
+                    { Name: "totalBets", Value: ticket },
+                    { Name: "export", Value: ticket }
                 ]
         };
 
@@ -356,55 +407,91 @@ TicketListing.prototype.GenerateTicketsData = function(tickets){
 
 TicketListing.prototype.RenderTotalTransCell = function(cell){
     return '<a href="javascript:void(0);" class="lnk-totaltrans" ' 
-    + 'bettypeID="' + cell.Value.bettypeID 
-    + '" liveIndicator="' + cell.Value.liveIndicator + '" >'
+    + 'bettypeID="' + cell.Value.BetTypeID + '" bettypeName="' + cell.Value.BetTypeName
+    + '" liveIndicator="' + cell.Value.LiveIndicator + '" >'
     + cell.Value.TotalTrans + '</a>';
 }
 
 TicketListing.prototype.RenderExportCell = function(cell){
     return '<a href="javascript:;" class="lnk-excel" '
-    + 'bettypeID="' + cell.Value.bettypeID 
-    + '" liveIndicator="' + cell.Value.liveIndicator + '" >'
+    + 'bettypeID="' + cell.Value.BetTypeID + '" bettypeName="' + cell.Value.BetTypeName
+    + '" liveIndicator="' + cell.Value.LiveIndicator + '" >'
     + '<i class="icon-excel"></i></a>';
 }
 
 // Detail Betlist for TicketListing
+TicketListing.prototype.RequestBetList = function (dataReq) {
+    var self = this;
 
-TicketListing.prototype.RenderTicketListingBetlist = function(betlist){
+    $.ajax({
+        type: "POST",
+        url: window.rootUrl + "Misc/TicketListing/GetTicketListingBetList",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(dataReq),
+        beforeSend: function () {
+            NapTicketControl.disableInput();
+        },
+        success: function (betlist) {
+            // check result to see any error from server
+            console.log('render bet list here.');
+            self.RenderTicketListingBetlist(betlist, dataReq.MatchID, dataReq.BetTypeName, dataReq.PageIndex, dataReq.PageSize);
+        },
+        error: function () {
+            console.log('has error :(');
+        },
+        complete: function () {
+            NapTicketControl.enableInput();
+        }
+    });
+}
+
+TicketListing.prototype.RenderTicketListingBetlist = function (betlist, matchId, bettypeName, pageIndex, pageSize) {
     var self = this;
 
     var gridOptions = {
-        
+
         titleInfo: {
-                text: "Tickets Listing for - Match ID: xxx - Bet type: yyy",
-                showExcelButton: true,
-                exportExcelFunction: function () {
-                    alert("Export Excel Button Clicked");
-                },
-                showBackButton: true,
-                backFunction: function () {
-                    alert("Back Button Clicked");
-                }
+            text: "Tickets Listing for - Match ID: " + matchId + " - Bet type: " + bettypeName,
+            showExcelButton: true,
+            exportExcelFunction: function () {
+                alert("Export Excel Button Clicked");
             },
+            showBackButton: true,
+            backFunction: function () {
+                var parent = self.DOMElement.$betlistContainer.parent();
+                $(parent).addClass("display-none");
+            }
+        },
         showTitle: true,
         columns: [
             { HeaderText: "BetID", Name: "betId", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Trans.Date", Name: "transDate", Width: 80, HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Trans.Date", Name: "transDate", Width: 140, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Player", Name: "player", Width: 80, HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Choice", Name: "choice", Width: 80, HeaderAlign: "center", CellAlign: "right" },
+            { HeaderText: "Choice", Name: "choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Odds", Name: "odds", Width: 80, HeaderAlign: "center", CellAlign: "right" },
-            { HeaderText: "Stake", Name: "stake", Width: 80, HeaderAlign: "center", CellAlign: "right"},
+            { HeaderText: "Stake", Name: "stake", Width: 80, HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0.00" },
             { HeaderText: "Winloss", Name: "winloss", Width: 80, HeaderAlign: "center", CellAlign: "right"},
             { HeaderText: "Currency", Name: "currency", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Status", Name: "status", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "S.A", Name: "sa", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+            { HeaderText: "S.A", Name: "sa", Width: 40, HeaderAlign: "center", CellAlign: "center" },
         ],
-        bodyRows: self.GenerateBetListData(betlist.Items)
+        bodyRows: self.GenerateBetListData(betlist.Items),
+        showPager: true,
+        customPager: true,
+        pagerOption: {
+            itemsPerPage: pageSize,
+            currentPage: pageIndex,
+            totalItem: betlist.TotalItem,
+            itemsPerPageArray: [50, 100, 200, 300, 400, 500],
+            pagerSelectCallBack: function (pageIndex, pageSize, jq) {
+                self.RenderPagingEvent(pageIndex, pageSize, jq);
+            }
+        }
     };
 
-    $('#betlist-container').fanexGrid(gridOptions);
+    self.DOMElement.$betlistContainer.fanexGrid(gridOptions);
 }
-
 
 TicketListing.prototype.GenerateBetListData = function(betlist){
     var self = this;
@@ -429,8 +516,13 @@ TicketListing.prototype.GenerateBetListData = function(betlist){
         currentBet.Columns[3].CustomCellRender = function(cell){
             return TicketListing.prototype.RenderChoiceCell(cell);
         };
+        
         currentBet.Columns[6].CustomCellRender = function(cell){
             return TicketListing.prototype.RenderWinlossCell(cell);
+        };
+
+        currentBet.Columns[9].CustomCellRender = function (cell) {
+            return TicketListing.prototype.RenderSACell(cell);
         };
 
         rows.push(currentBet);
@@ -445,33 +537,86 @@ TicketListing.prototype.RenderChoiceCell = function(cell){
     if(cell.Value.SAFlag === 'False')
     {
         html += '<span class="bl-choice b">' + cell.Value.SportEvent.Choice + '</span>'
-            + '<span class="b">' + cell.Value.SportEvent.Hdp + '</span>'
-            + '<span class="bl-choice b">' + (cell.Value.Ticket.IsLive ? cell.Value.SportEvent.LiveScore : '') + '</span>'
-            + '<span class="b">' + (isMixParlay ? ('@' + cell.Value.Ticket.Odds) : '') + '</span>'
+            + '<span class="b"> ' + cell.Value.SportEvent.Hdp + '</span>'
+            + '<span class="bl-choice b"> ' + (cell.Value.Ticket.IsLive ? cell.Value.SportEvent.LiveScore : '') + '</span>'
+            + '<span class="b"> ' + (isMixParlay ? ('@' + cell.Value.Ticket.Odds) : '') + '</span>'
             + (isMixParlay ? ('<br><span class="bl_bettypem">' + cell.Value.SportEvent.BetType + '</span>') : '');
     }
     else {
         html += '<span class="bl-choice b">' + cell.Value.SportEvent.Choice + '</span>'
-            + '<span class="b">' + cell.Value.SportEvent.Hdp + '</span>'
-            + '<span class="bl-choice b">' + (cell.Value.Ticket.IsLive ? cell.Value.SportEvent.LiveScore : '') + '</span>'
-            + '<span class="b">' + (isMixParlay ? ('@' + cell.Value.Ticket.Odds) : '') + '</span>'
+            + '<span class="b"> ' + cell.Value.SportEvent.Hdp + '</span>'
+            + '<span class="bl-choice b"> ' + (cell.Value.Ticket.IsLive ? cell.Value.SportEvent.LiveScore : '') + '</span>'
+            + '<span class="b"> ' + (isMixParlay ? ('@' + cell.Value.Ticket.Odds) : '') + '</span>'
             + (isMixParlay ? ('<br><span class="bl_bettypem">' + cell.Value.SportEvent.BetType + '</span>') : '');
     }
     return html;
 }
 
-TicketListing.prototype.RenderWinlossCell = function(cell){
+TicketListing.prototype.RenderWinlossCell = function (cell) {
+
     var html = '';
-    if(cell.Value < 0){
-        html += '<span style="color: Red;">' + -1*cell.Value + '</span>';
+    if (cell.Value < 0) {
+        html += '<span style="color: Red;">' + numeral(-1 * cell.Value).format('0,0.00'); +'</span>';
     }else {
-        html += '<span style="color: Black;">' + cell.Value + '</span>';
+        html += '<span style="color: Black;">' + numeral(cell.Value).format('0,0.00'); cell.Value + '</span>';
     }
 
-    return ;
+    return html;
 }
 
-TicketListing.prototype.RenderStakeCell = function(cell){
-    return ;
+TicketListing.prototype.RenderSACell = function (cell) {
+
+    var html = '';
+    if(cell.Value === true){
+        html += '<span class="icon-tick"></span>'
+    }
+
+    return html;
 }
+
+TicketListing.prototype.RenderPagingEvent = function (pageIndex, pageSize, jq) {
+    var self = this;
+
+    if (self.BetListDataRequest !== null) {
+        //  send request to get data
+        // modify paging params
+        var dataReq = {};
+        var pagingParams = {
+            PageIndex: pageIndex,
+            PageSize: pageSize
+        };
+
+        $.extend(true, dataReq, self.BetListDataRequest, pagingParams);
+        self.RequestBetList(dataReq);
+    }
+
+    return false;
+}
+
+// Request Export
+TicketListing.prototype.RequestExport = function (dataReq) {
+    var self = this;
+
+    $.ajax({
+        type: "POST",
+        url: window.rootUrl + "Misc/TicketListing/ExportTicketListingBetList",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(dataReq),
+        beforeSend: function () {
+            NapTicketControl.disableInput();
+        },
+        success: function (betlist) {
+            // check result to see any error from server
+            console.log('export');
+        },
+        error: function () {
+            console.log('has error :(');
+        },
+        complete: function () {
+            NapTicketControl.enableInput();
+        }
+    });
+}
+
 
