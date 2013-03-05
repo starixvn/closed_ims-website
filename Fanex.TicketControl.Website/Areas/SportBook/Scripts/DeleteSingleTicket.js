@@ -225,6 +225,15 @@ var helper = {
 
     displayFormMsg: function(){
         $('.form').show();
+    },
+
+    displayContent: function(isShow){
+        if(isShow){
+            $('#dvContent').show();
+        }
+        else{
+            $('#dvContent').hide();
+        }        
     }
 };
 
@@ -239,8 +248,8 @@ var singleDetete = {
 
     search: function(){
         jQuery("#DeleteSingleTicketForm").validationEngine('validate');
-
-        $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
+        $('#msg-box').hide();
+        //$('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
                 
         //Load Match Info
         singleDetete.checkMatchIdWithRefno();
@@ -452,9 +461,11 @@ var singleDetete = {
                     if(rs.ErrorCode == 0){
                         singleDetete.param = param;
                         singleDetete.getSingleTicket();
+                        helper.displayContent(true);
                     }
                     else{
-                        alert('err!!!!');
+                        Helper.showMsgBox(rs);
+                        helper.displayContent(false);
                     }
                     
                 },

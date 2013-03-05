@@ -32,8 +32,7 @@
                             Match ID</label>
                     </div>
                     <div class="edit-field span4">
-                        <input type="text" id="txtMatchId" maxlength="10" value="3778263" class="validate[required, custom[integer],maxSize[10]]"
-                            data-prompt-position="bottomLeft" />
+                        <input type="text" id="txtMatchId" maxlength="10" value="3778263" />
                     </div>
                 </div>
                 <div class="filter-cell">
@@ -42,8 +41,7 @@
                             From Refno</label>
                     </div>
                     <div class="edit-field span4">
-                        <input type="text" id="fromRefno" maxlength="10" value="4412647197" class="validate[required, custom[integer],maxSize[10]]"
-                            data-prompt-position="bottomLeft" />
+                        <input type="text" id="fromRefno" maxlength="10" value="4412647197" />
                     </div>
                 </div>
                 <div class="filter-cell">
@@ -52,8 +50,7 @@
                             To Refno</label>
                     </div>
                     <div class="edit-field span4">
-                        <input type="text" id="toRefno" maxlength="10" value="4418345211" class="validate[required, custom[integer],maxSize[10]]"
-                            data-prompt-position="bottomLeft" />
+                        <input type="text" id="toRefno" maxlength="10" value="4418345211"  />
                     </div>
                 </div>
                 <div class="filter-cell">
@@ -63,7 +60,7 @@
                     </div>
                     <div class="edit-field span5">
                         @{
-    var filterByList = new List<SelectListItem> { 
+                var filterByList = new List<SelectListItem> { 
                     new SelectListItem {
                         Text = "All",
                         Value = "0"
@@ -90,7 +87,7 @@
                     </div>
                     <div class="edit-field span4">
                         @{
-    var typeList = new List<SelectListItem> { 
+                var typeList = new List<SelectListItem> { 
                     new SelectListItem {
                         Text = "All",
                         Value = "2"
@@ -140,18 +137,19 @@
             </div>
             <div class="filter-row tick-list bettype-wrp">
             </div>
+
+            <div class="">
+            </div>
             <div class="filter-row tick-list">
                 <table class="tbl-advance-mode">
                     <tr>
                         <td colspan="3">
-                            <label>
-                                Advanced mode</label> 
+                            <label>Advanced mode</label> 
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <label>
-                                HDP, 1st HDP, Over/Under, 1st Over/Under, Odd/Even, 1st Odd/Even:</label>
+                            <label>HDP, 1st HDP, Over/Under, 1st Over/Under, Odd/Even, 1st Odd/Even:</label>
                         </td>
                         <td>
                             <select id="ddlBetTeam1378" name="ddlBetTeam1378">
@@ -186,122 +184,97 @@
                     </tr>
                     <tr>
                         <td colspan="3">
-                            <table style="width: 800px; text-align: left;" class="all-chk-score">
+                            <div class="filter-row ">
+                            <table style="width: 1000px; " class="all-chk-score tick-list">
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <input type="checkbox" value="1:0" class="chk-score" id="chk-score-10">&nbsp;<span
-                                                rel="10" class="check score">1-0</span>
+                                            <input type="checkbox" value="1:0" class="chk-score" id="chk-score-10"/>&nbsp;<label for="chk-score-10" class="check score">1-0</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="2:0" class="chk-score" id="chk-score-20">&nbsp;<span
-                                                rel="20" class="check score">2-0</span>
+                                            <input type="checkbox" value="2:0" class="chk-score" id="chk-score-20"/>&nbsp;<label for="chk-score-20" class="check score">2-0</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="2:1" class="chk-score" id="chk-score-21">&nbsp;<span
-                                                rel="21" class="check score">2-1</span>
+                                            <input type="checkbox" value="2:1" class="chk-score" id="chk-score-21"/>&nbsp;<label for="-score-21" class="check score">2-1</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="3:0" class="chk-score" id="chk-score-30">&nbsp;<span
-                                                rel="30" class="check score">3-0</span>
+                                            <input type="checkbox" value="3:0" class="chk-score" id="chk-score-30"/>&nbsp;<label for="chk-score-30" class="check score">3-0</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="3:1" class="chk-score" id="chk-score-31">&nbsp;<span
-                                                rel="31" class="check score">3-1</span>
+                                            <input type="checkbox" value="3:1" class="chk-score" id="chk-score-31"/>&nbsp;<label for="chk-score-31" class="check score">3-1</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="3:2" class="chk-score" id="chk-score-32">&nbsp;<span
-                                                rel="32" class="check score">3-2</span>
+                                            <input type="checkbox" value="3:2" class="chk-score" id="chk-score-32"/>&nbsp;<label for="chk-score-32" class="check score">3-2</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="4:0" class="chk-score" id="chk-score-40">&nbsp;<span
-                                                rel="40" class="check score">4-0 UP</span>
+                                            <input type="checkbox" value="4:0" class="chk-score" id="chk-score-40"/>&nbsp;<label for="chk-score-40" class="check score">4-0 UP</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="4:1" class="chk-score" id="chk-score-41">&nbsp;<span
-                                                rel="41" class="check score">4-1</span>
+                                            <input type="checkbox" value="4:1" class="chk-score" id="chk-score-41"/>&nbsp;<label for="chk-score-41" class="check score">4-1</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="4:2" class="chk-score" id="chk-score-42">&nbsp;<span
-                                                rel="42" class="check score">4-2</span>
+                                            <input type="checkbox" value="4:2" class="chk-score" id="chk-score-42"/>&nbsp;<label for="chk-score-42" class="check score">4-2</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="4:3" class="chk-score" id="chk-score-43">&nbsp;<span
-                                                rel="43" class="check score">4-3</span>
+                                            <input type="checkbox" value="4:3" class="chk-score" id="chk-score-43"/>&nbsp;<label for="chk-score-43" class="check score">4-3</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="5:0" class="chk-score" id="chk-score-50">&nbsp;<span
-                                                rel="50" class="check score">5-0 UP</span>
+                                            <input type="checkbox" value="5:0" class="chk-score" id="chk-score-50"/>&nbsp;<label for="chk-score-50" class="check score">5-0 UP</label>
                                         </td>
                                         <td rowspan="2">
-                                            <input type="checkbox" value="0:0" class="chk-score" id="chk-score-00">&nbsp;<span
-                                                rel="00" class="check score">0-0</span>
+                                            <input type="checkbox" value="0:0" class="chk-score" id="chk-score-00"/>&nbsp;<label for="chk-score-00" class="check score">0-0</label> 
                                         </td>
                                         <td rowspan="2">
-                                            <input type="checkbox" value="1:1" class="chk-score" id="chk-score-11">&nbsp;<span
-                                                rel="11" class="check score">1-1</span>
+                                            <input type="checkbox" value="1:1" class="chk-score" id="chk-score-11"/>&nbsp;<label for="chk-score-11" class="check score">1-1</label>
                                         </td>
                                         <td rowspan="2">
-                                            <input type="checkbox" value="2:2" class="chk-score" id="chk-score-22">&nbsp;<span
-                                                rel="22" class="check score">2-2</span>
+                                            <input type="checkbox" value="2:2" class="chk-score" id="chk-score-22"/>&nbsp;<label for="chk-score-22" class="check score">2-2</label>
                                         </td>
                                         <td rowspan="2">
-                                            <input type="checkbox" value="3:3" class="chk-score" id="chk-score-33">&nbsp;<span
-                                                rel="33" class="check score">3-3</span>
+                                            <input type="checkbox" value="3:3" class="chk-score" id="chk-score-33"/>&nbsp;<label for="chk-score-33" class="check score">3-3</label>
                                         </td>
                                         <td rowspan="2">
-                                            <input type="checkbox" value="4:4" class="chk-score" id="chk-score-44">&nbsp;<span
-                                                rel="44" class="check score">4-4</span>
+                                            <input type="checkbox" value="4:4" class="chk-score" id="chk-score-44"/>&nbsp;<label for="chk-score-44" class="check score">4-4</label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <input type="checkbox" value="0:1" class="chk-score" id="chk-score-01">&nbsp;<span
-                                                rel="01" class="check score">0-1</span>
+                                            <input type="checkbox" value="0:1" class="chk-score" id="chk-score-01"/>&nbsp;<label for="chk-score-01" class="check score">0-1</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="0:2" class="chk-score" id="chk-score-02">&nbsp;<span
-                                                rel="02" class="check score">0-2</span>
+                                            <input type="checkbox" value="0:2" class="chk-score" id="chk-score-02"/>&nbsp;<label for="chk-score-02" class="check score">0-2</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="1:2" class="chk-score" id="chk-score-12">&nbsp;<span
-                                                rel="12" class="check score">1-2</span>
+                                            <input type="checkbox" value="1:2" class="chk-score" id="chk-score-12"/>&nbsp;<label for="chk-score-12" class="check score">1-2</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="0:3" class="chk-score" id="chk-score-03">&nbsp;<span
-                                                rel="03" class="check score">0-3</span>
+                                            <input type="checkbox" value="0:3" class="chk-score" id="chk-score-03"/>&nbsp;<label for="chk-score-03" class="check score">0-3</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="1:3" class="chk-score" id="chk-score-13">&nbsp;<span
-                                                rel="13" class="check score">1-3</span>
+                                            <input type="checkbox" value="1:3" class="chk-score" id="chk-score-13">&nbsp;<label for="chk-score-13" class="check score">1-3</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="2:3" class="chk-score" id="chk-score-23">&nbsp;<span
-                                                rel="23" class="check score">2-3</span>
+                                            <input type="checkbox" value="2:3" class="chk-score" id="chk-score-23">&nbsp;<label for="chk-score-23" class="check score">2-3</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="0:4" class="chk-score" id="chk-score-04">&nbsp;<span
-                                                rel="04" class="check score">0-4 UP</span>
+                                            <input type="checkbox" value="0:4" class="chk-score" id="chk-score-04"/>&nbsp;<label for="chk-score-04" class="check score">0-4 UP</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="1:4" class="chk-score" id="chk-score-14">&nbsp;<span
-                                                rel="14" class="check score">1-4</span>
+                                            <input type="checkbox" value="1:4" class="chk-score" id="chk-score-14"/>&nbsp;<label for="14" class="check score">1-4</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="2:4" class="chk-score" id="chk-score-24">&nbsp;<span
-                                                rel="24" class="check score">2-4</span>
+                                            <input type="checkbox" value="2:4" class="chk-score" id="chk-score-24"/>&nbsp;<label for="chk-score-24" class="check score">2-4</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="3:4" class="chk-score" id="chk-score-34">&nbsp;<span
-                                                rel="34" class="check score">3-4</span>
+                                            <input type="checkbox" value="3:4" class="chk-score" id="chk-score-34">&nbsp;<label for="chk-score-34" class="check score">3-4</label>
                                         </td>
                                         <td>
-                                            <input type="checkbox" value="0:5" class="chk-score" id="chk-score-05">&nbsp;<span
-                                                rel="05" class="check score">0-5 UP</span>
+                                            <input type="checkbox" value="0:5" class="chk-score" id="chk-score-05"/>&nbsp;<label for="chk-score-05" class="check score">0-5 UP</label>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -395,77 +368,84 @@
         </div>
     </div>
     
-    <div class="freegrid  content-grid" id="matchInfo"></div>
-    <div class="freegrid  content-grid" id="ticketInfo"></div>
-    
-    <fieldset id="fsMessage" class="form" style="display:none" >
-        <legend><i class="icon-envelope"></i> Message</legend>
-        <h6>
-            <em class="em"><u>Note</u>:
-                <br />+ Please include "@@@@" in your message for replacing ticket numbers.
-                <br />+ English and Mandarin are required.
-                <br /> <span><span id="spMoreMsg">[+]</span> <span onclick="helper.displayMoreMsg()" style="cursor:pointer; text-decoration:underline">More Messages</span></span> 
-            </em>
-        </h6>
-        <table>
-            <tr>
-                <td>
-                    <div>
-                        <label for="msg-en">
-                            English</label>
-                        <textarea rows="1" id="msg-en" class="input-xlarge"></textarea>
-                        <label for="msg-ch">
-                            Chinese (Mandarin)</label>
-                        <textarea rows="1" id="msg-ch" class="input-xlarge"></textarea>
-                        <label for="msg-cs">
-                            Chinese (Cantonese)</label>
-                        <textarea rows="1" id="msg-cs" class="input-xlarge"></textarea>
-                    </div>
-                </td>
-                <td style="width:50px"></td>
-                <td>
-                    <div class="other-languages" style="display:none">
-                        <label for="msg-en">
-                            th</label>
-                        <textarea rows="1" id="msg-th" class="input-xlarge"></textarea>
-                        <label for="msg-it">
-                            It</label>
-                        <textarea rows="1" id="msg-it" class="input-xlarge"></textarea>
-                        <label for="msg-jp">
-                            Jp</label>
-                        <textarea rows="1" id="msg-jp" class="input-xlarge"></textarea>                        
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>
-                    <div class="other-languages" style="display:none">
-                        <label for="msg-es"> Es</label>
-                        <textarea rows="1" id="msg-es" class="input-xlarge"></textarea>
-                        <label for="msg-ko">
-                            Ko</label>
-                        <textarea rows="1" id="msg-ko" class="input-xlarge"></textarea>
-                    </div>
-                </td>
-            </tr>
-        </table>
-      
-       
-    </fieldset>
-
-    <fieldset id="fsConfirmDelete" class="form" style="display:none">
-        <legend><i class="icon-trash"></i> Confirm Delete</legend>
-        <label for="username">Username</label>
-        <input type="text" id="username" class="input-xlarge" />
-        <label for="password">Password</label>
-        <input type="password" id="password" class="input-xlarge" />
-
-        <a class="submit" href="javascript:;singleDetete.voidSingleTicket();">Void Bet</a>
-    </fieldset>
-    
-    <div id="msg"></div> 
+    <div id="dvContent">
+        <div class="freegrid  content-grid" id="matchInfo">
+        </div>
+        <div class="freegrid  content-grid" id="ticketInfo">
+        </div>
+        <fieldset id="fsMessage" class="form" style="display: none">
+            <legend><i class="icon-envelope"></i>Message</legend>
+            <h6>
+                <em class="em"><u>Note</u>:
+                    <br />
+                    + Please include "@@@@" in your message for replacing ticket numbers.
+                    <br />
+                    + English and Mandarin are required.
+                    <br />
+                    <span><span id="spMoreMsg">[+]</span> <span onclick="helper.displayMoreMsg()" style="cursor: pointer;
+                        text-decoration: underline">More Messages</span></span> </em>
+            </h6>
+            <table>
+                <tr>
+                    <td>
+                        <div>
+                            <label for="msg-en">
+                                English</label>
+                            <textarea rows="1" id="msg-en" class="input-xlarge"></textarea>
+                            <label for="msg-ch">
+                                Chinese (Mandarin)</label>
+                            <textarea rows="1" id="msg-ch" class="input-xlarge"></textarea>
+                            <label for="msg-cs">
+                                Chinese (Cantonese)</label>
+                            <textarea rows="1" id="msg-cs" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                    <td style="width: 50px">
+                    </td>
+                    <td>
+                        <div class="other-languages" style="display: none">
+                            <label for="msg-en">
+                                th</label>
+                            <textarea rows="1" id="msg-th" class="input-xlarge"></textarea>
+                            <label for="msg-it">
+                                It</label>
+                            <textarea rows="1" id="msg-it" class="input-xlarge"></textarea>
+                            <label for="msg-jp">
+                                Jp</label>
+                            <textarea rows="1" id="msg-jp" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <div class="other-languages" style="display: none">
+                            <label for="msg-es">
+                                Es</label>
+                            <textarea rows="1" id="msg-es" class="input-xlarge"></textarea>
+                            <label for="msg-ko">
+                                Ko</label>
+                            <textarea rows="1" id="msg-ko" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <fieldset id="fsConfirmDelete" class="form" style="display: none">
+            <legend><i class="icon-trash"></i>Confirm Delete</legend>
+            <label for="username">
+                Username</label>
+            <input type="text" id="username" class="input-xlarge" />
+            <label for="password">
+                Password</label>
+            <input type="password" id="password" class="input-xlarge" />
+            <a class="submit" href="javascript:;singleDetete.voidSingleTicket();">Void Bet</a>
+        </fieldset>
+        <div id="msg"></div> 
+    </div>
 }
 
 @section Foot {        
