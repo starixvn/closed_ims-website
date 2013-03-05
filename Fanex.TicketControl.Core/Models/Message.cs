@@ -122,20 +122,6 @@ namespace Fanex.TicketControl.Core.Models
             set { _CreatorName = value; }
         }
 
-        /// <summary>
-        /// Target Users ID
-        /// </summary>
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Target User Name
-        /// </summary>
-        public string UserName
-        {
-            get { return _UserName; }
-            set { _UserName = value; }
-        }
-
-        public string userPwd { get; set; }
+        
     }
 }

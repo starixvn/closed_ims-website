@@ -200,6 +200,15 @@ var helper = {
         }
     },
 
+    GetSubTicketsChecked: function(){
+        var checkedVals = '';
+        checkedVals = $('.chk-ticket:checkbox:checked').not('#chk-ticket-all').map(function() {
+                return this.value;
+            }).get().join(','); 
+
+        return checkedVals;
+    },
+
     displayMoreMsg: function (){
         var symbol = $('#spMoreMsg').html();
 
@@ -309,8 +318,8 @@ var singleDetete = {
             rows.push({
                 Columns:[
                     { Name: "No", Value: currentRow.No  },
-                    { Name: "Player", Value: currentRow.Player },
                     { Name: "BetId", Value: currentRow.BetId },                    
+                    { Name: "Player", Value: currentRow.Player },                    
                     { Name: "TransDate", Value:currentRow.TransDate  },
                     { Name: "BetTypeName", Value:currentRow.BetTypeName },
                     { Name: "Odds", Value:currentRow.Odds},
@@ -330,8 +339,8 @@ var singleDetete = {
         var gridOptions = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Player", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Player", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
@@ -353,6 +362,62 @@ var singleDetete = {
     optionCustomRender: function (cell)
     {
         return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
+    },
+
+    voidSingleTicket: function (){
+        var param = {
+            MatchId: $('#txtMatchId').val(),
+            f_transid: $('#fromRefno').val(),
+            t_transid: $('#toRefno').val(),
+            Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
+            LiveIndicator: $('#EventType').val(),
+            LiveHomeScore: $('#LiveHomeScore').val(),
+            LiveAwayScore: $('#LiveAwayScore').val(),
+            FromTransdate: $('#FromTransDate').val(),
+            ToTransdate: $('#ToTransdate').val(),
+            Bettypes: helper.GetBettypesChecked(),
+            Betteam1378: $('#ddlBetTeam1378').val(),
+            Betteam515: $('#ddlBetTeam515').val(),
+            Betteam430: helper.GetBetteam430(),
+            Betteam6: helper.GetBetteam6(),
+            Betteam14: helper.GetBetteam14(),
+            Betteam16: helper.GetBetteam16(),
+            SAFilter: $('#TicketType').val(),
+            Transids: helper.GetSubTicketsChecked(),
+            UserPwd: $('#password').val(),
+            UserName: $('#username').val(),
+            Msg: {
+                Content_en: $('#msg-en').val(),
+                Content_ch: $('#msg-ch').val(),
+                Content_cs: $('#msg-cs').val(),
+                Content_th: $('#msg-th').val(),
+                Content_it: $('#msg-it').val(),
+                Content_jp: $('#msg-jp').val(),
+                Content_es: $('#msg-es').val(),
+                Content_ko: $('#msg-ko').val()
+            }
+         };
+
+          $.ajax({
+                type: "POST",
+                url: window.rootUrl + "SportBook/DeleteSingleTicket/VoidSingleTicket",
+                contentType: "application/json; charset=utf-8", 
+                dataType: "json",
+                data: JSON.stringify(param),
+                beforeSend: function () {
+                    NapTicketControl.disableInput();
+                },
+                success: function (rs) {
+                    //render match info
+                    
+                },
+                error: function () {
+                    console.log('has error :(');
+                },
+                complete: function () {
+                    NapTicketControl.enableInput();
+                }
+            });
     }
 
     

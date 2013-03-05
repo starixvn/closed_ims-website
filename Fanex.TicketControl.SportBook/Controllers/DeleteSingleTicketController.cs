@@ -28,7 +28,8 @@ namespace Fanex.TicketControl.SportBook.Controllers
 
         public DeleteSingleTicketController()
         {
-            _deleteSingleTicketService = new VoidSingleTicketService();            
+            _deleteSingleTicketService = new VoidSingleTicketService();    
+            
         }
 
         
@@ -43,7 +44,14 @@ namespace Fanex.TicketControl.SportBook.Controllers
             criteria.UserName = CurrentSession.Username;
             return Json(_deleteSingleTicketService.GetSingleTicket(criteria));
         }
-        
-        
+
+        [HttpPost]
+        public JsonResult VoidSingleTicket(VoidSingleTicketCritetia criteria)
+        {
+            criteria.UserPwd = Fanex.Common.Cryptography.CfsEnCode(criteria.UserPwd);
+            criteria.UserId = CurrentSession.UserId;
+
+            return Json(_deleteSingleTicketService.VoidSingleTicket(criteria));
+        }
     }
 }

@@ -36,14 +36,22 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
         }
 
 
-        public IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria)
+        public IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria, ref DataSet dsOutData)
         {
             IList<ActionResult> results = new List<ActionResult>();
             try
             {
                 using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
                 {
-                    var ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                    dsOutData = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                    var hashOutputParams = objectDb.GetOuputParams();
+
+                    results.Add(new ActionResult() { 
+                        ErrorCode = Convert.ToInt32(hashOutputParams["errcode"]),
+                        ErrorMsg = Convert.ToString(hashOutputParams["errmsg"])
+                    });
+
+                   
                 }
             }
             catch (Exception ex)

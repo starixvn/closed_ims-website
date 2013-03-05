@@ -30,6 +30,8 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
     using Fanex.BetList.Core.Factories;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.TicketHelper;
+using Fanex.TicketControl.Core.Repository.Interface;
+    using Fanex.TicketControl.Core.Repository.Impl;
 
     /// <summary>
     /// TODO: Update summary.
@@ -39,10 +41,12 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
     {
         ICoreService _coreService;
         IVoidSingleTicketRepository _reponsitory;
+        IMessageRepository _messageReponsitory;
         public VoidSingleTicketService()
         {
             _coreService = new CoreService();
             _reponsitory = new VoidSingleTicketRepository();
+            _messageReponsitory = new MessageRepository();
         }
 
         public SingleTicketModel GetSingleTicket(GetSingleTicketCriteria criteria)
@@ -58,7 +62,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
                 var ds = _reponsitory.GetSingleTicket(criteria);
                 int cnt = ds.Tables.Count;
-                DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
+                DataTable dt = cnt > 0 ? ds.Tables[1] : new DataTable();
 
                 model.Groups.Add(AssignDataOnGroup(dt));
             }
@@ -166,7 +170,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
 
                     if (bettype == 9 || bettype == 29) {
-                        //ticketHelper.IsShowOddsWithChoice = true;
+                        ticketHelper.IsShowOddsWithChoice = true;
                     }
 
                     ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, true);
@@ -181,6 +185,157 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
             return ticket;
         }
-        
+
+        public IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria)
+        {
+            IList<ActionResult> results = new List<ActionResult>();
+            try
+            {
+                CheckMatchIdWithRefNoCriteria  _checkMatchIdWithRefNoCriteria = new CheckMatchIdWithRefNoCriteria();
+                _checkMatchIdWithRefNoCriteria.FromRefno = criteria.f_transid;
+                _checkMatchIdWithRefNoCriteria.ToRefno = criteria.t_transid;
+                _checkMatchIdWithRefNoCriteria.MatchId = criteria.MatchId;
+                _checkMatchIdWithRefNoCriteria.Type = Helper.SportType.Sportsbook;
+
+                criteria.Msg.CreatorId = criteria.UserId;
+                criteria.Msg.CreatorName = criteria.UserName;
+
+
+                var resultWithRefno =  _coreService.CheckMatchIDwithRefno(_checkMatchIdWithRefNoCriteria);
+                if (resultWithRefno.ErrorCode == 0)
+                {
+                    DataSet dsOutData = new DataSet();
+                    results = _reponsitory.VoidSingleTicket(criteria, ref dsOutData);
+
+                    DataTable dtMsg = new DataTable();
+                    if (dsOutData.Tables.Count > 2)
+                    {
+                        dtMsg = dsOutData.Tables[2];
+                        var resultPrivateMsg = SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
+                        
+                        if (resultPrivateMsg.ErrorCode != 0) {
+                            results.Add(resultPrivateMsg);
+                        }                        
+                    }
+                }
+                else {
+                    results.Add(resultWithRefno);
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return results;
+        }
+
+        private ActionResult SendPrivateMsgToUsers(DataTable dtMsg, string matchId, Message pmsg)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                #region send private message to users
+                if (dtMsg != null && dtMsg.Rows.Count > 0)
+                {
+                    if (dtMsg.Rows.Count > 0)
+                    {
+                        Hashtable list = new Hashtable();
+
+                        for (int i = 0; i < dtMsg.Rows.Count; i++)
+                        {
+
+                            string[] ArrColumnsNameDownLineID = { "custid", "recommend", "mrecommend", "srecommend" };
+                            string[] ArrColumnsNameDownLineUserName = { "CustUserName", "AgUserName", "MagUserName", "SagUserName" };
+
+                            for (int j = 0; j < ArrColumnsNameDownLineID.Length; j++)
+                            {
+                                string cnameID = ArrColumnsNameDownLineID[j];
+                                string cnameUser = ArrColumnsNameDownLineUserName[j];
+
+                                string custid = dtMsg.Rows[i][cnameID].ToString();
+                                string uname = dtMsg.Rows[i][cnameUser].ToString();
+
+                                string key = custid + "^" + uname;
+                                string ticknum = dtMsg.Rows[i]["transid"].ToString();
+
+                                if (list[key] != null)
+                                {
+                                    if (list[key].ToString().IndexOf(ticknum) == -1)
+                                    {
+                                        string _tmp = list[key].ToString();
+                                        list.Remove(key);
+                                        list.Add(key, _tmp + "," + ticknum);
+                                    }
+                                }
+                                else
+                                    list.Add(key, ticknum);
+                            }
+                        }
+
+                        DataTable dtDeletedBet = new DataTable();
+                        dtDeletedBet.Columns.Add("custid", typeof(int));
+                        dtDeletedBet.Columns.Add("username", typeof(string));
+                        dtDeletedBet.Columns.Add("transids", typeof(string));
+                        dtDeletedBet.Columns.Add("betcount", typeof(int));
+
+                        foreach (DictionaryEntry Key in list)
+                        {
+                            int custid = Convert.ToInt32(Key.Key.ToString().Split('^')[0]); // This is a CustID of ticket that is deleted [TargetID Field]
+                            string uname = Key.Key.ToString().Split('^')[1];//This is a UserName of ticket that is deleted [TargetName Field]
+
+                            DataRow dr = dtDeletedBet.NewRow();
+                            dr["custid"] = custid;
+                            dr["username"] = uname;
+                            string[] ArrTransids = Key.Value.ToString().Split(',');
+                            Array.Sort(ArrTransids);
+                            string strTransIDs = "";
+                            for (int i = 0; i < ArrTransids.Length; i++)
+                            {
+                                strTransIDs += ArrTransids[i] + ", ";
+                            }
+                            strTransIDs = strTransIDs.Substring(0, strTransIDs.Length - 2);
+                            dr["transids"] = strTransIDs;
+                            dr["betcount"] = Key.Value.ToString().Split(',').Length;
+                            dtDeletedBet.Rows.Add(dr);
+                        }
+                        DataView dv = dtDeletedBet.DefaultView;
+                        dv.Sort = "betcount asc, transids asc";
+                        DataTable dtBets = dv.ToTable();
+
+                        string strTransID_Current = "";
+                        if (dtBets.Rows.Count > 0)
+                            strTransID_Current = Convert.ToString(dtBets.Rows[0]["transids"]);
+                        int CountBetsBelong1Member = Convert.ToInt32(dtBets.Compute("count(transids)", "transids='" + strTransID_Current + "'"));
+
+                        // send private message to users for cancel their transactions                                                                                                                
+                        int MessageId = 0;
+                        foreach (DataRow dr in dtBets.Rows)
+                        {
+                            int[] custid = { Convert.ToInt32(dr["custid"]) }; // This is a CustID of ticket that is deleted [TargetID Field]
+                            string[] uname = { Convert.ToString(dr["username"]) };//This is a UserName of ticket that is deleted [TargetName Field]
+
+                            if (Convert.ToInt32(dr["custid"]) < 100) continue;//SRecommend < 100 and roleid=3 
+                            string[] bettransid = { Convert.ToString(dr["transids"]) };
+
+                            if (MessageId == 0)
+                                MessageId = _messageReponsitory.SetMessage(pmsg, custid, uname, Convert.ToInt32(matchId), bettransid);
+                            else
+                                _messageReponsitory.AddTargt2Message(MessageId, custid, uname, bettransid);
+                        }
+                    }
+                }
+                #endregion
+            }
+            catch (Exception ex)
+            {                
+                LoggingHandler.Log(ex);
+                result.ErrorCode = 100;
+                result.ErrorMsg = ex.Message;
+            }
+
+            return result;
+        }
     }
 }

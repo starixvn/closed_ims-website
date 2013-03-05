@@ -14,6 +14,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Interface
     {
         DataSet GetSingleTicket(GetSingleTicketCriteria criteria);
 
-        IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria);
+        IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria, ref DataSet dsOutData);
     }
 }

@@ -14,12 +14,20 @@ namespace Fanex.TicketControl.Core.Utils
     using Fanex.TicketControl.Core.Web;
     using Fanex.TicketControl.Core.Models;
     using Fanex.TicketControl.Core.Services.Interface;
+    using System.Web;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class Helper
     {
+        public enum SportType
+        {
+            Sportsbook = 0,
+            VirtualSports = 1,
+            NumberGame = 2,
+            LiveCasino = 3
+        }
 
         public static string CurrencyById(int Id)
         {
@@ -49,6 +57,23 @@ namespace Fanex.TicketControl.Core.Utils
             }
 
             return currencyName;
+        }
+
+        public static string GetClientIP()
+        {
+            string ip = string.Empty;
+            try
+            {
+                if (HttpContext.Current.Request.IsLocal)
+                    ip = "127.0.0.1";
+                else 
+                    ip = Convert.ToString(HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return ip;
         }
     }
 }

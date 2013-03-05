@@ -27,5 +27,7 @@ namespace Fanex.TicketControl.Core.Services.Interface
         IList<Currency> GetCurrency();
 
         void Test();
+
+        ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria);
     }
 }

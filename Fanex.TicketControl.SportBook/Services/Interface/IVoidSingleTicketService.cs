@@ -27,5 +27,7 @@ using Fanex.TicketControl.SportBook.Criteria;
     public interface IVoidSingleTicketService
     {
         SingleTicketModel GetSingleTicket(GetSingleTicketCriteria criteria);
+
+        IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria);
     }
 }

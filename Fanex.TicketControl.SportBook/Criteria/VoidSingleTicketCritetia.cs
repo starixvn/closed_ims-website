@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fanex.NAP.Framework.Data;
+using Fanex.TicketControl.Core.Models;
 
 namespace Fanex.TicketControl.SportBook.Criteria
 {
@@ -24,7 +25,7 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public Int64 t_transid { get; set; }
 
-        public Int64 transid { get; set; }
+        public Int64 Transids { get; set; }
 
         public string Bettypes { get; set; }
 
@@ -62,9 +63,20 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public DateTime? ToDateTime { get; set; }
 
-        public string IP { get; set; }
+        public string IP {
+            get {
+                return Fanex.TicketControl.Core.Utils.Helper.GetClientIP();
+            }
+        }
 
         public int SAFilter { get; set; }
+
+        public Message Msg { get; set; }
+
+        // hard-core for testing
+        public int DelOption {
+            get { return 2; }
+        }
 
     }
 }

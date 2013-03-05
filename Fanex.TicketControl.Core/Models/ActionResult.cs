@@ -8,7 +8,7 @@ namespace Fanex.TicketControl.Core.Models
 {
     [Serializable]
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class ActionResult : BaseModel
+    public class ActionResult
     {
         public int ErrorCode { get; set; }
 

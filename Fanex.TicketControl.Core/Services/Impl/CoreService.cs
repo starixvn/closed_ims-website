@@ -21,6 +21,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
     using System.Data;
     using Fanex.Common.Extensions;
     using Fanex.TicketControl.Core.Repository.Impl;
+    using Fanex.Data;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -101,6 +102,31 @@ namespace Fanex.TicketControl.Core.Services.Impl
         {
             DataTable dt = _repository.Fetch(new TestCriteria());
             int c = dt.Rows.Count;
+        }
+
+
+        public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    var ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                    var hashOutputParams = objectDb.GetOuputParams();
+
+                    result = new ActionResult()
+                    {
+                        ErrorCode = Convert.ToInt32(hashOutputParams["errcode"]),
+                        ErrorMsg = Convert.ToString(hashOutputParams["errmsg"])
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return result;
         }
     }
 }
