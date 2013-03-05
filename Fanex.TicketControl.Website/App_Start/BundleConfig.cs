@@ -21,7 +21,8 @@ namespace Fanex.TicketControl.Website
                 "~/Scripts/NapTicketControl.Helper.js",
                 "~/Scripts/NapTicketControl.Validator.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
-                "~/Scripts/_Libs/Validation/jquery.validationEngine.js"
+                "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
+                "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"
 
             ));
 

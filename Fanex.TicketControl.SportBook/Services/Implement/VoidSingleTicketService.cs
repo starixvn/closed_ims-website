@@ -191,37 +191,23 @@ using Fanex.TicketControl.Core.Repository.Interface;
             IList<ActionResult> results = new List<ActionResult>();
             try
             {
-                CheckMatchIdWithRefNoCriteria  _checkMatchIdWithRefNoCriteria = new CheckMatchIdWithRefNoCriteria();
-                _checkMatchIdWithRefNoCriteria.FromRefno = criteria.f_transid;
-                _checkMatchIdWithRefNoCriteria.ToRefno = criteria.t_transid;
-                _checkMatchIdWithRefNoCriteria.MatchId = criteria.MatchId;
-                _checkMatchIdWithRefNoCriteria.Type = Helper.SportType.Sportsbook;
-
                 criteria.Msg.CreatorId = criteria.UserId;
                 criteria.Msg.CreatorName = criteria.UserName;
 
+                DataSet dsOutData = new DataSet();
+                results = _reponsitory.VoidSingleTicket(criteria, ref dsOutData);
 
-                var resultWithRefno =  _coreService.CheckMatchIDwithRefno(_checkMatchIdWithRefNoCriteria);
-                if (resultWithRefno.ErrorCode == 0)
+                DataTable dtMsg = new DataTable();
+                if (dsOutData.Tables.Count > 2)
                 {
-                    DataSet dsOutData = new DataSet();
-                    results = _reponsitory.VoidSingleTicket(criteria, ref dsOutData);
+                    dtMsg = dsOutData.Tables[2];
+                    var resultPrivateMsg = SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
 
-                    DataTable dtMsg = new DataTable();
-                    if (dsOutData.Tables.Count > 2)
+                    if (resultPrivateMsg.ErrorCode != 0)
                     {
-                        dtMsg = dsOutData.Tables[2];
-                        var resultPrivateMsg = SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
-                        
-                        if (resultPrivateMsg.ErrorCode != 0) {
-                            results.Add(resultPrivateMsg);
-                        }                        
+                        results.Add(resultPrivateMsg);
                     }
                 }
-                else {
-                    results.Add(resultWithRefno);
-                }
-
                 
             }
             catch (Exception ex)
@@ -304,11 +290,6 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         dv.Sort = "betcount asc, transids asc";
                         DataTable dtBets = dv.ToTable();
 
-                        string strTransID_Current = "";
-                        if (dtBets.Rows.Count > 0)
-                            strTransID_Current = Convert.ToString(dtBets.Rows[0]["transids"]);
-                        int CountBetsBelong1Member = Convert.ToInt32(dtBets.Compute("count(transids)", "transids='" + strTransID_Current + "'"));
-
                         // send private message to users for cancel their transactions                                                                                                                
                         int MessageId = 0;
                         foreach (DataRow dr in dtBets.Rows)
@@ -335,6 +316,21 @@ using Fanex.TicketControl.Core.Repository.Interface;
                 result.ErrorMsg = ex.Message;
             }
 
+            return result;
+        }
+
+        public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                criteria.Type = Helper.SportType.Sportsbook;
+                result = _coreService.CheckMatchIdWithRefno(criteria);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
             return result;
         }
     }

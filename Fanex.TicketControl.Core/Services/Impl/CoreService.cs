@@ -105,7 +105,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
         }
 
 
-        public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)
+        public ActionResult CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria)
         {
             ActionResult result = new ActionResult();
             try
