@@ -292,7 +292,7 @@ var singleDetete = {
     },
 
     search: function(){
-        jQuery("#DeleteSingleTicketForm").validationEngine('validate', {promptPosition : "centerRight"});
+        //jQuery("#DeleteSingleTicketForm").validationEngine('validate', {promptPosition : "centerRight"});
         $('#msg-box').hide();
         $('#msg').hide();        
                 
@@ -457,7 +457,7 @@ var singleDetete = {
             Betteam14: helper.GetBetteam14(),
             Betteam16: helper.GetBetteam16(),
             SAFilter: $('#TicketType').val(),
-            Transids: helper.getSubTicketsChecked(),
+            TransIds: helper.getSubTicketsChecked(),
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
             Msg: {

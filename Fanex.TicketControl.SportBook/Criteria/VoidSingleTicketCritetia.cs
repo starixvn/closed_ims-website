@@ -25,7 +25,7 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public Int64 t_transid { get; set; }
 
-        public Int64 Transids { get; set; }
+        public string TransIds { get; set; }
 
         public string Bettypes { get; set; }
 

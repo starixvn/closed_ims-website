@@ -198,9 +198,9 @@ using Fanex.TicketControl.Core.Repository.Interface;
                 results = _reponsitory.VoidSingleTicket(criteria, ref dsOutData);
 
                 DataTable dtMsg = new DataTable();
-                if (dsOutData.Tables.Count > 2)
+                if (dsOutData.Tables.Count > 0)
                 {
-                    dtMsg = dsOutData.Tables[2];
+                    dtMsg = dsOutData.Tables[0];
                     var resultPrivateMsg = SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
 
                     if (resultPrivateMsg.ErrorCode != 0)
@@ -236,8 +236,8 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         for (int i = 0; i < dtMsg.Rows.Count; i++)
                         {
 
-                            string[] ArrColumnsNameDownLineID = { "custid", "recommend", "mrecommend", "srecommend" };
-                            string[] ArrColumnsNameDownLineUserName = { "CustUserName", "AgUserName", "MagUserName", "SagUserName" };
+                            string[] ArrColumnsNameDownLineID = { "TargetID"};
+                            string[] ArrColumnsNameDownLineUserName = { "TargetName"};
 
                             for (int j = 0; j < ArrColumnsNameDownLineID.Length; j++)
                             {
