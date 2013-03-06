@@ -242,12 +242,13 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         currentCell = eachRowRange[0, 3];
                         currentCell.Value = Choice;
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-
+                        currentCell.Style.Font.Weight = ExcelFont.BoldWeight;
 
                         string OddName = CacheRef.GetOddsTypeName(ticket.Ticket.OddsType);
                         currentCell = eachRowRange[0, 4];
                         currentCell.Value = string.Format("{0} ({1})", ticket.Ticket.Odds.ToString("0.#####"), OddName);
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+                        currentCell.Style.Font.Weight = ExcelFont.BoldWeight;
 
                         currentCell = eachRowRange[0, 5];
                         currentCell.Style = decimalNumberStyle;

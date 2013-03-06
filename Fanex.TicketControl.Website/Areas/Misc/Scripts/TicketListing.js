@@ -62,7 +62,7 @@ TicketListing.prototype.Init = function () {
     var self = this;
 
     self.CacheDOMElement();
-    Helper.GetLicensees();
+    //    Helper.GetLicensees();
     Helper.GetBettypes(self.CollectSelectedProduct());
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
