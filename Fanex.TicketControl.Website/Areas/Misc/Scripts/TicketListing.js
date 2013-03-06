@@ -104,7 +104,7 @@ TicketListing.prototype.Init = function () {
             // show Event Type drop down
             self.DOMElement.$eventTypeWrp.show();
 
-            if (eventType == 0) {
+            if (eventType == 1) {
                 self.DOMElement.$optFilters.show();
             } else {
                 self.DOMElement.$optFilters.hide();
@@ -155,11 +155,13 @@ TicketListing.prototype.Init = function () {
                 MatchID: $('#MatchID').val(),
                 LicenseeID: $('#LicenseeID').val(),
                 LiveType: $('#LiveType').val(),
+                SAFilter: $('#SAFilter').val(),
                 LiveHomeScore: $('#LiveHomeScore').val(),
                 LiveAwayScore: $('#LiveAwayScore').val(),
                 FromTransDate: $('#FromTransDate').val(),
                 ToTransDate: $('#ToTransDate').val(),
                 Type: type,
+                
                 BetTypes: bettypes,
                 BetTypesLive: livebettypes
             };
