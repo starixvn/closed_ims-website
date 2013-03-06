@@ -28,6 +28,6 @@ namespace Fanex.TicketControl.Core.Services.Interface
 
         void Test();
 
-        ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria);
+        ActionResult CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria);
     }
 }

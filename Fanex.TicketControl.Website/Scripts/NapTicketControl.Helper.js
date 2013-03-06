@@ -210,6 +210,46 @@
             }
 
             return html;
+        },
+
+        showMsgBox: function (msgs) {
+            var msgbox = $('#msg-box');
+
+            if (msgbox.length == 0) {
+                msgbox = $(
+                    '<div class="alert alert-error" id="msg-box">' +
+                        '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                        '<div class="alert-content">' +
+                        '</div>' +
+                    '</div>').prependTo('body');
+            }
+
+
+            var html = [];
+
+            if ($.isArray(msgs)) {
+                for (var i = 0; i < msgs.length; i++) {
+                    var msg = msgs[i];
+                    if (msg.ErrorCode > 0) {//Fail
+                        html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
+                    }
+                    else {
+                        html.push(msg.ErrorMsg + '<i class="icon-ok"></i><br/>');
+                    }
+                }
+            }
+            else {
+                var msg = msgs;
+                if (msg.ErrorCode > 0) {//Fail
+                    html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
+                }
+                else {
+                    html.push(msg.ErrorMsg + '<i class="icon-ok"></i><br/>');
+                }
+            }
+
+            msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html);
+            msgbox.fadeIn();
         }
     };
 } (jQuery));

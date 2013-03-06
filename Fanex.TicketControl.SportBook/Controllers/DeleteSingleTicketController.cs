@@ -46,6 +46,13 @@ namespace Fanex.TicketControl.SportBook.Controllers
         }
 
         [HttpPost]
+        public JsonResult CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria)
+        {
+            criteria.Type = Core.Utils.Helper.SportType.Sportsbook;
+            return Json(_deleteSingleTicketService.CheckMatchIDwithRefno(criteria));
+        }
+
+        [HttpPost]
         public JsonResult VoidSingleTicket(VoidSingleTicketCritetia criteria)
         {
             criteria.UserPwd = Fanex.Common.Cryptography.CfsEnCode(criteria.UserPwd);

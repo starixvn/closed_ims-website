@@ -14,7 +14,7 @@ namespace Fanex.TicketControl.Core.Models
 
         public string ErrorMsg { get; set; }
 
-        public dynamic ExtendContent { get; set; }
+       // public dynamic ExtendContent { get; set; }
 
         public ActionResult()
         {

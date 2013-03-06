@@ -28,6 +28,8 @@ using Fanex.TicketControl.SportBook.Criteria;
     {
         SingleTicketModel GetSingleTicket(GetSingleTicketCriteria criteria);
 
+        ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria);
+
         IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria);
     }
 }

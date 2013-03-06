@@ -225,27 +225,42 @@ var helper = {
 
     displayFormMsg: function(){
         $('.form').show();
+    },
+
+    displayContent: function(isShow){
+        if(isShow){
+            $('#dvContent').show();
+        }
+        else{
+            $('#dvContent').hide();
+        }        
     }
 };
 
 
 
 var singleDetete = {
+    param:{
+        MatchId: '',
+        FromRefno: '',
+        ToRefno: ''
+    },
+
     search: function(){
         jQuery("#DeleteSingleTicketForm").validationEngine('validate');
-
-        $('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
+        $('#msg-box').hide();
+        //$('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
                 
         //Load Match Info
-        singleDetete.getSingleTicket();
+        singleDetete.checkMatchIdWithRefno();
     },
 
     getSingleTicket: function (){
 
          var param = {
-            MatchId: $('#txtMatchId').val(),
-            FromRefNo: $('#fromRefno').val(),
-            ToRefNo: $('#toRefno').val(),
+            MatchId: singleDetete.param.MatchId,
+            FromRefNo: singleDetete.param.FromRefno,
+            ToRefNo: singleDetete.param.ToRefno,
             Hdp: $('#hdp').val() == '' ? '999' :  $('#hdp').val(),
             LiveIndicator: $('#EventType').val(),
             LiveHomeScore: $('#LiveHomeScore').val(),
@@ -349,7 +364,16 @@ var singleDetete = {
                 { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
                 { HeaderText: "<div><span>Option</span><span><input onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: singleDetete.optionCustomRender } 
             ],
-            bodyRows: rows
+            bodyRows: rows,
+            showPager: true,
+            pagerOption: {
+                itemsPerPage: 5,
+                maxItemsPerPage: 100,
+                currentPage: 0,
+                totalItem: 100,
+                startPerPage: 5,
+                pageStep: 10
+            }
         };
 
         $('#ticketInfo').fanexGrid(gridOptions);
@@ -406,6 +430,43 @@ var singleDetete = {
                 },
                 success: function (rs) {
                     //render match info
+                    
+                },
+                error: function () {
+                    console.log('has error :(');
+                },
+                complete: function () {
+                    NapTicketControl.enableInput();
+                }
+            });
+    },
+
+    checkMatchIdWithRefno: function (){
+        var param = {
+            MatchId:  $('#txtMatchId').val(),
+            FromRefno: $('#fromRefno').val(),
+            ToRefno: $('#toRefno').val()
+        };
+
+        $.ajax({
+                type: "POST",
+                url: window.rootUrl + "SportBook/DeleteSingleTicket/CheckMatchIdWithRefno",
+                contentType: "application/json; charset=utf-8", 
+                dataType: "json",
+                data: JSON.stringify(param),
+                beforeSend: function () {
+                    NapTicketControl.disableInput();
+                },
+                success: function (rs) {
+                    if(rs.ErrorCode == 0){
+                        singleDetete.param = param;
+                        singleDetete.getSingleTicket();
+                        helper.displayContent(true);
+                    }
+                    else{
+                        Helper.showMsgBox(rs);
+                        helper.displayContent(false);
+                    }
                     
                 },
                 error: function () {
