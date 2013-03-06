@@ -8,11 +8,11 @@ var validateData = {
             return false;
         }
 
-        if (isNaN($('#txtMatchId').val()) || $('#txtMatchId').val().length>10 ) {
+        if (isNaN($('#txtMatchId').val()) || $('#txtMatchId').val().length > 10) {
             $('#msg').html(tooltip.show('txtMatchId', 'Invalid MatchID.')).show();
             return false;
         }
-        
+
 
         if ($('#fromRefno').val() == '') {
             $('#msg').html(tooltip.show('fromRefno', 'From BetID is required.')).show();
@@ -32,6 +32,18 @@ var validateData = {
         if (isNaN($('#toRefno').val()) || $('#toRefno').val().length > 10) {
             $('#msg').html(tooltip.show('toRefno', 'Invalid To BetID.')).show();
             return false;
+        }
+
+        if ($('#EventType').val() == 1) {
+            if ($('#LiveHomeScore').val() != '' && ($('#LiveHomeScore').val().length > 2 || isNaN($('#LiveHomeScore').val()))) {
+                $('#msg').html(tooltip.show('LiveHomeScore', 'Invalid Live Home Score.')).show();
+                return false;
+            }
+
+            if ($('#LiveAwayScore').val() != '' && ($('#LiveAwayScore').val().length > 2 || isNaN($('#LiveAwayScore').val()))) {
+                $('#msg').html(tooltip.show('LiveAwayScore', 'Invalid Live Home Score.')).show();
+                return false;
+            }
         }
 
         if (helper.GetBettypesChecked() == '') {

@@ -219,8 +219,14 @@
         $('#spMoreMsg').html(symbol);
     },
 
-    displayFormMsg: function () {
-        $('.form').show();
+    displayFormMsg: function (isShow) {
+        if (isShow) {
+            $('.form').show();
+        }
+        else {
+            $('.form').hide();
+        }
+
     },
 
     displayContent: function (isShow) {

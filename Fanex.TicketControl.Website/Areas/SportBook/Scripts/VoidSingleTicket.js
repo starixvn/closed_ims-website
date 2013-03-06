@@ -27,12 +27,12 @@ var singleDetete = {
             MatchId: singleDetete.param.MatchId,
             FromRefNo: singleDetete.param.FromRefno,
             ToRefNo: singleDetete.param.ToRefno,
-            Hdp: $('#hdp').val() == '' ? '999' :  $('#hdp').val(),
+            Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
             LiveIndicator: $('#EventType').val(),
             LiveHomeScore: $('#LiveHomeScore').val(),
             LiveAwayScore: $('#LiveAwayScore').val(),
             FromTransdate: $('#FromTransDate').val(),
-            ToTransdate: $('#ToTransdate').val(),
+            ToTransdate: $('#ToTransDate').val(),
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
             Betteam515: $('#ddlBetTeam515').val(),
@@ -143,7 +143,14 @@ var singleDetete = {
         };
 
         $('#ticketInfo').fanexGrid(gridOptions);
-        helper.displayFormMsg();
+
+        if(groups[0].Tickets.length == 0){
+            helper.displayFormMsg(false);
+        }
+        else{
+            helper.displayFormMsg(true);
+        }
+        
     },
 
     optionCustomRender: function (cell)
@@ -311,9 +318,14 @@ DelSingleTicket.prototype.Init = function () {
         var eventType = $(this).val(); // live type drop down list
 
         if (eventType === '1') {
-            self.DOMElement.$optFilters.show();
+            self.DOMElement.$optFilters.show();            
         } else {
-            self.DOMElement.$optFilters.hide();
+            self.DOMElement.$optFilters.hide();            
+        }
+
+        if(eventType == '0')//Dead
+        {
+        
         }
 
         Helper.GetBettypes('Sportsbook', eventType);
