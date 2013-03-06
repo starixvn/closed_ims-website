@@ -188,8 +188,10 @@
     <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
-    <Content Include="Areas\SportBook\Scripts\DeleteSingleTicket.js" />
-    <Content Include="Areas\SportBook\Scripts\DeleteSingleTicketManager.js" />
+    <Content Include="Areas\SportBook\Scripts\VoidSingleTicketValidateData.js" />
+    <Content Include="Areas\SportBook\Scripts\VoidSingleTicket.js" />
+    <Content Include="Areas\SportBook\Scripts\VoidSingleTicketHelper.js" />
+    <Content Include="Areas\SportBook\Scripts\VoidSingleTicketManager.js" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />

@@ -208,6 +208,11 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         results.Add(resultPrivateMsg);
                     }
                 }
+
+                if (results.Count == 1 && results[0].ErrorCode == 0) {
+                    results[0].ErrorCode = -100;
+                    results[0].ErrorMsg = "Bet transactions deleted!";
+                }
                 
             }
             catch (Exception ex)
@@ -218,6 +223,8 @@ using Fanex.TicketControl.Core.Repository.Interface;
                     ErrorMsg = ex.Message
                 });
             }
+
+
             return results;
         }
 
