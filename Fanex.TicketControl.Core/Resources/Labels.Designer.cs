@@ -1331,6 +1331,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no data..
+        /// </summary>
+        public static string There_is_no_data {
+            get {
+                return ResourceManager.GetString("There_is_no_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TicketList {0}.
         /// </summary>
         public static string TicketList {

@@ -616,4 +616,7 @@
   <data name="SA" xml:space="preserve">
     <value>S.A</value>
   </data>
+  <data name="There_is_no_data" xml:space="preserve">
+    <value>There is no data.</value>
+  </data>
 </root>

@@ -110,7 +110,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                 #region Match Header
 
-                CellRange matchHeaderCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, currentColumn, currentRow, currentColumn + 4);
+                CellRange matchHeaderCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, 3);
                 var headerCellStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.HEADER_TITLE_COLOR, true, HorizontalAlignmentStyle.Center);
                 currentRow ++;
 
@@ -128,7 +128,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                 #region Match Content
 
-                CellRange matchContentCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, currentColumn, currentRow, currentColumn + 4);
+                CellRange matchContentCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, 3);
                 var contentCellStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.BACKGROUND_COLOR, false, HorizontalAlignmentStyle.Center);
                 currentRow += 2;
                 
@@ -147,7 +147,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                 #region Bet List
 
-                #region Ticket Header
+                #region Bet List Header
                 CellRange headerTicketCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber-1);
                 headerTicketCellRange.Style = headerCellStyle;
                 currentRow++;
@@ -184,81 +184,101 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                 #endregion
 
+                #region Bet List Content
+
                 var oddRowStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.ODD_ROW_COLOR, false, HorizontalAlignmentStyle.Center);
                 var evenRowStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.EVEN_ROW_COLOR, false, HorizontalAlignmentStyle.Center);
                 CellStyle decimalNumberStyle;
 
-                foreach (var ticket in ticketListing.Items)
+                if (ticketListing.TotalItem == 0)
                 {
-                    CellRange eachRowRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber-1);
-                    CellStyle rowStyle;
-                    
-
-                    if (currentRow % 2 == 0)
-                    {
-                        rowStyle = evenRowStyle;
-                        decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.EVEN_ROW_COLOR, false, false, false);
-                    }
-                    else
-                    {
-                        rowStyle = oddRowStyle;
-                        decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.ODD_ROW_COLOR, false, false, false);
-                    }
-
-                    eachRowRange.Style = rowStyle;
-                    currentCell = eachRowRange[0, 0];
-                    currentCell.Value = ticket.Ticket.TransId;
-
-                    currentCell = eachRowRange[0, 1];
-                    currentCell.Value = ticket.TransDate;
-
-                    currentCell = eachRowRange[0, 2];
-                    currentCell.Value = ticket.Ticket.UserName;
-                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
-
-                    bool isMixParlay = ticket.IsMixParlay;
-                    string Choice = string.Format("{0} {1} {2} {3} {4}", ticket.SportEvent.Choice, ticket.SportEvent.Hdp,
-                        ticket.Ticket.IsLive ? ticket.SportEvent.LiveScore : string.Empty,
-                        isMixParlay ? "@" + ticket.Ticket.Odds : string.Empty,
-                        isMixParlay ? ticket.SportEvent.BetType : string.Empty);
-                    Choice = Choice.Replace("&nbsp;", "");
-                    currentCell = eachRowRange[0, 3];
-                    currentCell.Value = Choice;
-                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-
-
-                    string OddName = CacheRef.GetOddsTypeName(ticket.Ticket.OddsType);
-                    currentCell = eachRowRange[0, 4];
-                    currentCell.Value = string.Format("{0} ({1})", ticket.Ticket.Odds.ToString("0.#####"), OddName);
-                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-
-                    currentCell = eachRowRange[0, 5];
-                    currentCell.Style = decimalNumberStyle;
-                    currentCell.Value =  ticket.Ticket.Stake;
-                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-
-                    currentCell = eachRowRange[0, 6];
-                    currentCell.Style = decimalNumberStyle;
-                    decimal winlost = ticket.Ticket.Winlost;
-                    if (winlost < 0)
-                    {
-                        winlost = -1 * winlost;
-                        currentCell.Style.Font.Color = Color.Red;
-                    }
-                    currentCell.Value = winlost;
-                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-
-                    currentCell = eachRowRange[0, 7];
-                    currentCell.Value = ticket.Currency;
-
-                    currentCell = eachRowRange[0, 8];
-                    currentCell.Value = ticket.Ticket.Status;
-
-                    currentCell = eachRowRange[0, 9];
-                    currentCell.Value = ticket.SAFlag ? "Yes" : string.Empty;
-
-                    currentRow++;
+                    CellRange eachRowRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber - 1);
+                    eachRowRange.Merged = true;
+                    eachRowRange.Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
+                    eachRowRange.Value = Labels.There_is_no_data;
                 }
+                else
+                {
+                    foreach (var ticket in ticketListing.Items)
+                    {
+                        CellRange eachRowRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber - 1);
+                        CellStyle rowStyle;
+
+                        if (currentRow % 2 == 0)
+                        {
+                            rowStyle = evenRowStyle;
+                            decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.EVEN_ROW_COLOR, false, false, false);
+                        }
+                        else
+                        {
+                            rowStyle = oddRowStyle;
+                            decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.ODD_ROW_COLOR, false, false, false);
+                        }
+
+                        eachRowRange.Style = rowStyle;
+                        currentCell = eachRowRange[0, 0];
+                        currentCell.Value = ticket.Ticket.TransId;
+
+                        currentCell = eachRowRange[0, 1];
+                        currentCell.Value = ticket.TransDate;
+
+                        currentCell = eachRowRange[0, 2];
+                        currentCell.Value = ticket.Ticket.UserName;
+                        currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
+
+                        bool isMixParlay = ticket.IsMixParlay;
+                        string Choice = string.Format("{0} {1} {2} {3} {4}", ticket.SportEvent.Choice, ticket.SportEvent.Hdp,
+                            ticket.Ticket.IsLive ? ticket.SportEvent.LiveScore : string.Empty,
+                            isMixParlay ? "@" + ticket.Ticket.Odds : string.Empty,
+                            isMixParlay ? ticket.SportEvent.BetType : string.Empty);
+
+                        if (ticket.Ticket.BetTypeId == 90)
+                        {
+                            Choice = string.Format("Group {0}-{1} {2}", ticket.Ticket.Handicap1, 
+                                ticket.Ticket.BetTeam, ticket.SportEvent.LiveScore);
+                        }
+                        Choice = Choice.Replace("&nbsp;", "");
+
+                        currentCell = eachRowRange[0, 3];
+                        currentCell.Value = Choice;
+                        currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+
+
+                        string OddName = CacheRef.GetOddsTypeName(ticket.Ticket.OddsType);
+                        currentCell = eachRowRange[0, 4];
+                        currentCell.Value = string.Format("{0} ({1})", ticket.Ticket.Odds.ToString("0.#####"), OddName);
+                        currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+
+                        currentCell = eachRowRange[0, 5];
+                        currentCell.Style = decimalNumberStyle;
+                        currentCell.Value = ticket.Ticket.Stake;
+                        currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+
+                        currentCell = eachRowRange[0, 6];
+                        currentCell.Style = decimalNumberStyle;
+                        decimal winlost = ticket.Ticket.Winlost;
+                        if (winlost < 0)
+                        {
+                            winlost = -1 * winlost;
+                            currentCell.Style.Font.Color = Color.Red;
+                        }
+                        currentCell.Value = winlost;
+                        currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+
+                        currentCell = eachRowRange[0, 7];
+                        currentCell.Value = ticket.Currency;
+
+                        currentCell = eachRowRange[0, 8];
+                        currentCell.Value = ticket.Ticket.Status;
+
+                        currentCell = eachRowRange[0, 9];
+                        currentCell.Value = ticket.SAFlag ? "X" : string.Empty;
+
+                        currentRow++;
+                    }
+                } 
+
+                #endregion
 
                 #endregion
 
