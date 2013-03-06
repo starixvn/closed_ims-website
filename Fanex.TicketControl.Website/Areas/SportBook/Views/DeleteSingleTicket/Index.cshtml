@@ -436,16 +436,16 @@
         </fieldset>
         <fieldset id="fsConfirmDelete" class="form" style="display: none">
             <legend><i class="icon-trash"></i>Confirm Delete</legend>
-            <label for="username">
-                Username</label>
-            <input type="text" id="username" class="input-xlarge" />
+            <label for="username"> Username</label>
+            <input type="text" id="username" class="input-xlarge" disabled="disabled" value="@ViewBag.Session.Username" />
             <label for="password">
                 Password</label>
             <input type="password" id="password" class="input-xlarge" />
             <a class="submit" href="javascript:;singleDetete.voidSingleTicket();">Void Bet</a>
-        </fieldset>
-        <div id="msg"></div> 
+        </fieldset>        
     </div>
+    
+    <div id="msg"></div> 
 }
 
 @section Foot {        

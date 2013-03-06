@@ -8,9 +8,9 @@
   <Function Name="Core">
     <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="archive" />
     <Setting Key="Core_ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="archive" />
-    <Setting Key="Core_Dot_Msg_SetMessage" SpName="Dot_Msg_SetMessage" DbName="message" />
-    <Setting Key="Core_Dot_Msg_SetUsrMessage" SpName="Dot_Msg_SetUsrMessage" DbName="message" />
-    <Setting Key="Core_CheckMatchIDwithRefno" SpName="Acc_SpecialDel_CheckMatchIDwithRefno" DbName="db053" />
+    <Setting Key="Core_Dot_Msg_SetMessage" SpName="Dot_Msg_SetMessage" DbName="apollo_dbMsg" />
+    <Setting Key="Core_Dot_Msg_SetUsrMessage" SpName="Dot_Msg_SetUsrMessage" DbName="apollo_dbMsg" />
+    <Setting Key="Core_CheckMatchIDwithRefno" SpName="Acc_SpecialDel_CheckMatchIDwithRefno" DbName="apollo_db06" />
   </Function>
   
   <Function Name="Misc">
@@ -24,7 +24,7 @@
   </Function>
 
   <Function Name="SingleTicket">
-    <Setting Key="SingleTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel" DbName="archive" />
-    <Setting Key="SingleTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial" DbName="main" />
+    <Setting Key="SingleTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel" DbName="apollo_db06" />
+    <Setting Key="SingleTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial" DbName="apollo_transdb" />
   </Function>
 </Functions>

@@ -62,7 +62,7 @@ using Fanex.TicketControl.Core.Repository.Interface;
 
                 var ds = _reponsitory.GetSingleTicket(criteria);
                 int cnt = ds.Tables.Count;
-                DataTable dt = cnt > 0 ? ds.Tables[1] : new DataTable();
+                DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
 
                 model.Groups.Add(AssignDataOnGroup(dt));
             }
@@ -158,10 +158,10 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         Handicap2 = Convert.ToDecimal(row["hdp2"]),
 
                         Status = Convert.ToString(row["status"]),
-                        HomeId = 2888,
-                        AwayId = 7675,
-                        LeagueId = 137,
-                        SportTypeId = 1
+                        HomeId = Convert.ToInt64 (row["HomeId"]),
+                        AwayId = Convert.ToInt64(row["AwayId"]),
+                        LeagueId = Convert.ToInt32(row["LeagueId"]),
+                        SportTypeId = Convert.ToInt32(row["SportType"])
                     };
 
                     ITicketHelper ticketHelper = new TicketHelper();
@@ -198,9 +198,9 @@ using Fanex.TicketControl.Core.Repository.Interface;
                 results = _reponsitory.VoidSingleTicket(criteria, ref dsOutData);
 
                 DataTable dtMsg = new DataTable();
-                if (dsOutData.Tables.Count > 2)
+                if (dsOutData.Tables.Count > 0)
                 {
-                    dtMsg = dsOutData.Tables[2];
+                    dtMsg = dsOutData.Tables[0];
                     var resultPrivateMsg = SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
 
                     if (resultPrivateMsg.ErrorCode != 0)
@@ -213,6 +213,10 @@ using Fanex.TicketControl.Core.Repository.Interface;
             catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
+                results.Add(new ActionResult() { 
+                    ErrorCode = 1,
+                    ErrorMsg = ex.Message
+                });
             }
             return results;
         }
@@ -232,8 +236,8 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         for (int i = 0; i < dtMsg.Rows.Count; i++)
                         {
 
-                            string[] ArrColumnsNameDownLineID = { "custid", "recommend", "mrecommend", "srecommend" };
-                            string[] ArrColumnsNameDownLineUserName = { "CustUserName", "AgUserName", "MagUserName", "SagUserName" };
+                            string[] ArrColumnsNameDownLineID = { "TargetID"};
+                            string[] ArrColumnsNameDownLineUserName = { "TargetName"};
 
                             for (int j = 0; j < ArrColumnsNameDownLineID.Length; j++)
                             {
