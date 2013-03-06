@@ -98,7 +98,7 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         No = index,
                         BetId = Convert.ToString(BetId),
                         Player = Convert.ToString(row["username"]),
-                        TransDate = Convert.ToDateTime(row["transdate"]).ToString(),
+                        TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
                         BetType = Convert.ToInt32(row["bettype"]),
                         HDP = Convert.ToString(row["hdp1"]),
                         Stake = Convert.ToString(row["stakepositiontaking"]),
@@ -106,7 +106,7 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         CurrencyName = Helper.CurrencyById(Convert.ToInt32(row["currency"])),
                         Status = Convert.ToString(row["status"]),
                         Score = Convert.ToString(row["livehomescore"]) + "-" + Convert.ToString(row["liveawayscore"]),
-                        SA = Convert.ToInt32(row["SecAcceptFlag"]) == 1 ? "" : "<span class='icon-tick'></span>",
+                        SA = Convert.ToInt32(row["SecAcceptFlag"]) == 0 ? "" : "<span class='icon-tick'></span>",
                         IsDelete = true,
                         BetTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(row["bettype"]),
 

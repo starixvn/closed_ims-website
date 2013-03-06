@@ -74,7 +74,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
                     HomeId = r.ToInt("HomeId"),
                     AwayId = r.ToInt("AwayId"),
                     MatchCode = r.ToString("MatchCode"),
-                    EventDate = r.ToDateTime("EventDate").ToShortDateString(),
+                    EventDate = r.ToDateTime("EventDate").ToString("yyyy/MM/dd"),
                 };
             };
 

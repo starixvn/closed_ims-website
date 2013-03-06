@@ -94,11 +94,11 @@
                     }, 
                     new SelectListItem {
                         Text = "Dead Ball",
-                        Value = "1"
+                        Value = "0"
                     },
                     new SelectListItem {
                         Text = "Live Ball",
-                        Value = "0"
+                        Value = "1"
                     }
                 };
                         }
@@ -116,10 +116,10 @@
                     <div class="edit-field live-score">
                         <label for="LiveHomeScore">
                             Live Home Score</label>
-                        @Html.TextBox("LiveHomeScore", string.Empty)
+                        <input type="text" id="LiveHomeScore" maxlength="2" />
                         <label for="LiveAwayScore">
                             Live Away Score</label>
-                        @Html.TextBox("LiveAwayScore", string.Empty)
+                        <input type="text"  id="LiveAwayScore" maxlength="2" />
                     </div>
                     <div class="lbl-field span5">
                         <label for="TransDate" class="bold">@Labels.Trans_Date_GMT8:</label>

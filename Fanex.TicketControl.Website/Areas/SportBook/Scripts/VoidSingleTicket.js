@@ -310,7 +310,7 @@ DelSingleTicket.prototype.Init = function () {
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
 
-        if (eventType === '0') {
+        if (eventType === '1') {
             self.DOMElement.$optFilters.show();
         } else {
             self.DOMElement.$optFilters.hide();
@@ -434,6 +434,8 @@ DelSingleTicket.prototype.Init = function () {
     $("#fromRefno").keyup(function () {}).ForceIntegerOnly();
     $("#toRefno").keyup(function () {}).ForceIntegerOnly();
     $("#hdp").keyup(function () {}).ForceIntegerOnly();
+    $("#LiveHomeScore").keyup(function () {}).ForceIntegerOnly();
+    $("#LiveAwayScore").keyup(function () {}).ForceIntegerOnly();
 };
 
 
