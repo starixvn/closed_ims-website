@@ -324,6 +324,7 @@
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.0.js" />
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.1.js" />
     <Content Include="Scripts\_Libs\jQuery\classList.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.formattyping.js" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\error.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />

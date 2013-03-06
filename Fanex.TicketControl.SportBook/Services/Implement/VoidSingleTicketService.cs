@@ -62,7 +62,7 @@ using Fanex.TicketControl.Core.Repository.Interface;
 
                 var ds = _reponsitory.GetSingleTicket(criteria);
                 int cnt = ds.Tables.Count;
-                DataTable dt = cnt > 0 ? ds.Tables[1] : new DataTable();
+                DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
 
                 model.Groups.Add(AssignDataOnGroup(dt));
             }
@@ -158,10 +158,10 @@ using Fanex.TicketControl.Core.Repository.Interface;
                         Handicap2 = Convert.ToDecimal(row["hdp2"]),
 
                         Status = Convert.ToString(row["status"]),
-                        HomeId = 2888,
-                        AwayId = 7675,
-                        LeagueId = 137,
-                        SportTypeId = 1
+                        HomeId = Convert.ToInt64 (row["HomeId"]),
+                        AwayId = Convert.ToInt64(row["AwayId"]),
+                        LeagueId = Convert.ToInt32(row["LeagueId"]),
+                        SportTypeId = Convert.ToInt32(row["SportType"])
                     };
 
                     ITicketHelper ticketHelper = new TicketHelper();
@@ -213,6 +213,10 @@ using Fanex.TicketControl.Core.Repository.Interface;
             catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
+                results.Add(new ActionResult() { 
+                    ErrorCode = 1,
+                    ErrorMsg = ex.Message
+                });
             }
             return results;
         }

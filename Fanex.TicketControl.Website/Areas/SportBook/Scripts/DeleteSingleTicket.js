@@ -200,7 +200,7 @@ var helper = {
         }
     },
 
-    GetSubTicketsChecked: function(){
+    getSubTicketsChecked: function(){
         var checkedVals = '';
         checkedVals = $('.chk-ticket:checkbox:checked').not('#chk-ticket-all').map(function() {
                 return this.value;
@@ -237,7 +237,52 @@ var helper = {
     }
 };
 
+var validateData = {
+    checkParamBeforeGetData: function (){
+        $('#msg').hide();
 
+        if(helper.GetBettypesChecked() == ''){
+            $('#msg').html(tooltip.show('chkallbettype', 'At least on bettype must be selected.'));
+            $('#msg').show();
+            
+            return false;
+        }
+        return true;
+    },
+
+    checkParamBeforVoidTicket: function(){
+        $('#msg').hide();
+
+        if(helper.getSubTicketsChecked() == ''){
+            $('#msg').html(tooltip.show('chk-ticket-all', 'At least on ticket must be selected.')).show();
+            return false;
+        }
+
+        if ($("#msg-en").val() == "") {            
+            $('#msg').html(tooltip.show('msg-en', 'You must enter English message')).show();
+            return false;
+        }
+        if ($("#msg-en").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-en', 'You must include @@ in English message for replacing ticket number')).show();
+            return false;
+        }
+        if ($("#msg-ch").val() == "") {            
+            $('#msg').html(tooltip.show('msg-ch', 'You must enter Chinese (Mandarin) message')).show();
+            return false;
+        }
+        if ($("#msg-ch").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-ch', 'You must include @@ in Chinese (Mandarin) message for replacing ticket number')).show();
+            return false;
+        }
+
+        if($('#password').val() == ''){
+            $('#msg').html(tooltip.show('password', 'Please input password.')).show();
+            return false;
+        }
+
+        return true;
+    }
+};
 
 var singleDetete = {
     param:{
@@ -247,12 +292,15 @@ var singleDetete = {
     },
 
     search: function(){
-        jQuery("#DeleteSingleTicketForm").validationEngine('validate');
+        jQuery("#DeleteSingleTicketForm").validationEngine('validate', {promptPosition : "centerRight"});
         $('#msg-box').hide();
-        //$('#msg').html(tooltip.show('hdp', 'what are you doing here!!!'));
+        $('#msg').hide();        
                 
         //Load Match Info
-        singleDetete.checkMatchIdWithRefno();
+        if(validateData.checkParamBeforeGetData()){
+            singleDetete.checkMatchIdWithRefno();
+        }
+        
     },
 
     getSingleTicket: function (){
@@ -352,7 +400,7 @@ var singleDetete = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Player", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
@@ -386,6 +434,11 @@ var singleDetete = {
     },
 
     voidSingleTicket: function (){
+        
+        if(!validateData.checkParamBeforVoidTicket()){
+            return;
+        }
+
         var param = {
             MatchId: $('#txtMatchId').val(),
             f_transid: $('#fromRefno').val(),
@@ -404,7 +457,7 @@ var singleDetete = {
             Betteam14: helper.GetBetteam14(),
             Betteam16: helper.GetBetteam16(),
             SAFilter: $('#TicketType').val(),
-            Transids: helper.GetSubTicketsChecked(),
+            Transids: helper.getSubTicketsChecked(),
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
             Msg: {
@@ -430,7 +483,7 @@ var singleDetete = {
                 },
                 success: function (rs) {
                     //render match info
-                    
+                    Helper.showMsgBox(rs);
                 },
                 error: function () {
                     console.log('has error :(');
@@ -465,6 +518,9 @@ var singleDetete = {
                     }
                     else{
                         Helper.showMsgBox(rs);
+                        //$('#msg').show();
+                        //$('#msg').html(tooltip.show('txtMatchId', 'Invalid Match ID'));
+                        
                         helper.displayContent(false);
                     }
                     
@@ -655,6 +711,11 @@ DelSingleTicket.prototype.Init = function () {
     $('body').delegate('#btnSearch', 'click', function () {
         singleDetete.search();
     });
+
+    $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();
+    $("#fromRefno").keyup(function () {}).ForceIntegerOnly();
+    $("#toRefno").keyup(function () {}).ForceIntegerOnly();
+    $("#hdp").keyup(function () {}).ForceIntegerOnly();
 };
 
 

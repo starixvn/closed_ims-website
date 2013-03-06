@@ -57,6 +57,10 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
+                results.Add(new ActionResult() { 
+                    ErrorCode = 1,
+                    ErrorMsg = ex.Message
+                });
             }
             return results;
         }

@@ -2078,7 +2078,7 @@
              }
          }
          else {
-             html += '* ' + arrMsg + '</br>';
+             html += arrMsg + '</br>';
          }
 
 
