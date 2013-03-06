@@ -29,8 +29,8 @@
             <div class="lbl-field span2">
                 @Html.LabelFor(m => m.MatchID)
             </div>
-            <div class="edit-field span4">
-                @Html.TextBox("MatchID", string.Empty, new { maxlength = 10, @class = "validate[required,custom[integer]] text-input" })
+            <div class="edit-field span5">
+                @Html.TextBox("MatchID", string.Empty, new { maxlength = 10, @class = "validate[required,custom[integer]] text-input width-120" })
                 
             </div>
         </div>
@@ -61,7 +61,7 @@
     </div>
     <div class="filter-row">
         <div class="filter-cell">
-            <div class="edit-field span6">
+            <div class="edit-field span7">
                 <div class="tick-list">
                     <input type="radio" id="Sportsbook" name="Product" class="product" checked="checked" value="@ProductType.Sportsbook" />
                     <label for="Sportsbook">@Labels.Sportsbook</label>
