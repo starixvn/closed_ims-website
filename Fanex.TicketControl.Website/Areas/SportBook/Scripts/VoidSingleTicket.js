@@ -29,13 +29,13 @@ var singleDetete = {
             ToRefNo: singleDetete.param.ToRefno,
             Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
             LiveIndicator: $('#EventType').val(),
-            LiveHomeScore: $('#LiveHomeScore').val(),
-            LiveAwayScore: $('#LiveAwayScore').val(),
-            FromTransdate: $('#FromTransDate').val(),
-            ToTransdate: $('#ToTransDate').val(),
+            LiveHomeScore: helper.GetLiveScore().LiveHomeScore,
+            LiveAwayScore: helper.GetLiveScore().LiveAwayScore,
+            FromTransdate: helper.GetLiveScore().FromTransdate,
+            ToTransdate: helper.GetLiveScore().ToTransdate,
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
-            Betteam515: $('#ddlBetTeam515').val(),
+            Betteam515: helper.GetBetteam515(),
             Betteam430: helper.GetBetteam430(),
             Betteam6: helper.GetBetteam6(),
             Betteam14: helper.GetBetteam14(),
@@ -176,7 +176,7 @@ var singleDetete = {
             ToTransdate: $('#ToTransdate').val(),
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
-            Betteam515: $('#ddlBetTeam515').val(),
+            Betteam515: helper.GetBetteam515(),
             Betteam430: helper.GetBetteam430(),
             Betteam6: helper.GetBetteam6(),
             Betteam14: helper.GetBetteam14(),
@@ -318,15 +318,27 @@ DelSingleTicket.prototype.Init = function () {
         var eventType = $(this).val(); // live type drop down list
 
         if (eventType === '1') {
-            self.DOMElement.$optFilters.show();            
+            self.DOMElement.$optFilters.show();   
+            $('#tr-advance-item-1x2').hide();         
         } else {
-            self.DOMElement.$optFilters.hide();            
+            self.DOMElement.$optFilters.hide();        
+            $('#tr-advance-item-1x2').show();    
         }
 
-        if(eventType == '0')//Dead
-        {
-        
+        if(eventType == '0'){//Dead Ball
+            $('#tr-advance-item-htft').hide();
+            $('#tr-advance-item-tg').hide();
+            $('#tr-advance-item-flg').hide(); 
+            $('.tr-advance-item-score').hide();
         }
+        else{
+            $('#tr-advance-item-htft').show();
+            $('#tr-advance-item-tg').show();
+            $('#tr-advance-item-flg').show();  
+            $('.tr-advance-item-score').show();          
+        }
+
+        
 
         Helper.GetBettypes('Sportsbook', eventType);
         helper.setStatusAllBettype(false);

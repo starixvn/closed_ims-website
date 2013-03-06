@@ -30,6 +30,9 @@ namespace Fanex.TicketControl.Core.Repository.Impl
                 criteria.Content_ko = Msg.Content_ko;
                 criteria.Content_es = Msg.Content_es;
 
+                // for insert check
+                if ((Msg.MessageId == 0) && (TargetId.Length < 1))
+                    return 0;
 
                 using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
                 {
@@ -39,6 +42,10 @@ namespace Fanex.TicketControl.Core.Repository.Impl
                         if (ds.Tables[0].Rows.Count > 0)
                         {
                             Msg.MessageId = Convert.ToInt32(ds.Tables[0].Rows[0]["MessageId"]);
+
+                            if (Msg.MessageId > 0) {
+                                AddTargt2Message(Msg.MessageId, TargetId, TargetName, TransId);
+                            }
                         }
                     }
                 }

@@ -146,6 +146,9 @@
             return this.value;
         }).get().join('^');
 
+        if ($('#EventType').val() == '0') {
+            checkedVals = '';
+        }
         return checkedVals;
     },
 
@@ -154,6 +157,10 @@
         checkedVals = $('.chk-tg:checkbox:checked').not('#chk-tg-all').map(function () {
             return this.value;
         }).get().join('^');
+
+        if ($('#EventType').val() == '0') {
+            checkedVals = '';
+        }
 
         return checkedVals;
     },
@@ -164,6 +171,10 @@
             return this.value;
         }).get().join('^');
 
+        if ($('#EventType').val() == '0') {
+            checkedVals = '';
+        }
+
         return checkedVals;
     },
 
@@ -173,7 +184,32 @@
             return this.value;
         }).get().join('^');
 
+        if ($('#EventType').val() == '0') {
+            checkedVals = '';
+        }
+
         return checkedVals;
+    },
+
+    GetBetteam515: function () {
+        var checkedVals = '';
+        if ($('#EventType').val() == '0' || $('#EventType').val() == '2') {
+            var IsSelected515 = helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
+            checkedVals = $('#ddlBetTeam515').val();
+        }
+
+        return checkedVals;
+    },
+
+    GetLiveScore: function(){
+        var param = {
+            LiveHomeScore: $('#EventType').val() == '1' ? $('#LiveHomeScore').val() : '',
+            LiveAwayScore: $('#EventType').val() == '1' ? $('#LiveAwayScore').val() : '',
+            FromTransdate: $('#EventType').val() == '1' ? $('#FromTransDate').val() : '',
+            ToTransdate:   $('#EventType').val() == '1' ? $('#ToTransDate').val()   : ''
+        };
+
+        return param;
     },
 
     setStausAllCheckTicket: function () {
