@@ -57,7 +57,7 @@ TicketListing.prototype.CacheDOMElement = function () {
 
 TicketListing.prototype.Init = function () {
 
-    jQuery("#TicketListingForm").validationEngine();
+    //jQuery("#TicketListingForm").validationEngine();
 
     var self = this;
 
