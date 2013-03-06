@@ -17,8 +17,9 @@ function TicketListing() {
     };
 
     // store old params and cache match info
-    this.TicketListingDataReq = null; 
+    this.TicketListingDataReq = null;
     this.BetListDataRequest = null;
+    this.ExportDataRequest = null;
     this.MatchInfo = null;
 };
 
@@ -284,7 +285,8 @@ TicketListing.prototype.Init = function () {
             delete dataReq.BetTypes;
         }
 
-        NapTicketControl.downloadFile(window.rootUrl + "Misc/TicketListing/ExportTicketListingBetList", dataReq);
+        self.ExportDataRequest = dataReq;
+        self.ExportReport(dataReq);
     });
 };
 
@@ -455,7 +457,9 @@ TicketListing.prototype.RenderTicketListingBetlist = function (betlist, matchId,
             text: "Tickets Listing for - Match ID: " + matchId + " - Bet type: " + bettypeName,
             showExcelButton: true,
             exportExcelFunction: function () {
-                alert("Export Excel Button Clicked");
+                var dataReq = {};
+                $.extend(true, dataReq, self.BetListDataRequest, self.MatchInfo);
+                self.ExportReport(dataReq);
             },
             showBackButton: true,
             backFunction: function () {
@@ -467,11 +471,11 @@ TicketListing.prototype.RenderTicketListingBetlist = function (betlist, matchId,
         columns: [
             { HeaderText: "BetID", Name: "betId", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Trans.Date", Name: "transDate", Width: 140, HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Player", Name: "player", Width: 80, HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Member", Name: "member", Width: 80, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Choice", Name: "choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Odds", Name: "odds", Width: 80, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Stake", Name: "stake", Width: 80, HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0.00" },
-            { HeaderText: "Winloss", Name: "winloss", Width: 80, HeaderAlign: "center", CellAlign: "right"},
+            { HeaderText: "Winloss", Name: "winloss", Width: 80, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Currency", Name: "currency", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Status", Name: "status", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "S.A", Name: "sa", Width: 40, HeaderAlign: "center", CellAlign: "center" },
@@ -502,7 +506,7 @@ TicketListing.prototype.GenerateBetListData = function(betlist){
             Columns: [
                     { Name: "betId", Value: bet.Ticket.TransId },
                     { Name: "transDate", Value: bet.TransDate },
-                    { Name: "player", Value: bet.Ticket.UserName },
+                    { Name: "member", Value: bet.Ticket.UserName },
                     { Name: "choice", Value: bet },
                     { Name: "odds", Value: bet.OddsHtml },
                     { Name: "stake", Value: bet.Ticket.Stake },
@@ -591,4 +595,9 @@ TicketListing.prototype.RenderPagingEvent = function (pageIndex, pageSize, jq) {
     }
 
     return false;
+}
+
+// Export
+TicketListing.prototype.ExportReport = function (dataReq) {
+    NapTicketControl.downloadFile(window.rootUrl + "Misc/TicketListing/ExportTicketListingBetList", dataReq);    
 }

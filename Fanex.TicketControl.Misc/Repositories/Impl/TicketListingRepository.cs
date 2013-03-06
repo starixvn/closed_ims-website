@@ -104,7 +104,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
                                 ticketListingBetList.Items.Add(new TicketListingDetail { 
                                     Ticket = ticket,
-                                    TransDate = ticket.TransDate.ToString(FormatKey.DATE_TIME_FORMAT),
+                                    TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                                     ChoiceHtml = ticket.BetTeam,
                                     OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
                                     Currency = Converter.ToString2(row["currencyName"]),
@@ -123,7 +123,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                                 ticketListingBetList.Items.Add(new TicketListingDetail
                                 {
                                     Ticket = ticket,
-                                    TransDate = ticket.TransDate.ToString(FormatKey.DATE_TIME_FORMAT),
+                                    TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                                     Currency = Converter.ToString2(row["currencyName"]),
                                     SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
                                     IsMixParlay = Converter.ToBool(row["isMP"]),

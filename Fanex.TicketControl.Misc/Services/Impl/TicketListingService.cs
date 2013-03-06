@@ -27,6 +27,9 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using Fanex.TicketControl.Misc.Entities;
     using Fanex.BetList.Core.Entities;
     using Fanex.Common.Extensions;
+    using System.Text;
+    using System.Drawing;
+    using Fanex.TicketControl.Core.Utils;
 
     /// <summary>
     /// TODO: Update summary.
@@ -60,27 +63,33 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             try
             {
                 // get data for report
-                var ticketListing = GetTicketListingBetList(criteria);
+                var ticketListing = _ticketListingRepository.GetTicketListingBetList(criteria);
 
                 #region prepare excel file and sheetname
                 ExcelFile excelFile = new ExcelFile();
                 ExcelWorksheetCollection worksheets = excelFile.Worksheets;
                 string sheetName = "Tickets Listing";
                 ExcelWorksheet workSheet = worksheets.Add(sheetName);
+                int colNumber = 10;
                 int currentRow = 0, currentColumn = 0;
                 CellRange currentCellRange;
                 ExcelCell currentCell;
                 #endregion
 
                 #region define the size of each column
-                
-                for (int colIndex = 0; colIndex < 10; colIndex++)
+
+                for (int colIndex = 0; colIndex < colNumber; colIndex++)
                 {
-                    workSheet.Columns[colIndex].Width = 170 * ExcelExtensions.FONT_WIDTH;
+                    workSheet.Columns[colIndex].Width = 100 * ExcelExtensions.FONT_WIDTH;
                 }
 
-                #endregion
+                workSheet.Columns[0].Width = 120 * ExcelExtensions.FONT_WIDTH;
+                workSheet.Columns[1].Width = 160 * ExcelExtensions.FONT_WIDTH;
+                workSheet.Columns[2].Width = 160 * ExcelExtensions.FONT_WIDTH;
+                workSheet.Columns[3].Width = 350 * ExcelExtensions.FONT_WIDTH;
+                workSheet.Columns[4].Width = 120 * ExcelExtensions.FONT_WIDTH;
 
+                #endregion
 
                 #region Report Title 
                 
@@ -99,146 +108,153 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                 #region Match Info
 
-                CellRange matchCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, currentColumn, currentRow + 2, currentColumn + 4);
-                currentRow += 3;
-
                 #region Match Header
+
+                CellRange matchHeaderCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, currentColumn, currentRow, currentColumn + 4);
                 var headerCellStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.HEADER_TITLE_COLOR, true, HorizontalAlignmentStyle.Center);
+                currentRow ++;
 
-                currentCell = matchCellRange[0, 0];
+                matchHeaderCellRange.Style = headerCellStyle;
+                currentCell = matchHeaderCellRange[0, 0];
                 currentCell.Value = Labels.Code;
-                currentCell.Style = headerCellStyle;
 
-                currentCellRange = matchCellRange.GetSubrangeRelative(0, 1, 2, 1);
+                currentCellRange = matchHeaderCellRange.GetSubrangeRelative(0, 1, 2, 1);
                 currentCellRange.Merged = true;
-                currentCellRange.Style = headerCellStyle;
                 currentCellRange.Value = Labels.Match_Event;
-                currentCell = matchCellRange[0, 3];
-                currentCell.Style = headerCellStyle;
+                currentCell = matchHeaderCellRange[0, 3];
                 currentCell.Value = Labels.Event_Date;
 
                 #endregion
 
                 #region Match Content
+
+                CellRange matchContentCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, currentColumn, currentRow, currentColumn + 4);
                 var contentCellStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.BACKGROUND_COLOR, false, HorizontalAlignmentStyle.Center);
-                currentCell = matchCellRange[1, 0];
-                currentCell.Style = contentCellStyle;
+                currentRow += 2;
+                
+                matchContentCellRange.Style = contentCellStyle;
+                currentCell = matchContentCellRange[0, 0];
                 currentCell.Value = criteria.MatchCode;
-                currentCellRange = matchCellRange.GetSubrangeRelative(1, 1, 2, 1);
+                currentCellRange = matchContentCellRange.GetSubrangeRelative(0, 1, 2, 1);
                 currentCellRange.Merged = true;
-                currentCellRange.Style = contentCellStyle;
                 currentCellRange.Value = string.Format("{0} -vs- {1}", criteria.HomeName, criteria.AwayName);
-                currentCell = matchCellRange[1, 3];
-                currentCell.Style = contentCellStyle;
-                currentCell.Value = criteria.EventDate;
+                currentCell = matchContentCellRange[0, 3];
+                currentCell.Value = criteria.EventDate.ToString(FormatKey.SHORT_DATE_TIME_FORMAT);
 
                 #endregion
 
                 #endregion
 
-                #region Tickets List
+                #region Bet List
 
                 #region Ticket Header
-                int colNumber = 10;
-                CellRange headerTicketCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber);
+                CellRange headerTicketCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber-1);
+                headerTicketCellRange.Style = headerCellStyle;
+                currentRow++;
+
                 currentCell = headerTicketCellRange[0, 0];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.BetID;
 
                 currentCell = headerTicketCellRange[0, 1];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.TransDate;
 
                 currentCell = headerTicketCellRange[0, 2];
-                currentCell.Style = headerCellStyle;
-                currentCell.Value = Labels.Player;
+                currentCell.Value = Labels.Member;
 
                 currentCell = headerTicketCellRange[0, 3];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.Choice;
 
                 currentCell = headerTicketCellRange[0, 4];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.Odds;
 
                 currentCell = headerTicketCellRange[0, 5];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.Stake;
 
                 currentCell = headerTicketCellRange[0, 6];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.WinLoss;
 
                 currentCell = headerTicketCellRange[0, 7];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.Currency;
 
                 currentCell = headerTicketCellRange[0, 8];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.Status;
 
                 currentCell = headerTicketCellRange[0, 9];
-                currentCell.Style = headerCellStyle;
                 currentCell.Value = Labels.SA;
 
                 #endregion
 
                 var oddRowStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.ODD_ROW_COLOR, false, HorizontalAlignmentStyle.Center);
                 var evenRowStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.EVEN_ROW_COLOR, false, HorizontalAlignmentStyle.Center);
-                currentRow++;
+                CellStyle decimalNumberStyle;
 
                 foreach (var ticket in ticketListing.Items)
                 {
-                    CellRange eachRowRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, 0, colNumber);
+                    CellRange eachRowRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber-1);
                     CellStyle rowStyle;
+                    
 
                     if (currentRow % 2 == 0)
                     {
                         rowStyle = evenRowStyle;
+                        decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.EVEN_ROW_COLOR, false, false, false);
                     }
                     else
                     {
                         rowStyle = oddRowStyle;
+                        decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.ODD_ROW_COLOR, false, false, false);
                     }
 
+                    eachRowRange.Style = rowStyle;
                     currentCell = eachRowRange[0, 0];
-                    currentCell.Style = rowStyle;
                     currentCell.Value = ticket.Ticket.TransId;
 
                     currentCell = eachRowRange[0, 1];
-                    currentCell.Style = rowStyle;
                     currentCell.Value = ticket.TransDate;
 
                     currentCell = eachRowRange[0, 2];
-                    currentCell.Style = rowStyle;
                     currentCell.Value = ticket.Ticket.UserName;
+                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
 
+                    bool isMixParlay = ticket.IsMixParlay;
+                    string Choice = string.Format("{0} {1} {2} {3} {4}", ticket.SportEvent.Choice, ticket.SportEvent.Hdp,
+                        ticket.Ticket.IsLive ? ticket.SportEvent.LiveScore : string.Empty,
+                        isMixParlay ? "@" + ticket.Ticket.Odds : string.Empty,
+                        isMixParlay ? ticket.SportEvent.BetType : string.Empty);
+                    Choice = Choice.Replace("&nbsp;", "");
                     currentCell = eachRowRange[0, 3];
-                    currentCell.Style = rowStyle;
-                    currentCell.Value = ticket.SportEvent.Choice;
+                    currentCell.Value = Choice;
+                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
 
+
+                    string OddName = CacheRef.GetOddsTypeName(ticket.Ticket.OddsType);
                     currentCell = eachRowRange[0, 4];
-                    currentCell.Style = rowStyle;
-                    currentCell.Value = string.Format("{0} ({1})", ticket.Ticket.Odds, ticket.Ticket.OddsType);
+                    currentCell.Value = string.Format("{0} ({1})", ticket.Ticket.Odds.ToString("0.#####"), OddName);
+                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
 
                     currentCell = eachRowRange[0, 5];
-                    currentCell.Style = rowStyle;
-                    currentCell.Value = ticket.Ticket.Stake;
+                    currentCell.Style = decimalNumberStyle;
+                    currentCell.Value =  ticket.Ticket.Stake;
+                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
 
                     currentCell = eachRowRange[0, 6];
-                    currentCell.Style = rowStyle;
-                    currentCell.Value = ticket.Ticket.Winlost;
+                    currentCell.Style = decimalNumberStyle;
+                    decimal winlost = ticket.Ticket.Winlost;
+                    if (winlost < 0)
+                    {
+                        winlost = -1 * winlost;
+                        currentCell.Style.Font.Color = Color.Red;
+                    }
+                    currentCell.Value = winlost;
+                    currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
 
                     currentCell = eachRowRange[0, 7];
-                    currentCell.Style = rowStyle;
                     currentCell.Value = ticket.Currency;
 
                     currentCell = eachRowRange[0, 8];
-                    currentCell.Style = rowStyle;
                     currentCell.Value = ticket.Ticket.Status;
 
                     currentCell = eachRowRange[0, 9];
-                    currentCell.Style = rowStyle;
                     currentCell.Value = ticket.SAFlag ? "Yes" : string.Empty;
 
                     currentRow++;
@@ -247,8 +263,8 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 #endregion
 
                 // finally, define report file name
-                var reportName = "ticket";
-                excelFile.ReponseStream(reportName);
+                var reportName = string.Format("Ticket Listing for Bettype {0}", criteria.BetTypeName);
+                excelFile.ReponseStream(reportName.Replace(' ', '_'));
 
             }catch(Exception ex)
             {
