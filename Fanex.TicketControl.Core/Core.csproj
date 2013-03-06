@@ -142,6 +142,7 @@
     <Compile Include="Services\Interface\IMessageService.cs" />
     <Compile Include="Services\Interface\IServiceBase.cs" />
     <Compile Include="Utils\CacheServiceKey.cs" />
+    <Compile Include="Utils\FormatKey.cs" />
     <Compile Include="Utils\Helper.cs" />
     <Compile Include="Web\AppSession.cs" />
     <Compile Include="Web\CacheManager.cs" />
