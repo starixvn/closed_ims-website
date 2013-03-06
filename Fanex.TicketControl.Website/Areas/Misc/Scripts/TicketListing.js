@@ -176,7 +176,7 @@ TicketListing.prototype.Init = function () {
             $.ajax({
                 type: "POST",
                 url: url,
-                contentType: "application/vnd.ms-excel",
+                contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 data: JSON.stringify(dataReq),
                 beforeSend: function () {
@@ -284,7 +284,7 @@ TicketListing.prototype.Init = function () {
             delete dataReq.BetTypes;
         }
 
-        self.RequestExport(dataReq);
+        NapTicketControl.downloadFile(window.rootUrl + "Misc/TicketListing/ExportTicketListingBetList", dataReq);
     });
 };
 
@@ -592,31 +592,3 @@ TicketListing.prototype.RenderPagingEvent = function (pageIndex, pageSize, jq) {
 
     return false;
 }
-
-// Request Export
-TicketListing.prototype.RequestExport = function (dataReq) {
-    var self = this;
-
-    $.ajax({
-        type: "POST",
-        url: window.rootUrl + "Misc/TicketListing/ExportTicketListingBetList",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(dataReq),
-        beforeSend: function () {
-            NapTicketControl.disableInput();
-        },
-        success: function (betlist) {
-            // check result to see any error from server
-            console.log('export');
-        },
-        error: function () {
-            console.log('has error :(');
-        },
-        complete: function () {
-            NapTicketControl.enableInput();
-        }
-    });
-}
-
-

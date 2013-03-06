@@ -604,4 +604,16 @@
   <data name="Match_Event" xml:space="preserve">
     <value>MATCH EVENT</value>
   </data>
+  <data name="BetID" xml:space="preserve">
+    <value>BetID</value>
+  </data>
+  <data name="Choice" xml:space="preserve">
+    <value>Choice</value>
+  </data>
+  <data name="Player" xml:space="preserve">
+    <value>Player</value>
+  </data>
+  <data name="SA" xml:space="preserve">
+    <value>S.A</value>
+  </data>
 </root>

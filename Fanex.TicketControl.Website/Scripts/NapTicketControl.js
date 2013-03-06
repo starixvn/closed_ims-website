@@ -127,8 +127,23 @@ var NapTicketControl = function ($) {
 
             msgbox.attr('class', type).find('.alert-content').html(msg);
             msgbox.fadeIn();
-        }
+        },
 
+        downloadFile: function (url, data, method) {
+            //url and data options required
+            if (url && data) {
+                //data can be string of parameters or array/object
+                data = typeof data == 'string' ? data : $.param(data);
+                var downloadUrl = url + "?" + data;
+                var iframe = $('body iframe');
+                if (iframe.length == 0) {
+                    iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+                    iframe.appendTo('body');
+                }
+
+                iframe.attr('src', downloadUrl);
+            }
+        }
     };
 } (jQuery);
 

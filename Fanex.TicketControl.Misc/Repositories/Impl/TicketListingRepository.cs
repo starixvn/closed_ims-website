@@ -15,6 +15,7 @@ using Fanex.BetList.Core.Entities;
 using Fanex.BetList.Core.Factories;
 using Fanex.BetList.Core.Builder;
 using Fanex.BetList.Core.TicketHelper;
+using Fanex.TicketControl.Core.Utils;
 
 namespace Fanex.TicketControl.Misc.Repositories.Impl
 {
@@ -72,7 +73,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
         public TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
-            const string FormatDate = "yyyy-MM-dd HH:mm:ss tt";
             var ticketListingBetList = new TicketListingBetListModel { 
                 Items = new List<TicketListingDetail>(),
                 TotalItem = 0
@@ -104,7 +104,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
                                 ticketListingBetList.Items.Add(new TicketListingDetail { 
                                     Ticket = ticket,
-                                    TransDate = ticket.TransDate.ToString(FormatDate),
+                                    TransDate = ticket.TransDate.ToString(FormatKey.DATE_TIME_FORMAT),
                                     ChoiceHtml = ticket.BetTeam,
                                     OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
                                     Currency = Converter.ToString2(row["currencyName"]),
@@ -123,7 +123,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                                 ticketListingBetList.Items.Add(new TicketListingDetail
                                 {
                                     Ticket = ticket,
-                                    TransDate = ticket.TransDate.ToString(FormatDate),
+                                    TransDate = ticket.TransDate.ToString(FormatKey.DATE_TIME_FORMAT),
                                     Currency = Converter.ToString2(row["currencyName"]),
                                     SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
                                     IsMixParlay = Converter.ToBool(row["isMP"]),

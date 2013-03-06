@@ -29,7 +29,7 @@ namespace Fanex.TicketControl.Misc.Services.Interface
 
         TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria);
 
-        void ExportTicketListing(GetTicketsListingDetailCriteria criteria);
+        void ExportTicketListingBetList(GetTicketsListingDetailCriteria criteria);
 
     }
 }

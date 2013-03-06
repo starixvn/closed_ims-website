@@ -187,6 +187,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BetID.
+        /// </summary>
+        public static string BetID {
+            get {
+                return ResourceManager.GetString("BetID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bet team.
         /// </summary>
         public static string Betteam {
@@ -237,6 +246,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string CheckTime {
             get {
                 return ResourceManager.GetString("CheckTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choice.
+        /// </summary>
+        public static string Choice {
+            get {
+                return ResourceManager.GetString("Choice", resourceCulture);
             }
         }
         
@@ -1034,6 +1052,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Player.
+        /// </summary>
+        public static string Player {
+            get {
+                return ResourceManager.GetString("Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product.
         /// </summary>
         public static string Product {
@@ -1093,6 +1120,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Report_by {
             get {
                 return ResourceManager.GetString("Report_by", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S.A.
+        /// </summary>
+        public static string SA {
+            get {
+                return ResourceManager.GetString("SA", resourceCulture);
             }
         }
         
