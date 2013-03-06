@@ -13,7 +13,8 @@ namespace Fanex.TicketControl.Misc.Criteria
 
         public int MatchID { get; set; }
 
-        public string LicenseeNames { get; set; } // NOTE: will delete when integrate with new DB
+        // NOTE: will delete when integrate with new DB
+        //public string LicenseeNames { get; set; } 
 
         public string BetTypes { get; set; } // Dead Bettypes
 
@@ -83,7 +84,7 @@ namespace Fanex.TicketControl.Misc.Criteria
 
         public GetTicketsListingDetailCriteria() 
         {
-            LicenseeNames = "IBC";
+            //LicenseeNames = "IBC";
             BetTypes = string.Empty;
             BetTypesLive = string.Empty;
         }
