@@ -31,6 +31,13 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                 {
                     using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
                     {
+                        // NOTE: Must convert GTM+ 8 into GTM- 4
+                        if (criteria.FromTransDate.HasValue && criteria.ToTransDate.HasValue)
+                        {
+                            criteria.FromTransDate = criteria.FromTransDate.Value.AddHours(-12);
+                            criteria.ToTransDate = criteria.ToTransDate.Value.AddHours(-12);
+                        }
+
                         DataSet dataset = objectDb.ExecuteDataSet(criteria.GetSpParams());
 
                         // get result info
@@ -84,7 +91,13 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                 {
                     using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
                     {
-                        
+                        // NOTE: Must convert GTM+ 8 into GTM- 4
+                        if (criteria.FromTransDate.HasValue && criteria.ToTransDate.HasValue)
+                        {
+                            criteria.FromTransDate = criteria.FromTransDate.Value.AddHours(-12);
+                            criteria.ToTransDate = criteria.ToTransDate.Value.AddHours(-12);
+                        }
+
                         DataSet dataset = objectDb.ExecuteDataSet(criteria.GetSpParams());
 
                         if (dataset != null && dataset.Tables != null && dataset.Tables.Count > 1)

@@ -66,6 +66,8 @@ TicketListing.prototype.Init = function () {
     Helper.GetBettypes(self.CollectSelectedProduct());
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
+    $("#LiveHomeScore").keyup(function () { }).ForceIntegerOnly();
+    $("#LiveAwayScore").keyup(function () { }).ForceIntegerOnly();
 
     // handle events from DOM element
     // change live type
@@ -140,8 +142,11 @@ TicketListing.prototype.Init = function () {
 
     // submit data to server
     $('.submit').click(function () {
+        $('#msg').hide();
+        var matchID = $("#MatchID").val();
 
-        if ($("#TicketListingForm").validationEngine('validate') === true) {
+
+        if (matchID.length > 0) {
 
             var url = $("#TicketListingForm").attr('action');
             self.HideContainers();
@@ -188,7 +193,7 @@ TicketListing.prototype.Init = function () {
                 success: function (ticketlisting) {
                     // check result to see any error from server
                     if (ticketlisting.Result.ErrorCode !== 0) {
-                        $('#msg').html(tooltip.show('MatchID', ticketlisting.Result.ErrorMsg));
+                        $('#msg').html(tooltip.show('MatchID', ticketlisting.Result.ErrorMsg)).show();
                     } else {
                         self.MatchInfo = ticketlisting.MatchInfo;
                         delete self.MatchInfo.MatchId;
@@ -205,6 +210,8 @@ TicketListing.prototype.Init = function () {
                     NapTicketControl.enableInput();
                 }
             });
+        } else {
+            $('#msg').html(tooltip.show('MatchID', "MatchID is required")).show();
         }
         return false;
     });
