@@ -69,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
     <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
     <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
