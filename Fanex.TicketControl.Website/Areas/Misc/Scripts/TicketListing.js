@@ -53,7 +53,6 @@ TicketListing.prototype.CacheDOMElement = function () {
     self.DOMElement.$matchInfoContainer = $('#match-info-container');
     self.DOMElement.$ticketsContainer = $('#tickets-container');
     self.DOMElement.$betlistContainer = $('#betlist-container');
-
 }
 
 TicketListing.prototype.Init = function () {
@@ -64,7 +63,7 @@ TicketListing.prototype.Init = function () {
 
     self.CacheDOMElement();
     //    Helper.GetLicensees();
-    Helper.GetBettypes(self.CollectSelectedProduct());
+    Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
     $("#LiveHomeScore").keyup(function () { }).ForceIntegerOnly();
@@ -119,7 +118,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes(product, eventType);
+        Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     });
 
     // check all bettypes

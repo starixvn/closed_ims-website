@@ -41,6 +41,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
                 return new Bettypes { 
                     Id = r.ToInt("typeId"),
                     Name = r.ToString("BetTypeName"),
+                    Type = r.ToInt("type"),
                     LiveIndicator = r.ToBool("LiveIndicator")
                 };
             };
