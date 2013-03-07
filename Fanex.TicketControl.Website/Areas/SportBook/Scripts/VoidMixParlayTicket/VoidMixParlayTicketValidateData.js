@@ -13,27 +13,6 @@ var validateData = {
             return false;
         }
 
-
-        if ($('#fromRefno').val() == '') {
-            $('#msg').html(tooltip.show('fromRefno', 'From BetID is required.')).show();
-            return false;
-        }
-
-        if (isNaN($('#fromRefno').val()) || $('#fromRefno').val().length > 10) {
-            $('#msg').html(tooltip.show('fromRefno', 'Invalid From BetID.')).show();
-            return false;
-        }
-
-        if ($('#toRefno').val() == '') {
-            $('#msg').html(tooltip.show('toRefno', 'To BetID is required.')).show();
-            return false;
-        }
-
-        if (isNaN($('#toRefno').val()) || $('#toRefno').val().length > 10) {
-            $('#msg').html(tooltip.show('toRefno', 'Invalid To BetID.')).show();
-            return false;
-        }
-
         if ($('#EventType').val() == 1) {
             if ($('#LiveHomeScore').val() != '' && ($('#LiveHomeScore').val().length > 2 || isNaN($('#LiveHomeScore').val()))) {
                 $('#msg').html(tooltip.show('LiveHomeScore', 'Invalid Live Home Score.')).show();
@@ -44,6 +23,11 @@ var validateData = {
                 $('#msg').html(tooltip.show('LiveAwayScore', 'Invalid Live Home Score.')).show();
                 return false;
             }
+        }
+
+        if (helper.GetParlayTypeChecked() == '') {
+            $('#msg').html(tooltip.show('chkMixParlay', 'Please select a type of Parlay.')).show();
+            return false;
         }
 
         if (helper.GetBettypesChecked() == '') {

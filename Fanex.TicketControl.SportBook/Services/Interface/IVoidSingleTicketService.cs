@@ -9,15 +9,12 @@
 
 namespace Fanex.TicketControl.SportBook.Services.Interface
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Diagnostics.CodeAnalysis;
-using Fanex.TicketControl.Core.Models;
-using Fanex.TicketControl.Core.Criteria;
-using Fanex.TicketControl.SportBook.ViewModels.SingleTicket;
-using Fanex.TicketControl.SportBook.Criteria;
+    using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Core.Models;
+    using Fanex.TicketControl.SportBook.Criteria;
+    using Fanex.TicketControl.SportBook.ViewModels.SingleTicket;
 
 
     /// <summary>
