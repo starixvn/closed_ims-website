@@ -14,6 +14,11 @@ var NapTicketControl = function ($) {
             NapTicketControl.miniMenu = $('header .mini-menu').change(function () {
                 window.location.replace($(this).val());
             });
+
+            $(document).click(function () {
+                // hide message tooltip
+                $('#msg').hide();
+            });
         },
 
         disableInput: function () {

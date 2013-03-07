@@ -166,6 +166,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Gaming\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Gaming\Area_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Gaming\GamingAreaRegistration.cs" />
     <Compile Include="Areas\Misc\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Misc\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
@@ -550,6 +551,7 @@
     <Content Include="Areas\SportBook\Styles\VoidMixParlayTicket.less" />
     <Content Include="Areas\Gaming\Views\VoidNumberGameTicket\Index.cshtml" />
     <Content Include="Areas\Misc\Styles\TicketListing.less" />
+    <Content Include="Areas\Gaming\Styles\VoidNumberGame.less" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
@@ -602,7 +604,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Gaming\Scripts\" />
-    <Folder Include="Areas\Gaming\Styles\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />

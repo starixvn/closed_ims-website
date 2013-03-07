@@ -18,7 +18,6 @@ var singleDetete = {
         if(validateData.checkParamBeforeGetData()){
             singleDetete.checkMatchIdWithRefno();
         }
-        
     },
 
     getSingleTicket: function (){
@@ -461,8 +460,9 @@ DelSingleTicket.prototype.Init = function () {
         helper.eventSubAdvanceHTFT();
     });
     
-    $('body').delegate('#btnSearch', 'click', function () {
+    $('#btnSearch').click(function (e) {        
         singleDetete.search();
+        return false;
     });
 
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();
