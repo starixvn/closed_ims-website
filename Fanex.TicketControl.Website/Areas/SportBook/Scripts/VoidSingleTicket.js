@@ -258,11 +258,8 @@ var singleDetete = {
                 }
             });
     }
-
     
 };
-
- 
 
 function DelSingleTicket() {
     this.DOMElement =
@@ -350,7 +347,7 @@ DelSingleTicket.prototype.Init = function () {
             // fill in current date
             var today = new Date();
             $('.txtCalendar').removeAttr('disabled');
-            self.SetupCalendar(today.format('m/d/Y H:i:s'), '.txtCalendar');
+            self.SetupCalendar(today.format('Y/m/d H:i:s'), '.txtCalendar');
 
         } else {
             // clear text box
@@ -462,14 +459,15 @@ DelSingleTicket.prototype.Init = function () {
     $("#LiveAwayScore").keyup(function () {}).ForceIntegerOnly();
 };
 
-
 DelSingleTicket.prototype.SetupCalendar = function (strdatetime, txtdate) {
     $(txtdate).datetimepicker({
         showSecond: true,
-        timeFormat: 'hh:mm:ss',
+        dateFormat: 'yy/m/d',
+        timeFormat: 'HH:mm:ss',
         hourGrid: 3,
         minuteGrid: 5,
-        secondGrid: 5
+        secondGrid: 5,
+        separator: ' '
     });
 
     if (strdatetime != null && strdatetime != "") {

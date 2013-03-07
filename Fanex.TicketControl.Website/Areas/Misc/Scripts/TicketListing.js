@@ -1,5 +1,6 @@
 /* File Created: February 5, 2013 */
 function TicketListing() {
+
     this.DOMElement =
     {
         $ddlEventType: null,
@@ -73,6 +74,7 @@ TicketListing.prototype.Init = function () {
     // change live type
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
+        var product = $('input[name=Product]:checked').val();
 
         if (eventType === '1') { // live ball
             self.DOMElement.$optFilters.show();
@@ -80,7 +82,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes('Sportsbook', eventType);
+        Helper.GetBettypes(product, eventType);
     });
 
     // enable/disable Trans Date
@@ -89,7 +91,7 @@ TicketListing.prototype.Init = function () {
             // fill in current date
             var today = new Date();
             $('.txtCalendar').removeAttr('disabled');
-            self.SetupCalendar(today.format('m/d/Y H:i:s'), '.txtCalendar');
+            self.SetupCalendar(today.format('Y/m/d H:i:s'), '.txtCalendar');
 
         } else {
             // clear text box
@@ -112,8 +114,7 @@ TicketListing.prototype.Init = function () {
                 self.DOMElement.$optFilters.hide();
             }
         } else {
-            // hide Live Type drop down                
-            self.DOMElement.$eventTypeWrp.hide();
+            // hide Live Type drop down
             self.DOMElement.$optFilters.hide();
         }
 
@@ -166,7 +167,7 @@ TicketListing.prototype.Init = function () {
                 FromTransDate: $('#FromTransDate').val(),
                 ToTransDate: $('#ToTransDate').val(),
                 Type: type,
-                
+
                 BetTypes: bettypes,
                 BetTypesLive: livebettypes
             };
@@ -335,10 +336,12 @@ TicketListing.prototype.CollectSelectedLiveBettypes = function(){
 TicketListing.prototype.SetupCalendar = function (strdatetime, txtdate) {
     $(txtdate).datetimepicker({
         showSecond: true,
-        timeFormat: 'hh:mm:ss',
+        dateFormat: 'yy/m/d',
+        timeFormat: 'HH:mm:ss',
         hourGrid: 3,
         minuteGrid: 5,
-        secondGrid: 5
+        secondGrid: 5,
+        separator: ' '
     });
 
     if (strdatetime != null && strdatetime != "") {
