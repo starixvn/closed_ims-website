@@ -76,13 +76,14 @@ TicketListing.prototype.Init = function () {
         var eventType = $(this).val(); // live type drop down list
         var product = $('input[name=Product]:checked').val();
 
-        if (eventType === '1') { // live ball
+        if (eventType === '1' && product === "Sportsbook") { // live ball
             self.DOMElement.$optFilters.show();
         } else {  // dead ball
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes(product, eventType);
+        // Comment: don't load bettype again, when selecting event type
+        //Helper.GetBettypes(product, eventType);
     });
 
     // enable/disable Trans Date

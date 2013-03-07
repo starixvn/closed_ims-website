@@ -121,22 +121,30 @@
                 + '</th></tr></thead>';
 
             switch (product) {
-                case 'Sportsbook':
+//                case 'Sportsbook':
+//                    switch (eventType) {
+//                        case '0':
+//                            // render only dead ball bettypes
+//                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');
+//                            break;
+//                        case '1':
+//                            // render only live ball bettypes
+//                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');
+//                            break;
+//                        default:
+//                            // render all bettypes
+//                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');
+//                            break;
+//                    }
+//                    break;
                 case 'NumberGame':
-                    switch (eventType) {
-                        case '0':
-                            // render only dead ball bettypes
-                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');
-                            break;
-                        case '1':
-                            // render only live ball bettypes
-                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');
-                            break;
-                        default:
-                            // render all bettypes
-                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');
-                            break;
-                    }
+                    // render dead ball bettypes
+                    html += '<tr class="bettype-group-title"> <td colspan="5">' + 'Dead ball' + '</td></tr>';
+                    html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes', 0);
+
+                    // render live ball bettype
+                    html += '<tr class="bettype-group-title"> <td colspan="5">' + 'Live ball' + '</td></tr>';
+                    html += this.RenderBettypesDetails(liveBallBettypes, 'LiveBetTypes', deadBallBettypes.length);
                     break;
                 default:
                     html += this.RenderBettypesDetails(bettypes, 'BetTypes');
