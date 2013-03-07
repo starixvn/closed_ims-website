@@ -228,6 +228,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
                     if (bettype == 9 || bettype == 29)
                     {
+                        
                         ticketHelper.IsShowOddsWithChoice = true;
                     }
 
