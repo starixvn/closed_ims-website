@@ -23,6 +23,7 @@
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketHelper.js",
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketValidateData.js",
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicket.js",
+                "~/Areas/SportBook/Scripts/VoidMixParlayTicket/SubTicketMixParlay.js",
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketManager.js"
             ));
         }

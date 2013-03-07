@@ -31,5 +31,6 @@
 
   <Function Name="ParlayTicket">
     <Setting Key="ParlayTicket_BettransSelDelSpecial_MixParlay" SpName="Acc_BettransSelDelSpecial_MixParlay" DbName="db053" />
+    <Setting Key="ParlayTicket_SubTicket_BettransSelSpecialDel_MixParlay" SpName="Acc_BettransSelSpecialDel_MixParlay" DbName="db053" /><!--when calling subticket of MP-->
   </Function>
 </Functions>

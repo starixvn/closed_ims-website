@@ -4,19 +4,16 @@
 
 var parlayDelete = {
     param:{
-        MatchId: '',
-        FromRefno: '',
-        ToRefno: ''
+        MatchId: ''
     },
 
-    search: function(){
-        //jQuery("#DeleteSingleTicketForm").validationEngine('validate', {promptPosition : "centerRight"});
+    search: function(){        
         $('#msg-box').hide();
         $('#msg').hide();        
                 
         //Load Match Info
         if(validateData.checkParamBeforeGetData()){
-            parlayDelete.checkMatchIdWithRefno();
+            parlayDelete.getSingleTicket();
         }
         
     },
@@ -24,28 +21,26 @@ var parlayDelete = {
     getSingleTicket: function (){
 
          var param = {
-            MatchId: parlayDelete.param.MatchId,
-            FromRefNo: parlayDelete.param.FromRefno,
-            ToRefNo: parlayDelete.param.ToRefno,
+            MatchId: $('#txtMatchId').val(),            
             Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
             LiveIndicator: $('#EventType').val(),
             LiveHomeScore: helper.GetLiveScore().LiveHomeScore,
             LiveAwayScore: helper.GetLiveScore().LiveAwayScore,
             FromTransdate: helper.GetLiveScore().FromTransdate,
             ToTransdate: helper.GetLiveScore().ToTransdate,
+            Bettype: helper.GetParlayTypeChecked(),
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
             Betteam515: helper.GetBetteam515(),
             Betteam430: helper.GetBetteam430(),
             Betteam6: helper.GetBetteam6(),
             Betteam14: helper.GetBetteam14(),
-            Betteam16: helper.GetBetteam16(),
-            SAFilter: $('#TicketType').val()
+            Betteam16: helper.GetBetteam16()
          };
 
          $.ajax({
                 type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/GetSingleTicket",
+                url: window.rootUrl + "SportBook/VoidMixParlayTicket/GetParlayTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),
@@ -105,8 +100,7 @@ var parlayDelete = {
                     { Name: "Stake", Value: currentRow.Stake},
                     { Name: "CurrencyName", Value:currentRow.CurrencyName  },
                     { Name: "Score", Value: currentRow.Score },
-                    { Name: "Status", Value: currentRow.Status },
-                    { Name: "SA", Value: currentRow.SA },
+                    { Name: "Status", Value: currentRow.Status },                    
                     { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
@@ -118,7 +112,7 @@ var parlayDelete = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Member", Name: "Player", Width: 150, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
@@ -126,8 +120,7 @@ var parlayDelete = {
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
+                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "<div><span>Option</span><span><input onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: parlayDelete.optionCustomRender } 
             ],
             bodyRows: rows,
@@ -220,42 +213,9 @@ var parlayDelete = {
                     NapTicketControl.enableInput();
                 }
             });
-    },
-
-    checkMatchIdWithRefno: function (){
-        var param = {
-            MatchId:  $('#txtMatchId').val()
-        };
-
-        $.ajax({
-                type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/CheckMatchIdWithRefno",
-                contentType: "application/json; charset=utf-8", 
-                dataType: "json",
-                data: JSON.stringify(param),
-                beforeSend: function () {
-                    NapTicketControl.disableInput();
-                },
-                success: function (rs) {
-                    if(rs.ErrorCode == 0){
-                        parlayDelete.param = param;
-                        parlayDelete.getSingleTicket();
-                        helper.displayContent(true);
-                    }
-                    else{
-                        Helper.showMsgBox(rs);   
-                        helper.displayContent(false);
-                    }
-                    
-                },
-                error: function () {
-                    console.log('has error :(');
-                },
-                complete: function () {
-                    NapTicketControl.enableInput();
-                }
-            });
     }
+
+    
 
     
 };
@@ -435,9 +395,7 @@ VoidMixParlayTicket.prototype.Init = function () {
         parlayDelete.search();
     });
 
-    $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();
-    $("#fromRefno").keyup(function () {}).ForceIntegerOnly();
-    $("#toRefno").keyup(function () {}).ForceIntegerOnly();
+    $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();    
     $("#hdp").keyup(function () {}).ForceIntegerOnly();
     $("#LiveHomeScore").keyup(function () {}).ForceIntegerOnly();
     $("#LiveAwayScore").keyup(function () {}).ForceIntegerOnly();

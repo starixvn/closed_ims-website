@@ -21,6 +21,8 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public int Bettype { get; set; }
 
+        public string Bettypes { get; set; }
+
         public decimal Hdp { get; set; }
 
         public int LiveIndicator { get; set; }
