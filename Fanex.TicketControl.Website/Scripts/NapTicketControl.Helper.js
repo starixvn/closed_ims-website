@@ -122,6 +122,7 @@
 
             switch (product) {
                 case 'Sportsbook':
+                case 'NumberGame':
                     switch (eventType) {
                         case '0':
                             // render only dead ball bettypes
@@ -136,15 +137,6 @@
                             html += this.RenderBettypesDetails(bettypes, 'BetTypes');
                             break;
                     }
-                    break;
-                case 'NumberGame':
-                    // render dead ball bettypes
-                    html += '<tr class="bettype-group-title"> <td colspan="5">' + 'Dead ball' + '</td></tr>';
-                    html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes', 0);
-
-                    // render live ball bettype
-                    html += '<tr class="bettype-group-title"> <td colspan="5">' + 'Live ball' + '</td></tr>';
-                    html += this.RenderBettypesDetails(liveBallBettypes, 'LiveBetTypes', deadBallBettypes.length);
                     break;
                 default:
                     html += this.RenderBettypesDetails(bettypes, 'BetTypes');

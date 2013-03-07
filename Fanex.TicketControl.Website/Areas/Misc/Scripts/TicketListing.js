@@ -74,6 +74,7 @@ TicketListing.prototype.Init = function () {
     // change live type
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
+        var product = $('input[name=Product]:checked').val();
 
         if (eventType === '1') { // live ball
             self.DOMElement.$optFilters.show();
@@ -81,7 +82,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes('Sportsbook', eventType);
+        Helper.GetBettypes(product, eventType);
     });
 
     // enable/disable Trans Date
@@ -113,8 +114,7 @@ TicketListing.prototype.Init = function () {
                 self.DOMElement.$optFilters.hide();
             }
         } else {
-            // hide Live Type drop down                
-            self.DOMElement.$eventTypeWrp.hide();
+            // hide Live Type drop down
             self.DOMElement.$optFilters.hide();
         }
 
@@ -167,7 +167,7 @@ TicketListing.prototype.Init = function () {
                 FromTransDate: $('#FromTransDate').val(),
                 ToTransDate: $('#ToTransDate').val(),
                 Type: type,
-                
+
                 BetTypes: bettypes,
                 BetTypesLive: livebettypes
             };
