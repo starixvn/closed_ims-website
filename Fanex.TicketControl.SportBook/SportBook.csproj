@@ -71,15 +71,23 @@
   <ItemGroup>
     <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
+    <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
+    <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
     <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
     <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
+    <Compile Include="Entities\ParlayTicket\TicketInfo.cs" />
     <Compile Include="Entities\SingleTicket\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Impl\VoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Impl\VoidSingleTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
+    <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
     <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
     <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
+    <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
   </ItemGroup>
   <ItemGroup />

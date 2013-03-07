@@ -140,6 +140,14 @@
         return checkedVals;
     },
 
+    GetParlayTypeChecked: function () {
+        var checkedVals = $('.chk-parlay-type:checkbox:checked').map(function () {
+            return this.value;
+        }).get().join('^');
+
+        return checkedVals;
+    },
+
     GetBetteam430: function () {
         var checkedVals = '';
         checkedVals = $('.all-chk-score .chk-score:checkbox:checked').map(function () {

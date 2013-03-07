@@ -2,7 +2,7 @@
 
 
 
-var singleDetete = {
+var parlayDelete = {
     param:{
         MatchId: '',
         FromRefno: '',
@@ -16,7 +16,7 @@ var singleDetete = {
                 
         //Load Match Info
         if(validateData.checkParamBeforeGetData()){
-            singleDetete.checkMatchIdWithRefno();
+            parlayDelete.checkMatchIdWithRefno();
         }
         
     },
@@ -24,9 +24,9 @@ var singleDetete = {
     getSingleTicket: function (){
 
          var param = {
-            MatchId: singleDetete.param.MatchId,
-            FromRefNo: singleDetete.param.FromRefno,
-            ToRefNo: singleDetete.param.ToRefno,
+            MatchId: parlayDelete.param.MatchId,
+            FromRefNo: parlayDelete.param.FromRefno,
+            ToRefNo: parlayDelete.param.ToRefno,
             Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
             LiveIndicator: $('#EventType').val(),
             LiveHomeScore: helper.GetLiveScore().LiveHomeScore,
@@ -54,8 +54,8 @@ var singleDetete = {
                 },
                 success: function (rs) {
                     //render match info
-                    singleDetete.loadMatchInfo(rs.MatchInfo) ;
-                    singleDetete.loadSingleTicket(rs.Groups);
+                    parlayDelete.loadMatchInfo(rs.MatchInfo) ;
+                    parlayDelete.loadSingleTicket(rs.Groups);
                 },
                 error: function () {
                     console.log('has error :(');
@@ -128,7 +128,7 @@ var singleDetete = {
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
-                { HeaderText: "<div><span>Option</span><span><input onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: singleDetete.optionCustomRender } 
+                { HeaderText: "<div><span>Option</span><span><input onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: parlayDelete.optionCustomRender } 
             ],
             bodyRows: rows,
             showPager: true,
@@ -224,9 +224,7 @@ var singleDetete = {
 
     checkMatchIdWithRefno: function (){
         var param = {
-            MatchId:  $('#txtMatchId').val(),
-            FromRefno: $('#fromRefno').val(),
-            ToRefno: $('#toRefno').val()
+            MatchId:  $('#txtMatchId').val()
         };
 
         $.ajax({
@@ -240,8 +238,8 @@ var singleDetete = {
                 },
                 success: function (rs) {
                     if(rs.ErrorCode == 0){
-                        singleDetete.param = param;
-                        singleDetete.getSingleTicket();
+                        parlayDelete.param = param;
+                        parlayDelete.getSingleTicket();
                         helper.displayContent(true);
                     }
                     else{
@@ -301,7 +299,7 @@ VoidMixParlayTicket.prototype.CacheDOMElement = function () {
 
 VoidMixParlayTicket.prototype.Init = function () {
     
-    jQuery("#DeleteSingleTicketForm").validationEngine();
+    jQuery("#VoidMixParlayTicketForm").validationEngine();
 
     var self = this;
 
@@ -318,27 +316,10 @@ VoidMixParlayTicket.prototype.Init = function () {
         var eventType = $(this).val(); // live type drop down list
 
         if (eventType === '1') {
-            self.DOMElement.$optFilters.show();   
-            $('#tr-advance-item-1x2').hide();         
+            self.DOMElement.$optFilters.show();               
         } else {
-            self.DOMElement.$optFilters.hide();        
-            $('#tr-advance-item-1x2').show();    
-        }
-
-        if(eventType == '0'){//Dead Ball
-            $('#tr-advance-item-htft').hide();
-            $('#tr-advance-item-tg').hide();
-            $('#tr-advance-item-flg').hide(); 
-            $('.tr-advance-item-score').hide();
-        }
-        else{
-            $('#tr-advance-item-htft').show();
-            $('#tr-advance-item-tg').show();
-            $('#tr-advance-item-flg').show();  
-            $('.tr-advance-item-score').show();          
-        }
-
-        
+            self.DOMElement.$optFilters.hide();                 
+        }     
 
         Helper.GetBettypes('Sportsbook', eventType);
         helper.setStatusAllBettype(false);
@@ -451,7 +432,7 @@ VoidMixParlayTicket.prototype.Init = function () {
     });
     
     $('body').delegate('#btnSearch', 'click', function () {
-        singleDetete.search();
+        parlayDelete.search();
     });
 
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();

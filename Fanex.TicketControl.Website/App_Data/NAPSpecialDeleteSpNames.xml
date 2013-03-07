@@ -28,4 +28,8 @@
     <Setting Key="SingleTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel" DbName="apollo_db06" />
     <Setting Key="SingleTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial" DbName="apollo_transdb" />
   </Function>
+
+  <Function Name="ParlayTicket">
+    <Setting Key="ParlayTicket_BettransSelDelSpecial_MixParlay" SpName="Acc_BettransSelDelSpecial_MixParlay" DbName="db053" />
+  </Function>
 </Functions>
