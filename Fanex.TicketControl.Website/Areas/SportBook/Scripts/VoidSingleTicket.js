@@ -316,26 +316,24 @@ DelSingleTicket.prototype.Init = function () {
 
         if (eventType === '1') {
             self.DOMElement.$optFilters.show();   
-            $('#tr-advance-item-1x2').hide();         
+            //$('#tr-advance-item-1x2').hide();         
         } else {
             self.DOMElement.$optFilters.hide();        
-            $('#tr-advance-item-1x2').show();    
+            //$('#tr-advance-item-1x2').show();    
         }
 
-        if(eventType == '0'){//Dead Ball
-            $('#tr-advance-item-htft').hide();
-            $('#tr-advance-item-tg').hide();
-            $('#tr-advance-item-flg').hide(); 
-            $('.tr-advance-item-score').hide();
-        }
-        else{
-            $('#tr-advance-item-htft').show();
-            $('#tr-advance-item-tg').show();
-            $('#tr-advance-item-flg').show();  
-            $('.tr-advance-item-score').show();          
-        }
-
-        
+//        if(eventType == '0'){//Dead Ball
+//            $('#tr-advance-item-htft').hide();
+//            $('#tr-advance-item-tg').hide();
+//            $('#tr-advance-item-flg').hide(); 
+//            $('.tr-advance-item-score').hide();
+//        }
+//        else{
+//            $('#tr-advance-item-htft').show();
+//            $('#tr-advance-item-tg').show();
+//            $('#tr-advance-item-flg').show();  
+//            $('.tr-advance-item-score').show();          
+//        }
 
         Helper.GetBettypes('Sportsbook', eventType);
         helper.setStatusAllBettype(false);
@@ -354,6 +352,22 @@ DelSingleTicket.prototype.Init = function () {
             $('.txtCalendar').val('').attr('disabled', 'disabled');
         }
     });
+
+    $('.tbl-advance-mode thead th').click(function(){
+        var iEle = $(this).find('i');
+        if(iEle.hasClass('icon-plus-sign'))
+        {
+            iEle.removeClass('icon-plus-sign');
+            iEle.addClass('icon-minus-sign');
+            $('.tbl-advance-mode tbody').show();
+        }
+        else
+        {
+            iEle.addClass('icon-plus-sign');
+            iEle.removeClass('icon-minus-sign');
+            $('.tbl-advance-mode tbody').hide();
+        }
+    })
 
     // check all bettypes
     $('body').delegate('#chkallbettype', 'click', function () {
