@@ -53,7 +53,6 @@ TicketListing.prototype.CacheDOMElement = function () {
     self.DOMElement.$matchInfoContainer = $('#match-info-container');
     self.DOMElement.$ticketsContainer = $('#tickets-container');
     self.DOMElement.$betlistContainer = $('#betlist-container');
-
 }
 
 TicketListing.prototype.Init = function () {
@@ -64,7 +63,7 @@ TicketListing.prototype.Init = function () {
 
     self.CacheDOMElement();
     //    Helper.GetLicensees();
-    Helper.GetBettypes(self.CollectSelectedProduct());
+    Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
     $("#LiveHomeScore").keyup(function () { }).ForceIntegerOnly();
@@ -119,7 +118,7 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes(product, eventType);
+        Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     });
 
     // check all bettypes
@@ -368,9 +367,9 @@ TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
 TicketListing.prototype.GenerateMatchInfoData = function(matchInfo){
     var rows = [];
     rows.push({
-        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-            { Name: "eventDate", Value:  matchInfo.EventDate}
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold' },
+            { Name: "eventDate", Value: matchInfo.EventDate, CssClass: 'bold' }
     ]});
 
     return rows;
@@ -398,8 +397,8 @@ TicketListing.prototype.GenerateTicketsData = function(tickets){
     $.each(tickets, function(idx, ticket) {
         var currentTicket = {
             Columns: [
-                    { Name: "bettypes", Value: ticket.BetTypeName },
-                    { Name: "totalBets", Value: ticket },
+                    { Name: "bettypes", Value: ticket.BetTypeName, CssClass: 'bold' },
+                    { Name: "totalBets", Value: ticket, CssClass: 'bold' },
                     { Name: "export", Value: ticket }
                 ]
         };

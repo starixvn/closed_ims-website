@@ -23,6 +23,8 @@ namespace Fanex.TicketControl.Core.Models
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class Bettypes:BaseModel
     {
+        public int Type { get; set; }
+
         public bool LiveIndicator { get; set; }
     }
 }

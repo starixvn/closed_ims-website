@@ -18,8 +18,6 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.SportBook.Criteria;
 
-    
-
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class DeleteSingleTicketController : BaseController
     {

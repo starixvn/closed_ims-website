@@ -43,12 +43,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\LiveCasino\DeleteTicketLiveCasinoController.cs" />
+    <Compile Include="Controllers\NumberGame\VoidNumberGameTicketController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GamingAreaRegistration.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fanex.TicketControl.Core\Core.csproj">
+      <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

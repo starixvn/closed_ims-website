@@ -18,7 +18,6 @@ var singleDetete = {
         if(validateData.checkParamBeforeGetData()){
             singleDetete.checkMatchIdWithRefno();
         }
-        
     },
 
     getSingleTicket: function (){
@@ -316,10 +315,10 @@ DelSingleTicket.prototype.Init = function () {
 
         if (eventType === '1') {
             self.DOMElement.$optFilters.show();   
-            //$('#tr-advance-item-1x2').hide();         
+//            $('#tr-advance-item-1x2').hide();         
         } else {
             self.DOMElement.$optFilters.hide();        
-            //$('#tr-advance-item-1x2').show();    
+//            $('#tr-advance-item-1x2').show();    
         }
 
 //        if(eventType == '0'){//Dead Ball
@@ -335,8 +334,8 @@ DelSingleTicket.prototype.Init = function () {
 //            $('.tr-advance-item-score').show();          
 //        }
 
-        Helper.GetBettypes('Sportsbook', eventType);
-        helper.setStatusAllBettype(false);
+//        Helper.GetBettypes('Sportsbook', eventType);
+//        helper.setStatusAllBettype(false);
     });
 
     // enable/disable Trans Date
@@ -461,8 +460,9 @@ DelSingleTicket.prototype.Init = function () {
         helper.eventSubAdvanceHTFT();
     });
     
-    $('body').delegate('#btnSearch', 'click', function () {
+    $('#btnSearch').click(function (e) {        
         singleDetete.search();
+        return false;
     });
 
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();

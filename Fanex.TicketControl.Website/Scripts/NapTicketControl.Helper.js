@@ -4,8 +4,8 @@
     var _productTypes = {
         Sportsbook: 0,
         NumberGame: 1,
-        VirtualSports: 5,
-        LiveCasino: 6
+        LiveCasino: 6,
+        TicketListing: 3
     };
 
     // used to store local bettypes, 
@@ -13,8 +13,8 @@
     var _betTypes = {
         Sportsbook: null,
         NumberGame: null,
-        VirtualSports: null,
-        LiveCasino: null
+        LiveCasino: null,
+        TicketListing: null
     }
 
     return {
@@ -57,18 +57,22 @@
             $licensee.find('optgroup').append(licenseeHtml);
         },
 
-        GetBettypes: function (product, eventType) {
+        GetBettypes: function (product, eventType, isTicketListing) {
             var self = this;
+            var mode = product; // determine Mode to transfer to sp on db
 
+            if (isTicketListing === true) {
+                mode = "TicketListing";
+            }
             // get the list of bet types belong selected product        
-            if (_betTypes[product] !== null) {
-                var html = self.RenderBettypes(product, eventType);
+            if (_betTypes[mode] !== null) {
+                var html = self.RenderBettypes(product, eventType, isTicketListing);
                 $('.bettype-wrp').html(html);
             }
             else {
 
                 var param = {
-                    mode: product
+                    mode: mode
                 };
 
                 $.ajax({
@@ -83,8 +87,8 @@
                     },
                     success: function (bettypes) {
                         if (bettypes) {
-                            _betTypes[product] = bettypes;
-                            var html = self.RenderBettypes(product, eventType);
+                            _betTypes[mode] = bettypes;
+                            var html = self.RenderBettypes(product, eventType, isTicketListing);
                             $('.bettype-wrp').html(html);
                         }
                     },
@@ -101,12 +105,29 @@
         // Render Bettypes:
         // product: selected product
         // eventType: only affect when product is Sportsbook (0: dead ball, 1: live ball, 2: all)
-        RenderBettypes: function (product, eventType) {
+        // Note: temperaroly, don't cn
+        RenderBettypes: function (product, eventType, isTicketListing) {
             var self = this;
 
-            // get the bettype list from the storage object
-            var bettypes = _betTypes[product];
-            // filter by ball status
+            // NOTE: Warning: If it is tickects listing, will include bettype: Mix Paraly, System Parlay
+            if (isTicketListing === true) {
+                if (product === "Sportsbook") {
+                    var bettypes = $.grep(_betTypes["TicketListing"], function (value) {
+                        return value.Type === 0;
+                    });
+                }
+
+                if (product === "NumberGame") {
+                    var bettypes = $.grep(_betTypes["TicketListing"], function (value) {
+                        return value.Type === 1;
+                    });
+                }
+            }
+            else {
+                // get the bettype list from the storage object
+                var bettypes = _betTypes[product];
+            }
+
             var deadBallBettypes = $.grep(bettypes, function (value) {
                 return value.LiveIndicator === false;
             });
@@ -121,22 +142,22 @@
                 + '</th></tr></thead>';
 
             switch (product) {
-//                case 'Sportsbook':
-//                    switch (eventType) {
-//                        case '0':
-//                            // render only dead ball bettypes
-//                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');
-//                            break;
-//                        case '1':
-//                            // render only live ball bettypes
-//                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');
-//                            break;
-//                        default:
-//                            // render all bettypes
-//                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');
-//                            break;
-//                    }
-//                    break;
+                //                case 'Sportsbook':      
+                //                    switch (eventType) {      
+                //                        case '0':      
+                //                            // render only dead ball bettypes      
+                //                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');      
+                //                            break;      
+                //                        case '1':      
+                //                            // render only live ball bettypes      
+                //                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');      
+                //                            break;      
+                //                        default:      
+                //                            // render all bettypes      
+                //                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');      
+                //                            break;      
+                //                    }      
+                //                    break;      
                 case 'NumberGame':
                     // render dead ball bettypes
                     html += '<tr class="bettype-group-title"> <td colspan="5">' + 'Dead ball' + '</td></tr>';
