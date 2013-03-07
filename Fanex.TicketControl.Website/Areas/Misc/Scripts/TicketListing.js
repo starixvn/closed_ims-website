@@ -367,9 +367,9 @@ TicketListing.prototype.RenderMatchInfo = function (matchInfo) {
 TicketListing.prototype.GenerateMatchInfoData = function(matchInfo){
     var rows = [];
     rows.push({
-        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-            { Name: "eventDate", Value:  matchInfo.EventDate}
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold' },
+            { Name: "eventDate", Value: matchInfo.EventDate, CssClass: 'bold' }
     ]});
 
     return rows;
@@ -397,8 +397,8 @@ TicketListing.prototype.GenerateTicketsData = function(tickets){
     $.each(tickets, function(idx, ticket) {
         var currentTicket = {
             Columns: [
-                    { Name: "bettypes", Value: ticket.BetTypeName },
-                    { Name: "totalBets", Value: ticket },
+                    { Name: "bettypes", Value: ticket.BetTypeName, CssClass: 'bold' },
+                    { Name: "totalBets", Value: ticket, CssClass: 'bold' },
                     { Name: "export", Value: ticket }
                 ]
         };
