@@ -123,11 +123,11 @@
             switch (product) {
                 case 'Sportsbook':
                     switch (eventType) {
-                        case '1':
+                        case '0':
                             // render only dead ball bettypes
                             html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');
                             break;
-                        case '0':
+                        case '1':
                             // render only live ball bettypes
                             html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');
                             break;
