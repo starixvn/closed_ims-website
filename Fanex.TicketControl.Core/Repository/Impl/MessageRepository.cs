@@ -42,10 +42,6 @@ namespace Fanex.TicketControl.Core.Repository.Impl
                         if (ds.Tables[0].Rows.Count > 0)
                         {
                             Msg.MessageId = Convert.ToInt32(ds.Tables[0].Rows[0]["MessageId"]);
-
-                            if (Msg.MessageId > 0) {
-                                AddTargt2Message(Msg.MessageId, TargetId, TargetName, TransId);
-                            }
                         }
                     }
                 }
