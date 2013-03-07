@@ -24,7 +24,7 @@ namespace Fanex.TicketControl.Core.Criteria
 
         public override string GetSettingKey()
         {
-            return "Misc_SelBettype";
+            return "Core_SelBettype";
         }
 
         public override bool IsValid()

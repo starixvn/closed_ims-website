@@ -24,7 +24,7 @@ namespace Fanex.TicketControl.Core.Models
     {
         Sportsbook = 0,
         NumberGame = 1,
-        VirtualSports = 5,
-        LiveCasino = 6
+        MixParlay = 2,
+        TicketListing = 3
     }
 }

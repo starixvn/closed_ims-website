@@ -39,7 +39,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
         {
             Func<IDataReader, Bettypes> mappingFunc = r => {
                 return new Bettypes { 
-                    Id = r.ToInt("BetType"),
+                    Id = r.ToInt("typeId"),
                     Name = r.ToString("BetTypeName"),
                     LiveIndicator = r.ToBool("LiveIndicator")
                 };

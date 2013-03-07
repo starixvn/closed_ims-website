@@ -35,49 +35,18 @@
                         <input type="text" id="txtMatchId" maxlength="10" value="3778263" />
                     </div>
                 </div>
-                <div class="filter-cell">
+                <div class="filter-cell tick-list">
                     <div class="lbl-field span3">
-                        <label for="fromRefno">
-                            From BetID</label>
-                    </div>
-                    <div class="edit-field span4">
-                        <input type="text" id="fromRefno" maxlength="10" value="4412647197" />
-                    </div>
+                        <input type="checkbox" id="chkMixParlay" />
+                        <label for="chkMixParlay">Mix Parlay</label>
+                    </div>                   
                 </div>
-                <div class="filter-cell">
-                    <div class="lbl-field span3">
-                        <label for="toRefno">
-                            To BetID</label>
-                    </div>
-                    <div class="edit-field span4">
-                        <input type="text" id="toRefno" maxlength="10" value="4418345211"  />
-                    </div>
-                </div>
-                <div class="filter-cell">
-                    <div class="lbl-field span3">
-                        <label>
-                            Ticket type</label>
-                    </div>
-                    <div class="edit-field span5">
-                        @{
-                var filterByList = new List<SelectListItem> { 
-                    new SelectListItem {
-                        Text = "All",
-                        Value = "0"
-                    }, 
-                    new SelectListItem {
-                        Text = "Normal Tickets",
-                        Value = "1"
-                    },
-                    new SelectListItem {
-                        Text = "SA Tickets", 
-                        Value = "2"
-                    }
-                };
-                        }
-                        @Html.DropDownList("TicketType", filterByList, new { @class = "span5" })
-                    </div>
-                </div>
+                <div class="filter-cell tick-list">
+                    <div class="lbl-field span4">
+                        <input type="checkbox" id="chkSystemParlay" />
+                        <label for="chkSystemParlay">System Parlay</label>
+                    </div>                    
+                </div>                
             </div>
             <div class="filter-row">
                 <div class="filter-cell event-type-wrp">
