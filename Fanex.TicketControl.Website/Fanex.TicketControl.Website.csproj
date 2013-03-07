@@ -164,6 +164,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Gaming\Area_Start\BundleConfig.cs" />
+    <Compile Include="Areas\Gaming\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Misc\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Misc\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
@@ -186,8 +188,8 @@
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="App_Data\NumberWheelChoice.txt" />
-    <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
+    <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicket.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketHelper.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketManager.js" />
@@ -546,6 +548,8 @@
     <Content Include="Content\fonts\ProximaNovaReg.woff" />
     <Content Include="Areas\SportBook\Views\VoidMixParlayTicket\Index.cshtml" />
     <Content Include="Areas\SportBook\Styles\VoidMixParlayTicket.less" />
+    <Content Include="Areas\Gaming\Views\VoidNumberGameTicket\Index.cshtml" />
+    <Content Include="Areas\Misc\Styles\TicketListing.less" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
@@ -569,7 +573,6 @@
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Gaming\Views\DeleteTicketLiveCasino\Index.cshtml" />
     <Content Include="Areas\Gaming\Views\Web.config" />
-    <Content Include="Areas\Misc\Styles\TicketListing.less" />
     <Content Include="Areas\Misc\Views\_ViewStart.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
@@ -598,6 +601,8 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Gaming\Scripts\" />
+    <Folder Include="Areas\Gaming\Styles\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
