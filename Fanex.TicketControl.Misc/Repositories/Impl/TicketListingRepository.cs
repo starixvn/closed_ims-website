@@ -114,6 +114,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                             foreach (var row in singleTicketRowList)
                             {
                                 var ticket = MappingTicket(row);
+                                ticket.BetId = Converter.ToInt(row["betid"]);
 
                                 ticketListingBetList.Items.Add(new TicketListingDetail { 
                                     Ticket = ticket,

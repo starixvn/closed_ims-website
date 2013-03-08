@@ -30,6 +30,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using System.Text;
     using System.Drawing;
     using Fanex.TicketControl.Core.Utils;
+    using System.Xml;
 
     /// <summary>
     /// TODO: Update summary.
@@ -231,13 +232,32 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         currentCell.Value = ticket.Ticket.UserName;
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
                         
-                        string choice = ticket.ChoiceHtml;
+                        string choice = string.Empty;
                         if (bettypeID == 90)
                         {
-                            var liveScore = !ticket.Ticket.IsLive ? string.Empty : "[" + ticket.Ticket.BetId + "]";
-                            choice = string.Format("Group {0}-{1} {2}", ticket.Ticket.Handicap1, liveScore);
+                            var liveScore = !ticket.Ticket.IsLive && ticket.Ticket.BetId.HasValue ? string.Empty : "[" + ticket.Ticket.BetId.Value + "]";
+                            choice = string.Format("Group {0}-{1} {2}", ticket.Ticket.Handicap1, ticket.Ticket.BetTeam, liveScore);
                         }
+                        else
+                        {
+                            string betteam, handicap, livescore;
+                            ParseChoiceHtml(ticket.ChoiceHtml, out betteam, out handicap, out livescore);
 
+                            if (!string.IsNullOrEmpty(betteam))
+                            {
+                                choice += betteam;
+                            }
+
+                            if (!string.IsNullOrEmpty(handicap))
+                            {
+                                choice += " " + handicap;
+                            }
+
+                            if(!string.IsNullOrEmpty(livescore))
+                            {
+                                choice += " " + livescore;
+                            }
+                        }
                         currentCell = eachRowRange[0, 3];
                         currentCell.Value = choice; // choice
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
@@ -271,7 +291,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                         if (bettypeID == 29) // ie. System Parlay
                         {
-                            currentCell.Value = ticket.ParlayBetType + " - " + ticket.Selection;
+                            currentCell.Value = ticket.BetType + " - " + ticket.Selection;
                         }
 
                         currentCell = eachRowRange[0, 9];
@@ -298,9 +318,41 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             }
         }
 
-        private void ParseChoiceHtml(string choiceHtml)
+        private void ParseChoiceHtml(string choiceHtml, out string betteam, out string handicap, out string livescore)
         {
 
+            XmlDocument xmlDoc = new XmlDocument();
+            choiceHtml = choiceHtml.Replace("&nbsp;", "");
+            xmlDoc.LoadXml(choiceHtml);
+            betteam = string.Empty;
+            handicap = string.Empty;
+            livescore = string.Empty;
+
+            var foundSpanNodes = xmlDoc.SelectNodes("//span");
+            if (foundSpanNodes.Count > 0)
+            {
+                var betChoiceNode = foundSpanNodes[0];
+                int count = betChoiceNode.ChildNodes.Count;
+
+                switch (count)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        betteam = betChoiceNode.ChildNodes[0].InnerText.Trim();
+                        break;
+
+                    case 2:
+                        betteam = betChoiceNode.ChildNodes[0].InnerText.Trim();
+                        handicap = betChoiceNode.ChildNodes[1].InnerText.Trim();
+                        break;
+                    default:
+                        betteam = betChoiceNode.ChildNodes[0].InnerText.Trim();
+                        handicap = betChoiceNode.ChildNodes[1].InnerText.Trim();
+                        livescore = betChoiceNode.ChildNodes[2].InnerText.Trim();
+                        break;
+                }
+            }
         }
 
         private void ParseOddsHtml(string choiceHtml)
@@ -309,3 +361,4 @@ namespace Fanex.TicketControl.Misc.Services.Impl
         }
     }
 }
+
