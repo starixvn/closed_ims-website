@@ -368,6 +368,21 @@ DelSingleTicket.prototype.Init = function () {
         }
     })
 
+    $('.expand-colapse-filter-bar').click(function () {
+        var iEle = $(this).find('i');
+        if (iEle.hasClass('icon-minus-sign')) {
+            iEle.removeClass('icon-minus-sign');
+            iEle.addClass('icon-plus-sign');
+            $('.note-filter-bar').hide();
+            $('.filter-bar-inner').hide();
+        } else {
+            iEle.removeClass('icon-plus-sign');
+            iEle.addClass('icon-minus-sign');
+            $('.note-filter-bar').show();
+            $('.filter-bar-inner').show();
+        }
+    });
+
     // check all bettypes
     $('body').delegate('#chkallbettype', 'click', function () {
         if ($('#chkallbettype').prop('checked')) {

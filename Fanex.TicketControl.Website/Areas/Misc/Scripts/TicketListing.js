@@ -71,6 +71,22 @@ TicketListing.prototype.Init = function () {
 
     // handle events from DOM element
     // change live type
+
+    $('.expand-colapse-filter-bar').click(function () {
+        var iEle = $(this).find('i');
+        if (iEle.hasClass('icon-minus-sign')) {
+            iEle.removeClass('icon-minus-sign');
+            iEle.addClass('icon-plus-sign');
+            $('.note-filter-bar').hide();
+            $('.filter-bar-inner').hide();
+        } else {
+            iEle.removeClass('icon-plus-sign');
+            iEle.addClass('icon-minus-sign');
+            $('.note-filter-bar').show();
+            $('.filter-bar-inner').show();
+        }
+    });
+
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
         var product = $('input[name=Product]:checked').val();
