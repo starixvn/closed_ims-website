@@ -95,13 +95,12 @@ var parlayDelete = {
                     { Name: "Player", Value: currentRow.Player },                    
                     { Name: "TransDate", Value:currentRow.TransDate  },
                     { Name: "BetTypeName", Value:currentRow.BetTypeName },
-                    { Name: "Odds", Value:currentRow.Odds},
-                    { Name: "Choice", Value:currentRow.Choice},
+                    { Name: "Odds", Value:currentRow.Odds},                    
                     { Name: "Stake", Value: currentRow.Stake},
-                    { Name: "CurrencyName", Value:currentRow.CurrencyName  },
-                    { Name: "Score", Value: currentRow.Score },
+                    { Name: "CurrencyName", Value:currentRow.CurrencyName  },                    
                     { Name: "Status", Value: currentRow.Status },                    
-                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
+                    { Name: "Choice", Value:currentRow.Choice},
+                    { Name: "CustomAdd", Value: currentRow.SubTransId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -115,13 +114,12 @@ var parlayDelete = {
                 { HeaderText: "Member", Name: "Player", Width: 150, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
-                { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "<div><span>Option</span><span><input onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: parlayDelete.optionCustomRender } 
+                { HeaderText: "Choice", Name: "Choice", Width: 250, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 60, HeaderAlign: "center", CellAlign: "center", CustomCellRender: parlayDelete.optionCustomRender } 
             ],
             bodyRows: rows,
             showPager: true,
@@ -158,23 +156,19 @@ var parlayDelete = {
         }
 
         var param = {
-            MatchId: $('#txtMatchId').val(),
-            f_transid: $('#fromRefno').val(),
-            t_transid: $('#toRefno').val(),
+            MatchId: $('#txtMatchId').val(),            
             Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
             LiveIndicator: $('#EventType').val(),
             LiveHomeScore: $('#LiveHomeScore').val(),
             LiveAwayScore: $('#LiveAwayScore').val(),
-            FromTransdate: $('#FromTransDate').val(),
-            ToTransdate: $('#ToTransdate').val(),
+            FromTransdate: $('#FromTransDate').val(),            
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
             Betteam515: helper.GetBetteam515(),
             Betteam430: helper.GetBetteam430(),
             Betteam6: helper.GetBetteam6(),
             Betteam14: helper.GetBetteam14(),
-            Betteam16: helper.GetBetteam16(),
-            SAFilter: $('#TicketType').val(),
+            Betteam16: helper.GetBetteam16(),            
             TransIds: helper.getSubTicketsChecked(),
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
@@ -192,7 +186,7 @@ var parlayDelete = {
 
           $.ajax({
                 type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/VoidSingleTicket",
+                url: window.rootUrl + "SportBook/VoidMixParlayTicket/VoidParlayTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),

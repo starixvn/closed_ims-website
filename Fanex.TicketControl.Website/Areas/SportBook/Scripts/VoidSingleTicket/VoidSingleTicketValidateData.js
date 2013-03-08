@@ -34,6 +34,11 @@ var validateData = {
             return false;
         }
 
+        if (parseFloat($('#toRefno').val()) < parseFloat($('#fromRefno').val())) {
+            $('#msg').html(tooltip.show('fromRefno', 'Invalid From BetID.')).show();
+            return false;
+        }
+
         if ($('#EventType').val() == 1) {
             if ($('#LiveHomeScore').val() != '' && ($('#LiveHomeScore').val().length > 2 || isNaN($('#LiveHomeScore').val()))) {
                 $('#msg').html(tooltip.show('LiveHomeScore', 'Invalid Live Home Score.')).show();

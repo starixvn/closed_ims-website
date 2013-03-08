@@ -11,7 +11,7 @@ namespace Fanex.TicketControl.SportBook.Criteria
     {
         public override string GetSettingKey()
         {
-            return "SingleTicket_BettransDelSpecial";
+            return "ParlayTicket_BettransDelSpecialDel_MixParlay";
         }
 
         public override bool IsValid()
@@ -21,9 +21,7 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public int MatchId { get; set; }
 
-        public Int64 f_transid { get; set; }
-
-        public Int64 t_transid { get; set; }
+        public int Type { get; set; }//LiveIndicator
 
         public string TransIds { get; set; }
 
@@ -53,23 +51,15 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public string Errmsg { get; set; }
 
-        public int LiveIndicator { get; set; }
-
         public int LiveHomeScore { get; set; }
 
         public int LiveAwayScore { get; set; }
-
-        public DateTime? FromDateTime { get; set; }
-
-        public DateTime? ToDateTime { get; set; }
 
         public string IP {
             get {
                 return Fanex.TicketControl.Core.Utils.Helper.GetClientIP();
             }
-        }
-
-        public int SAFilter { get; set; }
+        }               
 
         public Message Msg { get; set; }
 

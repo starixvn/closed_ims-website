@@ -26,6 +26,11 @@
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/SubTicketMixParlay.js",
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketManager.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/areas/SportBook/RecoverTicket").Include(                
+                "~/Scripts/_Libs/Utils/stdlib.js",
+                "~/Areas/SportBook/Scripts/RecoverTicket/RecoverTicket.js"
+            ));
         }
     }
 }

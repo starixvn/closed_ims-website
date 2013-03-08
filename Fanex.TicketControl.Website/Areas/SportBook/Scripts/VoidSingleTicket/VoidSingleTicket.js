@@ -127,7 +127,7 @@ var singleDetete = {
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
-                { HeaderText: "<div><span>Option</span><span><input onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: singleDetete.optionCustomRender } 
+                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: singleDetete.optionCustomRender } 
             ],
             bodyRows: rows,
             showPager: true,
@@ -244,7 +244,21 @@ var singleDetete = {
                         helper.displayContent(true);
                     }
                     else{
-                        Helper.showMsgBox(rs);   
+                        //Helper.showMsgBox(rs);   
+
+                        switch(rs.ErrorCode){
+                            case 1:
+                            case 2:
+                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
+                                break;
+                            case 3:
+                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
+                                break;
+                            case 4:
+                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
+                                break;
+                        }
+
                         helper.displayContent(false);
                     }
                     

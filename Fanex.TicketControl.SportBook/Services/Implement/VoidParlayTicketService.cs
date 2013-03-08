@@ -95,6 +95,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     {
                         No = index,
                         BetId = Convert.ToString(BetId),
+                        SubTransId = Convert.ToString(row["SubTransId"]),
                         Player = Convert.ToString(row["username"]),
                         TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
                         BetType = Convert.ToInt32(row["bettype"]),                        
@@ -116,7 +117,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
                     ticketInfo.Choice = ticketDetail.ChoiceHtml;
                     ticketInfo.Odds = ticketDetail.OddHtml;
-                    ticketDetail.StakeHtml = ticketDetail.StakeHtml;
+                    ticketInfo.Stake = ticketDetail.StakeHtml;
                 }
 
                 group.Tickets = tickets;
@@ -151,7 +152,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         LiveAwayScore = Convert.ToInt32(row["choice_liveawayscore"]),
 
                         Stake = Convert.ToDecimal(row["Stake"]),
-                        Odds = Convert.ToDecimal(row["choice_odds"]),
+                        Odds = Convert.ToDecimal(row["odds"]),
                         Handicap1 = Convert.ToDecimal(row["choice_hdp1"]),
                         Handicap2 = Convert.ToDecimal(row["choice_hdp2"]),
 
@@ -194,16 +195,18 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 var rows = dtSubTickets.Select();
 
                 int bettype = 0;
+                Int64 TransId = 0;
                 foreach (DataRow row in rows)
                 {
                     bettype = Convert.ToInt32(row["bettype"]);
+                    TransId = Convert.ToInt64(row["TransId"]);
                     var ticket = new TicketDetail();
 
                     ticket.Ticket = new Ticket()
                     {
-                        BetId = Convert.ToInt64(row["transid"]),
+                        BetId = TransId,
                         BetTypeId = bettype,
-                        TransId = Convert.ToInt64(row["TransId"]),
+                        TransId = TransId,
                         BetTeam = Convert.ToString(row["betteam"]),
                         LiveHomeScore = Convert.ToInt32(row["livehomescore"]),
                         LiveAwayScore = Convert.ToInt32(row["liveawayscore"]),
@@ -228,13 +231,22 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
                     if (bettype == 9 || bettype == 29)
                     {
+                        
                         ticketHelper.IsShowOddsWithChoice = true;
                     }
 
                     
                     ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
 
-                    subTickets.Add(ticket.ChoiceHtml);
+                    if (TransId == criteria.TransId)
+                    {
+                        subTickets.Add("<div class='selected'>" + ticket.ChoiceHtml + "</div>");
+                    }
+                    else 
+                    {
+                        subTickets.Add(ticket.ChoiceHtml);
+                    }
+                    
                 }
             }
             catch (Exception ex)
