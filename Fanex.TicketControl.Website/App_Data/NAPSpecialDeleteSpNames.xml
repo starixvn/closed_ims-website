@@ -33,4 +33,10 @@
     <Setting Key="ParlayTicket_BettransSelDelSpecial_MixParlay" SpName="Acc_BettransSelDelSpecial_MixParlay" DbName="db053" />
     <Setting Key="ParlayTicket_SubTicket_BettransSelSpecialDel_MixParlay" SpName="Acc_BettransSelSpecialDel_MixParlay" DbName="db053" /><!--when calling subticket of MP-->
   </Function>
+
+  <Function Name="NumberGameTicket">
+    <Setting Key="NumberGameTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel" DbName="apollo_db06" />
+    <Setting Key="NumberGameTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial" DbName="apollo_transdb" />
+  </Function>
+  
 </Functions>

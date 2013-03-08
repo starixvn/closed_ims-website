@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -164,6 +164,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\Gaming\Area_Start\BundleConfig.cs" />
+    <Compile Include="Areas\Gaming\Area_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Gaming\GamingAreaRegistration.cs" />
     <Compile Include="Areas\Misc\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Misc\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
@@ -546,6 +549,8 @@
     <Content Include="Content\fonts\ProximaNovaReg.woff" />
     <Content Include="Areas\SportBook\Views\VoidMixParlayTicket\Index.cshtml" />
     <Content Include="Areas\SportBook\Styles\VoidMixParlayTicket.less" />
+    <None Include="Areas\Gaming\Styles\VoidNumberGame.less" />
+    <Content Include="Areas\Gaming\Views\VoidNumberGameTicket\Index.cshtml" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
@@ -598,6 +603,7 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Gaming\Scripts\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />

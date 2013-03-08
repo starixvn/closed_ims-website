@@ -117,8 +117,9 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
                                 ticketListingBetList.Items.Add(new TicketListingDetail { 
                                     Ticket = ticket,
+                                    ParlayTicket = new Ticket(),
                                     TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
-                                    ChoiceHtml = ticket.BetTeam,
+                                    ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false),
                                     OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
                                     Currency = Converter.ToString2(row["currencyName"]),
                                     SAFlag = Converter.ToBool(row["SecAcceptFlag"])
@@ -132,16 +133,29 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                             foreach (var row in mixParlayTicketRowList)
                             {
                                 var ticket = MappingTicket(row);
+                                var parlayTicket = MappingTicket(row);
+                                parlayTicket.BetTypeId = Converter.ToInt(row["bettypem"]);
+                                parlayTicket.Odds = Converter.ToDecimal(row["oddsm"]); // Note: Odds is oddsm
+
+                                var oldBetTypeId = ticket.BetTypeId;
+                                ticket.BetTypeId = parlayTicket.BetTypeId;
+                                var oddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);
+                                ticket.BetTypeId = oldBetTypeId;
+
+                                var choiceHtml = builder.BuildChoice(parlayTicket, ticketHelper, null, false);
 
                                 ticketListingBetList.Items.Add(new TicketListingDetail
                                 {
                                     Ticket = ticket,
+                                    ParlayTicket = parlayTicket,
                                     TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                                     Currency = Converter.ToString2(row["currencyName"]),
                                     SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
-                                    IsMixParlay = Converter.ToBool(row["isMP"]),
+                                    IsMixParlay = (Converter.ToInt(row["isMP"]) == 1 ? true : false),
                                     Selection = Converter.ToString2(row["selection"]),
-                                    BettypeM = Converter.ToInt(row["bettypem"])
+                                    //ChoiceHtml = ticket.BetTeam,
+                                    ChoiceHtml = choiceHtml,
+                                    OddsHtml = oddsHtml
                                 });
                             }
 
@@ -221,7 +235,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                 IsNeutral = Converter.ToBool(row["isNeutral"]),
                 OddsType = Converter.ToString2(row["OddsType"]),
                 Winlost = Converter.ToDecimal(row["winlost"]),
-                BetId = Converter.ToInt(row["betid"])
             };
 
             long transid;

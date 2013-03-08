@@ -50,7 +50,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                         ErrorCode = Convert.ToInt32(hashOutputParams["errcode"]),
                         ErrorMsg = Convert.ToString(hashOutputParams["errmsg"])
                     });
-
                    
                 }
             }

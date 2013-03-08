@@ -12,14 +12,32 @@ namespace Fanex.TicketControl.Misc.Entities
 
         public ITicket Ticket { get; set; }
 
+        public ITicket ParlayTicket { get; set; }
+
         public SportEvent SportEvent
         {
             get
             {
-                var sportEventService = new SportEventService(this);
+                var sportEventService = new SportEventService(this.Ticket, this.Selection);
                 return sportEventService.GetSportEvent();
             }
         }
+
+        public SportEvent ParlaySportEvent 
+        {
+            get
+            {
+                var sportEventService = new SportEventService(this.ParlayTicket);
+                return sportEventService.GetSportEvent();
+            }
+        }
+
+
+        public string AgentWinloss { get {
+            if (this.Ticket.Status != "running" && this.Ticket.Status != "waiting")
+                return this.Ticket.Winlost.ToString();
+            return string.Empty;
+        } }
 
         public string TransDate { get; set; }
 
@@ -34,6 +52,8 @@ namespace Fanex.TicketControl.Misc.Entities
         public bool IsMixParlay { get; set; }
 
         public int BettypeM { get; set; }
+
+        public decimal OddsM { get; set; }
 
         public string Selection { get; set; }
 

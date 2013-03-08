@@ -10,12 +10,7 @@
                 areaName + "_Default",
                 "Gaming/{controller}/{action}/{id}",                
                 new { action = "Index", id = UrlParameter.Optional },
-                new[] { "Fanex.TicketControl.Gaming.Controllers"
-                    //,
-                    //"Fanex.TicketControl.Gaming.Controllers.NumberGame",
-                    //"Fanex.TicketControl.Gaming.Controllers.LiveCasino"
-                
-                });
+                new[] { "Fanex.TicketControl.Gaming.Controllers" });
         }
     }
 }
