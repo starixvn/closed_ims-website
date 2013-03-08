@@ -119,7 +119,7 @@ using Fanex.TicketControl.Core.Repository.Interface;
 
                     ticketInfo.Choice = ticketDetail.ChoiceHtml;
                     ticketInfo.Odds = ticketDetail.OddHtml;
-                    ticketDetail.StakeHtml = ticketDetail.StakeHtml;
+                    ticketInfo.Stake = ticketDetail.StakeHtml;
                 }
 
                 group.Tickets = tickets;
