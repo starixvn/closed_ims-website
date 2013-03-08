@@ -14,6 +14,8 @@ namespace Fanex.TicketControl.SportBook.Repositories.Interface
     {
         DataSet GetParlayTicket(GetParlayTicketCriteria criteria);
 
+        DataTable GetParlaySubTicket(GetParlaySubTicketCriteria criteria);
+
         IList<ActionResult> VoidParlayTicket(VoidParlayTicketCritetia criteria, ref DataSet dsOutData);
     }
 }

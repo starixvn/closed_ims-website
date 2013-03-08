@@ -30,6 +30,26 @@ namespace Fanex.TicketControl.SportBook.Repositories.Impl
             return ds;
         }
 
+        public DataTable GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
+        {
+            DataTable dtSubTicket = new DataTable();
+            try
+            {
+                using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    var ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                    if (ds != null && ds.Tables.Count > 0)
+                    {
+                        dtSubTicket = ds.Tables[0];
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return dtSubTicket;
+        }
 
         public IList<ActionResult> VoidParlayTicket(VoidParlayTicketCritetia criteria, ref DataSet dsOutData)
         {
@@ -59,5 +79,8 @@ namespace Fanex.TicketControl.SportBook.Repositories.Impl
             }
             return results;
         }
+
+
+       
     }
 }

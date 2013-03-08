@@ -17,5 +17,8 @@ namespace Fanex.TicketControl.SportBook.Models.ParlayTicket
     public class TicketInfo:BaseTicketInfo
     {
         public bool IsDelete { get; set; }
+
+        public string WinLoss { get; set; }
+                
     }
 }

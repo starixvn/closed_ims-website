@@ -97,14 +97,13 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         BetId = Convert.ToString(BetId),
                         Player = Convert.ToString(row["username"]),
                         TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
-                        BetType = Convert.ToInt32(row["bettype"]),
-                        HDP = Convert.ToString(row["hdp1"]),
-                        Stake = Convert.ToString(row["stakepositiontaking"]),
+                        BetType = Convert.ToInt32(row["bettype"]),                        
+                        Stake = Convert.ToString(row["stake"]),
                         Odds = Convert.ToString(row["odds"]),
                         CurrencyName = Helper.CurrencyById(Convert.ToInt32(row["currency"])),
                         Status = Convert.ToString(row["status"]),
-                        Score = Convert.ToString(row["livehomescore"]) + "-" + Convert.ToString(row["liveawayscore"]),
-                        SA = Convert.ToInt32(row["SecAcceptFlag"]) == 0 ? "" : "<span class='icon-tick'></span>",
+                        Score = Convert.ToString(row["choice_livehomescore"]) + "-" + Convert.ToString(row["choice_liveawayscore"]),
+                        WinLoss = Convert.ToString(row["winlost"]), 
                         IsDelete = true,
                         BetTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(row["bettype"]),
 
@@ -145,21 +144,22 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     ticket.Ticket = new Ticket(){
                         BetId = Convert.ToInt64(row["transid"]),
                         BetTypeId = bettype,
-                        BetTeam = Convert.ToString(row["betteam"]),
-                        LiveHomeScore = Convert.ToInt32(row["livehomescore"]),
-                        LiveAwayScore = Convert.ToInt32(row["liveawayscore"]),
+                        TransId = Convert.ToInt64(row["subtransID"]),
+                        RefNo = Convert.ToString(row["Refno"]),
+                        BetTeam = Convert.ToString(row["choice_betteam"]),
+                        LiveHomeScore = Convert.ToInt32(row["choice_livehomescore"]),
+                        LiveAwayScore = Convert.ToInt32(row["choice_liveawayscore"]),
 
-                        Stake = Convert.ToDecimal(row["StakePositiontaking"]),
-                        Odds = Convert.ToDecimal(row["odds"]),
-                        OddsType = Convert.ToString(row["OddsType"]),
-                        Handicap1 = Convert.ToDecimal(row["hdp1"]),
-                        Handicap2 = Convert.ToDecimal(row["hdp2"]),
+                        Stake = Convert.ToDecimal(row["Stake"]),
+                        Odds = Convert.ToDecimal(row["choice_odds"]),
+                        Handicap1 = Convert.ToDecimal(row["choice_hdp1"]),
+                        Handicap2 = Convert.ToDecimal(row["choice_hdp2"]),
 
                         Status = Convert.ToString(row["status"]),
-                        HomeId = Convert.ToInt64 (row["HomeId"]),
-                        AwayId = Convert.ToInt64(row["AwayId"]),
-                        LeagueId = Convert.ToInt32(row["LeagueId"]),
-                        SportTypeId = Convert.ToInt32(row["SportType"])
+                        HomeId = Convert.ToInt64(row["choice_HomeId"]),
+                        AwayId = Convert.ToInt64(row["choice_AwayId"]),
+                        LeagueId = Convert.ToInt32(row["choice_LeagueId"]),
+                        SportTypeId = Convert.ToInt32(row["choice_SportType"])
                     };
 
                     ITicketHelper ticketHelper = new TicketHelper();
@@ -182,6 +182,67 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             }
 
             return ticket;
+        }
+
+        public string GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
+        {
+            List<string> subTickets = new List<string>();
+            try
+            {
+                DataTable dtSubTickets = _reponsitory.GetParlaySubTicket(criteria);
+
+                var rows = dtSubTickets.Select();
+
+                int bettype = 0;
+                foreach (DataRow row in rows)
+                {
+                    bettype = Convert.ToInt32(row["bettype"]);
+                    var ticket = new TicketDetail();
+
+                    ticket.Ticket = new Ticket()
+                    {
+                        BetId = Convert.ToInt64(row["transid"]),
+                        BetTypeId = bettype,
+                        TransId = Convert.ToInt64(row["TransId"]),
+                        BetTeam = Convert.ToString(row["betteam"]),
+                        LiveHomeScore = Convert.ToInt32(row["livehomescore"]),
+                        LiveAwayScore = Convert.ToInt32(row["liveawayscore"]),
+
+                        Stake = Convert.ToDecimal(row["StakePositionTaking"]),
+                        Odds = Convert.ToDecimal(row["odds"]),
+                        Handicap1 = Convert.ToDecimal(row["hdp1"]),
+                        Handicap2 = Convert.ToDecimal(row["hdp2"]),
+
+                        HomeId = Convert.ToInt64(row["HomeId"]),
+                        AwayId = Convert.ToInt64(row["AwayId"]),
+                        LeagueId = Convert.ToInt32(row["LeagueId"]),
+                        SportTypeId = Convert.ToInt32(row["SportType"]),
+                        IsNeutral = Convert.ToBoolean(row["IsNeutral"]),
+                        IsLive = Convert.ToBoolean(row["liveindicator"]),
+                    };
+
+                    ITicketHelper ticketHelper = new TicketHelper();
+                    BetListHTMLFactory factory = new BetListHTMLFactory();
+                    BetListHTMLBuilder builder = factory.CreateBuilder();
+
+
+                    if (bettype == 9 || bettype == 29)
+                    {
+                        ticketHelper.IsShowOddsWithChoice = true;
+                    }
+
+                    
+                    ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
+
+                    subTickets.Add(ticket.ChoiceHtml);
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return string.Join("<div class='line'></div>", subTickets);
         }
 
         public IList<ActionResult> VoidParlayTicket(VoidParlayTicketCritetia criteria)
@@ -225,20 +286,6 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
             return results;
         }
-
-        public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)
-        {
-            ActionResult result = new ActionResult();
-            try
-            {
-                criteria.Type = Helper.SportType.Sportsbook;
-                result = _coreService.CheckMatchIdWithRefno(criteria);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-            return result;
-        }
+                
     }
 }

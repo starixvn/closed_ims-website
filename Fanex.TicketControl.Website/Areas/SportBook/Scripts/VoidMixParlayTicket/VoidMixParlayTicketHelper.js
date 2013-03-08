@@ -145,6 +145,12 @@
             return this.value;
         }).get().join('^');
 
+        if (checkedVals != '') {
+            if (checkedVals.split('^').length == 2) {
+                checkedVals = '0';
+            }
+        }
+
         return checkedVals;
     },
 
@@ -209,12 +215,12 @@
         return checkedVals;
     },
 
-    GetLiveScore: function(){
+    GetLiveScore: function () {
         var param = {
             LiveHomeScore: $('#EventType').val() == '1' ? $('#LiveHomeScore').val() : '',
             LiveAwayScore: $('#EventType').val() == '1' ? $('#LiveAwayScore').val() : '',
             FromTransdate: $('#EventType').val() == '1' ? $('#FromTransDate').val() : '',
-            ToTransdate:   $('#EventType').val() == '1' ? $('#ToTransDate').val()   : ''
+            ToTransdate: $('#EventType').val() == '1' ? $('#ToTransDate').val() : ''
         };
 
         return param;

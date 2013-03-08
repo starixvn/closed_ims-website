@@ -24,11 +24,11 @@ namespace Fanex.TicketControl.SportBook.Controllers
     public class VoidMixParlayTicketController : BaseController
     {
 
-        IVoidSingleTicketService _deleteSingleTicketService;
+        IVoidParlayTicketService _voidParlayTicketService;
 
         public VoidMixParlayTicketController()
         {
-            _deleteSingleTicketService = new VoidSingleTicketService();    
+            _voidParlayTicketService = new VoidParlayTicketService();    
             
         }
 
@@ -39,26 +39,25 @@ namespace Fanex.TicketControl.SportBook.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetSingleTicket(GetSingleTicketCriteria criteria)
+        public JsonResult GetParlayTicket(GetParlayTicketCriteria criteria)
         {
-            criteria.UserName = CurrentSession.Username;
-            return Json(_deleteSingleTicketService.GetSingleTicket(criteria));
+            return Json(_voidParlayTicketService.GetParlayTicket(criteria));
         }
 
         [HttpPost]
-        public JsonResult CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria)
+        public JsonResult GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
         {
-            criteria.Type = Core.Utils.Helper.SportType.Sportsbook;
-            return Json(_deleteSingleTicketService.CheckMatchIDwithRefno(criteria));
+            return Json(_voidParlayTicketService.GetParlaySubTicket(criteria));
         }
 
+      
         [HttpPost]
-        public JsonResult VoidSingleTicket(VoidSingleTicketCritetia criteria)
+        public JsonResult VoidParlayTicket(VoidParlayTicketCritetia criteria)
         {
             criteria.UserPwd = Fanex.Common.Cryptography.CfsEnCode(criteria.UserPwd);
             criteria.UserId = CurrentSession.UserId;
 
-            return Json(_deleteSingleTicketService.VoidSingleTicket(criteria));
+            return Json(_voidParlayTicketService.VoidParlayTicket(criteria));
         }
     }
 }

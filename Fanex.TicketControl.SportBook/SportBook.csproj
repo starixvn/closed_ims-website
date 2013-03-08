@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
+    <Compile Include="Criteria\GetParlaySubTicketCriteria.cs" />
     <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
     <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
     <Compile Include="Criteria\GetSingleTicketCriteria.cs" />

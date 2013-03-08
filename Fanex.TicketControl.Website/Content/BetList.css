@@ -322,3 +322,6 @@ div.match
 }
 
 
+.selected {
+	background-color: #FFFFAA !important;
+}
