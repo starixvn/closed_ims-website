@@ -188,6 +188,7 @@
     <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
+    <Content Include="Areas\SportBook\Scripts\RecoverTicket\RecoverTicket.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\SubTicketMixParlay.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicket.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketHelper.js" />
@@ -547,6 +548,7 @@
     <Content Include="Content\fonts\ProximaNovaReg.woff" />
     <Content Include="Areas\SportBook\Views\VoidMixParlayTicket\Index.cshtml" />
     <Content Include="Areas\SportBook\Styles\VoidMixParlayTicket.less" />
+    <Content Include="Areas\SportBook\Views\RecoverTicket\Index.cshtml" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
