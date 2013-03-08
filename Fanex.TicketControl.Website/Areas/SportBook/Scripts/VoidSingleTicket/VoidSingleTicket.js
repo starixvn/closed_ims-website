@@ -244,7 +244,21 @@ var singleDetete = {
                         helper.displayContent(true);
                     }
                     else{
-                        Helper.showMsgBox(rs);   
+                        //Helper.showMsgBox(rs);   
+
+                        switch(rs.ErrorCode){
+                            case 1:
+                            case 2:
+                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
+                                break;
+                            case 3:
+                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
+                                break;
+                            case 4:
+                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
+                                break;
+                        }
+
                         helper.displayContent(false);
                     }
                     

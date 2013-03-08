@@ -151,7 +151,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         LiveAwayScore = Convert.ToInt32(row["choice_liveawayscore"]),
 
                         Stake = Convert.ToDecimal(row["Stake"]),
-                        Odds = Convert.ToDecimal(row["choice_odds"]),
+                        Odds = Convert.ToDecimal(row["odds"]),
                         Handicap1 = Convert.ToDecimal(row["choice_hdp1"]),
                         Handicap2 = Convert.ToDecimal(row["choice_hdp2"]),
 
@@ -194,16 +194,18 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 var rows = dtSubTickets.Select();
 
                 int bettype = 0;
+                Int64 TransId = 0;
                 foreach (DataRow row in rows)
                 {
                     bettype = Convert.ToInt32(row["bettype"]);
+                    TransId = Convert.ToInt64(row["TransId"]);
                     var ticket = new TicketDetail();
 
                     ticket.Ticket = new Ticket()
                     {
-                        BetId = Convert.ToInt64(row["transid"]),
+                        BetId = TransId,
                         BetTypeId = bettype,
-                        TransId = Convert.ToInt64(row["TransId"]),
+                        TransId = TransId,
                         BetTeam = Convert.ToString(row["betteam"]),
                         LiveHomeScore = Convert.ToInt32(row["livehomescore"]),
                         LiveAwayScore = Convert.ToInt32(row["liveawayscore"]),
@@ -235,7 +237,15 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     
                     ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
 
-                    subTickets.Add(ticket.ChoiceHtml);
+                    if (TransId == criteria.TransId)
+                    {
+                        subTickets.Add("<div class='selected'>" + ticket.ChoiceHtml + "</div>");
+                    }
+                    else 
+                    {
+                        subTickets.Add(ticket.ChoiceHtml);
+                    }
+                    
                 }
             }
             catch (Exception ex)

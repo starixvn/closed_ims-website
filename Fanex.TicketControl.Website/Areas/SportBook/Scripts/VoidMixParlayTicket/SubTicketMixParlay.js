@@ -7,7 +7,8 @@ function showMP (subTransId, refNo) {
 var subTicketMP = {
     getSubTicketMP: function (subTransId, refNo) {
         var param = {
-            RefNo: refNo
+            RefNo: refNo,
+            TransId: subTransId
         };
 
         var subTicket = $('#divEvent_' + subTransId);
