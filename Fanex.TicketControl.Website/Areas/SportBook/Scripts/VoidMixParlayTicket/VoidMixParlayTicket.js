@@ -299,6 +299,23 @@ VoidMixParlayTicket.prototype.Init = function () {
         }
     });
 
+    $('.colapse-expand-filter-bar').click(function () {
+        var iEle = $(this).find('i');
+        if (iEle.hasClass('icon-minus-sign')) {
+            iEle.removeClass('icon-minus-sign');
+            iEle.addClass('icon-plus-sign');
+            $('.note-filter-bar').hide();
+            $('.filter-bar-inner').hide();
+            $('#collapse-expand-label').text('Expand Filter');
+        } else {
+            iEle.removeClass('icon-plus-sign');
+            iEle.addClass('icon-minus-sign');
+            $('.note-filter-bar').show();
+            $('.filter-bar-inner').show();
+            $('#collapse-expand-label').text('Collapse Filter');
+        }
+    });
+
     // check all bettypes
     $('body').delegate('#chkallbettype', 'click', function () {
         if ($('#chkallbettype').prop('checked')) {
@@ -400,7 +417,6 @@ VoidMixParlayTicket.prototype.Init = function () {
     $("#LiveHomeScore").keyup(function () {}).ForceIntegerOnly();
     $("#LiveAwayScore").keyup(function () {}).ForceIntegerOnly();
 };
-
 
 VoidMixParlayTicket.prototype.SetupCalendar = function (strdatetime, txtdate) {
     $(txtdate).datetimepicker({

@@ -340,29 +340,33 @@ header {
 		float: left;
 	}
 	
-	.expand-colapse-filter-bar {		
+	.colapse-expand-filter-bar {		
 		padding: 5px 10px;
 		
 		div {
-		    /*border: 1px solid #7C98A4;*/
 		    background-color: #B5C4D0;
 		    padding: 3px;
 		    cursor: pointer;
-		    font-size: 1.2em;
-		    font-weight: bold;
+		    
+		    #collapse-expand-label
+		    {
+		        font-size: 1em;    
+	        }
 	    }
 	}
 	
 	.note-filter-bar {		
 		padding: 5px 10px;
+		
 		div {
-		    /*border: 1px solid #7C98A4;*/
 		    background-color: #F6F5F2;
 		    padding: 2px 4px !important;
-		    cursor: pointer;
-		    font-size: 1.2em;
 		    font-weight: bold;
 		    color: #C28F06;
+		    
+		    label {
+		        cursor: default;
+	        }
 	    }
 	}
 

@@ -24,15 +24,14 @@
 @using (Html.BeginForm("Index", "DeleteSingleTicket", FormMethod.Post, new { id = "DeleteSingleTicketForm" }))
 {
     <div class="filter-bar">
-        <div class="expand-colapse-filter-bar">
+        <div class="colapse-expand-filter-bar">
             <div>
                 <label>
                     <span><i class="icon-minus-sign"></i></span>
-                    Collapse/Expand Filter
+                    <span id="collapse-expand-label">Collapse Filter</span>
                 </label>
             </div>
         </div>
-
         <div class="note-filter-bar">
             <div>
                 <label>
@@ -41,6 +40,7 @@
                 </label>
             </div>
         </div>
+
         <div class="filter-bar-inner">
             <div class="filter-row">
                 <div class="filter-cell">
@@ -49,7 +49,7 @@
                             Match ID</label>
                     </div>
                     <div class="edit-field span4">
-                        <input type="text" id="txtMatchId" maxlength="10" value="3778263" />
+                        <input type="text" id="txtMatchId" maxlength="10" value="" />
                     </div>
                 </div>
                 <div class="filter-cell">
@@ -57,7 +57,7 @@
                         <label for="fromRefno">From BetID</label>
                     </div>
                     <div class="edit-field span4">
-                        <input type="text" id="fromRefno" maxlength="10" value="4412647197" />
+                        <input type="text" id="fromRefno" maxlength="10" value="" />
                     </div>
                 </div>
                 <div class="filter-cell">
@@ -65,7 +65,7 @@
                         <label for="toRefno">To BetID</label>
                     </div>
                     <div class="edit-field span4">
-                        <input type="text" id="toRefno" maxlength="10" value="4418345211"  />
+                        <input type="text" id="toRefno" maxlength="10" value=""  />
                     </div>
                 </div>
                 <div class="filter-cell">
@@ -173,7 +173,7 @@
                                     <option value="a">Away/Under</option>
                                 </select>
                                 <span>HDP:</span>
-                                <input type="text" id="hdp" name="hdp" value="9999" size="5" maxlength="5" />
+                                <input type="text" id="hdp" name="hdp" value="" size="5" maxlength="5" />
                             </td>
                         </tr>
                         <tr id="tr-advance-item-1x2">

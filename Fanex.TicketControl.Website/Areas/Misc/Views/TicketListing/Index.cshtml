@@ -23,20 +23,11 @@
 @using (Html.BeginForm("Index", "TicketListing", FormMethod.Post, new { id = "TicketListingForm" }))
 {
 <div class="filter-bar">
-    <div class="expand-colapse-filter-bar">
+    <div class="colapse-expand-filter-bar">
         <div>
             <label>
                 <span><i class="icon-minus-sign"></i></span>
-                Collapse/Expand Filter
-            </label>
-        </div>
-    </div>
-
-    <div class="note-filter-bar">
-        <div>
-            <label>
-                <span><i class="icon-warning-sign"></i></span>
-                You can only delete the unsettled tickets and refunded ones
+                <span id="collapse-expand-label">Collapse Filter</span>
             </label>
         </div>
     </div>
