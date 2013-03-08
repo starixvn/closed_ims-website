@@ -139,10 +139,11 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
 
                                 var oldBetTypeId = ticket.BetTypeId;
                                 ticket.BetTypeId = parlayTicket.BetTypeId;
-                                var oddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);
+                                var oddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);                                
+                                var choiceHtml = builder.BuildChoice(parlayTicket, ticketHelper, null, false);
                                 ticket.BetTypeId = oldBetTypeId;
 
-                                var choiceHtml = builder.BuildChoice(parlayTicket, ticketHelper, null, false);
+                                var selection = GetSystemParlaySelection(Converter.ToString2(row["selection"]));
 
                                 ticketListingBetList.Items.Add(new TicketListingDetail
                                 {
@@ -152,8 +153,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                                     Currency = Converter.ToString2(row["currencyName"]),
                                     SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
                                     IsMixParlay = (Converter.ToInt(row["isMP"]) == 1 ? true : false),
-                                    Selection = Converter.ToString2(row["selection"]),
-                                    //ChoiceHtml = ticket.BetTeam,
+                                    Selection = selection,
                                     ChoiceHtml = choiceHtml,
                                     OddsHtml = oddsHtml
                                 });
@@ -241,7 +241,42 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             bool result = long.TryParse(row["transid"].ToString(), out transid);
             ticket.TransId = transid;
             return ticket;
-        } 
+        }
+
+        private string GetSystemParlaySelection(string selection)
+        {
+            string systemParlaySelection = "";
+
+            if (!string.IsNullOrEmpty(selection))
+            {
+                switch (selection)
+                {
+                    case "110":
+                        systemParlaySelection = "Trixie ";
+                        break;
+                    case "1110":
+                        systemParlaySelection = "Yankee";
+                        break;
+                    case "11110":
+                        systemParlaySelection = "Canadian";
+                        break;
+                    case "111110":
+                        systemParlaySelection = "Heinz";
+                        break;
+                    case "1111110":
+                        systemParlaySelection = "Super Heinz";
+                        break;
+                    case "11111110":
+                        systemParlaySelection = "Goliath";
+                        break;
+                    default:
+                        systemParlaySelection = "Trixie!";
+                        break;
+                }
+            }
+
+            return systemParlaySelection;
+        }
 
         #endregion
     }

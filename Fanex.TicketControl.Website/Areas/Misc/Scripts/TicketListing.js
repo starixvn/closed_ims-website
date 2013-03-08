@@ -618,11 +618,11 @@ TicketListing.prototype.RenderBetTypeCell = function (cell) {
 
     if (bettypeId === 29) // ie. System Parlay
     {
-        html += "<span style='color:blue' >" + cell.Value.SportEvent.BetType
-            + " - <span style='color: gray' >" + cell.Value.SportEvent.Selection + "</span></span><br />";
+        html += "<span style='color:blue' >" + cell.Value.BetType
+            + " - <span style='color: gray' >" + cell.Value.Selection + "</span></span><br />";
     }
     else {
-        html += cell.Value.SportEvent.BetType;
+        html += cell.Value.BetType;
     }
 
     return html;

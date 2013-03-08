@@ -230,23 +230,16 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         currentCell = eachRowRange[0, 2];
                         currentCell.Value = ticket.Ticket.UserName;
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
-
-                        bool isMixParlay = ticket.IsMixParlay;
-                        string Choice = string.Format("{0} {1} {2} {3} {4}", ticket.SportEvent.Choice, ticket.SportEvent.Hdp,
-                            ticket.Ticket.IsLive ? ticket.SportEvent.LiveScore : string.Empty, 
-                            isMixParlay ? "@" + ticket.OddsM : string.Empty,
-                            isMixParlay ? ticket.SportEvent.BetType : string.Empty);
-
+                        
+                        string choice = ticket.ChoiceHtml;
                         if (bettypeID == 90)
                         {
-                            Choice = string.Format("Group {0}-{1} {2}", ticket.Ticket.Handicap1, 
-                                ticket.Ticket.BetTeam, ticket.SportEvent.LiveScore);
+                            var liveScore = !ticket.Ticket.IsLive ? string.Empty : "[" + ticket.Ticket.BetId + "]";
+                            choice = string.Format("Group {0}-{1} {2}", ticket.Ticket.Handicap1, liveScore);
                         }
 
-                        Choice = Choice.Replace("&nbsp;", "");
-
                         currentCell = eachRowRange[0, 3];
-                        currentCell.Value = Choice;
+                        currentCell.Value = choice; // choice
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                         currentCell.Style.Font.Weight = ExcelFont.BoldWeight;
 
@@ -274,10 +267,11 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         currentCell.Value = ticket.Currency;
 
                         currentCell = eachRowRange[0, 8];
-                        currentCell.Value = ticket.SportEvent.BetType;
+                        currentCell.Value = ticket.BetType;
+
                         if (bettypeID == 29) // ie. System Parlay
                         {
-                            currentCell.Value += " - " + ticket.SportEvent.Selection;
+                            currentCell.Value = ticket.ParlayBetType + " - " + ticket.Selection;
                         }
 
                         currentCell = eachRowRange[0, 9];
@@ -302,6 +296,16 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             {
                 LoggingHandler.Log(ex);
             }
+        }
+
+        private void ParseChoiceHtml(string choiceHtml)
+        {
+
+        }
+
+        private void ParseOddsHtml(string choiceHtml)
+        {
+
         }
     }
 }
