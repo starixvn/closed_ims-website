@@ -95,6 +95,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     {
                         No = index,
                         BetId = Convert.ToString(BetId),
+                        SubTransId = Convert.ToString(row["SubTransId"]),
                         Player = Convert.ToString(row["username"]),
                         TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
                         BetType = Convert.ToInt32(row["bettype"]),                        

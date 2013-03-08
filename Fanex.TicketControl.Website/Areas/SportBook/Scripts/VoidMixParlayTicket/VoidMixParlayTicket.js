@@ -101,7 +101,7 @@ var parlayDelete = {
                     { Name: "CurrencyName", Value:currentRow.CurrencyName  },
                     { Name: "Score", Value: currentRow.Score },
                     { Name: "Status", Value: currentRow.Status },                    
-                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
+                    { Name: "CustomAdd", Value: currentRow.SubTransId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -158,23 +158,19 @@ var parlayDelete = {
         }
 
         var param = {
-            MatchId: $('#txtMatchId').val(),
-            f_transid: $('#fromRefno').val(),
-            t_transid: $('#toRefno').val(),
+            MatchId: $('#txtMatchId').val(),            
             Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
             LiveIndicator: $('#EventType').val(),
             LiveHomeScore: $('#LiveHomeScore').val(),
             LiveAwayScore: $('#LiveAwayScore').val(),
-            FromTransdate: $('#FromTransDate').val(),
-            ToTransdate: $('#ToTransdate').val(),
+            FromTransdate: $('#FromTransDate').val(),            
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
             Betteam515: helper.GetBetteam515(),
             Betteam430: helper.GetBetteam430(),
             Betteam6: helper.GetBetteam6(),
             Betteam14: helper.GetBetteam14(),
-            Betteam16: helper.GetBetteam16(),
-            SAFilter: $('#TicketType').val(),
+            Betteam16: helper.GetBetteam16(),            
             TransIds: helper.getSubTicketsChecked(),
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
@@ -192,7 +188,7 @@ var parlayDelete = {
 
           $.ajax({
                 type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/VoidSingleTicket",
+                url: window.rootUrl + "SportBook/VoidMixParlayTicket/VoidParlayTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),
