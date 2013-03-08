@@ -24,6 +24,23 @@
 @using (Html.BeginForm("Index", "VoidMixParlayTicket", FormMethod.Post, new { id = "VoidMixParlayTicketForm" }))
 {
     <div class="filter-bar">
+        <div class="colapse-expand-filter-bar">
+            <div>
+                <label>
+                    <span><i class="icon-minus-sign"></i></span>
+                    <span id="collapse-expand-label">Collapse Filter</span>
+                </label>
+            </div>
+        </div>
+        <div class="note-filter-bar">
+            <div>
+                <label>
+                    <span><i class="icon-warning-sign"></i></span>
+                    You can only delete the unsettled tickets and refunded ones
+                </label>
+            </div>
+        </div>
+
         <div class="filter-bar-inner">
             <div class="filter-row">
                 <div class="filter-cell">
@@ -413,8 +430,6 @@
             <a class="submit" href="javascript:;singleDetete.voidSingleTicket();">Void Bet</a>
         </fieldset>        
     </div>
-    
-    <div id="msg"></div> 
 }
 
 @section Foot {        

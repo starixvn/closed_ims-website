@@ -23,6 +23,15 @@
 @using (Html.BeginForm("Index", "TicketListing", FormMethod.Post, new { id = "TicketListingForm" }))
 {
 <div class="filter-bar">
+    <div class="colapse-expand-filter-bar">
+        <div>
+            <label>
+                <span><i class="icon-minus-sign"></i></span>
+                <span id="collapse-expand-label">Collapse Filter</span>
+            </label>
+        </div>
+    </div>
+
     <div class="filter-bar-inner">
     <div class="filter-row">
         <div class="filter-cell">
@@ -141,7 +150,6 @@
         <div class="freegrid" id="betlist-container" ></div>
     </div>
 </div>
-<div id="msg"></div>
 
 @section Foot {
     @Scripts.Render("~/areas/misc/ticketlisting")
