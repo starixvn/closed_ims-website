@@ -132,7 +132,8 @@ TicketListing.prototype.Init = function () {
                 self.DOMElement.$optFilters.hide();
             }
         } else {
-            // hide Live Type drop down
+            // hide Live Type drop down                
+            self.DOMElement.$eventTypeWrp.hide();
             self.DOMElement.$optFilters.hide();
         }
 
@@ -226,6 +227,8 @@ TicketListing.prototype.Init = function () {
                     console.log('has error :(');
                 },
                 complete: function () {
+                    var height = self.DOMElement.$ticketsContainer.height();
+                    $(window).scrollTop(height);
                     NapTicketControl.enableInput();
                 }
             });
@@ -473,6 +476,7 @@ TicketListing.prototype.RequestBetList = function (dataReq) {
             console.log('has error :(');
         },
         complete: function () {
+            $(window).scrollTop($(document).height());
             NapTicketControl.enableInput();
         }
     });
@@ -501,7 +505,7 @@ TicketListing.prototype.RenderTicketListingBetlist = function (betlist, matchId,
         columns: [
             { HeaderText: "BetID", Name: "betId", Width: 80, HeaderAlign: "center", CellAlign: "center" },
             { HeaderText: "Trans.Date", Name: "transDate", Width: 140, HeaderAlign: "center", CellAlign: "left" },
-            { HeaderText: "Member", Name: "member", Width: 100, HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Member", Name: "member", Width: 130, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Choice", Name: "choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Odds", Name: "odds", Width: 80, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Stake", Name: "stake", Width: 80, HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0.00" },

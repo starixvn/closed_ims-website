@@ -84,6 +84,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                     workSheet.Columns[colIndex].Width = 100 * ExcelExtensions.FONT_WIDTH;
                 }
 
+                
                 workSheet.Columns[0].Width = 120 * ExcelExtensions.FONT_WIDTH;
                 workSheet.Columns[1].Width = 160 * ExcelExtensions.FONT_WIDTH;
                 workSheet.Columns[2].Width = 160 * ExcelExtensions.FONT_WIDTH;
@@ -206,7 +207,13 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 {
                     foreach (var ticket in ticketListing.Items)
                     {
+                        
                         CellRange eachRowRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber - 1);
+                        if (ticket.IsMixParlay == true)
+                        {
+                            workSheet.Rows[currentRow].Height = workSheet.Rows[currentRow].Height * 2;
+                        }
+
                         CellStyle rowStyle;
                         var bettypeID = ticket.Ticket.BetTypeId;
 
@@ -240,33 +247,16 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         }
                         else
                         {
-                            string betteam, handicap, livescore;
-                            ParseChoiceHtml(ticket.ChoiceHtml, out betteam, out handicap, out livescore);
-
-                            if (!string.IsNullOrEmpty(betteam))
-                            {
-                                choice += betteam;
-                            }
-
-                            if (!string.IsNullOrEmpty(handicap))
-                            {
-                                choice += " " + handicap;
-                            }
-
-                            if(!string.IsNullOrEmpty(livescore))
-                            {
-                                choice += " " + livescore;
-                            }
+                            choice = GetChoiceInfo(ticket);
                         }
+
                         currentCell = eachRowRange[0, 3];
                         currentCell.Value = choice; // choice
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                         currentCell.Style.Font.Weight = ExcelFont.BoldWeight;
 
-                        string OddName = CacheRef.GetOddsTypeName(ticket.Ticket.OddsType);
                         currentCell = eachRowRange[0, 4];
-                        currentCell.Value = string.Format("{0} {1}", ticket.Ticket.Odds.ToString("0.###"), 
-                            string.IsNullOrEmpty(OddName) ? string.Empty : "(" + OddName + ")");
+                        currentCell.Value = GetOddsInfo(ticket);
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                         currentCell.Style.Font.Weight = ExcelFont.BoldWeight;
 
@@ -318,11 +308,13 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             }
         }
 
-        private void ParseChoiceHtml(string choiceHtml, out string betteam, out string handicap, out string livescore)
+        private string GetChoiceInfo(TicketListingDetail ticketDetail)
         {
+            var choiceHtml = ticketDetail.ChoiceHtml;
+            string betteam, handicap, livescore;
 
             XmlDocument xmlDoc = new XmlDocument();
-            choiceHtml = choiceHtml.Replace("&nbsp;", "");
+            choiceHtml = choiceHtml.Replace("&nbsp;", " ");
             xmlDoc.LoadXml(choiceHtml);
             betteam = string.Empty;
             handicap = string.Empty;
@@ -353,11 +345,38 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         break;
                 }
             }
+            string choice = string.Empty;
+
+            if (!string.IsNullOrEmpty(betteam))
+            {
+                choice += betteam;
+            }
+
+            if (!string.IsNullOrEmpty(handicap))
+            {
+                choice += " " + handicap;
+            }
+
+            if (!string.IsNullOrEmpty(livescore))
+            {
+                choice += " " + livescore;
+            }
+
+            if (ticketDetail.IsMixParlay)
+            {
+                choice += "\n" + ticketDetail.ParlayBetType;
+            }
+
+            return choice;
         }
 
-        private void ParseOddsHtml(string choiceHtml)
+        private string GetOddsInfo(TicketListingDetail ticketDetail)
         {
+            string OddName = CacheRef.GetOddsTypeName(ticketDetail.Ticket.OddsType);
+            var odds = string.Format("{0} {1}", string.Format("{0:#,#.###}", ticketDetail.Ticket.Odds),
+                            string.IsNullOrEmpty(OddName) ? string.Empty : "(" + OddName + ")");
 
+            return odds;
         }
     }
 }

@@ -172,6 +172,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             }
 
             ticketListingBetList.TotalItem = ticketListingBetList.Items.Count;
+            ticketListingBetList.Items = ticketListingBetList.Items.OrderBy(t => t.Ticket.TransId).ToList();
             return ticketListingBetList;
         }
 
