@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fanex.NAP.Framework.Data;
+using Fanex.TicketControl.Core.Models;
 
 namespace Fanex.TicketControl.SportBook.Criteria
 {
@@ -27,5 +28,7 @@ namespace Fanex.TicketControl.SportBook.Criteria
         public int ErrCode { get; set; }
 
         public string ErrMsg { get; set; }
+
+        public Message Msg { get; set; }
     }
 }

@@ -53,7 +53,72 @@
             <div class="freegrid " id="ticketInfo">
             </div>
         </div>
-    
+        <fieldset id="fsMessage" class="form" style="display: none">
+            <legend><span><i class="icon-envelope"></i>&nbsp;</span>Message</legend>
+            <h6>
+                <em class="em"><u>Note</u>:
+                    <br />
+                    + Please include "@@@@" in your message for replacing ticket numbers.
+                    <br />
+                    + English and Mandarin are required.
+                    <br />
+                    <span><span id="spMoreMsg">[+]</span> <span onclick="helper.displayMoreMsg()" style="cursor: pointer;
+                        text-decoration: underline">More Messages</span></span> </em>
+            </h6>
+            <table>
+                <tr>
+                    <td>
+                        <div>
+                            <label for="msg-en">
+                                English</label>
+                            <textarea rows="1" id="msg-en" class="input-xlarge"></textarea>
+                            <label for="msg-ch">
+                                Chinese (Mandarin)</label>
+                            <textarea rows="1" id="msg-ch" class="input-xlarge"></textarea>
+                            <label for="msg-cs">
+                                Chinese (Cantonese)</label>
+                            <textarea rows="1" id="msg-cs" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                    <td style="width: 50px">
+                    </td>
+                    <td>
+                        <div class="other-languages" style="display: none">
+                            <label for="msg-en">
+                                th</label>
+                            <textarea rows="1" id="msg-th" class="input-xlarge"></textarea>
+                            <label for="msg-it">
+                                It</label>
+                            <textarea rows="1" id="msg-it" class="input-xlarge"></textarea>
+                            <label for="msg-jp">
+                                Jp</label>
+                            <textarea rows="1" id="msg-jp" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <div class="other-languages" style="display: none">
+                            <label for="msg-es">
+                                Es</label>
+                            <textarea rows="1" id="msg-es" class="input-xlarge"></textarea>
+                            <label for="msg-ko">
+                                Ko</label>
+                            <textarea rows="1" id="msg-ko" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                         <a class="submit" href="javascript:;recoverTicket.actionRecover();">Recover Ticket</a>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
     </div>
 }
 

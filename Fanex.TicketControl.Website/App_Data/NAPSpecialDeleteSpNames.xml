@@ -6,7 +6,7 @@
   </Function>  
   
   <Function Name="Core">
-    <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="apollo_db06" />
+    <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="db053" />
     <Setting Key="Core_ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="apollo_db06" />
     <Setting Key="Core_Dot_Msg_SetMessage" SpName="Dot_Msg_SetMessage" DbName="apollo_dbMsg" />
     <Setting Key="Core_Dot_Msg_SetUsrMessage" SpName="Dot_Msg_SetUsrMessage" DbName="apollo_dbMsg" />
@@ -36,8 +36,7 @@
   </Function>
 
   <Function Name="RecoverTicket">
-    <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="apollo_db06" />
-    <Setting Key="RecoverTicket_BettransRecoverSpecialBets" SpName="Acc_BettransRecoverSpecialBets" DbName="apollo_transdb" />
-    <Setting Key="RecoverTicket_Msg_Remove" SpName="Acc_Msg_Remove" DbName="apollo_dbMsg" />
+    <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="db053" />
+    <Setting Key="RecoverTicket_BettransRecoverSpecialBets" SpName="Acc_BettransRecoverSpecialBets" DbName="main" />    
   </Function>
 </Functions>

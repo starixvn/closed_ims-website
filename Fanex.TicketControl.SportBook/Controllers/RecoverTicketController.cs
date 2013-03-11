@@ -56,6 +56,9 @@ using Fanex.TicketControl.SportBook.Services.Interface;
             criteria.ErrCode = 0;
             criteria.ErrMsg = string.Empty;
 
+            criteria.Msg.CreatorId = criteria.UserId;
+            criteria.Msg.CreatorName = CurrentSession.Username;
+
             var rs = _service.RecoverTicket(criteria);
             return Json(rs);
         }
