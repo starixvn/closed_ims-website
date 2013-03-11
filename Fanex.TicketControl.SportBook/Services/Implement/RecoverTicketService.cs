@@ -164,5 +164,24 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
             return ticket;
         }
+
+
+        public ActionResult RecoverTicket(RecoverTicket criteria)
+        {
+            ActionResult result = new ActionResult();
+            try
+            {
+                DataSet ds = _repository.RecoverTicket(criteria, ref result);
+                if (result.ErrorCode == 0) {
+                    result.ErrorCode = -100;
+                    result.ErrorMsg = "Transaction " + criteria.TransId + " was recovered.";
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return result;
+        }
     }
 }

@@ -37,5 +37,6 @@
 
   <Function Name="RecoverTicket">
     <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="db053" />
+    <Setting Key="RecoverTicket_BettransRecoverSpecialBets" SpName="Acc_BettransRecoverSpecialBets" DbName="main" />
   </Function>
 </Functions>
