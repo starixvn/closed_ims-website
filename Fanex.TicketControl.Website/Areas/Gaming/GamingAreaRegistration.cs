@@ -3,7 +3,7 @@
     using System.Web.Mvc;
     using System.Web.Optimization;
 
-    public class MiscAreaRegistration : AreaRegistration
+    public class GamingAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {
