@@ -372,9 +372,37 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
         private string GetOddsInfo(TicketListingDetail ticketDetail)
         {
-            string OddName = CacheRef.GetOddsTypeName(ticketDetail.Ticket.OddsType);
-            var odds = string.Format("{0} {1}", string.Format("{0:#,#.###}", ticketDetail.Ticket.Odds),
-                            string.IsNullOrEmpty(OddName) ? string.Empty : "(" + OddName + ")");
+            var oddsHtml = ticketDetail.OddsHtml;
+            string oddsValue, oddsType;
+            oddsValue = string.Empty;
+            oddsType = string.Empty;
+
+            XmlDocument xmlDoc = new XmlDocument();
+            oddsHtml = oddsHtml.Replace("\"", "'");
+            oddsHtml = "<div>" + oddsHtml + "</div>";
+            xmlDoc.LoadXml(oddsHtml);
+            var foundSpanNodes = xmlDoc.SelectNodes("//span");
+            var count = foundSpanNodes.Count;
+            switch(count)
+            {
+                case 0:
+                    // do nothing
+                    break;
+                case 1:
+                    oddsValue = foundSpanNodes[0].InnerText.Trim();
+                    break;
+                default: 
+                    oddsValue = foundSpanNodes[0].InnerText.Trim();
+                    oddsType = foundSpanNodes[1].InnerText.Trim();
+                    break;
+            }
+
+            string odds = oddsValue;
+
+            if (!string.IsNullOrEmpty(oddsType))
+            {
+                odds += " (" + oddsType + ")";
+            }
 
             return odds;
         }
