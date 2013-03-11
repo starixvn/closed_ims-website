@@ -37,22 +37,10 @@ namespace Fanex.TicketControl.Misc.Entities
 
         public bool IsMixParlay { get; set; }
 
-        public string BetType
-        {
-            get
-            {
-                return CacheRef.GetBettype(this.Ticket.BetTypeId);
-            }
-        } 
+        public string BetType { get; set; }
 
-        public string ParlayBetType // bettype of sub Ticket
-        {
-            get
-            {
-                return CacheRef.GetBettype(this.ParlayTicket.BetTypeId);
-            }
-        }
-
+        public string ParlayBetType { get; set; }
+        
         public string Selection { get; set; }
 
         #endregion

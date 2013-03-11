@@ -115,6 +115,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                             {
                                 var ticket = MappingTicket(row);
                                 ticket.BetId = Converter.ToInt(row["betid"]);
+                                
 
                                 ticketListingBetList.Items.Add(new TicketListingDetail { 
                                     Ticket = ticket,
@@ -123,7 +124,8 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                                     ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false),
                                     OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
                                     Currency = Converter.ToString2(row["currencyName"]),
-                                    SAFlag = Converter.ToBool(row["SecAcceptFlag"])
+                                    SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
+                                    BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive)
                                 });
                             }
 
@@ -156,7 +158,9 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                                     IsMixParlay = (Converter.ToInt(row["isMP"]) == 1 ? true : false),
                                     Selection = selection,
                                     ChoiceHtml = choiceHtml,
-                                    OddsHtml = oddsHtml
+                                    OddsHtml = oddsHtml,
+                                    BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive),
+                                    ParlayBetType = GetBetTypeName(parlayTicket.BetTypeId, parlayTicket.IsLive)
                                 });
                             }
 
