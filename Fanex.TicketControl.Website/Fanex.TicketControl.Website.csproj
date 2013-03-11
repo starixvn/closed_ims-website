@@ -555,10 +555,11 @@
     <Content Include="Content\fonts\ProximaNovaReg.woff" />
     <Content Include="Areas\SportBook\Views\VoidMixParlayTicket\Index.cshtml" />
     <Content Include="Areas\SportBook\Styles\VoidMixParlayTicket.less" />
-    <None Include="Areas\Gaming\Styles\VoidNumberGame.less" />
-    <Content Include="Areas\Gaming\Views\VoidNumberGameTicket\Index.cshtml" />
     <Content Include="Areas\SportBook\Views\RecoverTicket\Index.cshtml" />
+    <Content Include="Areas\Gaming\Styles\VoidNumberGameTicket.less" />
     <Content Include="Areas\Gaming\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Gaming\Views\VoidNumberGameTicket\Index.cshtml" />
+    <Content Include="Areas\Gaming\Views\Web.config" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
@@ -580,8 +581,6 @@
     <Content Include="Areas\Misc\Views\TicketListing\Index.cshtml" />
     <Content Include="Areas\Misc\Views\Web.config" />
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
-    <Content Include="Areas\Gaming\Views\DeleteTicketLiveCasino\Index.cshtml" />
-    <Content Include="Areas\Gaming\Views\Web.config" />
     <Content Include="Areas\Misc\Styles\TicketListing.less" />
     <Content Include="Areas\Misc\Views\_ViewStart.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
@@ -611,7 +610,7 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Gaming\Scripts\" />
+    <Folder Include="Areas\Gaming\Scripts\VoidNumberGameTicket\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
@@ -628,10 +627,6 @@
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.TicketControl.Gaming\Gaming.csproj">
-      <Project>{87CAE325-ECE6-4EF6-9C35-5396DCF60AF5}</Project>
-      <Name>Gaming</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.TicketControl.Misc\Misc.csproj">
       <Project>{AA985430-B9B0-4321-B874-D99926D5E986}</Project>
       <Name>Misc</Name>
@@ -639,6 +634,10 @@
     <ProjectReference Include="..\Fanex.TicketControl.SportBook\SportBook.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>SportBook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gaming\Gaming.csproj">
+      <Project>{9FE18DC8-ADD0-4B06-A6A6-461310D7FF86}</Project>
+      <Name>Gaming</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
