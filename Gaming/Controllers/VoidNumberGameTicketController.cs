@@ -14,15 +14,25 @@ namespace Fanex.TicketControl.Gaming.Controllers
     using System.Web.Mvc;
     using Fanex.TicketControl.Core.Web.Controllers;
     using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Gaming.Criteria;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class VoidNumberGameTicketController : BaseController
     {
 
+
+
         public ActionResult Index()
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult VoidNumberGameTicket(GetNumberGameTicketCriteria criteria)
+        {
+            return null; // Json(_deleteSingleTicketService.GetSingleTicket(criteria));
+        }
+
 
     }
 }

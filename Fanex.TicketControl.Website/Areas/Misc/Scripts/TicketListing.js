@@ -469,7 +469,6 @@ TicketListing.prototype.RequestBetList = function (dataReq) {
         },
         success: function (betlist) {
             // check result to see any error from server
-            console.log('render bet list here.');
             self.RenderTicketListingBetlist(betlist, dataReq.MatchID, dataReq.BetTypeName, dataReq.PageIndex, dataReq.PageSize);
         },
         error: function () {

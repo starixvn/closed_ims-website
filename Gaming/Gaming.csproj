@@ -31,6 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.BetList.Core, Version=1.0.4814.25681, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.BetList.Core.TicketHelper">
+      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.TicketHelper.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Data">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Data.dll</HintPath>
     </Reference>
@@ -41,6 +48,7 @@
       <HintPath>..\_Dependency\FanexLibs\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -51,13 +59,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\VoidNumberGameTicketController.cs" />
+    <Compile Include="Criteria\GetNumberGameTicketCriteria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Impl\VoidNumberGameTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IVoidNumberGameTicketRepository.cs" />
+    <Compile Include="Services\Impl\VoidNumberGameTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidNumberGameTicketService.cs" />
+    <Compile Include="ViewModels\NumberGameTicketViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.TicketControl.Core\Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

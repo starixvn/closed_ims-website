@@ -8,7 +8,7 @@
             numDisplayEntries: 5,
             currentPage: 0,
             numEdgeEntries: 3,
-            linkTo: "#",
+            linkTo: "javascript:void(0)",
             prevText: "&laquo; ",
             nextText: "&raquo;",
             ellipseText: "...",

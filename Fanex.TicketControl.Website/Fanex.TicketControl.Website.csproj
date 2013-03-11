@@ -192,6 +192,10 @@
     <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="App_Data\NumberWheelChoice.txt" />
+    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicket.js" />
+    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketHelper.js" />
+    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketManager.js" />
+    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketValidateData.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Scripts\RecoverTicket\RecoverTicket.js" />
@@ -610,7 +614,6 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Gaming\Scripts\VoidNumberGameTicket\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />

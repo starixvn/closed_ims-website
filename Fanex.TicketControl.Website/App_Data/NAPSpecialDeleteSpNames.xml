@@ -17,7 +17,6 @@
   <Function Name="Misc">
     <Setting Key="Misc_Acc_SiteSel_Licensee" SpName="Acc_SiteSel_Licensee" DbName="archive" />
     <!--<Setting Key="Misc_SelBettype" SpName="Acc_BetTypeSel" DbName="db053" ></Setting>-->
-    
     <Setting Key="Acc_Rpt_TicketsListing" SpName="Acc_Rpt_TicketsListing" DbName="apollo_db06" ></Setting>
     <Setting Key="Acc_Rpt_TicketsListingDetail" SpName="Acc_Rpt_TicketsListingDetail" DbName="apollo_db06" ></Setting>
     <!--<Setting Key="Acc_Rpt_TicketsListing" SpName="Acc_Rpt_TicketsListing" DbName="archive" ></Setting>
@@ -39,4 +38,11 @@
     <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="apollo_db06" />
     <Setting Key="RecoverTicket_BettransRecoverSpecialBets" SpName="Acc_BettransRecoverSpecialBets" DbName="apollo_transdb" />
   </Function>
+
+  <Function Name="NumberGameTicket">
+    <Setting Key="NumberGameTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel_NumberGame" DbName="apollo_db06" />
+    <Setting Key="NumberGameTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial_NumberGame" DbName="apollo_transdb" />
+  </Function>
+  
+  
 </Functions>
