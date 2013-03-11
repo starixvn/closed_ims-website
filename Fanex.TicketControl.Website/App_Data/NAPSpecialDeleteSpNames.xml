@@ -38,5 +38,6 @@
   <Function Name="RecoverTicket">
     <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="apollo_db06" />
     <Setting Key="RecoverTicket_BettransRecoverSpecialBets" SpName="Acc_BettransRecoverSpecialBets" DbName="apollo_transdb" />
+    <Setting Key="RecoverTicket_Msg_Remove" SpName="Acc_Msg_Remove" DbName="apollo_dbMsg" />
   </Function>
 </Functions>

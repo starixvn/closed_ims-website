@@ -49,7 +49,7 @@ using Fanex.TicketControl.SportBook.Services.Interface;
         }
 
         [HttpPost]
-        public JsonResult RecoverTicket(RecoverTicket criteria)
+        public JsonResult RecoverTicket(RecoverTicketCriteria criteria)
         {
             criteria.UserId = CurrentSession.UserId;
             criteria.Ip = Helper.GetClientIP();

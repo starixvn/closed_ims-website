@@ -6,7 +6,7 @@ using Fanex.NAP.Framework.Data;
 
 namespace Fanex.TicketControl.SportBook.Criteria
 {
-    public class RecoverTicket : CriteriaBase
+    public class RecoverTicketCriteria : CriteriaBase
     {
         public override string GetSettingKey()
         {

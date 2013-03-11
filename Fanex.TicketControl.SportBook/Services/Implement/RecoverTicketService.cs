@@ -166,7 +166,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
         }
 
 
-        public ActionResult RecoverTicket(RecoverTicket criteria)
+        public ActionResult RecoverTicket(RecoverTicketCriteria criteria)
         {
             ActionResult result = new ActionResult();
             try
