@@ -373,7 +373,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
         private string GetOddsInfo(TicketListingDetail ticketDetail)
         {
             string OddName = CacheRef.GetOddsTypeName(ticketDetail.Ticket.OddsType);
-            var odds = string.Format("{0} {1}", string.Format("{0:0,0.###}", ticketDetail.Ticket.Odds),
+            var odds = string.Format("{0} {1}", string.Format("{0:#,#.###}", ticketDetail.Ticket.Odds),
                             string.IsNullOrEmpty(OddName) ? string.Empty : "(" + OddName + ")");
 
             return odds;
