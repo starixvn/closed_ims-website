@@ -236,6 +236,7 @@
     <Content Include="Content\img\loader.gif" />
     <Content Include="Content\img\q_Icon2_1.png" />
     <Content Include="Content\img\q_Icon_2.png" />
+    <Content Include="Content\base\img\undo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\NapTicketControl.Helper.js" />
