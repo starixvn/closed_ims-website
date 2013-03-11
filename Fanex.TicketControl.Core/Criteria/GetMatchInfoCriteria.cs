@@ -20,6 +20,8 @@ namespace Fanex.TicketControl.Core.Criteria
 
         public int MatchId { get; set; }
 
+        public Int64 TransId { get; set; }
+
         public override string GetSettingKey()
         {
             return "Core_MatchSelByID";

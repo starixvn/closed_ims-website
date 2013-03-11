@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Functions>
 
   <Function Name="Test">
@@ -35,9 +35,7 @@
     <Setting Key="ParlayTicket_BettransDelSpecialDel_MixParlay" SpName="Acc_BettransDelSpecialDel_MixParlay" DbName="main" />
   </Function>
 
-  <Function Name="NumberGameTicket">
-    <Setting Key="NumberGameTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel" DbName="apollo_db06" />
-    <Setting Key="NumberGameTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial" DbName="apollo_transdb" />
+  <Function Name="RecoverTicket">
+    <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="db053" />
   </Function>
-  
 </Functions>

@@ -13,15 +13,18 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.TicketControl.Core.Web.Controllers;
+    using Fanex.TicketControl.SportBook.Criteria;
+using Fanex.TicketControl.SportBook.Services.Interface;
+    using Fanex.TicketControl.SportBook.Services.Implement;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class RecoverTicketController : BaseController
     {
-
+        IRecoverTicketService _service;
 
         public RecoverTicketController()
         {
-            
+            _service = new RecoverTicketService();
         }
         
         public ActionResult Index()
@@ -29,6 +32,19 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return View();
         }
 
-       
+
+        [HttpPost]
+        public JsonResult GetTicketRecover(GetRecoverTicket criteria)
+        {
+            Core.Models.ActionResult rs = new Core.Models.ActionResult();
+
+            var data = _service.GetTicketRecover(criteria, ref rs);
+            if (rs.ErrorCode == 0)
+            {
+                return Json(data);
+            }
+
+            return Json(rs);
+        }
     }
 }
