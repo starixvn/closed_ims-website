@@ -6,8 +6,8 @@
   </Function>  
   
   <Function Name="Core">
-    <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="archive" />
-    <Setting Key="Core_ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="archive" />
+    <Setting Key="Core_MatchSelByID" SpName="Acc_MatchSelByID" DbName="apollo_db06" />
+    <Setting Key="Core_ExchangeCurrencySel" SpName="Acc_ExchangeCurrencySel" DbName="apollo_db06" />
     <Setting Key="Core_Dot_Msg_SetMessage" SpName="Dot_Msg_SetMessage" DbName="apollo_dbMsg" />
     <Setting Key="Core_Dot_Msg_SetUsrMessage" SpName="Dot_Msg_SetUsrMessage" DbName="apollo_dbMsg" />
     <Setting Key="Core_CheckMatchIDwithRefno" SpName="Acc_SpecialDel_CheckMatchIDwithRefno" DbName="apollo_db06" />

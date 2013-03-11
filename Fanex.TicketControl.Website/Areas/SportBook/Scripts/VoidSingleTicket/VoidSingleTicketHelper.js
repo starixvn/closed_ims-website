@@ -201,12 +201,12 @@
         return checkedVals;
     },
 
-    GetLiveScore: function(){
+    GetLiveScore: function () {
         var param = {
             LiveHomeScore: $('#EventType').val() == '1' ? $('#LiveHomeScore').val() : '',
             LiveAwayScore: $('#EventType').val() == '1' ? $('#LiveAwayScore').val() : '',
             FromTransdate: $('#EventType').val() == '1' ? $('#FromTransDate').val() : '',
-            ToTransdate:   $('#EventType').val() == '1' ? $('#ToTransDate').val()   : ''
+            ToTransdate: $('#EventType').val() == '1' ? $('#ToTransDate').val() : ''
         };
 
         return param;
@@ -267,10 +267,19 @@
 
     displayContent: function (isShow) {
         if (isShow) {
-            $('#dvContent').show();
+            $('#report-content').show();
         }
         else {
-            $('#dvContent').hide();
+            $('#report-content').hide();
+            $('#txtMatchId').val('');
+            $('#fromRefno').val('');
+            $('#toRefno').val('');
+            $('#toRefno').val('');
+            $('#LiveHomeScore').val('');
+            $('#LiveAwayScore').val('');
+            $('#LiveAwayScore').val('');
+            $('#TransDate').removeAttr('checked');
+            helper.setStatusAllBettype(false);
         }
     }
 };
