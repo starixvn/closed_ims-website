@@ -1,10 +1,12 @@
 ﻿namespace Fanex.TicketControl.Gaming.Controllers
 {
-    using System.Diagnostics.CodeAnalysis;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
     using System.Web.Mvc;
     using Fanex.TicketControl.Core.Web.Controllers;
-    using Fanex.TicketControl.Core.Criteria;
-    
+    using System.Diagnostics.CodeAnalysis;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class VoidNumberGameTicketController : BaseController

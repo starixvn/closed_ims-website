@@ -16,6 +16,8 @@ namespace Fanex.TicketControl.Misc.Entities
 
         public string BetType { get; set; }
 
+        public string Selection { get; set; } // only used for system parlay
+
         public string Event { get; set; }
 
         public string SportType { get; set; }

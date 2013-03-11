@@ -30,6 +30,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
     using System.Text;
     using System.Drawing;
     using Fanex.TicketControl.Core.Utils;
+    using System.Xml;
 
     /// <summary>
     /// TODO: Update summary.
@@ -70,7 +71,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 ExcelWorksheetCollection worksheets = excelFile.Worksheets;
                 string sheetName = "Tickets Listing";
                 ExcelWorksheet workSheet = worksheets.Add(sheetName);
-                int colNumber = 10;
+                int colNumber = 11;
                 int currentRow = 0, currentColumn = 0;
                 CellRange currentCellRange;
                 ExcelCell currentCell;
@@ -88,6 +89,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 workSheet.Columns[2].Width = 160 * ExcelExtensions.FONT_WIDTH;
                 workSheet.Columns[3].Width = 350 * ExcelExtensions.FONT_WIDTH;
                 workSheet.Columns[4].Width = 120 * ExcelExtensions.FONT_WIDTH;
+                workSheet.Columns[8].Width = 150 * ExcelExtensions.FONT_WIDTH;
 
                 #endregion
 
@@ -148,7 +150,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 #region Bet List
 
                 #region Bet List Header
-                CellRange headerTicketCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber-1);
+                CellRange headerTicketCellRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber - 1);
                 headerTicketCellRange.Style = headerCellStyle;
                 currentRow++;
 
@@ -177,9 +179,12 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 currentCell.Value = Labels.Currency;
 
                 currentCell = headerTicketCellRange[0, 8];
-                currentCell.Value = Labels.Status;
+                currentCell.Value = Labels.Bettype;
 
                 currentCell = headerTicketCellRange[0, 9];
+                currentCell.Value = Labels.Status;
+
+                currentCell = headerTicketCellRange[0, 10];
                 currentCell.Value = Labels.SA;
 
                 #endregion
@@ -203,16 +208,17 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                     {
                         CellRange eachRowRange = workSheet.Cells.GetSubrangeAbsolute(currentRow, 0, currentRow, colNumber - 1);
                         CellStyle rowStyle;
+                        var bettypeID = ticket.Ticket.BetTypeId;
 
                         if (currentRow % 2 == 0)
                         {
                             rowStyle = evenRowStyle;
-                            decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.EVEN_ROW_COLOR, false, false, false);
+                            decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.EVEN_ROW_COLOR, false, false, true);
                         }
                         else
                         {
                             rowStyle = oddRowStyle;
-                            decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.ODD_ROW_COLOR, false, false, false);
+                            decimalNumberStyle = ExcelExtensions.GetCellNumberStyle(FormatKey.TWO_DECIMAL_DIGIT_FORMAT, ExcelExtensions.ODD_ROW_COLOR, false, false, true);
                         }
 
                         eachRowRange.Style = rowStyle;
@@ -225,28 +231,42 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         currentCell = eachRowRange[0, 2];
                         currentCell.Value = ticket.Ticket.UserName;
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Left;
-
-                        bool isMixParlay = ticket.IsMixParlay;
-                        string Choice = string.Format("{0} {1} {2} {3} {4}", ticket.SportEvent.Choice, ticket.SportEvent.Hdp,
-                            ticket.Ticket.IsLive ? ticket.SportEvent.LiveScore : string.Empty,
-                            isMixParlay ? "@" + ticket.Ticket.Odds : string.Empty,
-                            isMixParlay ? ticket.SportEvent.BetType : string.Empty);
-
-                        if (ticket.Ticket.BetTypeId == 90)
+                        
+                        string choice = string.Empty;
+                        if (bettypeID == 90)
                         {
-                            Choice = string.Format("Group {0}-{1} {2}", ticket.Ticket.Handicap1, 
-                                ticket.Ticket.BetTeam, ticket.SportEvent.LiveScore);
+                            var liveScore = !ticket.Ticket.IsLive && ticket.Ticket.BetId.HasValue ? string.Empty : "[" + ticket.Ticket.BetId.Value + "]";
+                            choice = string.Format("Group {0}-{1} {2}", ticket.Ticket.Handicap1, ticket.Ticket.BetTeam, liveScore);
                         }
-                        Choice = Choice.Replace("&nbsp;", "");
+                        else
+                        {
+                            string betteam, handicap, livescore;
+                            ParseChoiceHtml(ticket.ChoiceHtml, out betteam, out handicap, out livescore);
 
+                            if (!string.IsNullOrEmpty(betteam))
+                            {
+                                choice += betteam;
+                            }
+
+                            if (!string.IsNullOrEmpty(handicap))
+                            {
+                                choice += " " + handicap;
+                            }
+
+                            if(!string.IsNullOrEmpty(livescore))
+                            {
+                                choice += " " + livescore;
+                            }
+                        }
                         currentCell = eachRowRange[0, 3];
-                        currentCell.Value = Choice;
+                        currentCell.Value = choice; // choice
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                         currentCell.Style.Font.Weight = ExcelFont.BoldWeight;
 
                         string OddName = CacheRef.GetOddsTypeName(ticket.Ticket.OddsType);
                         currentCell = eachRowRange[0, 4];
-                        currentCell.Value = string.Format("{0} ({1})", ticket.Ticket.Odds.ToString("0.#####"), OddName);
+                        currentCell.Value = string.Format("{0} {1}", ticket.Ticket.Odds.ToString("0.###"), 
+                            string.IsNullOrEmpty(OddName) ? string.Empty : "(" + OddName + ")");
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                         currentCell.Style.Font.Weight = ExcelFont.BoldWeight;
 
@@ -257,22 +277,27 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                         currentCell = eachRowRange[0, 6];
                         currentCell.Style = decimalNumberStyle;
-                        decimal winlost = ticket.Ticket.Winlost;
-                        if (winlost < 0)
+                        if (!string.IsNullOrEmpty(ticket.AgentWinloss))
                         {
-                            winlost = -1 * winlost;
-                            currentCell.Style.Font.Color = Color.Red;
+                            currentCell.Value = ticket.Ticket.Winlost;
                         }
-                        currentCell.Value = winlost;
                         currentCell.Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
 
                         currentCell = eachRowRange[0, 7];
                         currentCell.Value = ticket.Currency;
 
                         currentCell = eachRowRange[0, 8];
-                        currentCell.Value = ticket.Ticket.Status;
+                        currentCell.Value = ticket.BetType;
+
+                        if (bettypeID == 29) // ie. System Parlay
+                        {
+                            currentCell.Value = ticket.BetType + " - " + ticket.Selection;
+                        }
 
                         currentCell = eachRowRange[0, 9];
+                        currentCell.Value = ticket.Ticket.Status;
+
+                        currentCell = eachRowRange[0, 10];
                         currentCell.Value = ticket.SAFlag ? "X" : string.Empty;
 
                         currentRow++;
@@ -292,5 +317,48 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 LoggingHandler.Log(ex);
             }
         }
+
+        private void ParseChoiceHtml(string choiceHtml, out string betteam, out string handicap, out string livescore)
+        {
+
+            XmlDocument xmlDoc = new XmlDocument();
+            choiceHtml = choiceHtml.Replace("&nbsp;", "");
+            xmlDoc.LoadXml(choiceHtml);
+            betteam = string.Empty;
+            handicap = string.Empty;
+            livescore = string.Empty;
+
+            var foundSpanNodes = xmlDoc.SelectNodes("//span");
+            if (foundSpanNodes.Count > 0)
+            {
+                var betChoiceNode = foundSpanNodes[0];
+                int count = betChoiceNode.ChildNodes.Count;
+
+                switch (count)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        betteam = betChoiceNode.ChildNodes[0].InnerText.Trim();
+                        break;
+
+                    case 2:
+                        betteam = betChoiceNode.ChildNodes[0].InnerText.Trim();
+                        handicap = betChoiceNode.ChildNodes[1].InnerText.Trim();
+                        break;
+                    default:
+                        betteam = betChoiceNode.ChildNodes[0].InnerText.Trim();
+                        handicap = betChoiceNode.ChildNodes[1].InnerText.Trim();
+                        livescore = betChoiceNode.ChildNodes[2].InnerText.Trim();
+                        break;
+                }
+            }
+        }
+
+        private void ParseOddsHtml(string choiceHtml)
+        {
+
+        }
     }
 }
+

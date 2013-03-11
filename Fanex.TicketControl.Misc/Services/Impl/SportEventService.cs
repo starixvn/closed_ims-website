@@ -17,16 +17,19 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
         private readonly ITicket _ticket;
 
-        private readonly TicketListingDetail _ticketListingDetail;
+        private readonly string _systemParlaySelection;
+
+        //private readonly TicketListingDetail _ticketListingDetail;
 
         private readonly INumberWheelService _numberWheelService;
 
         #endregion
 
-        public SportEventService(TicketListingDetail ticketListingDetail)
+        public SportEventService(ITicket ticket, string selection = null)
         {
-            _ticketListingDetail = ticketListingDetail;
-            _ticket = ticketListingDetail.Ticket;
+            _ticket = ticket;
+            _systemParlaySelection = selection;
+
             _numberWheelService = new NumberWheelService(); 
         }
 
@@ -457,6 +460,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             sportEvent.BetType = CacheRef.GetBettype(_ticket.BetTypeId);
 
         }
+
         private void AssignMP(ref SportEvent sportEvent)
         {
             sportEvent.LiveScore = "";
@@ -472,35 +476,39 @@ namespace Fanex.TicketControl.Misc.Services.Impl
         {
             string selection = "";
 
-            switch (_ticketListingDetail.Selection)
+            if (!string.IsNullOrEmpty(_systemParlaySelection))
             {
-                case "110":
-                    selection = "Trixie ";
-                    break;
-                case "1110":
-                    selection = "Yankee";
-                    break;
-                case "11110":
-                    selection = "Canadian";
-                    break;
-                case "111110":
-                    selection = "Heinz";
-                    break;
-                case "1111110":
-                    selection = "Super Heinz";
-                    break;
-                case "11111110":
-                    selection = "Goliath";
-                    break;
-                default:
-                    selection = "Trixie!";
-                    break;
+                switch (_systemParlaySelection)
+                {
+                    case "110":
+                        selection = "Trixie ";
+                        break;
+                    case "1110":
+                        selection = "Yankee";
+                        break;
+                    case "11110":
+                        selection = "Canadian";
+                        break;
+                    case "111110":
+                        selection = "Heinz";
+                        break;
+                    case "1111110":
+                        selection = "Super Heinz";
+                        break;
+                    case "11111110":
+                        selection = "Goliath";
+                        break;
+                    default:
+                        selection = "Trixie!";
+                        break;
+                }
             }
 
             sportEvent.LiveScore = "";
             sportEvent.Choice = "";
             sportEvent.Hdp = "";
-            sportEvent.BetType = "<span style='color:blue' >" + CacheRef.GetBettype(_ticket.BetTypeId, "en-EN") + " - <span class='MPType'>" + selection + "</span></span><br />";
+            sportEvent.BetType = CacheRef.GetBettype(_ticket.BetTypeId);
+            sportEvent.Selection = selection;
             sportEvent.Event = "<span class='detailMP' onclick='LatestBet.showCombinationDetailMP(\"" + _ticket.RefNo + "\",\"" + selection + "\")' >" + "Details</span>"; ;
             sportEvent.SportType = "";
             sportEvent.LeagueName = "";
