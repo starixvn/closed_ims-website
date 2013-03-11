@@ -13,7 +13,44 @@ var helper = {
             $('#report-content').hide();
             $('#txtBetId').val('');
         }
+    },
 
+    displayMoreMsg: function () {
+        var symbol = $('#spMoreMsg').html();
+
+        if (symbol == '[+]') {
+            $('.other-languages').show();
+        }
+        else {
+            $('.other-languages').hide();
+        }
+
+        symbol = symbol == '[-]' ? '[+]' : '[-]';
+        $('#spMoreMsg').html(symbol);
+    },
+
+    checkParamBeforRecoverTicket: function () {
+        $('#msg').hide();
+
+        if ($("#msg-en").val() == "") {
+            $('#msg').html(tooltip.show('msg-en', 'You must enter English message')).show();
+            return false;
+        }
+        if ($("#msg-en").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-en', 'You must include @@ in English message for replacing ticket number')).show();
+            return false;
+        }
+        if ($("#msg-ch").val() == "") {
+            $('#msg').html(tooltip.show('msg-ch', 'You must enter Chinese (Mandarin) message')).show();
+            return false;
+        }
+        if ($("#msg-ch").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-ch', 'You must include @@ in Chinese (Mandarin) message for replacing ticket number')).show();
+            return false;
+        }
+
+      
+        return true;
     }
 }
 
@@ -66,12 +103,13 @@ var recoverTicket = {
                 if (rs != null && rs.ErrorCode > 0) {
                     $('#msg').html(tooltip.show('txtBetId', rs.ErrorMsg)).show();
                     helper.displayContent(false);
+                    $('#fsMessage').hide();
                 }
                 else {
                     helper.displayContent(true);
                     recoverTicket.loadMatchInfo(rs.MatchInfo);
                     recoverTicket.loadSingleTicket(rs.Groups);
-
+                    $('#fsMessage').show();
                 }
             },
             error: function () {
@@ -122,8 +160,8 @@ var recoverTicket = {
                     { Name: "Stake", Value: currentRow.Stake },
                     { Name: "CurrencyName", Value: currentRow.CurrencyName },
                     { Name: "Score", Value: currentRow.Score },
-                    { Name: "Status", Value: currentRow.Status },
-                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
+                    { Name: "Status", Value: currentRow.Status }
+                    //{ Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -142,8 +180,8 @@ var recoverTicket = {
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
+                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" }
+               // { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
             ],
             bodyRows: rows
         };
@@ -159,12 +197,30 @@ var recoverTicket = {
         return "<div onclick='recoverTicket.actionRecover(" + cell.Value + ")' class='undo'></div>";
     },
 
-    actionRecover: function (BetId) {
-        if (!confirm('Are you sure you want to recover transaction ' + BetId + ' ?'))
+    actionRecover: function () {
+
+        var BetId = $('#txtBetId').val();
+
+        if (!helper.checkParamBeforRecoverTicket()) {
             return;
+        }
+
+        if (!confirm('Are you sure you want to recover transaction ' + BetId + ' ?')) {
+            return;
+        }
 
         var param = {
-            TransId: $('#txtBetId').val()
+            TransId: BetId,
+            Msg: {
+                Content_en: $('#msg-en').val(),
+                Content_ch: $('#msg-ch').val(),
+                Content_cs: $('#msg-cs').val(),
+                Content_th: $('#msg-th').val(),
+                Content_it: $('#msg-it').val(),
+                Content_jp: $('#msg-jp').val(),
+                Content_es: $('#msg-es').val(),
+                Content_ko: $('#msg-ko').val()
+            }
         };
         $.ajax({
             type: "POST",

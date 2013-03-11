@@ -43,7 +43,7 @@ namespace Fanex.TicketControl.SportBook.Repositories.Impl
         }
 
 
-        public DataSet RecoverTicket(RecoverTicket criteria, ref ActionResult result)
+        public DataSet RecoverTicket(RecoverTicketCriteria criteria, ref ActionResult result)
         {
             DataSet ds = new DataSet();
             try
@@ -65,5 +65,8 @@ namespace Fanex.TicketControl.SportBook.Repositories.Impl
             }
             return ds;
         }
+
+
+      
     }
 }

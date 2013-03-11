@@ -25,10 +25,12 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
     {
         ICoreService _coreService;
         IRecoverTicketRepository _repository;
+        IMessageService _messageService;
 
         public RecoverTicketService() {
             _coreService = new CoreService();
             _repository = new RecoverTicketRepository();
+            _messageService = new MessageService();
         }
 
         public SingleTicketModel GetTicketRecover(GetRecoverTicket criteria, ref ActionResult result)
@@ -166,12 +168,21 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
         }
 
 
-        public ActionResult RecoverTicket(RecoverTicket criteria)
+        public ActionResult RecoverTicket(RecoverTicketCriteria criteria)
         {
             ActionResult result = new ActionResult();
             try
             {
                 DataSet ds = _repository.RecoverTicket(criteria, ref result);
+                DataTable dtMsg = ds.Tables[0];
+                string matchId = "0";
+                var resultPrivateMsg = _messageService.SendPrivateMsgToUsers(dtMsg, matchId, criteria.Msg);
+
+                if (resultPrivateMsg.ErrorCode != 0)
+                {
+                    result = resultPrivateMsg;
+                }
+
                 if (result.ErrorCode == 0) {
                     result.ErrorCode = -100;
                     result.ErrorMsg = "Transaction " + criteria.TransId + " was recovered.";
@@ -180,6 +191,8 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
+                result.ErrorCode = 1;
+                result.ErrorMsg = ex.Message;
             }
             return result;
         }
