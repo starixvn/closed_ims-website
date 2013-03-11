@@ -242,10 +242,14 @@ html {
 element.style {
     cursor: pointer;
 }
+
+/*
 td, span, div, a {
     font-family: Tahoma,Arial,helvetica,sans-serif;
     font-size: 11px;
 }
+*/
+
 div.divBoxRight {
     float: right;
     padding-right: 4px;
