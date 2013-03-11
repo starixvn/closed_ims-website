@@ -11,5 +11,7 @@ namespace Fanex.TicketControl.SportBook.Services.Interface
     public interface IRecoverTicketService
     {
         SingleTicketModel GetTicketRecover(GetRecoverTicket criteria, ref ActionResult result);
+
+        ActionResult RecoverTicket(RecoverTicket criteria);
     }
 }

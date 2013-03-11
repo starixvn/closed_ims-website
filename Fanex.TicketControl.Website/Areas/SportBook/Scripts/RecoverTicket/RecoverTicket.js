@@ -11,6 +11,7 @@ var helper = {
         }
         else {
             $('#report-content').hide();
+            $('#txtBetId').val('');
         }
 
     }
@@ -30,6 +31,8 @@ var recoverTicket = {
     },
 
     validData: function () {
+
+        $('#msg-box').hide();
         if ($('#txtBetId').val() == '') {
             $('#msg').html(tooltip.show('txtBetId', 'Bet ID is required.')).show();
             return false;
@@ -68,7 +71,7 @@ var recoverTicket = {
                     helper.displayContent(true);
                     recoverTicket.loadMatchInfo(rs.MatchInfo);
                     recoverTicket.loadSingleTicket(rs.Groups);
-                    
+
                 }
             },
             error: function () {
@@ -157,6 +160,37 @@ var recoverTicket = {
     },
 
     actionRecover: function (BetId) {
-        alert(BetId);
+        if (!confirm('Are you sure you want to recover transaction ' + BetId + ' ?'))
+            return;
+
+        var param = {
+            TransId: $('#txtBetId').val()
+        };
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl + "SportBook/RecoverTicket/RecoverTicket",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(param),
+            beforeSend: function () {
+                NapTicketControl.disableInput();
+            },
+            success: function (rs) {
+                if (rs != null && rs.ErrorCode > 0) {
+                    helper.displayContent(true);
+                }
+                else {
+                    helper.displayContent(false);
+                }
+
+                Helper.showMsgBox(rs);
+            },
+            error: function () {
+                console.log('has error :(');
+            },
+            complete: function () {
+                NapTicketControl.enableInput();
+            }
+        });
     }
 };

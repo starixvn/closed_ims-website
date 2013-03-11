@@ -41,5 +41,29 @@ namespace Fanex.TicketControl.SportBook.Repositories.Impl
             }
             return dt;
         }
+
+
+        public DataSet RecoverTicket(RecoverTicket criteria, ref ActionResult result)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    ds = objectDb.ExecuteDataSet(criteria.GetSpParams());                   
+                    var outputParam = objectDb.GetOuputParams();
+
+                    result.ErrorCode = Convert.ToInt32(outputParam["errcode"]);
+                    result.ErrorMsg = Convert.ToString(outputParam["errmsg"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+                result.ErrorCode = 1;
+                result.ErrorMsg = ex.Message;
+            }
+            return ds;
+        }
     }
 }
