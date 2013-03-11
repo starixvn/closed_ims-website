@@ -285,13 +285,29 @@ VoidMixParlayTicket.prototype.Init = function () {
             // fill in current date
             var today = new Date();
             $('.txtCalendar').removeAttr('disabled');
-            self.SetupCalendar(today.format('m/d/Y H:i:s'), '.txtCalendar');
+            self.SetupCalendar(today.format('Y/m/d H:i:s'), '.txtCalendar');
 
         } else {
             // clear text box
             $('.txtCalendar').val('').attr('disabled', 'disabled');
         }
     });
+
+    $('.tbl-advance-mode thead th').click(function(){
+        var iEle = $(this).find('i');
+        if(iEle.hasClass('icon-plus-sign'))
+        {
+            iEle.removeClass('icon-plus-sign');
+            iEle.addClass('icon-minus-sign');
+            $('.tbl-advance-mode tbody').show();
+        }
+        else
+        {
+            iEle.addClass('icon-plus-sign');
+            iEle.removeClass('icon-minus-sign');
+            $('.tbl-advance-mode tbody').hide();
+        }
+    })
 
     $('.colapse-expand-filter-bar').click(function () {
         var iEle = $(this).find('i');
@@ -415,10 +431,12 @@ VoidMixParlayTicket.prototype.Init = function () {
 VoidMixParlayTicket.prototype.SetupCalendar = function (strdatetime, txtdate) {
     $(txtdate).datetimepicker({
         showSecond: true,
-        timeFormat: 'hh:mm:ss',
+        dateFormat: 'yy/m/d',
+        timeFormat: 'HH:mm:ss',
         hourGrid: 3,
         minuteGrid: 5,
-        secondGrid: 5
+        secondGrid: 5,
+        separator: ' '
     });
 
     if (strdatetime != null && strdatetime != "") {

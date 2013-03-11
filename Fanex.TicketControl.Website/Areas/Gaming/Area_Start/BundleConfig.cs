@@ -6,7 +6,7 @@
     {
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/Gaming/VoidNumberGameTicket").Include(
+            bundles.Add(new ScriptBundle("~/areas/gaming/voidnumbergameticket").Include(
                 "~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js",
                 "~/Scripts/_Libs/Utils/stdlib.js"
             ));
