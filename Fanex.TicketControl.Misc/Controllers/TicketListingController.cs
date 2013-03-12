@@ -56,7 +56,11 @@ namespace Fanex.TicketControl.Misc.Controllers
         [HttpPost]
         public JsonResult GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
-            return Json(_ticketListingService.GetTicketListingBetList(criteria));
+            var result = _ticketListingService.GetTicketListingBetList(criteria);
+            int skip = criteria.PageIndex * criteria.PageSize;
+            result.Items = result.Items.Skip(skip).Take(criteria.PageSize).ToList();
+
+            return Json(result);
         }
 
         public ActionResult ExportTicketListingBetList(GetTicketsListingDetailCriteria criteria)

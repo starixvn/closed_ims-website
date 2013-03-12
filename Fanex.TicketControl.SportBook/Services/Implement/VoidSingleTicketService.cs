@@ -30,7 +30,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
     using Fanex.BetList.Core.Factories;
     using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.TicketHelper;
-using Fanex.TicketControl.Core.Repository.Interface;
+    using Fanex.TicketControl.Core.Repository.Interface;
     using Fanex.TicketControl.Core.Repository.Impl;
 
     /// <summary>

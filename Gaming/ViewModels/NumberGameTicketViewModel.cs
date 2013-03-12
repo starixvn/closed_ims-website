@@ -17,33 +17,31 @@ namespace Fanex.TicketControl.Gaming.ViewModels
         public NumberGameTicketModel()
         {
             MatchInfo = new MatchInfo();
-            //Groups = new List<Group>();
+            Groups = new List<Group>();
         }
 
         public MatchInfo MatchInfo { get; set; }
 
-        //public List<Group> Groups { get; set; }
+        public List<Group> Groups { get; set; }
 
     }
 
     /// <summary>
     /// We have 4 groups: Normal, betdaq, 12eu, mhc
     /// </summary>
-    //public class Group
-    //{
-    //    public Group()
-    //    {
-    //        Tickets = new List<TicketInfo>();
-    //        Name = string.Empty;
-    //        TicketInfo c = new TicketInfo();
-    //    }
+    public class Group
+    {
+        public Group()
+        {
+            Tickets = new List<TicketDetail>();
+        }
 
-    //    public string Name { get; set; }
+        public string Name { get; set; }
 
-    //    public bool IsAllowOptionDelete { get; set; }
+        public bool IsAllowOptionDelete { get; set; }
 
-    //    public bool DeleteOtionDefault { get; set; }
+        public bool DeleteOtionDefault { get; set; }
 
-    //    public List<TicketInfo> Tickets { get; set; }
-    //}
+        public List<TicketDetail> Tickets { get; set; }
+    }
 }
