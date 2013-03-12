@@ -9,7 +9,7 @@ using System.Web.Routing;
 using Fanex.Data.Configuration;
 using Fanex.TicketControl.Website.App_Start;
 
-namespace Fanex.TicketControl.Website
+namespace Fanex.TicketControl.Website 
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
