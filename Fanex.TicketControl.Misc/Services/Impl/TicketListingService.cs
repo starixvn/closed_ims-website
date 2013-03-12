@@ -85,7 +85,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         ParlayTicket = new Ticket(),
                         TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                         ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false),
-                        OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
+                        OddHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
                         Currency = Converter.ToString2(row["currencyName"]),
                         SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
                         BetType = Helper.GetBetTypeName(ticket.BetTypeId, ticket.IsLive)
@@ -124,7 +124,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         IsMixParlay = (Converter.ToInt(row["isMP"]) == 1 ? true : false),
                         Selection = selection,
                         ChoiceHtml = choiceHtml,
-                        OddsHtml = oddsHtml,
+                        OddHtml = oddsHtml,
                         BetType =  Helper.GetBetTypeName(ticket.BetTypeId, ticket.IsLive),
                         ParlayBetType = Helper.GetBetTypeName(parlayTicket.BetTypeId, parlayTicket.IsLive)
                     });
@@ -554,7 +554,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
         /// <returns></returns>
         private string GetOddsInfo(TicketListingDetail ticketDetail)
         {
-            var oddsHtml = ticketDetail.OddsHtml;
+            var oddsHtml = ticketDetail.OddHtml;
             string oddsValue, oddsType;
             oddsValue = string.Empty;
             oddsType = string.Empty;
