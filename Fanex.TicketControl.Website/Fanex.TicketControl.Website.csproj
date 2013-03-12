@@ -204,6 +204,7 @@
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketHelper.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketManager.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketValidateData.js" />
+    <Content Include="Areas\SportBook\Scripts\VoidOutrightTicket\VoidOutrightTicket.js" />
     <Content Include="Areas\SportBook\Scripts\VoidSingleTicket\VoidSingleTicketValidateData.js" />
     <Content Include="Areas\SportBook\Scripts\VoidSingleTicket\VoidSingleTicket.js" />
     <Content Include="Areas\SportBook\Scripts\VoidSingleTicket\VoidSingleTicketHelper.js" />
@@ -564,11 +565,15 @@
     <Content Include="Areas\Gaming\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Gaming\Views\VoidNumberGameTicket\Index.cshtml" />
     <Content Include="Areas\Gaming\Views\Web.config" />
+    <Content Include="Areas\SportBook\Views\VoidOutrightTicket\Index.cshtml" />
+    <Content Include="Areas\SportBook\Styles\VoidOutrightTicket.less" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

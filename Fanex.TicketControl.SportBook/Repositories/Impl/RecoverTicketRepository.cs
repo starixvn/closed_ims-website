@@ -13,7 +13,7 @@ namespace Fanex.TicketControl.SportBook.Repositories.Impl
 {
     public class RecoverTicketRepository : IRecoverTicketRepository
     {
-        public DataTable GetTicketRecover(GetRecoverTicket criteria, ref ActionResult result)
+        public DataTable GetTicketRecover(GetRecoverTicketCriteria criteria, ref ActionResult result)
         {
             DataTable dt = new DataTable();
             try

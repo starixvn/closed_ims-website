@@ -6,11 +6,11 @@ using Fanex.NAP.Framework.Data;
 
 namespace Fanex.TicketControl.SportBook.Criteria
 {
-    public class GetRecoverTicket : CriteriaBase
+    public class GetOutrightTeamCriteria : CriteriaBase
     {
         public override string GetSettingKey()
         {
-            return "RecoverTicket_BettransSelRecoverSpecialBets";
+            return "OutRightTicket_BettransDelSpecial_OutrightSel";
         }
 
         public override bool IsValid()
@@ -18,10 +18,6 @@ namespace Fanex.TicketControl.SportBook.Criteria
             return true;
         }
 
-        public Int64 TransId { get; set; }
-
-        public int ErrCode { get; set; }
-
-        public string ErrMsg { get; set; }
+        public int LeagueId { get; set; }
     }
 }

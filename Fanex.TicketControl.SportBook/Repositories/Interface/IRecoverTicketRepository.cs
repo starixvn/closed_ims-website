@@ -10,8 +10,9 @@ namespace Fanex.TicketControl.SportBook.Repositories.Interface
 {
     public interface IRecoverTicketRepository
     {
-        DataTable GetTicketRecover(GetRecoverTicket criteria, ref ActionResult result);
+        DataTable GetTicketRecover(GetRecoverTicketCriteria criteria, ref ActionResult result);
 
         DataSet RecoverTicket(RecoverTicketCriteria criteria, ref ActionResult result);
+
     }
 }

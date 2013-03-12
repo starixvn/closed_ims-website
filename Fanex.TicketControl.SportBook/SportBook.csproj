@@ -72,32 +72,44 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\VoidOutrightTicketController.cs" />
     <Compile Include="Controllers\RecoverTicketController.cs" />
     <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
+    <Compile Include="Criteria\GetOutrightLeagueCriteria.cs" />
+    <Compile Include="Criteria\GetOutrightTeamCriteria.cs" />
+    <Compile Include="Criteria\GetOutrightTicketCriteria.cs" />
     <Compile Include="Criteria\GetParlaySubTicketCriteria.cs" />
-    <Compile Include="Criteria\GetRecoverTicket.cs" />
+    <Compile Include="Criteria\GetRecoverTicketCriteria.cs" />
     <Compile Include="Criteria\RecoverTicketCriteria.cs" />
     <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
     <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
     <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
     <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
+    <Compile Include="Entities\Outright\League.cs" />
+    <Compile Include="Entities\Outright\Team.cs" />
+    <Compile Include="Entities\Outright\TicketInfo.cs" />
     <Compile Include="Entities\ParlayTicket\TicketInfo.cs" />
     <Compile Include="Entities\SingleTicket\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\RecoverTicketRepository.cs" />
+    <Compile Include="Repositories\Impl\VoidOutrightTicketRepository.cs" />
     <Compile Include="Repositories\Impl\VoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Impl\VoidSingleTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IRecoverTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IVoidOutrightTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
     <Compile Include="Services\Implement\RecoverTicketService.cs" />
+    <Compile Include="Services\Implement\VoidOutrightTicketService.cs" />
     <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
     <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
     <Compile Include="Services\Interface\IRecoverTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
     <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
     <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
+    <Compile Include="ViewModels\Outright\OutrightTicketModel.cs" />
     <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
   </ItemGroup>

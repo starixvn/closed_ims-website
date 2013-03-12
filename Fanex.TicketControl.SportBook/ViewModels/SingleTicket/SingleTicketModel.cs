@@ -45,10 +45,6 @@ namespace Fanex.TicketControl.SportBook.ViewModels.SingleTicket
 
         public string Name { get; set; }
 
-        public bool IsAllowOptionDelete { get; set; }
-
-        public bool DeleteOtionDefault { get; set; }
-
         public List<TicketInfo> Tickets { get; set; }
     }
 }
