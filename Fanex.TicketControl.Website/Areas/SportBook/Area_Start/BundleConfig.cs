@@ -34,7 +34,8 @@
 
             bundles.Add(new ScriptBundle("~/areas/SportBook/VoidOutrightTicket").Include(
                 "~/Scripts/_Libs/Utils/stdlib.js",
-                "~/Areas/SportBook/Scripts/VoidOutrightTicket/VoidOutrightTicket.js"
+                "~/Areas/SportBook/Scripts/VoidOutrightTicket/VoidOutrightTicket.js",
+                "~/Areas/SportBook/Scripts/VoidOutrightTicket/VoidOutrightTicketValidateData.js"
             ));
         }
     }

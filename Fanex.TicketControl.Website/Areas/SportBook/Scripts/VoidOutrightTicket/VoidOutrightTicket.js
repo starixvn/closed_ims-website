@@ -4,6 +4,60 @@ $(function () {
     outright.init();
 });
 
+
+var helper = {
+    displayFormMsg: function (isShow) {
+        if (isShow) {
+            $('.form').show();
+        }
+        else {
+            $('.form').hide();
+        }
+
+    },
+
+    setStausAllCheckTicket: function () {
+        var isChecked = $('#chk-ticket-all').prop('checked');
+        if (isChecked) {
+            $('.chk-ticket').attr('checked', 'checked');
+        } else {
+            $('.chk-ticket').removeAttr('checked');
+        }
+    },
+
+    eventSubTicket: function () {
+        var selectedItems = $('.chk-ticket:input:checked').length;
+        var totalItems = $('.chk-ticket:input:checkbox').length;
+
+        if (selectedItems === totalItems) {
+            $('#chk-ticket-all').attr('checked', 'checked');
+        } else {
+            $('#chk-ticket-all').removeAttr('checked');
+        }
+    },
+
+    getSubTicketsChecked: function () {
+        var checkedVals = '';
+        checkedVals = $('.chk-ticket:checkbox:checked').not('#chk-ticket-all').map(function () {
+            return this.value;
+        }).get().join(',');
+
+        return checkedVals;
+    },
+
+    displayContent: function (isShow) {
+        if (isShow) {
+            $('#report-content').show();
+        }
+        else {
+            $('#report-content').hide();
+            $('#fromRefno').val('');
+            $('#toRefno').val('');
+            $('#toRefno').val('');                        
+        }
+    }
+};
+
 var outright = {
     init: function () {
         jQuery("#VoidOutrightTicketForm").validationEngine();
@@ -83,6 +137,155 @@ var outright = {
     },
 
     search: function () {
-        alert('search');
+        if(!validateData.checkParamBeforeGetData()){
+            return;
+        }
+        
+        outright.getOutrightTicket();
+    },
+
+    getOutrightTicket: function (){
+
+         var param = {
+            OutrightID: $('#ddlTeam').val(),
+            FromRefNo: $('#fromRefno').val(),
+            ToRefNo: $('#toRefno').val()
+         };
+
+         $.ajax({
+                type: "POST",
+                url: window.rootUrl + "SportBook/VoidOutrightTicket/GetOutrightTicket",
+                contentType: "application/json; charset=utf-8", 
+                dataType: "json",
+                async: false,
+                data: JSON.stringify(param),
+                beforeSend: function () {
+                    NapTicketControl.disableInput();
+                },
+                success: function (rs) {
+                    //render match info
+                    outright.loadOutrightTicket(rs.Groups);
+                },
+                error: function () {
+                    console.log('has error :(');
+                },
+                complete: function () {
+                    NapTicketControl.enableInput();
+                }
+            });
+    },
+
+    loadOutrightTicket : function(groups)
+    {
+        var rows = [];
+        var length = groups[0].Tickets.length;
+        for (var index = 0; index < length; index++) {
+            var currentRow = groups[0].Tickets[index];
+            rows.push({
+                Columns:[
+                    { Name: "No", Value: currentRow.No  },
+                    { Name: "BetId", Value: currentRow.BetId },                    
+                    { Name: "Player", Value: currentRow.Player },                    
+                    { Name: "TransDate", Value:currentRow.TransDate  },                    
+                    { Name: "Odds", Value:currentRow.Odds},                    
+                    { Name: "Stake", Value: currentRow.Stake},
+                    { Name: "CurrencyName", Value:currentRow.CurrencyName  },                    
+                    { Name: "Status", Value: currentRow.Status },                    
+                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
+                ],
+                CssClass: "DemoCss"
+            });
+        };
+
+        
+        var gridOptions = {
+            columns: [
+                { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
+                { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: outright.optionCustomRender } 
+            ],
+            bodyRows: rows,
+            showPager: true,
+            pagerOption: {
+                itemsPerPage: 50,
+                maxItemsPerPage: 100,
+                currentPage: 0,
+                totalItem: 100,
+                startPerPage: 50,
+                pageStep: 50
+            }
+        };
+
+        $('#ticketInfo').fanexGrid(gridOptions);
+
+        if(groups[0].Tickets.length == 0){
+            helper.displayFormMsg(false);
+        }
+        else{
+            helper.displayFormMsg(true);
+        }
+        
+    },
+
+    optionCustomRender: function (cell)
+    {
+        return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
+    },
+
+    voidOutrightTicket: function(){
+         
+        if(!validateData.checkParamBeforVoidTicket()){
+            return;
+        }
+
+        var param = {
+            MatchId: $('#ddlTeam').val(),
+            f_transid: $('#fromRefno').val(),
+            t_transid: $('#toRefno').val(),
+            Bettypes: '10',
+            TransIds: helper.getSubTicketsChecked(),
+            UserPwd: $('#password').val(),
+            UserName: $('#username').val(),
+            Msg: {
+                Content_en: $('#msg-en').val(),
+                Content_ch: $('#msg-ch').val(),
+                Content_cs: $('#msg-cs').val(),
+                Content_th: $('#msg-th').val(),
+                Content_it: $('#msg-it').val(),
+                Content_jp: $('#msg-jp').val(),
+                Content_es: $('#msg-es').val(),
+                Content_ko: $('#msg-ko').val()
+            }
+         };
+
+          $.ajax({
+                type: "POST",
+                url: window.rootUrl + "SportBook/VoidOutrightTicket/VoidOutrightTicket",
+                contentType: "application/json; charset=utf-8", 
+                dataType: "json",
+                data: JSON.stringify(param),
+                beforeSend: function () {
+                    NapTicketControl.disableInput();
+                },
+                success: function (rs) {
+                    //render match info
+                    NapTicketControl.Helper.showMsgBox(rs);
+                    if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
+                        helper.displayContent(false);
+                    }
+                },
+                error: function () {
+                    console.log('has error :(');
+                },
+                complete: function () {
+                    NapTicketControl.enableInput();
+                }
+            });
     }
 }

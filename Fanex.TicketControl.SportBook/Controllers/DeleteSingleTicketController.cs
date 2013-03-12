@@ -54,8 +54,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
         public JsonResult VoidSingleTicket(VoidSingleTicketCritetia criteria)
         {
             criteria.UserPwd = Fanex.Common.Cryptography.CfsEnCode(criteria.UserPwd);
-            criteria.UserId = CurrentSession.UserId;
-
+            criteria.UserId = CurrentSession.UserId;  
             return Json(_deleteSingleTicketService.VoidSingleTicket(criteria));
         }
     }
