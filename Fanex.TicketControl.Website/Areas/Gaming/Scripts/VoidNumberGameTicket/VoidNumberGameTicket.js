@@ -203,7 +203,7 @@ var voidNumberGame = {
                 },
                 success: function (rs) {
                     //render match info
-                    Helper.showMsgBox(rs);
+                    NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         helper.displayContent(false);
                     }
@@ -240,7 +240,7 @@ var voidNumberGame = {
                         helper.displayContent(true);
                     }
                     else{
-                        //Helper.showMsgBox(rs);   
+                        //NapTicketControl.Helper.showMsgBox(rs);   
 
                         switch(rs.ErrorCode){
                             case 1:
@@ -312,7 +312,7 @@ VoidNumberGameTicket.prototype.Init = function () {
     var self = this;
 
     self.CacheDOMElement();    
-    Helper.GetBettypes('NumberGame');
+    NapTicketControl.Helper.GetBettypes('NumberGame');
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
 
@@ -344,8 +344,8 @@ VoidNumberGameTicket.prototype.Init = function () {
 //            $('.tr-advance-item-score').show();          
 //        }
 
-//        Helper.GetBettypes('Sportsbook', eventType);
-//        helper.setStatusAllBettype(false);
+//        NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
+//        NapTicketControl.Helper.setStatusAllBettype(false);
     });
 
     // enable/disable Trans Date

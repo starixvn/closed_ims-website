@@ -63,7 +63,7 @@ TicketListing.prototype.Init = function () {
 
     self.CacheDOMElement();
     //    Helper.GetLicensees();
-    Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
+    NapTicketControl.Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
     $("#LiveHomeScore").keyup(function () { }).ForceIntegerOnly();
@@ -139,8 +139,8 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        
-        Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
+
+        NapTicketControl.Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     });
 
     // check all bettypes
