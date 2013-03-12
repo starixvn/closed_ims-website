@@ -45,8 +45,8 @@
   </Function>
 
   <Function Name="OutRightTicket">
-    <Setting Key="OutRightTicket_BettransDelSpecial_LeagueSelOutright" SpName="Acc_BettransDelSpecial_LeagueSelOutright" DbName="db053" />
-    <Setting Key="OutRightTicket_BettransDelSpecial_OutrightSel" SpName="Acc_BettransDelSpecial_OutrightSel" DbName="db053" />
+    <Setting Key="OutRightTicket_BettransDelSpecial_LeagueSelOutright" SpName="Acc_BettransDelSpecial_LeagueSelOutright" DbName="apollo_db06" />
+    <Setting Key="OutRightTicket_BettransDelSpecial_OutrightSel" SpName="Acc_BettransDelSpecial_OutrightSel" DbName="apollo_db06" />
   </Function>
   
 </Functions>

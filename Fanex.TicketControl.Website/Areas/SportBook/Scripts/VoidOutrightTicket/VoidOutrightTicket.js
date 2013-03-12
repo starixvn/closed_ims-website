@@ -18,6 +18,7 @@ var outright = {
         });
 
         outright.loadLeague();
+        outright.loadTeamByLeague($('#ddlLeague').val());
     },
 
     loadLeague: function () {
@@ -26,6 +27,7 @@ var outright = {
             url: window.rootUrl + "SportBook/VoidOutrightTicket/GetOutrightLeague",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
+            async: false,
             beforeSend: function () {
                 NapTicketControl.disableInput();
             },
