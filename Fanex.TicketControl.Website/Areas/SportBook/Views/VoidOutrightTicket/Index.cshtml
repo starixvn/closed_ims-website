@@ -48,15 +48,19 @@
                         <label for="ddlLeague">Leagues</label>
                     </div>
                     <div class="edit-field span8">
-                        <select id="ddlLeague" onchange="outright.loadTeamByLeague(this.value)"></select>
+                        <select style="width:auto" id="ddlLeague" onchange="outright.loadTeamByLeague(this.value)"></select>
                     </div>
                 </div>
+                             
+            </div>
+            
+            <div class="filter-row">
                 <div class="filter-cell">
                     <div class="lbl-field span3">
                         <label for="ddlTeam">Team</label>
                     </div>
                     <div class="edit-field span4">
-                        <select id="ddlTeam"></select>
+                        <select id="ddlTeam" style="width:150px" ></select>
                     </div>
                 </div>
                 <div class="filter-cell">
@@ -74,9 +78,8 @@
                     <div class="edit-field span4">
                         <input type="text" id="toRefno" maxlength="10" value=""  />
                     </div>
-                </div>               
+                </div>  
             </div>
-           
            
             <div class="filter-row">
                 <div class="filter-cell">

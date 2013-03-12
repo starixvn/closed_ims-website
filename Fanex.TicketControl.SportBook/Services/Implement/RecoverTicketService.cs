@@ -56,9 +56,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
         private Group AssignDataOnGroup(DataTable dt)
         {
-            Group group = new Group();
-            group.DeleteOtionDefault = true;
-            group.IsAllowOptionDelete = true;
+            Group group = new Group();            
             group.Name = "Normal";
             group.Tickets = new List<TicketInfo>();
 
