@@ -195,7 +195,7 @@ var parlayDelete = {
                 },
                 success: function (rs) {
                     //render match info
-                    Helper.showMsgBox(rs);
+                    NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         helper.displayContent(false);
                     }
@@ -258,7 +258,7 @@ VoidMixParlayTicket.prototype.Init = function () {
     var self = this;
 
     self.CacheDOMElement();    
-    Helper.GetBettypes('Sportsbook');
+    NapTicketControl.Helper.GetBettypes('Sportsbook');
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
 
@@ -275,7 +275,7 @@ VoidMixParlayTicket.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();                 
         }     
 
-        Helper.GetBettypes('Sportsbook', eventType);
+        NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
         helper.setStatusAllBettype(false);
     });
 

@@ -63,7 +63,7 @@ TicketListing.prototype.Init = function () {
 
     self.CacheDOMElement();
     //    Helper.GetLicensees();
-    Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
+    NapTicketControl.Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
     $("#LiveHomeScore").keyup(function () { }).ForceIntegerOnly();
@@ -92,6 +92,7 @@ TicketListing.prototype.Init = function () {
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
         var product = $('input[name=Product]:checked').val();
+        self.ResetOptionFilter();
 
         if (eventType === '1' && product === "Sportsbook") { // live ball
             self.DOMElement.$optFilters.show();
@@ -121,6 +122,7 @@ TicketListing.prototype.Init = function () {
     self.DOMElement.$product.click(function () {
         var product = $(this).val();
         var eventType = self.DOMElement.$ddlEventType.val();
+        self.ResetOptionFilter();
 
         if (product === 'Sportsbook') {
             // show Event Type drop down
@@ -137,7 +139,8 @@ TicketListing.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();
         }
 
-        Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
+
+        NapTicketControl.Helper.GetBettypes(self.CollectSelectedProduct(), 0, true);
     });
 
     // check all bettypes
@@ -328,6 +331,14 @@ TicketListing.prototype.HideContainers = function () {
     self.DOMElement.$matchInfoContainer.parent().addClass('display-none');
     self.DOMElement.$ticketsContainer.parent().addClass('display-none');
     self.DOMElement.$betlistContainer.parent().addClass('display-none');
+}
+
+TicketListing.prototype.ResetOptionFilter = function () {
+    $('#LiveHomeScore').val('');
+    $('#LiveAwayScore').val('');
+    $('.chkTransDateRange').removeAttr('checked');
+    $('#FromTransDate').val('');
+    $('#ToTransDate').val('');
 }
 
 TicketListing.prototype.CollectSelectedProduct = function(){

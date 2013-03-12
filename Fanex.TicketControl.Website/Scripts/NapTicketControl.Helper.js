@@ -1,4 +1,10 @@
-﻿var Helper = (function ($) {
+﻿
+if(NapTicketControl === undefined)
+{
+    NapTicketControl = {};
+}
+
+NapTicketControl.Helper = (function ($) {
 
     // define some private variables
     var _productTypes = {
@@ -31,7 +37,7 @@
                 },
                 success: function (licensees) {
                     if (licensees) {
-                        Helper.RenderLicenseeDropDownList(licensees);
+                        NapTicketControl.Helper.RenderLicenseeDropDownList(licensees);
                     }
                 },
                 error: function () {

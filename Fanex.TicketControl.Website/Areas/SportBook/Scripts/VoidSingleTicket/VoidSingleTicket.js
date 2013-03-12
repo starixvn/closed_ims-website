@@ -208,7 +208,7 @@ var singleDetete = {
                 },
                 success: function (rs) {
                     //render match info
-                    Helper.showMsgBox(rs);
+                    NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         helper.displayContent(false);
                     }
@@ -245,7 +245,7 @@ var singleDetete = {
                         helper.displayContent(true);
                     }
                     else{
-                        //Helper.showMsgBox(rs);   
+                        //NapTicketControl.Helper.showMsgBox(rs);   
 
                         switch(rs.ErrorCode){
                             case 1:
@@ -317,7 +317,7 @@ DelSingleTicket.prototype.Init = function () {
     var self = this;
 
     self.CacheDOMElement();    
-    Helper.GetBettypes('Sportsbook');
+    NapTicketControl.Helper.GetBettypes('Sportsbook');
     self.SetupCalendar('', '.txtCalendar');
     $('.txtCalendar').attr('disabled', 'disabled');
 
@@ -349,7 +349,7 @@ DelSingleTicket.prototype.Init = function () {
 //            $('.tr-advance-item-score').show();          
 //        }
 
-//        Helper.GetBettypes('Sportsbook', eventType);
+//        NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
 //        helper.setStatusAllBettype(false);
     });
 

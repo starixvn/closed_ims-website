@@ -1,4 +1,8 @@
-﻿var Validator = (function ($) {
+﻿if (NapTicketControl === undefined) {
+    NapTicketControl = {};
+}
+
+NapTicketControl.Validator = (function ($) {
 
     return {
         add: function (elementInput, expr, message) {
@@ -60,7 +64,7 @@
                 hint.style.height = height + 'px';
                 hintPointer.style.left = (pointerXPos + 'px');
                 hintPointer.style.top = (pointerYPos + 'px');
-                var pos = Validator.utils.findPos(elementInput);
+                var pos = NapTicketControl.Validator.utils.findPos(elementInput);
                 hint.style.left = (pos[0] + xPos) + 'px';
                 hint.style.top = (pos[1] + yPos) + 'px';
                 elementInput.onchange = function () {
