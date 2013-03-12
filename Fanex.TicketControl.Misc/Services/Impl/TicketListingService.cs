@@ -10,27 +10,26 @@
 namespace Fanex.TicketControl.Misc.Services.Impl
 {
     using System;
-    using System.Linq;
     using System.Collections.Generic;
+    using System.Data;
+    using System.Linq;
+    using System.Xml;
     using ExcelUtil.Spreadsheet;
-    using Fanex.TicketControl.Core.Criteria;
+    using Fanex.BetList.Core.Builder;
+    using Fanex.BetList.Core.Entities;
+    using Fanex.BetList.Core.Factories;
+    using Fanex.BetList.Core.TicketHelper;
+    using Fanex.Common;
     using Fanex.TicketControl.Core.Extensions;
-    using Fanex.TicketControl.Core.Models;
     using Fanex.TicketControl.Core.Resources;
     using Fanex.TicketControl.Core.Services.Impl;
     using Fanex.TicketControl.Core.Services.Interface;
+    using Fanex.TicketControl.Core.Utils;
     using Fanex.TicketControl.Misc.Criteria;
+    using Fanex.TicketControl.Misc.Entities;
     using Fanex.TicketControl.Misc.Repositories.Impl;
     using Fanex.TicketControl.Misc.Services.Interface;
     using Fanex.TicketControl.Misc.ViewModels;
-    using System.Data;
-    using Fanex.TicketControl.Misc.Entities;
-    using Fanex.BetList.Core.Entities;
-    using Fanex.Common.Extensions;
-    using System.Text;
-    using System.Drawing;
-    using Fanex.TicketControl.Core.Utils;
-    using System.Xml;
 
     /// <summary>
     /// TODO: Update summary.
@@ -53,10 +52,92 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
         public TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
-            int skip = criteria.PageIndex * criteria.PageSize;
-            var result = _ticketListingRepository.GetTicketListingBetList(criteria);
-            result.Items = result.Items.Skip(skip).Take(criteria.PageSize).ToList();
-            return result;
+            DataSet dataset = _ticketListingRepository.GetTicketListingBetList(criteria);
+            var ticketListingBetList = new TicketListingBetListModel
+            {
+                Items = new List<TicketListingDetail>(),
+                TotalItem = 0
+            };
+
+            if (dataset != null && dataset.Tables != null && dataset.Tables.Count > 1)
+            {
+                var singleTicketRowList = dataset.Tables[0].AsEnumerable(); // single ticket result
+                var mixParlayTicketRowList = dataset.Tables[1].AsEnumerable(); // mix parlay ticket result
+                BetListHTMLFactory factory = new BetListHTMLFactory();
+                BetListHTMLBuilder builder = factory.CreateBuilder();
+                ITicketHelper ticketHelper = new TicketHelper();
+                GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
+                ticketHelper.ShowBetType = false;
+                ticketHelper.ShowLeague = false;
+                ticketHelper.ShowMatch = false;
+
+                #region Single Ticket
+
+                foreach (var row in singleTicketRowList)
+                {
+                    var ticket = MapTicket(row);
+                    ticket.BetId = Converter.ToInt(row["betid"]);
+
+
+                    ticketListingBetList.Items.Add(new TicketListingDetail
+                    {
+                        Ticket = ticket,
+                        ParlayTicket = new Ticket(),
+                        TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
+                        ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false),
+                        OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
+                        Currency = Converter.ToString2(row["currencyName"]),
+                        SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
+                        BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive)
+                    });
+                }
+
+                #endregion
+
+                #region Mix Parlay Ticket
+
+                // need to show bettype in cases: Mix Parlay, System Parlay
+                ticketHelper.ShowBetType = true; 
+
+                foreach (var row in mixParlayTicketRowList)
+                {
+                    var ticket = MapTicket(row);
+                    var parlayTicket = MapTicket(row);
+                    parlayTicket.BetTypeId = Converter.ToInt(row["bettypem"]);
+                    parlayTicket.Odds = Converter.ToDecimal(row["oddsm"]); // Note: Odds is oddsm
+
+                    var oldBetTypeId = ticket.BetTypeId;
+                    ticket.BetTypeId = parlayTicket.BetTypeId;
+                    var oddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);
+                    var choiceHtml = builder.BuildChoice(parlayTicket, ticketHelper, null, false);
+                    ticket.BetTypeId = oldBetTypeId;
+
+                    var selection = GetSystemParlaySelection(Converter.ToString2(row["selection"]));
+
+                    ticketListingBetList.Items.Add(new TicketListingDetail
+                    {
+                        Ticket = ticket,
+                        ParlayTicket = parlayTicket,
+                        TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
+                        Currency = Converter.ToString2(row["currencyName"]),
+                        SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
+                        IsMixParlay = (Converter.ToInt(row["isMP"]) == 1 ? true : false),
+                        Selection = selection,
+                        ChoiceHtml = choiceHtml,
+                        OddsHtml = oddsHtml,
+                        BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive),
+                        ParlayBetType = GetBetTypeName(parlayTicket.BetTypeId, parlayTicket.IsLive)
+                    });
+                }
+
+                #endregion
+
+            }
+
+            ticketListingBetList.TotalItem = ticketListingBetList.Items.Count;
+            ticketListingBetList.Items = ticketListingBetList.Items.OrderBy(t => t.Ticket.TransId).ToList();
+
+            return ticketListingBetList;
         }
 
         public void ExportTicketListingBetList(GetTicketsListingDetailCriteria criteria)
@@ -64,7 +145,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             try
             {
                 // get data for report
-                var ticketListing = _ticketListingRepository.GetTicketListingBetList(criteria);
+                var ticketListing = this.GetTicketListingBetList(criteria);
 
                 #region prepare excel file and sheetname
                 ExcelFile excelFile = new ExcelFile();
@@ -310,6 +391,99 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
         #region Helpers
 
+        private string GetBetTypeName(int bettype, bool liveIndicator)
+        {
+            var bettypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(bettype);
+
+            switch (bettype)
+            {
+                case 86:
+                    bettypeName = liveIndicator ? "Next Odd/Even" : "FT. Odd/Even";
+                    break;
+                case 85:
+                    bettypeName = "Next Over/Under";
+                    break;
+                case 90:
+                    bettypeName += liveIndicator ? " (Live Game)" : " (Pre Game)";
+                    break;
+                default:
+                    break;
+            }
+
+            return bettypeName;
+        }
+
+        private static Ticket MapTicket(DataRow row)
+        {
+            var ticket = new Ticket
+            {
+                UserName = Converter.ToString2(row["username"]),
+                TransId = Converter.ToInt(row["transid"]),
+                TransDate = Converter.ToDateTime(row["transdate"]),
+                Odds = Converter.ToDecimal(row["odds"]),
+                Stake = Converter.ToDecimal(row["stake"]),
+                Status = Converter.ToString2(row["status"]),
+                HomeId = Converter.ToInt(row["homeID"]),
+                AwayId = Converter.ToInt(row["awayID"]),
+                BetTeam = Converter.ToString2(row["betteam"]),
+                BetTypeId = Converter.ToInt(row["bettype"]),
+                Handicap1 = Converter.ToDecimal(row["hdp1"]),
+                Handicap2 = Converter.ToDecimal(row["hdp2"]),
+                LiveHomeScore = Converter.ToInt(row["livehomescore"]),
+                LiveAwayScore = Converter.ToInt(row["liveawayscore"]),
+                IsLive = Converter.ToBool(row["liveindicator"]),
+                IsNeutral = Converter.ToBool(row["isNeutral"]),
+                OddsType = Converter.ToString2(row["OddsType"]),
+                Winlost = Converter.ToDecimal(row["winlost"]),
+            };
+
+            long transid;
+            bool result = long.TryParse(row["transid"].ToString(), out transid);
+            ticket.TransId = transid;
+            return ticket;
+        }
+
+        private string GetSystemParlaySelection(string selection)
+        {
+            string systemParlaySelection = "";
+
+            if (!string.IsNullOrEmpty(selection))
+            {
+                switch (selection)
+                {
+                    case "110":
+                        systemParlaySelection = "Trixie ";
+                        break;
+                    case "1110":
+                        systemParlaySelection = "Yankee";
+                        break;
+                    case "11110":
+                        systemParlaySelection = "Canadian";
+                        break;
+                    case "111110":
+                        systemParlaySelection = "Heinz";
+                        break;
+                    case "1111110":
+                        systemParlaySelection = "Super Heinz";
+                        break;
+                    case "11111110":
+                        systemParlaySelection = "Goliath";
+                        break;
+                    default:
+                        systemParlaySelection = "Trixie!";
+                        break;
+                }
+            }
+
+            return systemParlaySelection;
+        }
+
+        /// <summary>
+        /// Used to parse Choice html
+        /// and get some info which serve for export excel
+        /// </summary>
+        /// <param name="ticketDetail"></param>
+        /// <returns></returns>
         private string GetChoiceInfo(TicketListingDetail ticketDetail)
         {
             var choiceHtml = ticketDetail.ChoiceHtml;
@@ -372,6 +546,12 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             return choice;
         }
 
+        /// <summary>
+        /// Used to parse Odd html
+        /// and get some info which serve for export excel
+        /// </summary>
+        /// <param name="ticketDetail"></param>
+        /// <returns></returns>
         private string GetOddsInfo(TicketListingDetail ticketDetail)
         {
             var oddsHtml = ticketDetail.OddsHtml;

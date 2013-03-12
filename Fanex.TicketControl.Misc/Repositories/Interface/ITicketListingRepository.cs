@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fanex.TicketControl.Misc.Criteria;
 using Fanex.TicketControl.Misc.ViewModels;
+using System.Data;
 
 namespace Fanex.TicketControl.Misc.Repositories.Interface
 {
@@ -11,6 +12,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Interface
     {
         TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria);
 
-        TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria);
+        DataSet GetTicketListingBetList(GetTicketsListingDetailCriteria criteria);
     }
 }

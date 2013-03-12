@@ -78,13 +78,8 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             return ticketListingModel;
         }
 
-        public TicketListingBetListModel GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
+        public DataSet GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
-            var ticketListingBetList = new TicketListingBetListModel { 
-                Items = new List<TicketListingDetail>(),
-                TotalItem = 0
-            };
-
             try
             {
                 if (criteria.IsValid())
@@ -98,75 +93,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                             criteria.ToTransDate = criteria.ToTransDate.Value.AddHours(-12);
                         }
 
-                        DataSet dataset = objectDb.ExecuteDataSet(criteria.GetSpParams());
-
-                        if (dataset != null && dataset.Tables != null && dataset.Tables.Count > 1)
-                        {
-                            var singleTicketRowList = dataset.Tables[0].AsEnumerable(); // single ticket result
-                            var mixParlayTicketRowList = dataset.Tables[1].AsEnumerable(); // mix parlay ticket result
-                            BetListHTMLFactory factory = new BetListHTMLFactory();
-                            BetListHTMLBuilder builder = factory.CreateBuilder();
-                            ITicketHelper ticketHelper = new TicketHelper();
-                            GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
-
-                            #region Single Ticket
-
-                            foreach (var row in singleTicketRowList)
-                            {
-                                var ticket = MappingTicket(row);
-                                ticket.BetId = Converter.ToInt(row["betid"]);
-                                
-
-                                ticketListingBetList.Items.Add(new TicketListingDetail { 
-                                    Ticket = ticket,
-                                    ParlayTicket = new Ticket(),
-                                    TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
-                                    ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false),
-                                    OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
-                                    Currency = Converter.ToString2(row["currencyName"]),
-                                    SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
-                                    BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive)
-                                });
-                            }
-
-                            #endregion
-
-                            #region Mix Parlay Ticket
-
-                            foreach (var row in mixParlayTicketRowList)
-                            {
-                                var ticket = MappingTicket(row);
-                                var parlayTicket = MappingTicket(row);
-                                parlayTicket.BetTypeId = Converter.ToInt(row["bettypem"]);
-                                parlayTicket.Odds = Converter.ToDecimal(row["oddsm"]); // Note: Odds is oddsm
-
-                                var oldBetTypeId = ticket.BetTypeId;
-                                ticket.BetTypeId = parlayTicket.BetTypeId;
-                                var oddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);                                
-                                var choiceHtml = builder.BuildChoice(parlayTicket, ticketHelper, null, false);
-                                ticket.BetTypeId = oldBetTypeId;
-
-                                var selection = GetSystemParlaySelection(Converter.ToString2(row["selection"]));
-
-                                ticketListingBetList.Items.Add(new TicketListingDetail
-                                {
-                                    Ticket = ticket,
-                                    ParlayTicket = parlayTicket,
-                                    TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
-                                    Currency = Converter.ToString2(row["currencyName"]),
-                                    SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
-                                    IsMixParlay = (Converter.ToInt(row["isMP"]) == 1 ? true : false),
-                                    Selection = selection,
-                                    ChoiceHtml = choiceHtml,
-                                    OddsHtml = oddsHtml,
-                                    BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive),
-                                    ParlayBetType = GetBetTypeName(parlayTicket.BetTypeId, parlayTicket.IsLive)
-                                });
-                            }
-
-                            #endregion
-
-                        }
+                        return objectDb.ExecuteDataSet(criteria.GetSpParams());
                     }
                 }
             }
@@ -175,9 +102,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
                 throw ex;
             }
 
-            ticketListingBetList.TotalItem = ticketListingBetList.Items.Count;
-            ticketListingBetList.Items = ticketListingBetList.Items.OrderBy(t => t.Ticket.TransId).ToList();
-            return ticketListingBetList;
+            return null;
         }
 
         #region Helpers
@@ -197,92 +122,92 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             return result;
         }
 
-        private string GetBetTypeName(int bettype, bool liveIndicator)
-        {
-            var bettypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(bettype);
+        //private string GetBetTypeName(int bettype, bool liveIndicator)
+        //{
+        //    var bettypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(bettype);
 
-            switch (bettype)
-            {
-                case 86:
-                    bettypeName = liveIndicator ? "Next Odd/Even" : "FT. Odd/Even";
-                    break;
-                case 85:
-                    bettypeName = "Next Over/Under";
-                    break;
-                case 90:
-                    bettypeName += liveIndicator ? " (Live Game)" : " (Pre Game)";
-                    break;
-                default:
-                    break;
-            }
+        //    switch (bettype)
+        //    {
+        //        case 86:
+        //            bettypeName = liveIndicator ? "Next Odd/Even" : "FT. Odd/Even";
+        //            break;
+        //        case 85:
+        //            bettypeName = "Next Over/Under";
+        //            break;
+        //        case 90:
+        //            bettypeName += liveIndicator ? " (Live Game)" : " (Pre Game)";
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
-            return bettypeName;
-        }
+        //    return bettypeName;
+        //}
 
-        private static Ticket MappingTicket(DataRow row)
-        {
-            var ticket = new Ticket
-            {
-                UserName = Converter.ToString2(row["username"]),
-                TransId = Converter.ToInt(row["transid"]),
-                TransDate = Converter.ToDateTime(row["transdate"]),
-                Odds = Converter.ToDecimal(row["odds"]),
-                Stake = Converter.ToDecimal(row["stake"]),
-                Status = Converter.ToString2(row["status"]),
-                HomeId = Converter.ToInt(row["homeID"]),
-                AwayId = Converter.ToInt(row["awayID"]),                
-                BetTeam = Converter.ToString2(row["betteam"]),
-                BetTypeId = Converter.ToInt(row["bettype"]),
-                Handicap1 = Converter.ToDecimal(row["hdp1"]),
-                Handicap2 = Converter.ToDecimal(row["hdp2"]),
-                LiveHomeScore = Converter.ToInt(row["livehomescore"]),
-                LiveAwayScore = Converter.ToInt(row["liveawayscore"]),
-                IsLive = Converter.ToBool(row["liveindicator"]),
-                IsNeutral = Converter.ToBool(row["isNeutral"]),
-                OddsType = Converter.ToString2(row["OddsType"]),
-                Winlost = Converter.ToDecimal(row["winlost"]),
-            };
+        //private static Ticket MappingTicket(DataRow row)
+        //{
+        //    var ticket = new Ticket
+        //    {
+        //        UserName = Converter.ToString2(row["username"]),
+        //        TransId = Converter.ToInt(row["transid"]),
+        //        TransDate = Converter.ToDateTime(row["transdate"]),
+        //        Odds = Converter.ToDecimal(row["odds"]),
+        //        Stake = Converter.ToDecimal(row["stake"]),
+        //        Status = Converter.ToString2(row["status"]),
+        //        HomeId = Converter.ToInt(row["homeID"]),
+        //        AwayId = Converter.ToInt(row["awayID"]),                
+        //        BetTeam = Converter.ToString2(row["betteam"]),
+        //        BetTypeId = Converter.ToInt(row["bettype"]),
+        //        Handicap1 = Converter.ToDecimal(row["hdp1"]),
+        //        Handicap2 = Converter.ToDecimal(row["hdp2"]),
+        //        LiveHomeScore = Converter.ToInt(row["livehomescore"]),
+        //        LiveAwayScore = Converter.ToInt(row["liveawayscore"]),
+        //        IsLive = Converter.ToBool(row["liveindicator"]),
+        //        IsNeutral = Converter.ToBool(row["isNeutral"]),
+        //        OddsType = Converter.ToString2(row["OddsType"]),
+        //        Winlost = Converter.ToDecimal(row["winlost"]),
+        //    };
 
-            long transid;
-            bool result = long.TryParse(row["transid"].ToString(), out transid);
-            ticket.TransId = transid;
-            return ticket;
-        }
+        //    long transid;
+        //    bool result = long.TryParse(row["transid"].ToString(), out transid);
+        //    ticket.TransId = transid;
+        //    return ticket;
+        //}
 
-        private string GetSystemParlaySelection(string selection)
-        {
-            string systemParlaySelection = "";
+        //private string GetSystemParlaySelection(string selection)
+        //{
+        //    string systemParlaySelection = "";
 
-            if (!string.IsNullOrEmpty(selection))
-            {
-                switch (selection)
-                {
-                    case "110":
-                        systemParlaySelection = "Trixie ";
-                        break;
-                    case "1110":
-                        systemParlaySelection = "Yankee";
-                        break;
-                    case "11110":
-                        systemParlaySelection = "Canadian";
-                        break;
-                    case "111110":
-                        systemParlaySelection = "Heinz";
-                        break;
-                    case "1111110":
-                        systemParlaySelection = "Super Heinz";
-                        break;
-                    case "11111110":
-                        systemParlaySelection = "Goliath";
-                        break;
-                    default:
-                        systemParlaySelection = "Trixie!";
-                        break;
-                }
-            }
+        //    if (!string.IsNullOrEmpty(selection))
+        //    {
+        //        switch (selection)
+        //        {
+        //            case "110":
+        //                systemParlaySelection = "Trixie ";
+        //                break;
+        //            case "1110":
+        //                systemParlaySelection = "Yankee";
+        //                break;
+        //            case "11110":
+        //                systemParlaySelection = "Canadian";
+        //                break;
+        //            case "111110":
+        //                systemParlaySelection = "Heinz";
+        //                break;
+        //            case "1111110":
+        //                systemParlaySelection = "Super Heinz";
+        //                break;
+        //            case "11111110":
+        //                systemParlaySelection = "Goliath";
+        //                break;
+        //            default:
+        //                systemParlaySelection = "Trixie!";
+        //                break;
+        //        }
+        //    }
 
-            return systemParlaySelection;
-        }
+        //    return systemParlaySelection;
+        //}
 
         #endregion
     }
