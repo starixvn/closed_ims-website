@@ -204,6 +204,7 @@
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketHelper.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketManager.js" />
     <Content Include="Areas\SportBook\Scripts\VoidMixParlayTicket\VoidMixParlayTicketValidateData.js" />
+    <Content Include="Areas\SportBook\Scripts\VoidOutrightTicket\VoidOutrightTicket.js" />
     <Content Include="Areas\SportBook\Scripts\VoidSingleTicket\VoidSingleTicketValidateData.js" />
     <Content Include="Areas\SportBook\Scripts\VoidSingleTicket\VoidSingleTicket.js" />
     <Content Include="Areas\SportBook\Scripts\VoidSingleTicket\VoidSingleTicketHelper.js" />

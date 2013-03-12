@@ -45,10 +45,18 @@
             <div class="filter-row">
                 <div class="filter-cell">
                     <div class="lbl-field span3">
-                        <label for="txtMatchId">Leagues</label>
+                        <label for="ddlLeague">Leagues</label>
+                    </div>
+                    <div class="edit-field span8">
+                        <select id="ddlLeague" onchange="outright.loadTeamByLeague(this.value)"></select>
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="lbl-field span3">
+                        <label for="ddlTeam">Team</label>
                     </div>
                     <div class="edit-field span4">
-                        <select id="ddlLeague"></select>
+                        <select id="ddlTeam"></select>
                     </div>
                 </div>
                 <div class="filter-cell">

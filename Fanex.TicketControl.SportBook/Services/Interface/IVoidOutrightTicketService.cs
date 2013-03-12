@@ -10,5 +10,7 @@ namespace Fanex.TicketControl.SportBook.Services.Interface
     public interface IVoidOutrightTicketService
     {
         IList<League> GetOutrightLeague();
+
+        IList<Team> GetTeamByLeague(GetOutrightTeamCriteria criteria);
     }
 }

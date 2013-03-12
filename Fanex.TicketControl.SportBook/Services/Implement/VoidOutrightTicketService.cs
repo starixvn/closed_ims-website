@@ -27,7 +27,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 {
                     return new League
                     {
-                        Id = Convert.ToInt32(r["LeagueId"]),
+                        Id = Convert.ToString(r["LeagueId"]),
                         Name = CacheRef.GetLeagueName(r["LeagueId"])
                     };
                 };
@@ -39,6 +39,30 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 LoggingHandler.Log(ex);
             }
             return leagues;
+        }
+
+
+        public IList<Team> GetTeamByLeague(GetOutrightTeamCriteria criteria)
+        {
+            IList<Team> teams = new List<Team>();
+            try
+            {
+                Func<IDataReader, Team> mappingFunc = r =>
+                {
+                    return new Team
+                    {
+                        Id = Convert.ToString(r["orid"]),
+                        Name = CacheRef.GetTeamName(r["teamid"])
+                    };
+                };
+
+                teams = _repository.Fetch<Team>(criteria, mappingFunc);               
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return teams;
         }
     }
 }

@@ -39,9 +39,14 @@ namespace Fanex.TicketControl.SportBook.Controllers
         [HttpPost]
         public JsonResult GetOutrightLeague()
         {
-
             return Json(_voidOutrightTicketService.GetOutrightLeague());
         }
 
+
+        [HttpPost]
+        public JsonResult GetTeamByLeague(GetOutrightTeamCriteria criteria)
+        {
+            return Json(_voidOutrightTicketService.GetTeamByLeague(criteria));
+        }
     }
 }

@@ -18,6 +18,6 @@ namespace Fanex.TicketControl.Core.Models
     public class BaseModel
     {
         public string Name { get; set; }
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

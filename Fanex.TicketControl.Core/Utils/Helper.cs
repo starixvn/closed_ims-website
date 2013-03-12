@@ -43,11 +43,11 @@ namespace Fanex.TicketControl.Core.Utils
                    CacheManager.Set<IList<Currency>>(CacheServiceKey.KeyCurrency, _currencies);
                }
 
-                currencyName = _currencies.Where(s => s.Id == Id).Select(s => s.Name).FirstOrDefault();
+                currencyName = _currencies.Where(s => s.Id == Id.ToString()).Select(s => s.Name).FirstOrDefault();
                 if (string.IsNullOrEmpty(currencyName))
                 {
                      _coreService = new CoreService();
-                     currencyName = _coreService.GetCurrency().Where(s => s.Id == Id).Select(s => s.Name).FirstOrDefault();
+                     currencyName = _coreService.GetCurrency().Where(s => s.Id == Id.ToString()).Select(s => s.Name).FirstOrDefault();
                 }
 
             }

@@ -39,7 +39,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
         {
             Func<IDataReader, Bettypes> mappingFunc = r => {
                 return new Bettypes { 
-                    Id = r.ToInt("typeId"),
+                    Id = r.ToString("typeId"),
                     Name = r.ToString("BetTypeName"),
                     Type = r.ToInt("type"),
                     LiveIndicator = r.ToBool("LiveIndicator")
@@ -56,7 +56,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
             {
                 return new Licensee
                 {
-                    Id = r.ToInt("LicenseeID"),
+                    Id = r.ToString("LicenseeID"),
                     Name = r.ToString("LicenseeName")
                 };
             };
@@ -89,7 +89,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
             {
                 return new Currency
                 {
-                    Id = r.ToInt("exchangeid"),
+                    Id = r.ToString("exchangeid"),
                     Name = r.ToString("currency")
                 };
             };

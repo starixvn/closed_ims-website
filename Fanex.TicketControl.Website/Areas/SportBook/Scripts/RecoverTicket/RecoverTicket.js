@@ -57,7 +57,7 @@ var helper = {
 var recoverTicket = {
     init: function () {
         jQuery("#RecoverTicketForm").validationEngine();
-        jQuery("#VoidMixParlayTicketForm").validationEngine();
+        
         $("#txtBetId").keyup(function () { }).ForceIntegerOnly();
 
         $('body').delegate('#btnSearch', 'click', function (e) {
