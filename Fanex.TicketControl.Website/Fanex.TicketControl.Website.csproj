@@ -189,7 +189,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml" />
+    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicket.js" />
