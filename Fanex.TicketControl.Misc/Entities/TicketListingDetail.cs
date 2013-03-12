@@ -2,19 +2,49 @@
 using Fanex.BetList.Core.Entities;
 using Fanex.TicketControl.Misc.Services.Impl;
 using Fanex.TicketControl.Core.Services.Impl;
+using Fanex.TicketControl.Core.Models;
+using System.Web.Script.Serialization;
 
 namespace Fanex.TicketControl.Misc.Entities
 {
     [Serializable]
-    public class TicketListingDetail
+    public class TicketListingDetail : TicketDetail
     {
-        // Convention:
-        // Field TransID is Bet ID
-
-        public ITicket Ticket { get; set; }
-
+        [ScriptIgnore]
         public ITicket ParlayTicket { get; set; }
-     
+
+        public long BetId
+        {
+            get
+            {
+                return this.Ticket.TransId;
+            }
+        }
+
+        public string Member
+        {
+            get
+            {
+                return this.Ticket.UserName;
+            }
+        }
+
+        public decimal Stake
+        {
+            get
+            {
+                return this.Ticket.Stake;
+            }
+        }
+
+        public string Status
+        {
+            get
+            {
+                return this.Ticket.Status;
+            }
+        }
+
         public string AgentWinloss
         {
             get
@@ -27,11 +57,15 @@ namespace Fanex.TicketControl.Misc.Entities
 
         public string TransDate { get; set; }
 
-        public string ChoiceHtml { get; set; } // html 
-
-        public string OddsHtml { get; set; }
-
         public string Currency { get; set; }
+
+        public int BetTypeId
+        {
+            get
+            {
+                return this.Ticket.BetTypeId;
+            }
+        }
 
         #region additional fields for mix parlay
 
@@ -40,7 +74,7 @@ namespace Fanex.TicketControl.Misc.Entities
         public string BetType { get; set; }
 
         public string ParlayBetType { get; set; }
-        
+
         public string Selection { get; set; }
 
         #endregion

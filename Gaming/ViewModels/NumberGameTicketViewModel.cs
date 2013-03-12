@@ -8,6 +8,7 @@ namespace Fanex.TicketControl.Gaming.ViewModels
 {
     using System.Collections.Generic;
     using Fanex.TicketControl.Core.Models;
+    using Fanex.TicketControl.Gaming.Entities;
 
     /// <summary>
     /// TODO: Update summary.
@@ -16,14 +17,10 @@ namespace Fanex.TicketControl.Gaming.ViewModels
     {
         public NumberGameTicketModel()
         {
-            MatchInfo = new MatchInfo();
             Groups = new List<Group>();
         }
 
-        public MatchInfo MatchInfo { get; set; }
-
         public List<Group> Groups { get; set; }
-
     }
 
     /// <summary>
@@ -33,7 +30,7 @@ namespace Fanex.TicketControl.Gaming.ViewModels
     {
         public Group()
         {
-            Tickets = new List<TicketDetail>();
+            Tickets = new List<NumberGameTicket>();
         }
 
         public string Name { get; set; }
@@ -42,6 +39,6 @@ namespace Fanex.TicketControl.Gaming.ViewModels
 
         public bool DeleteOtionDefault { get; set; }
 
-        public List<TicketDetail> Tickets { get; set; }
+        public List<NumberGameTicket> Tickets { get; set; }
     }
 }

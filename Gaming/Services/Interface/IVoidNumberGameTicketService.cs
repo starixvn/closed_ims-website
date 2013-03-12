@@ -16,7 +16,6 @@ namespace Fanex.TicketControl.Gaming.Services.Interface
     using Fanex.TicketControl.Gaming.Criteria;
     using Fanex.TicketControl.Gaming.ViewModels;
 
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -27,6 +26,6 @@ namespace Fanex.TicketControl.Gaming.Services.Interface
 
         //ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria);
 
-        //IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria);
+        IList<ActionResult> VoidNumberGameTicket(VoidNumberGameTicketCritetia criteria);
     }
 }

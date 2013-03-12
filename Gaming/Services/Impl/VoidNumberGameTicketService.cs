@@ -9,22 +9,26 @@
 
 namespace Fanex.TicketControl.Gaming.Services.Impl
 {
+    using System;
+    using System.Collections.Generic;
     using System.Data;
     using System.Diagnostics.CodeAnalysis;
+    using Fanex.BetList.Core.Builder;
     using Fanex.BetList.Core.Entities;
+    using Fanex.BetList.Core.Factories;
+    using Fanex.BetList.Core.TicketHelper;
+    using Fanex.Common;
     using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Core.Models;
     using Fanex.TicketControl.Core.Services.Impl;
     using Fanex.TicketControl.Core.Services.Interface;
+    using Fanex.TicketControl.Core.Utils;
     using Fanex.TicketControl.Gaming.Criteria;
     using Fanex.TicketControl.Gaming.Repositories.Impl;
     using Fanex.TicketControl.Gaming.Repositories.Interface;
     using Fanex.TicketControl.Gaming.Services.Interface;
     using Fanex.TicketControl.Gaming.ViewModels;
-    using Fanex.Common;
-    using Fanex.TicketControl.Core.Models;
-    using Fanex.BetList.Core.TicketHelper;
-    using Fanex.BetList.Core.Factories;
-    using Fanex.BetList.Core.Builder;
+    using Fanex.TicketControl.Gaming.Entities;
 
     /// <summary>
     /// TODO: Update summary.
@@ -33,219 +37,21 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
     public class VoidNumberGameTicketService : ServiceBase, IVoidNumberGameTicketService
     {
         ICoreService _coreService;
-        IVoidNumberGameTicketRepository _reponsitory;
+        IVoidNumberGameTicketRepository _repository;
         IMessageService _messageService;
 
         public VoidNumberGameTicketService()
         {
             _coreService = new CoreService();
-            _reponsitory = new VoidNumberGameTicketRepository();
+            _repository = new VoidNumberGameTicketRepository();
             _messageService = new MessageService();
         }
-
-        //public SingleTicketModel GetSingleTicket(GetSingleTicketCriteria criteria)
-        //{
-        //    SingleTicketModel model = new SingleTicketModel();
-            
-        //    try
-        //    {
-        //        GetMatchInfoCriteria criteriaMatchInfo = new GetMatchInfoCriteria();
-        //        criteriaMatchInfo.MatchId = criteria.MatchId;
-
-        //        model.MatchInfo = _coreService.GetMatchInfo(criteriaMatchInfo);
-
-        //        var ds = _reponsitory.GetSingleTicket(criteria);
-        //        int cnt = ds.Tables.Count;
-        //        DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
-
-        //        model.Groups.Add(AssignDataOnGroup(dt));
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-        //    return model;
-        //}
-
-        //private Group AssignDataOnGroup(DataTable dt)
-        //{
-        //    Group group = new Group();
-        //    group.DeleteOtionDefault = true;
-        //    group.IsAllowOptionDelete = true;
-        //    group.Name = "Normal";
-        //    group.Tickets = new List<TicketInfo>();
-
-        //    try
-        //    {
-        //        DataRow[] rows = dt.Select();
-        //        List<TicketInfo> tickets = new List<TicketInfo>();
-
-        //        int index = 0;
-        //        Int64 BetId = 0;
-        //        foreach (DataRow row in rows)
-        //        {
-        //            index++;
-        //            BetId = Convert.ToInt64(row["transid"]);
-
-        //            var ticketInfo = new TicketInfo()
-        //            {
-        //                No = index,
-        //                BetId = Convert.ToString(BetId),
-        //                Player = Convert.ToString(row["username"]),
-        //                TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
-        //                BetType = Convert.ToInt32(row["bettype"]),
-        //                HDP = Convert.ToString(row["hdp1"]),
-        //                Stake = Convert.ToString(row["stakepositiontaking"]),
-        //                Odds = Convert.ToString(row["odds"]),
-        //                CurrencyName = Helper.CurrencyById(Convert.ToInt32(row["currency"])),
-        //                Status = Convert.ToString(row["status"]),
-        //                Score = Convert.ToString(row["livehomescore"]) + "-" + Convert.ToString(row["liveawayscore"]),
-        //                SA = Convert.ToInt32(row["SecAcceptFlag"]) == 0 ? "" : "<span class='icon-tick'></span>",
-        //                IsDelete = true,
-        //                BetTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(row["bettype"]),
-
-                        
-        //            };
-
-        //            tickets.Add(ticketInfo);
-                    
-        //            TicketDetail ticketDetail = GetTicketDetail(dt, BetId);
-
-        //            ticketInfo.Choice = ticketDetail.ChoiceHtml;
-        //            ticketInfo.Odds = ticketDetail.OddHtml;
-        //            ticketInfo.Stake = ticketDetail.StakeHtml;
-        //        }
-
-        //        group.Tickets = tickets;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-        //    return group;
-        //}
-
-        //private TicketDetail GetTicketDetail(DataTable dt, Int64 TransId)
-        //{
-        //    var ticket = new TicketDetail();
-
-        //    try
-        //    {
-        //        var rows = dt.AsEnumerable().Where(s=> Convert.ToInt64(s["transid"]) == TransId).Select(s=>s).ToList();
-
-        //        int bettype = 0;
-        //        foreach(DataRow row in rows)
-        //        {
-        //            bettype = Convert.ToInt32(row["bettype"]);
-
-        //            ticket.Ticket = new Ticket(){
-        //                BetId = Convert.ToInt64(row["transid"]),
-        //                BetTypeId = bettype,
-        //                BetTeam = Convert.ToString(row["betteam"]),
-        //                LiveHomeScore = Convert.ToInt32(row["livehomescore"]),
-        //                LiveAwayScore = Convert.ToInt32(row["liveawayscore"]),
-
-        //                Stake = Convert.ToDecimal(row["StakePositiontaking"]),
-        //                Odds = Convert.ToDecimal(row["odds"]),
-        //                OddsType = Convert.ToString(row["OddsType"]),
-        //                Handicap1 = Convert.ToDecimal(row["hdp1"]),
-        //                Handicap2 = Convert.ToDecimal(row["hdp2"]),
-
-        //                Status = Convert.ToString(row["status"]),
-        //                HomeId = Convert.ToInt64 (row["HomeId"]),
-        //                AwayId = Convert.ToInt64(row["AwayId"]),
-        //                LeagueId = Convert.ToInt32(row["LeagueId"]),
-        //                SportTypeId = Convert.ToInt32(row["SportType"])
-        //            };
-
-        //            ITicketHelper ticketHelper = new TicketHelper();
-        //            BetListHTMLFactory factory = new BetListHTMLFactory();
-        //            BetListHTMLBuilder builder = factory.CreateBuilder();
-        //            GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
-
-        //            if (bettype == 9 || bettype == 29) {
-        //                ticketHelper.IsShowOddsWithChoice = true;
-        //            }
-
-        //            ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
-        //            ticket.StakeHtml = builder.BuildStake(ticket.Ticket);
-        //            ticket.OddHtml = builder.BuildOdds(ticket.Ticket, null, funcGetOddsTypeName);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-
-        //    return ticket;
-        //}
-
-        //public IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria)
-        //{
-        //    IList<ActionResult> results = new List<ActionResult>();
-        //    try
-        //    {
-        //        criteria.Msg.CreatorId = criteria.UserId;
-        //        criteria.Msg.CreatorName = criteria.UserName;
-
-        //        DataSet dsOutData = new DataSet();
-        //        results = _reponsitory.VoidSingleTicket(criteria, ref dsOutData);
-
-        //        DataTable dtMsg = new DataTable();
-        //        if (dsOutData.Tables.Count > 0)
-        //        {
-        //            dtMsg = dsOutData.Tables[0];
-        //            var resultPrivateMsg  = _messageService.SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
-
-        //            if (resultPrivateMsg.ErrorCode != 0)
-        //            {
-        //                results.Add(resultPrivateMsg);
-        //            }
-        //        }
-
-        //        if (results.Count == 1 && results[0].ErrorCode == 0) {
-        //            results[0].ErrorCode = -100;
-        //            results[0].ErrorMsg = "Bet transactions deleted!";
-        //        }
-                
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //        results.Add(new ActionResult() { 
-        //            ErrorCode = 1,
-        //            ErrorMsg = ex.Message
-        //        });
-        //    }
-
-
-        //    return results;
-        //}
-
-        //public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)
-        //{
-        //    ActionResult result = new ActionResult();
-        //    try
-        //    {
-        //        criteria.Type = Helper.SportType.Sportsbook;
-        //        result = _coreService.CheckMatchIdWithRefno(criteria);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-        //    return result;
-        //}
 
         public NumberGameTicketModel GetNumberGameTicket(GetNumberGameTicketCriteria criteria)
         {
             NumberGameTicketModel model = new NumberGameTicketModel();
 
-            GetMatchInfoCriteria criteriaMatchInfo = new GetMatchInfoCriteria();
-            criteriaMatchInfo.MatchId = criteria.MatchID;
-
-            model.MatchInfo = _coreService.GetMatchInfo(criteriaMatchInfo);
-            var ds = _reponsitory.GetNumberGameTicket(criteria);
+            var ds = _repository.GetNumberGameTicket(criteria);
             int cnt = ds.Tables.Count;
             DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
 
@@ -260,22 +66,29 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
             BetListHTMLFactory factory = new BetListHTMLFactory();
             BetListHTMLBuilder builder = factory.CreateBuilder();
             GetCachePropertyById funcGetOddsTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetOddsTypeName;
+            ticketHelper.ShowBetType = false;
+            ticketHelper.ShowLeague = false;
+            ticketHelper.ShowMatch = false;
 
+            int index = 1;
             foreach (var row in rows)
             {
-                var ticket = MappingTicket(row);
-                var ticketDetail = new TicketDetail();
-                ticketDetail.Ticket = ticket;
+                var ticket = MapTicket(row);
+                var numberGameTicket = new NumberGameTicket();
+                numberGameTicket.Ticket = ticket;
 
                 if (ticket.BetTypeId == 9 || ticket.BetTypeId == 29)
                 {
                     ticketHelper.IsShowOddsWithChoice = true;
                 }
+                numberGameTicket.No = index;
+                numberGameTicket.Currency = Helper.CurrencyById(Convert.ToInt32(row["currency"]));
+                numberGameTicket.ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false);
+                numberGameTicket.StakeHtml = builder.BuildStake(ticket);
+                numberGameTicket.OddHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);
+                group.Tickets.Add(numberGameTicket);
 
-                ticketDetail.ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false);
-                ticketDetail.StakeHtml = builder.BuildStake(ticket);
-                ticketDetail.OddHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);
-                group.Tickets.Add(ticketDetail);
+                index++;
             }
 
             model.Groups.Add(group);
@@ -283,9 +96,66 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
             return model;
         }
 
+        //public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)
+        //{
+        //    ActionResult result = new ActionResult();
+        //    try
+        //    {
+        //        criteria.Type = Helper.SportType.NumberGame;
+        //        result = _coreService.CheckMatchIdWithRefno(criteria);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LoggingHandler.Log(ex);
+        //    }
+        //    return result;
+        //}
+
+        public IList<ActionResult> VoidNumberGameTicket(VoidNumberGameTicketCritetia criteria)
+        {
+            IList<ActionResult> results = new List<ActionResult>();
+            try
+            {
+                criteria.Msg.CreatorId = criteria.UserId;
+                criteria.Msg.CreatorName = criteria.UserName;
+
+                DataSet dsOutData = new DataSet();
+                results = _repository.VoidNumberGameTicket(criteria, ref dsOutData);
+
+                if (dsOutData.Tables.Count > 0)
+                {
+                    var dtMsg = dsOutData.Tables[0];
+                    var resultPrivateMsg = _messageService.SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
+
+                    if (resultPrivateMsg.ErrorCode != 0)
+                    {
+                        results.Add(resultPrivateMsg);
+                    }
+                }
+
+                if (results.Count == 1 && results[0].ErrorCode == 0)
+                {
+                    results[0].ErrorCode = -100;
+                    results[0].ErrorMsg = "Bet transactions deleted!";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+                results.Add(new ActionResult()
+                {
+                    ErrorCode = 1,
+                    ErrorMsg = ex.Message
+                });
+            }
+
+            return results;
+        }
+
         #region Helpers
 
-        private static Ticket MappingTicket(DataRow row)
+        private static Ticket MapTicket(DataRow row)
         {
             var ticket = new Ticket
             {
@@ -293,20 +163,18 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
                 TransId = Converter.ToInt(row["transid"]),
                 TransDate = Converter.ToDateTime(row["transdate"]),
                 Odds = Converter.ToDecimal(row["odds"]),
-                Stake = Converter.ToDecimal(row["stake"]),
-                Status = Converter.ToString2(row["status"]),
-                HomeId = Converter.ToInt(row["homeID"]),
-                AwayId = Converter.ToInt(row["awayID"]),
-                BetTeam = Converter.ToString2(row["betteam"]),
+                OddsType = Converter.ToString2(row["OddsType"]),
                 BetTypeId = Converter.ToInt(row["bettype"]),
+                BetTeam = Converter.ToString2(row["betteam"]),
                 Handicap1 = Converter.ToDecimal(row["hdp1"]),
                 Handicap2 = Converter.ToDecimal(row["hdp2"]),
                 LiveHomeScore = Converter.ToInt(row["livehomescore"]),
                 LiveAwayScore = Converter.ToInt(row["liveawayscore"]),
-                IsLive = Converter.ToBool(row["liveindicator"]),
-                IsNeutral = Converter.ToBool(row["isNeutral"]),
-                OddsType = Converter.ToString2(row["OddsType"]),
+                Stake = Converter.ToDecimal(row["stake"]),
                 Winlost = Converter.ToDecimal(row["winlost"]),
+                Comm = Converter.ToDecimal(row["comm"]),
+                Status = Converter.ToString2(row["status"]),
+                IsLive = Converter.ToBool(row["liveindicator"]),
             };
 
             long transid;
@@ -316,5 +184,8 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
         } 
 
         #endregion
+
+
+        
     }
 }

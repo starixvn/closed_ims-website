@@ -107,8 +107,6 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         SA = Convert.ToInt32(row["SecAcceptFlag"]) == 0 ? "" : "<span class='icon-tick'></span>",
                         IsDelete = true,
                         BetTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(row["bettype"]),
-
-                        
                     };
 
                     tickets.Add(ticketInfo);

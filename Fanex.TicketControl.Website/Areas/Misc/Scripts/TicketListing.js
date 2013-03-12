@@ -549,16 +549,16 @@ TicketListing.prototype.GenerateBetListData = function(betlist){
     $.each(betlist, function(idx, bet) {
         var currentBet = {
             Columns: [
-                    { Name: "betId", Value: bet.Ticket.TransId },
+                    { Name: "betId", Value: bet.BetId },
                     { Name: "transDate", Value: bet.TransDate },
-                    { Name: "member", Value: bet.Ticket.UserName },
+                    { Name: "member", Value: bet.Member },
                     { Name: "choice", Value: bet.ChoiceHtml },
-                    { Name: "odds", Value: bet.OddsHtml },
-                    { Name: "stake", Value: bet.Ticket.Stake },
+                    { Name: "odds", Value: bet.OddHtml },
+                    { Name: "stake", Value: bet.Stake },
                     { Name: "winloss", Value: bet.AgentWinloss },
                     { Name: "currency", Value: bet.Currency },
                     { Name: "bettype", Value: bet},
-                    { Name: "status", Value: bet.Ticket.Status },
+                    { Name: "status", Value: bet.Status },
                     { Name: "sa", Value: bet.SAFlag }
                 ]
         };
@@ -628,7 +628,7 @@ TicketListing.prototype.RenderWinlossCell = function (cell) {
 
 TicketListing.prototype.RenderBetTypeCell = function (cell) {
     var html = '';
-    var bettypeId = cell.Value.Ticket.BetTypeId;
+    var bettypeId = cell.Value.BetTypeId;
 
     if (bettypeId === 29) // ie. System Parlay
     {

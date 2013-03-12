@@ -85,10 +85,10 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         ParlayTicket = new Ticket(),
                         TransDate = ticket.TransDate.ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                         ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false),
-                        OddsHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
+                        OddHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName),
                         Currency = Converter.ToString2(row["currencyName"]),
                         SAFlag = Converter.ToBool(row["SecAcceptFlag"]),
-                        BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive)
+                        BetType = Helper.GetBetTypeName(ticket.BetTypeId, ticket.IsLive)
                     });
                 }
 
@@ -124,9 +124,9 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                         IsMixParlay = (Converter.ToInt(row["isMP"]) == 1 ? true : false),
                         Selection = selection,
                         ChoiceHtml = choiceHtml,
-                        OddsHtml = oddsHtml,
-                        BetType = GetBetTypeName(ticket.BetTypeId, ticket.IsLive),
-                        ParlayBetType = GetBetTypeName(parlayTicket.BetTypeId, parlayTicket.IsLive)
+                        OddHtml = oddsHtml,
+                        BetType =  Helper.GetBetTypeName(ticket.BetTypeId, ticket.IsLive),
+                        ParlayBetType = Helper.GetBetTypeName(parlayTicket.BetTypeId, parlayTicket.IsLive)
                     });
                 }
 
@@ -391,27 +391,27 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
         #region Helpers
 
-        private string GetBetTypeName(int bettype, bool liveIndicator)
-        {
-            var bettypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(bettype);
+        //private string GetBetTypeName(int bettype, bool liveIndicator)
+        //{
+        //    var bettypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(bettype);
 
-            switch (bettype)
-            {
-                case 86:
-                    bettypeName = liveIndicator ? "Next Odd/Even" : "FT. Odd/Even";
-                    break;
-                case 85:
-                    bettypeName = "Next Over/Under";
-                    break;
-                case 90:
-                    bettypeName += liveIndicator ? " (Live Game)" : " (Pre Game)";
-                    break;
-                default:
-                    break;
-            }
+        //    switch (bettype)
+        //    {
+        //        case 86:
+        //            bettypeName = liveIndicator ? "Next Odd/Even" : "FT. Odd/Even";
+        //            break;
+        //        case 85:
+        //            bettypeName = "Next Over/Under";
+        //            break;
+        //        case 90:
+        //            bettypeName += liveIndicator ? " (Live Game)" : " (Pre Game)";
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
-            return bettypeName;
-        }
+        //    return bettypeName;
+        //}
 
         private static Ticket MapTicket(DataRow row)
         {
@@ -554,7 +554,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
         /// <returns></returns>
         private string GetOddsInfo(TicketListingDetail ticketDetail)
         {
-            var oddsHtml = ticketDetail.OddsHtml;
+            var oddsHtml = ticketDetail.OddHtml;
             string oddsValue, oddsType;
             oddsValue = string.Empty;
             oddsType = string.Empty;

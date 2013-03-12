@@ -12,34 +12,6 @@ namespace Fanex.TicketControl.Gaming.Repositories.Impl
 {
     public class VoidNumberGameTicketRepository : BaseRepository, IVoidNumberGameTicketRepository
     {
-        //public IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria, ref DataSet dsOutData)
-        //{
-        //    IList<ActionResult> results = new List<ActionResult>();
-        //    try
-        //    {
-        //        using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
-        //        {
-        //            dsOutData = objectDb.ExecuteDataSet(criteria.GetSpParams());
-        //            var hashOutputParams = objectDb.GetOuputParams();
-
-        //            results.Add(new ActionResult() { 
-        //                ErrorCode = Convert.ToInt32(hashOutputParams["errcode"]),
-        //                ErrorMsg = Convert.ToString(hashOutputParams["errmsg"])
-        //            });
-                   
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //        results.Add(new ActionResult() { 
-        //            ErrorCode = 1,
-        //            ErrorMsg = ex.Message
-        //        });
-        //    }
-        //    return results;
-        //}
-        
         public DataSet GetNumberGameTicket(GetNumberGameTicketCriteria criteria)
         {
             DataSet ds = new DataSet();
@@ -55,6 +27,39 @@ namespace Fanex.TicketControl.Gaming.Repositories.Impl
                 LoggingHandler.Log(ex);
             }
             return ds;
+        }
+
+        public IList<ActionResult> VoidNumberGameTicket(VoidNumberGameTicketCritetia criteria, ref DataSet dsOutData)
+        {
+            IList<ActionResult> results = new List<ActionResult>();
+
+            try
+            {
+                using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
+                {
+                    dsOutData = objectDb.ExecuteDataSet(criteria.GetSpParams());
+                    var hashOutputParams = objectDb.GetOuputParams();
+
+                    results.Add(new ActionResult()
+                    {
+                        ErrorCode = Convert.ToInt32(hashOutputParams["errcode"]),
+                        ErrorMsg = Convert.ToString(hashOutputParams["errmsg"])
+                    });
+
+                }
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+
+                results.Add(new ActionResult()
+                {
+                    ErrorCode = 1,
+                    ErrorMsg = ex.Message
+                });
+            }
+
+            return results;
         }
     }
 }

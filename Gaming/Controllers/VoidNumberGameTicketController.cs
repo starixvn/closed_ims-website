@@ -15,12 +15,22 @@ namespace Fanex.TicketControl.Gaming.Controllers
     using Fanex.TicketControl.Core.Web.Controllers;
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.Gaming.Criteria;
+    using Fanex.TicketControl.Gaming.Services.Interface;
+    using Fanex.TicketControl.Gaming.Services.Impl;
+    using Fanex.TicketControl.Core.Services.Interface;
+    using Fanex.TicketControl.Core.Services.Impl;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class VoidNumberGameTicketController : BaseController
     {
+        IVoidNumberGameTicketService _voidNumberGameTicketService;
+        ICoreService _coreService;
 
-
+        public VoidNumberGameTicketController()
+        {
+            _voidNumberGameTicketService = new VoidNumberGameTicketService();
+            _coreService = new CoreService();
+        }
 
         public ActionResult Index()
         {
@@ -28,11 +38,16 @@ namespace Fanex.TicketControl.Gaming.Controllers
         }
 
         [HttpPost]
-        public JsonResult VoidNumberGameTicket(GetNumberGameTicketCriteria criteria)
+        public JsonResult CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria)
         {
-            return null; // Json(_deleteSingleTicketService.GetSingleTicket(criteria));
+            criteria.Type = Core.Utils.Helper.SportType.NumberGame;
+            return Json(_coreService.CheckMatchIdWithRefno(criteria));
         }
 
-
+        [HttpPost]
+        public JsonResult GetNumberGameTicket(GetNumberGameTicketCriteria criteria)
+        {
+            return Json(_voidNumberGameTicketService.GetNumberGameTicket(criteria));
+        }
     }
 }

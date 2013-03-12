@@ -39,7 +39,7 @@ var validateData = {
             return false;
         }
 
-        if (helper.GetBettypesChecked() == '') {
+        if (helper.getBettypesChecked() == '') {
             $('#msg').html(tooltip.show('chkallbettype', 'At least one bet type must be selected.')).show();
             return false;
         }

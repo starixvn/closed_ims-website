@@ -75,5 +75,28 @@ namespace Fanex.TicketControl.Core.Utils
             }
             return ip;
         }
+
+        public static string GetBetTypeName(int bettype, bool liveIndicator)
+        {
+            var bettypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(bettype);
+
+            switch (bettype)
+            {
+                case 86:
+                    bettypeName = liveIndicator ? "Next Odd/Even" : "FT. Odd/Even";
+                    break;
+                case 85:
+                    bettypeName = "Next Over/Under";
+                    break;
+                case 90:
+                    bettypeName += liveIndicator ? " (Live Game)" : " (Pre Game)";
+                    break;
+                default:
+                    break;
+            }
+
+            return bettypeName;
+        }
+
     }
 }
