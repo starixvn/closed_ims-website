@@ -38,6 +38,10 @@
     <Reference Include="Fanex.BetList.Core.TicketHelper">
       <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.TicketHelper.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Common, Version=1.0.404.97, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Common.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Data">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Data.dll</HintPath>
     </Reference>

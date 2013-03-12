@@ -308,6 +308,8 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             }
         }
 
+        #region Helpers
+
         private string GetChoiceInfo(TicketListingDetail ticketDetail)
         {
             var choiceHtml = ticketDetail.ChoiceHtml;
@@ -383,7 +385,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             xmlDoc.LoadXml(oddsHtml);
             var foundSpanNodes = xmlDoc.SelectNodes("//span");
             var count = foundSpanNodes.Count;
-            switch(count)
+            switch (count)
             {
                 case 0:
                     // do nothing
@@ -391,7 +393,7 @@ namespace Fanex.TicketControl.Misc.Services.Impl
                 case 1:
                     oddsValue = foundSpanNodes[0].InnerText.Trim();
                     break;
-                default: 
+                default:
                     oddsValue = foundSpanNodes[0].InnerText.Trim();
                     oddsType = foundSpanNodes[1].InnerText.Trim();
                     break;
@@ -405,7 +407,9 @@ namespace Fanex.TicketControl.Misc.Services.Impl
             }
 
             return odds;
-        }
+        } 
+
+        #endregion
     }
 }
 

@@ -9,16 +9,22 @@
 
 namespace Fanex.TicketControl.Gaming.Services.Impl
 {
+    using System.Data;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.TicketControl.Core.Services.Impl;
-    using Fanex.TicketControl.Gaming.Services.Interface;
-    using Fanex.TicketControl.Gaming.ViewModels;
-    using Fanex.TicketControl.Gaming.Criteria;
-    using Fanex.TicketControl.Core.Services.Interface;
+    using Fanex.BetList.Core.Entities;
     using Fanex.TicketControl.Core.Criteria;
+    using Fanex.TicketControl.Core.Services.Impl;
+    using Fanex.TicketControl.Core.Services.Interface;
+    using Fanex.TicketControl.Gaming.Criteria;
     using Fanex.TicketControl.Gaming.Repositories.Impl;
     using Fanex.TicketControl.Gaming.Repositories.Interface;
-    using System.Data;
+    using Fanex.TicketControl.Gaming.Services.Interface;
+    using Fanex.TicketControl.Gaming.ViewModels;
+    using Fanex.Common;
+    using Fanex.TicketControl.Core.Models;
+    using Fanex.BetList.Core.TicketHelper;
+    using Fanex.BetList.Core.Factories;
+    using Fanex.BetList.Core.Builder;
 
     /// <summary>
     /// TODO: Update summary.
@@ -243,7 +249,72 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
             int cnt = ds.Tables.Count;
             DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
 
-            throw new System.NotImplementedException();
+            // Now, we only have one Normal group.
+            Group group = new Group();
+            group.Name = "Normal";
+            group.DeleteOtionDefault = true;
+            group.IsAllowOptionDelete = true;
+            var rows = dt.AsEnumerable();
+
+            ITicketHelper ticketHelper = new TicketHelper();
+            BetListHTMLFactory factory = new BetListHTMLFactory();
+            BetListHTMLBuilder builder = factory.CreateBuilder();
+            GetCachePropertyById funcGetOddsTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetOddsTypeName;
+
+            foreach (var row in rows)
+            {
+                var ticket = MappingTicket(row);
+                var ticketDetail = new TicketDetail();
+                ticketDetail.Ticket = ticket;
+
+                if (ticket.BetTypeId == 9 || ticket.BetTypeId == 29)
+                {
+                    ticketHelper.IsShowOddsWithChoice = true;
+                }
+
+                ticketDetail.ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false);
+                ticketDetail.StakeHtml = builder.BuildStake(ticket);
+                ticketDetail.OddHtml = builder.BuildOdds(ticket, null, funcGetOddsTypeName);
+                group.Tickets.Add(ticketDetail);
+            }
+
+            model.Groups.Add(group);
+
+            return model;
         }
+
+        #region Helpers
+
+        private static Ticket MappingTicket(DataRow row)
+        {
+            var ticket = new Ticket
+            {
+                UserName = Converter.ToString2(row["username"]),
+                TransId = Converter.ToInt(row["transid"]),
+                TransDate = Converter.ToDateTime(row["transdate"]),
+                Odds = Converter.ToDecimal(row["odds"]),
+                Stake = Converter.ToDecimal(row["stake"]),
+                Status = Converter.ToString2(row["status"]),
+                HomeId = Converter.ToInt(row["homeID"]),
+                AwayId = Converter.ToInt(row["awayID"]),
+                BetTeam = Converter.ToString2(row["betteam"]),
+                BetTypeId = Converter.ToInt(row["bettype"]),
+                Handicap1 = Converter.ToDecimal(row["hdp1"]),
+                Handicap2 = Converter.ToDecimal(row["hdp2"]),
+                LiveHomeScore = Converter.ToInt(row["livehomescore"]),
+                LiveAwayScore = Converter.ToInt(row["liveawayscore"]),
+                IsLive = Converter.ToBool(row["liveindicator"]),
+                IsNeutral = Converter.ToBool(row["isNeutral"]),
+                OddsType = Converter.ToString2(row["OddsType"]),
+                Winlost = Converter.ToDecimal(row["winlost"]),
+            };
+
+            long transid;
+            bool result = long.TryParse(row["transid"].ToString(), out transid);
+            ticket.TransId = transid;
+            return ticket;
+        } 
+
+        #endregion
     }
 }

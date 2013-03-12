@@ -9,8 +9,11 @@ namespace Fanex.TicketControl.Core.Models
     public class TicketDetail
     {
         public ITicket Ticket { get; set; }
+
         public string OddHtml { get; set; }
+
         public string ChoiceHtml { get; set; }
+
         public string StakeHtml { get; set; }
     }
 }
