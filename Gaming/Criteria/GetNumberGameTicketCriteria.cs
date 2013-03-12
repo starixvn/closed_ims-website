@@ -24,7 +24,7 @@ namespace Fanex.TicketControl.Gaming.Criteria
 
         public override string GetSettingKey()
         {
-            return "SingleTicket_BettransSelSpecialDel";
+            return "NumberGameTicket_BettransSelSpecialDel";
         }
 
         /// <summary>

@@ -16,31 +16,19 @@ var voidNumberGame = {
         }
     },
 
-    getSingleTicket: function (){
+    getNumberGameTicket: function (){
 
          var param = {
             MatchId: voidNumberGame.param.MatchId,
             FromRefNo: voidNumberGame.param.FromRefno,
             ToRefNo: voidNumberGame.param.ToRefno,
-            Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
-            LiveIndicator: $('#EventType').val(),
-            LiveHomeScore: helper.GetLiveScore().LiveHomeScore,
-            LiveAwayScore: helper.GetLiveScore().LiveAwayScore,
-            FromTransdate: helper.GetLiveScore().FromTransdate,
-            ToTransdate: helper.GetLiveScore().ToTransdate,
-            Bettypes: helper.GetBettypesChecked(),
-            Betteam1378: $('#ddlBetTeam1378').val(),
-            Betteam515: helper.GetBetteam515(),
-            Betteam430: helper.GetBetteam430(),
-            Betteam6: helper.GetBetteam6(),
-            Betteam14: helper.GetBetteam14(),
-            Betteam16: helper.GetBetteam16(),
-            SAFilter: $('#TicketType').val()
+            Dead: helper.getDeadBallBetTypes(),
+            Live: helper.getLiveBallBetTypes()
          };
 
          $.ajax({
                 type: "POST",
-                url: window.rootUrl + "Gaming/VoidNumberGameTicket/GetSingleTicket",
+                url: window.rootUrl + "Gaming/VoidNumberGameTicket/GetNumberGameTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),
@@ -49,8 +37,7 @@ var voidNumberGame = {
                 },
                 success: function (rs) {
                     //render match info
-                    voidNumberGame.loadMatchInfo(rs.MatchInfo) ;
-                    voidNumberGame.loadSingleTicket(rs.Groups);
+                    voidNumberGame.loadNumberGameTicket(rs.Groups);
                 },
                 error: function () {
                     console.log('has error :(');
@@ -61,48 +48,26 @@ var voidNumberGame = {
             });
     },
 
-    loadMatchInfo: function(matchInfo){
-        var rows = [];
-        rows.push({
-        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-            { Name: "eventDate", Value:  matchInfo.EventDate}
-        ]});
-
-        var id = 'matchInfo';
-        var gridOptions = {
-            columns: [
-                { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
-            ],
-            bodyRows: rows
-        };
-
-        $('#' + id).fanexGrid(gridOptions);
-    },
-
-    loadSingleTicket : function(groups)
+    loadNumberGameTicket : function(groups)
     {
         var rows = [];
         var length = groups[0].Tickets.length;
+
         for (var index = 0; index < length; index++) {
             var currentRow = groups[0].Tickets[index];
             rows.push({
                 Columns:[
                     { Name: "No", Value: currentRow.No  },
-                    { Name: "BetId", Value: currentRow.BetId },                    
-                    { Name: "Player", Value: currentRow.Player },                    
+                    { Name: "BetId", Value: currentRow.Ticket.TransId },                    
+                    { Name: "Member", Value: currentRow.Ticket.UserName },                    
                     { Name: "TransDate", Value:currentRow.TransDate  },
                     { Name: "BetTypeName", Value:currentRow.BetTypeName },
-                    { Name: "Odds", Value:currentRow.Odds},
-                    { Name: "Choice", Value:currentRow.Choice},
-                    { Name: "Stake", Value: currentRow.Stake},
-                    { Name: "CurrencyName", Value:currentRow.CurrencyName  },
-                    { Name: "Score", Value: currentRow.Score },
-                    { Name: "Status", Value: currentRow.Status },
-                    { Name: "SA", Value: currentRow.SA },
-                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
+                    { Name: "Odds", Value:currentRow.OddHtml},
+                    { Name: "Stake", Value: currentRow.StakeHtml},
+                    { Name: "CurrencyName", Value:currentRow.Currency },
+                    { Name: "Status", Value: currentRow.Ticket.Status },
+                    { Name: "Choice", Value:currentRow.ChoiceHtml},
+                    { Name: "CustomAdd", Value: currentRow.Ticket.TransId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -113,16 +78,14 @@ var voidNumberGame = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Member", Name: "Member", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
+                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: voidNumberGame.optionCustomRender } 
             ],
             bodyRows: rows,
@@ -226,7 +189,7 @@ var voidNumberGame = {
 
         $.ajax({
                 type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/CheckMatchIdWithRefno",
+                url: window.rootUrl + "Gaming/VoidNumberGameTicket/CheckMatchIdWithRefno",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),
@@ -234,29 +197,27 @@ var voidNumberGame = {
                     NapTicketControl.disableInput();
                 },
                 success: function (rs) {
-                    if(rs.ErrorCode == 0){
+//                    if(rs.ErrorCode == 0){
                         voidNumberGame.param = param;
-                        voidNumberGame.getSingleTicket();
+                        voidNumberGame.getNumberGameTicket();
                         helper.displayContent(true);
-                    }
-                    else{
-                        //NapTicketControl.Helper.showMsgBox(rs);   
+//                    }
+//                    else{
+//                        switch(rs.ErrorCode){
+//                            case 1:
+//                            case 2:
+//                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
+//                                break;
+//                            case 3:
+//                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
+//                                break;
+//                            case 4:
+//                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
+//                                break;
+//                        }
 
-                        switch(rs.ErrorCode){
-                            case 1:
-                            case 2:
-                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
-                                break;
-                            case 3:
-                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
-                                break;
-                            case 4:
-                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
-                                break;
-                        }
-
-                        helper.displayContent(false);
-                    }
+//                        helper.displayContent(false);
+//                    }
                     
                 },
                 error: function () {
@@ -273,14 +234,7 @@ var voidNumberGame = {
 function VoidNumberGameTicket() {
     this.DOMElement =
     {
-        $ddlLiccensee: null,
-        $ddlEventType: null,
-        $product: null,
         $bettypeWrp: null,
-        $chkTransDateRange: null,
-        $txtCalendar: null,
-        $optFilters: null,
-        $eventTypeWrp: null,
         $body: null,
     };
 
@@ -294,74 +248,21 @@ VoidNumberGameTicket.prototype.Mode = {
 VoidNumberGameTicket.prototype.CacheDOMElement = function () {
     var self = this;
 
-    self.DOMElement.$ddlLiccensee = $('.ddlLicensee');
-    self.DOMElement.$ddlEventType = $('.ddlEventType');
-    self.DOMElement.$product = $('.product');
     self.DOMElement.$bettypeWrp = $('.bettype-wrp');
-    self.DOMElement.$chkTransDateRange = $('.chkTransDateRange');
-    self.DOMElement.$txtCalendar = $('.txtCalendar');
-    self.DOMElement.$optFilters = $('.opt-filters');
-    self.DOMElement.$eventTypeWrp = $('.event-type-wrp');
     self.DOMElement.$body = $('#body');
 }
 
 VoidNumberGameTicket.prototype.Init = function () {
     
-    jQuery("#DeleteSingleTicketForm").validationEngine();
+    jQuery("#VoidNumberGameTicketForm").validationEngine();
 
     var self = this;
 
     self.CacheDOMElement();    
     NapTicketControl.Helper.GetBettypes('NumberGame');
-    self.SetupCalendar('', '.txtCalendar');
-    $('.txtCalendar').attr('disabled', 'disabled');
-
     helper.setStatusAllBettype(false);
 
     // handle events from DOM element
-    // change live type
-    self.DOMElement.$ddlEventType.change(function () {
-        var eventType = $(this).val(); // live type drop down list
-
-        if (eventType === '1') {
-            self.DOMElement.$optFilters.show();   
-//            $('#tr-advance-item-1x2').hide();         
-        } else {
-            self.DOMElement.$optFilters.hide();        
-//            $('#tr-advance-item-1x2').show();    
-        }
-
-//        if(eventType == '0'){//Dead Ball
-//            $('#tr-advance-item-htft').hide();
-//            $('#tr-advance-item-tg').hide();
-//            $('#tr-advance-item-flg').hide(); 
-//            $('.tr-advance-item-score').hide();
-//        }
-//        else{
-//            $('#tr-advance-item-htft').show();
-//            $('#tr-advance-item-tg').show();
-//            $('#tr-advance-item-flg').show();  
-//            $('.tr-advance-item-score').show();          
-//        }
-
-//        NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
-//        NapTicketControl.Helper.setStatusAllBettype(false);
-    });
-
-    // enable/disable Trans Date
-    self.DOMElement.$chkTransDateRange.click(function () {
-        if ($(this).prop('checked')) {
-            // fill in current date
-            var today = new Date();
-            $('.txtCalendar').removeAttr('disabled');
-            self.SetupCalendar(today.format('Y/m/d H:i:s'), '.txtCalendar');
-
-        } else {
-            // clear text box
-            $('.txtCalendar').val('').attr('disabled', 'disabled');
-        }
-    });
-
     $('.tbl-advance-mode thead th').click(function(){
         var iEle = $(this).find('i');
         if(iEle.hasClass('icon-plus-sign'))
@@ -400,20 +301,8 @@ VoidNumberGameTicket.prototype.Init = function () {
     $('body').delegate('#chkallbettype', 'click', function () {
         if ($('#chkallbettype').prop('checked')) {
             $('.chkbettype').attr('checked', 'checked')
-            helper.setStatusAllAdvanceCS(true, true);    
-            helper.setStatusAllAdvanceTG(true, true);
-            helper.setStatusAllAdvanceHDP(true);
-            helper.setStatusAllAdvance1X2(true);
-            helper.setStatusAllAdvanceHTFT(true, true);
-            helper.setStatusAllAdvanceFGLG(true, true);
         } else {
             $('.chkbettype').removeAttr('checked');
-            helper.setStatusAllAdvanceCS(false, false);        
-            helper.setStatusAllAdvanceTG(false, false);
-            helper.setStatusAllAdvanceHDP(false);
-            helper.setStatusAllAdvance1X2(false);
-            helper.setStatusAllAdvanceHTFT(false, false);
-            helper.setStatusAllAdvanceFGLG(false, false);
         }
     });
 
@@ -426,66 +315,6 @@ VoidNumberGameTicket.prototype.Init = function () {
         } else {
             $('#chkallbettype').removeAttr('checked');
         }
-        
-        var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
-        helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS); 
-        
-        var IsSelectedTG = helper.IsSelectedBettype(6);
-        helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
-
-        var IsSelectedHDP = helper.IsSelectedBettype(1) || helper.IsSelectedBettype(7) 
-                            || helper.IsSelectedBettype(3) || helper.IsSelectedBettype(8)
-                            || helper.IsSelectedBettype(2) || helper.IsSelectedBettype(12);
-        helper.setStatusAllAdvanceHDP(IsSelectedHDP);
-
-        var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
-        helper.setStatusAllAdvance1X2(IsSelected1X2);
-
-        var IsSelected1X2 =  helper.IsSelectedBettype(16);
-        helper.setStatusAllAdvanceHTFT(IsSelected1X2, IsSelected1X2);
-
-        var IsSelectedGFLG =  helper.IsSelectedBettype(14);
-        helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
-    });
-
-    //Correct Scores check all
-    $('body').delegate('#chk-score-all', 'click', function () {
-        helper.setStatusAllAdvanceCS(this.checked, true);
-    });
-
-    //Correct Scores uncheck any item
-    $('body').delegate('.chk-score', 'click', function () {
-        helper.eventSubAdvanceCS();
-    });
-
-     //TG check all
-    $('body').delegate('#chk-tg-all', 'click', function () {
-        helper.setStatusAllAdvanceTG(this.checked, true);
-    });
-
-     //TG uncheck any item
-    $('body').delegate('.chk-tg', 'click', function () {
-        helper.eventSubAdvanceTG();
-    });
-
-     //HTFT check all 
-    $('body').delegate('#chk-htft-all', 'click', function () {        
-        helper.setStatusAllAdvanceHTFT(this.checked, true);
-    });
-  
-    //HTFT uncheck any item
-    $('body').delegate('.chk-htft', 'click', function () {
-        helper.eventSubAdvanceHTFT();
-    });
-
-      //FGLG check all 
-    $('body').delegate('#chk-flg-all', 'click', function () {        
-        helper.setStatusAllAdvanceFGLG(this.checked, true);
-    });
-  
-    //FGLG uncheck any item
-    $('body').delegate('.chk-flg', 'click', function () {
-        helper.eventSubAdvanceHTFT();
     });
     
     $('#btnSearch').click(function (e) {        
@@ -496,25 +325,4 @@ VoidNumberGameTicket.prototype.Init = function () {
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();
     $("#fromRefno").keyup(function () {}).ForceIntegerOnly();
     $("#toRefno").keyup(function () {}).ForceIntegerOnly();
-    $("#hdp").keyup(function () {}).ForceIntegerOnly();
-    $("#LiveHomeScore").keyup(function () {}).ForceIntegerOnly();
-    $("#LiveAwayScore").keyup(function () {}).ForceIntegerOnly();
 };
-
-VoidNumberGameTicket.prototype.SetupCalendar = function (strdatetime, txtdate) {
-    $(txtdate).datetimepicker({
-        showSecond: true,
-        dateFormat: 'yy/m/d',
-        timeFormat: 'HH:mm:ss',
-        hourGrid: 3,
-        minuteGrid: 5,
-        secondGrid: 5,
-        separator: ' '
-    });
-
-    if (strdatetime != null && strdatetime != "") {
-        $(txtdate).val(strdatetime).datetimepicker('setDate', (new Date(strdatetime)));
-    }
-}
-
-
