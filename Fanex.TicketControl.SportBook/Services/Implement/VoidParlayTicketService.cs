@@ -228,6 +228,9 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     BetListHTMLFactory factory = new BetListHTMLFactory();
                     BetListHTMLBuilder builder = factory.CreateBuilder();
 
+                    //ticketHelper.ShowBetType = false;
+                    //ticketHelper.ShowLeague = false;
+                    //ticketHelper.ShowMatch = false;
 
                     if (bettype == 9 || bettype == 29)
                     {

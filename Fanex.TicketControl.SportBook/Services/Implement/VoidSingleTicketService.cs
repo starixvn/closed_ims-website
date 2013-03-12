@@ -173,6 +173,10 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         ticketHelper.IsShowOddsWithChoice = true;
                     }
 
+                    ticketHelper.ShowBetType = false;
+                    ticketHelper.ShowLeague = false;
+                    ticketHelper.ShowMatch = false;
+
                     ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
                     ticket.StakeHtml = builder.BuildStake(ticket.Ticket);
                     ticket.OddHtml = builder.BuildOdds(ticket.Ticket, null, funcGetOddsTypeName);
