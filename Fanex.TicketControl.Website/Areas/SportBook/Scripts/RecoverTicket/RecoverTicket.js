@@ -239,7 +239,7 @@ var recoverTicket = {
                     helper.displayContent(false);
                 }
 
-                Helper.showMsgBox(rs);
+                NapTicketControl.Helper.showMsgBox(rs);
             },
             error: function () {
                 console.log('has error :(');

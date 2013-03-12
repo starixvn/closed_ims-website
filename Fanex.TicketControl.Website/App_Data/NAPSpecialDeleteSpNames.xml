@@ -35,8 +35,8 @@
   </Function>
 
   <Function Name="RecoverTicket">
-    <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="db053" />
-    <Setting Key="RecoverTicket_BettransRecoverSpecialBets" SpName="Acc_BettransRecoverSpecialBets" DbName="main" />    
+    <Setting Key="RecoverTicket_BettransSelRecoverSpecialBets" SpName="Acc_BettransSelRecoverSpecialBets" DbName="apollo_db06" />
+    <Setting Key="RecoverTicket_BettransRecoverSpecialBets" SpName="Acc_BettransRecoverSpecialBets" DbName="apollo_transdb" />    
   </Function>
 
   <Function Name="NumberGameTicket">
