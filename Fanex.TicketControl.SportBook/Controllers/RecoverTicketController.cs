@@ -35,7 +35,7 @@ using Fanex.TicketControl.SportBook.Services.Interface;
 
 
         [HttpPost]
-        public JsonResult GetTicketRecover(GetRecoverTicket criteria)
+        public JsonResult GetTicketRecover(GetRecoverTicketCriteria criteria)
         {
             Core.Models.ActionResult rs = new Core.Models.ActionResult();
 

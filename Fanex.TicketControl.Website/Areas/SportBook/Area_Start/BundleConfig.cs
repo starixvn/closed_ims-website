@@ -31,6 +31,11 @@
                 "~/Scripts/_Libs/Utils/stdlib.js",
                 "~/Areas/SportBook/Scripts/RecoverTicket/RecoverTicket.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/areas/SportBook/VoidOutrightTicket").Include(
+                "~/Scripts/_Libs/Utils/stdlib.js"
+                
+            ));
         }
     }
 }

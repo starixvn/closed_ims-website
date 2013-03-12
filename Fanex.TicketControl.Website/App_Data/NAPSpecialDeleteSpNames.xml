@@ -43,6 +43,9 @@
     <Setting Key="NumberGameTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel_NumberGame" DbName="apollo_db06" />
     <Setting Key="NumberGameTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial_NumberGame" DbName="apollo_transdb" />
   </Function>
-  
+
+  <Function Name="OutRightTicket">
+    <Setting Key="OutRightTicket_BettransDelSpecial_LeagueSelOutright" SpName="Acc_BettransDelSpecial_LeagueSelOutright" DbName="apollo_db06" />
+  </Function>
   
 </Functions>

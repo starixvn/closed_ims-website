@@ -33,7 +33,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             _messageService = new MessageService();
         }
 
-        public SingleTicketModel GetTicketRecover(GetRecoverTicket criteria, ref ActionResult result)
+        public SingleTicketModel GetTicketRecover(GetRecoverTicketCriteria criteria, ref ActionResult result)
         {
             SingleTicketModel model = new SingleTicketModel();
             try

@@ -72,17 +72,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\VoidOutrightTicketController.cs" />
     <Compile Include="Controllers\RecoverTicketController.cs" />
     <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
+    <Compile Include="Criteria\GetOutrightLeagueCriteria.cs" />
     <Compile Include="Criteria\GetParlaySubTicketCriteria.cs" />
-    <Compile Include="Criteria\GetRecoverTicket.cs" />
+    <Compile Include="Criteria\GetRecoverTicketCriteria.cs" />
     <Compile Include="Criteria\RecoverTicketCriteria.cs" />
     <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
     <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
     <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
     <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
+    <Compile Include="Entities\Outright\League.cs" />
     <Compile Include="Entities\ParlayTicket\TicketInfo.cs" />
     <Compile Include="Entities\SingleTicket\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,9 +96,11 @@
     <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
     <Compile Include="Services\Implement\RecoverTicketService.cs" />
+    <Compile Include="Services\Implement\VoidOutrightTicketService.cs" />
     <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
     <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
     <Compile Include="Services\Interface\IRecoverTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
     <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
     <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
     <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
