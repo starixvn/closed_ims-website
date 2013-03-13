@@ -59,10 +59,13 @@
                     <div class="lbl-field span3">
                         <label for="ddlTeam">Team</label>
                     </div>
-                    <div class="edit-field span4">
-                        <select id="ddlTeam" style="width:150px" ></select>
+                    <div class="edit-field span8">
+                        <select id="ddlTeam" style="width:auto" ></select>
                     </div>
                 </div>
+            </div>
+           
+            <div class="filter-row">
                 <div class="filter-cell">
                     <div class="lbl-field span3">
                         <label for="fromRefno">From BetID</label>
@@ -80,10 +83,13 @@
                     </div>
                 </div>  
             </div>
-           
+
             <div class="filter-row">
                 <div class="filter-cell">
-                    <input type="button" id="btnSearch" class="submit" value="Search" />
+                     <div class="lbl-field span3"></div>
+                    <div class="edit-field span4">
+                        <input type="button" id="btnSearch" class="submit" value="Search" />
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -167,7 +173,7 @@
             <label for="password">
                 Password</label>
             <input type="password" id="password" class="input-xlarge" />
-            <a class="submit" href="javascript:;singleDetete.voidSingleTicket();">Void Bet</a>
+            <a class="submit" href="javascript:outright.voidOutrightTicket();">Void Bet</a>
         </fieldset>        
     </div>
 }

@@ -8,14 +8,21 @@ using Fanex.TicketControl.SportBook.Criteria;
 using Fanex.TicketControl.Core.Services.Impl;
 using System.Data;
 using Fanex.TicketControl.Core.Repository.Impl;
+using Fanex.TicketControl.SportBook.ViewModels.Outright;
+using Fanex.TicketControl.SportBook.Repositories.Interface;
+using Fanex.TicketControl.SportBook.Repositories.Impl;
+using Fanex.TicketControl.Core.Models;
+using Fanex.TicketControl.Core.Utils;
 
 namespace Fanex.TicketControl.SportBook.Services.Implement
 {
     public class VoidOutrightTicketService : ServiceBase, IVoidOutrightTicketService
     {
         private readonly BaseRepository _repository;
+        IVoidOutrightTicketRepository _outrightRepository;
         public VoidOutrightTicketService() {
             _repository = new BaseRepository();
+            _outrightRepository = new VoidOutrightTicketRepository();
         }
 
         public IList<League> GetOutrightLeague()
@@ -64,5 +71,71 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             }
             return teams;
         }
+
+
+        public OutrightTicketModel GetOutrightTicket(GetOutrightTicketCriteria criteria)
+        {
+            OutrightTicketModel model = new OutrightTicketModel();
+            try
+            {
+                var ds = _outrightRepository.GetOutrightTicket(criteria);
+                DataTable dt = new DataTable();
+                if (ds != null && ds.Tables.Count > 0)
+                {
+                    dt = ds.Tables[0];
+                }
+                model.Groups.Add(AssignDataOnGroup(dt));
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return model;
+        }
+
+        private Group AssignDataOnGroup(DataTable dt)
+        {
+            Group group = new Group();
+            group.Name = "Normal";
+            group.Tickets = new List<TicketInfo>();
+
+            try
+            {
+                DataRow[] rows = dt.Select();
+                List<TicketInfo> tickets = new List<TicketInfo>();
+
+                int index = 0;
+                Int64 BetId = 0;
+                foreach (DataRow row in rows)
+                {
+                    index++;
+                    BetId = Convert.ToInt64(row["transid"]);
+
+                    var ticketInfo = new TicketInfo()
+                    {
+                        No = index,
+                        BetId = Convert.ToString(BetId),
+                        Player = Convert.ToString(row["username"]),
+                        TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),                                                
+                        Stake = Convert.ToString(row["stake"]),
+                        Odds = Convert.ToString(row["odds"]),
+                        CurrencyName = Helper.CurrencyById(Convert.ToInt32(row["currency"])),
+                        Status = Convert.ToString(row["status"])
+                    };
+
+                    tickets.Add(ticketInfo);
+
+                }
+
+                group.Tickets = tickets;
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return group;
+        }
+
+        
     }
 }

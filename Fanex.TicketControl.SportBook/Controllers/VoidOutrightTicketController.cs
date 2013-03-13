@@ -23,11 +23,12 @@ namespace Fanex.TicketControl.SportBook.Controllers
     {
 
         IVoidOutrightTicketService _voidOutrightTicketService;
+        IVoidSingleTicketService _voidSingleTicketService;
 
         public VoidOutrightTicketController()
         {
-            _voidOutrightTicketService = new VoidOutrightTicketService();    
-            
+            _voidOutrightTicketService = new VoidOutrightTicketService();
+            _voidSingleTicketService = new VoidSingleTicketService();     
         }
 
         
@@ -47,6 +48,24 @@ namespace Fanex.TicketControl.SportBook.Controllers
         public JsonResult GetTeamByLeague(GetOutrightTeamCriteria criteria)
         {
             return Json(_voidOutrightTicketService.GetTeamByLeague(criteria));
+        }
+
+        [HttpPost]
+        public JsonResult GetOutrightTicket(GetOutrightTicketCriteria criteria) 
+        {
+            criteria.UserName = CurrentSession.Username;
+            return Json(_voidOutrightTicketService.GetOutrightTicket(criteria));
+        }
+
+        public JsonResult VoidOutrightTicket(VoidSingleTicketCritetia criteria)
+        {
+            criteria.UserPwd = Fanex.Common.Cryptography.CfsEnCode(criteria.UserPwd);
+            criteria.UserId = CurrentSession.UserId;
+            criteria.Betteam1378 = "";
+            criteria.Betteam515 = "";
+            criteria.HDP = 9999;
+
+            return Json(_voidSingleTicketService.VoidSingleTicket(criteria));
         }
     }
 }
