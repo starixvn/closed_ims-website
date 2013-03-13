@@ -51,24 +51,26 @@ var voidNumberGame = {
     },
 
     loadMatchInfo: function(matchInfo){
-        var rows = [];
-        rows.push({
-        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-            { Name: "eventDate", Value:  matchInfo.EventDate}
-        ]});
+        if(matchInfo !== null && matchInfo !== undefined){
+            var rows = [];
+            rows.push({
+            Columns: [{ Name: "code", Value: matchInfo.MatchCode },
+                { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
+                { Name: "eventDate", Value:  matchInfo.EventDate}
+            ]});
 
-        var id = 'matchInfo';
-        var gridOptions = {
-            columns: [
-                { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
-            ],
-            bodyRows: rows
-        };
+            var id = 'matchInfo';
+            var gridOptions = {
+                columns: [
+                    { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
+                ],
+                bodyRows: rows
+            };
 
-        $('#' + id).fanexGrid(gridOptions);
+            $('#' + id).fanexGrid(gridOptions);
+        }
     },
 
     loadNumberGameTicket : function(groups)
@@ -102,13 +104,13 @@ var voidNumberGame = {
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Member", Name: "Member", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 140, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Choice", Name: "Choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: voidNumberGame.optionCustomRender } 
             ],
             bodyRows: rows,
@@ -147,7 +149,7 @@ var voidNumberGame = {
 
         var param = $.extend(true, {}, voidNumberGame.param, {
             TransIds: helper.getSubTicketsChecked(),
-//            TransIds_N: helper.getSubTicketsChecked(), // NOTE: will be deleted when integrated with new sp
+            TransIds_N: helper.getSubTicketsChecked(), // NOTE: will be deleted when integrated with new sp
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
             Msg: {
@@ -209,27 +211,27 @@ var voidNumberGame = {
                     NapTicketControl.disableInput();
                 },
                 success: function (rs) {
-                    if(rs.ErrorCode == 0){
+//                    if(rs.ErrorCode == 0){
                         voidNumberGame.param = param;
                         voidNumberGame.getNumberGameTicket();
                         helper.displayContent(true);
-                    }
-                    else{
-                        switch(rs.ErrorCode){
-                            case 1:
-                            case 2:
-                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
-                                break;
-                            case 3:
-                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
-                                break;
-                            case 4:
-                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
-                                break;
-                        }
+//                    }
+//                    else{
+//                        switch(rs.ErrorCode){
+//                            case 1:
+//                            case 2:
+//                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
+//                                break;
+//                            case 3:
+//                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
+//                                break;
+//                            case 4:
+//                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
+//                                break;
+//                        }
 
-                        helper.displayContent(false);
-                    }
+//                        helper.displayContent(false);
+//                    }
                     
                 },
                 error: function () {
@@ -252,9 +254,6 @@ function VoidNumberGameTicket() {
     this.OldDataRequest = null;
 };
 
-VoidNumberGameTicket.prototype.Mode = {
-    Sportsbook: 0
-};
 
 VoidNumberGameTicket.prototype.CacheDOMElement = function () {
     var self = this;

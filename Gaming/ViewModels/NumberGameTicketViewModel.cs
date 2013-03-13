@@ -17,8 +17,11 @@ namespace Fanex.TicketControl.Gaming.ViewModels
     {
         public NumberGameTicketModel()
         {
+            MatchInfo = new MatchInfo();
             Groups = new List<Group>();
         }
+
+        public MatchInfo MatchInfo { get; set; }
 
         public List<Group> Groups { get; set; }
     }

@@ -28,7 +28,7 @@ namespace Fanex.TicketControl.Gaming.Criteria
         public string TransIds { get; set; }
 
         // Note: will be deleted when integrate with new sp 
-        //public string TransIds_N { get; set; }
+        public string TransIds_N { get; set; }
 
         public string Dead { get; set; }
 
