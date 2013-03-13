@@ -410,7 +410,7 @@ VoidMixParlayTicket.prototype.Init = function () {
   
     //FGLG uncheck any item
     $('body').delegate('.chk-flg', 'click', function () {
-        helper.eventSubAdvanceHTFT();
+        helper.eventSubAdvanceFGLG();
     });
     
     $('body').delegate('#btnSearch', 'click', function () {
