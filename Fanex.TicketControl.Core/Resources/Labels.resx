@@ -327,8 +327,8 @@
   <data name="Master" xml:space="preserve">
     <value>Master</value>
   </data>
-  <data name="MatchID" xml:space="preserve">
-    <value>MatchID</value>
+  <data name="Match_ID" xml:space="preserve">
+    <value>Match ID</value>
   </data>
   <data name="Match_Code" xml:space="preserve">
     <value>CODE</value>
@@ -412,8 +412,8 @@
   <data name="ONEworkIncome" xml:space="preserve">
     <value>ONEWorks' Income</value>
   </data>
-  <data name="Optional_filters" xml:space="preserve">
-    <value>Optional filters</value>
+  <data name="Optional_Filters" xml:space="preserve">
+    <value>Optional Filters</value>
   </data>
   <data name="Original_Currency" xml:space="preserve">
     <value>Original Currency</value>
@@ -508,9 +508,6 @@
   <data name="Status" xml:space="preserve">
     <value>Status</value>
   </data>
-  <data name="String1" xml:space="preserve">
-    <value />
-  </data>
   <data name="Super" xml:space="preserve">
     <value>Super</value>
   </data>
@@ -559,7 +556,7 @@
   <data name="USD" xml:space="preserve">
     <value>USD</value>
   </data>
-  <data name="UserName" xml:space="preserve">
+  <data name="Username" xml:space="preserve">
     <value>Username</value>
   </data>
   <data name="VirtualSports" xml:space="preserve">
@@ -618,5 +615,98 @@
   </data>
   <data name="There_is_no_data" xml:space="preserve">
     <value>There is no data.</value>
+  </data>
+  <data name="Advanced_mode" xml:space="preserve">
+    <value>Advanced mode</value>
+  </data>
+  <data name="Chinese_Cantonese" xml:space="preserve">
+    <value>Chinese (Cantonese)</value>
+  </data>
+  <data name="Chinese_Mandarin" xml:space="preserve">
+    <value>Chinese (Mandarin)</value>
+  </data>
+  <data name="Collapse_Filter" xml:space="preserve">
+    <value>Collapse Filter</value>
+  </data>
+  <data name="Confirm_Delete" xml:space="preserve">
+    <value>Confirm Delete</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="English_and_Mandarin_are_required" xml:space="preserve">
+    <value>English and Mandarin are required.</value>
+  </data>
+  <data name="Es" xml:space="preserve">
+    <value>Es</value>
+  </data>
+  <data name="Event_Type" xml:space="preserve">
+    <value>Event Type</value>
+  </data>
+  <data name="From_BetID" xml:space="preserve">
+    <value>From BetID</value>
+  </data>
+  <data name="From_Trans_Date" xml:space="preserve">
+    <value>From Trans Date</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="It" xml:space="preserve">
+    <value>It</value>
+  </data>
+  <data name="Jp" xml:space="preserve">
+    <value>Jp</value>
+  </data>
+  <data name="Ko" xml:space="preserve">
+    <value>Ko</value>
+  </data>
+  <data name="Live_Away_Score" xml:space="preserve">
+    <value>Live Away Score</value>
+  </data>
+  <data name="Live_Home_Score" xml:space="preserve">
+    <value>Live Home Score</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="More_Messages" xml:space="preserve">
+    <value>More Messages</value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Please_inlude_at_in_message_for_replacing_ticket_numbers" xml:space="preserve">
+    <value>Please include "@@@@" in your message for replacing ticket numbers.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Optional Filters</value>
+  </data>
+  <data name="Th" xml:space="preserve">
+    <value>Th</value>
+  </data>
+  <data name="Ticket_Listing" xml:space="preserve">
+    <value>Ticket Listing</value>
+  </data>
+  <data name="Ticket_Type" xml:space="preserve">
+    <value>Ticket Type</value>
+  </data>
+  <data name="To_BetID" xml:space="preserve">
+    <value>To BetID</value>
+  </data>
+  <data name="To_Trans_Date" xml:space="preserve">
+    <value>To Trans Date</value>
+  </data>
+  <data name="Void_Bet" xml:space="preserve">
+    <value>Void Bet</value>
+  </data>
+  <data name="Void_Single_Ticket" xml:space="preserve">
+    <value>Void Single Ticket</value>
+  </data>
+  <data name="You_only_void_Unsettled_or_Refunded_tickets" xml:space="preserve">
+    <value>You can only void "Unsettled" or "Refunded" tickets.</value>
   </data>
 </root>

@@ -38,6 +38,7 @@ var voidNumberGame = {
                 },
                 success: function (rs) {
                     //render match info
+                    voidNumberGame.loadMatchInfo(rs.MatchInfo) ;
                     voidNumberGame.loadNumberGameTicket(rs.Groups);
                 },
                 error: function () {
@@ -47,6 +48,27 @@ var voidNumberGame = {
                     NapTicketControl.enableInput();
                 }
             });
+    },
+
+    loadMatchInfo: function(matchInfo){
+        var rows = [];
+        rows.push({
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
+            { Name: "eventDate", Value:  matchInfo.EventDate}
+        ]});
+
+        var id = 'matchInfo';
+        var gridOptions = {
+            columns: [
+                { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
+            ],
+            bodyRows: rows
+        };
+
+        $('#' + id).fanexGrid(gridOptions);
     },
 
     loadNumberGameTicket : function(groups)
@@ -125,6 +147,7 @@ var voidNumberGame = {
 
         var param = $.extend(true, {}, voidNumberGame.param, {
             TransIds: helper.getSubTicketsChecked(),
+//            TransIds_N: helper.getSubTicketsChecked(), // NOTE: will be deleted when integrated with new sp
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
             Msg: {
@@ -138,6 +161,11 @@ var voidNumberGame = {
                 Content_ko: $('#msg-ko').val()
             }
         });
+
+        param.F_transid = param.FromRefno;
+        param.T_transid = param.ToRefno;
+        delete param.FromRefno;
+        delete param.ToRefno;
 
         $.ajax({
                 type: "POST",
@@ -181,27 +209,27 @@ var voidNumberGame = {
                     NapTicketControl.disableInput();
                 },
                 success: function (rs) {
-//                    if(rs.ErrorCode == 0){
+                    if(rs.ErrorCode == 0){
                         voidNumberGame.param = param;
                         voidNumberGame.getNumberGameTicket();
                         helper.displayContent(true);
-//                    }
-//                    else{
-//                        switch(rs.ErrorCode){
-//                            case 1:
-//                            case 2:
-//                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
-//                                break;
-//                            case 3:
-//                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
-//                                break;
-//                            case 4:
-//                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
-//                                break;
-//                        }
+                    }
+                    else{
+                        switch(rs.ErrorCode){
+                            case 1:
+                            case 2:
+                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
+                                break;
+                            case 3:
+                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
+                                break;
+                            case 4:
+                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
+                                break;
+                        }
 
-//                        helper.displayContent(false);
-//                    }
+                        helper.displayContent(false);
+                    }
                     
                 },
                 error: function () {
@@ -212,7 +240,6 @@ var voidNumberGame = {
                 }
             });
     }
-    
 };
 
 function VoidNumberGameTicket() {
@@ -244,7 +271,7 @@ VoidNumberGameTicket.prototype.Init = function () {
 
     self.CacheDOMElement();    
     NapTicketControl.Helper.GetBettypes('NumberGame');
-    helper.setStatusAllBettype(false);
+    helper.setStatusAllBettype(true);
 
     // handle events from DOM element
     $('.tbl-advance-mode thead th').click(function(){
@@ -302,6 +329,7 @@ VoidNumberGameTicket.prototype.Init = function () {
     });
     
     $('#btnSearch').click(function (e) {        
+        e.stopPropagation();
         voidNumberGame.search();
         return false;
     });

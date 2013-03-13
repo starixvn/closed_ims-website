@@ -40,8 +40,8 @@
   </Function>
 
   <Function Name="NumberGameTicket">
-    <Setting Key="NumberGameTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel_NumberGame" DbName="db053" />
-    <Setting Key="NumberGameTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial_NumberGame" DbName="main" />
+    <Setting Key="NumberGameTicket_BettransSelSpecialDel" SpName="Acc_BettransSelSpecialDel_NumberGame" DbName="apollo_db06" />
+    <Setting Key="NumberGameTicket_BettransDelSpecial" SpName="Acc_BettransDelSpecial_NumberGame" DbName="apollo_transdb" />
   </Function>
 
   <Function Name="OutRightTicket">
