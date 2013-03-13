@@ -20,13 +20,12 @@ var voidNumberGame = {
 
     getNumberGameTicket: function (){
 
-         var param = {
-            MatchId: voidNumberGame.param.MatchId,
-            FromRefNo: voidNumberGame.param.FromRefno,
-            ToRefNo: voidNumberGame.param.ToRefno,
+         var param = $.extend(true, {}, voidNumberGame.param, {
             Dead: helper.getDeadBallBetTypes(),
             Live: helper.getLiveBallBetTypes()
-         };
+         });
+
+         voidNumberGame.param = param;
 
          $.ajax({
                 type: "POST",
@@ -124,12 +123,7 @@ var voidNumberGame = {
             return;
         }
 
-        var param = {
-            MatchId: voidNumberGame.param.MatchId,
-            f_transid: voidNumberGame.param.FromRefno,
-            t_transid: voidNumberGame.param.ToRefno,
-            Dead: voidNumberGame.param.Dead,
-            Live: voidNumberGame.param.Live,
+        var param = $.extend(true, {}, voidNumberGame.param, {
             TransIds: helper.getSubTicketsChecked(),
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
@@ -143,9 +137,9 @@ var voidNumberGame = {
                 Content_es: $('#msg-es').val(),
                 Content_ko: $('#msg-ko').val()
             }
-         };
+        });
 
-          $.ajax({
+        $.ajax({
                 type: "POST",
                 url: window.rootUrl + "Gaming/VoidNumberGameTicket/VoidNumberGameTicket",
                 contentType: "application/json; charset=utf-8", 
