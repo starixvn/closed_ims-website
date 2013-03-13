@@ -501,6 +501,7 @@ DelSingleTicket.prototype.Init = function () {
     });
     
     $('#btnSearch').click(function (e) {        
+        e.stopPropagation();
         singleDetete.search();
         return false;
     });

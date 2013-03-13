@@ -60,6 +60,14 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
                 model.MatchInfo = _coreService.GetMatchInfo(criteriaMatchInfo);
 
+
+                // NOTE: Must convert GTM+ 8 into GTM- 4
+                if (criteria.FromTransdate.HasValue && criteria.ToTransdate.HasValue)
+                {
+                    criteria.FromTransdate = criteria.FromTransdate.Value.AddHours(-12);
+                    criteria.ToTransdate = criteria.ToTransdate.Value.AddHours(-12);
+                }
+
                 var ds = _reponsitory.GetSingleTicket(criteria);
                 int cnt = ds.Tables.Count;
                 DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
