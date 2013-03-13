@@ -12,6 +12,30 @@ namespace Fanex.TicketControl.Gaming.Entities
     {
         public int No { get; set; }
 
+        public long BetId
+        {
+            get
+            {
+                return this.Ticket.TransId;
+            }
+        }
+
+        public string Member
+        {
+            get
+            {
+                return this.Ticket.UserName;
+            }
+        }
+
+        public string Status
+        {
+            get
+            {
+                return this.Ticket.Status;
+            }
+        }
+
         public string Currency { get; set; }
 
         public string TransDate
@@ -24,8 +48,9 @@ namespace Fanex.TicketControl.Gaming.Entities
 
         public string BetTypeName
         {
-            get {
-                return  Helper.GetBetTypeName(this.Ticket.BetTypeId, this.Ticket.IsLive);
+            get
+            {
+                return Helper.GetBetTypeName(this.Ticket.BetTypeId, this.Ticket.IsLive);
             }
         }
     }

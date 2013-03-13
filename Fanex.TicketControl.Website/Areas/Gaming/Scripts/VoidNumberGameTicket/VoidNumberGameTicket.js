@@ -3,7 +3,9 @@ var voidNumberGame = {
     param:{
         MatchId: '',
         FromRefno: '',
-        ToRefno: ''
+        ToRefno: '',
+        Dead: '',
+        Live: ''
     },
 
     search: function(){
@@ -58,16 +60,16 @@ var voidNumberGame = {
             rows.push({
                 Columns:[
                     { Name: "No", Value: currentRow.No  },
-                    { Name: "BetId", Value: currentRow.Ticket.TransId },                    
-                    { Name: "Member", Value: currentRow.Ticket.UserName },                    
+                    { Name: "BetId", Value: currentRow.BetId },                    
+                    { Name: "Member", Value: currentRow.Member },                    
                     { Name: "TransDate", Value:currentRow.TransDate  },
                     { Name: "BetTypeName", Value:currentRow.BetTypeName },
                     { Name: "Odds", Value:currentRow.OddHtml},
                     { Name: "Stake", Value: currentRow.StakeHtml},
                     { Name: "CurrencyName", Value:currentRow.Currency },
-                    { Name: "Status", Value: currentRow.Ticket.Status },
+                    { Name: "Status", Value: currentRow.Status },
                     { Name: "Choice", Value:currentRow.ChoiceHtml},
-                    { Name: "CustomAdd", Value: currentRow.Ticket.TransId, TdClass:"Demo", CssClass: "demo2" }
+                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -116,30 +118,18 @@ var voidNumberGame = {
         return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
     },
 
-    voidSingleTicket: function (){
+    voidNumberGameTicket: function (){
         
         if(!validateData.checkParamBeforVoidTicket()){
             return;
         }
 
         var param = {
-            MatchId: $('#txtMatchId').val(),
-            f_transid: $('#fromRefno').val(),
-            t_transid: $('#toRefno').val(),
-            Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
-            LiveIndicator: $('#EventType').val(),
-            LiveHomeScore: $('#LiveHomeScore').val(),
-            LiveAwayScore: $('#LiveAwayScore').val(),
-            FromTransdate: $('#FromTransDate').val(),
-            ToTransdate: $('#ToTransdate').val(),
-            Bettypes: helper.GetBettypesChecked(),
-            Betteam1378: $('#ddlBetTeam1378').val(),
-            Betteam515: helper.GetBetteam515(),
-            Betteam430: helper.GetBetteam430(),
-            Betteam6: helper.GetBetteam6(),
-            Betteam14: helper.GetBetteam14(),
-            Betteam16: helper.GetBetteam16(),
-            SAFilter: $('#TicketType').val(),
+            MatchId: voidNumberGame.param.MatchId,
+            f_transid: voidNumberGame.param.FromRefno,
+            t_transid: voidNumberGame.param.ToRefno,
+            Dead: voidNumberGame.param.Dead,
+            Live: voidNumberGame.param.Live,
             TransIds: helper.getSubTicketsChecked(),
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
@@ -157,7 +147,7 @@ var voidNumberGame = {
 
           $.ajax({
                 type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/VoidSingleTicket",
+                url: window.rootUrl + "Gaming/VoidNumberGameTicket/VoidNumberGameTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),

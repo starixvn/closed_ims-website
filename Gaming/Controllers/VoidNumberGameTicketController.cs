@@ -49,5 +49,16 @@ namespace Fanex.TicketControl.Gaming.Controllers
         {
             return Json(_voidNumberGameTicketService.GetNumberGameTicket(criteria));
         }
+
+        [HttpPost]
+        public JsonResult VoidNumberGameTicket(VoidNumberGameTicketCritetia criteria)
+        {
+            criteria.UserPwd = Fanex.Common.Cryptography.CfsEnCode(criteria.UserPwd);
+            criteria.UserId = CurrentSession.UserId;
+
+            return Json(_voidNumberGameTicketService.VoidNumberGameTicket(criteria));
+        }
+
+
     }
 }
