@@ -4,7 +4,6 @@ $(function () {
     outright.init();
 });
 
-
 var helper = {
     displayFormMsg: function (isShow) {
         if (isShow) {

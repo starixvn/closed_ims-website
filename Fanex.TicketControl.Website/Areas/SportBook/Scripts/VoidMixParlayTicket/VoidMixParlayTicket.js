@@ -209,12 +209,7 @@ var parlayDelete = {
             });
     }
 
-    
-
-    
 };
-
- 
 
 function VoidMixParlayTicket() {
     this.DOMElement =

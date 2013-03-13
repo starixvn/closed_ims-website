@@ -69,9 +69,9 @@ var singleDetete = {
     loadMatchInfo: function(matchInfo){
         var rows = [];
         rows.push({
-        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-            { Name: "eventDate", Value:  matchInfo.EventDate}
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold'},
+            { Name: "eventDate", Value:  matchInfo.EventDate, CssClass: 'bold'}
         ]});
 
         var id = 'matchInfo';
@@ -130,13 +130,22 @@ var singleDetete = {
             ],
             bodyRows: rows,
             showPager: true,
+            customPager: true,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,
                 currentPage: 0,
                 totalItem: 100,
                 startPerPage: 50,
-                pageStep: 50
+                pageStep: 50,
+                pagerSelectCallBack: function (page_index, itemsPerPage, jq) {
+//                    alert('alert');
+//                    $('.chk-ticket-all').attr('checked', 'checked');
+                      gridOptions.pagerOption.itemsPerPage = itemsPerPage;
+                      gridOptions.pagerOption.currentPage = page_index;
+                      $("#ticketInfo").fanexGrid(gridOptions);
+                      return false;
+                }
             }
         };
 
@@ -488,7 +497,7 @@ DelSingleTicket.prototype.Init = function () {
   
     //FGLG uncheck any item
     $('body').delegate('.chk-flg', 'click', function () {
-        helper.eventSubAdvanceHTFT();
+        helper.eventSubAdvanceFGLG();
     });
     
     $('#btnSearch').click(function (e) {        

@@ -230,7 +230,7 @@ var voidNumberGame = {
 //                                break;
 //                        }
 
-//                        helper.displayContent(false);
+//                        //helper.displayContent(false);
 //                    }
                     
                 },
