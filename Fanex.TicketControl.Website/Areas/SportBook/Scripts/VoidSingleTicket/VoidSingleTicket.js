@@ -117,15 +117,15 @@ var singleDetete = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Member", Name: "Player", Width: 130, HeaderAlign: "center", CellAlign: "left" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 140, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Status", Name: "Status", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
-                { HeaderText: "Choice", Name: "Choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Choice", Name: "Choice", Width: 250, HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: singleDetete.optionCustomRender } 
             ],
             bodyRows: rows,
@@ -258,7 +258,7 @@ var singleDetete = {
                                 break;
                         }
 
-                        helper.displayContent(false);
+//                        helper.displayContent(false);
                     }
                     
                 },
