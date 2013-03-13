@@ -96,7 +96,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         No = index,
                         BetId = Convert.ToString(BetId),
                         Player = Convert.ToString(row["username"]),
-                        TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
+                        TransDate = Convert.ToDateTime(row["transdate"]).ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                         BetType = Convert.ToInt32(row["bettype"]),
                         HDP = Convert.ToString(row["hdp1"]),
                         Stake = Convert.ToString(row["stakepositiontaking"]),
