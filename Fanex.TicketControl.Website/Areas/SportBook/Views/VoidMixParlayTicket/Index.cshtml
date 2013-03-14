@@ -101,12 +101,12 @@
                     </div>
                     <div class="edit-field datetime">
                         <input type="checkbox" class="chkTransDateRange" id="TransDate" />
-                        <label for="FromTransDate">
-                            From Trans Date</label>
+                        <label for="FromTransDate">@Labels.From</label>
                         @Html.TextBox("FromTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
-                        <label for="ToTransDate">
-                            To Trans Date</label>
+                        <i class="icon-calendar icon-from-transdate-calendar"></i>
+                        <label for="ToTransDate">@Labels.To</label>
                         @Html.TextBox("ToTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
+                        <i class="icon-calendar icon-to-transdate-calendar"></i>
                     </div>
                 </fieldset>
             </div>
