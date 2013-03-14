@@ -10,21 +10,32 @@
 			font-style: italic;
 			i { margin-top: 3px }
 		}
+		
 		.live-score, .datetime {
 			label {
 				float: left;
-				margin: 0 3px 0;
+				margin: 0 3px;
 			}
 			input[type=text], input[type=checkbox] {
 				float: left;
 				width: 15px;
 			}
+			
+			i 
+			{
+			    float: left;
+			    margin-left: 5px; 
+			    margin-top: 3px; 
+			    margin-right: 10px;
+			    cursor: pointer;
+			} 
 		}
+		
 		.datetime {
-			input[type=text] { width: 120px }
 			input[type=checkbox] { margin: 4px 0 0 }
 		}
 	}
+	
 	.bettype-wrp {
 		background-color: lighten(@filterBarBackground, 10%);
 		.box-shadow(inset 0 0 3px darken(@filterBarBackground, 50%));
@@ -35,25 +46,6 @@
 			th, td { padding: 3px 50px 3px 0 }
 			th { border-bottom: 1px solid darken(@filterBarBackground, 10%); }
 		}
-	}
-
-	.advanced-mode {
-		background-color: lighten(@advancedModeBackground, 10%);
-		.box-shadow(inset 0 0 3px darken(@advancedModeBackground, 50%));
-		margin-bottom: 10px;
-		padding: 5px 10px;
-
-		.tbl-bettype {
-			th, td { padding: 3px 50px 3px 0 }
-			th { border-bottom: 1px solid darken(@advancedModeBackground, 10%); }
-		}
-	}
-	
-	.txtCalendar
-	{
-		cursor: pointer;
-		background: url('../../../Content/base/img/calendar1.gif') no-repeat scroll right center transparent;
-		background-color: #FFF;
 	}
 }
 
@@ -68,43 +60,17 @@
 	legend { color: @emColor }
 }
 
-#groupByDropDown {
-	.input-large;
+.bettype-group-title {
+	background-color: Orange;
 }
 
-#filterByDropDown {
-	.input-medium;
-}
-
-#GroupBy {
-	.input-large;
-}
-
-#TicketType, #LicenseeID {
-	.input-medium;
-}
-
-.tbl-advance-mode
+.all-chk-score
 {
+    border-collapse: collapse;
     border: 1px solid #7C98A4;
-        
-    th
-    {
-        min-width: 1000px;
-        background-color: #B5C4D0;
-        cursor: pointer;
-    }
     
-    .all-chk-score
+    td
     {
-        border-collapse: collapse;
-        
-        td
-        {
-            border: 1px solid #7C98A4;
-        }
+        border: 1px solid #7C98A4;
     }
-}   
-
-
-
+}
