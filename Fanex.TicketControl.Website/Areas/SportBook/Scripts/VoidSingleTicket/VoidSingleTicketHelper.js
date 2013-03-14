@@ -54,8 +54,8 @@
     },
 
     eventSubAdvanceTG: function () {
-        var selectedItems = $('.advance-item-tg .chk-tg:input:checked').length;
-        var totalItems = $('.advance-item-tg .chk-tg:input:checkbox').length;
+        var selectedItems = $('.advance-item-tg .chk-tg:input:checked').not('#chk-tg-all').length;
+        var totalItems = $('.advance-item-tg .chk-tg:input:checkbox').not('#chk-tg-all').length;
 
         if (selectedItems === totalItems) {
             $('#chk-tg-all').attr('checked', 'checked');
@@ -296,5 +296,12 @@
 
             helper.setStatusAllBettype(false);
         }
+    },
+
+    expandAdvancedMode: function () {
+        var iEle = $(this).find('i');
+        iEle.removeClass('icon-plus-sign');
+        iEle.addClass('icon-minus-sign');
+        $('.tbl-advance-mode tbody').show();
     }
 };

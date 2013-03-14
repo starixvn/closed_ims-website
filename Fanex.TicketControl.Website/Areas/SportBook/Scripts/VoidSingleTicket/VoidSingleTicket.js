@@ -251,9 +251,7 @@ var singleDetete = {
                         singleDetete.getSingleTicket();
                         helper.displayContent(true);
                     }
-                    else{
-                        //NapTicketControl.Helper.showMsgBox(rs);   
-
+                    else{                      
                         switch(rs.ErrorCode){
                             case 1:
                             case 2:
@@ -267,7 +265,7 @@ var singleDetete = {
                                 break;
                         }
 
-//                        helper.displayContent(false);
+                        helper.displayContent(false);
                     }
                     
                 },
