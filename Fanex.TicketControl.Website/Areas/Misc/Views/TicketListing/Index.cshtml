@@ -22,16 +22,15 @@
 
 @using (Html.BeginForm("Index", "TicketListing", FormMethod.Post, new { id = "TicketListingForm" }))
 {
+    
 <div class="filter-bar">
-    <div class="colapse-expand-filter-bar">
-        <div>
-            <label>
-                <span><i class="icon-minus-sign"></i></span>
-                <span id="collapse-expand-label">@Labels.Collapse_Filter</span>
-            </label>
-        </div>
+    <div class="note-filter-bar">
+        <i class="icon-warning-sign"></i> 
+        @Labels.You_only_void_Unsettled_or_Refunded_tickets
     </div>
-
+    <div class="toggle-filter-bar float-right " title="Collapse filter">
+		<i class="icon-chevron-up"></i>
+    </div>
     <div class="filter-bar-inner">
     <div class="filter-row">
         <div class="filter-cell">
@@ -123,8 +122,10 @@
                 <input type="checkbox" class="chkTransDateRange" id="TransDate"/>
                 @Html.LabelFor(m => m.FromTransDate)                
                 @Html.TextBox("FromTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
+                <i class="icon-calendar icon-from-transdate-calendar"></i>
                 @Html.LabelFor(m => m.ToTransDate)
                 @Html.TextBox("ToTransDate", string.Empty, new { @readonly = "readonly", @class = "txtCalendar width-140" })
+                <i class="icon-calendar icon-to-transdate-calendar"></i>
             </div>
         </fieldset>
     </div>

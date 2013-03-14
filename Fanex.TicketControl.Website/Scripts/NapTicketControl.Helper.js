@@ -277,6 +277,44 @@ NapTicketControl.Helper = (function ($) {
 
             msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html);
             msgbox.fadeIn();
+        },
+
+        ToggleFilterBar: function (self) {
+            // here, self is .toggle-filter-bar DOM element
+            var iEle = $(self).find('i');
+
+            if (iEle.hasClass('icon-chevron-up')) {
+                iEle.removeClass('icon-chevron-up');
+                iEle.addClass('icon-chevron-down');
+                $('.filter-bar-inner').hide();
+                $(self).attr('title', 'Expand filter');
+
+            } else {
+                iEle.removeClass('icon-chevron-down');
+                iEle.addClass('icon-chevron-up');
+                $('.filter-bar-inner').show();
+                $(self).attr('title', 'Collapse filter');
+            }
+        },
+
+        ToggleAdvanceMode: function (self) {
+            // here, self is legend tag
+            var iEle = $(self).find('i');
+
+            if (iEle.hasClass('icon-minus-sign')) {
+                iEle.removeClass('icon-minus-sign');
+                iEle.addClass('icon-plus-sign');
+                $('.tbl-advance-mode').hide();
+                $('.fieldset-advance-mode').addClass('nb-lrb');
+                $(self).attr('title', 'Expand advanced mode');
+
+            } else {
+                iEle.removeClass('icon-plus-sign');
+                iEle.addClass('icon-minus-sign');
+                $('.tbl-advance-mode').show();
+                $('.fieldset-advance-mode').removeClass('nb-lrb');
+                $(self).attr('title', 'Collapse advanced mode');
+            }
         }
     };
 } (jQuery));

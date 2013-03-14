@@ -303,11 +303,11 @@ VoidMixParlayTicket.prototype.Init = function () {
     });
 
     $('.fieldset-advance-mode legend').click(function(){
-        helper.toggleAdvanceMode(this);
+        NapTicketControl.Helper.ToggleAdvanceMode(this);
     });
 
     $('.toggle-filter-bar').click(function(){
-        helper.toggleFilterBar(this);
+        NapTicketControl.Helper.ToggleFilterBar(this);
     });
 
     // check all bettypes

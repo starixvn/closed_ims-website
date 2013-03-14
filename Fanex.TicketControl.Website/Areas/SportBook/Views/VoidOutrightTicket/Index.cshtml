@@ -24,23 +24,14 @@
 @using (Html.BeginForm("Index", "VoidOutrightTicket", FormMethod.Post, new { id = "VoidOutrightTicketForm" }))
 {
     <div class="filter-bar">
-        <div class="colapse-expand-filter-bar">
-            <div>
-                <label>
-                    <span><i class="icon-minus-sign"></i></span>
-                    <span id="collapse-expand-label">Collapse Filter</span>
-                </label>
-            </div>
-        </div>
         <div class="note-filter-bar">
-            <div>
-                <label>
-                    <span><i class="icon-warning-sign"></i></span>
-                    You can only delete the unsettled tickets and refunded ones
-                </label>
-            </div>
+            <i class="icon-warning-sign"></i> 
+            @Labels.You_only_void_Unsettled_or_Refunded_tickets
         </div>
-
+        <div class="toggle-filter-bar float-right " title="Collapse filter">
+		        <i class="icon-chevron-up"></i>
+        </div>
+        <div style="clear: both;"></div>
         <div class="filter-bar-inner">
             <div class="filter-row">
                 <div class="filter-cell">
@@ -51,9 +42,7 @@
                         <select style="width:auto" id="ddlLeague" onchange="outright.loadTeamByLeague(this.value)"></select>
                     </div>
                 </div>
-                             
             </div>
-            
             <div class="filter-row">
                 <div class="filter-cell">
                     <div class="lbl-field span3">
