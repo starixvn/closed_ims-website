@@ -51,10 +51,22 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
         {
             NumberGameTicketModel model = new NumberGameTicketModel();
 
+            GetMatchInfoCriteria criteriaMatchInfo = new GetMatchInfoCriteria();
+            criteriaMatchInfo.MatchId = criteria.MatchID;
+
+            model.MatchInfo = _coreService.GetMatchInfo(criteriaMatchInfo);
+
             var ds = _repository.GetNumberGameTicket(criteria);
             int cnt = ds.Tables.Count;
             DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
 
+            model.Groups.Add(AssignDataOnGroup(dt));
+
+            return model;
+        }
+
+        private static Group AssignDataOnGroup(DataTable dt)
+        {
             // Now, we only have one Normal group.
             Group group = new Group();
             group.Name = "Normal";
@@ -90,10 +102,7 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
 
                 index++;
             }
-
-            model.Groups.Add(group);
-
-            return model;
+            return group;
         }
 
         //public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)

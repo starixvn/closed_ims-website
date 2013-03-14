@@ -33,8 +33,8 @@
     },
 
     eventSubAdvanceCS: function () {
-        var selectedItems = $('.all-chk-score tbody input:checked').length;
-        var totalItems = $('.all-chk-score tbody input:checkbox').length;
+        var selectedItems = $('.all-chk-score .chk-score:input:checked').length;
+        var totalItems = $('.all-chk-score .chk-score:input:checkbox').length;
 
         if (selectedItems === totalItems) {
             $('#chk-score-all').attr('checked', 'checked');

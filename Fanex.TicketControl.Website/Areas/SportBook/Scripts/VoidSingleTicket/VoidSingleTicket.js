@@ -69,9 +69,9 @@ var singleDetete = {
     loadMatchInfo: function(matchInfo){
         var rows = [];
         rows.push({
-        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-            { Name: "eventDate", Value:  matchInfo.EventDate}
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold'},
+            { Name: "eventDate", Value:  matchInfo.EventDate, CssClass: 'bold'}
         ]});
 
         var id = 'matchInfo';
@@ -106,12 +106,11 @@ var singleDetete = {
                     { Name: "TransDate", Value:currentRow.TransDate  },
                     { Name: "BetTypeName", Value:currentRow.BetTypeName },
                     { Name: "Odds", Value:currentRow.Odds},
-                    { Name: "Choice", Value:currentRow.Choice},
                     { Name: "Stake", Value: currentRow.Stake},
                     { Name: "CurrencyName", Value:currentRow.CurrencyName  },
-                    { Name: "Score", Value: currentRow.Score },
                     { Name: "Status", Value: currentRow.Status },
                     { Name: "SA", Value: currentRow.SA },
+                    { Name: "Choice", Value:currentRow.Choice},
                     { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
@@ -123,20 +122,20 @@ var singleDetete = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Member", Name: "Player", Width: 130, HeaderAlign: "center", CellAlign: "left" },                
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 140, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Status", Name: "Status", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "S.A", Name: "SA", Width: 40, HeaderAlign: "center", CellAlign: "center" } ,
+                { HeaderText: "Choice", Name: "Choice", Width: 250, HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: singleDetete.optionCustomRender } 
             ],
             bodyRows: rows,
             showPager: true,
+//            customPager: true,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,
@@ -144,10 +143,21 @@ var singleDetete = {
                 totalItem: 100,
                 startPerPage: 50,
                 pageStep: 50,
+<<<<<<< HEAD
                 afterPagedFunction: function()
                 {
                     $('#chk-ticket-all').attr('checked', 'checked');
                 }
+=======
+//                pagerSelectCallBack: function (page_index, itemsPerPage, jq) {
+////                    alert('alert');
+////                    $('.chk-ticket-all').attr('checked', 'checked');
+//                      gridOptions.pagerOption.itemsPerPage = itemsPerPage;
+//                      gridOptions.pagerOption.currentPage = page_index;
+//                      $("#ticketInfo").fanexGrid(gridOptions);
+//                      return false;
+//                }
+>>>>>>> 826c53628e76fbd4706f0793c0f336320cc1c8db
             }
         };
 
@@ -269,7 +279,7 @@ var singleDetete = {
                                 break;
                         }
 
-                        helper.displayContent(false);
+//                        helper.displayContent(false);
                     }
                     
                 },
@@ -499,10 +509,11 @@ DelSingleTicket.prototype.Init = function () {
   
     //FGLG uncheck any item
     $('body').delegate('.chk-flg', 'click', function () {
-        helper.eventSubAdvanceHTFT();
+        helper.eventSubAdvanceFGLG();
     });
     
     $('#btnSearch').click(function (e) {        
+        e.stopPropagation();
         singleDetete.search();
         return false;
     });

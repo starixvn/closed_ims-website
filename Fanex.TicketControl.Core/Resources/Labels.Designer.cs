@@ -61,6 +61,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced mode.
+        /// </summary>
+        public static string Advanced_mode {
+            get {
+                return ResourceManager.GetString("Advanced_mode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Agency Turnover.
         /// </summary>
         public static string Agency_Turnover {
@@ -250,6 +259,24 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chinese (Cantonese).
+        /// </summary>
+        public static string Chinese_Cantonese {
+            get {
+                return ResourceManager.GetString("Chinese_Cantonese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chinese (Mandarin).
+        /// </summary>
+        public static string Chinese_Mandarin {
+            get {
+                return ResourceManager.GetString("Chinese_Mandarin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choice.
         /// </summary>
         public static string Choice {
@@ -264,6 +291,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Code {
             get {
                 return ResourceManager.GetString("Code", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Collapse Filter.
+        /// </summary>
+        public static string Collapse_Filter {
+            get {
+                return ResourceManager.GetString("Collapse_Filter", resourceCulture);
             }
         }
         
@@ -309,6 +345,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Company_Win_Loss {
             get {
                 return ResourceManager.GetString("Company_Win_Loss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm Delete.
+        /// </summary>
+        public static string Confirm_Delete {
+            get {
+                return ResourceManager.GetString("Confirm_Delete", resourceCulture);
             }
         }
         
@@ -484,6 +529,33 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string English {
+            get {
+                return ResourceManager.GetString("English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English and Mandarin are required..
+        /// </summary>
+        public static string English_and_Mandarin_are_required {
+            get {
+                return ResourceManager.GetString("English_and_Mandarin_are_required", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Es.
+        /// </summary>
+        public static string Es {
+            get {
+                return ResourceManager.GetString("Es", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to EUR.
         /// </summary>
         public static string EUR {
@@ -507,6 +579,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Event_Date {
             get {
                 return ResourceManager.GetString("Event_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Event Type.
+        /// </summary>
+        public static string Event_Type {
+            get {
+                return ResourceManager.GetString("Event_Type", resourceCulture);
             }
         }
         
@@ -547,6 +628,24 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From BetID.
+        /// </summary>
+        public static string From_BetID {
+            get {
+                return ResourceManager.GetString("From_BetID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From Trans Date.
+        /// </summary>
+        public static string From_Trans_Date {
+            get {
+                return ResourceManager.GetString("From_Trans_Date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gross Income.
         /// </summary>
         public static string GrossIncome {
@@ -574,6 +673,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string Home {
+            get {
+                return ResourceManager.GetString("Home", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to House Turnover.
         /// </summary>
         public static string House_Turnover {
@@ -597,6 +705,33 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string InvalidEmail {
             get {
                 return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It.
+        /// </summary>
+        public static string It {
+            get {
+                return ResourceManager.GetString("It", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jp.
+        /// </summary>
+        public static string Jp {
+            get {
+                return ResourceManager.GetString("Jp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ko.
+        /// </summary>
+        public static string Ko {
+            get {
+                return ResourceManager.GetString("Ko", resourceCulture);
             }
         }
         
@@ -664,11 +799,29 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Live Away Score.
+        /// </summary>
+        public static string Live_Away_Score {
+            get {
+                return ResourceManager.GetString("Live_Away_Score", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Live Casino.
         /// </summary>
         public static string Live_Casino {
             get {
                 return ResourceManager.GetString("Live_Casino", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Live Home Score.
+        /// </summary>
+        public static string Live_Home_Score {
+            get {
+                return ResourceManager.GetString("Live_Home_Score", resourceCulture);
             }
         }
         
@@ -745,11 +898,11 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MatchID.
+        ///   Looks up a localized string similar to Match ID.
         /// </summary>
-        public static string MatchID {
+        public static string Match_ID {
             get {
-                return ResourceManager.GetString("MatchID", resourceCulture);
+                return ResourceManager.GetString("Match_ID", resourceCulture);
             }
         }
         
@@ -777,6 +930,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Member_Win_Loss {
             get {
                 return ResourceManager.GetString("Member_Win_Loss", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
             }
         }
         
@@ -813,6 +975,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Monthly {
             get {
                 return ResourceManager.GetString("Monthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More Messages.
+        /// </summary>
+        public static string More_Messages {
+            get {
+                return ResourceManager.GetString("More_Messages", resourceCulture);
             }
         }
         
@@ -935,6 +1106,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Note.
+        /// </summary>
+        public static string Note {
+            get {
+                return ResourceManager.GetString("Note", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Number Game.
         /// </summary>
         public static string Number_Game {
@@ -989,11 +1169,11 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Optional filters.
+        ///   Looks up a localized string similar to Optional Filters.
         /// </summary>
-        public static string Optional_filters {
+        public static string Optional_Filters {
             get {
-                return ResourceManager.GetString("Optional_filters", resourceCulture);
+                return ResourceManager.GetString("Optional_Filters", resourceCulture);
             }
         }
         
@@ -1021,6 +1201,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -1057,6 +1246,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string Player {
             get {
                 return ResourceManager.GetString("Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please include &quot;@@@@&quot; in your message for replacing ticket numbers..
+        /// </summary>
+        public static string Please_inlude_at_in_message_for_replacing_ticket_numbers {
+            get {
+                return ResourceManager.GetString("Please_inlude_at_in_message_for_replacing_ticket_numbers", resourceCulture);
             }
         }
         
@@ -1295,7 +1493,7 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Optional Filters.
         /// </summary>
         public static string String1 {
             get {
@@ -1331,11 +1529,38 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Th.
+        /// </summary>
+        public static string Th {
+            get {
+                return ResourceManager.GetString("Th", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There is no data..
         /// </summary>
         public static string There_is_no_data {
             get {
                 return ResourceManager.GetString("There_is_no_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Listing.
+        /// </summary>
+        public static string Ticket_Listing {
+            get {
+                return ResourceManager.GetString("Ticket_Listing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ticket Type.
+        /// </summary>
+        public static string Ticket_Type {
+            get {
+                return ResourceManager.GetString("Ticket_Type", resourceCulture);
             }
         }
         
@@ -1372,6 +1597,24 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To BetID.
+        /// </summary>
+        public static string To_BetID {
+            get {
+                return ResourceManager.GetString("To_BetID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To Trans Date.
+        /// </summary>
+        public static string To_Trans_Date {
+            get {
+                return ResourceManager.GetString("To_Trans_Date", resourceCulture);
             }
         }
         
@@ -1477,9 +1720,9 @@ namespace Fanex.TicketControl.Core.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
-        public static string UserName {
+        public static string Username {
             get {
-                return ResourceManager.GetString("UserName", resourceCulture);
+                return ResourceManager.GetString("Username", resourceCulture);
             }
         }
         
@@ -1498,6 +1741,24 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string VirtualSports {
             get {
                 return ResourceManager.GetString("VirtualSports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Void Bet.
+        /// </summary>
+        public static string Void_Bet {
+            get {
+                return ResourceManager.GetString("Void_Bet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Void Single Ticket.
+        /// </summary>
+        public static string Void_Single_Ticket {
+            get {
+                return ResourceManager.GetString("Void_Single_Ticket", resourceCulture);
             }
         }
         
@@ -1561,6 +1822,15 @@ namespace Fanex.TicketControl.Core.Resources {
         public static string You_have_no_menu_permission {
             get {
                 return ResourceManager.GetString("You_have_no_menu_permission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only void &quot;Unsettled&quot; or &quot;Refunded&quot; tickets..
+        /// </summary>
+        public static string You_only_void_Unsettled_or_Refunded_tickets {
+            get {
+                return ResourceManager.GetString("You_only_void_Unsettled_or_Refunded_tickets", resourceCulture);
             }
         }
     }

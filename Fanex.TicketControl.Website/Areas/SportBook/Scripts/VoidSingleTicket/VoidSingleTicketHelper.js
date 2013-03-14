@@ -33,8 +33,8 @@
     },
 
     eventSubAdvanceCS: function () {
-        var selectedItems = $('.all-chk-score tbody input:checked').length;
-        var totalItems = $('.all-chk-score tbody input:checkbox').length;
+        var selectedItems = $('.all-chk-score .chk-score:input:checked').length;
+        var totalItems = $('.all-chk-score .chk-score:input:checkbox').length;
 
         if (selectedItems === totalItems) {
             $('#chk-score-all').attr('checked', 'checked');
@@ -279,6 +279,7 @@
             $('#LiveAwayScore').val('');
             $('#LiveAwayScore').val('');
             $('#TransDate').removeAttr('checked');
+<<<<<<< HEAD
 
             $('#msg-en').val('');
             $('#msg-ch').val('');
@@ -290,6 +291,11 @@
             $('#msg-ko').val('');
 
             $('#password').val('');
+=======
+            $('#username').val('');
+            $('#msg-void-ticket').val('');
+
+>>>>>>> 826c53628e76fbd4706f0793c0f336320cc1c8db
             helper.setStatusAllBettype(false);
         }
     }

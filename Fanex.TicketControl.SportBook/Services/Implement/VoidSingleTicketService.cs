@@ -60,6 +60,14 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
                 model.MatchInfo = _coreService.GetMatchInfo(criteriaMatchInfo);
 
+
+                // NOTE: Must convert GTM+ 8 into GTM- 4
+                if (criteria.FromTransdate.HasValue && criteria.ToTransdate.HasValue)
+                {
+                    criteria.FromTransdate = criteria.FromTransdate.Value.AddHours(-12);
+                    criteria.ToTransdate = criteria.ToTransdate.Value.AddHours(-12);
+                }
+
                 var ds = _reponsitory.GetSingleTicket(criteria);
                 int cnt = ds.Tables.Count;
                 DataTable dt = cnt > 0 ? ds.Tables[0] : new DataTable();
@@ -96,7 +104,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         No = index,
                         BetId = Convert.ToString(BetId),
                         Player = Convert.ToString(row["username"]),
-                        TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
+                        TransDate = Convert.ToDateTime(row["transdate"]).ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                         BetType = Convert.ToInt32(row["bettype"]),
                         HDP = Convert.ToString(row["hdp1"]),
                         Stake = Convert.ToString(row["stakepositiontaking"]),

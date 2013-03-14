@@ -3,7 +3,9 @@ var voidNumberGame = {
     param:{
         MatchId: '',
         FromRefno: '',
-        ToRefno: ''
+        ToRefno: '',
+        Dead: '',
+        Live: ''
     },
 
     search: function(){
@@ -18,13 +20,12 @@ var voidNumberGame = {
 
     getNumberGameTicket: function (){
 
-         var param = {
-            MatchId: voidNumberGame.param.MatchId,
-            FromRefNo: voidNumberGame.param.FromRefno,
-            ToRefNo: voidNumberGame.param.ToRefno,
+         var param = $.extend(true, {}, voidNumberGame.param, {
             Dead: helper.getDeadBallBetTypes(),
             Live: helper.getLiveBallBetTypes()
-         };
+         });
+
+         voidNumberGame.param = param;
 
          $.ajax({
                 type: "POST",
@@ -37,6 +38,7 @@ var voidNumberGame = {
                 },
                 success: function (rs) {
                     //render match info
+                    voidNumberGame.loadMatchInfo(rs.MatchInfo) ;
                     voidNumberGame.loadNumberGameTicket(rs.Groups);
                 },
                 error: function () {
@@ -46,6 +48,29 @@ var voidNumberGame = {
                     NapTicketControl.enableInput();
                 }
             });
+    },
+
+    loadMatchInfo: function(matchInfo){
+        if(matchInfo !== null && matchInfo !== undefined){
+            var rows = [];
+            rows.push({
+            Columns: [{ Name: "code", Value: matchInfo.MatchCode },
+                { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
+                { Name: "eventDate", Value:  matchInfo.EventDate}
+            ]});
+
+            var id = 'matchInfo';
+            var gridOptions = {
+                columns: [
+                    { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
+                    { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
+                ],
+                bodyRows: rows
+            };
+
+            $('#' + id).fanexGrid(gridOptions);
+        }
     },
 
     loadNumberGameTicket : function(groups)
@@ -58,16 +83,16 @@ var voidNumberGame = {
             rows.push({
                 Columns:[
                     { Name: "No", Value: currentRow.No  },
-                    { Name: "BetId", Value: currentRow.Ticket.TransId },                    
-                    { Name: "Member", Value: currentRow.Ticket.UserName },                    
+                    { Name: "BetId", Value: currentRow.BetId },                    
+                    { Name: "Member", Value: currentRow.Member },                    
                     { Name: "TransDate", Value:currentRow.TransDate  },
                     { Name: "BetTypeName", Value:currentRow.BetTypeName },
                     { Name: "Odds", Value:currentRow.OddHtml},
                     { Name: "Stake", Value: currentRow.StakeHtml},
                     { Name: "CurrencyName", Value:currentRow.Currency },
-                    { Name: "Status", Value: currentRow.Ticket.Status },
+                    { Name: "Status", Value: currentRow.Status },
                     { Name: "Choice", Value:currentRow.ChoiceHtml},
-                    { Name: "CustomAdd", Value: currentRow.Ticket.TransId, TdClass:"Demo", CssClass: "demo2" }
+                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -79,13 +104,13 @@ var voidNumberGame = {
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Member", Name: "Member", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 140, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Choice", Name: "Choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
                 { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: voidNumberGame.optionCustomRender } 
             ],
             bodyRows: rows,
@@ -116,31 +141,15 @@ var voidNumberGame = {
         return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
     },
 
-    voidSingleTicket: function (){
+    voidNumberGameTicket: function (){
         
         if(!validateData.checkParamBeforVoidTicket()){
             return;
         }
 
-        var param = {
-            MatchId: $('#txtMatchId').val(),
-            f_transid: $('#fromRefno').val(),
-            t_transid: $('#toRefno').val(),
-            Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
-            LiveIndicator: $('#EventType').val(),
-            LiveHomeScore: $('#LiveHomeScore').val(),
-            LiveAwayScore: $('#LiveAwayScore').val(),
-            FromTransdate: $('#FromTransDate').val(),
-            ToTransdate: $('#ToTransdate').val(),
-            Bettypes: helper.GetBettypesChecked(),
-            Betteam1378: $('#ddlBetTeam1378').val(),
-            Betteam515: helper.GetBetteam515(),
-            Betteam430: helper.GetBetteam430(),
-            Betteam6: helper.GetBetteam6(),
-            Betteam14: helper.GetBetteam14(),
-            Betteam16: helper.GetBetteam16(),
-            SAFilter: $('#TicketType').val(),
+        var param = $.extend(true, {}, voidNumberGame.param, {
             TransIds: helper.getSubTicketsChecked(),
+            TransIds_N: helper.getSubTicketsChecked(), // NOTE: will be deleted when integrated with new sp
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
             Msg: {
@@ -153,11 +162,16 @@ var voidNumberGame = {
                 Content_es: $('#msg-es').val(),
                 Content_ko: $('#msg-ko').val()
             }
-         };
+        });
 
-          $.ajax({
+        param.F_transid = param.FromRefno;
+        param.T_transid = param.ToRefno;
+        delete param.FromRefno;
+        delete param.ToRefno;
+
+        $.ajax({
                 type: "POST",
-                url: window.rootUrl + "SportBook/DeleteSingleTicket/VoidSingleTicket",
+                url: window.rootUrl + "Gaming/VoidNumberGameTicket/VoidNumberGameTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
                 data: JSON.stringify(param),
@@ -216,7 +230,7 @@ var voidNumberGame = {
 //                                break;
 //                        }
 
-//                        helper.displayContent(false);
+//                        //helper.displayContent(false);
 //                    }
                     
                 },
@@ -228,7 +242,6 @@ var voidNumberGame = {
                 }
             });
     }
-    
 };
 
 function VoidNumberGameTicket() {
@@ -241,9 +254,6 @@ function VoidNumberGameTicket() {
     this.OldDataRequest = null;
 };
 
-VoidNumberGameTicket.prototype.Mode = {
-    Sportsbook: 0
-};
 
 VoidNumberGameTicket.prototype.CacheDOMElement = function () {
     var self = this;
@@ -260,7 +270,7 @@ VoidNumberGameTicket.prototype.Init = function () {
 
     self.CacheDOMElement();    
     NapTicketControl.Helper.GetBettypes('NumberGame');
-    helper.setStatusAllBettype(false);
+    helper.setStatusAllBettype(true);
 
     // handle events from DOM element
     $('.tbl-advance-mode thead th').click(function(){
@@ -318,6 +328,7 @@ VoidNumberGameTicket.prototype.Init = function () {
     });
     
     $('#btnSearch').click(function (e) {        
+        e.stopPropagation();
         voidNumberGame.search();
         return false;
     });

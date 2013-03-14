@@ -204,17 +204,17 @@ NapTicketControl.Helper = (function ($) {
                         var betname = bt.Name;
 
                         switch (bt.Id) {
-                            case 85:
+                            case '85':
                                 betname = "Next Over/Under";
                                 break;
-                            case 86:
+                            case '86':
                                 if (bt.LiveIndicator === true) {
                                     betname = "Next Odd/Even";
                                 } else {
                                     betname = "FT. Odd/Even";
                                 }
                                 break;
-                            case 90:
+                            case '90':
                                 if (bt.LiveIndicator === true) {
                                     betname += " (Live Game)";
                                 } else {

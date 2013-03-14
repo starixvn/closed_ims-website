@@ -14,7 +14,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using System.Web.Mvc;
     using Fanex.TicketControl.Core.Web.Controllers;
     using Fanex.TicketControl.SportBook.Criteria;
-using Fanex.TicketControl.SportBook.Services.Interface;
+    using Fanex.TicketControl.SportBook.Services.Interface;
     using Fanex.TicketControl.SportBook.Services.Implement;
     using Fanex.TicketControl.Core.Utils;
 
@@ -32,7 +32,6 @@ using Fanex.TicketControl.SportBook.Services.Interface;
         {
             return View();
         }
-
 
         [HttpPost]
         public JsonResult GetTicketRecover(GetRecoverTicketCriteria criteria)

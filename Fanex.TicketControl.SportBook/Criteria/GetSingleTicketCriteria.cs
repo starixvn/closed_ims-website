@@ -27,13 +27,13 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public int LiveIndicator { get; set; }
 
-        public int ? LiveHomeScore { get; set; }
+        public int? LiveHomeScore { get; set; }
 
-        public int ? LiveAwayScore { get; set; }
+        public int? LiveAwayScore { get; set; }
 
-        public DateTime ? FromTransdate { get; set; }
+        public DateTime? FromTransdate { get; set; }
 
-        public DateTime ? ToTransdate { get; set; }
+        public DateTime? ToTransdate { get; set; }
 
         public string Bettypes { get; set; }
 

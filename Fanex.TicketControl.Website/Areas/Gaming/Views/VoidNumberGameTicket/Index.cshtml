@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Delete Single Ticket";
+    ViewBag.Title = "Void Number Game Ticket";
 }
 
 @using Fanex.TicketControl.Core.Resources
@@ -36,7 +36,7 @@
             <div>
                 <label>
                     <span><i class="icon-warning-sign"></i></span>
-                    You can only delete the unsettled tickets and refunded ones
+                    @Labels.You_only_void_Unsettled_or_Refunded_tickets
                 </label>
             </div>
         </div>
@@ -45,8 +45,7 @@
             <div class="filter-row">
                 <div class="filter-cell">
                     <div class="lbl-field span3">
-                        <label for="txtMatchId">
-                            Match ID</label>
+                        <label for="txtMatchId">@Labels.Match_ID</label>
                     </div>
                     <div class="edit-field span4">
                         <input type="text" id="txtMatchId" maxlength="10" value="3861484" />
@@ -54,7 +53,7 @@
                 </div>
                 <div class="filter-cell">
                     <div class="lbl-field span3">
-                        <label for="fromRefno">From BetID</label>
+                        <label for="fromRefno">@Labels.From_BetID</label>
                     </div>
                     <div class="edit-field span4">
                         <input type="text" id="fromRefno" maxlength="10" value="4435156087" />
@@ -62,7 +61,7 @@
                 </div>
                 <div class="filter-cell">
                     <div class="lbl-field span3">
-                        <label for="toRefno">To BetID</label>
+                        <label for="toRefno">@Labels.To_BetID</label>
                     </div>
                     <div class="edit-field span4">
                         <input type="text" id="toRefno" maxlength="10" value="4435167269"  />
@@ -91,29 +90,26 @@
         </div>
        
         <fieldset id="fsMessage" class="form" style="display: none">
-            <legend><span><i class="icon-envelope"></i>&nbsp;</span>Message</legend>
+            <legend><span><i class="icon-envelope"></i>&nbsp;</span>@Labels.Message</legend>
             <h6>
-                <em class="em"><u>Note</u>:
+                <em class="em"><u>@Labels.Note</u>:
                     <br />
-                    + Please include "@@@@" in your message for replacing ticket numbers.
+                    + @Labels.Please_inlude_at_in_message_for_replacing_ticket_numbers
                     <br />
-                    + English and Mandarin are required.
+                    + @Labels.English_and_Mandarin_are_required
                     <br />
                     <span><span id="spMoreMsg">[+]</span> <span onclick="helper.displayMoreMsg()" style="cursor: pointer;
-                        text-decoration: underline">More Messages</span></span> </em>
+                        text-decoration: underline">@Labels.More_Messages</span></span> </em>
             </h6>
             <table>
                 <tr>
                     <td>
                         <div>
-                            <label for="msg-en">
-                                English</label>
+                            <label for="msg-en">@Labels.English</label>
                             <textarea rows="1" id="msg-en" class="input-xlarge"></textarea>
-                            <label for="msg-ch">
-                                Chinese (Mandarin)</label>
+                            <label for="msg-ch">@Labels.Chinese_Mandarin</label>
                             <textarea rows="1" id="msg-ch" class="input-xlarge"></textarea>
-                            <label for="msg-cs">
-                                Chinese (Cantonese)</label>
+                            <label for="msg-cs">@Labels.Chinese_Cantonese</label>
                             <textarea rows="1" id="msg-cs" class="input-xlarge"></textarea>
                         </div>
                     </td>
@@ -121,14 +117,11 @@
                     </td>
                     <td>
                         <div class="other-languages" style="display: none">
-                            <label for="msg-en">
-                                th</label>
+                            <label for="msg-en">@Labels.Th</label>
                             <textarea rows="1" id="msg-th" class="input-xlarge"></textarea>
-                            <label for="msg-it">
-                                It</label>
+                            <label for="msg-it">@Labels.It</label>
                             <textarea rows="1" id="msg-it" class="input-xlarge"></textarea>
-                            <label for="msg-jp">
-                                Jp</label>
+                            <label for="msg-jp">@Labels.Jp</label>
                             <textarea rows="1" id="msg-jp" class="input-xlarge"></textarea>
                         </div>
                     </td>
@@ -140,11 +133,9 @@
                     </td>
                     <td>
                         <div class="other-languages" style="display: none">
-                            <label for="msg-es">
-                                Es</label>
+                            <label for="msg-es">@Labels.Es</label>
                             <textarea rows="1" id="msg-es" class="input-xlarge"></textarea>
-                            <label for="msg-ko">
-                                Ko</label>
+                            <label for="msg-ko">@Labels.Ko</label>
                             <textarea rows="1" id="msg-ko" class="input-xlarge"></textarea>
                         </div>
                     </td>
@@ -152,13 +143,12 @@
             </table>
         </fieldset>
         <fieldset id="fsConfirmDelete" class="form" style="display: none">
-            <legend><span><i class="icon-trash"></i>&nbsp;</span>Confirm Delete</legend>
-            <label for="username"> Username</label>
+            <legend><span><i class="icon-trash"></i>&nbsp;</span>@Labels.Confirm_Delete</legend>
+            <label for="username">@Labels.Username</label>
             <input type="text" id="username" class="input-xlarge" disabled="disabled" value="@ViewBag.Session.Username" />
-            <label for="password">
-                Password</label>
+            <label for="password">@Labels.Password</label>
             <input type="password" id="password" class="input-xlarge" />
-            <a class="submit" href="javascript:;singleDetete.voidSingleTicket();">Void Bet</a>
+            <a class="submit" href="javascript:;voidNumberGame.voidNumberGameTicket();">@Labels.Void_Bet</a>
         </fieldset>        
     </div>
 }
