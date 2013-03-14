@@ -279,7 +279,6 @@
             $('#LiveAwayScore').val('');
             $('#LiveAwayScore').val('');
             $('#TransDate').removeAttr('checked');
-<<<<<<< HEAD
 
             $('#msg-en').val('');
             $('#msg-ch').val('');
@@ -291,11 +290,10 @@
             $('#msg-ko').val('');
 
             $('#password').val('');
-=======
+
             $('#username').val('');
             $('#msg-void-ticket').val('');
 
->>>>>>> 826c53628e76fbd4706f0793c0f336320cc1c8db
             helper.setStatusAllBettype(false);
         }
     }
