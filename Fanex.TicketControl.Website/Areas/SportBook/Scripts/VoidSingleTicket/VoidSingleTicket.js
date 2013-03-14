@@ -18,6 +18,7 @@ var singleDetete = {
         if(validateData.checkParamBeforeGetData()){
             singleDetete.checkMatchIdWithRefno();
         }
+        
     },
 
     getSingleTicket: function (){
@@ -247,9 +248,9 @@ var singleDetete = {
                 },
                 success: function (rs) {
                     if(rs.ErrorCode == 0){
-                        singleDetete.param = param;
-                        singleDetete.getSingleTicket();
-                        helper.displayContent(true);
+                        singleDetete.param = param;       
+                        singleDetete.getSingleTicket();      
+                        helper.displayContent(true);                                   
                     }
                     else{                      
                         switch(rs.ErrorCode){
@@ -264,8 +265,6 @@ var singleDetete = {
                                 $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
                                 break;
                         }
-
-                        helper.displayContent(false);
                     }
                     
                 },

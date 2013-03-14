@@ -111,7 +111,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
 
                     tickets.Add(ticketInfo);
                     
-                    TicketDetail ticketDetail = GetTicketDetail(dt, BetId);
+                    TicketDetail ticketDetail = GetTicketDetail(row, BetId);
 
                     ticketInfo.Choice = ticketDetail.ChoiceHtml;
                     ticketInfo.Odds = ticketDetail.OddHtml;
@@ -127,53 +127,51 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             return group;
         }
 
-        private TicketDetail GetTicketDetail(DataTable dt, Int64 TransId)
+        private TicketDetail GetTicketDetail(DataRow row, Int64 TransId)
         {
             var ticket = new TicketDetail();
 
             try
             {
-                var rows = dt.AsEnumerable().Where(s=> Convert.ToInt64(s["transid"]) == TransId).Select(s=>s).ToList();
-
                 int bettype = 0;
-                foreach(DataRow row in rows)
-                {
-                    bettype = Convert.ToInt32(row["bettype"]);
+          
+                bettype = Convert.ToInt32(row["bettype"]);
 
-                    ticket.Ticket = new Ticket(){
-                        BetId = Convert.ToInt64(row["transid"]),
-                        BetTypeId = bettype,
-                        TransId = Convert.ToInt64(row["subtransID"]),
-                        RefNo = Convert.ToString(row["Refno"]),
-                        BetTeam = Convert.ToString(row["choice_betteam"]),
-                        LiveHomeScore = Convert.ToInt32(row["choice_livehomescore"]),
-                        LiveAwayScore = Convert.ToInt32(row["choice_liveawayscore"]),
+                ticket.Ticket = new Ticket(){
+                    BetId = Convert.ToInt64(row["transid"]),
+                    BetTypeId = bettype,
+                    TransId = Convert.ToInt64(row["subtransID"]),
+                    RefNo = Convert.ToString(row["Refno"]),
+                    BetTeam = Convert.ToString(row["choice_betteam"]),
+                    LiveHomeScore = Convert.ToInt32(row["choice_livehomescore"]),
+                    LiveAwayScore = Convert.ToInt32(row["choice_liveawayscore"]),
+                    IsLive = Convert.ToBoolean(row["liveindicator"]),
 
-                        Stake = Convert.ToDecimal(row["Stake"]),
-                        Odds = Convert.ToDecimal(row["odds"]),
-                        Handicap1 = Convert.ToDecimal(row["choice_hdp1"]),
-                        Handicap2 = Convert.ToDecimal(row["choice_hdp2"]),
+                    Stake = Convert.ToDecimal(row["Stake"]),
+                    Odds = Convert.ToDecimal(row["odds"]),
+                    Handicap1 = Convert.ToDecimal(row["choice_hdp1"]),
+                    Handicap2 = Convert.ToDecimal(row["choice_hdp2"]),
 
-                        Status = Convert.ToString(row["status"]),
-                        HomeId = Convert.ToInt64(row["choice_HomeId"]),
-                        AwayId = Convert.ToInt64(row["choice_AwayId"]),
-                        LeagueId = Convert.ToInt32(row["choice_LeagueId"]),
-                        SportTypeId = Convert.ToInt32(row["choice_SportType"])
-                    };
+                    Status = Convert.ToString(row["status"]),
+                    HomeId = Convert.ToInt64(row["choice_HomeId"]),
+                    AwayId = Convert.ToInt64(row["choice_AwayId"]),
+                    LeagueId = Convert.ToInt32(row["choice_LeagueId"]),
+                    SportTypeId = Convert.ToInt32(row["choice_SportType"])
+                };
 
-                    ITicketHelper ticketHelper = new TicketHelper();
-                    BetListHTMLFactory factory = new BetListHTMLFactory();
-                    BetListHTMLBuilder builder = factory.CreateBuilder();
-                    GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
+                ITicketHelper ticketHelper = new TicketHelper();
+                BetListHTMLFactory factory = new BetListHTMLFactory();
+                BetListHTMLBuilder builder = factory.CreateBuilder();
+                GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
 
-                    if (bettype == 9 || bettype == 29) {
-                        ticketHelper.IsShowOddsWithChoice = true;
-                    }
-
-                    ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
-                    ticket.StakeHtml = builder.BuildStake(ticket.Ticket);
-                    ticket.OddHtml = builder.BuildOdds(ticket.Ticket, null, funcGetOddsTypeName);
+                if (bettype == 9 || bettype == 29) {
+                    ticketHelper.IsShowOddsWithChoice = true;
                 }
+
+                ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
+                ticket.StakeHtml = builder.BuildStake(ticket.Ticket);
+                ticket.OddHtml = builder.BuildOdds(ticket.Ticket, null, funcGetOddsTypeName);
+               
             }
             catch (Exception ex)
             {
