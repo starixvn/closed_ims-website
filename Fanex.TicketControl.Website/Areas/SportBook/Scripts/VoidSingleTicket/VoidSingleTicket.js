@@ -135,7 +135,6 @@ var singleDetete = {
             ],
             bodyRows: rows,
             showPager: true,
-//            customPager: true,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,
@@ -143,21 +142,10 @@ var singleDetete = {
                 totalItem: 100,
                 startPerPage: 50,
                 pageStep: 50,
-<<<<<<< HEAD
                 afterPagedFunction: function()
                 {
                     $('#chk-ticket-all').attr('checked', 'checked');
                 }
-=======
-//                pagerSelectCallBack: function (page_index, itemsPerPage, jq) {
-////                    alert('alert');
-////                    $('.chk-ticket-all').attr('checked', 'checked');
-//                      gridOptions.pagerOption.itemsPerPage = itemsPerPage;
-//                      gridOptions.pagerOption.currentPage = page_index;
-//                      $("#ticketInfo").fanexGrid(gridOptions);
-//                      return false;
-//                }
->>>>>>> 826c53628e76fbd4706f0793c0f336320cc1c8db
             }
         };
 
