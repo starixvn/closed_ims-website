@@ -295,5 +295,9 @@
         else {
             $('#dvContent').hide();
         }
+    },
+
+    expandAdvancedMode: function () {
+        
     }
 };
