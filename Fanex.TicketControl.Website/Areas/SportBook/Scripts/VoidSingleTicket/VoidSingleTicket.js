@@ -451,8 +451,8 @@ DelSingleTicket.prototype.Init = function () {
         var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
         helper.setStatusAllAdvance1X2(IsSelected1X2);
 
-        var IsSelected1X2 =  helper.IsSelectedBettype(16);
-        helper.setStatusAllAdvanceHTFT(IsSelected1X2, IsSelected1X2);
+        var IsSelectedHTFT =  helper.IsSelectedBettype(16);
+        helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
 
         var IsSelectedGFLG =  helper.IsSelectedBettype(14);
         helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
