@@ -82,7 +82,7 @@
 
         $('.chk-htft').attr('disabled', !isEnable);
     },
-    
+
     eventSubAdvanceHTFT: function () {
         var selectedItems = $('.advance-item-htft .chk-htft:input:checked').not('#chk-htft-all').length;
         var totalItems = $('.advance-item-htft .chk-htft:input:checkbox').not('#chk-htft-all').length;
@@ -279,6 +279,9 @@
             $('#LiveAwayScore').val('');
             $('#LiveAwayScore').val('');
             $('#TransDate').removeAttr('checked');
+            $('#username').val('');
+            $('#msg-void-ticket').val('');
+
             helper.setStatusAllBettype(false);
         }
     }
