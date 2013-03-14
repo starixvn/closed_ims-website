@@ -30,6 +30,42 @@ var validateData = {
             return false;
         }
 
+        //cs
+        var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
+        if (IsSelectedCS) {
+            if (helper.GetBetteam430() == '') {
+                $('#msg').html(tooltip.show('chk-score-all', 'Please select a score for bettype: Correct score!.')).show();
+                return false;
+            }
+        }
+
+        //htft
+        var IsSelectedHTFT = helper.IsSelectedBettype(16);
+        if (IsSelectedHTFT) {
+            if (helper.GetBetteam16() == '') {
+                $('#msg').html(tooltip.show('chk-htft-all', 'Please select a betteam for bettype: HT/FT!.')).show();
+                return false;
+            }
+        }
+
+        //tg
+        var IsSelectedTG = helper.IsSelectedBettype(6);
+        if (IsSelectedTG) {
+            if (helper.GetBetteam6() == '') {
+                $('#msg').html(tooltip.show('chk-tg-all', 'Please select a goal for bettype: Total Goal!.')).show();
+                return false;
+            }
+        }
+
+        //fg/lg
+        var IsSelectedGFLG = helper.IsSelectedBettype(14);
+        if (IsSelectedGFLG) {
+            if (helper.GetBetteam14() == '') {
+                $('#msg').html(tooltip.show('chk-tg-all', 'Please select a goal for bettype: First Goal/Last Goal!.')).show();
+                return false;
+            }
+        }
+
         if (helper.GetBettypesChecked() == '') {
             $('#msg').html(tooltip.show('chkallbettype', 'At least on bettype must be selected.')).show();
             return false;

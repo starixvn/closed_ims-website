@@ -91,6 +91,11 @@ var singleDetete = {
     {
         var rows = [];
         var length = groups[0].Tickets.length;
+
+        if(length>0){
+            helper.displayContent(true);
+        }
+
         for (var index = 0; index < length; index++) {
             var currentRow = groups[0].Tickets[index];
             rows.push({
@@ -130,7 +135,6 @@ var singleDetete = {
             ],
             bodyRows: rows,
             showPager: true,
-//            customPager: true,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,
@@ -138,14 +142,10 @@ var singleDetete = {
                 totalItem: 100,
                 startPerPage: 50,
                 pageStep: 50,
-//                pagerSelectCallBack: function (page_index, itemsPerPage, jq) {
-////                    alert('alert');
-////                    $('.chk-ticket-all').attr('checked', 'checked');
-//                      gridOptions.pagerOption.itemsPerPage = itemsPerPage;
-//                      gridOptions.pagerOption.currentPage = page_index;
-//                      $("#ticketInfo").fanexGrid(gridOptions);
-//                      return false;
-//                }
+                afterPagedFunction: function()
+                {
+                    $('#chk-ticket-all').attr('checked', 'checked');
+                }
             }
         };
 
@@ -251,9 +251,7 @@ var singleDetete = {
                         singleDetete.getSingleTicket();
                         helper.displayContent(true);
                     }
-                    else{
-                        //NapTicketControl.Helper.showMsgBox(rs);   
-
+                    else{                      
                         switch(rs.ErrorCode){
                             case 1:
                             case 2:
@@ -267,7 +265,7 @@ var singleDetete = {
                                 break;
                         }
 
-//                        helper.displayContent(false);
+                        helper.displayContent(false);
                     }
                     
                 },
@@ -453,8 +451,8 @@ DelSingleTicket.prototype.Init = function () {
         var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
         helper.setStatusAllAdvance1X2(IsSelected1X2);
 
-        var IsSelected1X2 =  helper.IsSelectedBettype(16);
-        helper.setStatusAllAdvanceHTFT(IsSelected1X2, IsSelected1X2);
+        var IsSelectedHTFT =  helper.IsSelectedBettype(16);
+        helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
 
         var IsSelectedGFLG =  helper.IsSelectedBettype(14);
         helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
