@@ -67,7 +67,11 @@ var outright = {
         $('body').delegate('#btnSearch', 'click', function (e) {
             e.stopPropagation();
             outright.search(e);
+            return false;
+        });
 
+        $('.toggle-filter-bar').click(function () {
+            NapTicketControl.Helper.ToggleFilterBar(this);
         });
 
         outright.loadLeague();
@@ -136,78 +140,77 @@ var outright = {
     },
 
     search: function () {
-        if(!validateData.checkParamBeforeGetData()){
+        if (!validateData.checkParamBeforeGetData()) {
             return;
         }
-        
+
         outright.getOutrightTicket();
     },
 
-    getOutrightTicket: function (){
+    getOutrightTicket: function () {
 
-         var param = {
+        var param = {
             OutrightID: $('#ddlTeam').val(),
             FromRefNo: $('#fromRefno').val(),
             ToRefNo: $('#toRefno').val()
-         };
+        };
 
-         $.ajax({
-                type: "POST",
-                url: window.rootUrl + "SportBook/VoidOutrightTicket/GetOutrightTicket",
-                contentType: "application/json; charset=utf-8", 
-                dataType: "json",
-                async: false,
-                data: JSON.stringify(param),
-                beforeSend: function () {
-                    NapTicketControl.disableInput();
-                },
-                success: function (rs) {
-                    //render match info
-                    outright.loadOutrightTicket(rs.Groups);
-                },
-                error: function () {
-                    console.log('has error :(');
-                },
-                complete: function () {
-                    NapTicketControl.enableInput();
-                }
-            });
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl + "SportBook/VoidOutrightTicket/GetOutrightTicket",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            data: JSON.stringify(param),
+            beforeSend: function () {
+                NapTicketControl.disableInput();
+            },
+            success: function (rs) {
+                //render match info
+                outright.loadOutrightTicket(rs.Groups);
+            },
+            error: function () {
+                console.log('has error :(');
+            },
+            complete: function () {
+                NapTicketControl.enableInput();
+            }
+        });
     },
 
-    loadOutrightTicket : function(groups)
-    {
+    loadOutrightTicket: function (groups) {
         var rows = [];
         var length = groups[0].Tickets.length;
         for (var index = 0; index < length; index++) {
             var currentRow = groups[0].Tickets[index];
             rows.push({
-                Columns:[
-                    { Name: "No", Value: currentRow.No  },
-                    { Name: "BetId", Value: currentRow.BetId },                    
-                    { Name: "Player", Value: currentRow.Player },                    
-                    { Name: "TransDate", Value:currentRow.TransDate  },                    
-                    { Name: "Odds", Value:currentRow.Odds},                    
-                    { Name: "Stake", Value: currentRow.Stake},
-                    { Name: "CurrencyName", Value:currentRow.CurrencyName  },                    
-                    { Name: "Status", Value: currentRow.Status },                    
-                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass:"Demo", CssClass: "demo2" }
+                Columns: [
+                    { Name: "No", Value: currentRow.No },
+                    { Name: "BetId", Value: currentRow.BetId },
+                    { Name: "Player", Value: currentRow.Player },
+                    { Name: "TransDate", Value: currentRow.TransDate },
+                    { Name: "Odds", Value: currentRow.Odds },
+                    { Name: "Stake", Value: currentRow.Stake },
+                    { Name: "CurrencyName", Value: currentRow.CurrencyName },
+                    { Name: "Status", Value: currentRow.Status },
+                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
         };
 
-        
+
         var gridOptions = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
-                { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: outright.optionCustomRender } 
+                { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: outright.optionCustomRender }
             ],
             bodyRows: rows,
             showPager: true,
@@ -226,23 +229,22 @@ var outright = {
 
         $('#ticketInfo').fanexGrid(gridOptions);
 
-        if(groups[0].Tickets.length == 0){
+        if (groups[0].Tickets.length == 0) {
             helper.displayFormMsg(false);
         }
-        else{
+        else {
             helper.displayFormMsg(true);
         }
-        
+
     },
 
-    optionCustomRender: function (cell)
-    {
-        return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
+    optionCustomRender: function (cell) {
+        return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='" + cell.Value + "' type='checkbox' checked='checked'/>";
     },
 
-    voidOutrightTicket: function(){
-         
-        if(!validateData.checkParamBeforVoidTicket()){
+    voidOutrightTicket: function () {
+
+        if (!validateData.checkParamBeforVoidTicket()) {
             return;
         }
 
@@ -264,30 +266,30 @@ var outright = {
                 Content_es: $('#msg-es').val(),
                 Content_ko: $('#msg-ko').val()
             }
-         };
+        };
 
-          $.ajax({
-                type: "POST",
-                url: window.rootUrl + "SportBook/VoidOutrightTicket/VoidOutrightTicket",
-                contentType: "application/json; charset=utf-8", 
-                dataType: "json",
-                data: JSON.stringify(param),
-                beforeSend: function () {
-                    NapTicketControl.disableInput();
-                },
-                success: function (rs) {
-                    //render match info
-                    NapTicketControl.Helper.showMsgBox(rs);
-                    if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
-                        helper.displayContent(false);
-                    }
-                },
-                error: function () {
-                    console.log('has error :(');
-                },
-                complete: function () {
-                    NapTicketControl.enableInput();
+        $.ajax({
+            type: "POST",
+            url: window.rootUrl + "SportBook/VoidOutrightTicket/VoidOutrightTicket",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(param),
+            beforeSend: function () {
+                NapTicketControl.disableInput();
+            },
+            success: function (rs) {
+                //render match info
+                NapTicketControl.Helper.showMsgBox(rs);
+                if (rs != null && rs.length > 0 && rs[0].ErrorCode < 0) {
+                    helper.displayContent(false);
                 }
-            });
+            },
+            error: function () {
+                console.log('has error :(');
+            },
+            complete: function () {
+                NapTicketControl.enableInput();
+            }
+        });
     }
 }

@@ -70,23 +70,16 @@ TicketListing.prototype.Init = function () {
     $("#LiveAwayScore").keyup(function () { }).ForceIntegerOnly();
 
     // handle events from DOM element
-    // change live type
+     $('.icon-from-transdate-calendar').click(function () {
+        $('#FromTransDate').datetimepicker("show");
+    });
 
-    $('.colapse-expand-filter-bar').click(function () {
-        var iEle = $(this).find('i');
-        if (iEle.hasClass('icon-minus-sign')) {
-            iEle.removeClass('icon-minus-sign');
-            iEle.addClass('icon-plus-sign');
-            $('.note-filter-bar').hide();
-            $('.filter-bar-inner').hide();
-            $('#collapse-expand-label').text('Expand Filter');
-        } else {
-            iEle.removeClass('icon-plus-sign');
-            iEle.addClass('icon-minus-sign');
-            $('.note-filter-bar').show();
-            $('.filter-bar-inner').show();
-            $('#collapse-expand-label').text('Collapse Filter');
-        }
+    $('.icon-to-transdate-calendar').click(function () {
+        $('#ToTransDate').datetimepicker("show");
+    });
+
+    $('.toggle-filter-bar').click(function(){
+        NapTicketControl.Helper.ToggleFilterBar(this);
     });
 
     self.DOMElement.$ddlEventType.change(function () {
@@ -674,4 +667,22 @@ TicketListing.prototype.RenderPagingEvent = function (pageIndex, pageSize, jq) {
 // Export
 TicketListing.prototype.ExportReport = function (dataReq) {
     NapTicketControl.downloadFile(window.rootUrl + "Misc/TicketListing/ExportTicketListingBetList", dataReq);    
+}
+
+TicketListing.prototype.ToggleFilterBar = function (self) {
+    // here, self is .toggle-filter-bar DOM element
+    var iEle = $(self).find('i');
+
+    if (iEle.hasClass('icon-circle-arrow-up')) {
+        iEle.removeClass('icon-circle-arrow-up');
+        iEle.addClass('icon-circle-arrow-down');
+        $('.filter-bar-inner').hide();
+        $(self).attr('title', 'Expand filter');
+
+    } else {
+        iEle.removeClass('icon-circle-arrow-down');
+        iEle.addClass('icon-circle-arrow-up');
+        $('.filter-bar-inner').show();
+        $(self).attr('title', 'Collapse filter');
+    }
 }

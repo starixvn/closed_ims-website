@@ -284,20 +284,30 @@ VoidMixParlayTicket.prototype.Init = function () {
             // fill in current date
             var today = new Date();
             $('.txtCalendar').removeAttr('disabled');
+            $('.txtCalendar').css('cursor', 'default');
             self.SetupCalendar(today.format('Y/m/d H:i:s'), '.txtCalendar');
 
         } else {
             // clear text box
             $('.txtCalendar').val('').attr('disabled', 'disabled');
+            $('.txtCalendar').css('cursor', 'not-allowed');
         }
     });
 
+    $('.icon-from-transdate-calendar').click(function () {
+        $('#FromTransDate').datetimepicker("show");
+    });
+
+    $('.icon-to-transdate-calendar').click(function () {
+        $('#ToTransDate').datetimepicker("show");
+    });
+
     $('.fieldset-advance-mode legend').click(function(){
-        helper.toggleAdvanceMode(this);
+        NapTicketControl.Helper.ToggleAdvanceMode(this);
     });
 
     $('.toggle-filter-bar').click(function(){
-        helper.toggleFilterBar(this);
+        NapTicketControl.Helper.ToggleFilterBar(this);
     });
 
     // check all bettypes
@@ -392,8 +402,10 @@ VoidMixParlayTicket.prototype.Init = function () {
         helper.eventSubAdvanceFGLG();
     });
     
-    $('body').delegate('#btnSearch', 'click', function () {
+    $('#btnSearch').click(function(e){
+        e.stopPropagation();
         parlayDelete.search();
+        return false;
     });
 
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();    
@@ -410,7 +422,8 @@ VoidMixParlayTicket.prototype.SetupCalendar = function (strdatetime, txtdate) {
         hourGrid: 3,
         minuteGrid: 5,
         secondGrid: 5,
-        separator: ' '
+        separator: ' ',
+        showButtonPanel: true
     });
 
     if (strdatetime != null && strdatetime != "") {

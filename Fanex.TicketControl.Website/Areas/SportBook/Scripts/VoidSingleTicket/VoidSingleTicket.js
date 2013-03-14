@@ -371,38 +371,20 @@ DelSingleTicket.prototype.Init = function () {
         }
     });
 
-    $('.tbl-advance-mode thead th').click(function(){
-        var iEle = $(this).find('i');
-        if(iEle.hasClass('icon-plus-sign'))
-        {
-            iEle.removeClass('icon-plus-sign');
-            iEle.addClass('icon-minus-sign');
-            $('.tbl-advance-mode tbody').show();
-        }
-        else
-        {
-            iEle.addClass('icon-plus-sign');
-            iEle.removeClass('icon-minus-sign');
-            $('.tbl-advance-mode tbody').hide();
-        }
-    })
+    $('.icon-from-transdate-calendar').click(function () {
+        $('#FromTransDate').datetimepicker("show");
+    });
 
-    // collapse / expand filter bar
-    $('.colapse-expand-filter-bar').click(function () {
-        var iEle = $(this).find('i');
-        if (iEle.hasClass('icon-minus-sign')) {
-            iEle.removeClass('icon-minus-sign');
-            iEle.addClass('icon-plus-sign');
-            $('.note-filter-bar').hide();
-            $('.filter-bar-inner').hide();
-            $('#collapse-expand-label').text('Expand Filter');
-        } else {
-            iEle.removeClass('icon-plus-sign');
-            iEle.addClass('icon-minus-sign');
-            $('.note-filter-bar').show();
-            $('.filter-bar-inner').show();
-            $('#collapse-expand-label').text('Collapse Filter');
-        }
+    $('.icon-to-transdate-calendar').click(function () {
+        $('#ToTransDate').datetimepicker("show");
+    });
+
+    $('.fieldset-advance-mode legend').click(function(){
+        NapTicketControl.Helper.ToggleAdvanceMode(this);
+    });
+
+    $('.toggle-filter-bar').click(function(){
+        NapTicketControl.Helper.ToggleFilterBar(this);
     });
 
     // check all bettypes
