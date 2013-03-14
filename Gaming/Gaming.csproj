@@ -65,12 +65,18 @@
     <Compile Include="Controllers\RecoverNumberGameTicketController.cs" />
     <Compile Include="Controllers\VoidNumberGameTicketController.cs" />
     <Compile Include="Criteria\GetNumberGameTicketCriteria.cs" />
+    <Compile Include="Criteria\GetRecoverNumberGameTicketCriteria.cs" />
+    <Compile Include="Criteria\RecoverNumberGameTicketCriteria.cs" />
     <Compile Include="Criteria\VoidNumberGameTicketCritetia.cs" />
     <Compile Include="Entities\NumberGameTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Impl\RecoverNumberGameTicketRepository.cs" />
     <Compile Include="Repositories\Impl\VoidNumberGameTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IRecoverNumberGameTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidNumberGameTicketRepository.cs" />
+    <Compile Include="Services\Impl\RecoverNumberGameTicketService.cs" />
     <Compile Include="Services\Impl\VoidNumberGameTicketService.cs" />
+    <Compile Include="Services\Interface\IRecoverNumberGameTicketService.cs" />
     <Compile Include="Services\Interface\IVoidNumberGameTicketService.cs" />
     <Compile Include="ViewModels\NumberGameTicketViewModel.cs" />
   </ItemGroup>

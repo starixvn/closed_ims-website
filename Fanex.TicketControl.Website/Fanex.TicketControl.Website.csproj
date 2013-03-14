@@ -194,6 +194,7 @@
     </Content>
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="App_Data\NumberWheelChoice.txt" />
+    <Content Include="Areas\Gaming\Scripts\RecoverNumberGameTicket\RecoverNumberGameTicket.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicket.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketHelper.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketManager.js" />
@@ -570,6 +571,7 @@
     <Content Include="Areas\Gaming\Views\Web.config" />
     <Content Include="Areas\SportBook\Views\VoidOutrightTicket\Index.cshtml" />
     <Content Include="Areas\SportBook\Styles\VoidOutrightTicket.less" />
+    <Content Include="Areas\Gaming\Views\RecoverNumberGameTicket\Index.cshtml" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />

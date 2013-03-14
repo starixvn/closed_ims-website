@@ -13,8 +13,12 @@
                 "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicketManager.js",
                 "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicketHelper.js",
                 "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicketValidateData.js"
-                
             ));
+
+            bundles.Add(new ScriptBundle("~/areas/Gaming/RecoverNumberGameTicket").Include(
+               "~/Scripts/_Libs/Utils/stdlib.js",
+               "~/Areas/Gaming/Scripts/RecoverNumberGameTicket/RecoverNumberGameTicket.js"
+           ));
         }
     }
 }

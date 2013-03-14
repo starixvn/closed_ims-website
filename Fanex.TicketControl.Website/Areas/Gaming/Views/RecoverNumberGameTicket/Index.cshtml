@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Recover Number Game Ticket";
+}
+
+@using Fanex.TicketControl.Core.Resources
+@using Fanex.TicketControl.Core.Models
+
+@section Head {    
+    <link href="~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.css" rel="stylesheet" type="text/css" />
+}
+
+@section Styles {
+    <link href="~/Areas/SportBook/Styles/VoidSingleTicket.less" rel="stylesheet" type="text/css" />
+    
+}
+
+@section Headline {
+    <div class="title">
+        <a href="~/">Home</a> / Recover Number Game Ticket
+    </div>
+}
+
+@using (Html.BeginForm("Index", "RecoverNumberGameTicket", FormMethod.Post, new { id = "RecoverNumberGameTicketForm" }))
+{
+    <div class="filter-bar">
+        <div class="filter-bar-inner">
+            <div class="filter-row">
+                <div class="filter-cell">
+                    <div class="lbl-field span3">
+                        <label for="txtBetId">Bet ID</label>
+                    </div>
+                    <div class="edit-field span4">
+                        <input type="text" id="txtBetId" maxlength="10" value="" />
+                    </div>
+                </div>
+                <div class="filter-cell">
+                    <div class="lbl-field span3">
+                        <input type="button" value="Search" class="submit" id="btnSearch"/>
+                    </div>                  
+                </div>                
+            </div>   
+        </div>     
+    </div>
+    
+    <div id="report-content">
+        <div class="display-none content-grid">
+            <div class="freegrid " id="matchInfo">
+            </div>
+        </div>
+        <div class="display-none content-grid">
+            <div class="freegrid " id="ticketInfo">
+            </div>
+        </div>
+        <fieldset id="fsMessage" class="form" style="display: none">
+            <legend><span><i class="icon-envelope"></i>&nbsp;</span>Message</legend>
+            <h6>
+                <em class="em"><u>Note</u>:
+                    <br />
+                    + Please include "@@@@" in your message for replacing ticket numbers.
+                    <br />
+                    + English and Mandarin are required.
+                    <br />
+                    <span><span id="spMoreMsg">[+]</span> <span onclick="helper.displayMoreMsg()" style="cursor: pointer;
+                        text-decoration: underline">More Messages</span></span> </em>
+            </h6>
+            <table>
+                <tr>
+                    <td>
+                        <div>
+                            <label for="msg-en">
+                                English</label>
+                            <textarea rows="1" id="msg-en" class="input-xlarge"></textarea>
+                            <label for="msg-ch">
+                                Chinese (Mandarin)</label>
+                            <textarea rows="1" id="msg-ch" class="input-xlarge"></textarea>
+                            <label for="msg-cs">
+                                Chinese (Cantonese)</label>
+                            <textarea rows="1" id="msg-cs" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                    <td style="width: 50px">
+                    </td>
+                    <td>
+                        <div class="other-languages" style="display: none">
+                            <label for="msg-en">
+                                th</label>
+                            <textarea rows="1" id="msg-th" class="input-xlarge"></textarea>
+                            <label for="msg-it">
+                                It</label>
+                            <textarea rows="1" id="msg-it" class="input-xlarge"></textarea>
+                            <label for="msg-jp">
+                                Jp</label>
+                            <textarea rows="1" id="msg-jp" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <div class="other-languages" style="display: none">
+                            <label for="msg-es">
+                                Es</label>
+                            <textarea rows="1" id="msg-es" class="input-xlarge"></textarea>
+                            <label for="msg-ko">
+                                Ko</label>
+                            <textarea rows="1" id="msg-ko" class="input-xlarge"></textarea>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                         <a class="submit" href="javascript:;recoverTicket.actionRecover();">Recover Ticket</a>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+}
+
+@section Foot {        
+    @Scripts.Render("~/areas/Gaming/RecoverNumberGameTicket")
+}
