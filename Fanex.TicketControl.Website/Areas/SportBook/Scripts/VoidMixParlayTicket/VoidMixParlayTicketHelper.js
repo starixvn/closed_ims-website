@@ -25,6 +25,7 @@
     setStatusAllAdvanceCS: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-score').attr('checked', 'checked');
+            helper.expandAdvancedMode();
         } else {
             $('.chk-score').removeAttr('checked');
         }
@@ -46,6 +47,7 @@
     setStatusAllAdvanceTG: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-tg').attr('checked', 'checked');
+            helper.expandAdvancedMode();
         } else {
             $('.chk-tg').removeAttr('checked');
         }
@@ -67,15 +69,22 @@
     setStatusAllAdvanceHDP: function (isEnable) {
         $('#ddlBetTeam1378').attr('disabled', !isEnable);
         $('#hdp').attr('disabled', !isEnable);
+        if (isEnable) {
+            helper.expandAdvancedMode();
+        }
     },
 
     setStatusAllAdvance1X2: function (isEnable) {
         $('#ddlBetTeam515').attr('disabled', !isEnable);
+        if (isEnable) {
+            helper.expandAdvancedMode();
+        }
     },
 
     setStatusAllAdvanceHTFT: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-htft').attr('checked', 'checked');
+            helper.expandAdvancedMode();       
         } else {
             $('.chk-htft').removeAttr('checked');
         }
@@ -97,6 +106,7 @@
     setStatusAllAdvanceFGLG: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-flg').attr('checked', 'checked');
+            helper.expandAdvancedMode();
         } else {
             $('.chk-flg').removeAttr('checked');
         }
@@ -286,5 +296,12 @@
         else {
             $('#dvContent').hide();
         }
+    },
+
+    expandAdvancedMode: function () {
+        var iEle = $('.tbl-advance-mode').find('i');
+        iEle.removeClass('icon-plus-sign');
+        iEle.addClass('icon-minus-sign');
+        $('.tbl-advance-mode tbody').show();
     }
 };
