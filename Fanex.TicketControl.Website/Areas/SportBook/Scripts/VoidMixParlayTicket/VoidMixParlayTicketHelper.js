@@ -286,5 +286,43 @@
         else {
             $('#dvContent').hide();
         }
+    },
+
+    toggleAdvanceMode: function (self) {
+        // here, self is legend tag
+        var iEle = $(self).find('i');
+
+        if (iEle.hasClass('icon-minus-sign')) {
+            iEle.removeClass('icon-minus-sign');
+            iEle.addClass('icon-plus-sign');
+            $('.tbl-advance-mode').hide();
+            $('.fieldset-advance-mode').addClass('nb-lrb');
+            $(self).attr('title', 'Expand advanced mode');
+
+        } else {
+            iEle.removeClass('icon-plus-sign');
+            iEle.addClass('icon-minus-sign');
+            $('.tbl-advance-mode').show();
+            $('.fieldset-advance-mode').removeClass('nb-lrb');
+            $(self).attr('title', 'Collapse advanced mode');
+        }
+    },
+
+    toggleFilterBar: function (self) {
+        // here, self is .toggle-filter-bar DOM element
+        var iEle = $(self).find('i');
+
+        if (iEle.hasClass('icon-circle-arrow-up')) {
+            iEle.removeClass('icon-circle-arrow-up');
+            iEle.addClass('icon-circle-arrow-down');
+            $('.filter-bar-inner').hide();
+            $(self).attr('title', 'Expand filter');
+
+        } else {
+            iEle.removeClass('icon-circle-arrow-down');
+            iEle.addClass('icon-circle-arrow-up');
+            $('.filter-bar-inner').show();
+            $(self).attr('title', 'Collapse filter');
+        }
     }
 };
