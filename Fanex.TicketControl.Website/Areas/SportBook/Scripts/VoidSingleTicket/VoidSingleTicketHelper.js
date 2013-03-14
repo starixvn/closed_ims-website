@@ -310,9 +310,6 @@
     },
 
     expandAdvancedMode: function () {
-        var iEle = $('.tbl-advance-mode').find('i');
-        iEle.removeClass('icon-plus-sign');
-        iEle.addClass('icon-minus-sign');
-        $('.tbl-advance-mode tbody').show();
+      
     }
 };
