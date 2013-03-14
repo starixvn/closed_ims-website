@@ -218,7 +218,10 @@ var outright = {
                 currentPage: 0,
                 totalItem: 100,
                 startPerPage: 50,
-                pageStep: 50
+                pageStep: 50,
+                afterPagedFunction: function () {
+                    $('#chk-ticket-all').attr('checked', 'checked');
+                }
             }
         };
 

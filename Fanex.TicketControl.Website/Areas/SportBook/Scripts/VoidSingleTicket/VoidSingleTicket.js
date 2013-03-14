@@ -91,6 +91,11 @@ var singleDetete = {
     {
         var rows = [];
         var length = groups[0].Tickets.length;
+
+        if(length>0){
+            helper.displayContent(true);
+        }
+
         for (var index = 0; index < length; index++) {
             var currentRow = groups[0].Tickets[index];
             rows.push({
@@ -138,7 +143,11 @@ var singleDetete = {
                 currentPage: 0,
                 totalItem: 100,
                 startPerPage: 50,
-                pageStep: 50
+                pageStep: 50,
+                afterPagedFunction: function()
+                {
+                    $('#chk-ticket-all').attr('checked', 'checked');
+                }
             }
         };
 
