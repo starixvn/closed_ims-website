@@ -143,9 +143,9 @@ var parlayDelete = {
             helper.displayFormMsg(false);
         }
         else{
-            helper.displayFormMsg(true);
+            helper.displayFormMsg(true);            
         }
-        
+        helper.displayContent(true);
     },
 
     optionCustomRender: function (cell)
@@ -202,6 +202,7 @@ var parlayDelete = {
                     NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         helper.displayContent(false);
+                        helper.resetContent();
                     }
                 },
                 error: function () {
