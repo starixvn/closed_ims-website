@@ -1,5 +1,7 @@
 ﻿var helper = {
 
+
+
     setStatusAllBettype: function (isChecked) {
         if (isChecked) {
             $('.chkbettype').attr('checked', 'checked')
@@ -113,8 +115,9 @@
             $('#txtMatchId').val('');
             $('#fromRefno').val('');
             $('#toRefno').val('');
-            $('#toRefno').val('');
-            helper.setStatusAllBettype(false);
+            $('.msg-void-ticket').val('');
+            $('#password').val('');
+            helper.setStatusAllBettype(true);
         }
     }
 };

@@ -525,7 +525,7 @@ TicketListing.prototype.RenderTicketListingBetlist = function (betlist, matchId,
             itemsPerPage: pageSize,
             currentPage: pageIndex,
             totalItem: betlist.TotalItem,
-            itemsPerPageArray: [50, 100, 200, 300, 400, 500],
+            itemsPerPageArray: [50, 100],
             pagerSelectCallBack: function (pageIndex, pageSize, jq) {
                 self.RenderPagingEvent(pageIndex, pageSize, jq);
             }

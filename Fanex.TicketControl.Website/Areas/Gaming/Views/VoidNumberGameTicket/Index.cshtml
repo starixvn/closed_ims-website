@@ -81,7 +81,7 @@
         </div>
        
         <fieldset id="fsMessage" class="form" style="display: none">
-            <legend><span><i class="icon-envelope"></i>&nbsp;</span>@Labels.Message</legend>
+            <legend><span><i class="icon-envelope"></i></span>@Labels.Message</legend>
             <h6>
                 <em class="em"><u>@Labels.Note</u>:
                     <br />
@@ -97,11 +97,11 @@
                     <td>
                         <div>
                             <label for="msg-en">@Labels.English</label>
-                            <textarea rows="1" id="msg-en" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-en" class="input-xlarge msg-void-ticket"></textarea>
                             <label for="msg-ch">@Labels.Chinese_Mandarin</label>
-                            <textarea rows="1" id="msg-ch" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-ch" class="input-xlarge msg-void-ticket"></textarea>
                             <label for="msg-cs">@Labels.Chinese_Cantonese</label>
-                            <textarea rows="1" id="msg-cs" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-cs" class="input-xlarge msg-void-ticket"></textarea>
                         </div>
                     </td>
                     <td style="width: 50px">
@@ -109,11 +109,11 @@
                     <td>
                         <div class="other-languages" style="display: none">
                             <label for="msg-en">@Labels.Th</label>
-                            <textarea rows="1" id="msg-th" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-th" class="input-xlarge msg-void-ticket"></textarea>
                             <label for="msg-it">@Labels.It</label>
-                            <textarea rows="1" id="msg-it" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-it" class="input-xlarge msg-void-ticket"></textarea>
                             <label for="msg-jp">@Labels.Jp</label>
-                            <textarea rows="1" id="msg-jp" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-jp" class="input-xlarge msg-void-ticket"></textarea>
                         </div>
                     </td>
                 </tr>
@@ -125,22 +125,22 @@
                     <td>
                         <div class="other-languages" style="display: none">
                             <label for="msg-es">@Labels.Es</label>
-                            <textarea rows="1" id="msg-es" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-es" class="input-xlarge msg-void-ticket"></textarea>
                             <label for="msg-ko">@Labels.Ko</label>
-                            <textarea rows="1" id="msg-ko" class="input-xlarge"></textarea>
+                            <textarea rows="1" id="msg-ko" class="input-xlarge msg-void-ticket"></textarea>
                         </div>
                     </td>
                 </tr>
             </table>
         </fieldset>
         <fieldset id="fsConfirmDelete" class="form" style="display: none">
-            <legend><span><i class="icon-trash"></i>&nbsp;</span>@Labels.Confirm_Delete</legend>
+            <legend><span><i class="icon-trash"></i></span>@Labels.Confirm_Delete</legend>
             <label for="username">@Labels.Username</label>
             <input type="text" id="username" class="input-xlarge" disabled="disabled" value="@ViewBag.Session.Username" />
             <label for="password">@Labels.Password</label>
             <input type="password" id="password" class="input-xlarge" />
             <a class="submit" href="javascript:;voidNumberGame.voidNumberGameTicket();">@Labels.Void_Bet</a>
-        </fieldset>        
+        </fieldset>
     </div>
 }
 

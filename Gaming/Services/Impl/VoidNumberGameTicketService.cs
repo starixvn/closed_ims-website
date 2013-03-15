@@ -131,16 +131,16 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
                 DataSet dsOutData = new DataSet();
                 results = _repository.VoidNumberGameTicket(criteria, ref dsOutData);
 
-                //if (dsOutData.Tables.Count > 0)
-                //{
-                //    var dtMsg = dsOutData.Tables[0];
-                //    var resultPrivateMsg = _messageService.SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
+                if (dsOutData.Tables.Count > 0)
+                {
+                    var dtMsg = dsOutData.Tables[0];
+                    var resultPrivateMsg = _messageService.SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
 
-                //    if (resultPrivateMsg.ErrorCode != 0)
-                //    {
-                //        results.Add(resultPrivateMsg);
-                //    }
-                //}
+                    if (resultPrivateMsg.ErrorCode != 0)
+                    {
+                        results.Add(resultPrivateMsg);
+                    }
+                }
 
                 if (results.Count == 1 && results[0].ErrorCode == 0)
                 {

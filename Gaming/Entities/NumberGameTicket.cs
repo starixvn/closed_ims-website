@@ -53,5 +53,6 @@ namespace Fanex.TicketControl.Gaming.Entities
                 return Helper.GetBetTypeName(this.Ticket.BetTypeId, this.Ticket.IsLive);
             }
         }
+
     }
 }

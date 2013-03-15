@@ -84,7 +84,7 @@
     setStatusAllAdvanceHTFT: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-htft').attr('checked', 'checked');
-            helper.expandAdvancedMode();       
+            helper.expandAdvancedMode();
         } else {
             $('.chk-htft').removeAttr('checked');
         }
@@ -297,7 +297,13 @@
         }
     },
 
-    expandAdvancedMode: function () {
-        
+    expandAdvancedMode: function (isExpand) {
+        if (isExpand) {
+            // remove disabled attribute on elements belonging to Advance Mode
+
+        }
+        else {
+            // add disabled attribute on elements belonging to Advance Mode
+        }
     }
 };

@@ -103,11 +103,11 @@ var voidNumberGame = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Member", Width: 100, HeaderAlign: "center", CellAlign: "center" },                
+                { HeaderText: "Member", Name: "Member", Width: 100, HeaderAlign: "center", CellAlign: "left" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 140, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Choice", Name: "Choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
@@ -116,12 +116,16 @@ var voidNumberGame = {
             bodyRows: rows,
             showPager: true,
             pagerOption: {
-                itemsPerPage: 50,
+                itemsPerPage: 10,
                 maxItemsPerPage: 100,
                 currentPage: 0,
                 totalItem: 100,
-                startPerPage: 50,
-                pageStep: 50
+                startPerPage: 10,
+                pageStep: 10,
+                afterPagedFunction: function()
+                {
+                    $('#chk-ticket-all').attr('checked', 'checked');
+                }
             }
         };
 
@@ -211,27 +215,26 @@ var voidNumberGame = {
                     NapTicketControl.disableInput();
                 },
                 success: function (rs) {
-//                    if(rs.ErrorCode == 0){
+                    if(rs.ErrorCode == 0){
                         voidNumberGame.param = param;
                         voidNumberGame.getNumberGameTicket();
                         helper.displayContent(true);
-//                    }
-//                    else{
-//                        switch(rs.ErrorCode){
-//                            case 1:
-//                            case 2:
-//                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
-//                                break;
-//                            case 3:
-//                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
-//                                break;
-//                            case 4:
-//                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
-//                                break;
-//                        }
-
-//                        //helper.displayContent(false);
-//                    }
+                    }
+                    else{
+                        switch(rs.ErrorCode){
+                            case 1:
+                            case 2:
+                                $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
+                                break;
+                            case 3:
+                                $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
+                                break;
+                            case 4:
+                                $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
+                                break;
+                        }
+                        //helper.displayContent(false);
+                    }
                     
                 },
                 error: function () {

@@ -24,8 +24,8 @@ namespace Fanex.TicketControl.Core.Utils
         public enum SportType
         {
             Sportsbook = 0,
-            VirtualSports = 1,
-            NumberGame = 2,
+            NumberGame = 1,
+            VirtualSports = 2,
             LiveCasino = 3
         }
 

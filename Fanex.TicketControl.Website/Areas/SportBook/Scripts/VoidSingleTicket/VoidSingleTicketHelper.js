@@ -310,6 +310,25 @@
     },
 
     expandAdvancedMode: function () {
-      
+        if (isExpand) {
+            // remove disabled attribute on elements belonging to Advance Mode
+            $('#ddlBetTeam1378').removeAttr('disabled');
+            $('#hdp').removeAttr('disabled');
+            $('.chk-score').removeAttr('disabled');
+            $('.chk-htft').removeAttr('disabled');
+            $('.chk-tg').removeAttr('disabled');
+            $('.chk-flg').removeAttr('disabled');
+        }
+        else {
+            // add disabled attribute on elements belonging to Advance Mode
+            $('#ddlBetTeam1378').attr('disabled', 'disabled');
+            $('#hdp').attr('disabled', 'disabled');
+            $('.chk-score').attr('disabled', 'disabled');
+            $('.chk-htft').attr('disabled', 'disabled');
+            $('.chk-tg').attr('disabled', 'disabled');
+            $('.chk-flg').attr('disabled', 'disabled');
+        }
+
     }
+    
 };

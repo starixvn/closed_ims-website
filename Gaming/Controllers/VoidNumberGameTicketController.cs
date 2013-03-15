@@ -58,7 +58,5 @@ namespace Fanex.TicketControl.Gaming.Controllers
 
             return Json(_voidNumberGameTicketService.VoidNumberGameTicket(criteria));
         }
-
-
     }
 }

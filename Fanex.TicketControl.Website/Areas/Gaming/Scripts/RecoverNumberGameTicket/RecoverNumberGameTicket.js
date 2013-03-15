@@ -12,6 +12,7 @@ var helper = {
         else {
             $('#report-content').hide();
             $('#txtBetId').val('');
+            $('.msg-void-ticket').val('');
         }
     },
 
@@ -27,6 +28,15 @@ var helper = {
 
         symbol = symbol == '[-]' ? '[+]' : '[-]';
         $('#spMoreMsg').html(symbol);
+    },
+
+    displayFormMsg: function (isShow) {
+        if (isShow) {
+            $('.form').show();
+        }
+        else {
+            $('.form').hide();
+        }
     },
 
     checkParamBeforRecoverTicket: function () {
@@ -63,6 +73,15 @@ var recoverTicket = {
             e.stopPropagation();
             recoverTicket.search(e);
         });
+
+        $('body').delegate('.undo', 'click', function (e) {
+            recoverTicket.actionRecover(e);
+        });
+
+        $('body').delegate('#btnRecoverTicket', 'click', function (e) {
+            recoverTicket.actionRecover(e);
+        });
+        
     },
 
     validData: function () {
@@ -146,22 +165,22 @@ var recoverTicket = {
     loadSingleTicket: function (groups) {
         var rows = [];
         var length = groups[0].Tickets.length;
+
         for (var index = 0; index < length; index++) {
             var currentRow = groups[0].Tickets[index];
             rows.push({
                 Columns: [
                     { Name: "No", Value: currentRow.No },
                     { Name: "BetId", Value: currentRow.BetId },
-                    { Name: "Player", Value: currentRow.Player },
+                    { Name: "Member", Value: currentRow.Member },
                     { Name: "TransDate", Value: currentRow.TransDate },
                     { Name: "BetTypeName", Value: currentRow.BetTypeName },
-                    { Name: "Odds", Value: currentRow.Odds },
-                    { Name: "Choice", Value: currentRow.Choice },
-                    { Name: "Stake", Value: currentRow.Stake },
-                    { Name: "CurrencyName", Value: currentRow.CurrencyName },
-                    { Name: "Score", Value: currentRow.Score },
-                    { Name: "Status", Value: currentRow.Status }
-                //{ Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
+                    { Name: "Odds", Value: currentRow.OddHtml },
+                    { Name: "Stake", Value: currentRow.StakeHtml },
+                    { Name: "CurrencyName", Value: currentRow.Currency },
+                    { Name: "Status", Value: currentRow.Status },
+                    { Name: "Choice", Value: currentRow.ChoiceHtml },
+                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -172,30 +191,46 @@ var recoverTicket = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
+                { HeaderText: "Member", Name: "Member", Width: 100, HeaderAlign: "center", CellAlign: "left" },
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 140, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Bettype", Name: "BetTypeName", Width: 120, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "right", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" }
-            // { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
+                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Choice", Name: "Choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
+                { HeaderText: "Recover", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
             ],
-            bodyRows: rows
+            bodyRows: rows,
+            showPager: true,
+            pagerOption: {
+                itemsPerPage: 50,
+                maxItemsPerPage: 100,
+                currentPage: 0,
+                totalItem: 100,
+                startPerPage: 50,
+                pageStep: 50
+            }
         };
 
         $('#ticketInfo').fanexGrid(gridOptions);
+
+        if (groups[0].Tickets.length == 0) {
+            helper.displayFormMsg(false);
+        }
+        else {
+            helper.displayFormMsg(true);
+        }
 
     },
 
     optionCustomRender: function (cell) {
 
-        return "<div onclick='recoverTicket.actionRecover(" + cell.Value + ")' class='undo'></div>";
+        return "<div class='undo'></div>";
     },
 
-    actionRecover: function () {
+    actionRecover: function (e) {
+        e.stopPropagation();
 
         var BetId = $('#txtBetId').val();
 

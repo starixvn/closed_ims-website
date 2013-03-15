@@ -572,6 +572,7 @@
     <Content Include="Areas\SportBook\Views\VoidOutrightTicket\Index.cshtml" />
     <Content Include="Areas\SportBook\Styles\VoidOutrightTicket.less" />
     <Content Include="Areas\Gaming\Views\RecoverNumberGameTicket\Index.cshtml" />
+    <Content Include="Areas\Gaming\Styles\RecoverNumberGameTicket.less" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />

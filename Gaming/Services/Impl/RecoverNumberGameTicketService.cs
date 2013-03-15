@@ -84,6 +84,7 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
                 {
                     ticketHelper.IsShowOddsWithChoice = true;
                 }
+
                 numberGameTicket.No = index;
                 numberGameTicket.Currency = Helper.CurrencyById(Convert.ToInt32(row["currency"]));
                 numberGameTicket.ChoiceHtml = builder.BuildChoice(ticket, ticketHelper, null, false);
@@ -133,8 +134,9 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
         {
             var ticket = new Ticket
             {
+                RefNo = Converter.ToString2(row["refno"]),
+                TransId = Convert.ToInt64(row["transid"]),
                 UserName = Converter.ToString2(row["username"]),
-                TransId = Converter.ToInt(row["transid"]),
                 TransDate = Converter.ToDateTime(row["transdate"]),
                 Odds = Converter.ToDecimal(row["odds"]),
                 OddsType = Converter.ToString2(row["OddsType"]),
@@ -146,14 +148,13 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
                 LiveAwayScore = Converter.ToInt(row["liveawayscore"]),
                 Stake = Converter.ToDecimal(row["stake"]),
                 Winlost = Converter.ToDecimal(row["winlost"]),
-                Comm = Converter.ToDecimal(row["comm"]),
-                Status = Converter.ToString2(row["status"]),
+                Status = Converter.ToString2(row["STATUS"]),
                 IsLive = Converter.ToBool(row["liveindicator"]),
+                ActualStake = Converter.ToInt(row["actual_stake"]),
+                CustId = Convert.ToInt64(row["custid"]),
+                MatchId = Converter.ToInt(row["matchid"])
             };
-
-            long transid;
-            bool result = long.TryParse(row["transid"].ToString(), out transid);
-            ticket.TransId = transid;
+            
             return ticket;
         }
 
