@@ -680,7 +680,7 @@
     <value>Password</value>
   </data>
   <data name="Please_inlude_at_in_message_for_replacing_ticket_numbers" xml:space="preserve">
-    <value>Please include "@@@@" in your message for replacing ticket numbers.</value>
+    <value>Please include "@@" in your message for replacing ticket numbers.</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value>Optional Filters</value>

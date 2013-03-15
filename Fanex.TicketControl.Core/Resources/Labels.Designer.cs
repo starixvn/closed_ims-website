@@ -1250,7 +1250,7 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please include &quot;@@@@&quot; in your message for replacing ticket numbers..
+        ///   Looks up a localized string similar to Please include &quot;@@&quot; in your message for replacing ticket numbers..
         /// </summary>
         public static string Please_inlude_at_in_message_for_replacing_ticket_numbers {
             get {

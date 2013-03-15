@@ -290,10 +290,32 @@
 
     displayContent: function (isShow) {
         if (isShow) {
-            $('#dvContent').show();
+            $('#report-content').show();
         }
         else {
-            $('#dvContent').hide();
+            $('#report-content').hide();
+            $('#txtMatchId').val('');
+            $('#fromRefno').val('');
+            $('#toRefno').val('');
+            $('#toRefno').val('');
+            $('#LiveHomeScore').val('');
+            $('#LiveAwayScore').val('');
+            $('#LiveAwayScore').val('');
+            $('#TransDate').removeAttr('checked');
+
+            $('#msg-en').val('');
+            $('#msg-ch').val('');
+            $('#msg-cs').val('');
+            $('#msg-th').val('');
+            $('#msg-it').val('');
+            $('#msg-jp').val('');
+            $('#msg-es').val('');
+            $('#msg-ko').val('');
+
+            $('#password').val('');
+            $('#msg-void-ticket').val('');
+
+            helper.setStatusAllBettype(false);
         }
     },
 

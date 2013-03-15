@@ -301,8 +301,6 @@
             $('#msg-ko').val('');
 
             $('#password').val('');
-
-            $('#username').val('');
             $('#msg-void-ticket').val('');
 
             helper.setStatusAllBettype(false);
