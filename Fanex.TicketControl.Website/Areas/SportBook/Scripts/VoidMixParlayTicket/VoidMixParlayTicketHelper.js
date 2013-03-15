@@ -25,7 +25,7 @@
     setStatusAllAdvanceCS: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-score').attr('checked', 'checked');
-            helper.expandAdvancedMode();
+//            helper.expandAdvancedMode();
         } else {
             $('.chk-score').removeAttr('checked');
         }
@@ -47,7 +47,7 @@
     setStatusAllAdvanceTG: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-tg').attr('checked', 'checked');
-            helper.expandAdvancedMode();
+//            helper.expandAdvancedMode();
         } else {
             $('.chk-tg').removeAttr('checked');
         }
@@ -70,21 +70,21 @@
         $('#ddlBetTeam1378').attr('disabled', !isEnable);
         $('#hdp').attr('disabled', !isEnable);
         if (isEnable) {
-            helper.expandAdvancedMode();
+//            helper.expandAdvancedMode();
         }
     },
 
     setStatusAllAdvance1X2: function (isEnable) {
         $('#ddlBetTeam515').attr('disabled', !isEnable);
         if (isEnable) {
-            helper.expandAdvancedMode();
+//            helper.expandAdvancedMode();
         }
     },
 
     setStatusAllAdvanceHTFT: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-htft').attr('checked', 'checked');
-            helper.expandAdvancedMode();
+//            helper.expandAdvancedMode();
         } else {
             $('.chk-htft').removeAttr('checked');
         }
@@ -322,14 +322,38 @@
            
         }
     },
+   
+    expandAdvancedMode: function () {
+        var iEle = $('.fieldset-advance-mode legend').find('i');
+        iEle.removeClass('icon-plus-sign');
+        iEle.addClass('icon-minus-sign');
+        $('.tbl-advance-mode').show();
+        $('.fieldset-advance-mode').removeClass('nb-lrb');
+        $(self).attr('title', 'Collapse advanced mode');
+    },
 
-    expandAdvancedMode: function (isExpand) {
-        if (isExpand) {
-            // remove disabled attribute on elements belonging to Advance Mode
+    toggleAdvancedMode: function (self) {
+        // here, self is legend tag
+        var iEle = $(self).find('i');
+        var isExpand = false;
 
+        if (iEle.hasClass('icon-minus-sign')) {
+            iEle.removeClass('icon-minus-sign');
+            iEle.addClass('icon-plus-sign');
+            $('.tbl-advance-mode').hide();
+            $('.fieldset-advance-mode').addClass('nb-lrb');
+            $(self).attr('title', 'Expand advanced mode');
+            isExpand = false;
+
+        } else {
+            iEle.removeClass('icon-plus-sign');
+            iEle.addClass('icon-minus-sign');
+            $('.tbl-advance-mode').show();
+            $('.fieldset-advance-mode').removeClass('nb-lrb');
+            $(self).attr('title', 'Collapse advanced mode');
+            isExpand = true;
         }
-        else {
-            // add disabled attribute on elements belonging to Advance Mode
-        }
+
+        return isExpand;
     }
 };

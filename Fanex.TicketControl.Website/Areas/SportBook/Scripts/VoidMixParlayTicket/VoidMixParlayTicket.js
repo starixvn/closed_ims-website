@@ -304,7 +304,7 @@ VoidMixParlayTicket.prototype.Init = function () {
     });
 
     $('.fieldset-advance-mode legend').click(function(){
-        NapTicketControl.Helper.ToggleAdvanceMode(this);
+        helper.toggleAdvancedMode(this);
     });
 
     $('.toggle-filter-bar').click(function(){
@@ -312,7 +312,9 @@ VoidMixParlayTicket.prototype.Init = function () {
     });
 
     // check all bettypes
-    $('body').delegate('#chkallbettype', 'click', function () {
+    $('body').delegate('#chkallbettype', 'click', function (e) {
+        e.stopPropagation();
+
         if ($('#chkallbettype').prop('checked')) {
             $('.chkbettype').attr('checked', 'checked')
             helper.setStatusAllAdvanceCS(true, true);    
@@ -321,6 +323,7 @@ VoidMixParlayTicket.prototype.Init = function () {
             helper.setStatusAllAdvance1X2(true);
             helper.setStatusAllAdvanceHTFT(true, true);
             helper.setStatusAllAdvanceFGLG(true, true);
+            helper.expandAdvancedMode();    
         } else {
             $('.chkbettype').removeAttr('checked');
             helper.setStatusAllAdvanceCS(false, false);        
@@ -356,11 +359,15 @@ VoidMixParlayTicket.prototype.Init = function () {
         var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
         helper.setStatusAllAdvance1X2(IsSelected1X2);
 
-        var IsSelected1X2 =  helper.IsSelectedBettype(16);
-        helper.setStatusAllAdvanceHTFT(IsSelected1X2, IsSelected1X2);
+        var IsSelectedHTFT =  helper.IsSelectedBettype(16);
+        helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
 
         var IsSelectedGFLG =  helper.IsSelectedBettype(14);
         helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
+
+        if(IsSelectedCS || IsSelectedTG || IsSelectedHDP || IsSelected1X2 || IsSelectedHTFT || IsSelectedGFLG){
+            helper.expandAdvancedMode();
+        }
     });
 
     //Correct Scores check all

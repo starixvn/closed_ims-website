@@ -18,7 +18,6 @@ var singleDetete = {
         if(validateData.checkParamBeforeGetData()){
             singleDetete.checkMatchIdWithRefno();
         }
-        
     },
 
     getSingleTicket: function (){
@@ -384,7 +383,7 @@ DelSingleTicket.prototype.Init = function () {
     });
 
     $('.fieldset-advance-mode legend').click(function(){
-        NapTicketControl.Helper.ToggleAdvanceMode(this);
+        helper.toggleAdvancedMode(this);
     });
 
     $('.toggle-filter-bar').click(function(){
@@ -392,7 +391,9 @@ DelSingleTicket.prototype.Init = function () {
     });
 
     // check all bettypes
-    $('body').delegate('#chkallbettype', 'click', function () {
+    $('body').delegate('#chkallbettype', 'click', function (e) {
+        e.stopPropagation();
+        
         if ($('#chkallbettype').prop('checked')) {
             $('.chkbettype').attr('checked', 'checked')
             helper.setStatusAllAdvanceCS(true, true);    
@@ -401,6 +402,7 @@ DelSingleTicket.prototype.Init = function () {
             helper.setStatusAllAdvance1X2(true);
             helper.setStatusAllAdvanceHTFT(true, true);
             helper.setStatusAllAdvanceFGLG(true, true);
+            helper.expandAdvancedMode();    
         } else {
             $('.chkbettype').removeAttr('checked');
             helper.setStatusAllAdvanceCS(false, false);        
@@ -441,6 +443,10 @@ DelSingleTicket.prototype.Init = function () {
 
         var IsSelectedGFLG =  helper.IsSelectedBettype(14);
         helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
+
+        if(IsSelectedCS || IsSelectedTG || IsSelectedHDP || IsSelected1X2 || IsSelectedHTFT || IsSelectedGFLG){
+            helper.expandAdvancedMode();
+        }
     });
 
     //Correct Scores check all
