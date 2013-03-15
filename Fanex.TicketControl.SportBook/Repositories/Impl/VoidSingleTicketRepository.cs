@@ -35,7 +35,6 @@ namespace Fanex.TicketControl.Misc.Repositories.Impl
             return ds;
         }
 
-
         public IList<ActionResult> VoidSingleTicket(VoidSingleTicketCritetia criteria, ref DataSet dsOutData)
         {
             IList<ActionResult> results = new List<ActionResult>();

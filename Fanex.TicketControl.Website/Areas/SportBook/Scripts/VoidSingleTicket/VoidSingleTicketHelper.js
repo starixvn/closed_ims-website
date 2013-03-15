@@ -25,7 +25,7 @@
     setStatusAllAdvanceCS: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-score').attr('checked', 'checked');
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         } else {
             $('.chk-score').removeAttr('checked');
         }
@@ -47,7 +47,7 @@
     setStatusAllAdvanceTG: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-tg').attr('checked', 'checked');
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         } else {
             $('.chk-tg').removeAttr('checked');
         }
@@ -71,7 +71,7 @@
         $('#hdp').attr('disabled', !isEnable);
 
         if (isEnable) {
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         }
     },
 
@@ -79,14 +79,14 @@
         $('#ddlBetTeam515').attr('disabled', !isEnable);
 
         if (isEnable) {
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         }
     },
 
     setStatusAllAdvanceHTFT: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-htft').attr('checked', 'checked');
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         } else {
             $('.chk-htft').removeAttr('checked');
         }
@@ -287,19 +287,10 @@
         $('#LiveAwayScore').val('');
         $('#TransDate').removeAttr('checked');
 
-        $('#msg-en').val('');
-        $('#msg-ch').val('');
-        $('#msg-cs').val('');
-        $('#msg-th').val('');
-        $('#msg-it').val('');
-        $('#msg-jp').val('');
-        $('#msg-es').val('');
-        $('#msg-ko').val('');
-
         $('#password').val('');
-        $('#msg-void-ticket').val('');
-
+        $('.msg-void-ticket').val('');
         helper.setStatusAllBettype(false);
+        helper.collapseAdvancedMode();
     },
 
     displayContent: function (isShow) {
@@ -310,20 +301,28 @@
             $('#report-content').hide();
         }
     },
-    
+
     expandAdvancedMode: function () {
         var iEle = $('.fieldset-advance-mode legend').find('i');
         iEle.removeClass('icon-plus-sign');
         iEle.addClass('icon-minus-sign');
         $('.tbl-advance-mode').show();
         $('.fieldset-advance-mode').removeClass('nb-lrb');
-        $(self).attr('title', 'Collapse advanced mode');
+        $('.fieldset-advance-mode legend').attr('title', 'Collapse advanced mode');
+    },
+
+    collapseAdvancedMode: function () {
+        var iEle = $('.fieldset-advance-mode legend').find('i');
+        iEle.removeClass('icon-minus-sign');
+        iEle.addClass('icon-plus-sign');
+        $('.tbl-advance-mode').hide();
+        $('.fieldset-advance-mode').addClass('nb-lrb');
+        $(self).attr('title', 'Expand advanced mode');
     },
 
     toggleAdvancedMode: function (self) {
         // here, self is legend tag
         var iEle = $(self).find('i');
-        var isExpand = false;
 
         if (iEle.hasClass('icon-minus-sign')) {
             iEle.removeClass('icon-minus-sign');
@@ -331,7 +330,6 @@
             $('.tbl-advance-mode').hide();
             $('.fieldset-advance-mode').addClass('nb-lrb');
             $(self).attr('title', 'Expand advanced mode');
-            isExpand = false;
 
         } else {
             iEle.removeClass('icon-plus-sign');
@@ -339,9 +337,6 @@
             $('.tbl-advance-mode').show();
             $('.fieldset-advance-mode').removeClass('nb-lrb');
             $(self).attr('title', 'Collapse advanced mode');
-            isExpand = true;
         }
-
-        return isExpand;
     }
 };
