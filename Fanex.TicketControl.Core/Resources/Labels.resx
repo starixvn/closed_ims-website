@@ -638,7 +638,7 @@
     <value>English and Mandarin are required.</value>
   </data>
   <data name="Es" xml:space="preserve">
-    <value>Es</value>
+    <value>Spanish</value>
   </data>
   <data name="Event_Type" xml:space="preserve">
     <value>Event Type</value>
@@ -653,13 +653,13 @@
     <value>Home</value>
   </data>
   <data name="It" xml:space="preserve">
-    <value>It</value>
+    <value>Italian</value>
   </data>
   <data name="Jp" xml:space="preserve">
-    <value>Jp</value>
+    <value>Japanese</value>
   </data>
   <data name="Ko" xml:space="preserve">
-    <value>Ko</value>
+    <value>Korean</value>
   </data>
   <data name="Live_Away_Score" xml:space="preserve">
     <value>Live Away Score</value>
@@ -680,13 +680,13 @@
     <value>Password</value>
   </data>
   <data name="Please_inlude_at_in_message_for_replacing_ticket_numbers" xml:space="preserve">
-    <value>Please include "@@@@" in your message for replacing ticket numbers.</value>
+    <value>Please include "@@" in your message for replacing ticket numbers.</value>
   </data>
   <data name="String1" xml:space="preserve">
     <value>Optional Filters</value>
   </data>
   <data name="Th" xml:space="preserve">
-    <value>Th</value>
+    <value>Thai</value>
   </data>
   <data name="Ticket_Listing" xml:space="preserve">
     <value>Ticket Listing</value>

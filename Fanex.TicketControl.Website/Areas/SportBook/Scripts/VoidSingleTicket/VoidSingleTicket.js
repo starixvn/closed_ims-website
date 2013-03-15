@@ -219,6 +219,7 @@ var singleDetete = {
                     NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         helper.displayContent(false);
+                        helper.resetContent();
                     }
                 },
                 error: function () {
@@ -242,6 +243,7 @@ var singleDetete = {
                 url: window.rootUrl + "SportBook/DeleteSingleTicket/CheckMatchIdWithRefno",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
+                async: false,
                 data: JSON.stringify(param),
                 beforeSend: function () {
                     NapTicketControl.disableInput();
@@ -265,6 +267,8 @@ var singleDetete = {
                                 $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
                                 break;
                         }
+
+                       helper.displayContent(false);             
                     }
                     
                 },
