@@ -25,11 +25,7 @@ var validateData = {
             }
         }
 
-        if (helper.GetParlayTypeChecked() == '') {
-            $('#msg').html(tooltip.show('chkMixParlay', 'Please select a type of Parlay.')).show();
-            return false;
-        }
-
+      
         //cs
         var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
         if (IsSelectedCS) {

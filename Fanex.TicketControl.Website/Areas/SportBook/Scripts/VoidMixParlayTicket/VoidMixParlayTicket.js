@@ -99,7 +99,7 @@ var parlayDelete = {
                     { Name: "Stake", Value: currentRow.Stake},
                     { Name: "CurrencyName", Value:currentRow.CurrencyName  },                    
                     { Name: "Status", Value: currentRow.Status },                    
-                    { Name: "Choice", Value:currentRow.Choice},
+                    { Name: "Choice", Value:currentRow.Choice + '<div style="display:none" id=divEvent_'+ currentRow.SubTransId +'>'},
                     { Name: "CustomAdd", Value: currentRow.SubTransId, TdClass:"Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"

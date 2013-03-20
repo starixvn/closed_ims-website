@@ -145,7 +145,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     BetTeam = Convert.ToString(row["choice_betteam"]),
                     LiveHomeScore = Convert.ToInt32(row["choice_livehomescore"]),
                     LiveAwayScore = Convert.ToInt32(row["choice_liveawayscore"]),
-                    IsLive = Convert.ToBoolean(row["liveindicator"]),
+                    IsLive = Convert.ToBoolean(row["choice_liveindicator"]),
 
                     Stake = Convert.ToDecimal(row["Stake"]),
                     Odds = Convert.ToDecimal(row["odds"]),

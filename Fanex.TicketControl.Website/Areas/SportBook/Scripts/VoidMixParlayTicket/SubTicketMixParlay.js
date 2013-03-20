@@ -4,6 +4,11 @@ function showMP (subTransId, refNo) {
     subTicketMP.getSubTicketMP(subTransId, refNo);
 }
 
+function showCombMP(subTransId, type, refNo) {
+    //type un-used
+    subTicketMP.getSubTicketMP(subTransId, refNo);
+}
+
 var subTicketMP = {
     getSubTicketMP: function (subTransId, refNo) {
         var param = {
@@ -12,6 +17,9 @@ var subTicketMP = {
         };
 
         var subTicket = $('#divEvent_' + subTransId);
+
+        
+
         if (subTicket.html() != '') {
             var display = subTicket.css('display');
             if (display == 'block') {

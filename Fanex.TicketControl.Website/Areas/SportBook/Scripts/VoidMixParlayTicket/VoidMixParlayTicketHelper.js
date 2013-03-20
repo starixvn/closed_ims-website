@@ -151,7 +151,7 @@
     },
 
     GetParlayTypeChecked: function () {
-        var checkedVals = $('.chk-parlay-type:checkbox:checked').map(function () {
+        var checkedVals = $('.chk-parlay-type:radio:checked').map(function () {
             return this.value;
         }).get().join('^');
 
