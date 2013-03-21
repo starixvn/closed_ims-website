@@ -42,6 +42,8 @@ var subTicketMP = {
             },
             success: function (rs) {
                 $('#divEvent_' + subTransId).html(rs).show();
+                $("#ticketInfo").fanexGrid('resizeGrid');
+        
             },
             error: function () {
                 console.log('has error :(');

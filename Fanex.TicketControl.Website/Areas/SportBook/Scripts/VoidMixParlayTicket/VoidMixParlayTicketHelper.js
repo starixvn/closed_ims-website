@@ -155,12 +155,7 @@
             return this.value;
         }).get().join('^');
 
-        if (checkedVals != '') {
-            if (checkedVals.split('^').length == 2) {
-                checkedVals = '0';
-            }
-        }
-
+      
         return checkedVals;
     },
 
