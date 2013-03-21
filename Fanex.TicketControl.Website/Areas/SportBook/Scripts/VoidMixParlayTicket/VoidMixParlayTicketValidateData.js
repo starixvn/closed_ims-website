@@ -13,7 +13,9 @@ var validateData = {
             return false;
         }
 
-        if ($('#EventType').val() == 1) {
+        var eventType = $('#EventType').val();
+
+        if (eventType == '1') {
             if ($('#LiveHomeScore').val() != '' && ($('#LiveHomeScore').val().length > 2 || isNaN($('#LiveHomeScore').val()))) {
                 $('#msg').html(tooltip.show('LiveHomeScore', 'Invalid Live Home Score.')).show();
                 return false;
@@ -25,10 +27,9 @@ var validateData = {
             }
         }
 
-      
         //cs
         var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
-        if (IsSelectedCS) {
+        if (IsSelectedCS && eventType != '1') {
             if (helper.GetBetteam430() == '') {
                 $('#msg').html(tooltip.show('chk-score-all', 'Please select a score for bettype: Correct score!.')).show();
                 return false;
@@ -37,7 +38,7 @@ var validateData = {
 
         //htft
         var IsSelectedHTFT = helper.IsSelectedBettype(16);
-        if (IsSelectedHTFT) {
+        if (IsSelectedHTFT && eventType != '1') {
             if (helper.GetBetteam16() == '') {
                 $('#msg').html(tooltip.show('chk-htft-all', 'Please select a betteam for bettype: HT/FT!.')).show();
                 return false;
@@ -46,7 +47,7 @@ var validateData = {
 
         //tg
         var IsSelectedTG = helper.IsSelectedBettype(6);
-        if (IsSelectedTG) {
+        if (IsSelectedTG && eventType != '1') {
             if (helper.GetBetteam6() == '') {
                 $('#msg').html(tooltip.show('chk-tg-all', 'Please select a goal for bettype: Total Goal!.')).show();
                 return false;
@@ -55,9 +56,9 @@ var validateData = {
 
         //fg/lg
         var IsSelectedGFLG = helper.IsSelectedBettype(14);
-        if (IsSelectedGFLG) {
+        if (IsSelectedGFLG && eventType != '1') {
             if (helper.GetBetteam14() == '') {
-                $('#msg').html(tooltip.show('chk-tg-all', 'Please select a goal for bettype: First Goal/Last Goal!.')).show();
+                $('#msg').html(tooltip.show('chk-flg-all', 'Please select a goal for bettype: First Goal/Last Goal!.')).show();
                 return false;
             }
         }

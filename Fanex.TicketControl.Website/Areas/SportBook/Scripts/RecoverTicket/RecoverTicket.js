@@ -201,11 +201,10 @@ var recoverTicket = {
                     { Name: "TransDate", Value: currentRow.TransDate },
                     { Name: "BetTypeName", Value: currentRow.BetTypeName },
                     { Name: "Odds", Value: currentRow.Odds },
-                    { Name: "Choice", Value: currentRow.Choice },
-                    { Name: "Stake", Value: currentRow.Stake },
+                    { Name: "Stake", Value: currentRow.Stake },                    
                     { Name: "CurrencyName", Value: currentRow.CurrencyName },
-                    { Name: "Score", Value: currentRow.Score },
                     { Name: "Status", Value: currentRow.Status },
+                    { Name: "Choice", Value: currentRow.Choice },                    
                     { Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
@@ -217,15 +216,14 @@ var recoverTicket = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Member", Name: "Player", Width: 140, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
+                { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },                
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },                
              { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
             ],
             bodyRows: rows

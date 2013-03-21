@@ -165,7 +165,7 @@
             return this.value;
         }).get().join('^');
 
-        if ($('#EventType').val() == '0') {
+        if ($('#EventType').val() == '1') {
             checkedVals = '';
         }
         return checkedVals;
@@ -177,7 +177,7 @@
             return this.value;
         }).get().join('^');
 
-        if ($('#EventType').val() == '0') {
+        if ($('#EventType').val() == '1') {
             checkedVals = '';
         }
 
@@ -190,7 +190,7 @@
             return this.value;
         }).get().join('^');
 
-        if ($('#EventType').val() == '0') {
+        if ($('#EventType').val() == '1') {
             checkedVals = '';
         }
 
@@ -203,7 +203,7 @@
             return this.value;
         }).get().join('^');
 
-        if ($('#EventType').val() == '0') {
+        if ($('#EventType').val() == '1') {
             checkedVals = '';
         }
 
