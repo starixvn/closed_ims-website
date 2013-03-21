@@ -237,14 +237,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     //ticketHelper.ShowBetType = false;
                     //ticketHelper.ShowLeague = false;
                     //ticketHelper.ShowMatch = false;
-
-                    if (bettype == 9 || bettype == 29)
-                    {
-                        
-                        ticketHelper.IsShowOddsWithChoice = true;
-                    }
-
-                    
+                                     
                     ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
 
                     if (TransId == criteria.TransId)

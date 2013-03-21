@@ -5,14 +5,17 @@ $(function () {
 });
 
 var helper = {
-    displayContent: function (isShow) {
+    displayContent: function (isShow, isClearBetId) {
         if (isShow) {
             $('#report-content').show();
         }
         else {
             $('#report-content').hide();
-            $('#txtBetId').val('');
             $('.msg-void-ticket').val('');
+
+            if (isClearBetId) {
+                $('#txtBetId').val('');
+            }
         }
     },
 
@@ -89,7 +92,7 @@ var helper = {
             $('#msg').html(tooltip.show('msg-ko', 'You must include @@ in Korean message for replacing ticket number')).show();
             return false;
         }
-      
+
         return true;
     }
 }
@@ -143,10 +146,10 @@ var recoverTicket = {
 
                 if (rs != null && rs.ErrorCode > 0) {
                     $('#msg').html(tooltip.show('txtBetId', rs.ErrorMsg)).show();
-                    helper.displayContent(false);
+                    helper.displayContent(false, false);
                 }
                 else {
-                    helper.displayContent(true);
+                    helper.displayContent(true, false);
                     recoverTicket.loadMatchInfo(rs.MatchInfo);
                     recoverTicket.loadSingleTicket(rs.Groups);
 
@@ -275,10 +278,10 @@ var recoverTicket = {
             },
             success: function (rs) {
                 if (rs != null && rs.ErrorCode > 0) {
-                    helper.displayContent(true);
+                    helper.displayContent(true, true);
                 }
                 else {
-                    helper.displayContent(false);
+                    helper.displayContent(false, true);
                 }
 
                 NapTicketControl.Helper.showMsgBox(rs);
