@@ -127,7 +127,8 @@
                 }
                 // Generate "Previous"-Link
                 if (opts.prevText && (currentPage > 0 || opts.prevShowAlways)) {
-                    appendItem(currentPage - 1, '', { text: opts.prevText, classes: "prev" });
+                    var tempCurrentPage = (typeof (currentPage) == 'string' ? parseInt(currentPage) : currentPage);
+                    appendItem(tempCurrentPage - 1, '', { text: opts.prevText, classes: "prev" });
                 }
                 // Generate starting points
                 if (interval[0] > 0 && opts.numEdgeEntries > 0) {
@@ -156,7 +157,8 @@
                 }
                 // Generate "Next"-Link
                 if (opts.nextText && (currentPage < np - 1 || opts.nextShowAlways)) {
-                    appendItem(currentPage + 1, '', { text: opts.nextText, classes: "next" });
+                    var tempCurrentPage = (typeof (currentPage) == 'string' ? parseInt(currentPage) : currentPage);
+                    appendItem(tempCurrentPage + 1, '', { text: opts.nextText, classes: "next" });
                 }
                 var list = $('<div class="numberlist"></div>');
                 $(list).append($(numberList)).appendTo(panel);
