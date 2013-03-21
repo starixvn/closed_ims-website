@@ -95,7 +95,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         BetId = Convert.ToString(BetId),
                         SubTransId = Convert.ToString(row["SubTransId"]),
                         Player = Convert.ToString(row["username"]),
-                        TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
+                        TransDate = Convert.ToDateTime(row["transdate"]).ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                         BetType = Convert.ToInt32(row["bettype"]),                        
                         Stake = Convert.ToString(row["stake"]),
                         Odds = Convert.ToString(row["odds"]),
@@ -156,17 +156,23 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     HomeId = Convert.ToInt64(row["choice_HomeId"]),
                     AwayId = Convert.ToInt64(row["choice_AwayId"]),
                     LeagueId = Convert.ToInt32(row["choice_LeagueId"]),
-                    SportTypeId = Convert.ToInt32(row["choice_SportType"])
+                    SportTypeId = Convert.ToInt32(row["choice_SportType"]),
+                   
                 };
 
-                ITicketHelper ticketHelper = new TicketHelper();
+                TicketHelper ticketHelper = new TicketHelper();
                 BetListHTMLFactory factory = new BetListHTMLFactory();
                 BetListHTMLBuilder builder = factory.CreateBuilder();
                 GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
 
                 if (bettype == 9 || bettype == 29) {
                     ticketHelper.IsShowOddsWithChoice = true;
+                    ticketHelper.ShowSystemParlayDetail = false;
+                    
                 }
+
+                
+
 
                 ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
                 ticket.StakeHtml = builder.BuildStake(ticket.Ticket);

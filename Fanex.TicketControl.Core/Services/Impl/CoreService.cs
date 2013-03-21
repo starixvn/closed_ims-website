@@ -22,6 +22,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
     using Fanex.Common.Extensions;
     using Fanex.TicketControl.Core.Repository.Impl;
     using Fanex.Data;
+    using Fanex.TicketControl.Core.Utils;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -75,7 +76,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
                     HomeId = r.ToInt("HomeId"),
                     AwayId = r.ToInt("AwayId"),
                     MatchCode = r.ToString("MatchCode"),
-                    EventDate = r.ToDateTime("EventDate").ToString("yyyy/MM/dd"),
+                    EventDate = r.ToDateTime("EventDate").ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                 };
             };
 

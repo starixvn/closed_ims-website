@@ -299,6 +299,7 @@
         }
         else {
             $('#report-content').hide();
+            $('#matchInfo').html('');
         }
     },
 
