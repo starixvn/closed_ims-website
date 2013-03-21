@@ -209,6 +209,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         BetId = TransId,
                         BetTypeId = bettype,
                         TransId = TransId,
+                        
                         BetTeam = Convert.ToString(row["betteam"]),
                         LiveHomeScore = Convert.ToInt32(row["livehomescore"]),
                         LiveAwayScore = Convert.ToInt32(row["liveawayscore"]),
@@ -224,6 +225,9 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         SportTypeId = Convert.ToInt32(row["SportType"]),
                         IsNeutral = Convert.ToBoolean(row["IsNeutral"]),
                         IsLive = Convert.ToBoolean(row["liveindicator"]),
+
+                        MatchCode = Convert.ToString(row["matchcode"]),
+                        StatusId = Convert.ToInt32(row["statusid"])
                     };
 
                     ITicketHelper ticketHelper = new TicketHelper();

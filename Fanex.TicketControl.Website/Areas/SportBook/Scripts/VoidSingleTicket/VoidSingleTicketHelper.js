@@ -298,8 +298,7 @@
             $('#report-content').show();
         }
         else {
-            $('#report-content').hide();
-            $('#matchInfo').html('');
+            $('#report-content').hide();            
         }
     },
 

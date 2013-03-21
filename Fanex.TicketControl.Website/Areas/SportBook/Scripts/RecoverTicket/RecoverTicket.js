@@ -12,6 +12,7 @@ var helper = {
         else {
             $('#report-content').hide();
             $('#txtBetId').val('');
+            $('.msg-void-ticket').val('');
         }
     },
 
@@ -27,6 +28,16 @@ var helper = {
 
         symbol = symbol == '[-]' ? '[+]' : '[-]';
         $('#spMoreMsg').html(symbol);
+    },
+
+    displayFormMsg: function (isShow) {
+        if (isShow) {
+            $('.form').show();
+        }
+        else {
+            $('.form').hide();
+        }
+
     },
 
     checkParamBeforRecoverTicket: function () {
@@ -49,6 +60,35 @@ var helper = {
             return false;
         }
 
+        if ($("#msg-cs").val() != '' && $("#msg-cs").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-cs', 'You must include @@ in Chinese (Cantonese) message for replacing ticket number')).show();
+            return false;
+        }
+
+        if ($("#msg-th").val() != '' && $("#msg-th").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-th', 'You must include @@ in Thai message for replacing ticket number')).show();
+            return false;
+        }
+
+        if ($("#msg-it").val() != '' && $("#msg-it").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-it', 'You must include @@ in Italian message for replacing ticket number')).show();
+            return false;
+        }
+
+        if ($("#msg-jp").val() != '' && $("#msg-jp").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-jp', 'You must include @@ in Japanese message for replacing ticket number')).show();
+            return false;
+        }
+
+        if ($("#msg-es").val() != '' && $("#msg-es").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-es', 'You must include @@ in Spanish message for replacing ticket number')).show();
+            return false;
+        }
+
+        if ($("#msg-ko").val() != '' && $("#msg-ko").val().indexOf("@@") < 0) {
+            $('#msg').html(tooltip.show('msg-ko', 'You must include @@ in Korean message for replacing ticket number')).show();
+            return false;
+        }
       
         return true;
     }
@@ -57,7 +97,7 @@ var helper = {
 var recoverTicket = {
     init: function () {
         jQuery("#RecoverTicketForm").validationEngine();
-        
+
         $("#txtBetId").keyup(function () { }).ForceIntegerOnly();
 
         $('body').delegate('#btnSearch', 'click', function (e) {
@@ -100,16 +140,18 @@ var recoverTicket = {
                 NapTicketControl.disableInput();
             },
             success: function (rs) {
+
                 if (rs != null && rs.ErrorCode > 0) {
                     $('#msg').html(tooltip.show('txtBetId', rs.ErrorMsg)).show();
                     helper.displayContent(false);
-                    $('#fsMessage').hide();
                 }
                 else {
                     helper.displayContent(true);
                     recoverTicket.loadMatchInfo(rs.MatchInfo);
                     recoverTicket.loadSingleTicket(rs.Groups);
-                    $('#fsMessage').show();
+
+                    var isDisplayFromMsg = rs.Groups[0].Tickets.length > 0;
+                    helper.displayFormMsg(isDisplayFromMsg);
                 }
             },
             error: function () {
@@ -161,7 +203,7 @@ var recoverTicket = {
                     { Name: "CurrencyName", Value: currentRow.CurrencyName },
                     { Name: "Score", Value: currentRow.Score },
                     { Name: "Status", Value: currentRow.Status }
-                    //{ Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
+                //{ Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -181,7 +223,7 @@ var recoverTicket = {
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" }
-               // { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
+            // { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
             ],
             bodyRows: rows
         };

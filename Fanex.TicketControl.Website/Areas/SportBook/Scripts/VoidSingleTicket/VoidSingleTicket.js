@@ -67,6 +67,11 @@ var singleDetete = {
     },
 
     loadMatchInfo: function(matchInfo){
+
+        if(matchInfo != null){
+            helper.displayContent(true);
+        }
+
         var rows = [];
         rows.push({
         Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
@@ -85,7 +90,7 @@ var singleDetete = {
         };
 
         $('#matchInfo').fanexGrid(gridOptions);
-         
+        
     },
 
     loadSingleTicket : function(groups)
