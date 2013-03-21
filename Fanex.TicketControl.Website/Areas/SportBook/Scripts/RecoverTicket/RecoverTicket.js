@@ -205,8 +205,8 @@ var recoverTicket = {
                     { Name: "Stake", Value: currentRow.Stake },
                     { Name: "CurrencyName", Value: currentRow.CurrencyName },
                     { Name: "Score", Value: currentRow.Score },
-                    { Name: "Status", Value: currentRow.Status }
-                //{ Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
+                    { Name: "Status", Value: currentRow.Status },
+                    { Name: "CustomAdd", Value: currentRow.BetId, TdClass: "Demo", CssClass: "demo2" }
                 ],
                 CssClass: "DemoCss"
             });
@@ -225,8 +225,8 @@ var recoverTicket = {
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Score", Name: "Score", Width: 60, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" }
-            // { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
+                { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+             { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
             ],
             bodyRows: rows
         };
@@ -239,23 +239,22 @@ var recoverTicket = {
 
     optionCustomRender: function (cell) {
 
-        return "<div onclick='recoverTicket.actionRecover(" + cell.Value + ")' class='undo'></div>";
+        return "<div onclick='recoverTicket.actionRecover(" + cell.Value + ", event)' class='undo'></div>";
     },
 
-    actionRecover: function () {
-
-        var BetId = $('#txtBetId').val();
+    actionRecover: function (betId, e) {
+        e.stopPropagation();
 
         if (!helper.checkParamBeforRecoverTicket()) {
             return;
         }
 
-        if (!confirm('Are you sure you want to recover transaction ' + BetId + ' ?')) {
+        if (!confirm('Are you sure you want to recover transaction ' + betId + ' ?')) {
             return;
         }
 
         var param = {
-            TransId: BetId,
+            TransId: betId,
             Msg: {
                 Content_en: $('#msg-en').val(),
                 Content_ch: $('#msg-ch').val(),
