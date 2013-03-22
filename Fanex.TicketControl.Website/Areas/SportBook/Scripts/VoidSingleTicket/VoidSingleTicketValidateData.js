@@ -90,7 +90,7 @@ var validateData = {
         }
 
         if (helper.GetBettypesChecked() == '') {
-            $('#msg').html(tooltip.show('chkallbettype', 'At least on bettype must be selected.')).show();
+            $('#msg').html(tooltip.show('chkallbettype', 'At least one bettype must be selected.')).show();
             return false;
         }
 
@@ -101,7 +101,7 @@ var validateData = {
         $('#msg').hide();
 
         if (helper.getSubTicketsChecked() == '') {
-            $('#msg').html(tooltip.show('chk-ticket-all', 'At least on ticket must be selected.')).show();
+            $('#msg').html(tooltip.show('chk-ticket-all', 'At least one ticket must be selected.')).show();
             return false;
         }
 
