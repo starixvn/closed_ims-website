@@ -123,6 +123,7 @@ var parlayDelete = {
             ],
             bodyRows: rows,
             showPager: true,
+            isResetScroller: false,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,
