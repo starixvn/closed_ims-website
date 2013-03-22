@@ -28,6 +28,6 @@ namespace Fanex.TicketControl.Core.Criteria
             get { return false; }
         }
 
-        public Int64 BettransId { get; set; }
+        public string BettransId { get; set; }
     }
 }

@@ -46,8 +46,7 @@ var singleDetete = {
                 type: "POST",
                 url: window.rootUrl + "SportBook/DeleteSingleTicket/GetSingleTicket",
                 contentType: "application/json; charset=utf-8", 
-                dataType: "json",
-                async: false,
+                dataType: "json",                
                 data: JSON.stringify(param),
                 beforeSend: function () {
                     NapTicketControl.disableInput();
@@ -58,7 +57,7 @@ var singleDetete = {
                     singleDetete.loadSingleTicket(rs.Groups);
                 },
                 error: function () {
-                    console.log('has error :(');
+                   // console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();
@@ -126,9 +125,9 @@ var singleDetete = {
         
         var gridOptions = {
             columns: [
-                { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "No", Name: "No", Width: 40, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Member", Name: "Player", Width: 130, HeaderAlign: "center", CellAlign: "left" },                
+                { HeaderText: "Member", Name: "Player", Width: 150, HeaderAlign: "center", CellAlign: "left" },                
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "right" },
@@ -281,7 +280,7 @@ var singleDetete = {
                     console.log('has error :(');
                 },
                 complete: function () {
-                    NapTicketControl.enableInput();
+                 //   NapTicketControl.enableInput();
                 }
             });
     }

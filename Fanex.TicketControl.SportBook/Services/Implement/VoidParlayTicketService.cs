@@ -147,7 +147,9 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     LiveAwayScore = Convert.ToInt32(row["choice_liveawayscore"]),
                     IsLive = Convert.ToBoolean(row["choice_liveindicator"]),
 
+                    ActualStake = Convert.ToInt32(row["actual_Stake"]) ,
                     Stake = Convert.ToDecimal(row["Stake"]),
+
                     Odds = Convert.ToDecimal(row["odds"]),
                     Handicap1 = Convert.ToDecimal(row["choice_hdp1"]),
                     Handicap2 = Convert.ToDecimal(row["choice_hdp2"]),
@@ -165,14 +167,8 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 BetListHTMLBuilder builder = factory.CreateBuilder();
                 GetCachePropertyById funcGetOddsTypeName = Fanex.BetList.Core.TicketHelper.CacheRef.GetOddsTypeName;
 
-                if (bettype == 9 || bettype == 29) {
-                    ticketHelper.IsShowOddsWithChoice = true;
-                    ticketHelper.ShowSystemParlayDetail = false;
-                    
-                }
-
-                
-
+                ticketHelper.IsShowOddsWithChoice = true;
+                ticketHelper.ShowSystemParlayDetail = false;
 
                 ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
                 ticket.StakeHtml = builder.BuildStake(ticket.Ticket);

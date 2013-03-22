@@ -63,7 +63,7 @@ namespace Fanex.TicketControl.Core.Repository.Impl
                     criteria.MessageId = MessageId;
                     criteria.TargetId = TargetId[i];
                     criteria.TargetName = TargetName[i];
-                    criteria.BettransId = Convert.ToInt64(TransID[i]);
+                    criteria.BettransId = TransID[i];
 
                     if (TargetId[i] != 0) {
                         using (ObjectDb objDB = new ObjectDb(criteria.GetSettingKey()))

@@ -97,5 +97,17 @@ namespace Fanex.TicketControl.Core.Web.Controllers
                 return this._issiteLogin;
             }
         }
+
+        protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
+        {
+            return new JsonResult()
+            {
+                Data = data,
+                ContentType = contentType,
+                ContentEncoding = contentEncoding,
+                JsonRequestBehavior = behavior,
+                MaxJsonLength = Int32.MaxValue
+            };
+        } 
     }
 }
