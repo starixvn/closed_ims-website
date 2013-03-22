@@ -503,7 +503,7 @@ DelSingleTicket.prototype.Init = function () {
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();
     $("#fromRefno").keyup(function () {}).ForceIntegerOnly();
     $("#toRefno").keyup(function () {}).ForceIntegerOnly();
-    $("#hdp").keyup(function () {}).ForceIntegerOnly();
+    $("#hdp").keyup(function () {}).ForceDecimalOnly();
     $("#LiveHomeScore").keyup(function () {}).ForceIntegerOnly();
     $("#LiveAwayScore").keyup(function () {}).ForceIntegerOnly();
 };

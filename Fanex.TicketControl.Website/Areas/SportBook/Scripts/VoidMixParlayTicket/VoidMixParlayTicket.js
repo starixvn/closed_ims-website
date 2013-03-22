@@ -425,7 +425,7 @@ VoidMixParlayTicket.prototype.Init = function () {
     });
 
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();    
-    $("#hdp").keyup(function () {}).ForceIntegerOnly();
+    $("#hdp").keyup(function () {}).ForceDecimalOnly();
     $("#LiveHomeScore").keyup(function () {}).ForceIntegerOnly();
     $("#LiveAwayScore").keyup(function () {}).ForceIntegerOnly();
 };
