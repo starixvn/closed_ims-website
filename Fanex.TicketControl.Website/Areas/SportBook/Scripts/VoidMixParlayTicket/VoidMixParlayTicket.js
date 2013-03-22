@@ -354,10 +354,14 @@ VoidMixParlayTicket.prototype.Init = function () {
         }
         
         var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
-        helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS); 
+        if(!(IsSelectedCS && helper.GetBetteam430() != '')){
+            helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS); 
+        }
         
         var IsSelectedTG = helper.IsSelectedBettype(6);
-        helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
+        if(!(IsSelectedTG && helper.GetBetteam6() != '')){
+            helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
+        }
 
         var IsSelectedHDP = helper.IsSelectedBettype(1) || helper.IsSelectedBettype(7) 
                             || helper.IsSelectedBettype(3) || helper.IsSelectedBettype(8)
@@ -368,10 +372,14 @@ VoidMixParlayTicket.prototype.Init = function () {
         helper.setStatusAllAdvance1X2(IsSelected1X2);
 
         var IsSelectedHTFT =  helper.IsSelectedBettype(16);
-        helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
+        if(!(IsSelectedHTFT && helper.GetBetteam16() != '')){
+            helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
+        }
 
         var IsSelectedGFLG =  helper.IsSelectedBettype(14);
-        helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
+        if(!(IsSelectedGFLG && helper.GetBetteam14() != '')){
+            helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
+        }
 
         if(IsSelectedCS || IsSelectedTG || IsSelectedHDP || IsSelected1X2 || IsSelectedHTFT || IsSelectedGFLG){
             helper.expandAdvancedMode();
