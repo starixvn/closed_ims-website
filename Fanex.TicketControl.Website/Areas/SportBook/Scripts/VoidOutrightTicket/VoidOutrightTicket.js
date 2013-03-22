@@ -52,9 +52,23 @@ var helper = {
             $('#report-content').hide();
             $('#fromRefno').val('');
             $('#toRefno').val('');
-            $('#toRefno').val('');                        
+            $('#password').val('');    
         }
-    }
+    },
+
+     displayMoreMsg: function () {
+        var symbol = $('#spMoreMsg').html();
+
+        if (symbol == '[+]') {
+            $('.other-languages').show();
+        }
+        else {
+            $('.other-languages').hide();
+        }
+
+        symbol = symbol == '[-]' ? '[+]' : '[-]';
+        $('#spMoreMsg').html(symbol);
+    },
 };
 
 var outright = {
@@ -167,6 +181,7 @@ var outright = {
             },
             success: function (rs) {
                 //render match info
+                helper.displayContent(true);
                 outright.loadOutrightTicket(rs.Groups);
             },
             error: function () {
@@ -206,7 +221,7 @@ var outright = {
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center",  FormatNumber: "0,0.00" },
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
