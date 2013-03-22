@@ -276,7 +276,7 @@ VoidMixParlayTicket.prototype.Init = function () {
         }     
 
         NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
-        helper.setStatusAllBettype(false);
+        //helper.setStatusAllBettype(false);
     });
 
     // enable/disable Trans Date
