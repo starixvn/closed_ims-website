@@ -155,7 +155,8 @@
         },
         hideYBackGroundScroller: false,
         bottomBorderWidth: 1,
-        treeParentPaddingLeft: 20
+        treeParentPaddingLeft: 20,
+        isResetScroller: true
     };
 
     var Fanex = Fanex || {};
@@ -307,11 +308,12 @@
                 heightScrollYAdd: 0,
                 marginRight: options.marginRight,
                 hideYBackGroundScroller: options.hideYBackGroundScroller,
-                bottomBorderWidth: options.bottomBorderWidth
+                bottomBorderWidth: options.bottomBorderWidth,
+                isResetScroller: options.isResetScroller
             };
             $(me.$grid).initGrid({
                 isShowPager: (options.showPager && (options.bodyRows.length > 0))
-            }).gridScroller(me.gridOptions) ;
+            }).gridScroller(me.gridOptions);
 
             //// Render Pager
             if (options.showPager == true) {
@@ -1508,6 +1510,11 @@
 
             if (options.isResetScroller) {
                 o.resetScroller(o, container, rowheader, xscrollbar, yscrollbar);
+            }
+            else {
+                var top = yscrollbar.scrollTop();
+                container.prop("scrollTop", top);
+                rowheader.prop("scrollTop", top);
             }
 
             return new scroller(o, container, rowheader, xscrollbar, yscrollbar);
