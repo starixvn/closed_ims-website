@@ -205,7 +205,7 @@
 
     GetBetteam515: function () {
         var checkedVals = '';
-        if ($('#EventType').val() == '0' || $('#EventType').val() == '2') {
+        if ($('#EventType').val() == '1' || $('#EventType').val() == '2') {
             var IsSelected515 = helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
             checkedVals = $('#ddlBetTeam515').val();
         }

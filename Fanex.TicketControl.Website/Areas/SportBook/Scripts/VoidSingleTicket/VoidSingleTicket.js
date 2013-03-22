@@ -250,7 +250,7 @@ var singleDetete = {
                 async: false,
                 data: JSON.stringify(param),
                 beforeSend: function () {
-                    NapTicketControl.disableInput();
+                  //  NapTicketControl.disableInput();
                 },
                 success: function (rs) {
                     if(rs.ErrorCode == 0){
@@ -280,7 +280,7 @@ var singleDetete = {
                     console.log('has error :(');
                 },
                 complete: function () {
-                    NapTicketControl.enableInput();
+                   // NapTicketControl.enableInput();
                 }
             });
     }
