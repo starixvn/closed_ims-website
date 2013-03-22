@@ -186,7 +186,8 @@ var recoverTicket = {
                 { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
             ],
-            bodyRows: rows
+            bodyRows: rows,
+            hideYBackGroundScroller: true,
         };
 
         $('#' + id).fanexGrid(gridOptions);
@@ -230,7 +231,8 @@ var recoverTicket = {
                 { HeaderText: "Choice", Name: "Choice", Width: 200, HeaderAlign: "center", CellAlign: "right" },
              { HeaderText: "<div><span>Recover</span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: recoverTicket.optionCustomRender }
             ],
-            bodyRows: rows
+            bodyRows: rows,
+            hideYBackGroundScroller: true,
         };
 
         $('#ticketInfo').fanexGrid(gridOptions);

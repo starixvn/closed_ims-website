@@ -83,6 +83,7 @@ var parlayDelete = {
                 { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
             ],
+            hideYBackGroundScroller: true,
             bodyRows: rows
         };
 
@@ -131,6 +132,7 @@ var parlayDelete = {
             bodyRows: rows,
             showPager: true,
             isResetScroller: false,
+            hideYBackGroundScroller: true,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,

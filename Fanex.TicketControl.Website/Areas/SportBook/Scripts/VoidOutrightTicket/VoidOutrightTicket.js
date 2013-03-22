@@ -229,6 +229,7 @@ var outright = {
             ],
             bodyRows: rows,
             showPager: true,
+            hideYBackGroundScroller: true,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,

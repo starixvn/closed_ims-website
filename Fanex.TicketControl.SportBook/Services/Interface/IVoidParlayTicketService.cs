@@ -25,7 +25,7 @@ namespace Fanex.TicketControl.SportBook.Services.Interface
     {
         ParlayTicketModel GetParlayTicket(GetParlayTicketCriteria criteria);
 
-        string GetParlaySubTicket(GetParlaySubTicketCriteria criteria);
+        List<string> GetParlaySubTicket(GetParlaySubTicketCriteria criteria);
 
         IList<ActionResult> VoidParlayTicket(VoidParlayTicketCritetia criteria);
     }

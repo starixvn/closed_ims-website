@@ -183,7 +183,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             return ticket;
         }
 
-        public string GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
+        public List<string> GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
         {
             List<string> subTickets = new List<string>();
             try
@@ -252,8 +252,8 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             {
                 LoggingHandler.Log(ex);
             }
-
-            return string.Join("<div class='line'></div>", subTickets);
+            return subTickets;
+        //    return string.Join("<div class='line'></div>", subTickets);
         }
 
         public IList<ActionResult> VoidParlayTicket(VoidParlayTicketCritetia criteria)

@@ -17,6 +17,8 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using Fanex.TicketControl.SportBook.Services.Interface;
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.SportBook.Criteria;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Business;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class DeleteSingleTicketController : BaseController
@@ -30,7 +32,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             
         }
 
-        
+       // [NapAuth(FunctionKey = SettlementFunctionKeys.SportsbookCalculateMixParlay, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();

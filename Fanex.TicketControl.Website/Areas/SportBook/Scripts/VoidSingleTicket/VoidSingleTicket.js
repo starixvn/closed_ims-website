@@ -85,7 +85,8 @@ var singleDetete = {
                 { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
             ],
-            bodyRows: rows
+            bodyRows: rows,
+            hideYBackGroundScroller: true
         };
 
         $('#matchInfo').fanexGrid(gridOptions);
@@ -140,6 +141,7 @@ var singleDetete = {
             ],
             bodyRows: rows,
             showPager: true,
+            hideYBackGroundScroller: true,
             pagerOption: {
                 itemsPerPage: 50,
                 maxItemsPerPage: 100,
