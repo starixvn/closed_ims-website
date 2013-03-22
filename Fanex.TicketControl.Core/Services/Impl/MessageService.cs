@@ -166,7 +166,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
                             int[] custid = { Convert.ToInt32(dr["custid"]) }; // This is a CustID of ticket that is deleted [TargetID Field]
                             string[] uname = { Convert.ToString(dr["username"]) };//This is a UserName of ticket that is deleted [TargetName Field]
 
-                            if (Convert.ToInt32(dr["custid"]) < 100) continue;//SRecommend < 100 and roleid=3 
+                           
                             string[] bettransid = { Convert.ToString(dr["transids"]) };
 
                             if (MessageId == 0)

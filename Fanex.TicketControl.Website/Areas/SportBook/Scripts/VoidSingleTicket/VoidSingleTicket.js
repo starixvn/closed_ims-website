@@ -280,7 +280,7 @@ var singleDetete = {
                     console.log('has error :(');
                 },
                 complete: function () {
-                 //   NapTicketControl.enableInput();
+                    NapTicketControl.enableInput();
                 }
             });
     }

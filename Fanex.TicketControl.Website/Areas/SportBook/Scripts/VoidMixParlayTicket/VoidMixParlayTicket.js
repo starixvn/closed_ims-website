@@ -62,6 +62,14 @@ var parlayDelete = {
     },
 
     loadMatchInfo: function(matchInfo){
+
+        if(matchInfo == null)
+        {
+            $('#matchInfo').hide();
+            return;
+        }
+        $('#matchInfo').show();
+
         var rows = [];
         rows.push({
         Columns: [{ Name: "code", Value: matchInfo.MatchCode },
@@ -69,7 +77,6 @@ var parlayDelete = {
             { Name: "eventDate", Value:  matchInfo.EventDate}
         ]});
 
-        var id = 'matchInfo';
         var gridOptions = {
             columns: [
                 { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
@@ -79,7 +86,7 @@ var parlayDelete = {
             bodyRows: rows
         };
 
-        $('#' + id).fanexGrid(gridOptions);
+        $('#matchInfo').fanexGrid(gridOptions);
     },
 
     loadSingleTicket : function(groups)
