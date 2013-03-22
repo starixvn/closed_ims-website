@@ -28,6 +28,8 @@ var subTicketMP = {
             else {
                 subTicket.show();
             }
+
+            $("#ticketInfo").fanexGrid('resizeGrid');
             return;
         }
 
