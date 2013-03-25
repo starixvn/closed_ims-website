@@ -18,7 +18,7 @@ var subTicketMP = {
 
         var subTicket = $('#divEvent_' + subTransId);
 
-        
+
 
         if (subTicket.html() != '') {
             var display = subTicket.css('display');
@@ -43,9 +43,21 @@ var subTicketMP = {
                 NapTicketControl.disableInput();
             },
             success: function (rs) {
-                $('#divEvent_' + subTransId).html(rs).show();
+
+                var arrChoice = [];
+                for (var i = 0; i < rs.length; i++) {
+                    row = rs[i];
+                    if (subTransId == row.SubTransId) {
+                        arrChoice.push('<div class="line"><div class="selected">' + row.Choice + '</div></div>');
+                    }
+                    else {
+                        arrChoice.push('<div class="line">' + row.Choice + '</div>');
+                    }
+                }
+
+                $('#divEvent_' + subTransId).html(arrChoice.join('')).show();
                 $("#ticketInfo").fanexGrid('resizeGrid');
-        
+
             },
             error: function () {
                 console.log('has error :(');
