@@ -1,5 +1,5 @@
 /* File Created: February 5, 2013 */
-var voidNumberGame = {
+var VoidNumberGame = {
     param:{
         MatchId: '',
         FromRefno: '',
@@ -13,19 +13,19 @@ var voidNumberGame = {
         $('#msg').hide();        
                 
         //Load Match Info
-        if(validateData.checkParamBeforeGetData()){
-            voidNumberGame.checkMatchIdWithRefno();
+        if(VoidNumberGame.Validator.checkParamBeforeGetData()){
+            VoidNumberGame.checkMatchIdWithRefno();
         }
     },
 
     getNumberGameTicket: function (){
 
-         var param = $.extend(true, {}, voidNumberGame.param, {
-            Dead: helper.getDeadBallBetTypes(),
-            Live: helper.getLiveBallBetTypes()
+         var param = $.extend(true, {}, VoidNumberGame.param, {
+            Dead: VoidNumberGame.Helper.getDeadBallBetTypes(),
+            Live: VoidNumberGame.Helper.getLiveBallBetTypes()
          });
 
-         voidNumberGame.param = param;
+         VoidNumberGame.param = param;
 
          $.ajax({
                 type: "POST",
@@ -38,8 +38,8 @@ var voidNumberGame = {
                 },
                 success: function (rs) {
                     //render match info
-                    voidNumberGame.loadMatchInfo(rs.MatchInfo) ;
-                    voidNumberGame.loadNumberGameTicket(rs.Groups);
+                    VoidNumberGame.loadMatchInfo(rs.MatchInfo) ;
+                    VoidNumberGame.loadNumberGameTicket(rs.Groups);
                 },
                 error: function () {
                     console.log('has error :(');
@@ -111,7 +111,7 @@ var voidNumberGame = {
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Choice", Name: "Choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: voidNumberGame.optionCustomRender } 
+                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='VoidNumberGame.Helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: VoidNumberGame.optionCustomRender } 
             ],
             bodyRows: rows,
             showPager: true,
@@ -132,28 +132,28 @@ var voidNumberGame = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if(groups[0].Tickets.length == 0){
-            helper.displayFormMsg(false);
+            VoidNumberGame.Helper.displayFormMsg(false);
         }
         else{
-            helper.displayFormMsg(true);
+            VoidNumberGame.Helper.displayFormMsg(true);
         }
         
     },
 
     optionCustomRender: function (cell)
     {
-        return "<input onclick='helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
+        return "<input onclick='VoidNumberGame.Helper.eventSubTicket()'  class='chk-ticket' value='"+ cell.Value +"' type='checkbox' checked='checked'/>";
     },
 
     voidNumberGameTicket: function (){
         
-        if(!validateData.checkParamBeforVoidTicket()){
+        if(!VoidNumberGame.Validator.checkParamBeforeVoidTicket()){
             return;
         }
 
-        var param = $.extend(true, {}, voidNumberGame.param, {
-            TransIds: helper.getSubTicketsChecked(),
-            TransIds_N: helper.getSubTicketsChecked(), // NOTE: will be deleted when integrated with new sp
+        var param = $.extend(true, {}, VoidNumberGame.param, {
+            TransIds: VoidNumberGame.Helper.getSubTicketsChecked(),
+            TransIds_N: VoidNumberGame.Helper.getSubTicketsChecked(), // NOTE: will be deleted when integrated with new sp
             UserPwd: $('#password').val(),
             UserName: $('#username').val(),
             Msg: {
@@ -186,7 +186,7 @@ var voidNumberGame = {
                     //render match info
                     NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
-                        helper.displayContent(false);
+                        VoidNumberGame.Helper.displayContent(false);
                     }
                 },
                 error: function () {
@@ -216,9 +216,9 @@ var voidNumberGame = {
                 },
                 success: function (rs) {
                     if(rs.ErrorCode == 0){
-                        voidNumberGame.param = param;
-                        voidNumberGame.getNumberGameTicket();
-                        helper.displayContent(true);
+                        VoidNumberGame.param = param;
+                        VoidNumberGame.getNumberGameTicket();
+                        VoidNumberGame.Helper.displayContent(true);
                     }
                     else{
                         switch(rs.ErrorCode){
@@ -233,7 +233,7 @@ var voidNumberGame = {
                                 $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
                                 break;
                         }
-                        //helper.displayContent(false);
+                        //VoidNumberGame.Helper.displayContent(false);
                     }
                     
                 },
@@ -257,7 +257,6 @@ function VoidNumberGameTicket() {
     this.OldDataRequest = null;
 };
 
-
 VoidNumberGameTicket.prototype.CacheDOMElement = function () {
     var self = this;
 
@@ -273,7 +272,7 @@ VoidNumberGameTicket.prototype.Init = function () {
 
     self.CacheDOMElement();    
     NapTicketControl.Helper.GetBettypes('NumberGame');
-    helper.setStatusAllBettype(true);
+    VoidNumberGame.Helper.setStatusAllBettype(true);
 
     // handle events from DOM element
     $('.toggle-filter-bar').click(function () {
@@ -302,7 +301,13 @@ VoidNumberGameTicket.prototype.Init = function () {
     
     $('#btnSearch').click(function (e) {        
         e.stopPropagation();
-        voidNumberGame.search();
+        VoidNumberGame.search();
+        return false;
+    });
+
+    $('#btnVoidBet').click(function(e){
+         e.stopPropagation();
+        VoidNumberGame.voidNumberGameTicket();
         return false;
     });
 

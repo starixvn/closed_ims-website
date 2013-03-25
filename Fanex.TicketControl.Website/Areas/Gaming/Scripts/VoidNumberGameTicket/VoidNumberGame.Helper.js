@@ -1,6 +1,8 @@
-﻿var helper = {
+﻿if (VoidNumberGame === undefined) {
+    VoidNumberGame = {};
+}
 
-
+VoidNumberGame.Helper = {
 
     setStatusAllBettype: function (isChecked) {
         if (isChecked) {
@@ -117,7 +119,7 @@
             $('#toRefno').val('');
             $('.msg-void-ticket').val('');
             $('#password').val('');
-            helper.setStatusAllBettype(true);
+            VoidNumberGame.Helper.setStatusAllBettype(true);
         }
     }
 };

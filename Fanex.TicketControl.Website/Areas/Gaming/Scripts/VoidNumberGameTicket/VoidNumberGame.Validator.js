@@ -1,5 +1,12 @@
 ﻿/* File Created: March 6, 2013 */
-var validateData = {
+
+if (VoidNumberGame === undefined) {
+    VoidNumberGame = {};
+}
+
+//var validateData = 
+VoidNumberGame.Validator = {
+
     checkParamBeforeGetData: function () {
         $('#msg').hide();
 
@@ -12,7 +19,6 @@ var validateData = {
             $('#msg').html(tooltip.show('txtMatchId', 'Invalid MatchID.')).show();
             return false;
         }
-
 
         if ($('#fromRefno').val() == '') {
             $('#msg').html(tooltip.show('fromRefno', 'From BetID is required.')).show();
@@ -39,7 +45,7 @@ var validateData = {
             return false;
         }
 
-        if (helper.getBettypesChecked() == '') {
+        if (VoidNumberGame.Helper.getBettypesChecked() == '') {
             $('#msg').html(tooltip.show('chkallbettype', 'At least one bet type must be selected.')).show();
             return false;
         }
@@ -47,15 +53,15 @@ var validateData = {
         return true;
     },
 
-    checkParamBeforVoidTicket: function () {
+    checkParamBeforeVoidTicket: function () {
         $('#msg').hide();
 
-        if (helper.getSubTicketsChecked() == '') {
+        if (VoidNumberGame.Helper.getSubTicketsChecked() == '') {
             $('#msg').html(tooltip.show('chk-ticket-all', 'At least one ticket must be selected.')).show();
             return false;
         }
 
-        return NapTicketControl.Validator.validateMessageBeforeVoidTicket();
+        return ValidateMessage.validateMessageConstraints();
 
         return true;
     }

@@ -196,9 +196,9 @@
     <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Gaming\Scripts\RecoverNumberGameTicket\RecoverNumberGameTicket.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicket.js" />
-    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketHelper.js" />
+    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGame.Helper.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketManager.js" />
-    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketValidateData.js" />
+    <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGame.Validator.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Scripts\RecoverTicket\RecoverTicket.js" />
@@ -255,7 +255,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Common\ValidateMessage.js" />
-    <Content Include="Scripts\Copy of NapTicketControl.Validator.js" />
     <Content Include="Scripts\NapTicketControl.Helper.js" />
     <Content Include="Scripts\NapTicketControl.js" />
     <Content Include="Scripts\NapTicketControl.Validator.js" />

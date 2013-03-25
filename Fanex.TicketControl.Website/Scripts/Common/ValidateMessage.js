@@ -24,6 +24,15 @@
             }
         },
 
+        hideMoreMessage: function () {
+            var symbol = $('#spMoreMsg').html();
+
+            if (symbol === '[-]') {
+                $('.other-languages').hide();
+                $('#spMoreMsg').html('[+]');
+            }
+        },
+
         displayFormMsg: function (isShow) {
             if (isShow) {
                 $('.form').show();
