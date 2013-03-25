@@ -18,7 +18,7 @@ var subTicketMP = {
 
         var subTicket = $('#divEvent_' + subTransId);
 
-        
+
 
         if (subTicket.html() != '') {
             var display = subTicket.css('display');
@@ -43,9 +43,14 @@ var subTicketMP = {
                 NapTicketControl.disableInput();
             },
             success: function (rs) {
-                $('#divEvent_' + subTransId).html(rs).show();
+
+                for (var i = 0; i < rs.length; i++) {
+                    alert(rs[i].SubTransId);
+                }
+
+                $('#divEvent_' + subTransId).html(rs.Value).show();
                 $("#ticketInfo").fanexGrid('resizeGrid');
-        
+
             },
             error: function () {
                 console.log('has error :(');

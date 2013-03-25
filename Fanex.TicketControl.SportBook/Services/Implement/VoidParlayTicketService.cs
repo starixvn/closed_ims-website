@@ -183,9 +183,9 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
             return ticket;
         }
 
-        public List<string> GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
+        public List<SubTicket> GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
         {
-            List<string> subTickets = new List<string>();
+            List<SubTicket> subTickets = new List<SubTicket>();
             try
             {
                 DataTable dtSubTickets = _reponsitory.GetParlaySubTicket(criteria);
@@ -229,22 +229,25 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     ITicketHelper ticketHelper = new TicketHelper();
                     BetListHTMLFactory factory = new BetListHTMLFactory();
                     BetListHTMLBuilder builder = factory.CreateBuilder();
-
-                    //ticketHelper.ShowBetType = false;
-                    //ticketHelper.ShowLeague = false;
-                    //ticketHelper.ShowMatch = false;
+                    
 
                     ticketHelper.IsShowOddsWithChoice = true;
                     ticket.ChoiceHtml = builder.BuildChoice(ticket.Ticket, ticketHelper, null, false);
 
-                    if (TransId == criteria.TransId)
-                    {
-                        subTickets.Add("<div class='selected'>" + ticket.ChoiceHtml + "</div>");
-                    }
-                    else 
-                    {
-                        subTickets.Add(ticket.ChoiceHtml);
-                    }
+                    subTickets.Add(new SubTicket() {
+                        SubTransId = TransId.ToString(),
+                        Choice = ticket.ChoiceHtml 
+                    });
+                    
+
+                    //if (TransId == criteria.TransId)
+                    //{
+                    //    subTickets.Add("<div class='selected'>" + ticket.ChoiceHtml + "</div>");
+                    //}
+                    //else 
+                    //{
+                    //    subTickets.Add(ticket.ChoiceHtml);
+                    //}
                     
                 }
             }

@@ -23,4 +23,11 @@ namespace Fanex.TicketControl.SportBook.Models.ParlayTicket
         public string SubTransId { get; set; }
                 
     }
+
+    public class SubTicket
+    {
+        public string SubTransId { get; set; }
+
+        public string Choice { get; set; }
+    }
 }
