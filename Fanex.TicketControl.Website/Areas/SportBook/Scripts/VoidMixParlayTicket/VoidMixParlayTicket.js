@@ -434,6 +434,12 @@ VoidMixParlayTicket.prototype.Init = function () {
         return false;
     });
 
+    $('#btnVoidBet').click(function(e){
+        e.stopPropagation();
+        parlayDelete.voidSingleTicket();
+        return false;
+    });
+
     $("#txtMatchId").keyup(function () {}).ForceIntegerOnly();    
     $("#hdp").keyup(function () {}).ForceDecimalOnly();
     $("#LiveHomeScore").keyup(function () {}).ForceIntegerOnly();

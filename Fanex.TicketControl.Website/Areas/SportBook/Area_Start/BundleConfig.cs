@@ -22,6 +22,8 @@
             bundles.Add(new ScriptBundle("~/areas/SportBook/VoidMixParlayTicket").Include(
                 "~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js",
                 "~/Scripts/_Libs/Utils/stdlib.js",
+                "~/Scripts/Common/Message.Helper.js",
+                "~/Scripts/Common/Message.Validator.js",
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketHelper.js",
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketValidateData.js",
                 "~/Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicket.js",
