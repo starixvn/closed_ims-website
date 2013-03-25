@@ -44,11 +44,18 @@ var subTicketMP = {
             },
             success: function (rs) {
 
+                var arrChoice = [];
                 for (var i = 0; i < rs.length; i++) {
-                    alert(rs[i].SubTransId);
+                    row = rs[i];
+                    if (subTransId == row.SubTransId) {
+                        arrChoice.push('<div class="line"><div class="selected">' + row.Choice + '</div></div>');
+                    }
+                    else {
+                        arrChoice.push('<div class="line">' + row.Choice + '</div>');
+                    }
                 }
 
-                $('#divEvent_' + subTransId).html(rs.Value).show();
+                $('#divEvent_' + subTransId).html(arrChoice.join('')).show();
                 $("#ticketInfo").fanexGrid('resizeGrid');
 
             },
