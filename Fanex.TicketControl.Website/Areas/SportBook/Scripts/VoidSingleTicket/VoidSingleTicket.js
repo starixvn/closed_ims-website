@@ -1,7 +1,5 @@
 /* File Created: February 5, 2013 */
 
-
-
 var singleDetete = {
     param:{
         MatchId: '',
@@ -159,10 +157,10 @@ var singleDetete = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if(groups[0].Tickets.length == 0){
-            helper.displayFormMsg(false);
+            ValidateMessage.displayFormMsg(false);
         }
         else{
-            helper.displayFormMsg(true);
+            ValidateMessage.displayFormMsg(true);
         }
         
     },
@@ -174,7 +172,7 @@ var singleDetete = {
 
     voidSingleTicket: function (){
         
-        if(!validateData.checkParamBeforVoidTicket()){
+        if(!validateData.checkParamBeforeVoidTicket()){
             return;
         }
 
@@ -507,6 +505,12 @@ DelSingleTicket.prototype.Init = function () {
     $('#btnSearch').click(function (e) {        
         e.stopPropagation();
         singleDetete.search();
+        return false;
+    });
+
+    $('#btnVoidBet').click(function(e){
+        e.stopPropagation();
+        singleDetete.voidSingleTicket();
         return false;
     });
 

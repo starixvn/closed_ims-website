@@ -9,10 +9,11 @@
             bundles.Add(new ScriptBundle("~/areas/Gaming/VoidNumberGameTicket").Include(
                 "~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js",
                 "~/Scripts/_Libs/Utils/stdlib.js",
+                "~/Scripts/Common/ValidateMessage.js",
                 "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicket.js",
                 "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicketManager.js",
-                "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicketHelper.js",
-                "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicketValidateData.js"
+                "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGame.Helper.js",
+                "~/Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGame.Validator.js"
             ));
 
             bundles.Add(new ScriptBundle("~/areas/Gaming/RecoverNumberGameTicket").Include(

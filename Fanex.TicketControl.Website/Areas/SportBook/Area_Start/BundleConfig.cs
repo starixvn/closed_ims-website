@@ -9,6 +9,7 @@
             bundles.Add(new ScriptBundle("~/areas/SportBook/DeleteSingleTicket").Include(
                 "~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js",
                 "~/Scripts/_Libs/Utils/stdlib.js",
+                "~/Scripts/Common/ValidateMessage.js",
                 "~/Areas/SportBook/Scripts/VoidSingleTicket/VoidSingleTicket.js",
                 "~/Areas/SportBook/Scripts/VoidSingleTicket/VoidSingleTicketHelper.js",
                 "~/Areas/SportBook/Scripts/VoidSingleTicket/VoidSingleTicketValidateData.js",

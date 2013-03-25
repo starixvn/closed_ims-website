@@ -10,6 +10,7 @@ NapTicketControl.Validator = (function ($) {
             // Validate with expr
             // Show message and animate background color
         },
+
         show: function (elementInput, message, xPos, pointerXPos, yPos, pointerYPos, height, timeout) {
             // <span class="hint"><span>This is the message.<span><span class="hint-pointer">&nbsp;</span></span>
             var hint = document.getElementById('fHint');
@@ -74,6 +75,7 @@ NapTicketControl.Validator = (function ($) {
             };
             hint.style.display = 'block';
         },
+
         hide: function () {
             var hint = document.getElementById('fHint');
             if (hint == null) {
@@ -81,6 +83,7 @@ NapTicketControl.Validator = (function ($) {
             }
             hint.style.display = 'none';
         },
+
         animate: function (input) {
             var previousColor = input.style.color;
             var previousBackground = input.style.backgroundColor;
@@ -103,6 +106,7 @@ NapTicketControl.Validator = (function ($) {
                 }
             }, 300);
         },
+
         utils: {
             // findPos() by quirksmode.org
             // Finds the absolute position of an element on a page

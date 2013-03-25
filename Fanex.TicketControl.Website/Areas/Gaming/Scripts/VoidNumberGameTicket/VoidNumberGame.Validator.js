@@ -1,5 +1,12 @@
 ﻿/* File Created: March 6, 2013 */
-var validateData = {
+
+if (VoidNumberGame === undefined) {
+    VoidNumberGame = {};
+}
+
+//var validateData = 
+VoidNumberGame.Validator = {
+
     checkParamBeforeGetData: function () {
         $('#msg').hide();
 
@@ -12,7 +19,6 @@ var validateData = {
             $('#msg').html(tooltip.show('txtMatchId', 'Invalid MatchID.')).show();
             return false;
         }
-
 
         if ($('#fromRefno').val() == '') {
             $('#msg').html(tooltip.show('fromRefno', 'From BetID is required.')).show();
@@ -39,7 +45,7 @@ var validateData = {
             return false;
         }
 
-        if (helper.getBettypesChecked() == '') {
+        if (VoidNumberGame.Helper.getBettypesChecked() == '') {
             $('#msg').html(tooltip.show('chkallbettype', 'At least one bet type must be selected.')).show();
             return false;
         }
@@ -47,35 +53,15 @@ var validateData = {
         return true;
     },
 
-    checkParamBeforVoidTicket: function () {
+    checkParamBeforeVoidTicket: function () {
         $('#msg').hide();
 
-        if (helper.getSubTicketsChecked() == '') {
+        if (VoidNumberGame.Helper.getSubTicketsChecked() == '') {
             $('#msg').html(tooltip.show('chk-ticket-all', 'At least one ticket must be selected.')).show();
             return false;
         }
 
-        if ($("#msg-en").val() == "") {
-            $('#msg').html(tooltip.show('msg-en', 'You must enter English message')).show();
-            return false;
-        }
-        if ($("#msg-en").val().indexOf("@@") < 0) {
-            $('#msg').html(tooltip.show('msg-en', 'You must include @@ in English message for replacing ticket number')).show();
-            return false;
-        }
-        if ($("#msg-ch").val() == "") {
-            $('#msg').html(tooltip.show('msg-ch', 'You must enter Chinese (Mandarin) message')).show();
-            return false;
-        }
-        if ($("#msg-ch").val().indexOf("@@") < 0) {
-            $('#msg').html(tooltip.show('msg-ch', 'You must include @@ in Chinese (Mandarin) message for replacing ticket number')).show();
-            return false;
-        }
-
-        if ($('#password').val() == '') {
-            $('#msg').html(tooltip.show('password', 'Please input password.')).show();
-            return false;
-        }
+        return ValidateMessage.validateMessageConstraints();
 
         return true;
     }
