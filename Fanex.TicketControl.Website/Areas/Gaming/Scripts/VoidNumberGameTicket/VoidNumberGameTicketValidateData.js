@@ -55,27 +55,7 @@ var validateData = {
             return false;
         }
 
-        if ($("#msg-en").val() == "") {
-            $('#msg').html(tooltip.show('msg-en', 'You must enter English message')).show();
-            return false;
-        }
-        if ($("#msg-en").val().indexOf("@@") < 0) {
-            $('#msg').html(tooltip.show('msg-en', 'You must include @@ in English message for replacing ticket number')).show();
-            return false;
-        }
-        if ($("#msg-ch").val() == "") {
-            $('#msg').html(tooltip.show('msg-ch', 'You must enter Chinese (Mandarin) message')).show();
-            return false;
-        }
-        if ($("#msg-ch").val().indexOf("@@") < 0) {
-            $('#msg').html(tooltip.show('msg-ch', 'You must include @@ in Chinese (Mandarin) message for replacing ticket number')).show();
-            return false;
-        }
-
-        if ($('#password').val() == '') {
-            $('#msg').html(tooltip.show('password', 'Please input password.')).show();
-            return false;
-        }
+        return NapTicketControl.Validator.validateMessageBeforeVoidTicket();
 
         return true;
     }

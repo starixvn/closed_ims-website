@@ -64,7 +64,7 @@ var voidNumberGame = {
                 columns: [
                     { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                     { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                    { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
+                    { HeaderText: "Event Date", Name: "eventDate", Width: 120, HeaderAlign: "center", CellAlign: "center" }
                 ],
                 bodyRows: rows
             };
