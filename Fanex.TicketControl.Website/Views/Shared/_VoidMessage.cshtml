@@ -9,7 +9,7 @@
             <br />
             <span>
                 <span id="spMoreMsg">[+]</span> 
-                <span onclick="helper.displayMoreMsg()" style="cursor: pointer;
+                <span onclick="ValidateMessage.displayMoreMsg()" style="cursor: pointer;
                     text-decoration: underline">@Labels.More_Messages
                 </span>
             </span> 
@@ -62,5 +62,5 @@
     <input type="text" id="username" class="input-xlarge" disabled="disabled" value="@ViewBag.Session.Username" />
     <label for="password">@Labels.Password</label>
     <input type="password" id="password" class="input-xlarge" />
-    <a class="submit" href="javascript:;singleDetete.voidSingleTicket();">@Labels.Void_Bet</a>
+    <a class="submit" id="btnVoidBet" >@Labels.Void_Bet</a>
 </fieldset>

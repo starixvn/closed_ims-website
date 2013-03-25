@@ -274,7 +274,6 @@
         else {
             $('.form').hide();
         }
-
     },
 
     resetContent: function () {
