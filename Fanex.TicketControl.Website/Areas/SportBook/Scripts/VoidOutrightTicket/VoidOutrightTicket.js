@@ -78,7 +78,7 @@ var outright = {
         $("#fromRefno").keyup(function () { }).ForceIntegerOnly();
         $("#toRefno").keyup(function () { }).ForceIntegerOnly();
 
-        $('body').delegate('#btnSearch', 'click', function (e) {
+        $('#btnSearch').click(function (e) {
             e.stopPropagation();
             outright.search(e);
             return false;
@@ -86,6 +86,12 @@ var outright = {
 
         $('.toggle-filter-bar').click(function () {
             NapTicketControl.Helper.ToggleFilterBar(this);
+        });
+
+        $('#btnVoidBet').click(function(e){
+            e.stopPropagation();
+            outright.voidOutrightTicket()
+            return false;
         });
 
         outright.loadLeague();
@@ -174,7 +180,7 @@ var outright = {
             url: window.rootUrl + "SportBook/VoidOutrightTicket/GetOutrightTicket",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            async: false,
+           // async: false,
             data: JSON.stringify(param),
             beforeSend: function () {
                 NapTicketControl.disableInput();
@@ -191,6 +197,8 @@ var outright = {
                 NapTicketControl.enableInput();
             }
         });
+
+        console.log("abc");
     },
 
     loadOutrightTicket: function (groups) {
@@ -260,7 +268,7 @@ var outright = {
 
     voidOutrightTicket: function () {
 
-        if (!validateData.checkParamBeforVoidTicket()) {
+        if (!validateData.checkParamBeforeVoidTicket()) {
             return;
         }
 

@@ -94,7 +94,7 @@
             </div>
         </div>
        
-        <fieldset id="fsMessage" class="form" style="display: none">
+        @*<fieldset id="fsMessage" class="form" style="display: none">
             <legend><span><i class="icon-envelope"></i>&nbsp;</span>Message</legend>
             <h6>
                 <em class="em"><u>Note</u>:
@@ -154,7 +154,10 @@
             <label for="password">@Labels.Password</label>
             <input type="password" id="password" class="input-xlarge" />
             <a class="submit" href="javascript:outright.voidOutrightTicket();">Void Bet</a>
-        </fieldset>        
+        </fieldset>        *@
+
+        @Html.Partial("_Message")
+        @Html.Partial("_ConfirmDelete")
     </div>
 }
 
