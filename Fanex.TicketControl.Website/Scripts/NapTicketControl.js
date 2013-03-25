@@ -19,6 +19,8 @@ var NapTicketControl = (function ($) {
                 // hide message tooltip
                 $('#msg').hide();
             });
+
+            var Message = {};
         },
 
         disableInput: function () {

@@ -9,7 +9,7 @@
             <br />
             <span>
                 <span id="spMoreMsg">[+]</span> 
-                <span onclick="ValidateMessage.displayMoreMsg()" style="cursor: pointer;
+                <span onclick="Message.Helper.displayMoreMsg()" style="cursor: pointer;
                     text-decoration: underline">@Labels.More_Messages
                 </span>
             </span> 
@@ -55,12 +55,4 @@
             </td>
         </tr>
     </table>
-</fieldset>
-<fieldset id="fsConfirmDelete" class="form" style="display: none">
-    <legend><span><i class="icon-trash"></i></span>@Labels.Confirm_Delete</legend>
-    <label for="username">@Labels.Username</label>
-    <input type="text" id="username" class="input-xlarge" disabled="disabled" value="@ViewBag.Session.Username" />
-    <label for="password">@Labels.Password</label>
-    <input type="password" id="password" class="input-xlarge" />
-    <a class="submit" id="btnVoidBet" >@Labels.Void_Bet</a>
 </fieldset>

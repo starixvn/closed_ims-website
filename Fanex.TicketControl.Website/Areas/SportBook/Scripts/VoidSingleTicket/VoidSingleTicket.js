@@ -157,10 +157,10 @@ var singleDetete = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if(groups[0].Tickets.length == 0){
-            ValidateMessage.displayFormMsg(false);
+            Message.Helper.displayFormMsg(false);
         }
         else{
-            ValidateMessage.displayFormMsg(true);
+            Message.Helper.displayFormMsg(true);
         }
         
     },

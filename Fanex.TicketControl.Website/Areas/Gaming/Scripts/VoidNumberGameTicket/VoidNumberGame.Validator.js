@@ -4,7 +4,7 @@ if (VoidNumberGame === undefined) {
     VoidNumberGame = {};
 }
 
-//var validateData = 
+//var validateData =
 VoidNumberGame.Validator = {
 
     checkParamBeforeGetData: function () {
@@ -61,7 +61,14 @@ VoidNumberGame.Validator = {
             return false;
         }
 
-        return ValidateMessage.validateMessageConstraints();
+        if (Message.Validator.validateMessageConstraints() === false) {
+            return false;
+        }
+
+        if ($('#password').val() == '') {
+            $('#msg').html(tooltip.show('password', 'Please input password.')).show();
+            return false;
+        }
 
         return true;
     }

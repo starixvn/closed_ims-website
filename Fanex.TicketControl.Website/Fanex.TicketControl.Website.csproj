@@ -254,6 +254,8 @@
     <Content Include="Content\base\img\undo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Common\Message.Validator.js" />
+    <Content Include="Scripts\Common\Message.Helper.js" />
     <Content Include="Scripts\Common\ValidateMessage.js" />
     <Content Include="Scripts\NapTicketControl.Helper.js" />
     <Content Include="Scripts\NapTicketControl.js" />
@@ -626,7 +628,8 @@
     <Content Include="Content\fonts\OpenSans.woff" />
     <None Include="Content\fonts\YanoneKaffeesatz.woff" />
     <Content Include="Views\Shared\_Menu.cshtml" />
-    <Content Include="Views\Shared\_VoidMessage.cshtml" />
+    <Content Include="Views\Shared\_Message.cshtml" />
+    <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
