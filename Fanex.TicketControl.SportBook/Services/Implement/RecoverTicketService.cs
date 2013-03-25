@@ -78,7 +78,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         BetId = Convert.ToString(BetId),
                         
                         Player = Convert.ToString(row["username"]),
-                        TransDate = Convert.ToDateTime(row["transdate"]).ToString("yyyy/MM/dd h:m:s tt"),
+                        TransDate = Convert.ToDateTime(row["transdate"]).ToString(FormatKey.LONG_DATE_TIME_FORMAT),
                         BetType = Convert.ToInt32(row["bettype"]),
                         Stake = Convert.ToString(row["stakepositiontaking"]),
                         Odds = Convert.ToString(row["odds"]),
@@ -87,8 +87,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         Score = Convert.ToString(row["livehomescore"]) + "-" + Convert.ToString(row["liveawayscore"]),                        
                         IsDelete = true,
                         BetTypeName = Fanex.TicketControl.Core.Services.Impl.CacheRef.GetBettype(row["bettype"]),
-
-
+                     
                     };
 
                     tickets.Add(ticketInfo);
@@ -128,6 +127,7 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     BetTeam = Convert.ToString(row["betteam"]),
                     LiveHomeScore = Convert.ToInt32(row["livehomescore"]),
                     LiveAwayScore = Convert.ToInt32(row["liveawayscore"]),
+                    IsLive = Convert.ToBoolean(row["liveindicator"]),
 
                     Stake = Convert.ToDecimal(row["Stakepositiontaking"]),
                     Odds = Convert.ToDecimal(row["odds"]),
@@ -135,10 +135,11 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                     Handicap2 = Convert.ToDecimal(row["hdp2"]),
 
                     Status = Convert.ToString(row["status"]),
-                    HomeId = 9079,
-                    AwayId = 844,
-                    LeagueId = 4114,
-                    SportTypeId = 1
+                    HomeId = Convert.ToInt64(row["HomeId"]),
+                    AwayId = Convert.ToInt64(row["AwayId"]),
+                    LeagueId = Convert.ToInt32(row["LeagueId"]),
+                    SportTypeId = Convert.ToInt32(row["SportType"]),
+                    OddsType = Convert.ToString(row["OddsType"])
                 };
 
                 ITicketHelper ticketHelper = new TicketHelper();
