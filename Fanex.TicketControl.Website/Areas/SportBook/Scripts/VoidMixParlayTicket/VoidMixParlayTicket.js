@@ -285,7 +285,7 @@ VoidMixParlayTicket.prototype.Init = function () {
             self.DOMElement.$optFilters.hide();                 
         }     
 
-        NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
+       // NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
         //helper.setStatusAllBettype(false);
     });
 

@@ -238,17 +238,6 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                         SubTransId = TransId.ToString(),
                         Choice = ticket.ChoiceHtml 
                     });
-                    
-
-                    //if (TransId == criteria.TransId)
-                    //{
-                    //    subTickets.Add("<div class='selected'>" + ticket.ChoiceHtml + "</div>");
-                    //}
-                    //else 
-                    //{
-                    //    subTickets.Add(ticket.ChoiceHtml);
-                    //}
-                    
                 }
             }
             catch (Exception ex)
@@ -256,7 +245,6 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 LoggingHandler.Log(ex);
             }
             return subTickets;
-        //    return string.Join("<div class='line'></div>", subTickets);
         }
 
         public IList<ActionResult> VoidParlayTicket(VoidParlayTicketCritetia criteria)

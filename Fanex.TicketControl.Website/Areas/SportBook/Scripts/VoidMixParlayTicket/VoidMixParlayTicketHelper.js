@@ -274,6 +274,11 @@
         $('#spMoreMsg').html(symbol);
     },
 
+    expandMoreMsg: function () {
+        $('.other-languages').show();
+        $('#spMoreMsg').html('[-]');
+    },
+
     displayFormMsg: function (isShow) {
         if (isShow) {
             $('.form').show();

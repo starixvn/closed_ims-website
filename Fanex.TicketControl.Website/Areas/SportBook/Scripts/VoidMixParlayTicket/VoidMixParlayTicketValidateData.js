@@ -31,6 +31,7 @@ var validateData = {
         var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
         if (IsSelectedCS && eventType != '1') {
             if (helper.GetBetteam430() == '') {
+                helper.expandAdvancedMode();
                 $('#msg').html(tooltip.show('chk-score-all', 'Please select a score for bettype: Correct score!.')).show();
                 return false;
             }
@@ -40,6 +41,7 @@ var validateData = {
         var IsSelectedHTFT = helper.IsSelectedBettype(16);
         if (IsSelectedHTFT && eventType != '1') {
             if (helper.GetBetteam16() == '') {
+                helper.expandAdvancedMode();
                 $('#msg').html(tooltip.show('chk-htft-all', 'Please select a betteam for bettype: HT/FT!.')).show();
                 return false;
             }
@@ -49,6 +51,7 @@ var validateData = {
         var IsSelectedTG = helper.IsSelectedBettype(6);
         if (IsSelectedTG && eventType != '1') {
             if (helper.GetBetteam6() == '') {
+                helper.expandAdvancedMode();
                 $('#msg').html(tooltip.show('chk-tg-all', 'Please select a goal for bettype: Total Goal!.')).show();
                 return false;
             }
@@ -58,6 +61,7 @@ var validateData = {
         var IsSelectedGFLG = helper.IsSelectedBettype(14);
         if (IsSelectedGFLG && eventType != '1') {
             if (helper.GetBetteam14() == '') {
+                helper.expandAdvancedMode();
                 $('#msg').html(tooltip.show('chk-flg-all', 'Please select a goal for bettype: First Goal/Last Goal!.')).show();
                 return false;
             }
@@ -97,31 +101,37 @@ var validateData = {
         }
 
         if ($("#msg-cs").val() != '' && $("#msg-cs").val().indexOf("@@") < 0) {
+            helper.expandMoreMsg();
             $('#msg').html(tooltip.show('msg-cs', 'You must include @@ in Chinese (Cantonese) message for replacing ticket number')).show();
             return false;
         }
 
         if ($("#msg-th").val() != '' && $("#msg-th").val().indexOf("@@") < 0) {
+            helper.expandMoreMsg();
             $('#msg').html(tooltip.show('msg-th', 'You must include @@ in Thai message for replacing ticket number')).show();
             return false;
         }
 
         if ($("#msg-it").val() != '' && $("#msg-it").val().indexOf("@@") < 0) {
+            helper.expandMoreMsg();
             $('#msg').html(tooltip.show('msg-it', 'You must include @@ in Italian message for replacing ticket number')).show();
             return false;
         }
 
         if ($("#msg-jp").val() != '' && $("#msg-jp").val().indexOf("@@") < 0) {
+            helper.expandMoreMsg();
             $('#msg').html(tooltip.show('msg-jp', 'You must include @@ in Japanese message for replacing ticket number')).show();
             return false;
         }
 
         if ($("#msg-es").val() != '' && $("#msg-es").val().indexOf("@@") < 0) {
+            helper.expandMoreMsg();
             $('#msg').html(tooltip.show('msg-es', 'You must include @@ in Spanish message for replacing ticket number')).show();
             return false;
         }
 
         if ($("#msg-ko").val() != '' && $("#msg-ko").val().indexOf("@@") < 0) {
+            helper.expandMoreMsg();
             $('#msg').html(tooltip.show('msg-ko', 'You must include @@ in Korean message for replacing ticket number')).show();
             return false;
         }
