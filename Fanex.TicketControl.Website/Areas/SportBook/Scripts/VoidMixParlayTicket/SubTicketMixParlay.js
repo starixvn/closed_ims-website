@@ -1,4 +1,4 @@
-﻿/* File Created: March 7, 2013 */
+/* File Created: March 7, 2013 */
 
 function showMP (subTransId, refNo) {
     subTicketMP.getSubTicketMP(subTransId, refNo);
@@ -17,6 +17,8 @@ var subTicketMP = {
         };
 
         var subTicket = $('#divEvent_' + subTransId);
+
+
 
         if (subTicket.html() != '') {
             var display = subTicket.css('display');
@@ -58,7 +60,7 @@ var subTicketMP = {
 
             },
             error: function () {
-//                console.log('has error :(');
+                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();

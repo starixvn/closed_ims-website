@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <copyright file="Fanex.Grid.js" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -266,7 +266,7 @@
                     }
                 }
                 catch (e) {
-//                    console.log(e);
+                    console.log(e);
                 }
                 //me.$grid.find(selector.join(',')).hide();
             }

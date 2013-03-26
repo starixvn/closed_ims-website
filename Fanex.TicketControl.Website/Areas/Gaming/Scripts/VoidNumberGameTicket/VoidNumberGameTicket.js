@@ -43,7 +43,7 @@ var VoidNumberGame = {
                     VoidNumberGame.loadNumberGameTicket(rs.Groups);
                 },
                 error: function () {
-//                    console.log('has error :(');
+                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();
@@ -191,7 +191,7 @@ var VoidNumberGame = {
                     }
                 },
                 error: function () {
-//                    console.log('has error :(');
+                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();
@@ -239,7 +239,7 @@ var VoidNumberGame = {
                     
                 },
                 error: function () {
-//                    console.log('has error :(');
+                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();

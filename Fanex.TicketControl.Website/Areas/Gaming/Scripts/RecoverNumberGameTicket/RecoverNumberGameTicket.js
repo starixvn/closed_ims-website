@@ -1,4 +1,4 @@
-﻿/* File Created: March 8, 2013 */
+/* File Created: March 8, 2013 */
 
 $(function () {
     recoverTicket.init();
@@ -87,7 +87,7 @@ var recoverTicket = {
                 }
             },
             error: function () {
-//                console.log('has error :(');
+                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -177,6 +177,7 @@ var recoverTicket = {
         else {
             Message.Helper.displayFormMsg(true);
         }
+
     },
 
     optionCustomRender: function (cell) {
@@ -226,7 +227,7 @@ var recoverTicket = {
                 NapTicketControl.Helper.showMsgBox(rs);
             },
             error: function () {
-//                console.log('has error :(');
+                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
