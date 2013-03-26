@@ -5,15 +5,6 @@ $(function () {
 });
 
 var helper = {
-    displayFormMsg: function (isShow) {
-        if (isShow) {
-            $('.form').show();
-        }
-        else {
-            $('.form').hide();
-        }
-
-    },
 
     setStausAllCheckTicket: function () {
         var isChecked = $('#chk-ticket-all').prop('checked');
@@ -54,21 +45,7 @@ var helper = {
             $('#toRefno').val('');
             $('#password').val('');    
         }
-    },
-
-     displayMoreMsg: function () {
-        var symbol = $('#spMoreMsg').html();
-
-        if (symbol == '[+]') {
-            $('.other-languages').show();
-        }
-        else {
-            $('.other-languages').hide();
-        }
-
-        symbol = symbol == '[-]' ? '[+]' : '[-]';
-        $('#spMoreMsg').html(symbol);
-    },
+    }
 };
 
 var outright = {
@@ -254,10 +231,10 @@ var outright = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if (groups[0].Tickets.length == 0) {
-            helper.displayFormMsg(false);
+            Message.Helper.displayFormMsg(false);
         }
         else {
-            helper.displayFormMsg(true);
+            Message.Helper.displayFormMsg(true);
         }
 
     },

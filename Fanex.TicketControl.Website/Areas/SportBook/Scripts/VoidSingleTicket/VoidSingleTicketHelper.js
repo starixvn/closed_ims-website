@@ -262,29 +262,6 @@
         return checkedVals;
     },
 
-    displayMoreMsg: function () {
-        var symbol = $('#spMoreMsg').html();
-
-        if (symbol == '[+]') {
-            $('.other-languages').show();
-        }
-        else {
-            $('.other-languages').hide();
-        }
-
-        symbol = symbol == '[-]' ? '[+]' : '[-]';
-        $('#spMoreMsg').html(symbol);
-    },
-
-    displayFormMsg: function (isShow) {
-        if (isShow) {
-            $('.form').show();
-        }
-        else {
-            $('.form').hide();
-        }
-    },
-
     resetContent: function () {
         $('#txtMatchId').val('');
         $('#fromRefno').val('');
