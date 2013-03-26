@@ -105,21 +105,6 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
             return group;
         }
 
-        //public ActionResult CheckMatchIDwithRefno(CheckMatchIdWithRefNoCriteria criteria)
-        //{
-        //    ActionResult result = new ActionResult();
-        //    try
-        //    {
-        //        criteria.Type = Helper.SportType.NumberGame;
-        //        result = _coreService.CheckMatchIdWithRefno(criteria);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-        //    return result;
-        //}
-
         public IList<ActionResult> VoidNumberGameTicket(VoidNumberGameTicketCritetia criteria)
         {
             IList<ActionResult> results = new List<ActionResult>();

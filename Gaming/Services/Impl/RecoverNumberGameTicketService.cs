@@ -56,7 +56,7 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
             return model;
         }
 
-        private static Group AssignDataOnGroup(DataTable dt)
+        private Group AssignDataOnGroup(DataTable dt)
         {
             // Now, we only have one Normal group.
             Group group = new Group();
@@ -130,7 +130,7 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
 
         #region Helpers
 
-        private static Ticket MapTicket(DataRow row)
+        private Ticket MapTicket(DataRow row)
         {
             var ticket = new Ticket
             {
@@ -152,7 +152,8 @@ namespace Fanex.TicketControl.Gaming.Services.Impl
                 IsLive = Converter.ToBool(row["liveindicator"]),
                 ActualStake = Converter.ToInt(row["actual_stake"]),
                 CustId = Convert.ToInt64(row["custid"]),
-                MatchId = Converter.ToInt(row["matchid"])
+                MatchId = Converter.ToInt(row["matchid"]),
+                BetId = Converter.ToInt(row["betID"])
             };
             
             return ticket;

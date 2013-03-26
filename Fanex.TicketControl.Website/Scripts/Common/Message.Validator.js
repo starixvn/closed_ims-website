@@ -58,8 +58,6 @@ Message.Validator = (function ($) {
                 return false;
             }
 
-
-
             return true;
         }
     };

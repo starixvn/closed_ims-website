@@ -85,7 +85,6 @@ namespace Fanex.TicketControl.Core.Services.Impl
             }
         }
 
-
         public ActionResult SendPrivateMsgToUsers(DataTable dtMsg, string matchId, Message pmsg)
         {
             ActionResult result = new ActionResult();

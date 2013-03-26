@@ -16,50 +16,11 @@ var helper = {
         }
     },
 
-    displayMoreMsg: function () {
-        var symbol = $('#spMoreMsg').html();
-
-        if (symbol == '[+]') {
-            $('.other-languages').show();
-        }
-        else {
-            $('.other-languages').hide();
-        }
-
-        symbol = symbol == '[-]' ? '[+]' : '[-]';
-        $('#spMoreMsg').html(symbol);
-    },
-
-    displayFormMsg: function (isShow) {
-        if (isShow) {
-            $('.form').show();
-        }
-        else {
-            $('.form').hide();
-        }
-    },
-
     checkParamBeforRecoverTicket: function () {
+
         $('#msg').hide();
 
-        if ($("#msg-en").val() == "") {
-            $('#msg').html(tooltip.show('msg-en', 'You must enter English message')).show();
-            return false;
-        }
-        if ($("#msg-en").val().indexOf("@@") < 0) {
-            $('#msg').html(tooltip.show('msg-en', 'You must include @@ in English message for replacing ticket number')).show();
-            return false;
-        }
-        if ($("#msg-ch").val() == "") {
-            $('#msg').html(tooltip.show('msg-ch', 'You must enter Chinese (Mandarin) message')).show();
-            return false;
-        }
-        if ($("#msg-ch").val().indexOf("@@") < 0) {
-            $('#msg').html(tooltip.show('msg-ch', 'You must include @@ in Chinese (Mandarin) message for replacing ticket number')).show();
-            return false;
-        }
-
-        return true;
+        return Message.Validator.validateMessageConstraints();
     }
 }
 
@@ -75,13 +36,9 @@ var recoverTicket = {
         });
 
         $('body').delegate('.undo', 'click', function (e) {
-            recoverTicket.actionRecover(e);
+            e.stopPropagation();
+            recoverTicket.actionRecover($(this).attr('betId'));
         });
-
-        $('body').delegate('#btnRecoverTicket', 'click', function (e) {
-            recoverTicket.actionRecover(e);
-        });
-        
     },
 
     validData: function () {
@@ -141,11 +98,10 @@ var recoverTicket = {
     loadMatchInfo: function (matchInfo) {
         if (matchInfo !== null && matchInfo !== undefined) {
             var rows = [];
-            rows.push({
-                Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName) },
-            { Name: "eventDate", Value: matchInfo.EventDate }
-        ]
+            rows.push({ Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+                    { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold' },
+                    { Name: "eventDate", Value: matchInfo.EventDate, CssClass: 'bold' }
+                ]
             });
 
             var id = 'matchInfo';
@@ -216,34 +172,30 @@ var recoverTicket = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if (groups[0].Tickets.length == 0) {
-            helper.displayFormMsg(false);
+            Message.Helper.displayFormMsg(false);
         }
         else {
-            helper.displayFormMsg(true);
+            Message.Helper.displayFormMsg(true);
         }
 
     },
 
     optionCustomRender: function (cell) {
-
-        return "<div class='undo'></div>";
+        return "<div betid='" + cell.Value + "' class='undo'></div>";
     },
 
-    actionRecover: function (e) {
-        e.stopPropagation();
-
-        var BetId = $('#txtBetId').val();
+    actionRecover: function (betId) {
 
         if (!helper.checkParamBeforRecoverTicket()) {
             return;
         }
 
-        if (!confirm('Are you sure you want to recover transaction ' + BetId + ' ?')) {
+        if (!confirm('Are you sure you want to recover transaction ' + betId + ' ?')) {
             return;
         }
 
         var param = {
-            TransId: BetId,
+            TransId: betId,
             Msg: {
                 Content_en: $('#msg-en').val(),
                 Content_ch: $('#msg-ch').val(),
