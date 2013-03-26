@@ -153,6 +153,8 @@
     },
 
     GetBetteam430: function () {
+        //Correct Score & 1st Correct Score, Liveindicator = 0
+
         var checkedVals = '';
         checkedVals = $('.all-chk-score .chk-score:checkbox:checked').map(function () {
             return this.value;
@@ -165,6 +167,7 @@
     },
 
     GetBetteam6: function () {
+        //Total Goal, Liveindicator = 0
         var checkedVals = '';
         checkedVals = $('.chk-tg:checkbox:checked').not('#chk-tg-all').map(function () {
             return this.value;
@@ -178,6 +181,8 @@
     },
 
     GetBetteam14: function () {
+        //First Goal/Last Goal, Liveindicator = 0
+
         var checkedVals = '';
         checkedVals = $('.chk-flg:checkbox:checked').not('#chk-flg-all').map(function () {
             return this.value;
@@ -191,6 +196,8 @@
     },
 
     GetBetteam16: function () {
+        //HT/FT, Liveindicator = 0
+
         var checkedVals = '';
         checkedVals = $('.chk-htft:checkbox:checked').not('#chk-htft-all').map(function () {
             return this.value;
@@ -204,6 +211,8 @@
     },
 
     GetBetteam515: function () {
+        //FT.1X2 & 1st 1X2, Liveindicator = 1
+
         var checkedVals = '';
         if ($('#EventType').val() == '1' || $('#EventType').val() == '2') {
             var IsSelected515 = helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);

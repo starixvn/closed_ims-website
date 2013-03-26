@@ -355,12 +355,14 @@ VoidMixParlayTicket.prototype.Init = function () {
             $('#chkallbettype').removeAttr('checked');
         }
         
-        var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
+        var eventType = $('#EventType').val();
+
+        var IsSelectedCS = (helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30)) && eventType != '1';
         if(!(IsSelectedCS && helper.GetBetteam430() != '')){
             helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS); 
         }
         
-        var IsSelectedTG = helper.IsSelectedBettype(6);
+        var IsSelectedTG = helper.IsSelectedBettype(6) && eventType != '1';
         if(!(IsSelectedTG && helper.GetBetteam6() != '')){
             helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
         }
@@ -373,12 +375,12 @@ VoidMixParlayTicket.prototype.Init = function () {
         var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
         helper.setStatusAllAdvance1X2(IsSelected1X2);
 
-        var IsSelectedHTFT =  helper.IsSelectedBettype(16);
+        var IsSelectedHTFT =  helper.IsSelectedBettype(16) && eventType != '1';
         if(!(IsSelectedHTFT && helper.GetBetteam16() != '')){
             helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
         }
 
-        var IsSelectedGFLG =  helper.IsSelectedBettype(14);
+        var IsSelectedGFLG =  helper.IsSelectedBettype(14)  && eventType != '1';
         if(!(IsSelectedGFLG && helper.GetBetteam14() != '')){
             helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
         }

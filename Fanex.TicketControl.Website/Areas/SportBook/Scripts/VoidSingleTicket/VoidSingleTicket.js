@@ -342,27 +342,10 @@ DelSingleTicket.prototype.Init = function () {
 
         if (eventType === '1') {
             self.DOMElement.$optFilters.show();   
-//            $('#tr-advance-item-1x2').hide();         
+
         } else {
             self.DOMElement.$optFilters.hide();        
-//            $('#tr-advance-item-1x2').show();    
         }
-
-//        if(eventType == '0'){//Dead Ball
-//            $('#tr-advance-item-htft').hide();
-//            $('#tr-advance-item-tg').hide();
-//            $('#tr-advance-item-flg').hide(); 
-//            $('.tr-advance-item-score').hide();
-//        }
-//        else{
-//            $('#tr-advance-item-htft').show();
-//            $('#tr-advance-item-tg').show();
-//            $('#tr-advance-item-flg').show();  
-//            $('.tr-advance-item-score').show();          
-//        }
-
-//        NapTicketControl.Helper.GetBettypes('Sportsbook', eventType);
-//        helper.setStatusAllBettype(false);
     });
 
     // enable/disable Trans Date
@@ -429,12 +412,14 @@ DelSingleTicket.prototype.Init = function () {
             $('#chkallbettype').removeAttr('checked');
         }
         
-        var IsSelectedCS = helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30);
+        var eventType = $('#EventType').val();
+
+        var IsSelectedCS = (helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30)) && eventType != '1';
         if(!(IsSelectedCS && helper.GetBetteam430() != '')){
             helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS); 
         }
         
-        var IsSelectedTG = helper.IsSelectedBettype(6);
+        var IsSelectedTG = helper.IsSelectedBettype(6) && eventType != '1';
         if(!(IsSelectedTG && helper.GetBetteam6() != '')){
             helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
         }
@@ -447,12 +432,12 @@ DelSingleTicket.prototype.Init = function () {
         var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
         helper.setStatusAllAdvance1X2(IsSelected1X2);
 
-        var IsSelectedHTFT =  helper.IsSelectedBettype(16);
+        var IsSelectedHTFT =  helper.IsSelectedBettype(16) && eventType != '1';
         if(!(IsSelectedHTFT && helper.GetBetteam16() != '')){
             helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
         }
 
-        var IsSelectedGFLG =  helper.IsSelectedBettype(14);
+        var IsSelectedGFLG =  helper.IsSelectedBettype(14)  && eventType != '1';
         if(!(IsSelectedGFLG && helper.GetBetteam14() != '')){
             helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
         }
