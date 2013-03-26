@@ -110,8 +110,9 @@ namespace Fanex.TicketControl.Core.Services.Impl
 
                                 string custid = dtMsg.Rows[i][cnameID].ToString();
                                 string uname = dtMsg.Rows[i][cnameUser].ToString();
+                                string isAgent = dtMsg.Rows[i]["isagent"].ToString();
 
-                                string key = custid + "^" + uname;
+                                string key = custid + "^" + isAgent; 
                                 string ticknum = dtMsg.Rows[i]["transid"].ToString();
 
                                 if (list[key] != null)

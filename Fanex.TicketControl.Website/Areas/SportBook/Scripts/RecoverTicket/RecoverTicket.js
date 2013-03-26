@@ -124,7 +124,7 @@ var recoverTicket = {
             hideYBackGroundScroller: true,
         };
 
-        $('#' + id).fanexGrid(gridOptions);
+        $('#matchInfo').fanexGrid(gridOptions);
     },
 
     loadSingleTicket: function (groups) {
