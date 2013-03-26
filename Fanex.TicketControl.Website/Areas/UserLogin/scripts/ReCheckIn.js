@@ -7,9 +7,9 @@ function ReCheckin() {
         type: "POST",       
         dataType: "json",
         success: function (result) {
-            console.log(result);
+//            console.log(result);
             if (result == "1") {
-                console.log(result + "OK");
+//                console.log(result + "OK");
                 window.location.href = location.protocol + '//' + location.host + "/UserLogin/Login/LogOut";
             }
         },
