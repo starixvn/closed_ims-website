@@ -266,7 +266,7 @@
                     }
                 }
                 catch (e) {
-                    console.log(e);
+                    //console.log(e);
                 }
                 //me.$grid.find(selector.join(',')).hide();
             }

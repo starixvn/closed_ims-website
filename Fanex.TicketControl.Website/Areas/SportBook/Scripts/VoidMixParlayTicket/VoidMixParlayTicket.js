@@ -53,7 +53,7 @@ var parlayDelete = {
                     parlayDelete.loadSingleTicket(rs.Groups);
                 },
                 error: function () {
-                    console.log('has error :(');
+                    //console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();
@@ -216,7 +216,7 @@ var parlayDelete = {
                     }
                 },
                 error: function () {
-                    console.log('has error :(');
+                    //console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();

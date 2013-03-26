@@ -92,7 +92,7 @@ var recoverTicket = {
                 }
             },
             error: function () {
-                console.log('has error :(');
+                //console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -220,7 +220,7 @@ var recoverTicket = {
                 NapTicketControl.Helper.showMsgBox(rs);
             },
             error: function () {
-                console.log('has error :(');
+                //console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
