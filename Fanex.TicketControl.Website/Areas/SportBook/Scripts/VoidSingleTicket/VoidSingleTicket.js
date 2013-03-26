@@ -217,24 +217,19 @@ var singleDetete = {
                 data: JSON.stringify(param),
                 beforeSend: function () {
                     NapTicketControl.disableInput();
-                },
-                statusCode: {
-                    403: function (rs){
-                        alert(rs);
-                    }
-                },
+                },                
                 success: function (rs) {
-                    //render match info
                     NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         helper.displayContent(false);
                         helper.resetContent();
                     }
                 },
-                error: function (e) {                    
-//                    console.log('has error :(');
-                },
-                complete: function () {
+                error: function (e) {},
+                complete: function (e) {
+                    if(e.status == 403){
+                        NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                    }
                     NapTicketControl.enableInput();
                 }
             });
