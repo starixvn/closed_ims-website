@@ -92,7 +92,7 @@ var recoverTicket = {
                 }
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -150,7 +150,6 @@ var recoverTicket = {
             });
         };
 
-
         var gridOptions = {
             columns: [
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
@@ -170,7 +169,6 @@ var recoverTicket = {
         };
 
         $('#ticketInfo').fanexGrid(gridOptions);
-
     },
 
     optionCustomRender: function (cell) {
@@ -220,7 +218,7 @@ var recoverTicket = {
                 NapTicketControl.Helper.showMsgBox(rs);
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();

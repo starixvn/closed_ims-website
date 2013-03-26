@@ -118,7 +118,7 @@ var outright = {
                 $('#ddlLeague').empty().append(league.join(''));
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -151,7 +151,7 @@ var outright = {
                 $('#ddlTeam').empty().append(league.join(''));
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -191,14 +191,14 @@ var outright = {
                 outright.loadOutrightTicket(rs.Groups);
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
             }
         });
 
-        console.log("abc");
+//        console.log("abc");
     },
 
     loadOutrightTicket: function (groups) {
@@ -309,7 +309,7 @@ var outright = {
                 }
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();

@@ -18,8 +18,6 @@ var subTicketMP = {
 
         var subTicket = $('#divEvent_' + subTransId);
 
-
-
         if (subTicket.html() != '') {
             var display = subTicket.css('display');
             if (display == 'block') {
@@ -60,7 +58,7 @@ var subTicketMP = {
 
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
