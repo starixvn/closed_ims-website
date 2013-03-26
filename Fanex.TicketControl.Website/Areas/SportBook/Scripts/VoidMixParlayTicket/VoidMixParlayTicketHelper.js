@@ -269,32 +269,9 @@
         return checkedVals;
     },
 
-    displayMoreMsg: function () {
-        var symbol = $('#spMoreMsg').html();
-
-        if (symbol == '[+]') {
-            $('.other-languages').show();
-        }
-        else {
-            $('.other-languages').hide();
-        }
-
-        symbol = symbol == '[-]' ? '[+]' : '[-]';
-        $('#spMoreMsg').html(symbol);
-    },
-
     expandMoreMsg: function () {
         $('.other-languages').show();
         $('#spMoreMsg').html('[-]');
-    },
-
-    displayFormMsg: function (isShow) {
-        if (isShow) {
-            $('.form').show();
-        }
-        else {
-            $('.form').hide();
-        }
     },
 
     resetContent: function () {
