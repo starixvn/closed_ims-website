@@ -232,7 +232,7 @@ var singleDetete = {
                     }
                 },
                 error: function (e) {                    
-                    NapTicketControl.Helper.showMsgBox(e.responseText);                  
+//                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();
@@ -282,7 +282,7 @@ var singleDetete = {
                     
                 },
                 error: function () {
-                    console.log('has error :(');
+//                    console.log('has error :(');
                 },
                 complete: function () {
                    // NapTicketControl.enableInput();

@@ -92,7 +92,7 @@ var recoverTicket = {
                 }
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -107,9 +107,9 @@ var recoverTicket = {
 
         var rows = [];
         rows.push({
-            Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName) },
-            { Name: "eventDate", Value: matchInfo.EventDate }
+            Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold' },
+            { Name: "eventDate", Value: matchInfo.EventDate, CssClass: 'bold' }
             ]
         });
 
@@ -220,7 +220,7 @@ var recoverTicket = {
                 NapTicketControl.Helper.showMsgBox(rs);
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();

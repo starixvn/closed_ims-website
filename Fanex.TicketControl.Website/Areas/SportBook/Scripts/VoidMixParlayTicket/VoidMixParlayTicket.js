@@ -53,7 +53,7 @@ var parlayDelete = {
                     parlayDelete.loadSingleTicket(rs.Groups);
                 },
                 error: function () {
-                    console.log('has error :(');
+//                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();
@@ -72,9 +72,9 @@ var parlayDelete = {
 
         var rows = [];
         rows.push({
-        Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName)},
-            { Name: "eventDate", Value:  matchInfo.EventDate}
+        Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold'},
+            { Name: "eventDate", Value:  matchInfo.EventDate, CssClass: 'bold'}
         ]});
 
         var gridOptions = {
@@ -150,10 +150,10 @@ var parlayDelete = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if(groups[0].Tickets.length == 0){
-            helper.displayFormMsg(false);
+            Message.Helper.displayFormMsg(false);
         }
         else{
-            helper.displayFormMsg(true);            
+            Message.Helper.displayFormMsg(true);            
         }
         helper.displayContent(true);
     },
@@ -216,7 +216,7 @@ var parlayDelete = {
                     }
                 },
                 error: function () {
-                    console.log('has error :(');
+//                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();

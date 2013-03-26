@@ -43,7 +43,7 @@ var VoidNumberGame = {
                     VoidNumberGame.loadNumberGameTicket(rs.Groups);
                 },
                 error: function () {
-                    console.log('has error :(');
+//                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();
@@ -133,10 +133,10 @@ var VoidNumberGame = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if(groups[0].Tickets.length == 0){
-            VoidNumberGame.Helper.displayFormMsg(false);
+            Message.Helper.displayFormMsg(false);
         }
         else{
-            VoidNumberGame.Helper.displayFormMsg(true);
+            Message.Helper.displayFormMsg(true);
         }
         
     },
@@ -191,7 +191,7 @@ var VoidNumberGame = {
                     }
                 },
                 error: function () {
-                    console.log('has error :(');
+//                    console.log('has error :(');
                 },
                 complete: function () {
                     NapTicketControl.enableInput();

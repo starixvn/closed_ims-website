@@ -220,7 +220,7 @@ TicketListing.prototype.Init = function () {
                     }
                 },
                 error: function () {
-                    console.log('has error :(');
+//                    console.log('has error :(');
                 },
                 complete: function () {
                     var height = self.DOMElement.$ticketsContainer.height();
@@ -344,7 +344,7 @@ TicketListing.prototype.CollectSelectedBettypes = function(){
     $('input[name=BetTypes]:checked').each(function(){
         bettypes += $(this).val() + ',';
     });
-    console.log(bettypes);
+//    console.log(bettypes);
     return bettypes.substring(0, bettypes.length - 1);
 }
 
@@ -354,7 +354,7 @@ TicketListing.prototype.CollectSelectedLiveBettypes = function(){
     $('input[name=LiveBetTypes]:checked').each(function(){
         livebettypes += $(this).val() + ',';
     })
-    console.log(livebettypes);
+//    console.log(livebettypes);
     return livebettypes.substring(0, livebettypes.length - 1);
 }
 
@@ -476,7 +476,7 @@ TicketListing.prototype.RequestBetList = function (dataReq) {
             self.RenderTicketListingBetlist(betlist, dataReq.MatchID, dataReq.BetTypeName, dataReq.PageIndex, dataReq.PageSize);
         },
         error: function () {
-            console.log('has error :(');
+//            console.log('has error :(');
         },
         complete: function () {
             $(window).scrollTop($(document).height());
