@@ -18,8 +18,10 @@
             ));
 
             bundles.Add(new ScriptBundle("~/areas/Gaming/RecoverNumberGameTicket").Include(
-               "~/Scripts/_Libs/Utils/stdlib.js",
-               "~/Areas/Gaming/Scripts/RecoverNumberGameTicket/RecoverNumberGameTicket.js"
+                "~/Scripts/_Libs/Utils/stdlib.js",
+                "~/Scripts/Common/Message.Helper.js",
+                "~/Scripts/Common/Message.Validator.js",
+                "~/Areas/Gaming/Scripts/RecoverNumberGameTicket/RecoverNumberGameTicket.js"
            ));
         }
     }

@@ -33,6 +33,8 @@
 
             bundles.Add(new ScriptBundle("~/areas/SportBook/RecoverTicket").Include(                
                 "~/Scripts/_Libs/Utils/stdlib.js",
+                "~/Scripts/Common/Message.Helper.js",
+                "~/Scripts/Common/Message.Validator.js",
                 "~/Areas/SportBook/Scripts/RecoverTicket/RecoverTicket.js"
             ));
 
