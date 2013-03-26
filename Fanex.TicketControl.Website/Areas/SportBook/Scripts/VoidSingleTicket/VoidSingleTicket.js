@@ -218,6 +218,11 @@ var singleDetete = {
                 beforeSend: function () {
                     NapTicketControl.disableInput();
                 },
+                statusCode: {
+                    403: function (rs){
+                        alert(rs);
+                    }
+                },
                 success: function (rs) {
                     //render match info
                     NapTicketControl.Helper.showMsgBox(rs);
@@ -226,8 +231,8 @@ var singleDetete = {
                         helper.resetContent();
                     }
                 },
-                error: function () {
-                    console.log('has error :(');
+                error: function (e) {                    
+                    NapTicketControl.Helper.showMsgBox(e.responseText);                  
                 },
                 complete: function () {
                     NapTicketControl.enableInput();

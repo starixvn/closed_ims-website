@@ -148,22 +148,22 @@ NapTicketControl.Helper = (function ($) {
                 + '</th></tr></thead>';
 
             switch (product) {
-                //                case 'Sportsbook':          
-                //                    switch (eventType) {          
-                //                        case '0':          
-                //                            // render only dead ball bettypes          
-                //                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');          
-                //                            break;          
-                //                        case '1':          
-                //                            // render only live ball bettypes          
-                //                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');          
-                //                            break;          
-                //                        default:          
-                //                            // render all bettypes          
-                //                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');          
-                //                            break;          
-                //                    }          
-                //                    break;          
+                //                case 'Sportsbook':            
+                //                    switch (eventType) {            
+                //                        case '0':            
+                //                            // render only dead ball bettypes            
+                //                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');            
+                //                            break;            
+                //                        case '1':            
+                //                            // render only live ball bettypes            
+                //                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');            
+                //                            break;            
+                //                        default:            
+                //                            // render all bettypes            
+                //                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');            
+                //                            break;            
+                //                    }            
+                //                    break;            
                 case 'NumberGame':
                     // render dead ball bettypes
                     html += '<tr class="bettype-group-title"> <td colspan="5">&nbsp;' + 'Dead ball' + '</td></tr>';
@@ -254,12 +254,23 @@ NapTicketControl.Helper = (function ($) {
 
             var html = [];
 
-            if ($.isArray(msgs)) {
-                for (var i = 0; i < msgs.length; i++) {
-                    var msg = msgs[i];
-                    if (msg.ErrorCode > 0) {
-                        //Fail
-                        html.push('<span class="fail">' + msg.ErrorMsg + '&nbsp;<i class="icon-warning-sign"></i></span><br/>');
+            if ($.isPlainObject(msgs)) {
+                if ($.isArray(msgs)) {
+                    for (var i = 0; i < msgs.length; i++) {
+                        var msg = msgs[i];
+                        if (msg.ErrorCode > 0) {
+                            //Fail
+                            html.push('<span class="fail">' + msg.ErrorMsg + '&nbsp;<i class="icon-warning-sign"></i></span><br/>');
+                        }
+                        else {
+                            html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
+                        }
+                    }
+                }
+                else {
+                    var msg = msgs;
+                    if (msg.ErrorCode > 0) {//Fail
+                        html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
                     }
                     else {
                         html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
@@ -267,18 +278,14 @@ NapTicketControl.Helper = (function ($) {
                 }
             }
             else {
-                var msg = msgs;
-                if (msg.ErrorCode > 0) {//Fail
-                    html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
-                }
-                else {
-                    html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
-                }
+                html.push('<span class="fail">' + msgs + '<i class="icon-warning-sign-"></i></span><br/>');
             }
 
-            msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html);
+            msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html.join(''));
             msgbox.fadeIn();
         },
+
+
 
         ToggleFilterBar: function (self) {
             // here, self is .toggle-filter-bar DOM element

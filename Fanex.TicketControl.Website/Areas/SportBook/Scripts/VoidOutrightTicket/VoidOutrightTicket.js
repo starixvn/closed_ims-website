@@ -53,6 +53,7 @@ var helper = {
             $('#fromRefno').val('');
             $('#toRefno').val('');
             $('#password').val('');    
+            $('#msg-void-ticket').val('');
         }
     },
 
