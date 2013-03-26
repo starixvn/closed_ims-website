@@ -35,7 +35,11 @@ var recoverTicket = {
         $('body').delegate('#btnSearch', 'click', function (e) {
             e.stopPropagation();
             recoverTicket.search(e);
+        });
 
+        $('body').delegate('.undo', 'click', function (e) {
+            e.stopPropagation();
+            recoverTicket.actionRecover($(this).attr('betId'));
         });
     },
 
@@ -84,7 +88,7 @@ var recoverTicket = {
                     recoverTicket.loadSingleTicket(rs.Groups);
 
                     var isDisplayFromMsg = rs.Groups[0].Tickets.length > 0;
-                    helper.displayFormMsg(isDisplayFromMsg);
+                    Message.Helper.displayFormMsg(isDisplayFromMsg);
                 }
             },
             error: function () {
@@ -167,17 +171,13 @@ var recoverTicket = {
 
         $('#ticketInfo').fanexGrid(gridOptions);
 
-
-
     },
 
     optionCustomRender: function (cell) {
-
-        return "<div onclick='recoverTicket.actionRecover(" + cell.Value + ", event)' class='undo'></div>";
+        return "<div betid='" + cell.Value + "' class='undo'></div>";
     },
 
-    actionRecover: function (betId, e) {
-        e.stopPropagation();
+    actionRecover: function (betId) {
 
         if (!helper.checkParamBeforRecoverTicket()) {
             return;

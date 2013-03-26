@@ -36,13 +36,9 @@ var recoverTicket = {
         });
 
         $('body').delegate('.undo', 'click', function (e) {
-            recoverTicket.actionRecover(e);
+            e.stopPropagation();
+            recoverTicket.actionRecover($(this).attr('betId'));
         });
-
-        $('body').delegate('#btnRecoverTicket', 'click', function (e) {
-            recoverTicket.actionRecover(e);
-        });
-        
     },
 
     validData: function () {
@@ -102,11 +98,10 @@ var recoverTicket = {
     loadMatchInfo: function (matchInfo) {
         if (matchInfo !== null && matchInfo !== undefined) {
             var rows = [];
-            rows.push({
-                Columns: [{ Name: "code", Value: matchInfo.MatchCode },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName) },
-            { Name: "eventDate", Value: matchInfo.EventDate }
-        ]
+            rows.push({ Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
+                    { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold' },
+                    { Name: "eventDate", Value: matchInfo.EventDate, CssClass: 'bold' }
+                ]
             });
 
             var id = 'matchInfo';
@@ -177,34 +172,30 @@ var recoverTicket = {
         $('#ticketInfo').fanexGrid(gridOptions);
 
         if (groups[0].Tickets.length == 0) {
-            helper.displayFormMsg(false);
+            Message.Helper.displayFormMsg(false);
         }
         else {
-            helper.displayFormMsg(true);
+            Message.Helper.displayFormMsg(true);
         }
 
     },
 
     optionCustomRender: function (cell) {
-
-        return "<div class='undo'></div>";
+        return "<div betid='" + cell.Value + "' class='undo'></div>";
     },
 
-    actionRecover: function (e) {
-        e.stopPropagation();
-
-        var BetId = $('#txtBetId').val();
+    actionRecover: function (betId) {
 
         if (!helper.checkParamBeforRecoverTicket()) {
             return;
         }
 
-        if (!confirm('Are you sure you want to recover transaction ' + BetId + ' ?')) {
+        if (!confirm('Are you sure you want to recover transaction ' + betId + ' ?')) {
             return;
         }
 
         var param = {
-            TransId: BetId,
+            TransId: betId,
             Msg: {
                 Content_en: $('#msg-en').val(),
                 Content_ch: $('#msg-ch').val(),
