@@ -257,11 +257,12 @@ NapTicketControl.Helper = (function ($) {
             if ($.isArray(msgs)) {
                 for (var i = 0; i < msgs.length; i++) {
                     var msg = msgs[i];
-                    if (msg.ErrorCode > 0) {//Fail
-                        html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
+                    if (msg.ErrorCode > 0) {
+                        //Fail
+                        html.push('<span class="fail">' + msg.ErrorMsg + '&nbsp;<i class="icon-warning-sign"></i></span><br/>');
                     }
                     else {
-                        html.push(msg.ErrorMsg + '<i class="icon-ok"></i><br/>');
+                        html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
                     }
                 }
             }
@@ -271,7 +272,7 @@ NapTicketControl.Helper = (function ($) {
                     html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
                 }
                 else {
-                    html.push(msg.ErrorMsg + '<i class="icon-ok"></i><br/>');
+                    html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
                 }
             }
 

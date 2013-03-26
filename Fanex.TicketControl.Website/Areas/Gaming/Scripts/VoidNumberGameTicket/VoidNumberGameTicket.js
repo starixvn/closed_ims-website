@@ -32,6 +32,7 @@ var VoidNumberGame = {
                 url: window.rootUrl + "Gaming/VoidNumberGameTicket/GetNumberGameTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
+                //async: false,
                 data: JSON.stringify(param),
                 beforeSend: function () {
                     NapTicketControl.disableInput();
@@ -116,12 +117,12 @@ var VoidNumberGame = {
             bodyRows: rows,
             showPager: true,
             pagerOption: {
-                itemsPerPage: 10,
+                itemsPerPage: 50,
                 maxItemsPerPage: 100,
                 currentPage: 0,
                 totalItem: 100,
-                startPerPage: 10,
-                pageStep: 10,
+                startPerPage: 50,
+                pageStep: 50,
                 afterPagedFunction: function()
                 {
                     $('#chk-ticket-all').attr('checked', 'checked');
