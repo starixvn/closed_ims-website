@@ -39,7 +39,7 @@
     <file relUrl="Content/base/img/icon-calendar.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Areas/UserLogin/themes/img/lock.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/Utils/html5shiv.min.js" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="Areas/SportBook/Scripts/VoidSingleTicket/VoidSingleTicketHelper.js" publishTime="03/26/2013 15:40:33" />
+    <file relUrl="Areas/SportBook/Scripts/VoidSingleTicket/VoidSingleTicketHelper.js" publishTime="03/27/2013 13:22:35" />
     <file relUrl="Scripts/_Libs/knockout/knockout-2.1.0.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Content/bootstrap/forms.less" publishTime="02/21/2013 09:37:52" />
     <file relUrl="bin/System.Net.Http.WebRequest.xml" publishTime="01/28/2013 15:18:26" />
@@ -62,7 +62,7 @@
     <file relUrl="Content/base/img/info-square-blue.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Content/base/img/grid-view.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Content/img/firstGoal.gif" publishTime="03/04/2013 16:58:43" />
-    <file relUrl="Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicket.js" publishTime="03/26/2013 16:24:18" />
+    <file relUrl="Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicket.js" publishTime="03/27/2013 14:48:27" />
     <file relUrl="Content/base/img/expanded.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Scripts/_Libs/MonthPicker/redmond/images/ui-bg_glass_85_dfeffc_1x400.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Web.config" publishTime="03/26/2013 13:14:46" />
@@ -106,10 +106,10 @@
     <file relUrl="Scripts/_Libs/FanexGrid/images/send-mail.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/Bootstrap/bootstrap-tab.js" publishTime="02/21/2013 09:37:52" />
     <file relUrl="Content/base/img/pointer.png" publishTime="02/25/2013 09:43:16" />
-    <file relUrl="bin/Fanex.TicketControl.Misc.pdb" publishTime="03/26/2013 15:40:38" />
+    <file relUrl="bin/Fanex.TicketControl.Misc.pdb" publishTime="03/27/2013 14:50:43" />
     <file relUrl="bin/Fanex.Common.dll" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Areas/Misc/Views/Web.config" publishTime="03/26/2013 13:14:46" />
-    <file relUrl="Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGame.Helper.js" publishTime="03/26/2013 15:29:46" />
+    <file relUrl="Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGame.Helper.js" publishTime="03/27/2013 13:10:08" />
     <file relUrl="bin/EntityFramework.xml" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Content/base/img/undo.png" publishTime="03/11/2013 12:58:28" />
     <file relUrl="Content/img/bgHeader.jpg" publishTime="03/04/2013 16:58:43" />
@@ -134,7 +134,7 @@
     <file relUrl="bin/System.Web.Mvc.xml" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Areas/Misc/Views/TicketListing/Index.cshtml" publishTime="03/14/2013 14:31:52" />
     <file relUrl="Scripts/_Libs/MultipleSelect/images/ui-icons_2e83ff_256x240-2.png" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="Areas/SportBook/Scripts/VoidSingleTicket/VoidSingleTicket.js" publishTime="03/26/2013 17:49:55" />
+    <file relUrl="Areas/SportBook/Scripts/VoidSingleTicket/VoidSingleTicket.js" publishTime="03/27/2013 13:59:02" />
     <file relUrl="Scripts/_Libs/jQuery/jquery.validate.unobtrusive.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Areas/UserLogin/themes/img/bg.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/GridScroller/images/expand-icon.png" publishTime="01/28/2013 15:18:25" />
@@ -155,19 +155,19 @@
     <file relUrl="Content/base/img/chosen-sprite.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Data.dll" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Areas/SportBook/Styles/VoidSingleTicket.less" publishTime="03/14/2013 15:04:34" />
-    <file relUrl="Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketHelper.js" publishTime="03/26/2013 15:33:30" />
+    <file relUrl="Areas/SportBook/Scripts/VoidMixParlayTicket/VoidMixParlayTicketHelper.js" publishTime="03/27/2013 14:46:17" />
     <file relUrl="Areas/UserControl/Views/Web.config" publishTime="03/26/2013 13:14:46" />
-    <file relUrl="Areas/Gaming/Scripts/RecoverNumberGameTicket/RecoverNumberGameTicket.js" publishTime="03/26/2013 16:23:47" />
+    <file relUrl="Areas/Gaming/Scripts/RecoverNumberGameTicket/RecoverNumberGameTicket.js" publishTime="03/27/2013 14:34:09" />
     <file relUrl="Scripts/_Libs/MonthPicker/monPickr-0.0.3.css" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/MonthPicker/redmond/images/ui-icons_2e83ff_256x240.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/jQuery/jquery.formattyping.js" publishTime="03/06/2013 14:47:56" />
     <file relUrl="Areas/UserLogin/themes/Copy of login.css" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Content/bootstrap/type.less" publishTime="02/21/2013 09:37:52" />
     <file relUrl="Scripts/_Libs/MonthPicker/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="Areas/Misc/Scripts/TicketListing.js" publishTime="03/26/2013 16:24:05" />
+    <file relUrl="Areas/Misc/Scripts/TicketListing.js" publishTime="03/27/2013 14:33:39" />
     <file relUrl="Areas/Gaming/Views/VoidNumberGameTicket/Index.cshtml" publishTime="03/25/2013 16:58:11" />
-    <file relUrl="Areas/SportBook/Scripts/VoidOutrightTicket/VoidOutrightTicket.js" publishTime="03/27/2013 10:40:27" />
-    <file relUrl="Areas/SportBook/Scripts/RecoverTicket/RecoverTicket.js" publishTime="03/26/2013 16:24:11" />
+    <file relUrl="Areas/SportBook/Scripts/VoidOutrightTicket/VoidOutrightTicket.js" publishTime="03/27/2013 14:32:32" />
+    <file relUrl="Areas/SportBook/Scripts/RecoverTicket/RecoverTicket.js" publishTime="03/27/2013 14:43:19" />
     <file relUrl="Global.asax" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Areas/UserLogin/themes/img/username.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="bin/SPSRemoting.dll" publishTime="01/28/2013 15:18:26" />
@@ -189,7 +189,7 @@
     <file relUrl="Content/base/img/bgmenu-more.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Scripts/_Libs/MultipleSelect/jquery.multiselect.min.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/jQuery/jquery-1.8.2.js" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="bin/Fanex.TicketControl.Gaming.dll" publishTime="03/26/2013 15:40:37" />
+    <file relUrl="bin/Fanex.TicketControl.Gaming.dll" publishTime="03/27/2013 13:47:35" />
     <file relUrl="Scripts/_Libs/jQuery/jquery.unobtrusive-ajax.min.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="bin/System.Web.WebPages.Razor.xml" publishTime="01/28/2013 15:18:26" />
     <file relUrl="bin/Fanex.NAP.Framework.dll" publishTime="01/28/2013 15:18:26" />
@@ -208,13 +208,13 @@
     <file relUrl="Scripts/_Libs/knockout/knockout-2.1.0.debug.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/MonthPicker/smoothness/images/ui-bg_glass_75_dadada_1x400.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Areas/UserLogin/Views/SSO/SSOIndex.cshtml" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="bin/Fanex.TicketControl.Core.pdb" publishTime="03/26/2013 15:40:36" />
+    <file relUrl="bin/Fanex.TicketControl.Core.pdb" publishTime="03/27/2013 13:47:34" />
     <file relUrl="Scripts/_Libs/FanexGrid/images/report_check.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Content/bootstrap/dropdowns.less" publishTime="02/21/2013 09:37:52" />
     <file relUrl="Content/jquery-ui/images/ui-icons_cbd4e6_256x240.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Scripts/_Libs/MonthPicker/images/bg-demo-docs-param.gif" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/DatePicker/jquery.nexDatePicker.js" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="bin/Fanex.TicketControl.Misc.dll" publishTime="03/26/2013 15:40:38" />
+    <file relUrl="bin/Fanex.TicketControl.Misc.dll" publishTime="03/27/2013 14:50:43" />
     <file relUrl="Scripts/_Libs/MultipleSelect/jquery.nextreeview.css" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/FanexGrid/images/bgtitle.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="bin/Newtonsoft.Json.dll" publishTime="01/28/2013 15:18:26" />
@@ -230,7 +230,7 @@
     <file relUrl="Content/bootstrap/code.less" publishTime="02/21/2013 09:37:52" />
     <file relUrl="Scripts/_Libs/FanexGrid/images/email.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/FormatLibs/jquery.customformat.js" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="Scripts/NapTicketControl.Helper.js" publishTime="03/27/2013 09:54:46" />
+    <file relUrl="Scripts/NapTicketControl.Helper.js" publishTime="03/27/2013 13:20:12" />
     <file relUrl="bin/System.Web.WebPages.Deployment.dll" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Scripts/_Libs/FanexGrid/Fanex.Grid.js" publishTime="03/26/2013 16:25:06" />
     <file relUrl="Scripts/_Libs/FanexGrid/images/sorting_bg.gif" publishTime="01/28/2013 15:18:25" />
@@ -301,7 +301,7 @@
     <file relUrl="Scripts/_Libs/GridScroller/jquery.gridscrollerlite.1.0.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/GridScroller/images/back-icon.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Content/bootstrap/layouts.less" publishTime="02/21/2013 09:37:52" />
-    <file relUrl="Areas/SportBook/Scripts/VoidMixParlayTicket/SubTicketMixParlay.js" publishTime="03/26/2013 16:24:13" />
+    <file relUrl="Areas/SportBook/Scripts/VoidMixParlayTicket/SubTicketMixParlay.js" publishTime="03/27/2013 10:46:25" />
     <file relUrl="Content/bootstrap/pager.less" publishTime="02/21/2013 09:37:52" />
     <file relUrl="Content/base/img/dot-white.png" publishTime="02/21/2013 09:37:52" />
     <file relUrl="Content/jquery-ui/images/ui-icons_f7a50d_256x240.png" publishTime="02/07/2013 15:33:07" />
@@ -323,9 +323,9 @@
     <file relUrl="Scripts/_Libs/FanexGrid/images/sorting_asc.gif" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/GridScroller/images/setting.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/jQuery/jquery.unobtrusive-ajax.js" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="bin/Fanex.TicketControl.SportBook.pdb" publishTime="03/27/2013 08:51:44" />
+    <file relUrl="bin/Fanex.TicketControl.SportBook.pdb" publishTime="03/27/2013 13:47:35" />
     <file relUrl="Areas/Misc/Views/TicketListing/LewisIndex.cshtml" publishTime="03/04/2013 18:09:29" />
-    <file relUrl="bin/Fanex.TicketControl.SportBook.dll" publishTime="03/27/2013 08:51:44" />
+    <file relUrl="bin/Fanex.TicketControl.SportBook.dll" publishTime="03/27/2013 13:47:35" />
     <file relUrl="Scripts/_Libs/Pager/jpager.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/Tooltip/tipsy.css" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Areas/UserLogin/themes/login.css" publishTime="01/28/2013 15:18:25" />
@@ -345,7 +345,7 @@
     <file relUrl="Scripts/_Libs/MessageNotifier/Images/success.png" publishTime="02/06/2013 10:01:28" />
     <file relUrl="Scripts/_Libs/jQuery/jquery-ui-1.9.1.min.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/GridScroller/jquery.gridscroller.1.1.js" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="bin/Fanex.TicketControl.Website.pdb" publishTime="03/27/2013 08:51:45" />
+    <file relUrl="bin/Fanex.TicketControl.Website.pdb" publishTime="03/27/2013 14:50:44" />
     <file relUrl="Content/base/img/bg_footer.jpg" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Content/bootstrap/media.less" publishTime="02/21/2013 09:37:52" />
     <file relUrl="bin/Microsoft.Practices.EnterpriseLibrary.Logging.dll" publishTime="01/28/2013 15:18:26" />
@@ -362,7 +362,7 @@
     <file relUrl="bin/Microsoft.Web.Infrastructure.dll" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Scripts/_Libs/MonthPicker/sunny/images/ui-icons_d19405_256x240.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Content/bootstrap/labels-badges.less" publishTime="02/21/2013 09:37:52" />
-    <file relUrl="bin/Fanex.TicketControl.Website.dll" publishTime="03/27/2013 08:51:45" />
+    <file relUrl="bin/Fanex.TicketControl.Website.dll" publishTime="03/27/2013 14:50:44" />
     <file relUrl="Scripts/_Libs/FanexGrid/images/icn_del.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Content/base/img/bg_header.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Scripts/_Libs/FanexGrid/images/ajax-loader.gif" publishTime="01/28/2013 15:18:25" />
@@ -431,7 +431,7 @@
     <file relUrl="Areas/UserLogin/themes/img/welcome.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="bin/System.Web.WebPages.Deployment.xml" publishTime="01/28/2013 15:18:26" />
     <file relUrl="bin/Fanex.Logging.dll" publishTime="01/28/2013 15:18:26" />
-    <file relUrl="bin/Fanex.TicketControl.Core.dll" publishTime="03/26/2013 15:40:36" />
+    <file relUrl="bin/Fanex.TicketControl.Core.dll" publishTime="03/27/2013 13:47:34" />
     <file relUrl="Content/bootstrap/navbar.less" publishTime="02/21/2013 09:37:52" />
     <file relUrl="bin/Microsoft.Practices.Unity.Interception.dll" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Scripts/_Libs/Pager/pagination.css" publishTime="01/28/2013 15:18:25" />
@@ -455,7 +455,7 @@
     <file relUrl="Content/base/img/bgmenu-hover.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="Scripts/_Libs/GridScroller/images/icn_del.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/DatePicker/jquery.nexDatePicker.css" publishTime="01/28/2013 15:18:25" />
-    <file relUrl="bin/Fanex.TicketControl.Gaming.pdb" publishTime="03/26/2013 15:40:37" />
+    <file relUrl="bin/Fanex.TicketControl.Gaming.pdb" publishTime="03/27/2013 13:47:35" />
     <file relUrl="Content/base/img/lnk-white.png" publishTime="02/07/2013 15:33:07" />
     <file relUrl="bin/System.Net.Http.Formatting.xml" publishTime="01/28/2013 15:18:26" />
     <file relUrl="Areas/Misc/Views/_ViewStart.cshtml" publishTime="02/07/2013 15:33:04" />
@@ -474,7 +474,7 @@
     <file relUrl="Content/img/green-star.gif" publishTime="03/04/2013 16:58:43" />
     <file relUrl="Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js" publishTime="02/18/2013 13:51:13" />
     <file relUrl="bin/TplCore.dll" publishTime="01/28/2013 15:18:26" />
-    <file relUrl="Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicket.js" publishTime="03/27/2013 08:48:06" />
+    <file relUrl="Areas/Gaming/Scripts/VoidNumberGameTicket/VoidNumberGameTicket.js" publishTime="03/27/2013 14:33:57" />
     <file relUrl="Scripts/_Libs/Tooltip/jquery.tipsy.js" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Scripts/_Libs/MonthPicker/smoothness/images/ui-icons_cd0a0a_256x240.png" publishTime="01/28/2013 15:18:25" />
     <file relUrl="Areas/SportBook/Scripts/VoidOutrightTicket/VoidOutrightTicketValidateData.js" publishTime="03/25/2013 18:22:40" />

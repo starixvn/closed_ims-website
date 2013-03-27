@@ -2051,14 +2051,17 @@
 
 
  var tooltip = {
-     show: function (id, arrMsg) {
+     show: function (id, arrMsg, isRight) {
          var html = '';
+
 
          var obj = $('#' + id).offset();
 
          html += '<div class="txtNameformError parentFormdata formError" style="opacity: 0.87; position: absolute;';
          html += 'top: ' + (obj.top + 20) + 'px; left: ' + obj.left + 'px; margin-top: 0px;">';
          html += '<div class="formErrorArrow formErrorArrowBottom">';
+
+
          html += '<div class="line1"></div>';
          html += '<div class="line2"></div>';
          html += '<div class="line3"></div>';
@@ -2072,18 +2075,36 @@
          html += '</div>';
          html += '<div class="formErrorContent">';
 
+         var test = '<div class="formErrorContent">';
+
          if (arrMsg instanceof Array) {
              for (var i = 0; i < arrMsg.length; i++) {
                  html += '* ' + arrMsg[i] + '</br>';
+                 test += '* ' + arrMsg[i] + '</br>';
              }
          }
          else {
              html += arrMsg + '</br>';
+             test += arrMsg + '</br>';
          }
-
+         test += '</div>';
 
          html += '</div>';
          html += '</div>';
+
+         if (isRight === true) {
+             setTimeout(function () {
+                 var width = $('.formErrorContent').width();
+                 var left = parseInt($('.formError').css('left'), 10);
+                 $('.formError').css('left', left - width + 'px');
+                 $('.formError .formErrorArrowBottom').css('margin-left', width - 12 + 'px');
+                 $(window).scrollTop($('.formError').offset().top - 50);
+             }, 100);
+         } else {
+             setTimeout(function () {
+                 $(window).scrollTop($('.formError').offset().top - 50);
+             }, 100);
+         }
 
          return html;
      }
