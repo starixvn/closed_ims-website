@@ -19,6 +19,8 @@ namespace Fanex.TicketControl.Misc.Controllers
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.Misc.Criteria;
     using Fanex.TicketControl.Core.Web.Controllers;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Business;
 
     /// <summary>
     /// TODO: Update summary.
@@ -42,17 +44,20 @@ namespace Fanex.TicketControl.Misc.Controllers
             return View();
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.TicketsListing, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.TicketsListing, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult Index(GetTicketsListingCriteria criteria)
         {
             return Json(_ticketListingService.GetTicketListing(criteria));
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.TicketsListing, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
@@ -63,12 +68,12 @@ namespace Fanex.TicketControl.Misc.Controllers
             return Json(result);
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.TicketsListing, Policy = Constant.Policy.Read)]
         public ActionResult ExportTicketListingBetList(GetTicketsListingDetailCriteria criteria)
         {
             Console.Write("Export");
             _ticketListingService.ExportTicketListingBetList(criteria);
             return new EmptyResult();
         }
-
     }
 }
