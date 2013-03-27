@@ -90,12 +90,15 @@ VoidNumberGame.Helper = {
         }
         else {
             $('#report-content').hide();
-            $('#txtMatchId').val('');
-            $('#fromRefno').val('');
-            $('#toRefno').val('');
-            $('.msg-void-ticket').val('');
-            $('#password').val('');
-            VoidNumberGame.Helper.setStatusAllBettype(true);
         }
+    },
+
+    resetInput: function () {
+        $('#txtMatchId').val('');
+        $('#fromRefno').val('');
+        $('#toRefno').val('');
+        $('.msg-void-ticket').val('');
+        $('#password').val('');
+        VoidNumberGame.Helper.setStatusAllBettype(true);
     }
 };

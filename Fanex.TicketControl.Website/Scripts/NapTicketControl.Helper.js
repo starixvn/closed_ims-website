@@ -283,6 +283,15 @@ NapTicketControl.Helper = (function ($) {
 
             msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html.join(''));
             msgbox.fadeIn();
+        },
+
+        displayContent: function (isShow) {
+            if (isShow) {
+                $('#report-content').show();
+            }
+            else {
+                $('#report-content').hide();
+            }
         }
     };
 } (jQuery));

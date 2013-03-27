@@ -32,7 +32,6 @@ var VoidNumberGame = {
                 url: window.rootUrl + "Gaming/VoidNumberGameTicket/GetNumberGameTicket",
                 contentType: "application/json; charset=utf-8", 
                 dataType: "json",
-                async: false,
                 data: JSON.stringify(param),
                 beforeSend: function () {
                     NapTicketControl.disableInput();
@@ -189,6 +188,8 @@ var VoidNumberGame = {
                     NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         VoidNumberGame.Helper.displayContent(false);
+                        VoidNumberGame.Helper.resetInput();
+
                     }
                 },
                 error: function (e) {},
@@ -215,7 +216,7 @@ var VoidNumberGame = {
                 dataType: "json",
                 data: JSON.stringify(param),
                 beforeSend: function () {
-                    NapTicketControl.disableInput();
+//                    NapTicketControl.disableInput();
                 },
                 success: function (rs) {
                     if(rs.ErrorCode == 0){
@@ -227,16 +228,18 @@ var VoidNumberGame = {
                         switch(rs.ErrorCode){
                             case 1:
                             case 2:
+                            case 3:
+                            case 4:
                                 $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
                                 break;
-                            case 3:
+                            case 5:
                                 $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
                                 break;
-                            case 4:
+                            case 6:
                                 $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
                                 break;
                         }
-                        //VoidNumberGame.Helper.displayContent(false);
+                        VoidNumberGame.Helper.displayContent(false);
                     }
                     
                 },
@@ -244,7 +247,7 @@ var VoidNumberGame = {
 //                    console.log('has error :(');
                 },
                 complete: function () {
-                    NapTicketControl.enableInput();
+//                    NapTicketControl.enableInput();
                 }
             });
     }

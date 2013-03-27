@@ -222,7 +222,7 @@ var singleDetete = {
                     NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
                         helper.displayContent(false);
-                        helper.resetContent();
+                        helper.resetInput();
                     }
                 },
                 error: function (e) {},
@@ -262,12 +262,14 @@ var singleDetete = {
                         switch(rs.ErrorCode){
                             case 1:
                             case 2:
+                            case 3:
+                            case 4:
                                 $('#msg').html(tooltip.show('txtMatchId', rs.ErrorMsg)).show();
                                 break;
-                            case 3:
+                            case 5:
                                 $('#msg').html(tooltip.show('fromRefno', rs.ErrorMsg)).show();
                                 break;
-                            case 4:
+                            case 6:
                                 $('#msg').html(tooltip.show('toRefno', rs.ErrorMsg)).show();
                                 break;
                         }

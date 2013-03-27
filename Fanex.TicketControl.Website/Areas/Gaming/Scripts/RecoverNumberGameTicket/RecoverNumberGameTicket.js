@@ -11,9 +11,12 @@ var helper = {
         }
         else {
             $('#report-content').hide();
-            $('#txtBetId').val('');
-            $('.msg-void-ticket').val('');
         }
+    },
+
+    resetInput: function(){
+        $('#txtBetId').val('');
+        $('.msg-void-ticket').val('');
     },
 
     checkParamBeforRecoverTicket: function () {
@@ -30,7 +33,7 @@ var recoverTicket = {
 
         $("#txtBetId").keyup(function () { }).ForceIntegerOnly();
 
-        $('body').delegate('#btnSearch', 'click', function (e) {
+        $('#btnSearch').click(function (e) {
             e.stopPropagation();
             recoverTicket.search(e);
         });
@@ -42,8 +45,8 @@ var recoverTicket = {
     },
 
     validData: function () {
-
         $('#msg-box').hide();
+
         if ($('#txtBetId').val() == '') {
             $('#msg').html(tooltip.show('txtBetId', 'Bet ID is required.')).show();
             return false;
@@ -53,6 +56,7 @@ var recoverTicket = {
             $('#msg').html(tooltip.show('txtBetId', 'Invalid Bet ID.')).show();
             return false;
         }
+
         return true;
     },
 
@@ -64,6 +68,7 @@ var recoverTicket = {
         var param = {
             TransId: $('#txtBetId').val()
         };
+
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Gaming/RecoverNumberGameTicket/GetNumberGameTicketRecover",
@@ -77,16 +82,14 @@ var recoverTicket = {
                 if (rs != null && rs.ErrorCode > 0) {
                     $('#msg').html(tooltip.show('txtBetId', rs.ErrorMsg)).show();
                     helper.displayContent(false);
-                    $('#fsMessage').hide();
                 }
                 else {
                     helper.displayContent(true);
                     recoverTicket.loadMatchInfo(rs.MatchInfo);
                     recoverTicket.loadSingleTicket(rs.Groups);
-                    $('#fsMessage').show();
                 }
             },
-            error: function (e) {},
+            error: function (e) { },
             complete: function (e) {
                 if (e.status == 403) {
                     NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
@@ -223,11 +226,12 @@ var recoverTicket = {
                 }
                 else {
                     helper.displayContent(false);
+                    helper.resetInput();
                 }
 
                 NapTicketControl.Helper.showMsgBox(rs);
             },
-            error: function (e) {},
+            error: function (e) { },
             complete: function (e) {
                 if (e.status == 403) {
                     NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);

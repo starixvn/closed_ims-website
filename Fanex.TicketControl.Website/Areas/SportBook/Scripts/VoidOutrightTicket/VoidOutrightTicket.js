@@ -41,11 +41,14 @@ var helper = {
         }
         else {
             $('#report-content').hide();
-            $('#fromRefno').val('');
-            $('#toRefno').val('');
-            $('#password').val('');
-            $('.msg-void-ticket').val('');
         }
+    },
+
+    resetInput: function () {
+        $('#fromRefno').val('');
+        $('#toRefno').val('');
+        $('#password').val('');
+        $('.msg-void-ticket').val('');
     }
 };
 
@@ -66,7 +69,7 @@ var outright = {
             NapTicketControl.Helper.ToggleFilterBar(this);
         });
 
-        $('#btnVoidBet').click(function(e){
+        $('#btnVoidBet').click(function (e) {
             e.stopPropagation();
             outright.voidOutrightTicket()
             return false;
@@ -96,7 +99,7 @@ var outright = {
                 $('#ddlLeague').empty().append(league.join(''));
             },
             error: function () {
-//                console.log('has error :(');
+                //                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -129,7 +132,7 @@ var outright = {
                 $('#ddlTeam').empty().append(league.join(''));
             },
             error: function () {
-//                console.log('has error :(');
+                //                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
@@ -158,7 +161,7 @@ var outright = {
             url: window.rootUrl + "SportBook/VoidOutrightTicket/GetOutrightTicket",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-           // async: false,
+            // async: false,
             data: JSON.stringify(param),
             beforeSend: function () {
                 NapTicketControl.disableInput();
@@ -168,7 +171,7 @@ var outright = {
                 helper.displayContent(true);
                 outright.loadOutrightTicket(rs.Groups);
             },
-            error: function (e) {},
+            error: function (e) { },
             complete: function (e) {
                 if (e.status == 403) {
                     NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
@@ -206,7 +209,7 @@ var outright = {
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Member", Name: "Player", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center",  FormatNumber: "0,0.00" },
+                { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },
@@ -278,13 +281,14 @@ var outright = {
             beforeSend: function () {
                 NapTicketControl.disableInput();
             },
-            success: function (rs) {                
+            success: function (rs) {
                 NapTicketControl.Helper.showMsgBox(rs);
                 if (rs != null && rs.length > 0 && rs[0].ErrorCode < 0) {
                     helper.displayContent(false);
+                    helper.resetInput();
                 }
             },
-            error: function (e) {},
+            error: function (e) { },
             complete: function (e) {
                 if (e.status == 403) {
                     NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
