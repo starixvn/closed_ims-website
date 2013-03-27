@@ -17,6 +17,8 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using Fanex.TicketControl.SportBook.Services.Interface;
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.SportBook.Criteria;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Business;
 
     
 
@@ -32,25 +34,28 @@ namespace Fanex.TicketControl.SportBook.Controllers
             
         }
 
-        
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetParlayTicket(GetParlayTicketCriteria criteria)
         {
             return Json(_voidParlayTicketService.GetParlayTicket(criteria));
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
         {
             return Json(_voidParlayTicketService.GetParlaySubTicket(criteria));
         }
 
-      
+
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult VoidParlayTicket(VoidParlayTicketCritetia criteria)
         {

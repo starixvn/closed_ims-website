@@ -52,10 +52,11 @@ var parlayDelete = {
                     parlayDelete.loadMatchInfo(rs.MatchInfo) ;
                     parlayDelete.loadSingleTicket(rs.Groups);
                 },
-                error: function () {
-//                    console.log('has error :(');
-                },
-                complete: function () {
+                error: function (e) {},
+                complete: function (e) {
+                    if(e.status == 403){
+                        NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                    }
                     NapTicketControl.enableInput();
                 }
             });
@@ -215,10 +216,11 @@ var parlayDelete = {
                         helper.resetContent();
                     }
                 },
-                error: function () {
-//                    console.log('has error :(');
-                },
-                complete: function () {
+                error: function (e) {},
+                complete: function (e) {
+                    if(e.status == 403){
+                        NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                    }
                     NapTicketControl.enableInput();
                 }
             });

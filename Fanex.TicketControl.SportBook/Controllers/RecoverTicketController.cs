@@ -17,6 +17,8 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using Fanex.TicketControl.SportBook.Services.Interface;
     using Fanex.TicketControl.SportBook.Services.Implement;
     using Fanex.TicketControl.Core.Utils;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Business;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class RecoverTicketController : BaseController
@@ -27,12 +29,14 @@ namespace Fanex.TicketControl.SportBook.Controllers
         {
             _service = new RecoverTicketService();
         }
-        
+
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.RecoverBets, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.RecoverBets, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetTicketRecover(GetRecoverTicketCriteria criteria)
         {
@@ -47,6 +51,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return Json(rs);
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.RecoverBets, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult RecoverTicket(RecoverTicketCriteria criteria)
         {

@@ -91,10 +91,11 @@ var recoverTicket = {
                     Message.Helper.displayFormMsg(isDisplayFromMsg);
                 }
             },
-            error: function () {
-//                console.log('has error :(');
-            },
-            complete: function () {
+            error: function (e) {},
+            complete: function (e) {
+                if(e.status == 403){
+                    NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                }
                 NapTicketControl.enableInput();
             }
         });
@@ -219,10 +220,11 @@ var recoverTicket = {
 
                 NapTicketControl.Helper.showMsgBox(rs);
             },
-            error: function () {
-//                console.log('has error :(');
-            },
-            complete: function () {
+            error: function (e) {},
+            complete: function (e) {
+                if(e.status == 403){
+                    NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                }
                 NapTicketControl.enableInput();
             }
         });
