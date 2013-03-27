@@ -256,6 +256,15 @@ NapTicketControl.Helper = (function ($) {
             var html = [];
 
             if ($.isPlainObject(msgs)) {
+                var msg = msgs;
+                if (msg.ErrorCode > 0) {//Fail
+                    html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
+                }
+                else {
+                    html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
+                }
+            }
+            else {
                 if ($.isArray(msgs)) {
                     for (var i = 0; i < msgs.length; i++) {
                         var msg = msgs[i];
@@ -267,19 +276,9 @@ NapTicketControl.Helper = (function ($) {
                             html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
                         }
                     }
+                }else {
+                    html.push('<span class="fail">' + msgs + '<i class="icon-warning-sign"></i></span><br/>');
                 }
-                else {
-                    var msg = msgs;
-                    if (msg.ErrorCode > 0) {//Fail
-                        html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
-                    }
-                    else {
-                        html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
-                    }
-                }
-            }
-            else {
-                html.push('<span class="fail">' + msgs + '<i class="icon-warning-sign"></i></span><br/>');
             }
 
             msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html.join(''));

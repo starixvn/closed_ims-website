@@ -43,8 +43,8 @@ var helper = {
             $('#report-content').hide();
             $('#fromRefno').val('');
             $('#toRefno').val('');
-            $('#password').val('');    
-            $('#msg-void-ticket').val('');
+            $('#password').val('');
+            $('.msg-void-ticket').val('');
         }
     }
 };
@@ -175,8 +175,6 @@ var outright = {
                 NapTicketControl.enableInput();
             }
         });
-
-        console.log("abc");
     },
 
     loadOutrightTicket: function (groups) {
