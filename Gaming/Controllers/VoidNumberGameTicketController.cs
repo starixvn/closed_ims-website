@@ -19,6 +19,8 @@ namespace Fanex.TicketControl.Gaming.Controllers
     using Fanex.TicketControl.Gaming.Services.Impl;
     using Fanex.TicketControl.Core.Services.Interface;
     using Fanex.TicketControl.Core.Services.Impl;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Business;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class VoidNumberGameTicketController : BaseController
@@ -32,6 +34,7 @@ namespace Fanex.TicketControl.Gaming.Controllers
             _coreService = new CoreService();
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
@@ -44,12 +47,14 @@ namespace Fanex.TicketControl.Gaming.Controllers
             return Json(_coreService.CheckMatchIdWithRefno(criteria));
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetNumberGameTicket(GetNumberGameTicketCriteria criteria)
         {
             return Json(_voidNumberGameTicketService.GetNumberGameTicket(criteria));
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult VoidNumberGameTicket(VoidNumberGameTicketCritetia criteria)
         {

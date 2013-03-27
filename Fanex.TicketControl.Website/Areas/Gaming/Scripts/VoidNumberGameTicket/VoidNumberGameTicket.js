@@ -42,10 +42,11 @@ var VoidNumberGame = {
                     VoidNumberGame.loadMatchInfo(rs.MatchInfo) ;
                     VoidNumberGame.loadNumberGameTicket(rs.Groups);
                 },
-                error: function () {
-//                    console.log('has error :(');
-                },
-                complete: function () {
+                error: function (e) {},
+                complete: function (e) {
+                    if(e.status == 403){
+                        NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                    }
                     NapTicketControl.enableInput();
                 }
             });
@@ -190,10 +191,11 @@ var VoidNumberGame = {
                         VoidNumberGame.Helper.displayContent(false);
                     }
                 },
-                error: function () {
-//                    console.log('has error :(');
-                },
-                complete: function () {
+                error: function (e) {},
+                complete: function (e) {
+                    if(e.status == 403){
+                        NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                    }
                     NapTicketControl.enableInput();
                 }
             });

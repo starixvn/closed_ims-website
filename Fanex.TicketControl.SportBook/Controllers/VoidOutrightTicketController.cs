@@ -17,6 +17,8 @@ namespace Fanex.TicketControl.SportBook.Controllers
     using Fanex.TicketControl.SportBook.Services.Interface;
     using Fanex.TicketControl.Core.Criteria;
     using Fanex.TicketControl.SportBook.Criteria;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Business;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class VoidOutrightTicketController : BaseController
@@ -31,7 +33,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             _voidSingleTicketService = new VoidSingleTicketService();     
         }
 
-        
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
@@ -50,6 +52,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return Json(_voidOutrightTicketService.GetTeamByLeague(criteria));
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetOutrightTicket(GetOutrightTicketCriteria criteria) 
         {
@@ -57,6 +60,8 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return Json(_voidOutrightTicketService.GetOutrightTicket(criteria));
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Host)]
+        [HttpPost]
         public JsonResult VoidOutrightTicket(VoidSingleTicketCritetia criteria)
         {
             criteria.UserPwd = Fanex.Common.Cryptography.CfsEnCode(criteria.UserPwd);

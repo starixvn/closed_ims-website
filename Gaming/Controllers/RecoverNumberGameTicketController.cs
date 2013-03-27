@@ -8,6 +8,8 @@ namespace Fanex.TicketControl.Gaming.Controllers
     using Fanex.TicketControl.Gaming.Services.Impl;
     using Fanex.TicketControl.Gaming.Criteria;
     using Fanex.TicketControl.Core.Utils;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.NAP.Core.Business;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class RecoverNumberGameTicketController : BaseController
@@ -18,12 +20,15 @@ namespace Fanex.TicketControl.Gaming.Controllers
         {
             _service = new RecoverNumberGameTicketService();
         }
-        
+
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
+
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetNumberGameTicketRecover(GetRecoverNumberGameTicketCriteria criteria)
         {
@@ -38,6 +43,7 @@ namespace Fanex.TicketControl.Gaming.Controllers
             return Json(rs);
         }
 
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult RecoverNumberGameTicket(RecoverNumberGameTicketCriteria criteria)
         {
