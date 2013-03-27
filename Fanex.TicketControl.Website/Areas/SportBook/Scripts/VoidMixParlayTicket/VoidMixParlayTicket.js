@@ -23,7 +23,7 @@ var parlayDelete = {
          var param = {
             MatchId: $('#txtMatchId').val(),            
             Hdp: $('#hdp').val() == '' ? '9999' :  $('#hdp').val(),
-            LiveIndicator: $('#EventType').val(),
+            Type: $('#EventType').val(),
             LiveHomeScore: helper.GetLiveScore().LiveHomeScore,
             LiveAwayScore: helper.GetLiveScore().LiveAwayScore,
             FromTransdate: helper.GetLiveScore().FromTransdate,

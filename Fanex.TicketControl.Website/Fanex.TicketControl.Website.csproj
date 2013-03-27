@@ -199,6 +199,7 @@
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGame.Helper.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketManager.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGame.Validator.js" />
+    <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\SportBook\Scripts\RecoverTicket\RecoverTicket.js" />
@@ -576,6 +577,8 @@
     <Content Include="Areas\SportBook\Styles\VoidOutrightTicket.less" />
     <Content Include="Areas\Gaming\Views\RecoverNumberGameTicket\Index.cshtml" />
     <Content Include="Areas\Gaming\Styles\RecoverNumberGameTicket.less" />
+    <Content Include="Areas\Misc\Views\BatchMessage\Index.cshtml" />
+    <Content Include="Areas\Misc\Styles\BatchMessage.less" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
