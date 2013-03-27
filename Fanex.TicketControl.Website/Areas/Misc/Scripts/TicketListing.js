@@ -507,7 +507,7 @@ TicketListing.prototype.RenderTicketListingBetlist = function (betlist, matchId,
         showTitle: true,
         columns: [
             { HeaderText: "BetID", Name: "betId", Width: 80, HeaderAlign: "center", CellAlign: "center" },
-            { HeaderText: "Trans.Date", Name: "transDate", Width: 140, HeaderAlign: "center", CellAlign: "left" },
+            { HeaderText: "Trans.Date", Name: "transDate", Width: 100, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Member", Name: "member", Width: 130, HeaderAlign: "center", CellAlign: "left" },
             { HeaderText: "Choice", Name: "choice", Width: 270, HeaderAlign: "center", CellAlign: "right" },
             { HeaderText: "Odds", Name: "odds", Width: 80, HeaderAlign: "center", CellAlign: "right" },

@@ -1,7 +1,4 @@
 /* File Created: February 5, 2013 */
-
-
-
 var parlayDelete = {
     param:{
         MatchId: ''
@@ -121,14 +118,14 @@ var parlayDelete = {
                 { HeaderText: "No", Name: "No", Width: 40, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Member", Name: "Player", Width: 150, HeaderAlign: "center", CellAlign: "center" },                
-                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
                 { HeaderText: "Currency", Name: "CurrencyName", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Status", Name: "Status", Width: 60, HeaderAlign: "center", CellAlign: "center" },                
                 { HeaderText: "Choice", Name: "Choice", Width: 250, HeaderAlign: "center", CellAlign: "right" },
-                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 60, HeaderAlign: "center", CellAlign: "center", CustomCellRender: parlayDelete.optionCustomRender } 
+                { HeaderText: "<div><span>Option</span><span><input class='option' onclick='helper.setStausAllCheckTicket()' id='chk-ticket-all' type='checkbox' checked='checked'/></span></div>", Name: "CustomAdd", Width: 80, HeaderAlign: "center", CellAlign: "center", CustomCellRender: parlayDelete.optionCustomRender } 
             ],
             bodyRows: rows,
             showPager: true,
@@ -156,7 +153,7 @@ var parlayDelete = {
         else{
             Message.Helper.displayFormMsg(true);            
         }
-        helper.displayContent(true);
+        NapTicketControl.Helper.displayContent(true);
     },
 
     optionCustomRender: function (cell)
@@ -212,8 +209,8 @@ var parlayDelete = {
                     //render match info
                     NapTicketControl.Helper.showMsgBox(rs);
                     if(rs != null && rs.length>0 && rs[0].ErrorCode < 0){
-                        helper.displayContent(false);
-                        helper.resetContent();
+                        NapTicketControl.Helper.displayContent(false);
+                        helper.resetInput();
                     }
                 },
                 error: function (e) {},

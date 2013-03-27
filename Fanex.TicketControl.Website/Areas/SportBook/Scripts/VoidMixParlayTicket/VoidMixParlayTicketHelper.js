@@ -274,7 +274,7 @@
         $('#spMoreMsg').html('[-]');
     },
 
-    resetContent: function () {
+    resetInput: function () {
         $('#txtMatchId').val('');
         $('#fromRefno').val('');
         $('#toRefno').val('');
