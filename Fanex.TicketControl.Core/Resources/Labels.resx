@@ -709,4 +709,7 @@
   <data name="You_only_void_Unsettled_or_Refunded_tickets" xml:space="preserve">
     <value>You can only void "Unsettled" or "Refunded" tickets.</value>
   </data>
+  <data name="Update_Batch_Message" xml:space="preserve">
+    <value>Update Batch Message</value>
+  </data>
 </root>

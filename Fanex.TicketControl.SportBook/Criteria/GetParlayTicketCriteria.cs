@@ -25,7 +25,7 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public decimal Hdp { get; set; }
 
-        public int LiveIndicator { get; set; }
+        public int Type { get; set; }
 
         public int ? LiveHomeScore { get; set; }
 

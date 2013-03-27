@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Ticket Listing";
+}
+
+@using Fanex.TicketControl.Core.Resources
+@using Fanex.TicketControl.Core.Models
+@model Fanex.TicketControl.Misc.Criteria.GetTicketsListingCriteria
+
+
+@section Styles {
+    <link href="~/Areas/Misc/Styles/BatchMessage.less" rel="stylesheet" type="text/css" />
+    
+}
+
+@section Headline {
+    <div class="title">
+        <a href="~/">@Labels.Home</a> / @Labels.Update_Batch_Message
+    </div>
+}
+
+@using (Html.BeginForm("Index", "BatchMessage", FormMethod.Post, new { id = "BatchMessageForm" }))
+{
+    
+<div class="filter-bar">
+    <div class="filter-bar-inner">
+      <div class="filter-row">
+        <div class="filter-cell">
+            <div class="lbl-field span">
+                <label for="TransId">TransId</label>
+            </div>
+            <div class="edit-field span10">
+                <textarea id="TransId"></textarea>
+                
+            </div>
+        </div>        
+    </div>
+    </div>
+</div>
+}
+
+
+
+@section Foot {
+    @Scripts.Render("~/areas/misc/BatchMessage")
+}

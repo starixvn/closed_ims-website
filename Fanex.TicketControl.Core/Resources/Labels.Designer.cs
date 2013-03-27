@@ -1709,6 +1709,15 @@ namespace Fanex.TicketControl.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update Batch Message.
+        /// </summary>
+        public static string Update_Batch_Message {
+            get {
+                return ResourceManager.GetString("Update_Batch_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to USD.
         /// </summary>
         public static string USD {

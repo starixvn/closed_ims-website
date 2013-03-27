@@ -12,6 +12,11 @@
                 "~/Areas/Misc/Scripts/TicketListing.js",
                 "~/Areas/Misc/Scripts/TicketListingManager.js"
             ));
+
+            bundles.Add(new ScriptBundle("~/areas/misc/BatchMessage").Include(
+                "~/Scripts/_Libs/Utils/stdlib.js",
+                "~/Areas/Misc/Scripts/BatchMessage/BatchMessage.js"                
+            ));
         }
     }
 }
