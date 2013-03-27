@@ -33,10 +33,6 @@ public static class NAPSpecialDeleteFunctionKeys
 
     public const string SpecialDeleteLivecasino = "SpecialDeleteLivecasino";
 
-    public const string SpecialDeleteNumberGame = "SpecialDeleteNumberGame";
-
-    public const string SpecialDeleteSportBook = "SpecialDeleteSportBook";
-
     public const string SpecialDeleteVirtualSports = "SpecialDeleteVirtualSports";
 
     public const string SystemConfiguration = "SystemConfiguration";
@@ -46,5 +42,9 @@ public static class NAPSpecialDeleteFunctionKeys
     public const string TicketsListing = "TicketsListing";
 
     public const string UpdateBatchMsg = "UpdateBatchMsg";
+
+    public const string VoidNumberGameBet = "VoidNumberGameBet";
+
+    public const string VoidSportsbookBet = "VoidSportsbookBet";
 
 }

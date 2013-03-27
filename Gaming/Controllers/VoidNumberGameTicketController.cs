@@ -34,7 +34,7 @@ namespace Fanex.TicketControl.Gaming.Controllers
             _coreService = new CoreService();
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidNumberGameBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
@@ -47,14 +47,14 @@ namespace Fanex.TicketControl.Gaming.Controllers
             return Json(_coreService.CheckMatchIdWithRefno(criteria));
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidNumberGameBet, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetNumberGameTicket(GetNumberGameTicketCriteria criteria)
         {
             return Json(_voidNumberGameTicketService.GetNumberGameTicket(criteria));
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidNumberGameBet, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult VoidNumberGameTicket(VoidNumberGameTicketCritetia criteria)
         {

@@ -30,13 +30,13 @@ namespace Fanex.TicketControl.SportBook.Controllers
             _service = new RecoverTicketService();
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.RecoverBets, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.RecoverBets, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetTicketRecover(GetRecoverTicketCriteria criteria)
         {
@@ -51,7 +51,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return Json(rs);
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.RecoverBets, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult RecoverTicket(RecoverTicketCriteria criteria)
         {

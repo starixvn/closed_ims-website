@@ -21,14 +21,14 @@ namespace Fanex.TicketControl.Gaming.Controllers
             _service = new RecoverNumberGameTicketService();
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidNumberGameBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidNumberGameBet, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetNumberGameTicketRecover(GetRecoverNumberGameTicketCriteria criteria)
         {
@@ -43,7 +43,7 @@ namespace Fanex.TicketControl.Gaming.Controllers
             return Json(rs);
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteNumberGame, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidNumberGameBet, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult RecoverNumberGameTicket(RecoverNumberGameTicketCriteria criteria)
         {

@@ -33,7 +33,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             _voidSingleTicketService = new VoidSingleTicketService();     
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
@@ -52,7 +52,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return Json(_voidOutrightTicketService.GetTeamByLeague(criteria));
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetOutrightTicket(GetOutrightTicketCriteria criteria) 
         {
@@ -60,7 +60,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return Json(_voidOutrightTicketService.GetOutrightTicket(criteria));
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult VoidOutrightTicket(VoidSingleTicketCritetia criteria)
         {

@@ -34,20 +34,20 @@ namespace Fanex.TicketControl.SportBook.Controllers
             
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetParlayTicket(GetParlayTicketCriteria criteria)
         {
             return Json(_voidParlayTicketService.GetParlayTicket(criteria));
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetParlaySubTicket(GetParlaySubTicketCriteria criteria)
         {
@@ -55,7 +55,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
         }
 
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult VoidParlayTicket(VoidParlayTicketCritetia criteria)
         {

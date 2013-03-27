@@ -32,13 +32,13 @@ namespace Fanex.TicketControl.SportBook.Controllers
             
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             return View();
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Read)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         [HttpPost]
         public JsonResult GetSingleTicket(GetSingleTicketCriteria criteria)
         {
@@ -53,7 +53,7 @@ namespace Fanex.TicketControl.SportBook.Controllers
             return Json(_deleteSingleTicketService.CheckMatchIDwithRefno(criteria));
         }
 
-        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.SpecialDeleteSportBook, Policy = Constant.Policy.Host)]
+        [NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Host)]
         [HttpPost]
         public JsonResult VoidSingleTicket(VoidSingleTicketCritetia criteria)
         {
