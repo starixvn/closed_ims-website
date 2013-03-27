@@ -5,18 +5,18 @@ $(function () {
 });
 
 var helper = {
-    displayContent: function (isShow, isClearBetId) {
+    displayContent: function (isShow) {
         if (isShow) {
             $('#report-content').show();
         }
         else {
             $('#report-content').hide();
-            $('.msg-void-ticket').val('');
-
-            if (isClearBetId) {
-                $('#txtBetId').val('');
-            }
         }
+    },
+
+    resetInput: function(){
+        $('#txtBetId').val('');
+        $('.msg-void-ticket').val('');
     },
    
     checkParamBeforRecoverTicket: function () {
@@ -80,10 +80,10 @@ var recoverTicket = {
 
                 if (rs != null && rs.ErrorCode > 0) {
                     $('#msg').html(tooltip.show('txtBetId', rs.ErrorMsg)).show();
-                    helper.displayContent(false, false);
+                    helper.displayContent(false);
                 }
                 else {
-                    helper.displayContent(true, false);
+                    helper.displayContent(true);
                     recoverTicket.loadMatchInfo(rs.MatchInfo);
                     recoverTicket.loadSingleTicket(rs.Groups);
 
@@ -157,7 +157,7 @@ var recoverTicket = {
                 { HeaderText: "No", Name: "No", Width: 20, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "BetID", Name: "BetId", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Member", Name: "Player", Width: 140, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Trans.Date", Name: "TransDate", Width: 80, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Trans.Date", Name: "TransDate", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Bettype", Name: "BetTypeName", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Odds", Name: "Odds", Width: 60, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Stake", Name: "Stake", Width: 60, HeaderAlign: "center", CellAlign: "center", FormatNumber: "0,0.00" },
@@ -212,10 +212,11 @@ var recoverTicket = {
             },
             success: function (rs) {
                 if (rs != null && rs.ErrorCode > 0) {
-                    helper.displayContent(true, true);
+                    helper.displayContent(true);
                 }
                 else {
-                    helper.displayContent(false, true);
+                    helper.displayContent(false);
+                    helper.resetInput();
                 }
 
                 NapTicketControl.Helper.showMsgBox(rs);
