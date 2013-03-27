@@ -287,7 +287,7 @@ var outright = {
                 }
             },
             error: function () {
-                console.log('has error :(');
+//                console.log('has error :(');
             },
             complete: function () {
                 NapTicketControl.enableInput();
