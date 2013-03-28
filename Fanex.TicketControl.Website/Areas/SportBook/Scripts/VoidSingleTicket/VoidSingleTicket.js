@@ -386,12 +386,7 @@ DelSingleTicket.prototype.Init = function () {
         
         if ($('#chkallbettype').prop('checked')) {
             $('.chkbettype').attr('checked', 'checked')
-            helper.setStatusAllAdvanceCS(true, true);    
-            helper.setStatusAllAdvanceTG(true, true);
-            helper.setStatusAllAdvanceHDP(true);
-            helper.setStatusAllAdvance1X2(true);
-            helper.setStatusAllAdvanceHTFT(true, true);
-            helper.setStatusAllAdvanceFGLG(true, true);
+            helper.checkConstraintBettyeByEventTypeForAdvanceMode();
             helper.expandAdvancedMode();    
         } else {
             $('.chkbettype').removeAttr('checked');
@@ -414,39 +409,9 @@ DelSingleTicket.prototype.Init = function () {
             $('#chkallbettype').removeAttr('checked');
         }
         
-        var eventType = $('#EventType').val();
-
-        var IsSelectedCS = (helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30)) && eventType != '1';
-        if(!(IsSelectedCS && helper.GetBetteam430() != '')){
-            helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS); 
-        }
+        //begin
+        helper.checkConstraintBettyeByEventTypeForAdvanceMode();
         
-        var IsSelectedTG = helper.IsSelectedBettype(6) && eventType != '1';
-        if(!(IsSelectedTG && helper.GetBetteam6() != '')){
-            helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
-        }
-
-        var IsSelectedHDP = helper.IsSelectedBettype(1) || helper.IsSelectedBettype(7) 
-                            || helper.IsSelectedBettype(3) || helper.IsSelectedBettype(8)
-                            || helper.IsSelectedBettype(2) || helper.IsSelectedBettype(12);
-        helper.setStatusAllAdvanceHDP(IsSelectedHDP);
-
-        var IsSelected1X2 =  helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
-        helper.setStatusAllAdvance1X2(IsSelected1X2);
-
-        var IsSelectedHTFT =  helper.IsSelectedBettype(16) && eventType != '1';
-        if(!(IsSelectedHTFT && helper.GetBetteam16() != '')){
-            helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
-        }
-
-        var IsSelectedGFLG =  helper.IsSelectedBettype(14)  && eventType != '1';
-        if(!(IsSelectedGFLG && helper.GetBetteam14() != '')){
-            helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
-        }
-
-        if(IsSelectedCS || IsSelectedTG || IsSelectedHDP || IsSelected1X2 || IsSelectedHTFT || IsSelectedGFLG){
-            helper.expandAdvancedMode();
-        }
     });
 
     //Correct Scores check all

@@ -25,7 +25,7 @@
     setStatusAllAdvanceCS: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-score').attr('checked', 'checked');
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         } else {
             $('.chk-score').removeAttr('checked');
         }
@@ -47,7 +47,7 @@
     setStatusAllAdvanceTG: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-tg').attr('checked', 'checked');
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         } else {
             $('.chk-tg').removeAttr('checked');
         }
@@ -70,21 +70,21 @@
         $('#ddlBetTeam1378').attr('disabled', !isEnable);
         $('#hdp').attr('disabled', !isEnable);
         if (isEnable) {
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         }
     },
 
     setStatusAllAdvance1X2: function (isEnable) {
         $('#ddlBetTeam515').attr('disabled', !isEnable);
         if (isEnable) {
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         }
     },
 
     setStatusAllAdvanceHTFT: function (isChecked, isEnable) {
         if (isChecked) {
             $('.chk-htft').attr('checked', 'checked');
-//            helper.expandAdvancedMode();
+            //            helper.expandAdvancedMode();
         } else {
             $('.chk-htft').removeAttr('checked');
         }
@@ -155,7 +155,7 @@
             return this.value;
         }).get().join('^');
 
-      
+
         return checkedVals;
     },
 
@@ -340,5 +340,41 @@
         }
 
         return isExpand;
+    },
+
+    checkConstraintBettyeByEventTypeForAdvanceMode: function () {
+        var eventType = $('#EventType').val();
+
+        var IsSelectedCS = (helper.IsSelectedBettype(4) || helper.IsSelectedBettype(30)) && eventType != '1';
+        if (!(IsSelectedCS && helper.GetBetteam430() != '')) {
+            helper.setStatusAllAdvanceCS(IsSelectedCS, IsSelectedCS);
+        }
+
+        var IsSelectedTG = helper.IsSelectedBettype(6) && eventType != '1';
+        if (!(IsSelectedTG && helper.GetBetteam6() != '')) {
+            helper.setStatusAllAdvanceTG(IsSelectedTG, IsSelectedTG);
+        }
+
+        var IsSelectedHDP = helper.IsSelectedBettype(1) || helper.IsSelectedBettype(7)
+                            || helper.IsSelectedBettype(3) || helper.IsSelectedBettype(8)
+                            || helper.IsSelectedBettype(2) || helper.IsSelectedBettype(12);
+        helper.setStatusAllAdvanceHDP(IsSelectedHDP);
+
+        var IsSelected1X2 = helper.IsSelectedBettype(5) || helper.IsSelectedBettype(15);
+        helper.setStatusAllAdvance1X2(IsSelected1X2);
+
+        var IsSelectedHTFT = helper.IsSelectedBettype(16) && eventType != '1';
+        if (!(IsSelectedHTFT && helper.GetBetteam16() != '')) {
+            helper.setStatusAllAdvanceHTFT(IsSelectedHTFT, IsSelectedHTFT);
+        }
+
+        var IsSelectedGFLG = helper.IsSelectedBettype(14) && eventType != '1';
+        if (!(IsSelectedGFLG && helper.GetBetteam14() != '')) {
+            helper.setStatusAllAdvanceFGLG(IsSelectedGFLG, IsSelectedGFLG);
+        }
+
+        if (IsSelectedCS || IsSelectedTG || IsSelectedHDP || IsSelected1X2 || IsSelectedHTFT || IsSelectedGFLG) {
+            helper.expandAdvancedMode();
+        }
     }
 };
