@@ -73,11 +73,13 @@
      $(function () { 
         if(success == true)
         {
-            AccReport.popUp.show('@Labels.ChangedProfile', null, 1);
+            //AccReport.popUp.show('@Labels.ChangedProfile', null, 1);
+            NapTicketControl.Helper.showMsgBox('@Labels.ChangedProfile');
         }
         else if(message != '')
         {
-            AccReport.popUp.show(message);
+            //AccReport.popUp.show(message);
+            NapTicketControl.Helper.showMsgBox(message);
         }
 
         $("#btnSave").on("click",function(){
@@ -85,7 +87,8 @@
             if(email != "" 
             && !re.test(email))
             {
-                AccReport.popUp.show('@Labels.InvalidEmail', "Email");
+                //AccReport.popUp.show('@Labels.InvalidEmail', "Email");
+                $('#msg').html(tooltip.show('Email', '@Labels.InvalidEmail')).show();
                 return false;
             }
         });

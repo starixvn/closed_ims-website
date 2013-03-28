@@ -8,6 +8,7 @@
 // </history>
 
 using System.Web.Mvc;
+using System.Web.Optimization;
 
 namespace Fanex.TicketControl.Website.Areas.UserControl
 {
@@ -23,10 +24,16 @@ namespace Fanex.TicketControl.Website.Areas.UserControl
 
         public override void RegisterArea(AreaRegistrationContext context)
         {
+            //context.MapRoute(
+            //    "UserControl_default",
+            //    "UserControl/{controller}/{action}/{id}",
+            //    new { action = "Index", id = UrlParameter.Optional });
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             context.MapRoute(
-                "UserControl_default",
+                this.AreaName + "_Default",
                 "UserControl/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional });
+                new { action = "Index", id = UrlParameter.Optional },
+                new[] { "Fanex.TicketControl.Website.Areas.UserControl.Controllers" });
         }
     }
 }

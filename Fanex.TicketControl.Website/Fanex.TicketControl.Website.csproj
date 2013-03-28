@@ -638,6 +638,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\SportBook\Scripts\AdvancedMode\" />
+    <Folder Include="Areas\UserControl\Area_Start\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
