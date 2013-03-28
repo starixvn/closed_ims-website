@@ -23,19 +23,40 @@
     
 <div class="filter-bar">
     <div class="filter-bar-inner">
-      <div class="filter-row">
-        <div class="filter-cell">
-            <div class="lbl-field span">
-                <label for="TransId">TransId</label>
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="lbl-field span">
+                    <label for="TransId">TransId</label>
+                </div>
+                <div class="edit-field span8">
+                    <textarea id="TransId" rows="1" onkeypress="return helper.checkDecNumber(event)" class="input-xlarge"></textarea>
+                </div>
             </div>
-            <div class="edit-field span10">
-                <textarea id="TransId"></textarea>
-                
+             
+        </div>  
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="lbl-field span">
+                    <span>Ex: 12345678,12345679,12345680</span>
+                </div>
+             </div>
+        </div>  
+        <div class="filter-row">
+            <div class="filter-cell">
+                @Html.Partial("_Message")    
             </div>
-        </div>        
-    </div>
+        </div>
+        <div class="filter-row">
+            <div class="filter-cell">
+                <input type="button" id="btnSearch" class="submit" value="@Labels.Update_Batch_Message" />
+            </div>
+        </div>
     </div>
 </div>
+
+    
+
+    
 }
 
 

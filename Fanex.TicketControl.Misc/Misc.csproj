@@ -75,6 +75,7 @@
   <ItemGroup>
     <Compile Include="Controllers\BatchMessageController.cs" />
     <Compile Include="Controllers\TicketListingController.cs" />
+    <Compile Include="Criteria\GetBatchMessageCriteria.cs" />
     <Compile Include="Criteria\GetTicketsListingCriteria.cs" />
     <Compile Include="Criteria\GetTicketsListingDetailCriteria.cs" />
     <Compile Include="Entities\BingoSettings.cs" />
@@ -82,6 +83,10 @@
     <Compile Include="Entities\SportEvent.cs" />
     <Compile Include="Entities\TicketListingDetail.cs" />
     <Compile Include="Entities\TicketListing.cs" />
+    <Compile Include="Repositories\Impl\BatchMessageRepository.cs" />
+    <Compile Include="Repositories\Interface\IBatchMessageRepository.cs" />
+    <Compile Include="Services\Impl\BatchMessageService.cs" />
+    <Compile Include="Services\Interface\IBatchMessageService.cs" />
     <Compile Include="Services\Impl\NumberWheelService.cs" />
     <Compile Include="Services\Impl\SportEventService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

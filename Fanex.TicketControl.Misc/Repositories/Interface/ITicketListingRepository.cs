@@ -13,5 +13,7 @@ namespace Fanex.TicketControl.Misc.Repositories.Interface
         TicketListingModel GetTicketListing(GetTicketsListingCriteria criteria);
 
         DataSet GetTicketListingBetList(GetTicketsListingDetailCriteria criteria);
+
+        
     }
 }

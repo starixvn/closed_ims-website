@@ -199,6 +199,8 @@
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGame.Helper.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGameTicketManager.js" />
     <Content Include="Areas\Gaming\Scripts\VoidNumberGameTicket\VoidNumberGame.Validator.js" />
+    <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
+    <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />

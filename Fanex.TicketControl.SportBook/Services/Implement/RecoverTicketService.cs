@@ -178,7 +178,8 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 DataSet ds = _repository.RecoverTicket(criteria, ref result);
                 DataTable dtMsg = ds.Tables[0];
                 string matchId = "0";
-                var resultPrivateMsg = _messageService.SendPrivateMsgToUsers(dtMsg, matchId, criteria.Msg);
+                List<string> listTransIdDone = new List<string>();
+                var resultPrivateMsg = _messageService.SendPrivateMsgToUsers(dtMsg, matchId, criteria.Msg, ref listTransIdDone);
 
                 if (resultPrivateMsg.ErrorCode != 0)
                 {

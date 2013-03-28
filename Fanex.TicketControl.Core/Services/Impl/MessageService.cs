@@ -8,6 +8,7 @@ using Fanex.TicketControl.Core.Repository.Interface;
 using Fanex.TicketControl.Core.Repository.Impl;
 using System.Data;
 using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace Fanex.TicketControl.Core.Services.Impl
 {
@@ -85,7 +86,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
             }
         }
 
-        public ActionResult SendPrivateMsgToUsers(DataTable dtMsg, string matchId, Message pmsg)
+        public ActionResult SendPrivateMsgToUsers(DataTable dtMsg, string matchId, Message pmsg, [Optional]  ref List<string> listTransIdDone)
         {
             ActionResult result = new ActionResult();
             try
@@ -138,7 +139,9 @@ namespace Fanex.TicketControl.Core.Services.Impl
                         foreach (DictionaryEntry Key in list)
                         {
                             int custid = Convert.ToInt32(Key.Key.ToString().Split('^')[0]); // This is a CustID of ticket that is deleted [TargetID Field]
-                            string uname = Key.Key.ToString().Split('^')[1];//This is a UserName of ticket that is deleted [TargetName Field]
+                            string isAgent = Key.Key.ToString().Split('^')[1];//This is a UserName of ticket that is deleted [TargetName Field]
+
+                            string uname = dtMsg.AsEnumerable().Where(s => Convert.ToInt32(s["TargetID"]) == custid && Convert.ToString(s["isAgent"]) == isAgent).Select(s => Convert.ToString(s["TargetName"])).FirstOrDefault();
 
                             DataRow dr = dtDeletedBet.NewRow();
                             dr["custid"] = custid;
@@ -173,6 +176,15 @@ namespace Fanex.TicketControl.Core.Services.Impl
                                 MessageId = SetMessage(pmsg, custid, uname, Convert.ToInt32(matchId), bettransid);
                             else
                                 AddTargt2Message(MessageId, custid, uname, bettransid);
+
+                            if (listTransIdDone != null)
+                            {
+                                string [] _transids =  Convert.ToString(dr["transids"]).Split(',');
+                                foreach (string transid in _transids)
+                                {
+                                    listTransIdDone.Add(transid.Trim());
+                                }
+                            }
                         }
                     }
                 }
@@ -187,5 +199,7 @@ namespace Fanex.TicketControl.Core.Services.Impl
 
             return result;
         }
+
+      
     }
 }

@@ -206,7 +206,8 @@ namespace Fanex.TicketControl.SportBook.Services.Implement
                 if (dsOutData.Tables.Count > 0)
                 {
                     dtMsg = dsOutData.Tables[0];
-                    var resultPrivateMsg  = _messageService.SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg);
+                    List<string> listTransIdDone = new List<string>();
+                    var resultPrivateMsg  = _messageService.SendPrivateMsgToUsers(dtMsg, Convert.ToString(criteria.MatchId), criteria.Msg, ref listTransIdDone);
 
                     if (resultPrivateMsg.ErrorCode != 0)
                     {

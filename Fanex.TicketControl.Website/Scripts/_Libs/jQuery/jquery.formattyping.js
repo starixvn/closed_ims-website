@@ -54,7 +54,7 @@
                 (key >= 96 && key <= 105)); //numpad 0-9
                 return isAccept;
             }).keyup(function () {
-                if (jQuery(this).val() != "-"  && isNaN(parseFloat(jQuery(this).val()))) {
+                if (jQuery(this).val() != "-" && isNaN(parseFloat(jQuery(this).val()))) {
                     jQuery(this).val("");
                 }
             });
@@ -70,6 +70,9 @@
                 //-------------------------------------------
                 //check dot(.), just for currency
                 var key = e.charCode || e.keyCode || 0;
+
+                
+
                 if (key == 110 || key == 190) {//dot(.)
                     if (jQuery(this).val() == "" || jQuery(this).val().indexOf(".") >= 0) {
                         return false;
@@ -92,7 +95,7 @@
                 key == 35 || //end                
                 key == 9 || //tab
                 key == 46 || //delete
-               
+
                 (key >= 37 && key <= 40) || //left , right , up , down (arrow)
                 (key >= 48 && key <= 57) || //0-9
                 (key >= 96 && key <= 105)); //numpad 0-9
@@ -123,7 +126,7 @@
                 || key == 39//right arrow
                 || key == 40//down arrow
                 || key == 9 //tab
-                || key == 109 ||//-
+                || key == 109 || //-
                 key == 189// -
                 ) {
                     return true;
@@ -135,7 +138,7 @@
                 if (value == "-") {
                     return true;
                 }
-                
+
                 if (isNaN(parseFloat(value))) {
                     jQuery(this).val('');
                     return true;
