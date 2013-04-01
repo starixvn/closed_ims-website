@@ -12,6 +12,32 @@ namespace Fanex.TicketControl.Core.Repository.Impl
 {
     public class MessageRepository : ServiceBase, IMessageRepository
     {
+
+        string CorrectSpace(string scontent)
+        {
+            if (scontent == null)
+                return string.Empty;
+            if (scontent.Length == 0)
+                return scontent;
+            int index = scontent.IndexOf("@@");
+
+            if (index == -1) return scontent;
+
+            if (index == 0)
+            {
+                if (scontent.Substring(0, 1).Trim().Length > 0)
+                    scontent = scontent.Replace("@@", "@@ ");
+            }
+            else
+            {
+                if (scontent.Substring(index - 1, 1).Trim().Length > 0)
+                    scontent = scontent.Replace("@@", " @@");
+
+
+            }
+            return scontent;
+        }
+
         public int SetMessage(Message Msg, int[] TargetId, string[] TargetName, int MatchId, string[] TransId)
         {
             try
@@ -21,14 +47,14 @@ namespace Fanex.TicketControl.Core.Repository.Impl
                 criteria.CreatorName = Msg.CreatorName;
                 criteria.MatchId = MatchId;
 
-                criteria.Content_en = Msg.Content_en;
-                criteria.Content_ch = Msg.Content_ch;
-                criteria.Content_cs = Msg.Content_cs;
-                criteria.Content_it = Msg.Content_it;
-                criteria.Content_jp = Msg.Content_jp;
-                criteria.Content_th = Msg.Content_th;
-                criteria.Content_ko = Msg.Content_ko;
-                criteria.Content_es = Msg.Content_es;
+                criteria.Content_en = CorrectSpace(Msg.Content_en);
+                criteria.Content_ch = CorrectSpace(Msg.Content_ch);
+                criteria.Content_cs = CorrectSpace(Msg.Content_cs);
+                criteria.Content_it = CorrectSpace(Msg.Content_it);
+                criteria.Content_jp = CorrectSpace(Msg.Content_jp);
+                criteria.Content_th = CorrectSpace(Msg.Content_th);
+                criteria.Content_ko = CorrectSpace(Msg.Content_ko);
+                criteria.Content_es = CorrectSpace(Msg.Content_es);
 
                 // for insert check
                 if ((Msg.MessageId == 0) && (TargetId.Length < 1))

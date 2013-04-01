@@ -31,7 +31,7 @@ var batchMsg = {
                 Content_es: $('#msg-es').val(),
                 Content_ko: $('#msg-ko').val()
             },
-            TransIds: $('#TransId').val()
+            TransIds: validateData.TransId
         };
 
         $.ajax({

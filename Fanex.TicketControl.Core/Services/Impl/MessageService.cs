@@ -19,31 +19,6 @@ namespace Fanex.TicketControl.Core.Services.Impl
             _repository = new MessageRepository();
         }
 
-        string CorrectSpace(string scontent)
-        {
-            if (scontent == null)
-                return string.Empty;
-            if (scontent.Length == 0)
-                return scontent;
-            int index = scontent.IndexOf("@@");
-
-            if (index == -1) return scontent;
-
-            if (index == 0)
-            {
-                if (scontent.Substring(0, 1).Trim().Length > 0)
-                    scontent = scontent.Replace("@@", "@@ ");
-            }
-            else
-            {
-                if (scontent.Substring(index - 1, 1).Trim().Length > 0)
-                    scontent = scontent.Replace("@@", " @@");
-
-
-            }
-            return scontent;
-        }
-
         private int SetMessage(Message Msg, int[] TargetId, string[] TargetName, int MatchId, string[] TransId)
         {
             try
@@ -52,14 +27,14 @@ namespace Fanex.TicketControl.Core.Services.Impl
                 if ((Msg.MessageId == 0) && (TargetId.Length < 1))
                     return 0;
 
-                Msg.Content_en = CorrectSpace(Msg.Content_en);
-                Msg.Content_ch = CorrectSpace(Msg.Content_ch);
-                Msg.Content_cs = CorrectSpace(Msg.Content_cs);
-                Msg.Content_it = CorrectSpace(Msg.Content_it);
-                Msg.Content_jp = CorrectSpace(Msg.Content_jp);
-                Msg.Content_th = CorrectSpace(Msg.Content_th);
-                Msg.Content_ko = CorrectSpace(Msg.Content_ko);
-                Msg.Content_es = CorrectSpace(Msg.Content_es);
+                Msg.Content_en = Msg.Content_en;
+                Msg.Content_ch = Msg.Content_ch;
+                Msg.Content_cs = Msg.Content_cs;
+                Msg.Content_it = Msg.Content_it;
+                Msg.Content_jp = Msg.Content_jp;
+                Msg.Content_th = Msg.Content_th;
+                Msg.Content_ko = Msg.Content_ko;
+                Msg.Content_es = Msg.Content_es;
 
                 Msg.MessageId = _repository.SetMessage(Msg, TargetId, TargetName, MatchId, TransId);
                 if (Msg.MessageId > 0)

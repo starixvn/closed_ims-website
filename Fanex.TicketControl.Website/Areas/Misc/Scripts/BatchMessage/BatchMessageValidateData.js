@@ -1,15 +1,20 @@
 ﻿/* File Created: March 28, 2013 */
 var validateData = {
-    checkParamBeforeUdpMsg: function () {
-        var TransId = $('#TransId').val().replace(/\n/g, '').replace(/ /g, '');
+    TransId: '',
 
-        
+    checkParamBeforeUdpMsg: function () {
+        var _TransId = $('#TransId').val();
+
+        var TransId = _TransId.split(' ').join('').split('\n').join('').replace(/\s/g, "");
+
+
+
         if (TransId == '') {
             $('#msg').html(tooltip.show('TransId', "TransId is required")).show();
             return false;
         }
 
-        
+
 
         var arrTransId = TransId.split(',');
         var arrTransIdFail = [];
@@ -27,6 +32,8 @@ var validateData = {
         if (!Message.Validator.validateMessageConstraints()) {
             return false;
         }
+
+        validateData.TransId = TransId;
         return true;
     }
 };
