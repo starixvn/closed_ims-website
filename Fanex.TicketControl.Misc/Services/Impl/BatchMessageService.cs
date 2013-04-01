@@ -82,8 +82,8 @@ namespace Fanex.TicketControl.Misc.Services.Impl
 
                 var idsDone = listTransIdDone.Select(s => s).Distinct().ToList();
 
-                strTransIdDone = String.Join(",", idsDone);
-                strTransIdFail = String.Join(",", listTransIdFail);
+                strTransIdDone = String.Join(", ", idsDone);
+                strTransIdFail = String.Join(", ", listTransIdFail);
 
                 if (strTransIdDone.Length > 0)
                 {
