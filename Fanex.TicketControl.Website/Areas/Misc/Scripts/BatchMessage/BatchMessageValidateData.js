@@ -1,12 +1,17 @@
 ﻿/* File Created: March 28, 2013 */
 var validateData = {
     checkParamBeforeUdpMsg: function () {
-        if ($('#TransId').val() == '') {
+        var TransId = $('#TransId').val().replace(/\n/g, '').replace(/ /g, '');
+
+        
+        if (TransId == '') {
             $('#msg').html(tooltip.show('TransId', "TransId is required")).show();
             return false;
         }
 
-        var arrTransId = $('#TransId').val().split(',');
+        
+
+        var arrTransId = TransId.split(',');
         var arrTransIdFail = [];
         for (var i = 0; i < arrTransId.length; i++) {
             if (isNaN(arrTransId[i]) || arrTransId[i].length > 10 || arrTransId[i].indexOf('.') != -1) {
