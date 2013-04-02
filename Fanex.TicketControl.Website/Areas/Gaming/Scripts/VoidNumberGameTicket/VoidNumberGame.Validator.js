@@ -41,7 +41,7 @@ VoidNumberGame.Validator = {
         }
 
         if (parseFloat($('#toRefno').val()) < parseFloat($('#fromRefno').val())) {
-            $('#msg').html(tooltip.show('fromRefno', 'Invalid From BetID.')).show();
+            $('#msg').html(tooltip.show('toRefno', 'Invalid To BetID.')).show();
             return false;
         }
 
