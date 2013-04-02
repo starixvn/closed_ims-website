@@ -149,22 +149,22 @@ NapTicketControl.Helper = (function ($) {
                 + '</th></tr></thead>';
 
             switch (product) {
-                //                case 'Sportsbook':                 
-                //                    switch (eventType) {                 
-                //                        case '0':                 
-                //                            // render only dead ball bettypes                 
-                //                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');                 
-                //                            break;                 
-                //                        case '1':                 
-                //                            // render only live ball bettypes                 
-                //                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');                 
-                //                            break;                 
-                //                        default:                 
-                //                            // render all bettypes                 
-                //                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');                 
-                //                            break;                 
-                //                    }                 
-                //                    break;                 
+                //                case 'Sportsbook':                  
+                //                    switch (eventType) {                  
+                //                        case '0':                  
+                //                            // render only dead ball bettypes                  
+                //                            html += this.RenderBettypesDetails(deadBallBettypes, 'BetTypes');                  
+                //                            break;                  
+                //                        case '1':                  
+                //                            // render only live ball bettypes                  
+                //                            html += this.RenderBettypesDetails(liveBallBettypes, 'BetTypes');                  
+                //                            break;                  
+                //                        default:                  
+                //                            // render all bettypes                  
+                //                            html += this.RenderBettypesDetails(bettypes, 'BetTypes');                  
+                //                            break;                  
+                //                    }                  
+                //                    break;                  
                 case 'NumberGame':
                     // render dead ball bettypes
                     html += '<tr class="bettype-group-title"> <td colspan="5">&nbsp;' + 'Dead ball' + '</td></tr>';
@@ -283,6 +283,7 @@ NapTicketControl.Helper = (function ($) {
 
             msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html.join(''));
             msgbox.fadeIn();
+            msgbox.show();
         },
 
         displayContent: function (isShow) {

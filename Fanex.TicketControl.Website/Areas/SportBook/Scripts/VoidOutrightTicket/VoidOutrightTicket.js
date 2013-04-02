@@ -150,6 +150,8 @@ var outright = {
 
     getOutrightTicket: function () {
 
+        $('#msg-box').hide();
+
         var param = {
             OutrightID: $('#ddlTeam').val(),
             FromRefNo: $('#fromRefno').val(),
