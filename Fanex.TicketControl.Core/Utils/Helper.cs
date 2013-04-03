@@ -100,6 +100,8 @@ namespace Fanex.TicketControl.Core.Utils
             return bettypeName;
         }
 
+        /// get all time zones Info
+        //ReadOnlyCollection<TimeZoneInfo> zones = TimeZoneInfo.GetSystemTimeZones();
 
         public static DateTime ConvertDatetimeZone(DateTime datetime, string distinationTimeZoneId)
         {
