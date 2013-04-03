@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Fanex.NAP.Framework.Data;
 using Fanex.TicketControl.Core.Models;
+using Fanex.TicketControl.Core.Utils;
 
 namespace Fanex.TicketControl.SportBook.Criteria
 {
@@ -59,9 +60,34 @@ namespace Fanex.TicketControl.SportBook.Criteria
 
         public int ? LiveAwayScore { get; set; }
 
-        public DateTime? FromDateTime { get; set; }
+        DateTime? _FromTransdate;
+        public DateTime? FromTransdate 
+        {
+            get 
+            {
+                if (_FromTransdate.HasValue)
+                {
+                    _FromTransdate = Helper.ConvertDatetimeZoneCanada(Convert.ToDateTime(_FromTransdate));
+                }
+                return _FromTransdate; 
+            }
+            set { _FromTransdate = value; }  
+        }
 
-        public DateTime? ToDateTime { get; set; }
+        DateTime? _ToTransdate;
+        public DateTime? ToTransdate
+        {
+            get
+            {
+                if (_ToTransdate.HasValue)
+                {
+                    _ToTransdate = Helper.ConvertDatetimeZoneCanada(Convert.ToDateTime(_ToTransdate));
+                }
+                return _ToTransdate; 
+                
+            }
+            set { _ToTransdate = value; }  
+        }
 
         public string IP {
             get {

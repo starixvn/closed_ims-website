@@ -29,6 +29,8 @@ namespace Fanex.TicketControl.Core.Utils
             LiveCasino = 3
         }
 
+        public const string AtlanticTime_Canada = "Atlantic Standard Time";
+
         public static string CurrencyById(int Id)
         {
             string currencyName = string.Empty;
@@ -98,5 +100,21 @@ namespace Fanex.TicketControl.Core.Utils
             return bettypeName;
         }
 
+
+        public static DateTime ConvertDatetimeZone(DateTime datetime, string distinationTimeZoneId)
+        {
+            var utcTime = TimeZoneInfo.ConvertTimeBySystemTimeZoneId(datetime, distinationTimeZoneId); 
+            return utcTime;
+        }
+
+        /// <summary>
+        /// Convert Datetime Zone GMT-4 (Canada)
+        /// </summary>
+        /// <param name="datetime"></param>
+        /// <returns></returns>
+        public static DateTime ConvertDatetimeZoneCanada(DateTime datetime)
+        {
+            return ConvertDatetimeZone(datetime, AtlanticTime_Canada);
+        }
     }
 }

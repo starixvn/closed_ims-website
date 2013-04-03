@@ -109,7 +109,7 @@ var recoverTicket = {
         var rows = [];
         rows.push({
             Columns: [{ Name: "code", Value: matchInfo.MatchCode, CssClass: 'bold' },
-            { Name: "matchEvent", Value: (matchInfo.HomeName + ' -vs- ' + matchInfo.AwayName), CssClass: 'bold' },
+            { Name: "matchEvent", Value: (matchInfo.HomeName + (matchInfo.AwayName.length > 0 ? ' -vs- ' : '') + matchInfo.AwayName), CssClass: 'bold' },
             { Name: "eventDate", Value: matchInfo.EventDate, CssClass: 'bold' }
             ]
         });
@@ -117,9 +117,9 @@ var recoverTicket = {
         var id = 'matchInfo';
         var gridOptions = {
             columns: [
-                { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Code", Name: "code", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
+                { HeaderText: "Event Date", Name: "eventDate", Width: 100, HeaderAlign: "center", CellAlign: "center" }
             ],
             bodyRows: rows,
             hideYBackGroundScroller: true,

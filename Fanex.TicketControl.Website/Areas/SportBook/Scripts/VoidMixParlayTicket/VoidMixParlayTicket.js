@@ -77,9 +77,9 @@ var parlayDelete = {
 
         var gridOptions = {
             columns: [
-                { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Code", Name: "code", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
+                { HeaderText: "Event Date", Name: "eventDate", Width: 100, HeaderAlign: "center", CellAlign: "center" }
             ],
             hideYBackGroundScroller: true,
             bodyRows: rows
@@ -173,7 +173,8 @@ var parlayDelete = {
             LiveIndicator: $('#EventType').val(),
             LiveHomeScore: $('#LiveHomeScore').val(),
             LiveAwayScore: $('#LiveAwayScore').val(),
-            FromTransdate: $('#FromTransDate').val(),            
+            FromTransdate: $('#FromTransDate').val(),       
+            ToTransdate: $('#ToTransDate').val(),     
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
             Betteam515: helper.GetBetteam515(),
@@ -277,7 +278,7 @@ VoidMixParlayTicket.prototype.Init = function () {
     // change live type
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
-
+        helper.checkConstraintBettyeByEventTypeForAdvanceMode();            
         if (eventType === '1') {
             self.DOMElement.$optFilters.show();               
         } else {

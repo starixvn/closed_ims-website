@@ -79,9 +79,9 @@ var singleDetete = {
         
         var gridOptions = {
             columns: [
-                { HeaderText: "Code", Name: "code", Width: 60, HeaderAlign: "center", CellAlign: "center" },
+                { HeaderText: "Code", Name: "code", Width: 100, HeaderAlign: "center", CellAlign: "center" },
                 { HeaderText: "Match Event", Name: "matchEvent", Width: 300, HeaderAlign: "center", CellAlign: "center" },
-                { HeaderText: "Event Date", Name: "eventDate", Width: 80, HeaderAlign: "center", CellAlign: "center" }
+                { HeaderText: "Event Date", Name: "eventDate", Width: 100, HeaderAlign: "center", CellAlign: "center" }
             ],
             bodyRows: rows,
             hideYBackGroundScroller: true
@@ -185,7 +185,7 @@ var singleDetete = {
             LiveHomeScore: $('#LiveHomeScore').val(),
             LiveAwayScore: $('#LiveAwayScore').val(),
             FromTransdate: $('#FromTransDate').val(),
-            ToTransdate: $('#ToTransdate').val(),
+            ToTransdate: $('#ToTransDate').val(),
             Bettypes: helper.GetBettypesChecked(),
             Betteam1378: $('#ddlBetTeam1378').val(),
             Betteam515: helper.GetBetteam515(),
@@ -341,7 +341,7 @@ DelSingleTicket.prototype.Init = function () {
     // change live type
     self.DOMElement.$ddlEventType.change(function () {
         var eventType = $(this).val(); // live type drop down list
-
+        helper.checkConstraintBettyeByEventTypeForAdvanceMode();
         if (eventType === '1') {
             self.DOMElement.$optFilters.show();   
 

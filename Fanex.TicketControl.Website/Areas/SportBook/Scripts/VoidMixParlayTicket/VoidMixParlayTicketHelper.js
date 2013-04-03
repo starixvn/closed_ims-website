@@ -284,6 +284,12 @@
         $('#LiveAwayScore').val('');
         $('#TransDate').removeAttr('checked');
 
+        $('#FromTransDate').val('');
+        $('#ToTransDate').val('');
+        $('#EventType').val(2);
+
+        $('.opt-filters').hide();
+
         $('#password').val('');
         $('.msg-void-ticket').val('');
         helper.setStatusAllBettype(false);

@@ -274,6 +274,12 @@
 
         $('#password').val('');
         $('.msg-void-ticket').val('');
+
+        $('#FromTransDate').val('');
+        $('#ToTransDate').val('');
+        $('#EventType').val(2);
+
+        $('.opt-filters').hide();
         helper.setStatusAllBettype(false);
         helper.collapseAdvancedMode();
     },
