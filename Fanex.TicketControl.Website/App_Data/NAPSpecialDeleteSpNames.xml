@@ -29,7 +29,7 @@
   <Function Name="ParlayTicket">
     <Setting Key="ParlayTicket_BettransSelDelSpecial_MixParlay" SpName="Acc_BettransSelDelSpecial_MixParlay" DbName="apollo_repdb" />
     <Setting Key="ParlayTicket_SubTicket_BettransSelSpecialDel_MixParlay" SpName="Acc_BettransSelSpecialDel_MixParlay" DbName="apollo_repdb" /><!--when calling subticket of MP-->
-    <Setting Key="ParlayTicket_BettransDelSpecialDel_MixParlay" SpName="Acc_BettransDelSpecialDel_MixParlay" DbName="apollo_repdb" />
+    <Setting Key="ParlayTicket_BettransDelSpecialDel_MixParlay" SpName="Acc_BettransDelSpecialDel_MixParlay" DbName="apollo_transdb" />
   </Function>
 
   <Function Name="RecoverTicket">
