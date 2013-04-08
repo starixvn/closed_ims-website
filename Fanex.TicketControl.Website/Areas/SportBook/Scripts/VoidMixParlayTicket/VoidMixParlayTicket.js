@@ -66,7 +66,7 @@ var parlayDelete = {
             $('#matchInfo').hide();
             return;
         }
-        $('#matchInfo').show();
+        NapTicketControl.Helper.displayContent(true);
 
         var rows = [];
         rows.push({
@@ -153,7 +153,7 @@ var parlayDelete = {
         else{
             Message.Helper.displayFormMsg(true);            
         }
-        NapTicketControl.Helper.displayContent(true);
+        
     },
 
     optionCustomRender: function (cell)
