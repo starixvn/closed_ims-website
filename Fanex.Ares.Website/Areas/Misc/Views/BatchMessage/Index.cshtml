@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = Labels.Update_Batch_Message;
+}
+
+@using Fanex.TicketControl.Core.Resources
+@using Fanex.TicketControl.Core.Models
+@model Fanex.TicketControl.Misc.Criteria.GetTicketsListingCriteria
+
+
+@section Styles {
+    <link href="~/Areas/Misc/Styles/BatchMessage.less" rel="stylesheet" type="text/css" />
+    
+}
+
+@section Headline {
+    <div class="title">
+        <a href="~/">@Labels.Home</a> / @Labels.Update_Batch_Message
+    </div>
+}
+
+@using (Html.BeginForm("Index", "BatchMessage", FormMethod.Post, new { id = "BatchMessageForm" }))
+{
+    
+<div class="filter-bar">
+    <div class="filter-bar-inner">
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="lbl-field span">
+                    <label for="TransId">TransId</label>
+                </div>
+                <div class="edit-field span8">
+                    <textarea id="TransId" rows="6" onkeypress="return helper.checkDecNumber(event)" class="input-xlarge"></textarea>
+                    <span>Ex: 12345678,12345679,12345680</span>
+                </div>
+            </div>
+             
+        </div>  
+        <div class="filter-row">
+            <div class="filter-cell"></div>
+        </div> 
+        <div class="filter-row">
+            <div class="filter-cell"></div>
+        </div> 
+        
+        <div class="filter-row">
+            <div class="filter-cell">
+                @Html.Partial("_Message")    
+            </div>
+        </div>
+        <div class="filter-row">
+            <div class="filter-cell">
+                <input type="button" id="btnSearch" class="submit" value="@Labels.Update_Batch_Message" />
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+    
+}
+
+
+
+@section Foot {
+    @Scripts.Render("~/areas/misc/BatchMessage")
+}
