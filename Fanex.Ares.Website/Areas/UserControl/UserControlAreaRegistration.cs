@@ -34,7 +34,7 @@ namespace Fanex.Ares.Website.Areas.UserControl
                 this.AreaName + "_Default",
                 "UserControl/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new[] { "Fanex.TicketControl.Website.Areas.UserControl.Controllers" });
+                new[] { "Fanex.Ares.Website.Areas.UserControl.Controllers" });
         }
     }
 }

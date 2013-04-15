@@ -21,8 +21,8 @@ namespace Fanex.Ares.Core.Services.Impl
     {
         #region StaticFields
 
-        public const string CACHE_BALANCE_UP = "Fanex.TicketControl.Core.ReportUtils.BalanceUp";
-        public const string CACHE_EXCHANGE_CURRENCIES = "Fanex.TicketControl.Core.ReportService.ExchangeCurrencies";
+        public const string CACHE_BALANCE_UP = "Fanex.Ares.Core.ReportUtils.BalanceUp";
+        public const string CACHE_EXCHANGE_CURRENCIES = "Fanex.Ares.Core.ReportService.ExchangeCurrencies";
         public const string BET_TRANS14_SP_SUFFIX = "_14";
         public const string WARE_HOUSE_SP_SUFFIX = "_WH";
         private static readonly IDynamicRepository _balanceUpRepository;

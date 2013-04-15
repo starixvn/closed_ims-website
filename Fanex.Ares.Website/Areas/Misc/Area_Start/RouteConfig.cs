@@ -10,7 +10,7 @@ namespace Fanex.Ares.Website.Areas.Misc.Area_Start
                 areaName + "_Default",
                 "Misc/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new[] { "Fanex.TicketControl.Misc.Controllers" });
+                new[] { "Fanex.Ares.Misc.Controllers" });
         }
     }
 }
