@@ -4,17 +4,20 @@ using System.Diagnostics.CodeAnalysis;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Fanex.Ares.Admin.Services.Implement;
+using Fanex.Ares.Admin.Services.Interface;
 using Fanex.Ares.Core.Services.Impl;
 using Fanex.Ares.Core.Web;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Common;
+using Fanex.NAP.Core.Configuration;
 using Fanex.NAP.Core.Criteria.User;
 using Fanex.NAP.Core.Model;
 using Fanex.NAP.Core.Service.Impl;
 using Fanex.NAP.Core.Service.Interface;
 using Fanex.NAP.Core.Web.Auth;
 using Fanex.NAP.Core.Web.Session;
-using Fanex.NAP.Core.Configuration;
+using Fanex.Ares.Admin.Criteria;
 
 namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 {
@@ -26,24 +29,26 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         private IUserService _userService;
         private IMenuItemService _menuItemService;
         private ICurrentSession _currentSession;
-
+        private IAdminService _iAdminService;
         #endregion members
 
         #region ctors
 
         public SSOController()
-            : this(null, null, null)
+            : this(null, null, null, null)
         {
         }
 
         public SSOController(
             IUserService userService,
             IMenuItemService menuItemService,
-            ICurrentSession currentSession)
+            ICurrentSession currentSession,
+            IAdminService adminService)
         {
             _userService = userService ?? new UserService();
             _menuItemService = menuItemService ?? new MenuItemService();
             _currentSession = currentSession ?? new CurrentSession();
+            _iAdminService = adminService ?? new AdminService();
         }
 
         #endregion ctors
@@ -117,6 +122,68 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             return Redirect(FormsAuthentication.LoginUrl);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult AccountingLogin(string username, string onuserId, string time)
+        {
+            username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
+            onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
+            time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
+            string currentTime = _userService.UserSSOGetTime();
+
+            var expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
+
+            if (expiration.TotalSeconds <= _timeExipration)
+            {
+                #region do SSO check-in
+
+                var criteria = new AccountingUserCheckOnlineStatusCriteria
+                {
+                    IsKickedOut = false,
+                    On_UserID = Convert.ToInt32(onuserId)
+                };
+
+                var onlineStatus = _iAdminService.CheckUserOnlineStatus(criteria);
+
+                #endregion do SSO check-in
+
+                if (onlineStatus)
+                {
+                    var user = _userService.GetByUsername(username) as User;
+                    if (user != null)
+                    {
+                        #region saves user session & auth info
+
+                        _currentSession.UserId = user.Id;
+                        _currentSession.Username = user.Username;
+                        _currentSession.OnUserId = criteria.On_UserID;
+                        _currentSession.SessionId = Session.SessionID.ToString();
+                        _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
+
+                        AppSession.CurrentUser = user;
+                        AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
+                        //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
+
+                        if (this.SiteId != 0)
+                        {
+                            _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
+                                                                                    user.Id,
+                                                                                    SiteId,
+                                                                                    Environment,
+                                                                                    true) as IList<MenuItem>;
+                            AppSession.CurrentUserMenu = _currentSession.MenuItemList;
+                        }
+
+                        CreateAuthInfo(user);
+
+                        #endregion saves user session & auth info
+                    }
+                    
+                    return Redirect(FormsAuthentication.DefaultUrl);
+                }
+            }
+            return Redirect(FormsAuthentication.LoginUrl);
+        }
         #region utilities
 
         private void CreateAuthInfo(User user)
