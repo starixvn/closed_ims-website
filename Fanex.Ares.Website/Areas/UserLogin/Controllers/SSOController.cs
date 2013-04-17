@@ -124,9 +124,9 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult AccountingLogin(string userId, string onuserId, string time)
+        public ActionResult AccountingLogin(string username, string onuserId, string time)
         {
-            userId = Cryptography.CfsDeCrypt(userId.Replace(" ", "+"));
+            username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
             onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
             time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
             string currentTime = _userService.UserSSOGetTime();
@@ -149,7 +149,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 
                 if (onlineStatus)
                 {
-                    var user = _userService.GetById(Convert.ToInt32(userId)) as User;
+                    var user = _userService.GetByUsername(username) as User;
                     if (user != null)
                     {
                         #region saves user session & auth info
