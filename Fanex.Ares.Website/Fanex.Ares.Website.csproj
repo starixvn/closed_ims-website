@@ -192,7 +192,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NAPSpecialDeleteSpNames.xml">
+    <Content Include="App_Data\NAPInvoiceSpNames.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="App_Data\NAPFrameworkSpNames.xml" />
@@ -669,6 +669,10 @@
     <Content Include="Areas\Report\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Fanex.Ares.Admin\Admin.csproj">
+      <Project>{AE0012D9-DD72-4DC5-A94D-6FFA1C3A259A}</Project>
+      <Name>Admin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>

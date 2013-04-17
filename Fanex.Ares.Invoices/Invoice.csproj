@@ -60,7 +60,8 @@
     <Compile Include="Services\Interface\ISingleTickketService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <Folder Include="Repositories\Impl\" />
+    <Folder Include="Repositories\Interface\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
