@@ -126,6 +126,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         [HttpGet]
         public ActionResult AccountingLogin(string username, string onuserId, string time)
         {
+            Session.Clear();
             username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
             onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
             time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
