@@ -24,12 +24,12 @@ AS
 	WHERE exchangeid IN (SELECT currency from @tmpCurrency)
 
 	SELECT 
-		e.exchangeid AS currency, 
-		e.Code AS  currencyName, 
+		e.exchangeid AS Currency, 
+		e.Code AS  CurrencyName, 
 		e.EUR AS EURPerUnit,
-		(1/e.EUR) AS unitsPerEUR,
+		(1/e.EUR) AS UnitsPerEUR,
 		e.USD AS USDPerUnit,
-		(1/e.USD) AS unitsPerUSD
+		(1/e.USD) AS UnitsPerUSD
 	FROM #TempExchange e	 
 
 	DROP TABLE #TempExchange
