@@ -84,4 +84,12 @@
       <SubType>Code</SubType>
     </Build>
   </ItemGroup>
+  <ItemGroup>
+    <NotInBuild Include="Scripts\Licensee\IMS_LicenseeBillingInfoSel.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Exchange\IMS_ExchangeRateBillingSel.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+  </ItemGroup>
 </Project>
