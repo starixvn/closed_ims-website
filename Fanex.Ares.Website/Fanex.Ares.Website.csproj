@@ -258,6 +258,7 @@
     <Content Include="Content\img\glyphicons-halflings-white.png" />
     <Content Include="Content\img\glyphicons-halflings.png" />
     <Content Include="Content\img\green-star.gif" />
+    <Content Include="Content\base\img\invoice.png" />
     <Content Include="Content\img\lastGoal.gif" />
     <Content Include="Content\img\loader.gif" />
     <Content Include="Content\img\q_Icon2_1.png" />

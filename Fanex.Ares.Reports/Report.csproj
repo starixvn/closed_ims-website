@@ -106,6 +106,8 @@
     <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
     <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
     <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
+    <Compile Include="ViewModels\ExchangeRate.cs" />
+    <Compile Include="ViewModels\LicenseeInformation.cs" />
     <Compile Include="ViewModels\Outright\OutrightTicketModel.cs" />
     <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />

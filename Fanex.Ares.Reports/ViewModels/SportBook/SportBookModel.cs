@@ -10,25 +10,27 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Fanex.Ares.Report.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [Serializable]
     public class SportBookModel
     {
         public LicenseeInformation LicenseeInfor { get; set; }
 
         public Report Report { get; set; }
 
-        public List<ExchangeInformation> ExchangeList { get; set; }
+        public List<ExchangeRate> ExchangeList { get; set; }
 
         public SportBookModel()
         {
-            ExchangeList = new List<ExchangeInformation>();
+            ExchangeList = new List<ExchangeRate>();
 
             for (int i = 0; i < 10; i++)
             {
-                ExchangeList.Add(new ExchangeInformation{
+                ExchangeList.Add(new ExchangeRate{
                 CurrencyID = i,
                 CurrencyName = "AUD",
                 CurrencyPerUnit = 0.81340,
@@ -68,34 +70,7 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
         }
     }
 
-    public class LicenseeInformation
-    {
-        public DateTime SettlementDate { get; set; }
-
-        public int LicenseeID { get; set; }
-
-        public string LicenseeName { get; set; }
-
-        public DateTime BillingDate { get; set; }
-
-        public string BasicBilling { get; set; }
-
-        public string MinimumFees { get; set; }
-
-        public DateTime HeadOfTermDate { get; set; }
-    }
-
-    public class ExchangeInformation
-    {
-        public int CurrencyID { get; set; }
-
-        public string CurrencyName { get; set; }
-
-        public double CurrencyPerUnit { get; set; }
-
-        public double UnitsPerCurrency { get; set; }
-    }
-
+    [Serializable]
     public class Report
     {
         public List<ReportEntity> EntityList { get; set; }
@@ -108,6 +83,7 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
         }
     }
 
+    [Serializable]
     public class ReportEntity
     {
         public DateTime Date { get; set; }
