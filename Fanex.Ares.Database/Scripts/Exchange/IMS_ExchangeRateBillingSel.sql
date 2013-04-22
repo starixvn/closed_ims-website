@@ -5,7 +5,7 @@ AS
 	/*  Created: Kevin
 		Date: 20130418
 		Task : Report - Licensee Settlement Report
-		DB: 
+		DB: DBLIC.bodb_Licensee
 		Revisions:  
 		Param's Explanation:  	
 			+ @currency: currency id list
@@ -20,7 +20,7 @@ AS
 	FROM strSPlit(@currency,',')
 
 	SELECT * INTO #TempExchange 
-	FROM Lrf_f_GetExchangeDaily(@exchangeDate, @exchangeDate)
+	FROM bodb02.dbo.Lrf_f_GetExchangeDaily(@exchangeDate, @exchangeDate)
 	WHERE exchangeid IN (SELECT currency from @tmpCurrency)
 
 	SELECT 

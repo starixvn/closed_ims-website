@@ -5,7 +5,7 @@ AS
 	/*  Created: Kevin
 		Date: 20130418
 		Task : Report - Licensee Settlement Report
-		DB: 
+		DB: DBLIC.bodb_Licensee
 		Revisions:  
 		Param's Explanation:  
 		  + @productId: 1 - sportbook, 2 - ;  

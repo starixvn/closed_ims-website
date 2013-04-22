@@ -8,7 +8,7 @@ AS
 	/*  Created: Kevin
 		Date: 20130418
 		Task : Report - Licensee Settlement Report
-		DB: 
+		DB: DBARC.bodb_Archive
 		Revisions:  
 		Param's Explanation:  	
 			+ @licenseeId:
