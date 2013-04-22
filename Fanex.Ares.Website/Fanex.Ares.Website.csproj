@@ -179,6 +179,8 @@
     <Compile Include="Areas\Report\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Report\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Report\ReportBookcAreaRegistration.cs" />
+    <Compile Include="Areas\UserControl\Area_Start\BundleConfig.cs" />
+    <Compile Include="Areas\UserControl\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserControl\Controllers\UserController.cs" />
     <Compile Include="Areas\UserControl\UserControlAreaRegistration.cs" />
     <Compile Include="Areas\UserLogin\Controllers\CommonController.cs" />
@@ -659,7 +661,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Report\Scripts\AdvancedMode\" />
-    <Folder Include="Areas\UserControl\Area_Start\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
