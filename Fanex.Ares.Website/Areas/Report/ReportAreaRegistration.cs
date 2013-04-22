@@ -4,7 +4,7 @@ using Fanex.Ares.Website.Areas.Report.Area_Start;
 
 namespace Fanex.Ares.Website.Areas.Report
 {
-    public class ReportBookcAreaRegistration : AreaRegistration
+    public class ReportAreaRegistration : AreaRegistration
     {
         public override string AreaName
         {

@@ -178,7 +178,7 @@
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
     <Compile Include="Areas\Report\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Report\Area_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Report\ReportBookcAreaRegistration.cs" />
+    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Areas\UserControl\Controllers\UserController.cs" />
     <Compile Include="Areas\UserControl\UserControlAreaRegistration.cs" />
     <Compile Include="Areas\UserLogin\Controllers\CommonController.cs" />
@@ -600,6 +600,7 @@
     <Content Include="Areas\Invoice\Views\TicketListing\LewisIndex.cshtml" />
     <Content Include="Areas\Invoice\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
@@ -659,6 +660,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Report\Scripts\AdvancedMode\" />
+    <Folder Include="Areas\Report\Views\LicenseeSettlement\Scripts\" />
+    <Folder Include="Areas\Report\Views\LicenseeSettlement\Styles\" />
     <Folder Include="Areas\UserControl\Area_Start\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
