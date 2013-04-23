@@ -3,7 +3,7 @@
 	@licenseeName VARCHAR(50),
 	@fromDate SMALLDATETIME,
 	@toDate SMALLDATETIME,
-	@product INT = 1,
+	@product INT = 0,
 	@currency INT = 0,
 	@moveBetsDay SMALLDATETIME
 AS
@@ -16,7 +16,7 @@ AS
 			+ @licenseeId:
 			+ @fromDate:
 			+ @toDate:
-			+ @product: 1 -> sportbook, 
+			+ @product: 0 -> sportbook, 
 			+ @currency:
 	*/  
 	SET NOCOUNT ON
@@ -57,7 +57,7 @@ AS
 	SELECT CustID, currency FROM Dep_CustSuper WITH (NOLOCK)  
 	WHERE  site = @licenseeName			  	
 
-	IF @product = 1  --sportbook										 
+	IF @product = 0  --sportbook										 
 	BEGIN  	   
 		INSERT  INTO @sporttype( sporttype)
 		VALUES  (0)						   
@@ -78,7 +78,7 @@ AS
 		ELSE												 
 			SET @TempFromDate = @FDate
 
-		IF @product = 1  --sportbook			
+		IF @product = 0  --sportbook			
 		BEGIN		
 			INSERT INTO #SAgWinLoss
 			SELECT   			   
@@ -113,7 +113,7 @@ AS
 			SET  @TempToDate = @TDate	  
 		
 		--exclude BA tickets
-		IF @product = 1  --sportbook	 
+		IF @product = 0  --sportbook	 
 		BEGIN				
 			INSERT INTO #SAgWinLoss   
 			SELECT 					
@@ -148,7 +148,7 @@ AS
 			SET  @TempToDate = @TDate
 	
 		--exclude BA tickets
-		IF @product = 1  --sportbook
+		IF @product = 0  --sportbook
 		BEGIN
 			INSERT INTO #SAgWinLoss  
 			SELECT 
