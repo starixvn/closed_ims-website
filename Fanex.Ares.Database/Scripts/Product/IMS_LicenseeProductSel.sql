@@ -13,13 +13,12 @@ AS
 
 	DECLARE @products AS TABLE (productid INT PRIMARY KEY, productname VARCHAR(50))
 
+	INSERT INTO @products(productid, productname)  VALUES(0, 'Sportsbook')
 	INSERT INTO @products(productid, productname)  
 		SELECT ld.Productid, p.ProductName FROM dbo.LicenseeProduct3rd ld WITH (NOLOCK)
 		LEFT JOIN dbo.Product3rd p
 		ON  ld.ProductID = p.Productid
-		WHERE ld.LicenseeID = 1
-		UNION SELECT 0, 'Sportsbook'	
-
+		WHERE ld.LicenseeID = @licenseeId
 	SELECT * FROM @products p ORDER BY p.productid
 
 GO
