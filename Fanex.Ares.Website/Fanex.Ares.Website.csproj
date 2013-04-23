@@ -178,7 +178,9 @@
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
     <Compile Include="Areas\Report\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Report\Area_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
+    <Compile Include="Areas\Report\ReportBookcAreaRegistration.cs" />
+    <Compile Include="Areas\UserControl\Area_Start\BundleConfig.cs" />
+    <Compile Include="Areas\UserControl\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserControl\Controllers\UserController.cs" />
     <Compile Include="Areas\UserControl\UserControlAreaRegistration.cs" />
     <Compile Include="Areas\UserLogin\Controllers\CommonController.cs" />
@@ -247,10 +249,24 @@
     <Content Include="Areas\UserLogin\Views\Common\Style\AccessDenied.css" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\accessDenied.gif" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\UnderMaintenance.gif" />
-    <Content Include="Content\base\img\dot-white.png" />
-    <Content Include="Content\base\img\icon-excel.gif" />
     <Content Include="Content\base\img\icons\appbar.clear.reflect.horizontal.white.png" />
-    <Content Include="Content\base\img\pointer.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_flat_60_4264ac_40x100.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_flat_75_5476bb_40x100.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_flat_90_466bb9_40x100.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_flat_90_aaaaaa_40x100.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_glass_45_f4f3f1_1x400.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_glass_55_f8da4e_1x400.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_gloss-wave_45_e14f1c_500x100.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_highlight-soft_90_999999_1x100.png" />
+    <Content Include="Content\base\jquery\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\base\jquery\images\ui-icons_4264ac_256x240.png" />
+    <Content Include="Content\base\jquery\images\ui-icons_c6cddc_256x240.png" />
+    <Content Include="Content\base\jquery\images\ui-icons_cbd4e6_256x240.png" />
+    <Content Include="Content\base\jquery\images\ui-icons_d0d9ec_256x240.png" />
+    <Content Include="Content\base\jquery\images\ui-icons_f7a50d_256x240.png" />
+    <Content Include="Content\base\jquery\images\ui-icons_fcd113_256x240.png" />
+    <Content Include="Content\base\jquery\jquery-ui-1.9.1.custom.css" />
+    <Content Include="Content\base\jquery\jquery-ui-1.9.1.custom.min.css" />
     <Content Include="Content\BetList.css" />
     <Content Include="Content\img\BetList.png" />
     <Content Include="Content\img\bgHeader.jpg" />
@@ -263,7 +279,6 @@
     <Content Include="Content\img\loader.gif" />
     <Content Include="Content\img\q_Icon2_1.png" />
     <Content Include="Content\img\q_Icon_2.png" />
-    <Content Include="Content\base\img\undo.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Common\Message.Validator.js" />
@@ -531,8 +546,6 @@
     <Content Include="Areas\Misc\Views\TicketListing\LewisIndex.cshtml" />
     <Content Include="Areas\Report\Styles\VoidSingleTicket.less" />
     <Content Include="Areas\Report\Views\_ViewStart.cshtml" />
-    <Content Include="Content\base\mixins.less" />
-    <Content Include="Content\base\report.less" />
     <Content Include="Content\bootstrap\accordion.less" />
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\bootstrap\bootstrap.less" />
@@ -600,7 +613,13 @@
     <Content Include="Areas\Invoice\Views\TicketListing\LewisIndex.cshtml" />
     <Content Include="Areas\Invoice\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
+
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
+    <None Include="Content\base\common.less" />
+    <None Include="Content\base\fonts.less" />
+    <None Include="Content\base\style.less" />
+    <None Include="Content\base\themes.less" />
+
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
@@ -651,7 +670,6 @@
     <Content Include="Content\base\colors.less" />
     <Content Include="Content\base\grid.less" />
     <Content Include="Content\base\jqueryuicustom.less" />
-    <Content Include="Content\base\styles.less" />
     <Content Include="Content\fonts\OpenSans.woff" />
     <None Include="Content\fonts\YanoneKaffeesatz.woff" />
     <Content Include="Views\Shared\_Menu.cshtml" />
@@ -660,9 +678,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Report\Scripts\AdvancedMode\" />
-    <Folder Include="Areas\Report\Views\LicenseeSettlement\Scripts\" />
-    <Folder Include="Areas\Report\Views\LicenseeSettlement\Styles\" />
-    <Folder Include="Areas\UserControl\Area_Start\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
