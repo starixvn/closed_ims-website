@@ -11,39 +11,42 @@
     <link rel="shortcut icon" href="~/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--[if lt IE 9]><script src="~/scripts/_libs/utils/html5shiv.min.js" type="text/javascript"></script><![endif]-->
-
-    <link href="~/content/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/content/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet"
+        type="text/css" />
     <link href="~/scripts/_libs/fanexgrid/fanex.grid.css" rel="stylesheet" type="text/css" />
     <link href="~/scripts/_libs/fanexgrid/fanex.pagination.css" rel="stylesheet" type="text/css" />
-    <link href="~/scripts/_Libs/Validation/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+    <link href="~/scripts/_Libs/Validation/validationEngine.jquery.css" rel="stylesheet"
+        type="text/css" />
     <link href="~/Content/BetList.css" rel="stylesheet" type="text/css" />
     <link href="~/Scripts/_Libs/FanexGrid/Fanex.Pagination.css" rel="stylesheet" type="text/css" />
-
-@RenderSection("Head", false)
-
-@if (IsSectionDefined("Styles"))
-{
-    @RenderSection("Styles")
-} else {
-    <link href="~/content/base/styles.less" rel="stylesheet" type="text/css" />
-}
+    @RenderSection("Head", false)
+    @if (IsSectionDefined("Styles"))
+    {
+        @RenderSection("Styles")
+    }
+    else
+    {
+        <link href="~/content/base/style.less" rel="stylesheet" type="text/css" />
+    }
 </head>
 <body>
     <header>
-        <a class="logo" href="~/?ref=logo"><span>INVOICE</span></a>
+        <div class="logo">
+            <a href="~/?ref=logo">&nbsp;</a>
+        </div>
         @Html.Action("_Menu", new RouteValueDictionary(new { controller = "Home", area = "" }))
         <div class="user-info">
-                Howdy,
-                <em>@HttpContext.Current.User.Identity.Name</em>
-                <i class="icon-chevron-down icon-white"></i>
-            <ul>
-                <li><a href="@Url.Action("UserProfile", "User", new { Area = "UserControl" })">
-                    <i class="icon-user icon-white"></i> &bull; @ViewResources.Profile</a></li>
-                <li><a href="@Url.Action("ChangePassword", "User", new { Area = "UserControl" })">
-                    <i class="icon-refresh icon-white"></i> &bull; @ViewResources.Change_Password</a></li>
-                <li><a href="@Url.Action("LogOut", "LogIn", new { Area = "UserLogin" })">
-                    <i class="icon-share icon-white"></i> &bull; @ViewResources.Sign_Out</a></li>
-            </ul>
+        <div class="greeting">
+                <h2>
+                    Howdy, <span class="info-acc">@HttpContext.Current.User.Identity.Name</span><span
+                        class="info-more"></span></h2>
+                <ul>
+                    <li>@Html.ActionLink(ViewResources.Profile, "UserProfile", "User", new { Area = "UserControl" }, new { })</li>
+                    <li>@Html.ActionLink(ViewResources.Change_Password, "ChangePassword", "User", new { Area = "UserControl" }, new { })</li>
+                    <li>@Html.ActionLink(ViewResources.Sign_Out, "LogOut", "Login", new { Area = "UserLogin" }, new { })</li>
+                </ul>
+            </div>
+              
         </div>
     </header>
     <section id="headline">
@@ -52,7 +55,7 @@
     <section id="body">
         @RenderBody()
     </section>
-
+    @*
     <div class="alert alert-success" id="msg-box" style="z-index: 9999;">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <div class="alert-content">
@@ -68,7 +71,7 @@
 
     <div class="loader">
         <img src="~/content/img/loader.gif" alt="loading..." />
-    </div>
+    </div>*@
 </body>
 </html>
 <script type="text/javascript">

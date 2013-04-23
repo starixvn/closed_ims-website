@@ -83,5 +83,19 @@
     <Build Include="Scripts\Licensee\IMS_LicenseeInfoSel.proc.sql">
       <SubType>Code</SubType>
     </Build>
+    <Build Include="Scripts\test.proc.sql">
+      <SubType>Code</SubType>
+    </Build>
+  </ItemGroup>
+  <ItemGroup>
+    <NotInBuild Include="Scripts\Licensee\IMS_LicenseeBillingInfoSel.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Exchange\IMS_ExchangeRateBillingSel.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Report\IMS_Rpt_LicenseeSettlement.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
   </ItemGroup>
 </Project>

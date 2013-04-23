@@ -73,6 +73,7 @@
     <Compile Include="Controllers\RecoverTicketController.cs" />
     <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
+    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
     <Compile Include="Criteria\GetOutrightLeagueCriteria.cs" />
     <Compile Include="Criteria\GetOutrightTeamCriteria.cs" />
     <Compile Include="Criteria\GetOutrightTicketCriteria.cs" />
@@ -106,9 +107,12 @@
     <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
     <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
     <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
+    <Compile Include="ViewModels\ExchangeRate.cs" />
+    <Compile Include="ViewModels\LicenseeInformation.cs" />
     <Compile Include="ViewModels\Outright\OutrightTicketModel.cs" />
     <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
+    <Compile Include="ViewModels\LicenseeSettlement\LicenseeSettlementModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
