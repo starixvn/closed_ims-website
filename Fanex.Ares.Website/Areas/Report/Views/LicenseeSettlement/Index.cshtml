@@ -3,6 +3,7 @@
 @using Fanex.Ares.Core.Services.Impl;
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
+    ViewBag.Title = "Licensee Settlement";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
@@ -13,34 +14,21 @@
 @section Headline {
     <div class="title">
         <div>
-            <span>@Labels.Special / </span><span class="curr">@ViewBag.Title</span>
+            <span>Report / </span><span class="curr">@ViewBag.Title </span>
         </div>
     </div>
 }
-<div id="filter-bar" style="width: 1260px;">
+<div id="filter-bar" class="filter-bar" style="width: 1260px;">
     <span id="notemessage" class="note-info-message" title=''></span>
     <div class="filter-form">
         <div class="filter-row">
             <div class="filter-cell">
                 <div class="lbl-field col_3 align-right">
-                    Search_by
-                </div>
-                <div id="searchBy" class="lbl-field col_8 align-left">
-                    <div class="col_3 alpha">
-                        <input type="radio" name="rdSearchBy" id="rdSearchByUser" checked="checked" class="rdSearchBy"
-                            value="0" />
-                        <label for="rdSearchByUser">
-                            User</label></div>
-                    <div class="col_4 omega">
-                        <input type="radio" name="rdSearchBy" id="rdSearchByLeague" class="rdSearchBy" value="1" />
-                        <label for="rdSearchByLeague">
-                            League</label></div>
-                </div>
-                <div class="lbl-field col_3 align-right">
-                    Top_rows
+                    Licensee
                 </div>
                 <div class="col_7">
-                    <input id="txtTopRows" type="text" maxlength="4" />
+                    <select id="ddlLicensee" class="alpha">
+                    </select>
                 </div>
                 <div class="lbl-field col_3 align-right">
                     Order_by
@@ -140,6 +128,20 @@
                     </select>
                 </div>
             </div>
+            <div class="lbl-field col_3 align-right">
+                    Exchange
+                </div>
+                <div id="searchBy" class="lbl-field col_8 align-left">
+                    <div class="col_3 alpha">
+                        <input type="radio" name="rdSearchBy" id="rdSearchByUser" checked="checked" class="rdSearchBy"
+                            value="0" />
+                        <label for="rdSearchByUser">
+                            User</label></div>
+                    <div class="col_4 omega">
+                        <input type="radio" name="rdSearchBy" id="rdSearchByLeague" class="rdSearchBy" value="1" />
+                        <label for="rdSearchByLeague">
+                            League</label></div>
+                </div>
         </div>
         <div id="filterByUser">
             <div class="filter-row">
@@ -200,7 +202,7 @@
     </div>
 </div>
 <div id="parentContainer" class="content-grid">
-    /
+    
 </div>
 @*@{
     var noteMessage = Html.Raw(SpecialResource.PunterAnalysis_FilterNote);

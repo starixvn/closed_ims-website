@@ -16,7 +16,7 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
     /// TODO: Update summary.
     /// </summary>
     [Serializable]
-    public class SportBookModel
+    public class LicenseeSettlementModel
     {
         public LicenseeInformation LicenseeInfor { get; set; }
 
@@ -24,7 +24,7 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
 
         public List<ExchangeRate> ExchangeList { get; set; }
 
-        public SportBookModel()
+        public LicenseeSettlementModel()
         {
             ExchangeList = new List<ExchangeRate>();
 

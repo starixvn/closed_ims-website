@@ -113,7 +113,7 @@
     <Compile Include="ViewModels\Outright\OutrightTicketModel.cs" />
     <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
-    <Compile Include="ViewModels\SportBook\SportBookModel.cs" />
+    <Compile Include="ViewModels\LicenseeSettlement\LicenseeSettlementModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
