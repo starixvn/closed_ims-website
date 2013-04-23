@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Ares.Report.ViewModels.SportBook
+namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 {
     using System;
     using System.Collections.Generic;
