@@ -88,7 +88,7 @@ AS
 				SUM(b.winlost - b.actual_stake) AS Winlost,
 				SUM(PlayerComm) as PlayerComm,
 				SUM(b.awinlost - b.actual_stake) AS LicenseeWL,				
-				- SUM(b.comm) AS LicenseeComm,
+				SUM(b.comm) AS LicenseeComm,
 				- SUM(b.awinlost + b.winlost - b.actual_stake) AS Company, 
 				COUNT(b.transid) AS BetCount	  
 			FROM 			
@@ -123,7 +123,7 @@ AS
 				SUM(b.winlost),    
 				SUM(b.playercomm ) as PlayerComm,
 				SUM(CASE WHEN b.sporttype = 0  THEN b.awinlost ELSE 0 END) AS LicenseeWL,				
-				- SUM(b.comm) as LicenseeComm,
+				SUM(b.comm) as LicenseeComm,
 				- SUM(CASE WHEN b.sporttype = 0 THEN b.awinlost + b.winlost ELSE 0 END)  as Company,	  
 				SUM(b.betcount)	
 			FROM 				
@@ -158,7 +158,7 @@ AS
 				SUM(b.winlost),  																							
 				SUM ( playercomm) as PlayerComm,
 				SUM(CASE WHEN b.sporttype = 0  THEN b.awinlost ELSE 0 END) AS LicenseeWL,
-				- SUM(b.comm) as LicenseeComm,
+				SUM(b.comm) as LicenseeComm,
 				- SUM(CASE WHEN b.sporttype = 0 THEN b.awinlost + b.winlost ELSE 0 END) AS Company,
 				SUM(b.betcount)				
 			FROM 
