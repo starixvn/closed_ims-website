@@ -69,11 +69,11 @@ namespace Fanex.Ares.Report.Controllers
             return Json(rs);
         }
 
-        public ActionResult PrintInvoice(int numericRows)
+        public ActionResult PrintInvoice()
         {
             var model = new LicenseeSettlementModel();
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "InvoiceDetail", model, numericRows);
+            return this.ViewPdf("", "LicenseeSettlement", model, model.Report.EntityList.Count + 1);
         }
 
 

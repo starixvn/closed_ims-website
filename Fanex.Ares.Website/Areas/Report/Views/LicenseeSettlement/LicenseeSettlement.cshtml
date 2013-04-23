@@ -1,5 +1,9 @@
 ﻿@using Fanex.Ares.Report.ViewModels.SportBook;
-
+@using Fanex.Ares.Report.ViewModels;
+@{
+    LicenseeSettlementModel licensee = new LicenseeSettlementModel();
+    licensee = Model;
+}
 <table>
     <tr>
         <td>
@@ -17,7 +21,7 @@
             SETTLEMENT REPORT
         </td>
         <td align="left" width="100" style="text-align: left; font-size: 8px; line-height: 200%;"">
-            31/Mar/13
+             @licensee.LicenseeInfor.SettlementDate.ToShortDateString()
         </td>
         <td align="left" width="80">
         </td>
@@ -35,7 +39,7 @@
             1st Billing:
         </td>
         <td align="left" width="400" style="text-align: left; font-size: 8px; line-height: 80%;">
-            Jun-12
+            @licensee.LicenseeInfor.BillingDate.ToShortDateString()
         </td>
     </tr>
     <tr>
@@ -47,7 +51,7 @@
             Basics of Billing:
         </td>
         <td align="left" width="400" style="text-align: left; font-size: 8px; line-height: 80%;">
-            15% of Net Win
+             @licensee.LicenseeInfor.BasicBilling
         </td>
     </tr>
     <tr>
@@ -59,7 +63,7 @@
             Minimum Fees:
         </td>
         <td align="left" width="400" style="text-align: left; font-size: 8px;">
-            EUR15000 (minimum fees waived 3 mos from date of launch 08Jun2012)
+            @licensee.LicenseeInfor.MinimumFees
         </td>
     </tr>
     <tr>
@@ -71,7 +75,7 @@
             Head of Terms:
         </td>
         <td align="left" width="400" style="text-align: left; font-size: 8px; line-height: 80%;">
-            8-Jun-12
+             @licensee.LicenseeInfor.HeadOfTermDate.ToShortDateString()
         </td>
     </tr>
 </table>
@@ -137,44 +141,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int i = 0; i < 9; i++)
+                    @for (int i = 0; i < licensee.Report.EntityList.Count; i++)
                     {
+                        ReportEntity report = new ReportEntity();
+                        report = licensee.Report.EntityList[i];
                         <tr border="0.1"  style="font-size: 7px;">
                             <td width="40" style="text-align: center; font-size: 7px; line-height: 90%;">
-                                31-Mar-13
+                               @report.Date.ToShortDateString()
                             </td>
                             <td width="40" style="text-align: center; font-size: 7px; line-height: 90%;">
-                                AUD
+                                @report.CurrencyName
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                38,487,789,23
+                                @report.Turnover
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                87,253.25
+                               @report.TotalTrans
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                38,487,789,23
+                                @report.MemberWinloss
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                87,253.25
+                               @report.MemberComm
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                38,487,789,23
+                                @report.MemberTotal
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                38,487,789,23
+                                @report.LicenseeWinloss
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                0.888
+                               @report.LicenseeComm
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                38,487,789,23
+                                @report.LicenseeTotal
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                38,487,789,23
+                                @report.Company
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px;line-height: 90%;">
-                                38,487,789,23
+                                @report.Total
                             </td>
                         </tr>
                     }
@@ -213,7 +219,7 @@
                                 
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px;">
-                                 38,487,789,23
+                                 @licensee.Report.GrandTotal
                             </td>
                         </tr>
                     
@@ -247,17 +253,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (int i = 0; i < 9; i++)
+                    @for (int i = 0; i < licensee.ExchangeList.Count; i++)
                     {
+                        ExchangeRate exchange = new ExchangeRate();
+                        exchange = licensee.ExchangeList[i];
                         <tr border="0.1" style="font-size: 7px;">
                             <td border="0" width="40" style="text-align: center; font-size: 7px; line-height: 90%;">
-                                AUD
+                                @exchange.CurrencyName
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                0.88899
+                                 @exchange.CurrencyPerUnit
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                1.15993
+                                 @exchange.UnitsPerCurrency
                             </td>
                         </tr>
                        
