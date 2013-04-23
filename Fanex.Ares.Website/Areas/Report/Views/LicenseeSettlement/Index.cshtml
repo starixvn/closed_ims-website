@@ -1,20 +1,22 @@
 ﻿@using Fanex.Ares.Core.Resources;
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
+@using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+@model IMS_Rpt_LicenseeSettlementCriteria
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
-    ViewBag.Title = "Licensee Settlement";
+    ViewBag.Title = "Licensee Settlement Report for Sportbook";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
-    @Styles.Render("~/scripts/_libs/MultipleSelect/style")
+    @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
-     @*<link rel="stylesheet" type="text/css" href="~/Areas/Special/Views/PunterAnalysis/Styles/PunterAnalysis.less">*@
+    @*<link rel="stylesheet" type="text/css" href="~/Areas/Special/Views/PunterAnalysis/Styles/PunterAnalysis.less">*@
 }
 @section Headline {
     <div class="title">
         <div>
-            <span>Report / </span><span class="curr">@ViewBag.Title </span>
+            <span>Invoice System / </span><span class="curr">@ViewBag.Title </span>
         </div>
     </div>
 }
@@ -26,186 +28,44 @@
                 <div class="lbl-field col_3 align-right">
                     Licensee
                 </div>
-                <div class="col_7">
-                    <select id="ddlLicensee" class="alpha">
-                    </select>
+                <div class="edit-field col_6 align-left">
+                    @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new { @class = "alpha auto-width" })
                 </div>
-                <div class="lbl-field col_3 align-right">
-                    Order_by
-                </div>
-                <div class="edit-field col_4 align-left">
-                    <select id="ddlOrderType" class="alpha">
-                        <option value="1">Win_Loss</option>
-                        <option value="2">Turnover</option>
-                        <option value="3">Margin</option>
-                    </select>
-                </div>
-                <div class="edit-field col_4 align-left">
-                    <select id="ddlOrderDirection" class="alpha">
-                        <option value="1">Descending</option>
-                        <option value="0">Ascending</option>
-                    </select>
+                <div id="datepickerplugin" class="lbl-field col_27 align-right">
                 </div>
             </div>
         </div>
         <div class="filter-row">
             <div class="lbl-field col_3 align-right">
-                Period_type
+                Product
             </div>
-            <div class="edit-field col_8 align-left">
-                <select id="ddlPeriodType" class="alpha">
-                    <option value="0">Daily</option>
-                    <option value="1">Weekly</option>
-                    <option value="2">Monthly</option>
-                    <option value="3">Annualy</option>
-                    <option value="4">Month_Range</option>
-                </select>
-            </div>
-            <div id="dailyCalendarContainer" class="col_21">
-                <div id="dailyCalendar" class="lbl-field">
-                </div>
-            </div>
-            <div id="weeklyCalendarContainer" class="col_21 display-none">
-                <div class="lbl-field col_3 align-right alpha">
-                    From_Date
-                </div>
-                <div class="edit-field col_7 align-left">
-                    <input id="fromWeek" type="text" readonly="readonly" class="weekpicker ui_nexdatepicker_datetextbox ui_nexdatepicker_fromdate hasDatepicker" />
-                </div>
-                <div class="lbl-field col_3 align-right">
-                    To_Date
-                </div>
-                <div class="edit-field col_7 align-left omega">
-                    <input id="toWeek" type="text" readonly="readonly" class="weekpicker lfloat txtdate" />
-                </div>
-            </div>
-            <div id="monthlyCalendarContainer" class="col_21 display-none">
-                <div class="lbl-field col_3 align-right alpha">
-                    @Labels.Month
-                </div>
-                <div class="edit-field col_3 align-left width-auto">
-                    <select id="ddlMonth_MonthlyPicker">
-                    </select>
-                </div>
-                <div class="lbl-field col_2 align-right">
-                    Year
-                </div>
-                <div class="edit-field col_5 align-left omega">
-                    <select id="ddlYear_MonthlyPicker">
-                    </select>
-                </div>
-            </div>
-            <div id="annualyCalendarContainer" class="col_21 display-none">
-                <div class="lbl-field col_3 align-right alpha">
-                    Year
-                </div>
-                <div class="edit-field col_5 align-left omega">
-                    <select id="ddlYear_AnnualyPicker">
-                    </select>
-                </div>
-            </div>
-            <div id="monthRangeCalendarContainer" class="col_21 display-none">
-                <div class="lbl-field col_3 align-right alpha">
-                    @Labels.From
-                </div>
-                <div class="edit-field col_3 align-left width-auto">
-                    <select id="ddlFromMonth_MonthRangePicker">
-                    </select>
-                </div>
-                <div class="edit-field col_5 align-left omega">
-                    <select id="ddlFromYear_MonthRangePicker">
-                    </select>
-                </div>
-                <div class="lbl-field col_3 align-right alpha">
-                    @Labels.To
-                </div>
-                <div class="edit-field col_3 align-left width-auto">
-                    <select id="ddlToMonth_MonthRangePicker">
-                    </select>
-                </div>
-                <div class="edit-field col_5 align-left omega">
-                    <select id="ddlToYear_MonthRangePicker">
-                    </select>
-                </div>
+            <div class="edit-field col_6 align-left">
+                @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
             </div>
             <div class="lbl-field col_3 align-right">
-                    Exchange
-                </div>
-                <div id="searchBy" class="lbl-field col_8 align-left">
-                    <div class="col_3 alpha">
-                        <input type="radio" name="rdSearchBy" id="rdSearchByUser" checked="checked" class="rdSearchBy"
-                            value="0" />
-                        <label for="rdSearchByUser">
-                            User</label></div>
-                    <div class="col_4 omega">
-                        <input type="radio" name="rdSearchBy" id="rdSearchByLeague" class="rdSearchBy" value="1" />
-                        <label for="rdSearchByLeague">
-                            League</label></div>
-                </div>
-        </div>
-        <div id="filterByUser">
-            <div class="filter-row">
-                <div class="lbl-field col_3 align-right">
-                    @Labels.Username
-                </div>
-                <div class="col_8">
-                    <input id="txtUserName" type="text" maxlength="50" />
-                </div>
-                <div class="lbl-field col_3 align-right">
-                    @Labels.Product
-                </div>
-                <div class="edit-field  col_7 align-left ddlProductContainer">
-                    <select id="ddlProduct">
-                    </select>
-                </div>
-                <div class="lbl-field col_3 align-right">
-                    @Labels.Sport
-                </div>
-                <div class="edit-field  col_7 align-left">
-                    <select id="ddlSport">
-                    </select>
-                </div>
+                Currency
             </div>
-        </div>
-        <div id="filterByLeague" class="display-none">
-            <div class="filter-row">
-                <div class="lbl-field col_3 align-right">
-                    @Labels.Sport
-                </div>
-                <div class="edit-field  col_8 align-left">
-                    <select id="ddlSport_ByLeague">
-                    </select>
-                </div>
-                <div class="lbl-field col_3 align-right">
-                    @Labels.League
-                </div>
-                <div class="edit-field  col_7 align-left">
-                    <select id="ddlLeague_ByLeague">
-                    </select>
-                </div>
+            <div class="edit-field col_6 align-left">
+                @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
             </div>
-            <div class="filter-row">
-                <div class="lbl-field col_3 align-right">
-                    @Labels.Bet_Type
-                </div>
-                <div class="edit-field  col_8 align-left">
-                    <select id="ddlBetType_ByLeague">
-                    </select>
-                </div>
+            <div class="lbl-field col_3 align-right">
+                Exchange
             </div>
-        </div>
-        <div class="filter-row">
-            <div class="submit col_4 prefix_3">
+            <div class="edit-field col_6 align-left">
+                @Html.DropDownListFor(m => m.ExchangeCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
+            </div>
+            <div class="lbl-field col_3 align-right">
+                
+            </div>
+            <div class="submit col_6">
                 <input id="btnGenerate" name="btnGenerate" type="submit" value="GENERATE" />
             </div>
         </div>
     </div>
 </div>
 <div id="parentContainer" class="content-grid">
-    
 </div>
-@*@{
-    var noteMessage = Html.Raw(SpecialResource.PunterAnalysis_FilterNote);
+@{
     var minDateDaily = DateTime.Now.AddDays(-1).AddMonths(-3);
     var minDateWeekly = DateTime.Now.AddDays(-1).AddMonths(-3);
 }
@@ -221,12 +81,12 @@
         var minDateDaily = '1/1/2007';
         var minDateWeekly = '1/1/2007';
         var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
-        var noteMessage = '@noteMessage';
     </script>
 }
 @section Foot {
-    @Scripts.Render("~/scripts/_lib/multiselect", "~/scripts/_lib/nexDatePicker")
-    <script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
+    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker")
+    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js"></script>
+    @*<script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/MultipleSelect/jquery.multiselect.nlevel.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/Utils/jquery.fixBugsBrowser.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/DatePicker/jquery.nexDatePicker.js"></script>
@@ -247,5 +107,5 @@
     <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCount_ByLeague_SportType.js"></script>
     <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCount_ByLeague_BetType.js"></script>
     <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunter_ByLeague_BetType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/ReportManager.js"></script>
-}*@
+    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/ReportManager.js"></script>*@
+}
