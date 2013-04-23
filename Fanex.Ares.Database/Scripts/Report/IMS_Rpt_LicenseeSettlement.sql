@@ -5,6 +5,7 @@
 	@toDate SMALLDATETIME,
 	@product INT = 0,
 	@currency INT = 0,
+	@baseCurrency INT = 0,
 	@moveBetsDay SMALLDATETIME
 AS
 	/*  Created: Kevin
@@ -190,10 +191,15 @@ AS
 	   SUM(LicenseeWL)	AS LicenseeWL,		   
 	   SUM(LicenseeComm)AS LicenseeComm,	
 	   SUM(Company)		AS Company,	
-	   --BaseUSD  				
-	   CAST(SUM(Company * e.USD) AS MONEY) AS CompanyUSD,	  
-		--BaseEUR  				
-	   CAST(SUM(Company * e.EUR) AS MONEY) AS CompanyEUR	  
+	   --Base currency
+	   (	   
+	   CASE WHEN(@baseCurrency = 6)			
+	   THEN
+			CAST(SUM(Company * e.EUR) AS MONEY)     
+	   ELSE
+			CAST(SUM(Company * e.USD) AS MONEY)     
+	   END				
+	   ) AS CompanyBaseCurrency
 	FROM													  
 		#SAgWinLoss w   									  
 		INNER JOIN  #TempExchange e							  
