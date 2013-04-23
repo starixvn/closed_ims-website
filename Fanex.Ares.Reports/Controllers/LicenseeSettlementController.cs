@@ -21,6 +21,7 @@ using Fanex.NAP.Core.Business;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using System.Collections.Generic;
 using PdfHelper;
+using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 
 namespace Fanex.Ares.Report.Controllers
 {

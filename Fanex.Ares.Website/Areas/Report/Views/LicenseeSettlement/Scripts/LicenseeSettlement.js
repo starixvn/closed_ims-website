@@ -2,6 +2,7 @@
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {
+        $(this).width($('#dropDownListId').width() + 2);
     });
 });
 

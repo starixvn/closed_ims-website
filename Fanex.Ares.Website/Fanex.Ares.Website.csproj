@@ -615,6 +615,7 @@
     <Content Include="Areas\Invoice\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\LicenseeSettlement.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
