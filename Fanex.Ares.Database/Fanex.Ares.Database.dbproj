@@ -66,6 +66,7 @@
     <Folder Include="Properties\" />
     <Folder Include="Scripts\Exchange" />
     <Folder Include="Scripts\Licensee" />
+    <Folder Include="Scripts\Product" />
   </ItemGroup>
   <ItemGroup>
     <PropertiesFile Include="Properties\Database.sqlsettings">
@@ -92,6 +93,12 @@
       <SubType>NotInBuild</SubType>
     </NotInBuild>
     <NotInBuild Include="Scripts\Report\IMS_Rpt_LicenseeSettlement.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Product\IMS_LicenseeProductSel.sql">
+      <SubType>NotInBuild</SubType>
+    </NotInBuild>
+    <NotInBuild Include="Scripts\Licensee\IMS_LicenseeSel.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
   </ItemGroup>
