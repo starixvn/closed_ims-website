@@ -18,6 +18,8 @@ using Fanex.Ares.Report.Services.Implement;
 using Fanex.Ares.Report.Services.Interface;
 using Fanex.NAP.Core.Web.Attribute;
 using Fanex.NAP.Core.Business;
+using PdfHelper;
+using Fanex.Ares.Report.ViewModels.SportBook;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -25,10 +27,25 @@ namespace Fanex.Ares.Report.Controllers
     public class LicenseeSettlementController : BaseController
     {
         IRecoverTicketService _service;
-
+         private readonly HtmlViewRenderer htmlViewRenderer;
+        private readonly StandardPdfRenderer standardPdfRenderer;
         public LicenseeSettlementController()
         {
             _service = new RecoverTicketService();
+            this.htmlViewRenderer = new HtmlViewRenderer();
+            this.standardPdfRenderer = new StandardPdfRenderer();
+        }
+
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
+        {
+            // Render the view html to a string.
+            string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
+
+            // Let the html be rendered into a PDF document through iTextSharp.
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows);
+
+            // Return the PDF as a binary stream to the client.
+            return new BinaryContentResult(buffer, "application/pdf");
         }
 
         //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
@@ -51,6 +68,14 @@ namespace Fanex.Ares.Report.Controllers
 
             return Json(rs);
         }
+
+        public ActionResult PrintInvoice(int numericRows)
+        {
+            var model = new LicenseeSettlementModel();
+            //FillImageUrl(customerList, "report.jpg");
+            return this.ViewPdf("", "InvoiceDetail", model, numericRows);
+        }
+
 
         //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Host)]
         //[HttpPost]
