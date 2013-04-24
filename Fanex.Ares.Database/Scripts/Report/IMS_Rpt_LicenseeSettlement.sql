@@ -3,8 +3,9 @@
 	@licenseeName VARCHAR(50),
 	@fromDate SMALLDATETIME,
 	@toDate SMALLDATETIME,
-	@product INT = 1,
+	@product INT = 0,
 	@currency INT = 0,
+	@baseCurrency INT = 0,
 	@moveBetsDay SMALLDATETIME
 AS
 	/*  Created: Kevin
@@ -16,7 +17,7 @@ AS
 			+ @licenseeId:
 			+ @fromDate:
 			+ @toDate:
-			+ @product: 1 -> sportbook, 
+			+ @product: 0 -> sportbook, 
 			+ @currency:
 	*/  
 	SET NOCOUNT ON
@@ -57,7 +58,7 @@ AS
 	SELECT CustID, currency FROM Dep_CustSuper WITH (NOLOCK)  
 	WHERE  site = @licenseeName			  	
 
-	IF @product = 1  --sportbook										 
+	IF @product = 0  --sportbook										 
 	BEGIN  	   
 		INSERT  INTO @sporttype( sporttype)
 		VALUES  (0)						   
@@ -78,7 +79,7 @@ AS
 		ELSE												 
 			SET @TempFromDate = @FDate
 
-		IF @product = 1  --sportbook			
+		IF @product = 0  --sportbook			
 		BEGIN		
 			INSERT INTO #SAgWinLoss
 			SELECT   			   
@@ -113,7 +114,7 @@ AS
 			SET  @TempToDate = @TDate	  
 		
 		--exclude BA tickets
-		IF @product = 1  --sportbook	 
+		IF @product = 0  --sportbook	 
 		BEGIN				
 			INSERT INTO #SAgWinLoss   
 			SELECT 					
@@ -148,7 +149,7 @@ AS
 			SET  @TempToDate = @TDate
 	
 		--exclude BA tickets
-		IF @product = 1  --sportbook
+		IF @product = 0  --sportbook
 		BEGIN
 			INSERT INTO #SAgWinLoss  
 			SELECT 
@@ -190,10 +191,15 @@ AS
 	   SUM(LicenseeWL)	AS LicenseeWL,		   
 	   SUM(LicenseeComm)AS LicenseeComm,	
 	   SUM(Company)		AS Company,	
-	   --BaseUSD  				
-	   CAST(SUM(Company * e.USD) AS MONEY) AS CompanyUSD,	  
-		--BaseEUR  				
-	   CAST(SUM(Company * e.EUR) AS MONEY) AS CompanyEUR	  
+	   --Base currency
+	   (	   
+	   CASE WHEN(@baseCurrency = 6)			
+	   THEN
+			CAST(SUM(Company * e.EUR) AS MONEY)     
+	   ELSE
+			CAST(SUM(Company * e.USD) AS MONEY)     
+	   END				
+	   ) AS CompanyBaseCurrency
 	FROM													  
 		#SAgWinLoss w   									  
 		INNER JOIN  #TempExchange e							  
