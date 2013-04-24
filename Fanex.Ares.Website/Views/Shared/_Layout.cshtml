@@ -79,4 +79,5 @@
     window.rootWebPath = '@(Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath)';
 </script>
 @Scripts.Render("~/scripts/common")
+@RenderSection("Scripts", false)
 @RenderSection("Foot", false)

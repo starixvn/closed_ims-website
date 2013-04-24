@@ -23,12 +23,14 @@ namespace Fanex.Ares.Report.ViewModels
 
         public string LicenseeName { get; set; }
 
-        public DateTime BillingDate { get; set; }
+        public string ProductName { get; set; }
 
-        public string BasicBilling { get; set; }
+        public DateTime FirstBilling { get; set; }
+
+        public string BasisOfBilling { get; set; }
 
         public string MinimumFees { get; set; }
 
-        public DateTime HeadOfTermDate { get; set; }
+        public DateTime HeadOfTerms { get; set; }
     }
 }

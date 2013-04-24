@@ -24,7 +24,7 @@ namespace Fanex.Ares.Core.Extensions
         public const int FONT_WIDTH = 30;
         public const int FONT_SIZE = 160;
         private const string FONT_NAME = "Tahoma";
-        private const string NEGATIVE_NUMBER = "#,##0{0}_);[RED]-#,##0{1}";
+        private const string NEGATIVE_NUMBER = "#,##0{0}_);[RED](#,##0{1})";
         private const string NORMAL_NUMBER_FORMAT = "#,##0{0}_);-#,##0{1}";
         private const string POSITIVE_NUMBER_FORMAT = "[RED][>=0.1]#,##0{0}_);-#,##0{1}";
 

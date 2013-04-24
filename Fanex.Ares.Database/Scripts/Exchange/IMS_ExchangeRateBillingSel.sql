@@ -1,15 +1,17 @@
 ﻿CREATE PROCEDURE [dbo].[IMS_ExchangeRateBillingSel]
 	@currency VARCHAR(500) = '',
-	@exchangeDate DATETIME
+	@exchangeDate DATETIME,
+	@baseCurrencyId INT	= 6
 AS
 	/*  Created: Kevin
 		Date: 20130418
 		Task : Report - Licensee Settlement Report
-		DB: DBLIC.bodb_Licensee
+		DB: DB052.bodb02
 		Revisions:  
 		Param's Explanation:  	
 			+ @currency: currency id list
-			+ @exchangeDate: 
+			+ @exchangeDate:
+			+ @baseCurrencyId 
 	*/  
 	SET NOCOUNT ON
 
@@ -26,15 +28,24 @@ AS
 	SELECT 
 		e.exchangeid AS Currency, 
 		e.Code AS  CurrencyName, 
-		e.EUR AS EURPerUnit,
-		(1/e.EUR) AS UnitsPerEUR,
-		e.USD AS USDPerUnit,
-		(1/e.USD) AS UnitsPerUSD
+		(CASE WHEN(@baseCurrencyId = 6)
+		THEN
+			e.EUR
+		ELSE
+			e.USD
+		END) AS BasePerUnit,
+		1/
+		(CASE WHEN(@baseCurrencyId = 6)
+		THEN
+			e.EUR
+		ELSE
+			e.USD
+		END) AS UnitsPerBase	 
 	FROM #TempExchange e	 
 
 	DROP TABLE #TempExchange
 
 GO
 GRANT EXECUTE ON [dbo].[IMS_ExchangeRateBillingSel] TO [bodbAdminNet]
-GO
-GRANT VIEW DEFINITION ON [dbo].[IMS_ExchangeRateBillingSel] TO [vnteam] 
+--GO
+--GRANT VIEW DEFINITION ON [dbo].[IMS_ExchangeRateBillingSel] TO [vnteam] 

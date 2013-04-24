@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Ares.Report.ViewModels.SportBook
+namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 {
     using System;
     using System.Collections.Generic;
@@ -27,46 +27,48 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
         public LicenseeSettlementModel()
         {
             ExchangeList = new List<ExchangeRate>();
-
+            Report = new Report();
             for (int i = 0; i < 10; i++)
             {
                 ExchangeList.Add(new ExchangeRate{
-                CurrencyID = i,
+                Currency = i,
                 CurrencyName = "AUD",
-                CurrencyPerUnit = 0.81340,
-                UnitsPerCurrency = 1.22941
+                BasePerUnit = 0.81340,
+                UnitsPerBase = 1.22941
                 });
             }
 
+            
             Report.GrandTotal = 23406.55;
 
             for (int i = 0; i < 10; i++)
             {
                 Report.EntityList.Add(new ReportEntity
                 {
-                    Date = new DateTime(2013, 4, 18),
-                    CurrencyID = i,
+                    WinlostDate = new DateTime(2013, 4, 18),
+                    Currency = i,
                     CurrencyName = "AUD",
                     Turnover = 38891725.25,
-                    TotalTrans = 412365.25,
+                    Betcount = 412365.25,
                     MemberWinloss = 1963456.98,
                     MemberComm = 0,
                     MemberTotal = 1963456.98,
-                    LicenseeWinloss = 4123697.88,
+                    LicenseeWL = 4123697.88,
                     LicenseeComm = 0,
                     LicenseeTotal = 4123697.88,
                     Company = 5613565.59,
-                    Total = 5613565.59
+                    CompanyBaseCurrency = 5613565.59
                 });
             }
 
+            this.LicenseeInfor = new LicenseeInformation();
             LicenseeInfor.SettlementDate = new DateTime(2013, 4,10);
             LicenseeInfor.LicenseeID = 8;
             LicenseeInfor.LicenseeName = "Macaubet";
-            LicenseeInfor.BillingDate = new DateTime(2013, 4, 15);
-            LicenseeInfor.BasicBilling = "15% of Net Win";
+            LicenseeInfor.FirstBilling = new DateTime(2013, 4, 15);
+            LicenseeInfor.BasisOfBilling = "15% of Net Win";
             LicenseeInfor.MinimumFees = "EUR15000 (minimum fees waived 3 mos from date of launch 08Jun2012)";
-            LicenseeInfor.HeadOfTermDate = new DateTime(2013, 3, 10);
+            LicenseeInfor.HeadOfTerms = new DateTime(2013, 3, 10);
         }
     }
 
@@ -86,15 +88,15 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
     [Serializable]
     public class ReportEntity
     {
-        public DateTime Date { get; set; }
+        public DateTime WinlostDate { get; set; }
 
-        public int CurrencyID { get; set; }
+        public int Currency { get; set; }
 
         public string CurrencyName { get; set; }
 
         public double Turnover { get; set; }
 
-        public double TotalTrans { get; set; }
+        public double Betcount { get; set; }
 
         public double MemberWinloss { get; set; }
 
@@ -102,7 +104,7 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
 
         public double MemberTotal { get; set; }
 
-        public double LicenseeWinloss { get; set; }
+        public double LicenseeWL { get; set; }
 
         public double LicenseeComm { get; set; }
 
@@ -110,6 +112,6 @@ namespace Fanex.Ares.Report.ViewModels.SportBook
 
         public double Company { get; set; }
 
-        public double Total { get; set; } 
+        public double CompanyBaseCurrency { get; set; } 
     }
 }

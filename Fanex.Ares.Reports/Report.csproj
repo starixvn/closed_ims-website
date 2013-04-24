@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ExcelUtil, Version=29.3.0.1000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\_Dependency\ExcelUtil.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.BetList.Core, Version=1.0.4827.30669, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.dll</HintPath>
@@ -38,6 +41,10 @@
     <Reference Include="Fanex.BetList.Core.TicketHelper, Version=1.0.4827.30670, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.TicketHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.Common">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Common.dll</HintPath>
@@ -59,6 +66,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing" />
@@ -69,16 +77,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\LicenseeSettlementController.cs" />
     <Compile Include="Controllers\VoidOutrightTicketController.cs" />
     <Compile Include="Controllers\RecoverTicketController.cs" />
     <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
-    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
     <Compile Include="Criteria\GetOutrightLeagueCriteria.cs" />
     <Compile Include="Criteria\GetOutrightTeamCriteria.cs" />
     <Compile Include="Criteria\GetOutrightTicketCriteria.cs" />
     <Compile Include="Criteria\GetParlaySubTicketCriteria.cs" />
     <Compile Include="Criteria\GetRecoverTicketCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeCurrencySelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeProductSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Criteria\RecoverTicketCriteria.cs" />
     <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
     <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
@@ -99,10 +113,12 @@
     <Compile Include="Repositories\Interface\IVoidOutrightTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
+    <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
     <Compile Include="Services\Implement\RecoverTicketService.cs" />
     <Compile Include="Services\Implement\VoidOutrightTicketService.cs" />
     <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
     <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
+    <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />
     <Compile Include="Services\Interface\IRecoverTicketService.cs" />
     <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
     <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
@@ -118,6 +134,14 @@
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
+      <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
+      <Name>PdfHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resource\Resources.csproj">
+      <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
+      <Name>Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

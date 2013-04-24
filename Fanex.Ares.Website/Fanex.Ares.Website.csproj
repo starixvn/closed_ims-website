@@ -16,6 +16,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
+    <JSLintSkip>
+    </JSLintSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -226,6 +228,9 @@
     <Content Include="Areas\Report\Scripts\VoidSingleTicket\VoidSingleTicket.js" />
     <Content Include="Areas\Report\Scripts\VoidSingleTicket\VoidSingleTicketHelper.js" />
     <Content Include="Areas\Report\Scripts\VoidSingleTicket\VoidSingleTicketManager.js" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
@@ -329,9 +334,13 @@
     <Content Include="Scripts\_Libs\FanexGrid\images\icn_del.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\icn_edit.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\icon_page.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\page_white_edit.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\pdf.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\print.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\refresh_icon.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\report_check.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\send-mail.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\send.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\seperations.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\setting.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\sort-icon-new.png" />
@@ -613,13 +622,12 @@
     <Content Include="Areas\Invoice\Views\TicketListing\LewisIndex.cshtml" />
     <Content Include="Areas\Invoice\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
-
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\LicenseeSettlement.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
     <None Include="Content\base\themes.less" />
-
     <None Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />

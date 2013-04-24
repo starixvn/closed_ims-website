@@ -1,0 +1,303 @@
+﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+@using Fanex.Ares.Report.ViewModels;
+@{
+    LicenseeSettlementModel licensee = new LicenseeSettlementModel();
+    licensee = Model;
+}
+<table>
+    <tr>
+        <td>
+            <span class="titleBold">INTERNAL WORKSHEET
+                FOR SETTLEMENT </span>
+            <br />
+            <span class="titleSub">Finance Department </span>
+        </td>
+    </tr>
+</table>
+
+<table width="100%" cellpadding="3" cellspacing="3">
+    <tr>
+        <td class="cellInfo lineHeight200 col120" >
+            SETTLEMENT REPORT
+        </td>
+        <td class="cellInfo lineHeight200 col100">
+             @licensee.LicenseeInfor.SettlementDate.ToShortDateString()
+        </td>
+        <td class="col80" align="left">
+        </td>
+        <td class="col400" align="left">
+        </td>
+    </tr>
+    <tr>
+        <td  class="cellInfo lineHeight80 col120" >
+            LICENSEE: @licensee.LicenseeInfor.LicenseeName
+        </td>
+        <td  class="cellInfo lineHeight80 col100">
+            @licensee.LicenseeInfor.ProductName
+        </td>
+        <td  class="cellInfo lineHeight80 col80">
+            1st Billing:
+        </td>
+        <td  class="cellInfo lineHeight80 col400">
+            @licensee.LicenseeInfor.FirstBilling.ToShortDateString()
+        </td>
+    </tr>
+    <tr>
+        <td class="col120">
+        </td>
+        <td class="col100">
+        </td>
+        <td class="cellInfo lineHeight80 col80">
+            Basics of Billing:
+        </td>
+        <td class="cellInfo lineHeight80 col400">
+             @licensee.LicenseeInfor.BasisOfBilling
+        </td>
+    </tr>
+    <tr>
+        <td class="col120">
+        </td>
+        <td class="col100">
+        </td>
+        <td class="cellInfo lineHeight200 col80">
+             Minimum Fees:
+        </td>
+        <td class="cellInfo lineHeight200 col400">
+            @licensee.LicenseeInfor.MinimumFees
+        </td>
+    </tr>
+     <tr>
+        <td class="col120">
+        </td>
+        <td class="col100">
+        </td>
+        <td class="cellInfo lineHeight80 col80">
+              Head of Terms:
+        </td>
+        <td class="cellInfo lineHeight80 col400">
+             @licensee.LicenseeInfor.HeadOfTerms.ToShortDateString()
+        </td>
+    </tr>
+</table>
+<br />
+
+
+<table>
+    <tr>
+        <td class="col650">
+            <table class="col650" align="left" cellpadding="3" cellspacing="3">
+                <thead>
+                    <tr class="colborder01" >
+                        <th colspan="4" class="headerReport">
+                        </th>
+                        <th colspan="3" class="headerReport">
+                            Member
+                        </th>
+                        <th colspan="3" class="headerReport">
+                            Macuabet
+                        </th>
+                        <th class="headerReport">
+                        </th>
+                        <th class="headerReport">
+                        </th>
+                    </tr>
+                    <tr  class="colborder01">
+                        <th class="headerReport">
+                            Date
+                        </th>
+                        <th class="headerReport">
+                            Currency
+                        </th>
+                        <th class="headerReport">
+                            TurnOver
+                        </th>
+                        <th class="headerReport">
+                            trans
+                        </th>
+                        <th class="headerReport">
+                            Winloss
+                        </th>
+                        <th class="headerReport">
+                            Comm
+                        </th>
+                        <th class="headerReport">
+                            Total
+                        </th>
+                        <th class="headerReport">
+                            Winloss
+                        </th>
+                        <th class="headerReport">
+                            Comm
+                        </th>
+                        <th class="headerReport">
+                            Total
+                        </th>
+                        <th class="headerReport">
+                            Company
+                        </th>
+                        <th class="headerReport">
+                            @ViewBag.BaseCurrency
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < licensee.Report.EntityList.Count; i++)
+                    {
+                        ReportEntity report = new ReportEntity();
+                        report = licensee.Report.EntityList[i];
+                        <tr class="colborder01">
+                            <td class="cellstyle col40 aligncenter">
+                               @report.WinlostDate.ToShortDateString()
+                            </td>
+                            <td class="cellstyle col40 aligncenter">
+                                @report.CurrencyName
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @report.Turnover
+                            </td>
+                            <td class="cellstyle col40 alignright">
+                               @report.Betcount
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @report.MemberWinloss
+                            </td>
+                            <td class="cellstyle col40 alignright" >
+                               @report.MemberComm
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @report.MemberTotal
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @report.LicenseeWL
+                            </td>
+                            <td class="cellstyle col40 alignright">
+                               @report.LicenseeComm
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @report.LicenseeTotal
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @report.Company
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @report.CompanyBaseCurrency
+                            </td>
+                        </tr>
+                    }
+                     <tr class="colborder0">
+                            <td class="cellstyle col40">
+                             
+                            </td>
+                            <td class="cellstyle col40">
+                                
+                            </td>
+                            <td class="cellstyle col65">
+                               
+                            </td>
+                            <td class="cellstyle col40">
+                               
+                            </td>
+                            <td class="cellstyle col65">
+                               
+                            </td>
+                            <td class="cellstyle col40" >
+                             
+                            </td>
+                            <td class="cellstyle col65">
+                              
+                            </td>
+                            <td class="cellstyle col65">
+                               
+                            </td>
+                            <td class="cellstyle col40">
+                              
+                            </td>
+                            <td class="cellstyle col65">
+                               
+                            </td>
+                            <td class="cellstyle col65">
+                                
+                            </td>
+                            <td class="cellstyle col65 alignright">
+                                @licensee.Report.GrandTotal
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+        <td class="col140">
+            <table class="col140" align="left" cellpadding="3" cellspacing="3">
+                <thead>
+                  <tr>
+                        <th class="colborder0">
+                        </th>
+                        <th colspan="2" class="headerReport colborder01">
+                                Forex 31/Mar/13
+                        </th>
+                    </tr>
+                    <tr class="colborder01">
+                        <th class="colborder0 col30">
+                        </th>
+                        <th class="headerReport colborder01 col50">
+                            @ViewBag.BaseCurrency/ 1Unit
+                        </th>
+                        <th class="headerReport colborder01 col60">
+                            Units/ 1 @ViewBag.BaseCurrency
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < licensee.ExchangeList.Count; i++)
+                        {
+                            ExchangeRate exchange = new ExchangeRate();
+                            exchange = licensee.ExchangeList[i];
+                        <tr class="colborder01">
+                            <td class="cellstyle col30 colborder0 alignright" >
+                                @exchange.CurrencyName
+                            </td>
+                            <td class="cellstyle alignright col50" >
+                                 @exchange.BasePerUnit
+                            </td>
+                            <td class="cellstyle alignright col200"  >
+                                 @exchange.UnitsPerBase
+                            </td>
+                        </tr>
+                       
+                        }
+                       <tr class="colborder0">
+                            <td class="cellstyle col30 colborder0">
+                                
+                            </td>
+                            <td class="cellstyle col50">
+                               
+                            </td>
+                            <td class="cellstyle col60" >
+                                &nbsp;
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table width="100%">
+<tr>
+    <td  class="cellInfo col10percent">
+    IDR & VND * 
+    </td>
+    <td class="cellInfo">
+     Amount in IDR is stated in '000, when converted to @ViewBag.BaseCurrency Equv, x 1000
+    </td>
+</tr>
+<tr>
+    <td  class="cellInfo lineHeight80 col10percent">
+    FOREX
+    </td>
+    <td class="cellInfo lineHeight80">
+     www.oanda.com provided minor difference between "@ViewBag.BaseCurrency / 1Unit" vs "Units/ 1 @ViewBag.BaseCurrency", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency" to prevail all
+    </td>
+</tr>
+</table>
+
+

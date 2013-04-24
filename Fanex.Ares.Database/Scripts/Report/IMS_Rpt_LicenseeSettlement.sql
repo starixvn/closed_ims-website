@@ -3,20 +3,20 @@
 	@licenseeName VARCHAR(50),
 	@fromDate SMALLDATETIME,
 	@toDate SMALLDATETIME,
-	@product INT = 1,
+	@product INT = 0,
 	@currency INT = 0,
-	@moveBetsDay SMALLDATETIME
+	@baseCurrency INT = 0
 AS
 	/*  Created: Kevin
 		Date: 20130418
 		Task : Report - Licensee Settlement Report
-		DB: DBARC.bodb_Archive
+		DB: DB052.bodb02
 		Revisions:  
 		Param's Explanation:  	
 			+ @licenseeId:
 			+ @fromDate:
 			+ @toDate:
-			+ @product: 1 -> sportbook, 
+			+ @product: 0 -> sportbook, 
 			+ @currency:
 	*/  
 	SET NOCOUNT ON
@@ -30,7 +30,9 @@ AS
 	DECLARE @tempAg	TABLE( custID INT,currency INT) 
 	DECLARE @VNDCurrencyName VARCHAR(20)			
 	DECLARE @bettype AS TABLE (bettype INT PRIMARY KEY)
-	DECLARE @sporttype TABLE(sporttype INT)						
+	DECLARE @sporttype TABLE(sporttype INT)		
+	DECLARE @moveBetsDay SMALLDATETIME
+	SELECT @moveBetsDay = MAX(m.eventdate) FROM DB053.bodb02.dbo.match14 m WITH(NOLOCK)  			 
 
 	CREATE TABLE #SAgWinLoss  (  	
 		winlostdate		DATETIME,
@@ -57,7 +59,7 @@ AS
 	SELECT CustID, currency FROM Dep_CustSuper WITH (NOLOCK)  
 	WHERE  site = @licenseeName			  	
 
-	IF @product = 1  --sportbook										 
+	IF @product = 0  --sportbook										 
 	BEGIN  	   
 		INSERT  INTO @sporttype( sporttype)
 		VALUES  (0)						   
@@ -78,7 +80,7 @@ AS
 		ELSE												 
 			SET @TempFromDate = @FDate
 
-		IF @product = 1  --sportbook			
+		IF @product = 0  --sportbook			
 		BEGIN		
 			INSERT INTO #SAgWinLoss
 			SELECT   			   
@@ -87,9 +89,9 @@ AS
 				SUM(stake) turnover, 
 				SUM(b.winlost - b.actual_stake) AS Winlost,
 				SUM(PlayerComm) as PlayerComm,
-				SUM(b.awinlost - b.actual_stake) AS LicenseeWL,				
-				SUM(b.comm) AS LicenseeComm,
-				- SUM(b.awinlost + b.winlost - b.actual_stake) AS Company, 
+				SUM(b.awinlost) AS LicenseeWL,				
+				SUM(b.comm - playercomm) AS LicenseeComm,
+				- SUM(b.awinlost + b.winlost - b.actual_stake + b.comm) AS Company, 
 				COUNT(b.transid) AS BetCount	  
 			FROM 			
 				Bettrans b WITH (NOLOCK,INDEX=IX_srecommend)
@@ -113,7 +115,7 @@ AS
 			SET  @TempToDate = @TDate	  
 		
 		--exclude BA tickets
-		IF @product = 1  --sportbook	 
+		IF @product = 0  --sportbook	 
 		BEGIN				
 			INSERT INTO #SAgWinLoss   
 			SELECT 					
@@ -148,7 +150,7 @@ AS
 			SET  @TempToDate = @TDate
 	
 		--exclude BA tickets
-		IF @product = 1  --sportbook
+		IF @product = 0  --sportbook
 		BEGIN
 			INSERT INTO #SAgWinLoss  
 			SELECT 
@@ -190,10 +192,15 @@ AS
 	   SUM(LicenseeWL)	AS LicenseeWL,		   
 	   SUM(LicenseeComm)AS LicenseeComm,	
 	   SUM(Company)		AS Company,	
-	   --BaseUSD  				
-	   CAST(SUM(Company * e.USD) AS MONEY) AS CompanyUSD,	  
-		--BaseEUR  				
-	   CAST(SUM(Company * e.EUR) AS MONEY) AS CompanyEUR	  
+	   --Base currency
+	   (	   
+	   CASE WHEN(@baseCurrency = 6)			
+	   THEN
+			CAST(SUM(Company * e.EUR) AS MONEY)     
+	   ELSE
+			CAST(SUM(Company * e.USD) AS MONEY)     
+	   END				
+	   ) AS CompanyBaseCurrency
 	FROM													  
 		#SAgWinLoss w   									  
 		INNER JOIN  #TempExchange e							  
@@ -209,5 +216,5 @@ AS
 
 GO
 GRANT EXECUTE ON [dbo].[IMS_Rpt_LicenseeSettlement] TO [bodbAdminNet]
-GO
-GRANT VIEW DEFINITION ON [dbo].[IMS_Rpt_LicenseeSettlement] TO [vnteam] 
+--GO
+--GRANT VIEW DEFINITION ON [dbo].[IMS_Rpt_LicenseeSettlement] TO [vnteam] 
