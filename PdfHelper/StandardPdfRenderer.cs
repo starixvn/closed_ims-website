@@ -14,6 +14,8 @@ namespace PdfHelper
     using System.Collections.Generic;
     using System;
     using iTextSharp.text.html;
+    using Sanjeet.Demos.CSSParser;
+    using System.Web;
 
     /// <summary>
     /// This class is responsible for rendering a html text string to a PDF document using the html renderer of iTextSharp.
@@ -40,6 +42,17 @@ namespace PdfHelper
                     pdfDocument.Open();
 
                     StyleSheet styles = new StyleSheet();
+
+                    IContainer container1 = GetContainer();
+
+                    var properties = container1.GetProperties("lineHeight200");
+
+                    foreach (var property in properties)
+                    {
+                        var test = property.Key + " : " + property.Value;
+                    }
+                    
+
 
                     styles.LoadStyle("titleBold", "size", "13pt");
                     styles.LoadStyle("titleBold", "align", "left");
@@ -190,6 +203,15 @@ namespace PdfHelper
 
                 stamper.Close();
             }
+        }
+
+
+        private  IContainer GetContainer()
+        {
+
+            var stylePath = HttpContext.Current.Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+
+            return new DefaultContainer(stylePath);
         }
 
     }
