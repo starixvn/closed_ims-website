@@ -5,8 +5,7 @@
 	@toDate SMALLDATETIME,
 	@product INT = 0,
 	@currency INT = 0,
-	@baseCurrency INT = 0,
-	@moveBetsDay SMALLDATETIME
+	@baseCurrency INT = 0
 AS
 	/*  Created: Kevin
 		Date: 20130418
@@ -31,7 +30,9 @@ AS
 	DECLARE @tempAg	TABLE( custID INT,currency INT) 
 	DECLARE @VNDCurrencyName VARCHAR(20)			
 	DECLARE @bettype AS TABLE (bettype INT PRIMARY KEY)
-	DECLARE @sporttype TABLE(sporttype INT)						
+	DECLARE @sporttype TABLE(sporttype INT)		
+	DECLARE @moveBetsDay SMALLDATETIME
+	SELECT @moveBetsDay = MAX(m.eventdate) FROM DB053.bodb02.dbo.match14 m WITH(NOLOCK)  			 
 
 	CREATE TABLE #SAgWinLoss  (  	
 		winlostdate		DATETIME,
@@ -88,9 +89,9 @@ AS
 				SUM(stake) turnover, 
 				SUM(b.winlost - b.actual_stake) AS Winlost,
 				SUM(PlayerComm) as PlayerComm,
-				SUM(b.awinlost - b.actual_stake) AS LicenseeWL,				
-				SUM(b.comm) AS LicenseeComm,
-				- SUM(b.awinlost + b.winlost - b.actual_stake) AS Company, 
+				SUM(b.awinlost) AS LicenseeWL,				
+				SUM(b.comm - playercomm) AS LicenseeComm,
+				- SUM(b.awinlost + b.winlost - b.actual_stake + b.comm) AS Company, 
 				COUNT(b.transid) AS BetCount	  
 			FROM 			
 				Bettrans b WITH (NOLOCK,INDEX=IX_srecommend)
