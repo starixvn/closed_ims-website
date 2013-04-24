@@ -11,7 +11,7 @@ AS
 	/*  Created: Kevin
 		Date: 20130418
 		Task : Report - Licensee Settlement Report
-		DB: DBARC.bodb_Archive
+		DB: DB052.bodb02
 		Revisions:  
 		Param's Explanation:  	
 			+ @licenseeId:
@@ -215,5 +215,5 @@ AS
 
 GO
 GRANT EXECUTE ON [dbo].[IMS_Rpt_LicenseeSettlement] TO [bodbAdminNet]
-GO
-GRANT VIEW DEFINITION ON [dbo].[IMS_Rpt_LicenseeSettlement] TO [vnteam] 
+--GO
+--GRANT VIEW DEFINITION ON [dbo].[IMS_Rpt_LicenseeSettlement] TO [vnteam] 
