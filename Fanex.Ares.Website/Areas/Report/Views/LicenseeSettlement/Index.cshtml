@@ -53,7 +53,7 @@
                     Exchange
                 </div>
                 <div class="edit-field col_6 align-left">
-                    @Html.DropDownListFor(m => m.ExchangeCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
+                    @Html.DropDownListFor(m => m.BaseCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
                 </div>
                 <div class="lbl-field col_3 align-right">
                 </div>
@@ -70,9 +70,9 @@
         aaaaaaaaaaaaaaaaaa
     </div>
     <div class="grid-toolbox">
-        <input class="btnPDF" type="button" name="btnPDF" value="" title="PDF" />
-        <input class="btnPrint" type="button" name="btnPrint" value="" title="Print" />
-        <input class="btnExcel" type="button" name="btnExcel" value="" title="Excel" id="btnExcel" />
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF" />
+        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />
+        <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
     </div>
 </div>
 <div id="parentContainer" class="content-grid">

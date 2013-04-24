@@ -30,16 +30,16 @@
     </tr>
     <tr>
         <td  class="cellInfo lineHeight80 col120" >
-            LICENSEE: Macaubet
+            LICENSEE: @licensee.LicenseeInfor.LicenseeName
         </td>
         <td  class="cellInfo lineHeight80 col100">
-            SPORTBOOK
+            @licensee.LicenseeInfor.ProductName
         </td>
         <td  class="cellInfo lineHeight80 col80">
             1st Billing:
         </td>
         <td  class="cellInfo lineHeight80 col400">
-            @licensee.LicenseeInfor.BillingDate.ToShortDateString()
+            @licensee.LicenseeInfor.FirstBilling.ToShortDateString()
         </td>
     </tr>
     <tr>
@@ -51,7 +51,7 @@
             Basics of Billing:
         </td>
         <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.BasicBilling
+             @licensee.LicenseeInfor.BasisOfBilling
         </td>
     </tr>
     <tr>
@@ -75,7 +75,7 @@
               Head of Terms:
         </td>
         <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.HeadOfTermDate.ToShortDateString()
+             @licensee.LicenseeInfor.HeadOfTerms.ToShortDateString()
         </td>
     </tr>
 </table>
@@ -136,7 +136,7 @@
                             Company
                         </th>
                         <th class="headerReport">
-                            EUR
+                            @ViewBag.BaseCurrency
                         </th>
                     </tr>
                 </thead>
@@ -147,7 +147,7 @@
                         report = licensee.Report.EntityList[i];
                         <tr class="colborder01">
                             <td class="cellstyle col40 aligncenter">
-                               @report.Date.ToShortDateString()
+                               @report.WinlostDate.ToShortDateString()
                             </td>
                             <td class="cellstyle col40 aligncenter">
                                 @report.CurrencyName
@@ -156,7 +156,7 @@
                                 @report.Turnover
                             </td>
                             <td class="cellstyle col40 alignright">
-                               @report.TotalTrans
+                               @report.Betcount
                             </td>
                             <td class="cellstyle col65 alignright">
                                 @report.MemberWinloss
@@ -168,7 +168,7 @@
                                 @report.MemberTotal
                             </td>
                             <td class="cellstyle col65 alignright">
-                                @report.LicenseeWinloss
+                                @report.LicenseeWL
                             </td>
                             <td class="cellstyle col40 alignright">
                                @report.LicenseeComm
@@ -180,7 +180,7 @@
                                 @report.Company
                             </td>
                             <td class="cellstyle col65 alignright">
-                                @report.Total
+                                @report.CompanyBaseCurrency
                             </td>
                         </tr>
                     }
@@ -239,10 +239,10 @@
                         <th class="colborder0 col30">
                         </th>
                         <th class="headerReport colborder01 col50">
-                            EUR/ 1Unit
+                            @ViewBag.BaseCurrency/ 1Unit
                         </th>
                         <th class="headerReport colborder01 col60">
-                            Units/ 1EUR
+                            Units/ 1 @ViewBag.BaseCurrency
                         </th>
                     </tr>
                 </thead>
@@ -256,10 +256,10 @@
                                 @exchange.CurrencyName
                             </td>
                             <td class="cellstyle alignright col50" >
-                                 @exchange.CurrencyPerUnit
+                                 @exchange.BasePerUnit
                             </td>
                             <td class="cellstyle alignright col200"  >
-                                 @exchange.UnitsPerCurrency
+                                 @exchange.UnitsPerBase
                             </td>
                         </tr>
                        
@@ -287,7 +287,7 @@
     IDR & VND * 
     </td>
     <td class="cellInfo">
-     Amount in IDR is stated in '000, when converted to EUR Equv, x 1000
+     Amount in IDR is stated in '000, when converted to @ViewBag.BaseCurrency Equv, x 1000
     </td>
 </tr>
 <tr>
@@ -295,7 +295,7 @@
     FOREX
     </td>
     <td class="cellInfo lineHeight80">
-     www.oanda.com provided minor difference between "EUR/ 1Unit" vs "Units/ 1EUR", we standardize the use of "Units/ 1EUR" to prevail all
+     www.oanda.com provided minor difference between "@ViewBag.BaseCurrency / 1Unit" vs "Units/ 1 @ViewBag.BaseCurrency", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency" to prevail all
     </td>
 </tr>
 </table>

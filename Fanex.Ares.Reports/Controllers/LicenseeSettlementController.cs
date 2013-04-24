@@ -22,6 +22,9 @@ using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using System.Collections.Generic;
 using PdfHelper;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+using System.Linq;
+using System;
+using Fanex.Ares.Report.ViewModels;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -29,13 +32,36 @@ namespace Fanex.Ares.Report.Controllers
     public class LicenseeSettlementController : BaseController
     {
         ILicenseeSettlementService _service;
-         private readonly HtmlViewRenderer htmlViewRenderer;
+        private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
         public LicenseeSettlementController()
         {
             _service = new LicenseeSettlementService();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
+        }
+        //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
+        public ActionResult Index()
+        {
+            ViewBag.ListLicensee = _service.GetAllLicensees();
+            var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
+            ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
+            var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();
+            listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
+            ViewBag.ListCurrency = listCurrency;
+            var listExchangeRate = new List<SelectListItem>();
+            listExchangeRate.Add(new SelectListItem() { Selected = true, Text = "EUR", Value = "6" });
+            listExchangeRate.Add(new SelectListItem() { Selected = false, Text = "USD", Value = "3" });
+            ViewBag.ListExchangeRate = listExchangeRate;
+
+            return View();
+        }
+
+        public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        {
+            var model = GenerateReport(criteria);
+            ViewBag.BaseCurrency = criteria.BaseCurrency == 3 ? "USD" : "EUR";
+            return PartialView("LicenseeSettlement", model);
         }
 
         protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
@@ -50,36 +76,82 @@ namespace Fanex.Ares.Report.Controllers
             return new BinaryContentResult(buffer, "application/pdf");
         }
 
-        //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
-        public ActionResult Index()
+        public ActionResult PrintInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
-            ViewBag.ListLicensee = _service.GetAllLicensees();
-            var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
-            ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
-            var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID });
-            listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
-            ViewBag.ListCurrency = listCurrency;
-            var listExchangeRate = new List<SelectListItem>();
-            listExchangeRate.Add(new SelectListItem() { Selected = true, Text = "EUR", Value = "6" });
-            listExchangeRate.Add(new SelectListItem() { Selected = false, Text = "USD", Value = "3" });
-            ViewBag.ListExchangeRate = listExchangeRate;
-
-            return View();
-        }
-
-        public ActionResult PrintInvoice()
-        {
+            //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", "LicenseeSettlement", model, model.Report.EntityList.Count + 1);
         }
 
-        public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria) 
         {
-            
+            // Licensee Information
+            var listLicensee = _service.GetAllLicensees();
+            var listProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
+            var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
             var model = new LicenseeSettlementModel();
+            var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
+            licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
+            licenseeInfoCriteria.ProductId = criteria.Product;
+            model.LicenseeInfor = _service.GetLicenseeInformation(licenseeInfoCriteria);
+            model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
+            model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItem>().Text;
+            model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
+            model.LicenseeInfor.SettlementDate = DateTime.Now;
 
-            return PartialView("LicenseeSettlement", model);
+            // Licensee Report
+            var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            reportCriteria.LicenseeId = criteria.LicenseeId;
+            reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
+            reportCriteria.Product = criteria.Product;
+            reportCriteria.Currency = criteria.Currency;
+            reportCriteria.BaseCurrency = criteria.BaseCurrency;
+            reportCriteria.FromDate = criteria.FromDate;
+            reportCriteria.ToDate = criteria.ToDate;
+
+            model.Report = _service.GetLicenseeReport(reportCriteria);
+
+            // Exchange Rate
+            var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
+            model.ExchangeList = new List<ViewModels.ExchangeRate>();
+            var exchangeRatecurrencies = string.Empty;
+            foreach (ReportEntity item in model.Report.EntityList)
+            {
+                // Calculate membertotal = memberwinloss + membercomm
+                item.MemberTotal = item.MemberWinloss + item.MemberComm;
+
+                // Calculate licenseetotal = licenseewinloss + licenseecomm
+                item.LicenseeTotal = item.LicenseeWL + item.LicenseeComm;
+
+                if (criteria.Currency == 0) // All Currency
+                {
+                    if (!exchangeRatecurrencies.Contains(item.Currency.ToString()))
+                    {
+                        exchangeRatecurrencies += item.Currency.ToString() + ",";
+                    }
+                }
+                else // Single currency
+                {
+                    exchangeRatecurrencies = item.Currency.ToString();
+                }
+            }
+
+            exchangeRatecurrencies.Trim(',');
+
+            exchangeRateCriteria.Currency = exchangeRatecurrencies;
+            exchangeRateCriteria.ExchangeDate = criteria.ToDate;
+            exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
+
+            var exchangeList = _service.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
+
+            model.ExchangeList = (from Item1 in model.Report.EntityList
+                                  join Item2 in exchangeList
+                                  on Item1.CurrencyName equals Item2.CurrencyName
+                                  select Item2)
+                                  .ToList();
+
+            return model;
         }
 
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
