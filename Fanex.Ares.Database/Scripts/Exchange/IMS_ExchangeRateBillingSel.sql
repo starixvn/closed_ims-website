@@ -6,7 +6,7 @@ AS
 	/*  Created: Kevin
 		Date: 20130418
 		Task : Report - Licensee Settlement Report
-		DB: DBLIC.bodb_Licensee
+		DB: DB052.bodb02
 		Revisions:  
 		Param's Explanation:  	
 			+ @currency: currency id list
@@ -47,5 +47,5 @@ AS
 
 GO
 GRANT EXECUTE ON [dbo].[IMS_ExchangeRateBillingSel] TO [bodbAdminNet]
-GO
-GRANT VIEW DEFINITION ON [dbo].[IMS_ExchangeRateBillingSel] TO [vnteam] 
+--GO
+--GRANT VIEW DEFINITION ON [dbo].[IMS_ExchangeRateBillingSel] TO [vnteam] 

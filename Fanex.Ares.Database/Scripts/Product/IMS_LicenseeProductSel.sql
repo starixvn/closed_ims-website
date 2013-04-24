@@ -23,5 +23,5 @@ AS
 
 GO
 GRANT EXECUTE ON [dbo].[IMS_LicenseeProductSel] TO [bodbAdminNet]
-GO
-GRANT VIEW DEFINITION ON [dbo].[IMS_LicenseeProductSel] TO [vnteam] 
+--GO
+--GRANT VIEW DEFINITION ON [dbo].[IMS_LicenseeProductSel] TO [vnteam] 
