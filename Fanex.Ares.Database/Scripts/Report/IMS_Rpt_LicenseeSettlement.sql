@@ -5,8 +5,7 @@
 	@toDate SMALLDATETIME,
 	@product INT = 0,
 	@currency INT = 0,
-	@baseCurrency INT = 0,
-	@moveBetsDay SMALLDATETIME
+	@baseCurrency INT = 0
 AS
 	/*  Created: Kevin
 		Date: 20130418
@@ -31,7 +30,9 @@ AS
 	DECLARE @tempAg	TABLE( custID INT,currency INT) 
 	DECLARE @VNDCurrencyName VARCHAR(20)			
 	DECLARE @bettype AS TABLE (bettype INT PRIMARY KEY)
-	DECLARE @sporttype TABLE(sporttype INT)						
+	DECLARE @sporttype TABLE(sporttype INT)		
+	DECLARE @moveBetsDay SMALLDATETIME
+	SELECT @moveBetsDay = MAX(m.eventdate) FROM DB053.bodb02.dbo.match14 m WITH(NOLOCK)  			 
 
 	CREATE TABLE #SAgWinLoss  (  	
 		winlostdate		DATETIME,

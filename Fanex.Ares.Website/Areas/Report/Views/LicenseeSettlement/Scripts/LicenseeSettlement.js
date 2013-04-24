@@ -7,6 +7,7 @@
 
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { Submit(); });
+    $('#btnExcel').click(function () { exportReportToExcel(); });
 });
 
 var renderDatePicker = function () {
@@ -59,4 +60,16 @@ function Submit() {
         complete: function (jqXHR, textStatus) {
         }
     });
+}
+
+function exportReportToExcel() {
+    var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#ExchangeCurrency :selected').text() + '&product=' + $('#Product :selected').text();
+
+    var iframe = $('body iframe');
+    if (iframe.length == 0) {
+        iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+        iframe.appendTo('body');
+    }
+
+    iframe.attr('src', url);
 }
