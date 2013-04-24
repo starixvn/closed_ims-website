@@ -123,6 +123,42 @@
     background: url("images/collapse-icon.png") 0px -1px;
 }
 
+.grid-title .btnPDF
+{
+    background: url("images/pdf.png") 0px 0px no-repeat;
+    border: 0 solid red;
+    cursor: pointer;
+    font-size: 11px;
+    height: 17px;
+    margin: 0 2px;
+    overflow: visible;
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 18px;
+}
+.grid-title .btnPDF:hover
+{
+    background: url("images/pdf.png") 0px 0px no-repeat;
+}
+
+.grid-title .btnPrint
+{
+    background: url("images/print.png") 0px 0px no-repeat;
+    border: 0 solid red;
+    cursor: pointer;
+    font-size: 11px;
+    height: 17px;
+    margin: 0 2px;
+    overflow: visible;
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 18px;
+}
+.grid-title .btnPrint:hover
+{
+    background: url("images/print.png") 0px 0px no-repeat;
+}
+
 .grid-title
 {
     border: solid 1px #d2b24d;

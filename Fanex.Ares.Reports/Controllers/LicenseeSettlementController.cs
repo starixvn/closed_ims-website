@@ -74,21 +74,12 @@ namespace Fanex.Ares.Report.Controllers
             return this.ViewPdf("", "LicenseeSettlement", model, model.Report.EntityList.Count + 1);
         }
 
+        public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        {
+            
+            var model = new LicenseeSettlementModel();
 
-        //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Host)]
-        //[HttpPost]
-        //public JsonResult RecoverTicket(RecoverTicketCriteria criteria)
-        //{
-        //    criteria.UserId = CurrentSession.UserId;
-        //    criteria.Ip = Helper.GetClientIP();
-        //    criteria.ErrCode = 0;
-        //    criteria.ErrMsg = string.Empty;
-
-        //    criteria.Msg.CreatorId = criteria.UserId;
-        //    criteria.Msg.CreatorName = CurrentSession.Username;
-
-        //    var rs = _service.RecoverTicket(criteria);
-        //    return Json(rs);
-        //}
+            return PartialView("LicenseeSettlement", model);
+        }
     }
 }
