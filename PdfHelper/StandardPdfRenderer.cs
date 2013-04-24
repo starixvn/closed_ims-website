@@ -27,6 +27,8 @@ namespace PdfHelper
         {
             byte[] renderedBuffer;
 
+
+
             using (var outputMemoryStream = new MemoryStream())
             {
                 //using (var pdfDocument = new Document(PageSize.A4, HorizontalMargin, HorizontalMargin, VerticalMargin, VerticalMargin))
@@ -36,8 +38,68 @@ namespace PdfHelper
                     pdfWriter.CloseStream = false;
                     pdfWriter.PageEvent = new PrintHeaderFooter { Title = pageTitle };
                     pdfDocument.Open();
+
+                    StyleSheet styles = new StyleSheet();
+
+                    styles.LoadStyle("titleBold", "size", "13pt");
+                    styles.LoadStyle("titleBold", "align", "left");
+                    styles.LoadStyle("titleBold", "font-weight", "1000");
+
+                    styles.LoadStyle("titleSub", "size", "11pt");
+                    styles.LoadStyle("titleSub", "align", "left");
+
+                    styles.LoadStyle("cellInfo", "size", "8pt");
+                    styles.LoadStyle("cellInfo", "align", "left");
+
+                    styles.LoadStyle("lineHeight200", "style", "line-height: 200%");
+                    styles.LoadStyle("lineHeight80", "style", "line-height: 80%");
+
+                
+
+                    styles.LoadStyle("headerReport", "size", "7pt");
+                    styles.LoadStyle("headerReport", "align", "center");
+                    styles.LoadStyle("headerReport", "style", "line-height: 100%");
+                    styles.LoadStyle("headerReport", "color", "#ffffff");
+                    styles.LoadStyle("headerReport", "bgcolor", "#618ADA");
+
+
+                    styles.LoadStyle("cellstyle", "size", "7pt");
+                    styles.LoadStyle("cellstyle", "style", "line-height: 100%");
+                    styles.LoadStyle("cellstyle", "valign", "middle");
+
+                    styles.LoadStyle("aligncenter", "align", "center");
+                    styles.LoadStyle("alignright", "align", "right");
+                    styles.LoadStyle("alignleft", "align", "left");
+
+                    styles.LoadStyle("col60", "width", "60");
+                    styles.LoadStyle("col30", "width", "30");
+                    styles.LoadStyle("col200", "width", "200");
+
+                    styles.LoadStyle("col65", "width", "65");
+                    styles.LoadStyle("col40", "width", "40");
+                    styles.LoadStyle("col650", "width", "650");
+
+                    styles.LoadStyle("col120", "width", "120");
+                    styles.LoadStyle("col100", "width", "100");
+                    styles.LoadStyle("col80", "width", "80");
+                    styles.LoadStyle("col400", "width", "400");
+                    styles.LoadStyle("col140", "width", "140");
+                    styles.LoadStyle("col50", "width", "50");
+
+                    styles.LoadStyle("col10percent", "width", "10%");
+
+                    styles.LoadStyle("colborder0", "border", "0");
+                    styles.LoadStyle("colborder01", "border", "0.1");
+                    
+                    //styles.LoadTagStyle("th", "size", "10pt");
+                    //styles.LoadStyle("colorcell", "color", "#ffffff");
+                    //styles.LoadStyle("colorcell", "bgcolor", "#618ADA");  
+
+//                        styles.LoadTagStyle("p", "size", "10pt");
+//styles.LoadTagStyle("p", "color", "#0000ff");   
+
                     PdfContentByte cb = pdfWriter.DirectContent;
-                    List<IElement> htmlElements = HTMLWorker.ParseToList(new StringReader(htmlText), null);
+                    List<IElement> htmlElements = HTMLWorker.ParseToList(new StringReader(htmlText), styles);
 
 
                     //IDictionary<String, String> styles = new Dictionary<String, String>();
