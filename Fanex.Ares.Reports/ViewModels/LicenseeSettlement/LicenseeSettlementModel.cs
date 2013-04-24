@@ -38,7 +38,6 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
                 });
             }
 
-            Report = new Report();
             Report.GrandTotal = 23406.55;
 
             for (int i = 0; i < 10; i++)
@@ -61,7 +60,6 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
                 });
             }
 
-            LicenseeInfor = new LicenseeInformation();
             LicenseeInfor.SettlementDate = new DateTime(2013, 4,10);
             LicenseeInfor.LicenseeID = 8;
             LicenseeInfor.LicenseeName = "Macaubet";
@@ -82,7 +80,6 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
         public Report()
         {
             EntityList = new List<ReportEntity>();
-            GrandTotal = 0;
         }
     }
 
