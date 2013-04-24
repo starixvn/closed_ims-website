@@ -4,7 +4,7 @@
 // </copyright>
 // --------------------------------------------------------------------------
 // <history>
-//   <change who="Ricky.Nguyen" date="2013.1.25">Created</change>
+//   <change who="" date="">Created</change>
 // </history>
 
 
@@ -152,6 +152,12 @@ namespace Fanex.Ares.Report.Controllers
                                   .ToList();
 
             return model;
+        }
+
+        public ActionResult ExportSettlementReportToExcel(string exchange, string product)
+        {
+            _service.ExportSettlementReportToExcel(exchange, product);
+            return new EmptyResult();
         }
     }
 }
