@@ -235,16 +235,16 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 3].Value = product.ToUpper();
             ewReport.Cells[rowIndex, 5].Value = string.Format("{0}:", Labels.FBilling);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BillingDate.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.FirstBilling.ToString("dd-MMMM-yy");
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Basis_of_Billing);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BasicBilling;
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BasisOfBilling;
             ewReport.Cells[rowIndex += 2, 5].Value = string.Format("{0}:", Labels.Minimum_Fees);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.MinimumFees;
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Head_of_Terms);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTermDate.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTerms.ToString("dd-MMMM-yy");
         }
 
 
@@ -334,14 +334,14 @@ namespace Fanex.Ares.Report.Services.Interface
 
                 ewReport.Cells[rowIndex, colIndex].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.Date.ToString("dd-MMMM-yy");
+                ewReport.Cells[rowIndex, colIndex].Value = detail.WinlostDate.ToString("dd-MMMM-yy");
                 ewReport.Cells[rowIndex, colIndex += 1].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.CurrencyName;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Turnover;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = numberStyle;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.TotalTrans;
+                ewReport.Cells[rowIndex, colIndex].Value = detail.Betcount;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.MemberWinloss;
                 
@@ -358,7 +358,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.MemberTotal;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeWinloss;
+                ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeWL;
 
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 if (detail.LicenseeComm != 0)
@@ -404,9 +404,9 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[startRow, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
                 ewReport.Cells[startRow, colIndex].Value = exchangeRate.CurrencyName;
                 ewReport.Cells[startRow, colIndex+1].Style = normalStyle;
-                ewReport.Cells[startRow, colIndex + 1].Value = exchangeRate.CurrencyPerUnit;
+                ewReport.Cells[startRow, colIndex + 1].Value = exchangeRate.BasePerUnit;
                 ewReport.Cells[startRow, colIndex+2].Style = normalStyle;
-                ewReport.Cells[startRow, colIndex + 2].Value = exchangeRate.UnitsPerCurrency;
+                ewReport.Cells[startRow, colIndex + 2].Value = exchangeRate.UnitsPerBase;
             }
             #endregion
 
