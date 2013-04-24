@@ -27,7 +27,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
         public LicenseeSettlementModel()
         {
             ExchangeList = new List<ExchangeRate>();
-
+            Report = new Report();
             for (int i = 0; i < 10; i++)
             {
                 ExchangeList.Add(new ExchangeRate{
@@ -38,6 +38,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
                 });
             }
 
+            
             Report.GrandTotal = 23406.55;
 
             for (int i = 0; i < 10; i++)
@@ -60,6 +61,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
                 });
             }
 
+            this.LicenseeInfor = new LicenseeInformation();
             LicenseeInfor.SettlementDate = new DateTime(2013, 4,10);
             LicenseeInfor.LicenseeID = 8;
             LicenseeInfor.LicenseeName = "Macaubet";
