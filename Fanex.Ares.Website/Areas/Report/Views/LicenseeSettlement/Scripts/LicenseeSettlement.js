@@ -7,6 +7,7 @@
 
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { Submit(); });
+    $('#btnPDF').click(function () { PrintPDF(); });
     $('#btnExcel').click(function () { exportReportToExcel(); });
 });
 
@@ -56,10 +57,15 @@ function Submit() {
             $('#parentContainer').html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
+            alert("faild");
         },
         complete: function (jqXHR, textStatus) {
         }
     });
+}
+
+function PrintPDF() {
+
 }
 
 function exportReportToExcel() {

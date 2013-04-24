@@ -14,6 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 using Fanex.Ares.Core.Services.Interface;
 using Fanex.Common.Helper;
 using Fanex.NAP.Framework.Data;
+using Fanex.Caching;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
@@ -22,9 +23,12 @@ namespace Fanex.Ares.Core.Services.Impl
     {
         protected readonly IDynamicRepository DynamicRepository;
 
+        protected readonly ICache _cacheManager;
+
         public ServiceBase(IDynamicRepository repository = null)
         {
-            DynamicRepository = repository ?? new DynamicRepository();
+            this.DynamicRepository = repository ?? new DynamicRepository();
+            this._cacheManager = CacheService.CreateInstance();
         }
 
         /// <summary>
@@ -32,7 +36,7 @@ namespace Fanex.Ares.Core.Services.Impl
         /// </summary>
         protected IDynamicRepository Repository
         {
-            get { return DynamicRepository; }
+            get { return this.DynamicRepository; }
         }
 
         /// <summary>
