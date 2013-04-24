@@ -88,9 +88,9 @@ AS
 				SUM(stake) turnover, 
 				SUM(b.winlost - b.actual_stake) AS Winlost,
 				SUM(PlayerComm) as PlayerComm,
-				SUM(b.awinlost - b.actual_stake) AS LicenseeWL,				
-				SUM(b.comm) AS LicenseeComm,
-				- SUM(b.awinlost + b.winlost - b.actual_stake) AS Company, 
+				SUM(b.awinlost) AS LicenseeWL,				
+				SUM(b.comm - playercomm) AS LicenseeComm,
+				- SUM(b.awinlost + b.winlost - b.actual_stake + b.comm) AS Company, 
 				COUNT(b.transid) AS BetCount	  
 			FROM 			
 				Bettrans b WITH (NOLOCK,INDEX=IX_srecommend)
