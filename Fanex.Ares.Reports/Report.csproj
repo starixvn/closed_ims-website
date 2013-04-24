@@ -139,6 +139,10 @@
       <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
       <Name>PdfHelper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Resource\Resources.csproj">
+      <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
+      <Name>Resources</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

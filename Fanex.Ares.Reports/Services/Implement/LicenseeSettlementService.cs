@@ -13,6 +13,7 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Ares.Report.ViewModels;
 using System.Drawing;
 using Fanex.Ares.Core.Extensions;
+using Resource;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
@@ -222,26 +223,26 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, 0].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 0].Style.Font.Size = 230;
             ewReport.Rows[0].Height = 330;
-            ewReport.Cells[rowIndex, 0].Value = "INTERNAL WORKSHEET FOR SETTLEMENT";
-            ewReport.Cells[rowIndex+=1, 0].Value = "Finance Department";
-            ewReport.Cells[rowIndex+=2, 0].Value = "SETTLEMENT REPORT";
+            ewReport.Cells[rowIndex, 0].Value = Labels.INTERNAL_WORKSHEET_FOR_SETTLEMENT;
+            ewReport.Cells[rowIndex+=1, 0].Value = Labels.Finance_Department;
+            ewReport.Cells[rowIndex+=2, 0].Value = Labels.SETTLEMENT_REPORT;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMMM-yy");
-            ewReport.Cells[rowIndex += 1, 0].Value = "LICENSEE:";
+            ewReport.Cells[rowIndex += 1, 0].Value = string.Format("{0}:", Labels.Licensee.ToUpper());
             ewReport.Cells[rowIndex, 2].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 2].Value = licenseeInfo.LicenseeName;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 3].Value = product.ToUpper();
-            ewReport.Cells[rowIndex, 5].Value = "1st Billing:";
+            ewReport.Cells[rowIndex, 5].Value = string.Format("{0}:", Labels.FBilling);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BillingDate.ToString("dd-MMMM-yy");
-            ewReport.Cells[rowIndex += 1, 5].Value = "Basis of Billing:";
+            ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Basis_of_Billing);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BasicBilling;
-            ewReport.Cells[rowIndex += 2, 5].Value = "Minimum Fees:";
+            ewReport.Cells[rowIndex += 2, 5].Value = string.Format("{0}:", Labels.Minimum_Fees);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.MinimumFees;
-            ewReport.Cells[rowIndex += 1, 5].Value = "Head of Terms:";
+            ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Head_of_Terms);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTermDate.ToString("dd-MMMM-yy");
         }
@@ -276,49 +277,49 @@ namespace Fanex.Ares.Report.Services.Interface
             #region header
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = "Date";
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = Labels.Date;
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = "Currency";
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = Labels.Currency;
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = "Turnover";
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = Labels.Turnover;
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = "Total Trans";
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = Labels.TotalTrans;
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex, colIndex + 2).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Value = "Member";
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Value = Labels.Member;
 
             ewReport.Cells[rowIndex + 1, colIndex].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[rowIndex + 1, colIndex].Value = "Win Loss";
+            ewReport.Cells[rowIndex + 1, colIndex].Value = Labels.WinLoss;
 
             ewReport.Cells[rowIndex + 1, colIndex += 1].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[rowIndex + 1, colIndex].Value = "Comm";
+            ewReport.Cells[rowIndex + 1, colIndex].Value = Labels.Comm;
 
             ewReport.Cells[rowIndex + 1, colIndex += 1].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[rowIndex + 1, colIndex].Value = "Total";
+            ewReport.Cells[rowIndex + 1, colIndex].Value = Labels.Total;
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex, colIndex + 2).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Style.FormatTitleCell(headerColor);
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Value = settlementReport.LicenseeInfor.LicenseeName;
 
             ewReport.Cells[rowIndex + 1, colIndex].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[rowIndex + 1, colIndex].Value = "Win Loss";
+            ewReport.Cells[rowIndex + 1, colIndex].Value = Labels.WinLoss;
 
             ewReport.Cells[rowIndex + 1, colIndex += 1].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[rowIndex + 1, colIndex].Value = "Comm";
+            ewReport.Cells[rowIndex + 1, colIndex].Value = Labels.Comm;
 
             ewReport.Cells[rowIndex + 1, colIndex += 1].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[rowIndex + 1, colIndex].Value = "Total";
+            ewReport.Cells[rowIndex + 1, colIndex].Value = Labels.Total;
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = "Company";
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = Labels.Company;
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
@@ -410,8 +411,8 @@ namespace Fanex.Ares.Report.Services.Interface
             #endregion
 
             #region note
-            ewReport.Cells[startRow += 2, 0].Value = string.Format("IDR & VND * Amount in IDR is stated in 000, when converted to {0} Equv, x1000", exchange);
-            ewReport.Cells[startRow += 1, 0].Value = string.Format("FOREX www.oanda.com provided minor difference between '{0}/1 Unit' vs 'Units/1 {0}', we standardize the use of 'Units/1 {0}' rate to prevall all.", exchange);
+            ewReport.Cells[startRow += 2, 0].Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchange);
+            ewReport.Cells[startRow += 1, 0].Value = string.Format(Labels.FOREX_Info, exchange);
             #endregion
         }
         #endregion
