@@ -19,47 +19,60 @@
         </div>
     </div>
 }
-<div id="filter-bar" class="filter-bar" style="width: 1260px;">
-    <span id="notemessage" class="note-info-message" title=''></span>
-    <div class="filter-form">
-        <div class="filter-row">
-            <div class="filter-cell">
+@using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
+{
+    <div id="filter-bar" class="filter-bar" style="width: 1260px;">
+        <span id="notemessage" class="note-info-message" title=''></span>
+        <div class="filter-form">
+            <div class="filter-row">
+                <div class="filter-cell">
+                    <div class="lbl-field col_3 align-right">
+                        Licensee
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new { @class = "alpha auto-width" })
+                    </div>
+                    <div id="datepickerplugin" class="lbl-field col_27 align-right">
+                    </div>
+                </div>
+            </div>
+            <div class="filter-row">
                 <div class="lbl-field col_3 align-right">
-                    Licensee
+                    Product
                 </div>
                 <div class="edit-field col_6 align-left">
-                    @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new { @class = "alpha auto-width" })
+                    @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
                 </div>
-                <div id="datepickerplugin" class="lbl-field col_27 align-right">
+                <div class="lbl-field col_3 align-right">
+                    Currency
+                </div>
+                <div class="edit-field col_6 align-left">
+                    @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
+                </div>
+                <div class="lbl-field col_3 align-right">
+                    Exchange
+                </div>
+                <div class="edit-field col_6 align-left">
+                    @Html.DropDownListFor(m => m.ExchangeCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
+                </div>
+                <div class="lbl-field col_3 align-right">
+                </div>
+                <div class="submit col_6">
+                    <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
                 </div>
             </div>
         </div>
-        <div class="filter-row">
-            <div class="lbl-field col_3 align-right">
-                Product
-            </div>
-            <div class="edit-field col_6 align-left">
-                @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
-            </div>
-            <div class="lbl-field col_3 align-right">
-                Currency
-            </div>
-            <div class="edit-field col_6 align-left">
-                @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
-            </div>
-            <div class="lbl-field col_3 align-right">
-                Exchange
-            </div>
-            <div class="edit-field col_6 align-left">
-                @Html.DropDownListFor(m => m.ExchangeCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
-            </div>
-            <div class="lbl-field col_3 align-right">
-                
-            </div>
-            <div class="submit col_6">
-                <input id="btnGenerate" name="btnGenerate" type="submit" value="GENERATE" />
-            </div>
-        </div>
+    </div>
+}
+@Html.ActionLink("Print Invoice", "PrintInvoice", null, new { target = "_blank" })
+<div class="grid-title">
+    <div id="nonLiveBingoReportTitle" class="grid-title-label">
+        aaaaaaaaaaaaaaaaaa
+    </div>
+    <div class="grid-toolbox">
+        <input class="btnPDF" type="button" name="btnPDF" value="" title="PDF" />
+        <input class="btnPrint" type="button" name="btnPrint" value="" title="Print" />
+        <input class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
     </div>
 </div>
 <div id="parentContainer" class="content-grid">

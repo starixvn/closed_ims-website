@@ -4,6 +4,9 @@
     $('#FromDate, #ToDate').each(function () {
         $(this).width($('#dropDownListId').width() + 2);
     });
+
+    $('#btnGenerate').button();
+    $('#btnGenerate').click(function () { Submit(); });
 });
 
 var renderDatePicker = function () {
@@ -12,7 +15,7 @@ var renderDatePicker = function () {
         datePickerFormat: {
             changeMonth: true,
             changeYear: true,
-            dateFormat: "M dd, yy"
+            dateFormat: "d M yy"
         },
         dropDownList:
             {
@@ -42,3 +45,18 @@ var renderDatePicker = function () {
         maxDate: new Date(today)
     });
 };
+
+function Submit() {
+    $.ajax({
+        url: "LicenseeSettlement/GetInvoice",
+        type: "POST",
+        data: $('#formLicenseeSettlement').serialize(),
+        success: function (data, textStatus, jqXHR) {
+            $('#parentContainer').html(data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+        },
+        complete: function (jqXHR, textStatus) {
+        }
+    });
+}

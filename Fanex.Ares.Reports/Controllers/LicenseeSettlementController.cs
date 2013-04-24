@@ -18,54 +18,68 @@ using Fanex.Ares.Report.Services.Implement;
 using Fanex.Ares.Report.Services.Interface;
 using Fanex.NAP.Core.Web.Attribute;
 using Fanex.NAP.Core.Business;
+using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+using System.Collections.Generic;
+using PdfHelper;
+using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 
 namespace Fanex.Ares.Report.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class LicenseeSettlementController : BaseController
     {
-        IRecoverTicketService _service;
-
+        ILicenseeSettlementService _service;
+         private readonly HtmlViewRenderer htmlViewRenderer;
+        private readonly StandardPdfRenderer standardPdfRenderer;
         public LicenseeSettlementController()
         {
-            _service = new RecoverTicketService();
+            _service = new LicenseeSettlementService();
+            this.htmlViewRenderer = new HtmlViewRenderer();
+            this.standardPdfRenderer = new StandardPdfRenderer();
+        }
+
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
+        {
+            // Render the view html to a string.
+            string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
+
+            // Let the html be rendered into a PDF document through iTextSharp.
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows);
+
+            // Return the PDF as a binary stream to the client.
+            return new BinaryContentResult(buffer, "application/pdf");
         }
 
         //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
+            ViewBag.ListLicensee = _service.GetAllLicensees();
+            var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
+            ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
+            var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID });
+            listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
+            ViewBag.ListCurrency = listCurrency;
+            var listExchangeRate = new List<SelectListItem>();
+            listExchangeRate.Add(new SelectListItem() { Selected = true, Text = "EUR", Value = "6" });
+            listExchangeRate.Add(new SelectListItem() { Selected = false, Text = "USD", Value = "3" });
+            ViewBag.ListExchangeRate = listExchangeRate;
+
             return View();
         }
 
-        //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
-        [HttpPost]
-        public JsonResult GetTicketRecover(GetRecoverTicketCriteria criteria)
+        public ActionResult PrintInvoice()
         {
-            Core.Models.ActionResult rs = new Core.Models.ActionResult();
-
-            var data = _service.GetTicketRecover(criteria, ref rs);
-            if (rs.ErrorCode == 0)
-            {
-                return Json(data);
-            }
-
-            return Json(rs);
+            var model = new LicenseeSettlementModel();
+            //FillImageUrl(customerList, "report.jpg");
+            return this.ViewPdf("", "LicenseeSettlement", model, model.Report.EntityList.Count + 1);
         }
 
-        //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Host)]
-        //[HttpPost]
-        //public JsonResult RecoverTicket(RecoverTicketCriteria criteria)
-        //{
-        //    criteria.UserId = CurrentSession.UserId;
-        //    criteria.Ip = Helper.GetClientIP();
-        //    criteria.ErrCode = 0;
-        //    criteria.ErrMsg = string.Empty;
+        public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        {
+            
+            var model = new LicenseeSettlementModel();
 
-        //    criteria.Msg.CreatorId = criteria.UserId;
-        //    criteria.Msg.CreatorName = CurrentSession.Username;
-
-        //    var rs = _service.RecoverTicket(criteria);
-        //    return Json(rs);
-        //}
+            return PartialView("LicenseeSettlement", model);
+        }
     }
 }

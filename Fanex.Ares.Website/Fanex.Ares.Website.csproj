@@ -330,9 +330,13 @@
     <Content Include="Scripts\_Libs\FanexGrid\images\icn_del.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\icn_edit.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\icon_page.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\page_white_edit.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\pdf.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\print.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\refresh_icon.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\report_check.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\send-mail.png" />
+    <Content Include="Scripts\_Libs\FanexGrid\images\send.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\seperations.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\setting.png" />
     <Content Include="Scripts\_Libs\FanexGrid\images\sort-icon-new.png" />
