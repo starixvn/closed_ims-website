@@ -17,12 +17,12 @@ namespace Fanex.Ares.Report.ViewModels
     [Serializable]
     public class ExchangeRate
     {
-        public int CurrencyID { get; set; }
+        public int Currency { get; set; }
 
         public string CurrencyName { get; set; }
 
-        public double CurrencyPerUnit { get; set; }
+        public double BasePerUnit { get; set; }
 
-        public double UnitsPerCurrency { get; set; }
+        public double UnitsPerBase { get; set; }
     }
 }

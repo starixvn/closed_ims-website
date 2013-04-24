@@ -6,6 +6,7 @@
 // <history>
 //   <change who="Phillip.Truong" date="2013.4.23">Created</change>
 // </history>
+
 namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
 {
     using System;
@@ -15,6 +16,7 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     {
         public string Currency { get; set; }
         public DateTime ExchangeDate { get; set; }
+        public int BaseCurrencyId { get; set; }
 
         public override string GetSettingKey()
         {

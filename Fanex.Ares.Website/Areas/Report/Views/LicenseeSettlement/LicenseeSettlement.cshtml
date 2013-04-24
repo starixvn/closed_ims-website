@@ -30,16 +30,16 @@
     </tr>
     <tr>
         <td align="left" width="120" style="text-align: left; font-size: 8px; line-height: 80%;">
-            LICENSEE: Macaubet
+            LICENSEE: @licensee.LicenseeInfor.LicenseeName
         </td>
         <td align="left" width="100" style="text-align: left; font-size: 8px; line-height: 80%;">
-            SPORTBOOK
+            @licensee.LicenseeInfor.ProductName
         </td>
         <td align="left" width="80" style="text-align: left; font-size: 8px; line-height: 80%;">
             1st Billing:
         </td>
         <td align="left" width="400" style="text-align: left; font-size: 8px; line-height: 80%;">
-            @licensee.LicenseeInfor.BillingDate.ToShortDateString()
+            @licensee.LicenseeInfor.FirstBilling.ToShortDateString()
         </td>
     </tr>
     <tr>
@@ -51,7 +51,7 @@
             Basics of Billing:
         </td>
         <td align="left" width="400" style="text-align: left; font-size: 8px; line-height: 80%;">
-             @licensee.LicenseeInfor.BasicBilling
+             @licensee.LicenseeInfor.BasisOfBilling
         </td>
     </tr>
     <tr>
@@ -75,7 +75,7 @@
             Head of Terms:
         </td>
         <td align="left" width="400" style="text-align: left; font-size: 8px; line-height: 80%;">
-             @licensee.LicenseeInfor.HeadOfTermDate.ToShortDateString()
+             @licensee.LicenseeInfor.HeadOfTerms.ToShortDateString()
         </td>
     </tr>
 </table>
@@ -136,7 +136,7 @@
                             Company
                         </th>
                         <th style="text-align: center; font-size: 7px;" valign ="middle">
-                            EUR
+                            @ViewBag.BaseCurrency
                         </th>
                     </tr>
                 </thead>
@@ -147,7 +147,7 @@
                         report = licensee.Report.EntityList[i];
                         <tr border="0.1"  style="font-size: 7px;">
                             <td width="40" style="text-align: center; font-size: 7px; line-height: 90%;">
-                               @report.Date.ToShortDateString()
+                               @report.WinlostDate.ToShortDateString()
                             </td>
                             <td width="40" style="text-align: center; font-size: 7px; line-height: 90%;">
                                 @report.CurrencyName
@@ -156,7 +156,7 @@
                                 @report.Turnover
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                               @report.TotalTrans
+                               @report.Betcount
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
                                 @report.MemberWinloss
@@ -168,7 +168,7 @@
                                 @report.MemberTotal
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                @report.LicenseeWinloss
+                                @report.LicenseeWL
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
                                @report.LicenseeComm
@@ -180,7 +180,7 @@
                                 @report.Company
                             </td>
                             <td width="65" style="text-align: right; font-size: 7px;line-height: 90%;">
-                                @report.Total
+                                @report.CompanyBaseCurrency
                             </td>
                         </tr>
                     }
@@ -245,10 +245,10 @@
                         <th border="0" width="40" style="text-align: left; font-size: 6px;">
                         </th>
                         <th width="40" style="text-align: left; font-size: 6px; " valign ="middle" border="0.1" bgcolor="#777777" color="#ffffff">
-                            EUR/ 1Unit
+                            @ViewBag.BaseCurrency/ 1Unit
                         </th>
                         <th width="40" style="text-align: left; font-size: 6px;" valign ="middle" border="0.1" bgcolor="#777777" color="#ffffff">
-                            Units/ 1EUR
+                            Units/ 1 @ViewBag.BaseCurrency
                         </th>
                     </tr>
                 </thead>
@@ -262,10 +262,10 @@
                                 @exchange.CurrencyName
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                 @exchange.CurrencyPerUnit
+                                 @exchange.BasePerUnit
                             </td>
                             <td width="40" style="text-align: right; font-size: 7px; line-height: 90%;">
-                                 @exchange.UnitsPerCurrency
+                                 @exchange.UnitsPerBase
                             </td>
                         </tr>
                        
@@ -293,7 +293,7 @@
     IDR & VND * 
     </td>
     <td style="text-align: left; font-size: 8px; ">
-     Amount in IDR is stated in '000, when converted to EUR Equv, x 1000
+     Amount in IDR is stated in '000, when converted to @ViewBag.BaseCurrency Equv, x 1000
     </td>
 </tr>
 <tr>
@@ -301,7 +301,7 @@
     FOREX
     </td>
     <td style="text-align: left; font-size: 8px; line-height: 80%;">
-     www.oanda.com provided minor difference between "EUR/ 1Unit" vs "Units/ 1EUR", we standardize the use of "Units/ 1EUR" to prevail all
+     www.oanda.com provided minor difference between "@ViewBag.BaseCurrency / 1Unit" vs "Units/ 1 @ViewBag.BaseCurrency", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency" to prevail all
     </td>
 </tr>
 </table>

@@ -7,6 +7,7 @@
 
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { Submit(); });
+    $('#btnPDF').click(function () { PrintPDF(); });
 });
 
 var renderDatePicker = function () {
@@ -55,8 +56,13 @@ function Submit() {
             $('#parentContainer').html(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
+            alert("faild");
         },
         complete: function (jqXHR, textStatus) {
         }
     });
+}
+
+function PrintPDF() {
+
 }
