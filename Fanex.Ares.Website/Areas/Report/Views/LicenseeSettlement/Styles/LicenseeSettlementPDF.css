@@ -1,0 +1,124 @@
+﻿.titleBold
+{
+    size: 13pt;
+    align: left;
+    font-weight: bold;
+}
+
+.titleSub
+{
+    size: 11pt;
+    align: left;
+}
+
+.cellInfo
+{
+    size: 8pt;
+    align: left;
+}
+
+.lineHeight200
+{
+   line-height:200% ;
+}
+
+.lineHeight80
+{
+   line-height: 80% ;
+}
+
+.headerReport
+{
+    size: 13pt;
+    align: left;
+    font-weight: bold;
+    color: #ffffff;
+    bgcolor: #618ADA;
+}
+
+.cellstyle
+{
+    size: 7pt;
+    align: left;
+    valign: middle;
+}
+
+.aligncenter
+{
+    align: center;
+}
+
+.alignright
+{
+    align: right;
+}
+
+.alignleft
+{
+    align: left;
+}
+
+.col60
+{
+    width: 60;
+}
+.col30
+{
+    width: 30;
+}
+.col200
+{
+    width: 200;
+}
+
+.col65
+{
+    width: 65;
+}
+.col40
+{
+    width: 40;
+}
+.col650
+{
+    width: 650;
+}
+
+.col120
+{
+    width: 120;
+}
+.col100
+{
+    width: 100;
+}
+.col80
+{
+    width: 80;
+}
+
+.col50
+{
+    width: 50;
+}
+.col400
+{
+    width: 400;
+}
+.col140
+{
+    width:140;
+}
+
+.col10percent
+{
+    width: 10%;
+}
+.colborder0
+{
+    border: 0;
+}
+.colborder01
+{
+    border: 0.1;
+}
