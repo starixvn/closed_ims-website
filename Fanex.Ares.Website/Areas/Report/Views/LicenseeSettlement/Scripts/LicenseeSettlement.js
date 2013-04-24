@@ -69,7 +69,7 @@ function PrintPDF() {
 }
 
 function exportReportToExcel() {
-    var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#ExchangeCurrency :selected').text() + '&product=' + $('#Product :selected').text();
+    var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
 
     var iframe = $('body iframe');
     if (iframe.length == 0) {
