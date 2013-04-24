@@ -74,7 +74,6 @@
     <Compile Include="Controllers\RecoverTicketController.cs" />
     <Compile Include="Controllers\VoidMixParlayTicketController.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
-    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
     <Compile Include="Criteria\GetOutrightLeagueCriteria.cs" />
     <Compile Include="Criteria\GetOutrightTeamCriteria.cs" />
     <Compile Include="Criteria\GetOutrightTicketCriteria.cs" />
