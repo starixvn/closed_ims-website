@@ -161,13 +161,13 @@
 
 .grid-title
 {
-    border: solid 1px #d2b24d;
-    background: #ffcc33;
-    background: -moz-linear-gradient(#ffcc33, #ffcc35);
-    background: -webkit-linear-gradient(#ffcc33, #ffcc35);
+     background: linear-gradient(#FFCC33, #FFCC35) repeat scroll 0 0 transparent;
+    border: 1px solid #D2B24D;
+    float: left;
     height: 25px;
-    margin-bottom: 3px;
+    margin: 6px 0 0 10px;
     vertical-align: middle;
+    width: 1260px;
 }
 
 .grid-title .grid-toolbox

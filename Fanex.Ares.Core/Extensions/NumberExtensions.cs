@@ -81,6 +81,29 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
+        /// Format Double Value Quotation mark
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decDigits"></param>
+        /// <returns></returns>
+        public static string FormatNegative(this double value, byte decDigits)
+        {
+            var res = string.Empty;
+            if (value < 0)
+            {
+                value = -value;
+                res = DoFormat(value, decDigits);
+                res = "(" + res + ")";
+            }
+            else
+            {
+                res = DoFormat(value, decDigits);
+            }
+
+            return res;
+        }
+
+        /// <summary>
         /// Format specified number value
         /// </summary>
         /// <param name="value"></param>

@@ -29,6 +29,7 @@ namespace Fanex.Ares.Core
         public const string FOUR_DECIMAL_DIGIT_FORMAT = ".0000";
         public const string SP_PARAMS_SEPERATOR = ",";
         public const string VIEW_IP_VN = "ViewIPVN";
+        public const string ARES_DATE_FORMAT = "dd-MMM-yyyy";
     }
 
 }
