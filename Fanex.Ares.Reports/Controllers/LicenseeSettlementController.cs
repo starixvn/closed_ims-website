@@ -25,6 +25,7 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using System.Linq;
 using System;
 using Fanex.Ares.Report.ViewModels;
+using System.IO;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -73,17 +74,26 @@ namespace Fanex.Ares.Report.Controllers
             byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows);
 
             // Return the PDF as a binary stream to the client.
-            return new BinaryContentResult(buffer, "application/pdf");
+            //return new BinaryContentResult(buffer, "application/pdf");
+            Response.Clear();
+            MemoryStream ms = new MemoryStream(buffer);
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename= LicenseeSettlement.pdf");
+            Response.Buffer = true;
+            ms.WriteTo(Response.OutputStream);
+            Response.End();
+
+            // Return the PDF as a binary stream to the client.
+            return File(buffer, "application/pdf", "test.pdf");
         }
 
-        public ActionResult PrintInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public ActionResult ExportPDF()
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "LicenseeSettlement", model, model.Report.EntityList.Count + 1);
+            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1);
         }
-
         public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria) 
         {
             // Licensee Information
