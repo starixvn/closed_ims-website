@@ -102,8 +102,6 @@ namespace PdfHelper
                     //styles.LoadStyle("colorcell", "color", "#ffffff");
                     //styles.LoadStyle("colorcell", "bgcolor", "#618ADA");  */
 
-//                        styles.LoadTagStyle("p", "size", "10pt");
-//styles.LoadTagStyle("p", "color", "#0000ff");   
 
                     PdfContentByte cb = pdfWriter.DirectContent;
                     List<IElement> htmlElements = HTMLWorker.ParseToList(new StringReader(htmlText), styles);
@@ -213,9 +211,13 @@ namespace PdfHelper
 
 
             var lsClassName = cssParser.GetListClassName();
-            foreach (var className in lsClassName)
+            foreach (var data in lsClassName)
             {
+                var className = data;
                 var properties = cssParser.GetProperties(className);
+
+                if (className.StartsWith(".") || className.StartsWith("#"))
+                    className = className.Substring(1, className.Length - 1);
 
                 foreach (var property in properties)
                 {
@@ -229,6 +231,8 @@ namespace PdfHelper
                         
                         //styles.LoadStyle("lineHeight200", "style", "line-height: 200%");
                     }
+
+                    
 
                     styles.LoadStyle(className, attributeName, attributeValue);
                 }

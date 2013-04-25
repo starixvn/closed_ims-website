@@ -29,18 +29,19 @@
 
 .headerReport
 {
-    size: 13pt;
-    align: left;
+    size: 7pt;
+    align: center;
     font-weight: bold;
     color: #ffffff;
     bgcolor: #618ADA;
+     line-height:100% ;
 }
 
 .cellstyle
 {
     size: 7pt;
-    align: left;
     valign: middle;
+    line-height:100% ;
 }
 
 .aligncenter
