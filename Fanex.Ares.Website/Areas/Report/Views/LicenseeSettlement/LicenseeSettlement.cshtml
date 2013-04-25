@@ -81,7 +81,6 @@
 </table>
 <br />
 
-
 <table>
     <tr>
         <td class="col650">
@@ -216,10 +215,16 @@
                                
                             </td>
                             <td class="cellstyle col65">
-                                
+                            
                             </td>
-                            <td class="cellstyle col65 alignright">
+                            <td  class="cellstyle col65 alignright">
                                 @licensee.Report.GrandTotal
+                            </td>
+                        </tr>
+                         <tr class="colborder10">
+                            <td colspan="12"  class="cellstyle col650 alignright">
+                            <hr />
+                               <u>&nbsp;</u>
                             </td>
                         </tr>
                 </tbody>
@@ -248,9 +253,9 @@
                 </thead>
                 <tbody>
                     @for (int i = 0; i < licensee.ExchangeList.Count; i++)
-                        {
-                            ExchangeRate exchange = new ExchangeRate();
-                            exchange = licensee.ExchangeList[i];
+                    {
+                        ExchangeRate exchange = new ExchangeRate();
+                        exchange = licensee.ExchangeList[i];
                         <tr class="colborder01">
                             <td class="cellstyle col30 colborder0 alignright" >
                                 @exchange.CurrencyName
@@ -263,7 +268,7 @@
                             </td>
                         </tr>
                        
-                        }
+                    }
                        <tr class="colborder0">
                             <td class="cellstyle col30 colborder0">
                                 
@@ -275,12 +280,19 @@
                                 &nbsp;
                             </td>
                         </tr>
+                        <tr class="colborder0">
+                            <td colspan="3"  class="cellstyle col650 alignright">
+                            <hr />
+                               <u>&nbsp;</u>
+                            </td>
+                        </tr>
                 </tbody>
             </table>
         </td>
     </tr>
 </table>
-
+@*
+<div><hr width="400"> aaa </hr></div>*@
 <table width="100%">
 <tr>
     <td  class="cellInfo col10percent">

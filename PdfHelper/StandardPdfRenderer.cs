@@ -45,128 +45,18 @@ namespace PdfHelper
 
                     var styles = LoadStyleSheet();
 
-                  
-                    /*
-
-                    styles.LoadStyle("titleBold", "size", "13pt");
-                    styles.LoadStyle("titleBold", "align", "left");
-                    styles.LoadStyle("titleBold", "style", "font-weight: 1000");
-
-                    styles.LoadStyle("titleSub", "size", "11pt");
-                    styles.LoadStyle("titleSub", "align", "left");
-
-                    styles.LoadStyle("cellInfo", "size", "8pt");
-                    styles.LoadStyle("cellInfo", "align", "left");
-
-                    styles.LoadStyle("lineHeight200", "style", "line-height: 200%");
-                    styles.LoadStyle("lineHeight80", "style", "line-height: 80%");
-
-                
-
-                    styles.LoadStyle("headerReport", "size", "7pt");
-                    styles.LoadStyle("headerReport", "align", "center");
-                    styles.LoadStyle("headerReport", "style", "line-height: 100%");
-                    styles.LoadStyle("headerReport", "color", "#ffffff");
-                    styles.LoadStyle("headerReport", "bgcolor", "#618ADA");
-
-
-                    styles.LoadStyle("cellstyle", "size", "7pt");
-                    styles.LoadStyle("cellstyle", "style", "line-height: 100%");
-                    styles.LoadStyle("cellstyle", "valign", "middle");
-
-                    styles.LoadStyle("aligncenter", "align", "center");
-                    styles.LoadStyle("alignright", "align", "right");
-                    styles.LoadStyle("alignleft", "align", "left");
-
-                    styles.LoadStyle("col60", "width", "60");
-                    styles.LoadStyle("col30", "width", "30");
-                    styles.LoadStyle("col200", "width", "200");
-
-                    styles.LoadStyle("col65", "width", "65");
-                    styles.LoadStyle("col40", "width", "40");
-                    styles.LoadStyle("col650", "width", "650");
-
-                    styles.LoadStyle("col120", "width", "120");
-                    styles.LoadStyle("col100", "width", "100");
-                    styles.LoadStyle("col80", "width", "80");
-                    styles.LoadStyle("col400", "width", "400");
-                    styles.LoadStyle("col140", "width", "140");
-                    styles.LoadStyle("col50", "width", "50");
-
-                    styles.LoadStyle("col10percent", "width", "10%");
-
-                    styles.LoadStyle("colborder0", "border", "0");
-                    styles.LoadStyle("colborder01", "border", "0.1");
-                    
-                    //styles.LoadTagStyle("th", "size", "10pt");
-                    //styles.LoadStyle("colorcell", "color", "#ffffff");
-                    //styles.LoadStyle("colorcell", "bgcolor", "#618ADA");  */
-
 
                     PdfContentByte cb = pdfWriter.DirectContent;
                     List<IElement> htmlElements = HTMLWorker.ParseToList(new StringReader(htmlText), styles);
-
-
-                    //IDictionary<String, String> styles = new Dictionary<String, String>();
-
 
                     for (int i = 0; i < htmlElements.Count; i++)
                     {
                         // cast the element
                         IElement htmlElement = ((IElement)htmlElements[i]);
 
-                        if (htmlElement is PdfPTable)
-                        {
-                            var table = (PdfPTable)htmlElement;
-                            var width = table.TotalWidth;
-                            float height = table.CalculateHeights();
-                            foreach (var row in table.Rows)
-                            {
-                                PdfPCell[] pdfCellTemp = row.GetCells();
-
-                                if (pdfCellTemp.Length == 1)
-                                {
-                                    //float[] w = { 400, 100 };
-                                    //row.SetWidths(w);
-                                }
-                            }
-                        }
                         pdfDocument.Add(htmlElement);
-                        //string pos = string.Empty;
-                        //if (i == 5)
-                        //{
-                        //    styles.TryGetValue(HtmlTags.DIV, out pos);
-
-                        //}
-
                     }
-
-                    int end = 435 - (numericRows * 18);
-
-
-                    cb.SetLineWidth(2f);
-                    cb.MoveTo(22, end); //  - 19
-                    cb.LineTo(672, end);
-                    cb.Stroke();
-
-                    //int signPos = 470 - ((numericRows + 4) * 19);
-
-                    //cb.SetLineWidth(0f);
-                    //cb.MoveTo(10, signPos); //  - 19
-                    //cb.LineTo(830, signPos);
-                    //cb.Stroke();
-
-                    //using (var htmlViewReader = new StringReader(htmlText))
-                    //{
-                    //    using (var htmlWorker = new HTMLWorker(pdfDocument))
-                    //    {
-                    //        htmlWorker.Parse(htmlViewReader);
-                    //    }
-                    //}
-                    //pdfWriter.DirectContent.AddTemplate(
                 }
-
-
                 renderedBuffer = new byte[outputMemoryStream.Position];
                 outputMemoryStream.Position = 0;
                 outputMemoryStream.Read(renderedBuffer, 0, renderedBuffer.Length);
