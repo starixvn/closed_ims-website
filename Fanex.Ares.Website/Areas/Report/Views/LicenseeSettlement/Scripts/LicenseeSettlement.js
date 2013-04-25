@@ -9,6 +9,9 @@
     $('#btnGenerate').click(function () { Submit(); });
     $('#btnPDF').click(function () { PrintPDF(); });
     $('#btnExcel').click(function () { exportReportToExcel(); });
+    RenderFilterNote();
+
+
 });
 
 var renderDatePicker = function () {
@@ -48,6 +51,16 @@ var renderDatePicker = function () {
     });
 };
 
+function RenderFilterNote() {
+    var $this = $('#notemessage');
+    $this.attr("title", "aaaaaaaaaaaaaaaaaaa");
+    $this.tipsy({
+        html: true,
+        opacity: 0.9,
+        gravity: 'ne'
+    });
+}; 
+
 function Submit() {
     $.ajax({
         url: "LicenseeSettlement/GetInvoice",
@@ -55,6 +68,7 @@ function Submit() {
         data: $('#formLicenseeSettlement').serialize(),
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
+            $('#nonLiveBingoReportTitle').val("Settlement Report for " + $('#LicenseeId').val() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("faild");

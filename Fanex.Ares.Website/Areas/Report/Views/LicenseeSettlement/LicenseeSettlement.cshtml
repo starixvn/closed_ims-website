@@ -1,27 +1,40 @@
 ﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 @using Fanex.Ares.Report.ViewModels;
+@using Fanex.Ares.Core.Extensions;
 @{
     LicenseeSettlementModel licensee = new LicenseeSettlementModel();
     licensee = Model;
+    var negativenumber = "negative-number";
+    
 }
+@functions{
+    public string GetNegativeClass(double number)
+    {
+        return number < 0 ? "negative-number" : string.Empty;
+    }
+
+    public string GetEvenClass(int number)
+    {
+        return number % 2 == 0 ? "even" : string.Empty;
+    }
+}
+<div class="div-content">
 <table>
     <tr>
         <td>
-            <span class="titleBold">INTERNAL WORKSHEET
-                FOR SETTLEMENT </span>
+            <span class="titleBold">INTERNAL WORKSHEET FOR SETTLEMENT </span>
             <br />
             <span class="titleSub">Finance Department </span>
         </td>
     </tr>
 </table>
-
 <table width="100%" cellpadding="3" cellspacing="3">
     <tr>
-        <td class="cellInfo lineHeight200 col120" >
+        <td class="cellInfo lineHeight200 col120">
             SETTLEMENT REPORT
         </td>
         <td class="cellInfo lineHeight200 col100">
-             @licensee.LicenseeInfor.SettlementDate.ToShortDateString()
+            @licensee.LicenseeInfor.SettlementDate.ToShortDateString()
         </td>
         <td class="col80" align="left">
         </td>
@@ -29,16 +42,16 @@
         </td>
     </tr>
     <tr>
-        <td  class="cellInfo lineHeight80 col120" >
+        <td class="cellInfo lineHeight80 col120">
             LICENSEE: @licensee.LicenseeInfor.LicenseeName
         </td>
-        <td  class="cellInfo lineHeight80 col100">
+        <td class="cellInfo lineHeight80 col100">
             @licensee.LicenseeInfor.ProductName
         </td>
-        <td  class="cellInfo lineHeight80 col80">
+        <td class="cellInfo lineHeight80 col80">
             1st Billing:
         </td>
-        <td  class="cellInfo lineHeight80 col400">
+        <td class="cellInfo lineHeight80 col400">
             @licensee.LicenseeInfor.FirstBilling.ToShortDateString()
         </td>
     </tr>
@@ -51,7 +64,7 @@
             Basics of Billing:
         </td>
         <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.BasisOfBilling
+            @licensee.LicenseeInfor.BasisOfBilling
         </td>
     </tr>
     <tr>
@@ -60,82 +73,75 @@
         <td class="col100">
         </td>
         <td class="cellInfo lineHeight200 col80">
-             Minimum Fees:
+            Minimum Fees:
         </td>
         <td class="cellInfo lineHeight200 col400">
             @licensee.LicenseeInfor.MinimumFees
         </td>
     </tr>
-     <tr>
+    <tr>
         <td class="col120">
         </td>
         <td class="col100">
         </td>
         <td class="cellInfo lineHeight80 col80">
-              Head of Terms:
+            Head of Terms:
         </td>
         <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.HeadOfTerms.ToShortDateString()
+            @licensee.LicenseeInfor.HeadOfTerms.ToShortDateString()
         </td>
     </tr>
 </table>
 <br />
-
 <table>
     <tr>
-        <td class="col650">
-            <table class="col650" align="left" cellpadding="3" cellspacing="3">
+        <td class="tbldetail">
+            <table cellpadding="3" cellspacing="3">
                 <thead>
-                    <tr class="colborder01" >
-                        <th colspan="4" class="headerReport">
-                        </th>
-                        <th colspan="3" class="headerReport">
-                            Member
-                        </th>
-                        <th colspan="3" class="headerReport">
-                            Macuabet
-                        </th>
-                        <th class="headerReport">
-                        </th>
-                        <th class="headerReport">
-                        </th>
-                    </tr>
-                    <tr  class="colborder01">
-                        <th class="headerReport">
+                    <tr>
+                        <th class="headerReport col650 col150" rowspan="2">
                             Date
                         </th>
-                        <th class="headerReport">
+                        <th class="headerReport col100" rowspan="2">
                             Currency
                         </th>
-                        <th class="headerReport">
+                        <th class="headerReport col150" rowspan="2">
                             TurnOver
                         </th>
-                        <th class="headerReport">
-                            trans
+                        <th class="headerReport col150" rowspan="2">
+                            Total Trans
                         </th>
-                        <th class="headerReport">
-                            Winloss
+                        <th colspan="3">
+                            Member
                         </th>
-                        <th class="headerReport">
-                            Comm
+                        <th colspan="3">
+                            @licensee.LicenseeInfor.LicenseeName
                         </th>
-                        <th class="headerReport">
-                            Total
-                        </th>
-                        <th class="headerReport">
-                            Winloss
-                        </th>
-                        <th class="headerReport">
-                            Comm
-                        </th>
-                        <th class="headerReport">
-                            Total
-                        </th>
-                        <th class="headerReport">
+                        <th class="headerReport" rowspan="2">
                             Company
                         </th>
-                        <th class="headerReport">
+                        <th class="headerReport" rowspan="2">
                             @ViewBag.BaseCurrency
+                        </th>
+                    </tr>
+                    <tr class="colborder01">
+                        <th class="headerReport col150">
+                            Winloss
+                        </th>
+                        <th class="headerReport">
+                            Comm
+                        </th>
+                        <th class="headerReport">
+                            Total
+                        </th>
+                        <th class="headerReport">
+                            Winloss
+                        </th>
+                        <th class="headerReport">
+                            Comm
+                        </th>
+                        <th class="headerReport">
+                            Total
                         </th>
                     </tr>
                 </thead>
@@ -144,109 +150,88 @@
                     {
                         ReportEntity report = new ReportEntity();
                         report = licensee.Report.EntityList[i];
-                        <tr class="colborder01">
-                            <td class="cellstyle col40 aligncenter">
-                               @report.WinlostDate.ToShortDateString()
+                        <tr class="@GetEvenClass(i)">
+                            <td class="align-center">
+                                @report.WinlostDate.ToDayMonthYear()
                             </td>
-                            <td class="cellstyle col40 aligncenter">
+                            <td class="align-center">
                                 @report.CurrencyName
                             </td>
-                            <td class="cellstyle col65 alignright">
-                                @report.Turnover
+                            <td class="align-right">
+                                @report.Turnover.Format(2)
                             </td>
-                            <td class="cellstyle col40 alignright">
-                               @report.Betcount
+                            <td class="align-right">
+                                @report.Betcount.Format(0)
                             </td>
-                            <td class="cellstyle col65 alignright">
-                                @report.MemberWinloss
+                            <td class="align-right @GetNegativeClass(report.MemberWinloss)">
+                                @report.MemberWinloss.FormatNegative(2)
                             </td>
-                            <td class="cellstyle col40 alignright" >
-                               @report.MemberComm
+                            <td class="align-right">
+                                @if (report.MemberComm != 0)
+                                {
+                                    @report.MemberComm.Format(2);
+                                }
+                                else
+                                { 
+                                    <span>-</span>
+                                }
                             </td>
-                            <td class="cellstyle col65 alignright">
-                                @report.MemberTotal
+                            <td class="align-right @GetNegativeClass(report.MemberTotal)">
+                                @report.MemberTotal.FormatNegative(2)
                             </td>
-                            <td class="cellstyle col65 alignright">
-                                @report.LicenseeWL
+                            <td class="align-right @GetNegativeClass(report.LicenseeWL)">
+                                @report.LicenseeWL.FormatNegative(2)
                             </td>
-                            <td class="cellstyle col40 alignright">
-                               @report.LicenseeComm
+                            <td class="cellstyle col40 align-right">
+                                @if (report.LicenseeComm != 0)
+                                {
+                                    @report.LicenseeComm.Format(2);
+                                }
+                                else
+                                { 
+                                    <span>-</span>
+                                }
                             </td>
-                            <td class="cellstyle col65 alignright">
-                                @report.LicenseeTotal
+                            <td class="cellstyle col65 align-right @GetNegativeClass(report.LicenseeTotal)">
+                                @report.LicenseeTotal.FormatNegative(2)
                             </td>
-                            <td class="cellstyle col65 alignright">
-                                @report.Company
+                            <td class="cellstyle col65 align-right @GetNegativeClass(report.Company)">
+                                @report.Company.FormatNegative(2)
                             </td>
-                            <td class="cellstyle col65 alignright">
-                                @report.CompanyBaseCurrency
+                            <td class="cellstyle col65 align-right @GetNegativeClass(report.CompanyBaseCurrency)">
+                                @report.CompanyBaseCurrency.FormatNegative(2)
                             </td>
                         </tr>
                     }
-                     <tr class="colborder0">
-                            <td class="cellstyle col40">
-                             
-                            </td>
-                            <td class="cellstyle col40">
-                                
-                            </td>
-                            <td class="cellstyle col65">
-                               
-                            </td>
-                            <td class="cellstyle col40">
-                               
-                            </td>
-                            <td class="cellstyle col65">
-                               
-                            </td>
-                            <td class="cellstyle col40" >
-                             
-                            </td>
-                            <td class="cellstyle col65">
-                              
-                            </td>
-                            <td class="cellstyle col65">
-                               
-                            </td>
-                            <td class="cellstyle col40">
-                              
-                            </td>
-                            <td class="cellstyle col65">
-                               
-                            </td>
-                            <td class="cellstyle col65">
-                            
-                            </td>
-                            <td  class="cellstyle col65 alignright">
-                                @licensee.Report.GrandTotal
-                            </td>
-                        </tr>
-                         <tr class="colborder10">
-                            <td colspan="12"  class="cellstyle col650 alignright">
-                            <hr />
-                               <u>&nbsp;</u>
-                            </td>
-                        </tr>
+                    <tr class="colborder0" >
+                        <td class="noborder" colspan="11" >
+                        </td>
+                        <td class="noborder align-right @GetNegativeClass(licensee.Report.GrandTotal)">
+                            @licensee.Report.GrandTotal.FormatNegative(2)
+                        </td>
+                    </tr>
+                    <tr class="colborder0 line">
+                    </tr>
                 </tbody>
             </table>
         </td>
-        <td class="col140">
-            <table class="col140" align="left" cellpadding="3" cellspacing="3">
+        <td class="tblforex">
+            <table align="left" cellpadding="3" cellspacing="3">
                 <thead>
-                  <tr>
-                        <th class="colborder0">
+                    <tr>
+                        <th class="noborder nobackground">
                         </th>
                         <th colspan="2" class="headerReport colborder01">
-                                Forex 31/Mar/13
+                            Forex 31/Mar/13
                         </th>
                     </tr>
-                    <tr class="colborder01">
-                        <th class="colborder0 col30">
+                    <tr>
+                        <th class="noborder nobackground">
                         </th>
-                        <th class="headerReport colborder01 col50">
+                        <th class="col100">
                             @ViewBag.BaseCurrency/ 1Unit
                         </th>
-                        <th class="headerReport colborder01 col60">
+                        <th class="col150">
                             Units/ 1 @ViewBag.BaseCurrency
                         </th>
                     </tr>
@@ -256,60 +241,47 @@
                     {
                         ExchangeRate exchange = new ExchangeRate();
                         exchange = licensee.ExchangeList[i];
-                        <tr class="colborder01">
-                            <td class="cellstyle col30 colborder0 alignright" >
+                        <tr>
+                            <td class="noborder nobackground">
                                 @exchange.CurrencyName
                             </td>
-                            <td class="cellstyle alignright col50" >
-                                 @exchange.BasePerUnit
+                            <td class="align-right">
+                                @exchange.BasePerUnit.Format(5)
                             </td>
-                            <td class="cellstyle alignright col200"  >
-                                 @exchange.UnitsPerBase
+                            <td class="align-right">
+                                @exchange.UnitsPerBase.Format(5)
                             </td>
                         </tr>
-                       
                     }
-                       <tr class="colborder0">
-                            <td class="cellstyle col30 colborder0">
-                                
-                            </td>
-                            <td class="cellstyle col50">
-                               
-                            </td>
-                            <td class="cellstyle col60" >
-                                &nbsp;
-                            </td>
-                        </tr>
-                        <tr class="colborder0">
-                            <td colspan="3"  class="cellstyle col650 alignright">
-                            <hr />
-                               <u>&nbsp;</u>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td class="noborder">
+                            &nbsp;
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </td>
     </tr>
 </table>
-@*
-<div><hr width="400"> aaa </hr></div>*@
 <table width="100%">
-<tr>
-    <td  class="cellInfo col10percent">
-    IDR & VND * 
-    </td>
-    <td class="cellInfo">
-     Amount in IDR is stated in '000, when converted to @ViewBag.BaseCurrency Equv, x 1000
-    </td>
-</tr>
-<tr>
-    <td  class="cellInfo lineHeight80 col10percent">
-    FOREX
-    </td>
-    <td class="cellInfo lineHeight80">
-     www.oanda.com provided minor difference between "@ViewBag.BaseCurrency / 1Unit" vs "Units/ 1 @ViewBag.BaseCurrency", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency" to prevail all
-    </td>
-</tr>
+    <tr>
+        <td class="cellInfo col10percent">
+            IDR & VND *
+        </td>
+        <td class="cellInfo">
+            Amount in IDR is stated in '000, when converted to @ViewBag.BaseCurrency Equv, x
+            1000
+        </td>
+    </tr>
+    <tr>
+        <td class="cellInfo lineHeight80 col10percent">
+            FOREX
+        </td>
+        <td class="cellInfo lineHeight80">
+            www.oanda.com provided minor difference between "@ViewBag.BaseCurrency / 1Unit"
+            vs "Units/ 1 @ViewBag.BaseCurrency", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency"
+            to prevail all
+        </td>
+    </tr>
 </table>
-
-
+</div>

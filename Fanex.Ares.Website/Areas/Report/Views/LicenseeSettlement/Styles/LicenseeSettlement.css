@@ -1,1 +1,68 @@
-﻿
+﻿.tbldetail table
+{
+    border-collapse: collapse;
+}
+
+.tbldetail table thead
+{
+    background-color: #618ADA;
+    text-align: center;
+    color: White;
+}
+
+.tbldetail table thead tr
+{
+}
+
+.tbldetail table thead th, .tbldetail table tr td
+{
+    border: 1.5px solid #736767;
+}
+
+.tblforex table
+{
+    border-collapse: collapse;
+}
+
+.tblforex table thead
+{
+    background-color: #618ADA;
+    text-align: center;
+    color: White;
+}
+
+.tblforex table thead tr
+{
+}
+
+.tblforex table thead th, .tblforex table tr td
+{
+    border: 1.5px solid #736767;
+}
+
+.negative-number
+{
+    color: Red;
+}
+
+.noborder
+{
+    border: none !important;
+}
+
+.nobackground
+{
+    background: #ffffff !important;
+}
+
+.line
+{
+    border: 3px solid black !important;
+}
+
+.div-content
+{
+    clear:both; 
+    width: 1260px; 
+    margin:6px 0 0 10px;
+}
