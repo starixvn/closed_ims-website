@@ -271,7 +271,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex+=1, 0].Value = Labels.Finance_Department;
             ewReport.Cells[rowIndex+=2, 0].Value = Labels.SETTLEMENT_REPORT;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMM-yy");
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format("{0}:", Labels.Licensee.ToUpper());
             ewReport.Cells[rowIndex, 2].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 2].Value = licenseeInfo.LicenseeName;
@@ -279,7 +279,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 3].Value = product.ToUpper();
             ewReport.Cells[rowIndex, 5].Value = string.Format("{0}:", Labels.FBilling);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.FirstBilling.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.FirstBilling.ToString("dd-MMM-yy");
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Basis_of_Billing);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BasisOfBilling;
@@ -288,7 +288,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.MinimumFees;
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Head_of_Terms);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTerms.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTerms.ToString("dd-MMM-yy");
         }
 
 
@@ -296,6 +296,8 @@ namespace Fanex.Ares.Report.Services.Interface
             Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report reportDetails, string licenseeName, DateTime settlementDate,
             ref int rowIndex, ref ExcelWorksheet ewReport, string exchangeTo)
         {
+            //cellStyle.FillPattern.SetSolid
+            
             var headerColor = ExcelExtensions.HEADER_TITLE_COLOR;
             var normalStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.BACKGROUND_COLOR, false);
             var numberStyle = ExcelExtensions.GetCellNumberStyle("", ExcelExtensions.BACKGROUND_COLOR, false, false, false);
@@ -379,7 +381,7 @@ namespace Fanex.Ares.Report.Services.Interface
 
                 ewReport.Cells[rowIndex, colIndex].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.WinlostDate.ToString("dd-MMMM-yy");
+                ewReport.Cells[rowIndex, colIndex].Value = detail.WinlostDate.ToString("dd-MMM-yy");
                 ewReport.Cells[rowIndex, colIndex += 1].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.CurrencyName;
@@ -424,6 +426,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 rowIndex += 1;
             }
             ewReport.Cells[rowIndex, colIndex].Style.Font.Weight = ExcelFont.BoldWeight;
+            ewReport.Cells[rowIndex, colIndex].Style.NumberFormat = "#,##0.00_);[RED](#,##0.00)";
             ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal;
             #endregion
             
@@ -434,7 +437,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex += 2, startRow, colIndex + 1).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Style.FormatTitleCell(headerColor);
             ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Value = string.Format("FOREX @ {0}",
-                settlementDate.ToString("dd-MMMM-yy"));
+                settlementDate.ToString("dd-MMM-yy"));
 
             ewReport.Cells[startRow += 1, colIndex].Style.FormatTitleCell(headerColor);
             ewReport.Cells[startRow, colIndex].Value = string.Format("{0}/1 Unit", exchangeTo);
@@ -455,8 +458,11 @@ namespace Fanex.Ares.Report.Services.Interface
             }
             #endregion
 
-            #region note
-            ewReport.Cells[rowIndex += 2, 0].Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+            #region note            
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex -1).Merged = true;
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex - 1).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex - 1).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+            ewReport.Rows[rowIndex].Height = 300;
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
             #endregion
         }
