@@ -104,7 +104,7 @@
     <NotInBuild Include="Scripts\Exchange\IMS_LicenseeCurrencySel.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
-    <NotInBuild Include="Scripts\Exchange\IMS_ExchangeDailySel.sql">
+    <NotInBuild Include="Scripts\Exchange\IMS_f_ExchangeDailySel.sql">
       <SubType>NotInBuild</SubType>
     </NotInBuild>
   </ItemGroup>

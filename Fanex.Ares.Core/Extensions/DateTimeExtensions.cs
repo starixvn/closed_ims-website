@@ -195,5 +195,15 @@ namespace Fanex.Ares.Core.Extensions
         {
             return date.ToString(Constants.MONTH_YEAR_DATE_FORMAT_WITH_SLASH);
         }
+
+        /// <summary>
+        /// Foarmat da datatime value to string (dd-MMM-yyyy)
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static string ToDayMonthYear(this DateTime date)
+        {
+            return date.ToString(Constants.ARES_DATE_FORMAT);
+        }
     }
 }

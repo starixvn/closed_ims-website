@@ -124,11 +124,22 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
                 {
+                    var baseColName = string.Empty;
+                    if (criteria.BaseCurrency == 3)
+                    {
+                        baseColName = "CompanyBaseEUR";
+                    }
+                    else
+                    {
+                        baseColName = "CompanyBaseUSD";
+                    }
+
                     var res = new ReportEntity
                     {
                         Betcount = Convert.ToInt32(r["Betcount"].ToString()),
                         Company = Convert.ToDouble(r["Company"].ToString()),
-                        CompanyBaseCurrency = Convert.ToDouble(r["CompanyBaseCurrency"].ToString()),
+
+                        CompanyBaseCurrency = Convert.ToDouble(r[baseColName].ToString()),
                         Currency = Convert.ToInt32(r["Currency"].ToString()),
                         CurrencyName = r["CurrencyName"].ToString(),
                         LicenseeComm = Convert.ToDouble(r["LicenseeComm"].ToString()),
@@ -136,7 +147,7 @@ namespace Fanex.Ares.Report.Services.Interface
                         MemberComm = Convert.ToDouble(r["MemberComm"].ToString()),
                         MemberWinloss = Convert.ToDouble(r["MemberWinloss"].ToString()),
                         Turnover = Convert.ToDouble(r["Turnover"].ToString()),
-                        WinlostDate = DateTime.Parse(r["WinlostDate"].ToString())
+                        WinlostDate = DateTime.Parse(r["WinLostMonth"].ToString())
                     };
                     return res;
                 };
