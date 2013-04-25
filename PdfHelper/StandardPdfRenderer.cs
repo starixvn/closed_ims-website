@@ -56,7 +56,7 @@ namespace PdfHelper
 
                     styles.LoadStyle("titleBold", "size", "13pt");
                     styles.LoadStyle("titleBold", "align", "left");
-                    styles.LoadStyle("titleBold", "font-weight", "1000");
+                    styles.LoadStyle("titleBold", "style", "font-weight: 1000");
 
                     styles.LoadStyle("titleSub", "size", "11pt");
                     styles.LoadStyle("titleSub", "align", "left");
