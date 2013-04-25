@@ -128,3 +128,13 @@
 {
     border: 1;
 }
+
+.negative-number
+{
+    color: Red;
+}
+
+.even
+{
+    bgcolor: #e4f2fd;
+}
