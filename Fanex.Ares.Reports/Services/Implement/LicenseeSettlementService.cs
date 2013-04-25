@@ -103,6 +103,31 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 LoggingHandler.Log(ex);
             }
+
+            return listProducts;
+        }
+
+        public IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
             return listProducts;
         }
 
@@ -113,8 +138,6 @@ namespace Fanex.Ares.Report.Services.Interface
             SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo, listLicenseeInfo);
             return listLicenseeInfo;
         }
-
-        
 
         public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
@@ -175,16 +198,15 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 Func<IDataReader, ExchangeRate> mappingFunc = r =>
                 {
-                    var basePerUnit = criteria.BaseCurrencyId == 3 ? "USDPerUnit" : "EURPerUnit";
-                    var unitPerBase = criteria.BaseCurrencyId == 3 ? "UnitsPerUSD" : "UnitsPerEUR";
-
                     var res = new ExchangeRate
                     {
-                        Currency = Convert.ToInt32(r["Currency"].ToString()),
-                        CurrencyName = r["CurrencyName"].ToString(),
-                        BasePerUnit = Convert.ToDouble(r[basePerUnit].ToString()),
-                        UnitsPerBase = Convert.ToDouble(r[unitPerBase].ToString())
+                        Currency = Convert.ToInt32(r["ExchangeId"].ToString()),
+                        CurrencyName = r["Code"].ToString(),
+                        BasePerUnit = Convert.ToDouble(r[criteria.BaseCurrencyName].ToString())
                     };
+
+                    res.UnitsPerBase = 1 / res.BasePerUnit;
+
                     return res;
                 };
 

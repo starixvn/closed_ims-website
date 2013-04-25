@@ -49,10 +49,10 @@ namespace Fanex.Ares.Report.Controllers
             var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();
             listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
             ViewBag.ListCurrency = listCurrency;
-            var listExchangeRate = new List<SelectListItem>();
-            listExchangeRate.Add(new SelectListItem() { Selected = true, Text = "EUR", Value = "6" });
-            listExchangeRate.Add(new SelectListItem() { Selected = false, Text = "USD", Value = "3" });
-            ViewBag.ListExchangeRate = listExchangeRate;
+            //var listExchangeRate = new List<SelectListItem>();
+            //listExchangeRate.Add(new SelectListItem() { Selected = true, Text = "EUR", Value = "6" });
+            //listExchangeRate.Add(new SelectListItem() { Selected = false, Text = "USD", Value = "3" });
+            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
 
             return View();
         }
@@ -98,7 +98,8 @@ namespace Fanex.Ares.Report.Controllers
             model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
             model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItem>().Text;
             model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
-            model.LicenseeInfor.SettlementDate = DateTime.Now;
+            //model.LicenseeInfor.SettlementDate = DateTime.Now;
+            model.LicenseeInfor.SettlementDate = criteria.ToDate;
 
             // Licensee Report
             var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
@@ -115,6 +116,7 @@ namespace Fanex.Ares.Report.Controllers
             // Exchange Rate
             var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
             model.ExchangeList = new List<ViewModels.ExchangeRate>();
+            
             var exchangeRatecurrencies = string.Empty;
             foreach (ReportEntity item in model.Report.EntityList)
             {
@@ -142,6 +144,7 @@ namespace Fanex.Ares.Report.Controllers
             exchangeRateCriteria.Currency = exchangeRatecurrencies;
             exchangeRateCriteria.ExchangeDate = criteria.ToDate;
             exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
+            exchangeRateCriteria.BaseCurrencyName = listCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
 
             var exchangeList = _service.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
 
@@ -158,6 +161,16 @@ namespace Fanex.Ares.Report.Controllers
         {
             _service.ExportSettlementReportToExcel(exchange, product);
             return new EmptyResult();
+        }
+
+        public JsonResult GetProductByLicenseeID(int licenseeID)
+        {
+            return Json(_service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID }));
+        }
+
+        public JsonResult GetCurencyByLicenseeID(int licenseeID)
+        {
+            return Json(_service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }));
         }
     }
 }
