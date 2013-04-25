@@ -74,6 +74,10 @@
     </div>*@
 </body>
 </html>
+@Scripts.Render("~/scripts/common")
+@RenderSection("Scripts", false)
+@RenderSection("Foot", false)
+
 <script type="text/javascript">
     window.rootUrl = '@Url.Content("~")';
     window.rootWebPath = '@(Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath)';
@@ -88,9 +92,4 @@
         $(".grid-title").css("width", width + "px");
         $(".div-content").css("width", width + "px");
     });
-
-    
 </script>
-@Scripts.Render("~/scripts/common")
-@RenderSection("Scripts", false)
-@RenderSection("Foot", false)

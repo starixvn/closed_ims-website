@@ -125,20 +125,19 @@ namespace Fanex.Ares.Report.Services.Interface
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
                 {
                     var baseColName = string.Empty;
-                    if (criteria.BaseCurrency == 3)
-                    {
-                        baseColName = "CompanyBaseEUR";
-                    }
-                    else
+                    if (criteria.BaseCurrency == 3) // USD = 3
                     {
                         baseColName = "CompanyBaseUSD";
+                    }
+                    else // EUR = 6
+                    {
+                        baseColName = "CompanyBaseEUR";
                     }
 
                     var res = new ReportEntity
                     {
                         Betcount = Convert.ToInt32(r["Betcount"].ToString()),
                         Company = Convert.ToDouble(r["Company"].ToString()),
-
                         CompanyBaseCurrency = Convert.ToDouble(r[baseColName].ToString()),
                         Currency = Convert.ToInt32(r["Currency"].ToString()),
                         CurrencyName = r["CurrencyName"].ToString(),
@@ -176,12 +175,15 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 Func<IDataReader, ExchangeRate> mappingFunc = r =>
                 {
+                    var basePerUnit = criteria.BaseCurrencyId == 3 ? "USDPerUnit" : "EURPerUnit";
+                    var unitPerBase = criteria.BaseCurrencyId == 3 ? "UnitsPerUSD" : "UnitsPerEUR";
+
                     var res = new ExchangeRate
                     {
                         Currency = Convert.ToInt32(r["Currency"].ToString()),
                         CurrencyName = r["CurrencyName"].ToString(),
-                        BasePerUnit = Convert.ToDouble(r["BasePerUnit"].ToString()),
-                        UnitsPerBase = Convert.ToDouble(r["UnitsPerBase"].ToString())
+                        BasePerUnit = Convert.ToDouble(r[basePerUnit].ToString()),
+                        UnitsPerBase = Convert.ToDouble(r[unitPerBase].ToString())
                     };
                     return res;
                 };

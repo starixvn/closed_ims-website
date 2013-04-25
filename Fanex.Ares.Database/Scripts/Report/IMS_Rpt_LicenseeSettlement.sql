@@ -4,8 +4,7 @@
 	@fromDate SMALLDATETIME,
 	@toDate SMALLDATETIME,
 	@product INT = 0,
-	@currency INT = 0,
-	@baseCurrency INT = 0
+	@currency INT = 0
 AS
 	/*  Created: Kevin
 		Date: 20130418

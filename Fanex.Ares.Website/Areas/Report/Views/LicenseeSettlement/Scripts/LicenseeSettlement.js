@@ -10,7 +10,7 @@
     $('#btnPDF').click(function () { PrintPDF(); });
     $('#btnExcel').click(function () { exportReportToExcel(); });
     RenderFilterNote();
-
+    
 
 });
 
@@ -68,7 +68,8 @@ function Submit() {
         data: $('#formLicenseeSettlement').serialize(),
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
-            $('#nonLiveBingoReportTitle').val("Settlement Report for " + $('#LicenseeId').val() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId').val() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
+            $(".grid-title").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("faild");
