@@ -43,23 +43,9 @@ namespace PdfHelper
                     pdfWriter.PageEvent = new PrintHeaderFooter { Title = pageTitle };
                     pdfDocument.Open();
 
-                    var styles = new StyleSheet();
+                    var styles = LoadStyleSheet();
 
-                    var stylePath = HttpContext.Current.Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
-
-                    ICssParser cssParser = new CssParser(stylePath);
-
-
-
-                    var lsClassName = cssParser.GetListClassName();
-                    foreach (var className in lsClassName)
-                    {
-                        var properties = cssParser.GetProperties(className);
-                        
-                        if(properties != null)
-                            styles.LoadStyle(className, properties as Dictionary<string, string>);
-                        
-                    }
+                  
                     /*
 
                     styles.LoadStyle("titleBold", "size", "13pt");
@@ -213,6 +199,44 @@ namespace PdfHelper
             }
         }
 
+
+        private static StyleSheet LoadStyleSheet()
+        {
+            var styles = new StyleSheet();
+
+            var stylePath = HttpContext.Current.Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+
+            ICssParser cssParser = new CssParser(stylePath);
+
+            var test = cssParser.GetProperties(".lineHeight200");
+
+
+
+            var lsClassName = cssParser.GetListClassName();
+            foreach (var className in lsClassName)
+            {
+                var properties = cssParser.GetProperties(className);
+
+                foreach (var property in properties)
+                {
+                    var attributeName = property.Key;
+                    var attributeValue = property.Value;
+
+                    if (attributeName.Contains("line-height"))
+                    {
+                        attributeValue = string.Join(":", attributeName, attributeValue);
+                        attributeName = "style";
+                        
+                        //styles.LoadStyle("lineHeight200", "style", "line-height: 200%");
+                    }
+
+                    styles.LoadStyle(className, attributeName, attributeValue);
+                }
+
+            }
+
+            return styles;
+        }
 
 
     }
