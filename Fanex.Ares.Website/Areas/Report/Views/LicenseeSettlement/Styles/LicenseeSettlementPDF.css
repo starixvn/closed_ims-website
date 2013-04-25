@@ -19,12 +19,12 @@
 
 .lineHeight200
 {
-   line-height:200% ;
+   style: line-height:200% ;
 }
 
 .lineHeight80
 {
-   line-height: 80% ;
+   style: line-height: 80% ;
 }
 
 .headerReport
