@@ -14,6 +14,7 @@ using Fanex.Ares.Report.ViewModels;
 using System.Drawing;
 using Fanex.Ares.Core.Extensions;
 using Resource;
+using Fanex.Common.Extensions;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
@@ -25,6 +26,9 @@ namespace Fanex.Ares.Report.Services.Interface
         /// Cache key for All Licensees
         /// </summary>
         private const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
+        private const string SessionKeyLicenseeBillingInfo = "Fanex.Ares.Report.Services.LicenseeBillingInfo";
+        private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+        private const string SessionKeyExchangeRateForBilling = "Fanex.Ares.Report.Services.ExchangeRateForBilling";
 
         public LicenseeSettlementService()
         {
@@ -104,7 +108,9 @@ namespace Fanex.Ares.Report.Services.Interface
 
         public LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
         {
+            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo, null);
             var listLicenseeInfo = base.DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
+            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo, listLicenseeInfo);
             return listLicenseeInfo;
         }
 
@@ -113,7 +119,7 @@ namespace Fanex.Ares.Report.Services.Interface
         public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
-
+            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, null);    
             try
             {
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
@@ -141,7 +147,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     report.GrandTotal += item.CompanyBaseCurrency;
                 }
-
+                SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, report);                
             }
             catch (Exception ex)
             {
@@ -154,7 +160,7 @@ namespace Fanex.Ares.Report.Services.Interface
         public IEnumerable<ExchangeRate> GetLicenseeExchangeRate(IMS_ExchangeRateBillingSelCriteria criteria)
         {
             var listExchangeRate = new List<ExchangeRate>();
-
+            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling, null);
             try
             {
                 Func<IDataReader, ExchangeRate> mappingFunc = r =>
@@ -170,7 +176,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 };
 
                 listExchangeRate = _repository.Fetch<ExchangeRate>(criteria, mappingFunc).ToList();
-
+                SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling, listExchangeRate);
             }
             catch (Exception ex)
             {
@@ -187,20 +193,23 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 #region local varialbles
                 var reportName = "LicenseeSettlementReport";
-                var model = new LicenseeSettlementModel();
+                var report = (Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+                var billingInfo = (LicenseeInformation)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo);
+                var exchangrateInfo = (IEnumerable<ExchangeRate>)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling);
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;
                 #endregion
 
-                if (model != null && model.Report != null && model.Report.EntityList.Count > 0)
+                if (report != null && report.EntityList.Count > 0)
                 {
 
                     //Billing info
-                    ExportSettlementReportToExcelAssignBillingInfo(model.LicenseeInfor, ref rowIndex, ref ewReport, product);
+                    ExportSettlementReportToExcelAssignBillingInfo(billingInfo, ref rowIndex, ref ewReport, product);
                     rowIndex+=2;
                     //report & exchange rate
-                    ExportSettlementReportToExcelAssignDetailAndExchangeRate(model, ref rowIndex, ref ewReport, exchange);
+                    ExportSettlementReportToExcelAssignDetailAndExchangeRate(exchangrateInfo, report, billingInfo.LicenseeName, billingInfo.SettlementDate,
+                        ref rowIndex, ref ewReport, exchange);
                 }
 
                 #region response file
@@ -248,8 +257,9 @@ namespace Fanex.Ares.Report.Services.Interface
         }
 
 
-        private void ExportSettlementReportToExcelAssignDetailAndExchangeRate(LicenseeSettlementModel settlementReport, 
-            ref int rowIndex, ref ExcelWorksheet ewReport, string exchange)
+        private void ExportSettlementReportToExcelAssignDetailAndExchangeRate(IEnumerable<ExchangeRate> exchangeRateInfo, 
+            Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report reportDetails, string licenseeName, DateTime settlementDate,
+            ref int rowIndex, ref ExcelWorksheet ewReport, string exchangeTo)
         {
             var headerColor = ExcelExtensions.HEADER_TITLE_COLOR;
             var normalStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.BACKGROUND_COLOR, false);
@@ -306,7 +316,7 @@ namespace Fanex.Ares.Report.Services.Interface
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex, colIndex + 2).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Value = settlementReport.LicenseeInfor.LicenseeName;
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 2).Value = licenseeName;
 
             ewReport.Cells[rowIndex + 1, colIndex].Style.FormatTitleCell(headerColor);
             ewReport.Cells[rowIndex + 1, colIndex].Value = Labels.WinLoss;
@@ -323,12 +333,12 @@ namespace Fanex.Ares.Report.Services.Interface
 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 1, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = exchange;
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = exchangeTo;
             #endregion
             rowIndex += 2;
 
             #region detail
-            foreach (ReportEntity detail in settlementReport.Report.EntityList)
+            foreach (ReportEntity detail in reportDetails.EntityList)
             {
                 colIndex = 0;
 
@@ -379,7 +389,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 rowIndex += 1;
             }
             ewReport.Cells[rowIndex, colIndex].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, colIndex].Value = settlementReport.Report.GrandTotal;
+            ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal;
             #endregion
             
             #endregion
@@ -389,16 +399,16 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex += 2, startRow, colIndex + 1).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Style.FormatTitleCell(headerColor);
             ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Value = string.Format("FOREX @ {0}",
-                settlementReport.LicenseeInfor.SettlementDate.ToString("dd-MMMM-yy"));
+                settlementDate.ToString("dd-MMMM-yy"));
 
             ewReport.Cells[startRow += 1, colIndex].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[startRow, colIndex].Value = string.Format("{0}/1 Unit", exchange);
+            ewReport.Cells[startRow, colIndex].Value = string.Format("{0}/1 Unit", exchangeTo);
             ewReport.Cells[startRow, colIndex + 1].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[startRow, colIndex + 1].Value = string.Format("Units/1 {0}", exchange);
+            ewReport.Cells[startRow, colIndex + 1].Value = string.Format("Units/1 {0}", exchangeTo);
             #endregion
 
             colIndex -= 1;
-            foreach (ExchangeRate exchangeRate in settlementReport.ExchangeList)
+            foreach (ExchangeRate exchangeRate in exchangeRateInfo)
             {
                 startRow+=1;
                 ewReport.Cells[startRow, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
@@ -411,8 +421,8 @@ namespace Fanex.Ares.Report.Services.Interface
             #endregion
 
             #region note
-            ewReport.Cells[startRow += 2, 0].Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchange);
-            ewReport.Cells[startRow += 1, 0].Value = string.Format(Labels.FOREX_Info, exchange);
+            ewReport.Cells[rowIndex += 2, 0].Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+            ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
             #endregion
         }
         #endregion

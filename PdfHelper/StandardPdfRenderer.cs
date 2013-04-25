@@ -4,6 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Fanex.Web.HtmlHelper;
+
 namespace PdfHelper
 {
     using System.IO;
@@ -14,7 +16,7 @@ namespace PdfHelper
     using System.Collections.Generic;
     using System;
     using iTextSharp.text.html;
-    using Sanjeet.Demos.CSSParser;
+    
     using System.Web;
 
     /// <summary>
@@ -41,18 +43,24 @@ namespace PdfHelper
                     pdfWriter.PageEvent = new PrintHeaderFooter { Title = pageTitle };
                     pdfDocument.Open();
 
-                    StyleSheet styles = new StyleSheet();
+                    var styles = new StyleSheet();
 
-                    IContainer container1 = GetContainer();
+                    var stylePath = HttpContext.Current.Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
 
-                    var properties = container1.GetProperties("lineHeight200");
+                    ICssParser cssParser = new CssParser(stylePath);
 
-                    foreach (var property in properties)
+
+
+                    var lsClassName = cssParser.GetListClassName();
+                    foreach (var className in lsClassName)
                     {
-                        var test = property.Key + " : " + property.Value;
+                        var properties = cssParser.GetProperties(className);
+                        
+                        if(properties != null)
+                            styles.LoadStyle(className, properties as Dictionary<string, string>);
+                        
                     }
-                    
-
+                    /*
 
                     styles.LoadStyle("titleBold", "size", "13pt");
                     styles.LoadStyle("titleBold", "align", "left");
@@ -106,7 +114,7 @@ namespace PdfHelper
                     
                     //styles.LoadTagStyle("th", "size", "10pt");
                     //styles.LoadStyle("colorcell", "color", "#ffffff");
-                    //styles.LoadStyle("colorcell", "bgcolor", "#618ADA");  
+                    //styles.LoadStyle("colorcell", "bgcolor", "#618ADA");  */
 
 //                        styles.LoadTagStyle("p", "size", "10pt");
 //styles.LoadTagStyle("p", "color", "#0000ff");   
@@ -206,13 +214,6 @@ namespace PdfHelper
         }
 
 
-        private  IContainer GetContainer()
-        {
-
-            var stylePath = HttpContext.Current.Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
-
-            return new DefaultContainer(stylePath);
-        }
 
     }
 }
