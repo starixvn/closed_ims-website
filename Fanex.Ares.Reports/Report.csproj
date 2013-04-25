@@ -87,6 +87,7 @@
     <Compile Include="Criteria\GetOutrightTicketCriteria.cs" />
     <Compile Include="Criteria\GetParlaySubTicketCriteria.cs" />
     <Compile Include="Criteria\GetRecoverTicketCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_BaseCurrencySel.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeCurrencySelCriteria.cs" />

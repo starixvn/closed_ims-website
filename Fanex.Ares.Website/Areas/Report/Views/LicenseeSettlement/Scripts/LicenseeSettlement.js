@@ -11,7 +11,9 @@
     $('#btnExcel').click(function () { exportReportToExcel(); });
     RenderFilterNote();
 
-
+    $('#LicenseeId').change(function () {
+        GetProductByLicenseeID($(this).val(), $('Product'));
+    });
 });
 
 var renderDatePicker = function () {
@@ -53,13 +55,13 @@ var renderDatePicker = function () {
 
 function RenderFilterNote() {
     var $this = $('#notemessage');
-    $this.attr("title", "aaaaaaaaaaaaaaaaaaa");
+    $this.attr("title", notemessage);
     $this.tipsy({
         html: true,
         opacity: 0.9,
         gravity: 'ne'
     });
-}; 
+};
 
 function Submit() {
     $.ajax({
@@ -68,7 +70,8 @@ function Submit() {
         data: $('#formLicenseeSettlement').serialize(),
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
-            $('#nonLiveBingoReportTitle').val("Settlement Report for " + $('#LicenseeId').val() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
+            $(".grid-title").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("faild");
@@ -92,4 +95,44 @@ function exportReportToExcel() {
     }
 
     iframe.attr('src', url);
+}
+
+function GetProductByLicenseeID(licenseeID, destinationElement) {
+    $.ajax({
+        url: "LicenseeSettlement/GetProductByLicenseeID",
+        type: "POST",
+        data: "&licenseeID=" + $('#LicenseeId').val(),
+        success: function (data, textStatus, jqXHR) {
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+            }
+            $('#Product').html(html);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("fail");
+        },
+        complete: function (jqXHR, textStatus) {
+        }
+    });
+}
+
+function GetProductByLicenseeID(licenseeID, destinationElement) {
+    $.ajax({
+        url: "LicenseeSettlement/GetCurencyByLicenseeID",
+        type: "POST",
+        data: "&licenseeID=" + $('#LicenseeId').val(),
+        success: function (data, textStatus, jqXHR) {
+            var html = "<option value='0' selected='selected'>All</option>";
+            for (var i = 0; i < data.length; i++) {
+                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+            }
+            $('#Currency').html(html);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("fail");
+        },
+        complete: function (jqXHR, textStatus) {
+        }
+    });
 }

@@ -4,8 +4,7 @@
 	@fromDate SMALLDATETIME,
 	@toDate SMALLDATETIME,
 	@product INT = 0,
-	@currency INT = 0,
-	@baseCurrency INT = 0
+	@currency INT = 0
 AS
 	/*  Created: Kevin
 		Date: 20130418
@@ -179,10 +178,14 @@ AS
 
 	CREATE NONCLUSTERED INDEX IDX_Index_SA ON #SAgWinLoss(Currency)	   
 	SELECT * INTO #TempExchange 									   
-	FROM Lrf_f_GetExchangeDaily(@FDate,@TDate)						   
+	FROM IMS_f_ExchangeDailySel(@FDate,@TDate)						   
 	WHERE exchangeid IN (SELECT DISTINCT Currency FROM #SAgWinLoss)	   
 	SELECT   														   
-	   w.winlostdate,  										 
+	   (
+		   CASE WHEN GETDATE() < (DATEADD(s,-1, DATEADD(mm, DATEDIFF(m,0,w.winlostdate)+1,0))) 
+		   THEN GETDATE() 
+		   ELSE (DATEADD(s,-1, DATEADD(mm, DATEDIFF(m,0,w.winlostdate)+1,0))) END													   
+	   )  AS WinLostMonth,  										 
 	   Currency,   														 
 	   (CASE WHEN Currency = 51 THEN @VNDCurrencyName ELSE e.Code END) CurrencyName,								 
 	   SUM(TurnOver)	AS Turnover,   
@@ -193,23 +196,22 @@ AS
 	   SUM(LicenseeComm)AS LicenseeComm,	
 	   SUM(Company)		AS Company,	
 	   --Base currency
-	   (	   
-	   CASE WHEN(@baseCurrency = 6)			
-	   THEN
-			CAST(SUM(Company * e.EUR) AS MONEY)     
-	   ELSE
-			CAST(SUM(Company * e.USD) AS MONEY)     
-	   END				
-	   ) AS CompanyBaseCurrency
+	   CAST(SUM(Company * e.EUR) AS MONEY)  AS CompanyBaseEUR,
+	   CAST(SUM(Company * e.USD) AS MONEY)  AS CompanyBaseUSD  
+	   
 	FROM													  
 		#SAgWinLoss w   									  
 		INNER JOIN  #TempExchange e							  
 		ON w.winlostdate = e.ExchangeDate AND w.currency = e.ExchangeId
 	GROUP BY   														   
 		Currency													   
-		,w.winlostdate											   
+		,(
+		   CASE WHEN GETDATE() < (DATEADD(s,-1, DATEADD(mm, DATEDIFF(m,0,w.winlostdate)+1,0))) 
+		   THEN GETDATE() 
+		   ELSE (DATEADD(s,-1, DATEADD(mm, DATEDIFF(m,0,w.winlostdate)+1,0))) END													   
+	   )											   
 		,CASE WHEN Currency = 51 THEN @VNDCurrencyName ELSE e.Code END												   
-	ORDER BY WinlostDate  													   
+	ORDER BY WinLostMonth  													   
 
 	DROP TABLE #TempExchange												   
 	DROP TABLE #SAgWinLoss   

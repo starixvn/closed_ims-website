@@ -74,6 +74,10 @@
     </div>*@
 </body>
 </html>
+@Scripts.Render("~/scripts/common")
+@RenderSection("Scripts", false)
+@RenderSection("Foot", false)
+
 <script type="text/javascript">
     window.rootUrl = '@Url.Content("~")';
     window.rootWebPath = '@(Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath)';
@@ -83,14 +87,9 @@
     $(".grid-title").css("width", ($(window).width() - 20) + "px");
     $(".div-content").css("width", ($(window).width() - 20) + "px");
     $(window).resize(function () {
-        var width = $(window).width() - 20; //padding-right: 10 + padding-left: 10       
+        var width = $(window).width() - 20; //padding-right: 10 + padding-left: 10
         $("#filter-bar").css("width", width + "px");
         $(".grid-title").css("width", width + "px");
         $(".div-content").css("width", width + "px");
     });
-
-    
 </script>
-@Scripts.Render("~/scripts/common")
-@RenderSection("Scripts", false)
-@RenderSection("Foot", false)

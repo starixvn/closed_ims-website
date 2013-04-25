@@ -103,6 +103,31 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 LoggingHandler.Log(ex);
             }
+
+            return listProducts;
+        }
+
+        public IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
             return listProducts;
         }
 
@@ -114,8 +139,6 @@ namespace Fanex.Ares.Report.Services.Interface
             return listLicenseeInfo;
         }
 
-        
-
         public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
@@ -125,20 +148,19 @@ namespace Fanex.Ares.Report.Services.Interface
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
                 {
                     var baseColName = string.Empty;
-                    if (criteria.BaseCurrency == 3)
-                    {
-                        baseColName = "CompanyBaseEUR";
-                    }
-                    else
+                    if (criteria.BaseCurrency == 3) // USD = 3
                     {
                         baseColName = "CompanyBaseUSD";
+                    }
+                    else // EUR = 6
+                    {
+                        baseColName = "CompanyBaseEUR";
                     }
 
                     var res = new ReportEntity
                     {
                         Betcount = Convert.ToInt32(r["Betcount"].ToString()),
                         Company = Convert.ToDouble(r["Company"].ToString()),
-
                         CompanyBaseCurrency = Convert.ToDouble(r[baseColName].ToString()),
                         Currency = Convert.ToInt32(r["Currency"].ToString()),
                         CurrencyName = r["CurrencyName"].ToString(),
@@ -178,11 +200,13 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     var res = new ExchangeRate
                     {
-                        Currency = Convert.ToInt32(r["Currency"].ToString()),
-                        CurrencyName = r["CurrencyName"].ToString(),
-                        BasePerUnit = Convert.ToDouble(r["BasePerUnit"].ToString()),
-                        UnitsPerBase = Convert.ToDouble(r["UnitsPerBase"].ToString())
+                        Currency = Convert.ToInt32(r["ExchangeId"].ToString()),
+                        CurrencyName = r["Code"].ToString(),
+                        BasePerUnit = Convert.ToDouble(r[criteria.BaseCurrencyName].ToString())
                     };
+
+                    res.UnitsPerBase = 1 / res.BasePerUnit;
+
                     return res;
                 };
 

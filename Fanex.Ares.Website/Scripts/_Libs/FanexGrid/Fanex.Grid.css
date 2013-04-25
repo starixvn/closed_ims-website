@@ -161,7 +161,8 @@
 
 .grid-title
 {
-     background: linear-gradient(#FFCC33, #FFCC35) repeat scroll 0 0 transparent;
+    background: #ffcc33;
+    background: linear-gradient(#FFCC33, #FFCC35) repeat scroll 0 0 transparent;
     border: 1px solid #D2B24D;
     float: left;
     height: 25px;
