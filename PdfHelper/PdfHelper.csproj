@@ -36,7 +36,7 @@
     </Reference>
     <Reference Include="itextsharp, Version=5.4.1.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\itextsharp.dll</HintPath>
+      <HintPath>C:\Users\david.tran\Desktop\Itextsharp\itextsharp-all-5.4.1\itextsharp-src-core\bin\Debug\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
