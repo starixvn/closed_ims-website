@@ -61,7 +61,7 @@ namespace Fanex.Ares.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;ul&gt;&lt;li style=&quot;color: White;font-weight: bold;&quot;&gt;+ This report is using OANDA exchange rate for currency conversion&lt;/li&gt;&lt;li style=&quot;color: White;font-weight: bold;&quot;&gt;+ For data accuracy:&lt;ul&gt;&lt;li&gt;- Generate the billing report &lt;span style=&quot;color: #D4BC22&quot;&gt;5 days after month-end.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;.
+        ///   Looks up a localized string similar to &lt;ul style=&quot;margin: 2px 2px 2px 2px; padding: 0px&quot;&gt;&lt;li style=&quot;color: White;font-weight: bold;&quot;&gt;+ This report is using OANDA exchange rate for currency conversion&lt;/li&gt;&lt;li style=&quot;color: White;font-weight: bold;&quot;&gt;+ For data accuracy:&lt;ul&gt;&lt;li style=&quot;font-weight: normal&quot;&gt;- Generate the billing report &lt;span style=&quot;color: #D4BC22&quot;&gt;5 days after month-end.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;.
         /// </summary>
         public static string LicenseeSettlementNoteMessage {
             get {
