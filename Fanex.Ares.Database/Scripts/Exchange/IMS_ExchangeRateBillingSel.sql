@@ -22,25 +22,16 @@ AS
 	FROM strSPlit(@currency,',')
 
 	SELECT * INTO #TempExchange 
-	FROM bodb02.dbo.Lrf_f_GetExchangeDaily(@exchangeDate, @exchangeDate)
+	FROM IMS_f_ExchangeDailySel(@exchangeDate, @exchangeDate)
 	WHERE exchangeid IN (SELECT currency from @tmpCurrency)
 
 	SELECT 
 		e.exchangeid AS Currency, 
 		e.Code AS  CurrencyName, 
-		(CASE WHEN(@baseCurrencyId = 6)
-		THEN
-			e.EUR
-		ELSE
-			e.USD
-		END) AS BasePerUnit,
-		1/
-		(CASE WHEN(@baseCurrencyId = 6)
-		THEN
-			e.EUR
-		ELSE
-			e.USD
-		END) AS UnitsPerBase	 
+		e.EUR AS EURPerUnit,
+		e.USD AS USDPerUnit,
+		1/e.EUR AS UnitsPerEUR,
+		1/e.USD AS UnitsPerUSD
 	FROM #TempExchange e	 
 
 	DROP TABLE #TempExchange
