@@ -118,6 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="LicenseeSettlementNoteMessage" xml:space="preserve">
-    <value>&lt;ul&gt;&lt;li style="color: White;font-weight: bold;"&gt;+ This report is using OANDA exchange rate for currency conversion&lt;/li&gt;&lt;li style="color: White;font-weight: bold;"&gt;+ For data accuracy:&lt;ul&gt;&lt;li&gt;- Generate the billing report &lt;span style="color: #D4BC22"&gt;5 days after month-end.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</value>
+    <value>&lt;ul style="margin: 2px 2px 2px 2px; padding: 0px"&gt;&lt;li style="color: White;font-weight: bold;"&gt;+ This report is using OANDA exchange rate for currency conversion&lt;/li&gt;&lt;li style="color: White;font-weight: bold;"&gt;+ For data accuracy:&lt;ul&gt;&lt;li style="font-weight: normal"&gt;- Generate the billing report &lt;span style="color: #D4BC22"&gt;5 days after month-end.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</value>
   </data>
 </root>

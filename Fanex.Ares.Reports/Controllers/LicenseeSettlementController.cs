@@ -9,6 +9,7 @@
 
 
 using System.Diagnostics.CodeAnalysis;
+using System.Web;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web;
@@ -25,6 +26,8 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using System.Linq;
 using System;
 using Fanex.Ares.Report.ViewModels;
+using System.IO;
+using Fanex.Common.Extensions;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -34,6 +37,8 @@ namespace Fanex.Ares.Report.Controllers
         ILicenseeSettlementService _service;
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
+        private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+
         public LicenseeSettlementController()
         {
             _service = new LicenseeSettlementService();
@@ -60,12 +65,13 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = GenerateReport(criteria);
-            ViewBag.BaseCurrency = criteria.BaseCurrency == 3 ? "USD" : "EUR";
+            
             return PartialView("LicenseeSettlement", model);
         }
 
         protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
         {
+           
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
@@ -73,17 +79,27 @@ namespace Fanex.Ares.Report.Controllers
             byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows);
 
             // Return the PDF as a binary stream to the client.
-            return new BinaryContentResult(buffer, "application/pdf");
+            //return new BinaryContentResult(buffer, "application/pdf");
+            Response.Clear();
+            MemoryStream ms = new MemoryStream(buffer);
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename= LicenseeSettlement.pdf");
+            Response.Buffer = true;
+            ms.WriteTo(Response.OutputStream);
+            Response.End();
+
+            // Return the PDF as a binary stream to the client.
+            return  new EmptyResult();
         }
 
-        public ActionResult PrintInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public ActionResult ExportPDF()
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "LicenseeSettlement", model, model.Report.EntityList.Count + 1);
+            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1);
         }
-
         public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria) 
         {
             // Licensee Information
@@ -154,6 +170,8 @@ namespace Fanex.Ares.Report.Controllers
                                   select Item2)
                                   .ToList();
 
+            model.LicenseeInfor.CurrencyBilling = exchangeRateCriteria.BaseCurrencyName;
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, model); 
             return model;
         }
 

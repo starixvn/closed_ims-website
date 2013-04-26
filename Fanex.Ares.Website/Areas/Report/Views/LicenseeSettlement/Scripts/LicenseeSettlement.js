@@ -7,7 +7,7 @@
 
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { Submit(); });
-    $('#btnPDF').click(function () { PrintPDF(); });
+
     $('#btnExcel').click(function () { exportReportToExcel(); });
     RenderFilterNote();
 
@@ -81,9 +81,6 @@ function Submit() {
     });
 }
 
-function PrintPDF() {
-
-}
 
 function exportReportToExcel() {
     var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();

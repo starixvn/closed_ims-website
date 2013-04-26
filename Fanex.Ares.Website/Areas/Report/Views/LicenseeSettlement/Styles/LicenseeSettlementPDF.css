@@ -138,3 +138,14 @@
 {
     bgcolor: #e4f2fd;
 }
+
+.product-name
+{
+    color:  #C21515;
+    font-weight: bold;
+}
+
+ .licensee-name {
+    color: #CC23A2;
+    font-weight: bold;
+}
