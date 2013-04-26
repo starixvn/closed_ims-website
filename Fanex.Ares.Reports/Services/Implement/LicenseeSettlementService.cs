@@ -284,7 +284,8 @@ namespace Fanex.Ares.Report.Services.Interface
                                   select Item2)
                                   .ToList();
 
-            
+            model.LicenseeInfor.CurrencyBilling = exchangeRateCriteria.BaseCurrencyName;
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, model); 
             return model;
         }
 
