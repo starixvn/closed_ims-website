@@ -9,6 +9,7 @@
 
 
 using System.Diagnostics.CodeAnalysis;
+using System.Web;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web;
@@ -26,6 +27,7 @@ using System.Linq;
 using System;
 using Fanex.Ares.Report.ViewModels;
 using System.IO;
+using Fanex.Common.Extensions;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -35,6 +37,8 @@ namespace Fanex.Ares.Report.Controllers
         ILicenseeSettlementService _service;
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
+        private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+
         public LicenseeSettlementController()
         {
             _service = new LicenseeSettlementService();
@@ -67,6 +71,7 @@ namespace Fanex.Ares.Report.Controllers
 
         protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
         {
+           
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
@@ -84,18 +89,18 @@ namespace Fanex.Ares.Report.Controllers
             Response.End();
 
             // Return the PDF as a binary stream to the client.
-            return File(buffer, "application/pdf", "test.pdf");
+            return  new EmptyResult();
         }
 
         public ActionResult ExportPDF()
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1);
         }
         
-
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
         {
             _service.ExportSettlementReportToExcel(exchange, product);

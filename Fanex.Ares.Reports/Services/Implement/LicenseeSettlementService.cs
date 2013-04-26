@@ -26,9 +26,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// Cache key for All Licensees
         /// </summary>
         private const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
-        private const string SessionKeyLicenseeBillingInfo = "Fanex.Ares.Report.Services.LicenseeBillingInfo";
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
-        private const string SessionKeyExchangeRateForBilling = "Fanex.Ares.Report.Services.ExchangeRateForBilling";
 
         public LicenseeSettlementService()
         {
@@ -133,16 +131,14 @@ namespace Fanex.Ares.Report.Services.Interface
 
         public LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
         {
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo, null);
             var listLicenseeInfo = base.DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo, listLicenseeInfo);
+            
             return listLicenseeInfo;
         }
 
         public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, null);    
             try
             {
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
@@ -180,7 +176,6 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     report.GrandTotal += item.CompanyBaseCurrency;
                 }
-                SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, report);                
             }
             catch (Exception ex)
             {
@@ -193,7 +188,6 @@ namespace Fanex.Ares.Report.Services.Interface
         public IEnumerable<ExchangeRate> GetLicenseeExchangeRate(IMS_ExchangeRateBillingSelCriteria criteria)
         {
             var listExchangeRate = new List<ExchangeRate>();
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling, null);
             try
             {
                 Func<IDataReader, ExchangeRate> mappingFunc = r =>
@@ -211,7 +205,6 @@ namespace Fanex.Ares.Report.Services.Interface
                 };
 
                 listExchangeRate = _repository.Fetch<ExchangeRate>(criteria, mappingFunc).ToList();
-                SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling, listExchangeRate);
             }
             catch (Exception ex)
             {
@@ -302,22 +295,21 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 #region local varialbles
                 var reportName = "LicenseeSettlementReport";
-                var report = (Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
-                var billingInfo = (LicenseeInformation)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo);
-                var exchangrateInfo = (IEnumerable<ExchangeRate>)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling);
+                var model = new LicenseeSettlementModel();
+                model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;
                 #endregion
 
-                if (report != null && report.EntityList.Count > 0)
+                if (model != null && model.Report.EntityList.Count > 0)
                 {
 
                     //Billing info
-                    ExportSettlementReportToExcelAssignBillingInfo(billingInfo, ref rowIndex, ref ewReport, product);
+                    ExportSettlementReportToExcelAssignBillingInfo(model.LicenseeInfor, ref rowIndex, ref ewReport, product);
                     rowIndex+=2;
                     //report & exchange rate
-                    ExportSettlementReportToExcelAssignDetailAndExchangeRate(exchangrateInfo, report, billingInfo.LicenseeName, billingInfo.SettlementDate,
+                    ExportSettlementReportToExcelAssignDetailAndExchangeRate(model.ExchangeList, model.Report, model.LicenseeInfor.LicenseeName, model.LicenseeInfor.SettlementDate,
                         ref rowIndex, ref ewReport, exchange);
                 }
 

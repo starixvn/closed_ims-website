@@ -34,7 +34,7 @@
             SETTLEMENT REPORT
         </td>
         <td class="cellInfo lineHeight200 col100">
-             @licensee.LicenseeInfor.SettlementDate.ToShortDateString()
+            @licensee.LicenseeInfor.SettlementDate.ToDayMonthYear()
         </td>
         <td class="col80" align="left">
         </td>
@@ -42,17 +42,17 @@
         </td>
     </tr>
     <tr>
-        <td  class="cellInfo lineHeight80 col120" >
-            LICENSEE: @licensee.LicenseeInfor.LicenseeName
+        <td  class="cellInfo lineHeight80 col120 licensee-name" >
+            LICENSEE: <div> @licensee.LicenseeInfor.LicenseeName </div>
         </td>
-        <td  class="cellInfo lineHeight80 col100">
+        <td  class="cellInfo lineHeight80 col100 product-name">
             @licensee.LicenseeInfor.ProductName
         </td>
         <td  class="cellInfo lineHeight80 col80">
             1st Billing:
         </td>
         <td  class="cellInfo lineHeight80 col400">
-            @licensee.LicenseeInfor.FirstBilling.ToShortDateString()
+            @licensee.LicenseeInfor.FirstBilling.ToDayMonthYear()
         </td>
     </tr>
     <tr>
@@ -88,7 +88,7 @@
               Head of Terms:
         </td>
         <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.HeadOfTerms.ToShortDateString()
+             @licensee.LicenseeInfor.HeadOfTerms.ToDayMonthYear()
         </td>
     </tr>
 </table>
@@ -101,7 +101,17 @@
             <table class="col650" align="left" cellpadding="3" cellspacing="3">
                 <thead>
                     <tr class="colborder01" >
-                        <th colspan="4" class="headerReport">
+                        <th rowspan="2" class="headerReport">
+                            Date
+                        </th>
+                        <th rowspan="2" class="headerReport">
+                            Currency
+                        </th>
+                        <th rowspan="2" class="headerReport">
+                            TurnOver
+                        </th>
+                        <th rowspan="2" class="headerReport">
+                            trans
                         </th>
                         <th colspan="3" class="headerReport">
                             Member
@@ -109,24 +119,15 @@
                         <th colspan="3" class="headerReport">
                             Macuabet
                         </th>
-                        <th class="headerReport">
+                         <th rowspan="2" class="headerReport">
+                            Company
                         </th>
-                        <th class="headerReport">
+                        <th rowspan="2" class="headerReport">
+                             @licensee.LicenseeInfor.CurrencyBilling
                         </th>
                     </tr>
                     <tr  class="colborder01">
-                        <th class="headerReport">
-                            Date
-                        </th>
-                        <th class="headerReport">
-                            Currency
-                        </th>
-                        <th class="headerReport">
-                            TurnOver
-                        </th>
-                        <th class="headerReport">
-                            trans
-                        </th>
+                      
                         <th class="headerReport">
                             Winloss
                         </th>
@@ -144,12 +145,6 @@
                         </th>
                         <th class="headerReport">
                             Total
-                        </th>
-                        <th class="headerReport">
-                            Company
-                        </th>
-                        <th class="headerReport">
-                            @ViewBag.BaseCurrency
                         </th>
                     </tr>
                 </thead>
@@ -273,10 +268,10 @@
                         <th class="colborder0 col30">
                         </th>
                         <th class="headerReport colborder01 col50">
-                            @ViewBag.BaseCurrency/ 1Unit
+                            @licensee.LicenseeInfor.CurrencyBilling/ 1Unit
                         </th>
                         <th class="headerReport colborder01 col60">
-                            Units/ 1 @ViewBag.BaseCurrency
+                            Units/ 1 @licensee.LicenseeInfor.CurrencyBilling
                         </th>
                     </tr>
                 </thead>
