@@ -220,6 +220,7 @@ namespace Fanex.Ares.Report.Services.Interface
             var listLicensee = this.GetAllLicensees();
             var listProduct = this.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
             var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
+            var listBaseCurrency = this.GetBaseCurrency(new IMS_BaseCurrencySel());
             var model = new LicenseeSettlementModel();
             var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
             licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
@@ -274,7 +275,7 @@ namespace Fanex.Ares.Report.Services.Interface
             exchangeRateCriteria.Currency = exchangeRatecurrencies;
             exchangeRateCriteria.ExchangeDate = criteria.ToDate;
             exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
-            exchangeRateCriteria.BaseCurrencyName = listCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
+            exchangeRateCriteria.BaseCurrencyName = listBaseCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
 
             var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
 
