@@ -35,8 +35,8 @@
             </td>
             <td class="col80" align="left">
             </td>
-            <td class="cellInfo lineHeight200 col100">
-                @licensee.LicenseeInfor.SettlementDate.ToDayMonthYear()
+            <td class="cellInfo lineHeight200 col100 bold">
+                @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
             </td>
             <td class="col400" align="left">
             </td>
@@ -54,8 +54,8 @@
             <td class="cellInfo lineHeight80 col80">
                 1st Billing:
             </td>
-            <td class="cellInfo lineHeight80 col400">
-                @licensee.LicenseeInfor.FirstBilling.ToDayMonthYear()
+            <td class="cellInfo lineHeight80 col400 bold">
+                @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
             </td>
         </tr>
         <tr>
@@ -66,9 +66,9 @@
             <td class="col100">
             </td>
             <td class="cellInfo lineHeight80 col100">
-                Basics of Billing:
+                Basis of Billing:
             </td>
-            <td class="cellInfo lineHeight80 col400">
+            <td class="cellInfo lineHeight80 col400 bold">
                 @licensee.LicenseeInfor.BasisOfBilling
             </td>
         </tr>
@@ -82,7 +82,7 @@
             <td class="cellInfo lineHeight200 col80">
                 Minimum Fees:
             </td>
-            <td class="cellInfo lineHeight200 col400">
+            <td class="cellInfo lineHeight200 col400 bold">
                 @licensee.LicenseeInfor.MinimumFees
             </td>
         </tr>
@@ -96,8 +96,8 @@
             <td class="cellInfo lineHeight80 col80">
                 Head of Terms:
             </td>
-            <td class="cellInfo lineHeight80 col400">
-                @licensee.LicenseeInfor.HeadOfTerms.ToDayMonthYear()
+            <td class="cellInfo lineHeight80 col400 bold">
+                @licensee.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()
             </td>
         </tr>
     </table>
@@ -108,16 +108,16 @@
                 <table cellpadding="3" cellspacing="3">
                     <thead>
                         <tr>
-                            <th class="headerReport " rowspan="2">
+                            <th class="headerReport" rowspan="2">
                                 Date
                             </th>
-                            <th class="headerReport col50" rowspan="2">
+                            <th class="headerReport" rowspan="2">
                                 Currency
                             </th>
-                            <th class="headerReport col150" rowspan="2">
+                            <th class="headerReport" rowspan="2">
                                 TurnOver
                             </th>
-                            <th class="headerReport col150" rowspan="2">
+                            <th class="headerReport" rowspan="2">
                                 Total Trans
                             </th>
                             <th colspan="3">
@@ -134,7 +134,7 @@
                             </th>
                         </tr>
                         <tr class="colborder01">
-                            <th class="headerReport col150">
+                            <th class="headerReport">
                                 Winloss
                             </th>
                             <th class="headerReport">
@@ -161,7 +161,7 @@
                             report = licensee.Report.EntityList[i];
                             <tr class="@GetEvenClass(i)">
                                 <td class="align-center">
-                                    @report.WinlostDate.ToDayMonthYear()
+                                    @report.WinlostDate.ToAresDayMonthYear()
                                 </td>
                                 <td class="align-center">
                                     @report.CurrencyName
@@ -215,7 +215,7 @@
                         <tr class="colborder0">
                             <td class="noborder" colspan="11">
                             </td>
-                            <td class="noborder align-right @GetNegativeClass(licensee.Report.GrandTotal)">
+                            <td class="noborder align-right bold @GetNegativeClass(licensee.Report.GrandTotal)">
                                 @licensee.Report.GrandTotal.FormatNegative(2)
                             </td>
                         </tr>
@@ -231,7 +231,7 @@
                             <th class="noborder nobackground">
                             </th>
                             <th colspan="2" class="headerReport colborder01">
-                                Forex 31/Mar/13
+                                Forex @@ @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
                             </th>
                         </tr>
                         <tr>
@@ -251,13 +251,13 @@
                             ExchangeRate exchange = new ExchangeRate();
                             exchange = licensee.ExchangeList[i];
                             <tr class="@GetEvenClass(i)">
-                                <td class="noborder nobackground">
+                                <td class="noborder nobackground col200 align-right">
                                     @exchange.CurrencyName
                                 </td>
-                                <td class="align-right">
+                                <td class="align-right col100">
                                     @exchange.BasePerUnit.Format(5)
                                 </td>
-                                <td class="align-right">
+                                <td class="align-right col100">
                                     @exchange.UnitsPerBase.Format(5)
                                 </td>
                             </tr>

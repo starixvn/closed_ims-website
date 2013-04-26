@@ -67,7 +67,7 @@ function Submit() {
     $.ajax({
         url: "LicenseeSettlement/GetInvoice",
         type: "POST",
-        data: $('#formLicenseeSettlement').serialize(),
+        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text(),
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
             $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());

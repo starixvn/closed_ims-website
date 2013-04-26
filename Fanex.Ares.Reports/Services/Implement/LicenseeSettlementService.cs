@@ -221,6 +221,80 @@ namespace Fanex.Ares.Report.Services.Interface
             return listExchangeRate;
         }
 
+        public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        {
+            // Licensee Information
+            var listLicensee = this.GetAllLicensees();
+            var listProduct = this.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
+            var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
+            var model = new LicenseeSettlementModel();
+            var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
+            licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
+            licenseeInfoCriteria.ProductId = criteria.Product;
+            model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
+            model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
+            model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItem>().Text;
+            model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
+            //model.LicenseeInfor.SettlementDate = DateTime.Now;
+            model.LicenseeInfor.SettlementDate = criteria.ToDate;
+
+            // Licensee Report
+            var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            reportCriteria.LicenseeId = criteria.LicenseeId;
+            reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
+            reportCriteria.Product = criteria.Product;
+            reportCriteria.Currency = criteria.Currency;
+            reportCriteria.BaseCurrency = criteria.BaseCurrency;
+            reportCriteria.FromDate = criteria.FromDate;
+            reportCriteria.ToDate = criteria.ToDate;
+
+            model.Report = this.GetLicenseeReport(reportCriteria);
+
+            // Exchange Rate
+            var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
+            model.ExchangeList = new List<ViewModels.ExchangeRate>();
+
+            var exchangeRatecurrencies = string.Empty;
+            foreach (ReportEntity item in model.Report.EntityList)
+            {
+                // Calculate membertotal = memberwinloss + membercomm
+                item.MemberTotal = item.MemberWinloss + item.MemberComm;
+
+                // Calculate licenseetotal = licenseewinloss + licenseecomm
+                item.LicenseeTotal = item.LicenseeWL + item.LicenseeComm;
+
+                if (criteria.Currency == 0) // All Currency
+                {
+                    if (!exchangeRatecurrencies.Contains(item.Currency.ToString()))
+                    {
+                        exchangeRatecurrencies += item.Currency.ToString() + ",";
+                    }
+                }
+                else // Single currency
+                {
+                    exchangeRatecurrencies = item.Currency.ToString();
+                }
+            }
+
+            exchangeRatecurrencies.Trim(',');
+
+            exchangeRateCriteria.Currency = exchangeRatecurrencies;
+            exchangeRateCriteria.ExchangeDate = criteria.ToDate;
+            exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
+            exchangeRateCriteria.BaseCurrencyName = listCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
+
+            var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
+
+            model.ExchangeList = (from Item1 in model.Report.EntityList
+                                  join Item2 in exchangeList
+                                  on Item1.CurrencyName equals Item2.CurrencyName
+                                  select Item2)
+                                  .ToList();
+
+            
+            return model;
+        }
+
             
         public void ExportSettlementReportToExcel(string exchange, string product)
         {
