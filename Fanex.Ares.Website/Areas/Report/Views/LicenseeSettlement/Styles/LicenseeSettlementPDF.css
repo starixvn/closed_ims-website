@@ -43,6 +43,13 @@
     valign: middle;
     line-height:100% ;
 }
+.grandtotal
+{
+    size: 7pt;
+    valign: middle;
+    line-height:100% ;
+     font-weight: bold;
+}
 
 .aligncenter
 {
@@ -148,4 +155,9 @@
  .licensee-name {
     color: #CC23A2;
     font-weight: bold;
+}
+
+.bold
+{
+   font-weight: bold;
 }
