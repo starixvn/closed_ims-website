@@ -69,7 +69,7 @@ namespace Fanex.Ares.Report.Controllers
             return PartialView("LicenseeSettlement", model);
         }
 
-        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, bool isSavePDF)
         {
            
             // Render the view html to a string.
@@ -80,25 +80,32 @@ namespace Fanex.Ares.Report.Controllers
 
             // Return the PDF as a binary stream to the client.
             //return new BinaryContentResult(buffer, "application/pdf");
-            Response.Clear();
-            MemoryStream ms = new MemoryStream(buffer);
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename= LicenseeSettlement.pdf");
-            Response.Buffer = true;
-            ms.WriteTo(Response.OutputStream);
-            Response.End();
+            if (isSavePDF)
+            {
+                Response.Clear();
+                MemoryStream ms = new MemoryStream(buffer);
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename= LicenseeSettlement.pdf");
+                Response.Buffer = true;
+                ms.WriteTo(Response.OutputStream);
+                Response.End();
 
-            // Return the PDF as a binary stream to the client.
-            return  new EmptyResult();
+                // Return the PDF as a binary stream to the client.
+                return new EmptyResult();
+            }
+            else
+            {
+                return new BinaryContentResult(buffer, "application/pdf");
+            }
         }
 
-        public ActionResult ExportPDF()
+        public ActionResult ExportPDF(bool isSavePDF)
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1);
+            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1, isSavePDF);
         }
         
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
