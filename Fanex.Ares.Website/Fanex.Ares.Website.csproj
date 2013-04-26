@@ -387,6 +387,7 @@
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.1.js" />
     <Content Include="Scripts\_Libs\jQuery\classList.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery.formattyping.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.jqprint-0.3.js" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\error.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />
@@ -625,6 +626,7 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\LicenseeSettlement.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\LicenseeSettlementPDF.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -684,6 +686,7 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
+    <Content Include="Views\Shared\_PrintLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Report\Scripts\AdvancedMode\" />

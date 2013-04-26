@@ -9,7 +9,7 @@
     $('#btnGenerate').click(function () { Submit(); });
 
     $('#btnExcel').click(function () { exportReportToExcel(); });
-    $('#btnPrint').click(function () { PrintInvoice(); });
+    //$('#btnPrint').click(function () { PrintInvoice(); });
     
     RenderFilterNote();
 
@@ -137,19 +137,24 @@ function GetProductByLicenseeID(licenseeID, destinationElement) {
 }
 
 function PrintInvoice() {
-    $.ajax({
-        url: "LicenseeSettlement/ExportPDF1",
-        type: "POST",
-        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text(),
-        success: function (data, textStatus, jqXHR) {
-            $('#parentContainer').html(data);
-            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
-            $(".grid-title").show();
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("faild");
-        },
-        complete: function (jqXHR, textStatus) {
-        }
-    });
+//    $.ajax({
+//        url: "LicenseeSettlement/PrintScreen",
+//        type: "POST",
+//        data: "",
+//        success: function (data, textStatus, jqXHR) {
+//            var printContent = data;
+//            
+
+
+//            printWindow.document.write(printContent.innerHTML);
+//            //printWindow.document.close();
+//            printWindow.focus();
+//            printWindow.print();
+//        },
+//        error: function (xhr, ajaxOptions, thrownError) {
+//            alert("fail");
+//        },
+//        complete: function (jqXHR, textStatus) {
+//        }
+//    });
 }
