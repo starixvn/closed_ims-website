@@ -61,7 +61,7 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = GenerateReport(criteria);
-            ViewBag.BaseCurrency = criteria.BaseCurrency == 3 ? "USD" : "EUR";
+            
             return PartialView("LicenseeSettlement", model);
         }
 
@@ -164,6 +164,7 @@ namespace Fanex.Ares.Report.Controllers
                                   select Item2)
                                   .ToList();
 
+            ViewBag.BaseCurrency = exchangeRateCriteria.BaseCurrencyName;
             return model;
         }
 

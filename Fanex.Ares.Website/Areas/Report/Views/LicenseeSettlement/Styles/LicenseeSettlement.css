@@ -40,6 +40,38 @@
     border: 1.5px solid #736767;
 }
 
+.tbltitle
+{
+    
+}
+
+.tbltitle .titleBold
+{
+    font: bold 15px arial;
+}
+
+.tbltitle .titleSub
+{
+    font: 15px arial;
+}
+
+.tblinfo,.tblinfo td
+{
+    
+}
+
+.tblinfo .licensee-name
+{
+    color: #CC23A2;
+    font-weight: bold;
+}
+
+.tblinfo .product-name
+{
+    color: #C21515;
+    font-weight: bold;
+}
+
 .negative-number
 {
     color: Red;
