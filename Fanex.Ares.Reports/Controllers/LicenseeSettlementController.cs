@@ -65,7 +65,6 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
-            ViewBag.BaseCurrency = criteria.BaseCurrencyName;
             return PartialView("LicenseeSettlement", model);
         }
 

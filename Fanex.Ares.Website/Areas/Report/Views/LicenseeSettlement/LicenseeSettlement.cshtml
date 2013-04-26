@@ -4,8 +4,6 @@
 @{
     LicenseeSettlementModel licensee = new LicenseeSettlementModel();
     licensee = Model;
-    var negativenumber = "negative-number";
-    
 }
 @functions{
     public string GetNegativeClass(double number)
@@ -278,7 +276,7 @@
                 IDR & VND *
             </td>
             <td class="cellInfo">
-                Amount in IDR is stated in '000, when converted to @ViewBag.BaseCurrency Equv, x
+                Amount in IDR is stated in '000, when converted to @licensee.LicenseeInfor.CurrencyBilling Equv, x
                 1000
             </td>
         </tr>
@@ -287,8 +285,8 @@
                 FOREX
             </td>
             <td class="cellInfo lineHeight80">
-                www.oanda.com provided minor difference between "@ViewBag.BaseCurrency / 1Unit"
-                vs "Units/ 1 @ViewBag.BaseCurrency", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency"
+                www.oanda.com provided minor difference between "@licensee.LicenseeInfor.CurrencyBilling / 1Unit"
+                vs "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling", we standardize the use of "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling"
                 to prevail all
             </td>
         </tr>
