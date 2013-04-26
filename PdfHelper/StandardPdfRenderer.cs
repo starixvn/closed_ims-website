@@ -99,6 +99,10 @@ namespace PdfHelper
             var test = cssParser.GetProperties(".lineHeight200");
 
 
+            var dicExceptionStyle = new List<string>();
+
+            dicExceptionStyle.Add("line-height");
+            dicExceptionStyle.Add("font-weight");
 
             var lsClassName = cssParser.GetListClassName();
             foreach (var data in lsClassName)
@@ -114,7 +118,7 @@ namespace PdfHelper
                     var attributeName = property.Key;
                     var attributeValue = property.Value;
 
-                    if (attributeName.Contains("line-height"))
+                    if (dicExceptionStyle.Contains(attributeName))
                     {
                         attributeValue = string.Join(":", attributeName, attributeValue);
                         attributeName = "style";

@@ -34,7 +34,7 @@
             SETTLEMENT REPORT
         </td>
         <td class="cellInfo lineHeight200 col100">
-            @licensee.LicenseeInfor.SettlementDate.ToDayMonthYear()
+            @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
         </td>
         <td class="col80" align="left">
         </td>
@@ -53,7 +53,7 @@
             1st Billing:
         </td>
         <td  class="cellInfo lineHeight80 col400">
-            @licensee.LicenseeInfor.FirstBilling.ToDayMonthYear()
+            @licensee.LicenseeInfor.FirstBilling.ToAresDayMonthYear()
         </td>
     </tr>
     <tr>
@@ -89,7 +89,7 @@
               Head of Terms:
         </td>
         <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.HeadOfTerms.ToDayMonthYear()
+             @licensee.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()
         </td>
     </tr>
 </table>
@@ -157,7 +157,7 @@
                         var evenClass = GetEvenClass(i);
                         <tr class="colborder01">
                             <td class="cellstyle col40 aligncenter @evenClass">
-                                @report.WinlostDate.ToDayMonthYear()
+                                @report.WinlostDate.ToAresDayMonthYear()
                             </td>
                             <td class="cellstyle col40 aligncenter @evenClass">
                                 @report.CurrencyName
