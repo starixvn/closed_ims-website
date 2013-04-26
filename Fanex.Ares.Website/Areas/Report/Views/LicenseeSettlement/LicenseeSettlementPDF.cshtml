@@ -32,8 +32,8 @@
         <td class="cellInfo lineHeight200 col120" >
             SETTLEMENT REPORT
         </td>
-        <td class="cellInfo lineHeight200 col100">
-            @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
+        <td class="lineHeight200 col100 ">
+           <span class="cellInfo bold"> @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear() </span>
         </td>
         <td class="col80" align="left">
         </td>
@@ -45,14 +45,14 @@
            LICENSEE:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
            <span  class="licensee-name"> @licensee.LicenseeInfor.LicenseeName </span> 
         </td>
-        <td  class="cellInfo lineHeight80 col100 product-name">
-            @licensee.LicenseeInfor.ProductName
+        <td  class="lineHeight80 col100 product-name">
+             <span class="cellInfo bold"> @licensee.LicenseeInfor.ProductName</span>
         </td>
         <td  class="cellInfo lineHeight80 col80">
             1st Billing:
         </td>
-        <td  class="cellInfo lineHeight80 col400">
-            @licensee.LicenseeInfor.FirstBilling.ToAresDayMonthYear()
+        <td  class="lineHeight80 col400 ">
+           <span class="cellInfo bold">  @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()</span>
         </td>
     </tr>
     <tr>
@@ -63,8 +63,8 @@
         <td class="cellInfo lineHeight80 col80">
             Basics of Billing:
         </td>
-        <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.BasisOfBilling
+        <td class="lineHeight80 col400">
+            <span class="cellInfo bold">  @licensee.LicenseeInfor.BasisOfBilling</span>
         </td>
     </tr>
     <tr>
@@ -75,8 +75,8 @@
         <td class="cellInfo lineHeight200 col80">
              Minimum Fees:
         </td>
-        <td class="cellInfo lineHeight200 col400">
-            @licensee.LicenseeInfor.MinimumFees
+        <td class="lineHeight200 col400">
+            <span class="cellInfo bold"> @licensee.LicenseeInfor.MinimumFees</span>
         </td>
     </tr>
      <tr>
@@ -87,8 +87,8 @@
         <td class="cellInfo lineHeight80 col80">
               Head of Terms:
         </td>
-        <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()
+        <td class="lineHeight80 col400">
+             <span class="cellInfo bold"> @licensee.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()</span>
         </td>
     </tr>
 </table>
@@ -241,8 +241,8 @@
                             <td class="cellstyle col65">
                             
                             </td>
-                            <td  class="cellstyle col65 alignright  @GetNegativeClass(licensee.Report.GrandTotal)">
-                               @licensee.Report.GrandTotal.FormatNegative(2)
+                            <td  class="grandtotal col65 alignright @GetNegativeClass(licensee.Report.GrandTotal)">
+                              @licensee.Report.GrandTotal.FormatNegative(2)
                             </td>
                         </tr>
                          <tr class="colborder10">
