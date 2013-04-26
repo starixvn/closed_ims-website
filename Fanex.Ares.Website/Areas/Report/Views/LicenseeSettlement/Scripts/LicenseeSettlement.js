@@ -137,5 +137,19 @@ function GetProductByLicenseeID(licenseeID, destinationElement) {
 }
 
 function PrintInvoice() {
-    
+    $.ajax({
+        url: "LicenseeSettlement/ExportPDF1",
+        type: "POST",
+        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text(),
+        success: function (data, textStatus, jqXHR) {
+            $('#parentContainer').html(data);
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
+            $(".grid-title").show();
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("faild");
+        },
+        complete: function (jqXHR, textStatus) {
+        }
+    });
 }

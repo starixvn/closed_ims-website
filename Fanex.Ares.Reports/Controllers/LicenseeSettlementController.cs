@@ -115,5 +115,42 @@ namespace Fanex.Ares.Report.Controllers
         {
             return Json(_service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }));
         }
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        protected ActionResult ViewPdf1(string pageTitle, string viewName, object model, int numericRows)
+        {
+
+            // Render the view html to a string.
+            string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
+
+            // Let the html be rendered into a PDF document through iTextSharp.
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows);
+
+            // Return the PDF as a binary stream to the client.
+            //return new BinaryContentResult(buffer, "application/pdf");
+            Response.Clear();
+            MemoryStream ms = new MemoryStream(buffer);
+            Response.ContentType = "text/html";
+            Response.AddHeader("content-disposition", "attachment;filename= LicenseeSettlement.pdf");
+            Response.Buffer = true;
+            ms.WriteTo(Response.OutputStream);
+            Response.End();
+
+            // Return the PDF as a binary stream to the client.
+            return new EmptyResult();
+        }
+
+        public ActionResult ExportPDF1()
+        {
+            //var model = GenerateReport(criteria);
+            var model = new LicenseeSettlementModel();
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+            //FillImageUrl(customerList, "report.jpg");
+            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1);
+        }
+
+
+
     }
 }
