@@ -167,6 +167,7 @@
     <EmbeddedResource Include="Resources\LicenseeResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LicenseeResource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>
