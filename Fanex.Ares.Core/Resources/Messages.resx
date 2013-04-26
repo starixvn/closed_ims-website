@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="LicenseeSettlementNoteMessage" xml:space="preserve">
+    <value>+ This report is using OANDA exchange rate for currency conversion&lt;br /&gt;+ For data accuracy:&lt;br /&gt;     - Generate the billing report &lt;span style="color: #D4BC22"&gt;5 days after month-end.&lt;/span&gt;</value>
+  </data>
   <data name="Thereisnodata" xml:space="preserve">
     <value>There is no data.</value>
   </data>

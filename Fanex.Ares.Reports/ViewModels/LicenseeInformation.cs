@@ -32,5 +32,7 @@ namespace Fanex.Ares.Report.ViewModels
         public string MinimumFees { get; set; }
 
         public DateTime HeadOfTerms { get; set; }
+
+        public string CurrencyBilling { get; set; }
     }
 }

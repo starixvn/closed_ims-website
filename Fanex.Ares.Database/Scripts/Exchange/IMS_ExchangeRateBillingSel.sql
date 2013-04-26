@@ -1,7 +1,6 @@
 ﻿CREATE PROCEDURE [dbo].[IMS_ExchangeRateBillingSel]
 	@currency VARCHAR(500) = '',
-	@exchangeDate DATETIME,
-	@baseCurrencyId INT	= 6
+	@exchangeDate DATETIME
 AS
 	/*  Created: Kevin
 		Date: 20130418
@@ -11,7 +10,6 @@ AS
 		Param's Explanation:  	
 			+ @currency: currency id list
 			+ @exchangeDate:
-			+ @baseCurrencyId 
 	*/  
 	SET NOCOUNT ON
 
@@ -22,25 +20,10 @@ AS
 	FROM strSPlit(@currency,',')
 
 	SELECT * INTO #TempExchange 
-	FROM bodb02.dbo.Lrf_f_GetExchangeDaily(@exchangeDate, @exchangeDate)
+	FROM IMS_f_ExchangeDailySel(@exchangeDate, @exchangeDate)
 	WHERE exchangeid IN (SELECT currency from @tmpCurrency)
 
-	SELECT 
-		e.exchangeid AS Currency, 
-		e.Code AS  CurrencyName, 
-		(CASE WHEN(@baseCurrencyId = 6)
-		THEN
-			e.EUR
-		ELSE
-			e.USD
-		END) AS BasePerUnit,
-		1/
-		(CASE WHEN(@baseCurrencyId = 6)
-		THEN
-			e.EUR
-		ELSE
-			e.USD
-		END) AS UnitsPerBase	 
+	SELECT *
 	FROM #TempExchange e	 
 
 	DROP TABLE #TempExchange

@@ -26,9 +26,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// Cache key for All Licensees
         /// </summary>
         private const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
-        private const string SessionKeyLicenseeBillingInfo = "Fanex.Ares.Report.Services.LicenseeBillingInfo";
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
-        private const string SessionKeyExchangeRateForBilling = "Fanex.Ares.Report.Services.ExchangeRateForBilling";
 
         public LicenseeSettlementService()
         {
@@ -103,32 +101,63 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 LoggingHandler.Log(ex);
             }
+
+            return listProducts;
+        }
+
+        public IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
             return listProducts;
         }
 
         public LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
         {
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo, null);
             var listLicenseeInfo = base.DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo, listLicenseeInfo);
+            
             return listLicenseeInfo;
         }
-
-        
 
         public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, null);    
             try
             {
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
                 {
+                    var baseColName = string.Empty;
+                    if (criteria.BaseCurrency == 3) // USD = 3
+                    {
+                        baseColName = "CompanyBaseUSD";
+                    }
+                    else // EUR = 6
+                    {
+                        baseColName = "CompanyBaseEUR";
+                    }
+
                     var res = new ReportEntity
                     {
                         Betcount = Convert.ToInt32(r["Betcount"].ToString()),
                         Company = Convert.ToDouble(r["Company"].ToString()),
-                        CompanyBaseCurrency = Convert.ToDouble(r["CompanyBaseCurrency"].ToString()),
+                        CompanyBaseCurrency = Convert.ToDouble(r[baseColName].ToString()),
                         Currency = Convert.ToInt32(r["Currency"].ToString()),
                         CurrencyName = r["CurrencyName"].ToString(),
                         LicenseeComm = Convert.ToDouble(r["LicenseeComm"].ToString()),
@@ -136,7 +165,7 @@ namespace Fanex.Ares.Report.Services.Interface
                         MemberComm = Convert.ToDouble(r["MemberComm"].ToString()),
                         MemberWinloss = Convert.ToDouble(r["MemberWinloss"].ToString()),
                         Turnover = Convert.ToDouble(r["Turnover"].ToString()),
-                        WinlostDate = DateTime.Parse(r["WinlostDate"].ToString())
+                        WinlostDate = DateTime.Parse(r["WinLostMonth"].ToString())
                     };
                     return res;
                 };
@@ -147,7 +176,6 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     report.GrandTotal += item.CompanyBaseCurrency;
                 }
-                SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, report);                
             }
             catch (Exception ex)
             {
@@ -160,23 +188,23 @@ namespace Fanex.Ares.Report.Services.Interface
         public IEnumerable<ExchangeRate> GetLicenseeExchangeRate(IMS_ExchangeRateBillingSelCriteria criteria)
         {
             var listExchangeRate = new List<ExchangeRate>();
-            SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling, null);
             try
             {
                 Func<IDataReader, ExchangeRate> mappingFunc = r =>
                 {
                     var res = new ExchangeRate
                     {
-                        Currency = Convert.ToInt32(r["Currency"].ToString()),
-                        CurrencyName = r["CurrencyName"].ToString(),
-                        BasePerUnit = Convert.ToDouble(r["BasePerUnit"].ToString()),
-                        UnitsPerBase = Convert.ToDouble(r["UnitsPerBase"].ToString())
+                        Currency = Convert.ToInt32(r["ExchangeId"].ToString()),
+                        CurrencyName = r["Code"].ToString(),
+                        BasePerUnit = Convert.ToDouble(r[criteria.BaseCurrencyName].ToString())
                     };
+
+                    res.UnitsPerBase = 1 / res.BasePerUnit;
+
                     return res;
                 };
 
                 listExchangeRate = _repository.Fetch<ExchangeRate>(criteria, mappingFunc).ToList();
-                SessionExtensions.AddSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling, listExchangeRate);
             }
             catch (Exception ex)
             {
@@ -186,6 +214,81 @@ namespace Fanex.Ares.Report.Services.Interface
             return listExchangeRate;
         }
 
+        public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        {
+            // Licensee Information
+            var listLicensee = this.GetAllLicensees();
+            var listProduct = this.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
+            var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
+            var model = new LicenseeSettlementModel();
+            var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
+            licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
+            licenseeInfoCriteria.ProductId = criteria.Product;
+            model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
+            model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
+            model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItem>().Text;
+            model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
+            //model.LicenseeInfor.SettlementDate = DateTime.Now;
+            model.LicenseeInfor.SettlementDate = criteria.ToDate;
+
+            // Licensee Report
+            var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            reportCriteria.LicenseeId = criteria.LicenseeId;
+            reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
+            reportCriteria.Product = criteria.Product;
+            reportCriteria.Currency = criteria.Currency;
+            reportCriteria.BaseCurrency = criteria.BaseCurrency;
+            reportCriteria.FromDate = criteria.FromDate;
+            reportCriteria.ToDate = criteria.ToDate;
+
+            model.Report = this.GetLicenseeReport(reportCriteria);
+
+            // Exchange Rate
+            var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
+            model.ExchangeList = new List<ViewModels.ExchangeRate>();
+
+            var exchangeRatecurrencies = string.Empty;
+            foreach (ReportEntity item in model.Report.EntityList)
+            {
+                // Calculate membertotal = memberwinloss + membercomm
+                item.MemberTotal = item.MemberWinloss + item.MemberComm;
+
+                // Calculate licenseetotal = licenseewinloss + licenseecomm
+                item.LicenseeTotal = item.LicenseeWL + item.LicenseeComm;
+
+                if (criteria.Currency == 0) // All Currency
+                {
+                    if (!exchangeRatecurrencies.Contains(item.Currency.ToString()))
+                    {
+                        exchangeRatecurrencies += item.Currency.ToString() + ",";
+                    }
+                }
+                else // Single currency
+                {
+                    exchangeRatecurrencies = item.Currency.ToString();
+                }
+            }
+
+            exchangeRatecurrencies.Trim(',');
+
+            exchangeRateCriteria.Currency = exchangeRatecurrencies;
+            exchangeRateCriteria.ExchangeDate = criteria.ToDate;
+            exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
+            exchangeRateCriteria.BaseCurrencyName = listCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
+
+            var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
+
+            model.ExchangeList = (from Item1 in model.Report.EntityList
+                                  join Item2 in exchangeList
+                                  on Item1.CurrencyName equals Item2.CurrencyName
+                                  select Item2)
+                                  .ToList();
+
+            model.LicenseeInfor.CurrencyBilling = exchangeRateCriteria.BaseCurrencyName;
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, model); 
+            return model;
+        }
+
             
         public void ExportSettlementReportToExcel(string exchange, string product)
         {
@@ -193,22 +296,21 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 #region local varialbles
                 var reportName = "LicenseeSettlementReport";
-                var report = (Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
-                var billingInfo = (LicenseeInformation)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyLicenseeBillingInfo);
-                var exchangrateInfo = (IEnumerable<ExchangeRate>)SessionExtensions.GetSession(HttpContext.Current.Session, SessionKeyExchangeRateForBilling);
+                var model = new LicenseeSettlementModel();
+                model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;
                 #endregion
 
-                if (report != null && report.EntityList.Count > 0)
+                if (model != null && model.Report.EntityList.Count > 0)
                 {
 
                     //Billing info
-                    ExportSettlementReportToExcelAssignBillingInfo(billingInfo, ref rowIndex, ref ewReport, product);
+                    ExportSettlementReportToExcelAssignBillingInfo(model.LicenseeInfor, ref rowIndex, ref ewReport, product);
                     rowIndex+=2;
                     //report & exchange rate
-                    ExportSettlementReportToExcelAssignDetailAndExchangeRate(exchangrateInfo, report, billingInfo.LicenseeName, billingInfo.SettlementDate,
+                    ExportSettlementReportToExcelAssignDetailAndExchangeRate(model.ExchangeList, model.Report, model.LicenseeInfor.LicenseeName, model.LicenseeInfor.SettlementDate,
                         ref rowIndex, ref ewReport, exchange);
                 }
 
@@ -236,15 +338,17 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex+=1, 0].Value = Labels.Finance_Department;
             ewReport.Cells[rowIndex+=2, 0].Value = Labels.SETTLEMENT_REPORT;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMM-yy");
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format("{0}:", Labels.Licensee.ToUpper());
             ewReport.Cells[rowIndex, 2].Style.Font.Weight = ExcelFont.BoldWeight;
+            ewReport.Cells[rowIndex, 2].Style.Font.Color = Color.FromArgb(204, 35, 162);
             ewReport.Cells[rowIndex, 2].Value = licenseeInfo.LicenseeName;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
+            ewReport.Cells[rowIndex, 3].Style.Font.Color = Color.FromArgb(194, 21, 21);
             ewReport.Cells[rowIndex, 3].Value = product.ToUpper();
             ewReport.Cells[rowIndex, 5].Value = string.Format("{0}:", Labels.FBilling);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.FirstBilling.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.FirstBilling.ToString("dd-MMM-yy");
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Basis_of_Billing);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BasisOfBilling;
@@ -253,19 +357,20 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.MinimumFees;
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Head_of_Terms);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTerms.ToString("dd-MMMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTerms.ToString("dd-MMM-yy");
         }
 
 
-        private void ExportSettlementReportToExcelAssignDetailAndExchangeRate(IEnumerable<ExchangeRate> exchangeRateInfo, 
+        private void ExportSettlementReportToExcelAssignDetailAndExchangeRate(List<ExchangeRate> exchangeRateInfo, 
             Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report reportDetails, string licenseeName, DateTime settlementDate,
             ref int rowIndex, ref ExcelWorksheet ewReport, string exchangeTo)
-        {
+        {            
+            //(228, 242, 253)
             var headerColor = ExcelExtensions.HEADER_TITLE_COLOR;
             var normalStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.BACKGROUND_COLOR, false);
             var numberStyle = ExcelExtensions.GetCellNumberStyle("", ExcelExtensions.BACKGROUND_COLOR, false, false, false);
             var decimalStyle = ExcelExtensions.GetCellNumberStyle(".00", ExcelExtensions.BACKGROUND_COLOR, false, false, true);
-            var startRow = rowIndex;
+            
             var colIndex = 0;
 
             #region set width of each col
@@ -283,8 +388,9 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Columns[11].Width = 255 * 15;
             ewReport.Columns[12].Width = 255 * 8;
             #endregion
-            #region win/loss
-            #region header
+
+            #region win/loss & exchange rate
+            #region header - winloss
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = Labels.Date;
@@ -335,16 +441,46 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = exchangeTo;
             #endregion
-            rowIndex += 2;
 
+            #region header - exchange rate
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 2, rowIndex, colIndex + 1).Merged = true;
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 1).Style.FormatTitleCell(headerColor);
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 1).Value = string.Format("FOREX @ {0}",
+                settlementDate.ToString("dd-MMM-yy"));
+
+            ewReport.Cells[rowIndex += 1, colIndex].Style.FormatTitleCell(headerColor);
+            ewReport.Cells[rowIndex, colIndex].Value = string.Format("{0}/1 Unit", exchangeTo);
+            ewReport.Cells[rowIndex, colIndex + 1].Style.FormatTitleCell(headerColor);
+            ewReport.Cells[rowIndex, colIndex + 1].Value = string.Format("Units/1 {0}", exchangeTo);
+            #endregion
+
+            rowIndex += 1;
             #region detail
+
+            var itemIndex = 0;
             foreach (ReportEntity detail in reportDetails.EntityList)
             {
                 colIndex = 0;
+                #region set background color
+                if (itemIndex % 2 > 0)
+                {
 
+                    normalStyle.FillPattern.SetSolid(ExcelExtensions.ODD_ROW_COLOR);
+                    numberStyle.FillPattern.SetSolid(ExcelExtensions.ODD_ROW_COLOR);
+                    decimalStyle.FillPattern.SetSolid(ExcelExtensions.ODD_ROW_COLOR);                    
+                }
+                else
+                {
+                    normalStyle.FillPattern.SetSolid(ExcelExtensions.EVEN_ROW_COLOR);
+                    numberStyle.FillPattern.SetSolid(ExcelExtensions.EVEN_ROW_COLOR);
+                    decimalStyle.FillPattern.SetSolid(ExcelExtensions.EVEN_ROW_COLOR);
+                }
+                #endregion
+
+                #region winloss report
                 ewReport.Cells[rowIndex, colIndex].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.WinlostDate.ToString("dd-MMMM-yy");
+                ewReport.Cells[rowIndex, colIndex].Value = detail.WinlostDate.ToString("dd-MMM-yy");
                 ewReport.Cells[rowIndex, colIndex += 1].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.CurrencyName;
@@ -354,7 +490,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Betcount;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.MemberWinloss;
-                
+
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 if (detail.MemberComm != 0)
                 {
@@ -386,42 +522,42 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
+                #endregion
+
+                #region exchange rate
+                colIndex += 1;
+                if (itemIndex < exchangeRateInfo.Count() && exchangeRateInfo[itemIndex] != null)
+                {
+                    var exchangeRate = exchangeRateInfo[itemIndex];
+                    ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+                    ewReport.Cells[rowIndex, colIndex].Value = exchangeRate.CurrencyName;
+                    ewReport.Cells[rowIndex, colIndex + 1].Style = normalStyle;
+                    ewReport.Cells[rowIndex, colIndex + 1].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+                    ewReport.Cells[rowIndex, colIndex + 1].Value = NumberExtensions.Format(exchangeRate.BasePerUnit, 5);
+                    
+                    ewReport.Cells[rowIndex, colIndex + 2].Style = normalStyle;
+                    ewReport.Cells[rowIndex, colIndex + 2].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+                    ewReport.Cells[rowIndex, colIndex + 2].Value = NumberExtensions.Format(exchangeRate.UnitsPerBase, 5);
+                }
+                #endregion
+
                 rowIndex += 1;
+                itemIndex++;
             }
-            ewReport.Cells[rowIndex, colIndex].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal;
-            #endregion
-            
-            #endregion
-
-            #region exchange rate
-            #region header
-            ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex += 2, startRow, colIndex + 1).Merged = true;
-            ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Value = string.Format("FOREX @ {0}",
-                settlementDate.ToString("dd-MMMM-yy"));
-
-            ewReport.Cells[startRow += 1, colIndex].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[startRow, colIndex].Value = string.Format("{0}/1 Unit", exchangeTo);
-            ewReport.Cells[startRow, colIndex + 1].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[startRow, colIndex + 1].Value = string.Format("Units/1 {0}", exchangeTo);
-            #endregion
-
+            #region grand total
             colIndex -= 1;
-            foreach (ExchangeRate exchangeRate in exchangeRateInfo)
-            {
-                startRow+=1;
-                ewReport.Cells[startRow, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-                ewReport.Cells[startRow, colIndex].Value = exchangeRate.CurrencyName;
-                ewReport.Cells[startRow, colIndex+1].Style = normalStyle;
-                ewReport.Cells[startRow, colIndex + 1].Value = exchangeRate.BasePerUnit;
-                ewReport.Cells[startRow, colIndex+2].Style = normalStyle;
-                ewReport.Cells[startRow, colIndex + 2].Value = exchangeRate.UnitsPerBase;
-            }
+            ewReport.Cells[rowIndex, colIndex].Style.Font.Weight = ExcelFont.BoldWeight;
+            ewReport.Cells[rowIndex, colIndex].Style.NumberFormat = "#,##0.00_);[RED](#,##0.00)";
+            ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal;
+            #endregion            
+            #endregion            
             #endregion
 
             #region note
-            ewReport.Cells[rowIndex += 2, 0].Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex).Merged = true;
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+            ewReport.Rows[rowIndex].Height = 300;
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
             #endregion
         }

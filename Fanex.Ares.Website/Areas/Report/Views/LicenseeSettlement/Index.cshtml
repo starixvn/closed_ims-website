@@ -11,6 +11,9 @@
 @section Head {
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
+
 }
 @section Headline {
     <div class="title">
@@ -19,6 +22,7 @@
         </div>
     </div>
 }
+<div>
 @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
 {
     <div id="filter-bar" class="filter-bar" style="width: 1260px;">
@@ -64,17 +68,19 @@
         </div>
     </div>
 }
-@Html.ActionLink("Print Invoice", "PrintInvoice", null, new { target = "_blank" })
-<div class="grid-title">
-    <div id="nonLiveBingoReportTitle" class="grid-title-label">
-        aaaaaaaaaaaaaaaaaa
+</div>
+
+<div class="grid-title" style="clear: both; display:none;">
+    <div class="grid-title-label">
+        <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF" />
-        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />
+     <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", null)'" >
+        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" onClick="location.href='@Url.Action("PrintScreen", "LicenseeSettlement", null)'" />
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
     </div>
 </div>
+
 <div id="parentContainer" class="content-grid">
 </div>
 @{
@@ -93,11 +99,13 @@
         var minDateDaily = '1/1/2007';
         var minDateWeekly = '1/1/2007';
         var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
+        var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
     </script>
 }
 @section Foot {
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker")
     <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js"></script>
+    <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     @*<script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/MultipleSelect/jquery.multiselect.nlevel.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/Utils/jquery.fixBugsBrowser.js"></script>

@@ -7,8 +7,15 @@
 
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { Submit(); });
-    $('#btnPDF').click(function () { PrintPDF(); });
+
     $('#btnExcel').click(function () { exportReportToExcel(); });
+    //$('#btnPrint').click(function () { PrintInvoice(); });
+    
+    RenderFilterNote();
+
+    $('#LicenseeId').change(function () {
+        GetProductByLicenseeID($(this).val(), $('Product'));
+    });
 });
 
 var renderDatePicker = function () {
@@ -48,13 +55,25 @@ var renderDatePicker = function () {
     });
 };
 
+function RenderFilterNote() {
+    var $this = $('#notemessage');
+    $this.attr("title", notemessage);
+    $this.tipsy({
+        html: true,
+        opacity: 0.9,
+        gravity: 'ne'
+    });
+};
+
 function Submit() {
     $.ajax({
         url: "LicenseeSettlement/GetInvoice",
         type: "POST",
-        data: $('#formLicenseeSettlement').serialize(),
+        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text(),
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
+            $(".grid-title").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("faild");
@@ -64,9 +83,6 @@ function Submit() {
     });
 }
 
-function PrintPDF() {
-
-}
 
 function exportReportToExcel() {
     var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
@@ -78,4 +94,67 @@ function exportReportToExcel() {
     }
 
     iframe.attr('src', url);
+}
+
+function GetProductByLicenseeID(licenseeID, destinationElement) {
+    $.ajax({
+        url: "LicenseeSettlement/GetProductByLicenseeID",
+        type: "POST",
+        data: "&licenseeID=" + $('#LicenseeId').val(),
+        success: function (data, textStatus, jqXHR) {
+            var html = "";
+            for (var i = 0; i < data.length; i++) {
+                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+            }
+            $('#Product').html(html);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("fail");
+        },
+        complete: function (jqXHR, textStatus) {
+        }
+    });
+}
+
+function GetProductByLicenseeID(licenseeID, destinationElement) {
+    $.ajax({
+        url: "LicenseeSettlement/GetCurencyByLicenseeID",
+        type: "POST",
+        data: "&licenseeID=" + $('#LicenseeId').val(),
+        success: function (data, textStatus, jqXHR) {
+            var html = "<option value='0' selected='selected'>All</option>";
+            for (var i = 0; i < data.length; i++) {
+                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+            }
+            $('#Currency').html(html);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("fail");
+        },
+        complete: function (jqXHR, textStatus) {
+        }
+    });
+}
+
+function PrintInvoice() {
+//    $.ajax({
+//        url: "LicenseeSettlement/PrintScreen",
+//        type: "POST",
+//        data: "",
+//        success: function (data, textStatus, jqXHR) {
+//            var printContent = data;
+//            
+
+
+//            printWindow.document.write(printContent.innerHTML);
+//            //printWindow.document.close();
+//            printWindow.focus();
+//            printWindow.print();
+//        },
+//        error: function (xhr, ajaxOptions, thrownError) {
+//            alert("fail");
+//        },
+//        complete: function (jqXHR, textStatus) {
+//        }
+//    });
 }
