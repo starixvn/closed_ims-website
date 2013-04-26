@@ -21,6 +21,7 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         public int Currency { get; set; }
         //public DateTime MoveBetsDay { get; set; }
         public int BaseCurrency { get; set; }
+        public string BaseCurrencyName { get; set; }
 
         public override string GetSettingKey()
         {

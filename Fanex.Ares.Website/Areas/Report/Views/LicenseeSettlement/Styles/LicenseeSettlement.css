@@ -22,6 +22,7 @@
 .tblforex table
 {
     border-collapse: collapse;
+    width: 300px;
 }
 
 .tblforex table thead

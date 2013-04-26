@@ -197,13 +197,23 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
-        /// Foarmat da datatime value to string (dd-MMM-yyyy)
+        /// Foarmat da datatime value to string (dd-MMM-yy)
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>
-        public static string ToDayMonthYear(this DateTime date)
+        public static string ToAresDayMonthYear(this DateTime date)
         {
             return date.ToString(Constants.ARES_DATE_FORMAT);
+        }
+
+        /// <summary>
+        /// Format datatime value to string (MMM-yy)
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public static string ToAresMonthYear(this DateTime date)
+        {
+            return date.ToString(Constants.ARES_MONTH_YEAR_FORMAT);
         }
     }
 }
