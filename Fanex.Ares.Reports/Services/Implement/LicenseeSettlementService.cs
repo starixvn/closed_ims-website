@@ -266,8 +266,10 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMM-yy");
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format("{0}:", Labels.Licensee.ToUpper());
             ewReport.Cells[rowIndex, 2].Style.Font.Weight = ExcelFont.BoldWeight;
+            ewReport.Cells[rowIndex, 2].Style.Font.Color = Color.FromArgb(204, 35, 162);
             ewReport.Cells[rowIndex, 2].Value = licenseeInfo.LicenseeName;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
+            ewReport.Cells[rowIndex, 3].Style.Font.Color = Color.FromArgb(194, 21, 21);
             ewReport.Cells[rowIndex, 3].Value = product.ToUpper();
             ewReport.Cells[rowIndex, 5].Value = string.Format("{0}:", Labels.FBilling);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
@@ -284,17 +286,16 @@ namespace Fanex.Ares.Report.Services.Interface
         }
 
 
-        private void ExportSettlementReportToExcelAssignDetailAndExchangeRate(IEnumerable<ExchangeRate> exchangeRateInfo, 
+        private void ExportSettlementReportToExcelAssignDetailAndExchangeRate(List<ExchangeRate> exchangeRateInfo, 
             Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report reportDetails, string licenseeName, DateTime settlementDate,
             ref int rowIndex, ref ExcelWorksheet ewReport, string exchangeTo)
-        {
-            //cellStyle.FillPattern.SetSolid
-            
+        {            
+            //(228, 242, 253)
             var headerColor = ExcelExtensions.HEADER_TITLE_COLOR;
             var normalStyle = ExcelExtensions.GetCellTextStyle(ExcelExtensions.BACKGROUND_COLOR, false);
             var numberStyle = ExcelExtensions.GetCellNumberStyle("", ExcelExtensions.BACKGROUND_COLOR, false, false, false);
             var decimalStyle = ExcelExtensions.GetCellNumberStyle(".00", ExcelExtensions.BACKGROUND_COLOR, false, false, true);
-            var startRow = rowIndex;
+            
             var colIndex = 0;
 
             #region set width of each col
@@ -312,8 +313,9 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Columns[11].Width = 255 * 15;
             ewReport.Columns[12].Width = 255 * 8;
             #endregion
-            #region win/loss
-            #region header
+
+            #region win/loss & exchange rate
+            #region header - winloss
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = Labels.Date;
@@ -364,13 +366,43 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Style.FormatTitleCell(headerColor);
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex + 1, colIndex).Value = exchangeTo;
             #endregion
-            rowIndex += 2;
 
+            #region header - exchange rate
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 2, rowIndex, colIndex + 1).Merged = true;
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 1).Style.FormatTitleCell(headerColor);
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 1).Value = string.Format("FOREX @ {0}",
+                settlementDate.ToString("dd-MMM-yy"));
+
+            ewReport.Cells[rowIndex += 1, colIndex].Style.FormatTitleCell(headerColor);
+            ewReport.Cells[rowIndex, colIndex].Value = string.Format("{0}/1 Unit", exchangeTo);
+            ewReport.Cells[rowIndex, colIndex + 1].Style.FormatTitleCell(headerColor);
+            ewReport.Cells[rowIndex, colIndex + 1].Value = string.Format("Units/1 {0}", exchangeTo);
+            #endregion
+
+            rowIndex += 1;
             #region detail
+
+            var itemIndex = 0;
             foreach (ReportEntity detail in reportDetails.EntityList)
             {
                 colIndex = 0;
+                #region set background color
+                if (itemIndex % 2 > 0)
+                {
 
+                    normalStyle.FillPattern.SetSolid(ExcelExtensions.ODD_ROW_COLOR);
+                    numberStyle.FillPattern.SetSolid(ExcelExtensions.ODD_ROW_COLOR);
+                    decimalStyle.FillPattern.SetSolid(ExcelExtensions.ODD_ROW_COLOR);                    
+                }
+                else
+                {
+                    normalStyle.FillPattern.SetSolid(ExcelExtensions.EVEN_ROW_COLOR);
+                    numberStyle.FillPattern.SetSolid(ExcelExtensions.EVEN_ROW_COLOR);
+                    decimalStyle.FillPattern.SetSolid(ExcelExtensions.EVEN_ROW_COLOR);
+                }
+                #endregion
+
+                #region winloss report
                 ewReport.Cells[rowIndex, colIndex].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.WinlostDate.ToString("dd-MMM-yy");
@@ -383,7 +415,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Betcount;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.MemberWinloss;
-                
+
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 if (detail.MemberComm != 0)
                 {
@@ -415,45 +447,41 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
+                #endregion
+
+                #region exchange rate
+                colIndex += 1;
+                if (itemIndex < exchangeRateInfo.Count() && exchangeRateInfo[itemIndex] != null)
+                {
+                    var exchangeRate = exchangeRateInfo[itemIndex];
+                    ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+                    ewReport.Cells[rowIndex, colIndex].Value = exchangeRate.CurrencyName;
+                    ewReport.Cells[rowIndex, colIndex + 1].Style = normalStyle;
+                    ewReport.Cells[rowIndex, colIndex + 1].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+                    ewReport.Cells[rowIndex, colIndex + 1].Value = NumberExtensions.Format(exchangeRate.BasePerUnit, 5);
+                    
+                    ewReport.Cells[rowIndex, colIndex + 2].Style = normalStyle;
+                    ewReport.Cells[rowIndex, colIndex + 2].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
+                    ewReport.Cells[rowIndex, colIndex + 2].Value = NumberExtensions.Format(exchangeRate.UnitsPerBase, 5);
+                }
+                #endregion
+
                 rowIndex += 1;
+                itemIndex++;
             }
+            #region grand total
+            colIndex -= 1;
             ewReport.Cells[rowIndex, colIndex].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, colIndex].Style.NumberFormat = "#,##0.00_);[RED](#,##0.00)";
             ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal;
-            #endregion
-            
-            #endregion
-
-            #region exchange rate
-            #region header
-            ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex += 2, startRow, colIndex + 1).Merged = true;
-            ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(startRow, colIndex, startRow, colIndex + 1).Value = string.Format("FOREX @ {0}",
-                settlementDate.ToString("dd-MMM-yy"));
-
-            ewReport.Cells[startRow += 1, colIndex].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[startRow, colIndex].Value = string.Format("{0}/1 Unit", exchangeTo);
-            ewReport.Cells[startRow, colIndex + 1].Style.FormatTitleCell(headerColor);
-            ewReport.Cells[startRow, colIndex + 1].Value = string.Format("Units/1 {0}", exchangeTo);
+            #endregion            
+            #endregion            
             #endregion
 
-            colIndex -= 1;
-            foreach (ExchangeRate exchangeRate in exchangeRateInfo)
-            {
-                startRow+=1;
-                ewReport.Cells[startRow, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Right;
-                ewReport.Cells[startRow, colIndex].Value = exchangeRate.CurrencyName;
-                ewReport.Cells[startRow, colIndex+1].Style = normalStyle;
-                ewReport.Cells[startRow, colIndex + 1].Value = exchangeRate.BasePerUnit;
-                ewReport.Cells[startRow, colIndex+2].Style = normalStyle;
-                ewReport.Cells[startRow, colIndex + 2].Value = exchangeRate.UnitsPerBase;
-            }
-            #endregion
-
-            #region note            
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex -1).Merged = true;
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex - 1).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex - 1).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+            #region note
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex).Merged = true;
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
             ewReport.Rows[rowIndex].Height = 300;
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
             #endregion
