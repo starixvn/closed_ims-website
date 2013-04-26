@@ -9,6 +9,8 @@
     $('#btnGenerate').click(function () { Submit(); });
 
     $('#btnExcel').click(function () { exportReportToExcel(); });
+    $('#btnPrint').click(function () { PrintInvoice(); });
+    
     RenderFilterNote();
 
     $('#LicenseeId').change(function () {
@@ -132,4 +134,8 @@ function GetProductByLicenseeID(licenseeID, destinationElement) {
         complete: function (jqXHR, textStatus) {
         }
     });
+}
+
+function PrintInvoice() {
+    
 }

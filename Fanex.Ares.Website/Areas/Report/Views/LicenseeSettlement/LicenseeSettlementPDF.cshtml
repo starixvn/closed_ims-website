@@ -34,7 +34,7 @@
             SETTLEMENT REPORT
         </td>
         <td class="cellInfo lineHeight200 col100">
-            @licensee.LicenseeInfor.SettlementDate.ToDayMonthYear()
+            @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
         </td>
         <td class="col80" align="left">
         </td>
@@ -42,8 +42,9 @@
         </td>
     </tr>
     <tr>
-        <td  class="cellInfo lineHeight80 col120 licensee-name" >
-            LICENSEE: <div> @licensee.LicenseeInfor.LicenseeName </div>
+        <td  class="cellInfo lineHeight80 col120" >
+           LICENSEE:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+           <span  class="licensee-name"> @licensee.LicenseeInfor.LicenseeName </span> 
         </td>
         <td  class="cellInfo lineHeight80 col100 product-name">
             @licensee.LicenseeInfor.ProductName
@@ -52,7 +53,7 @@
             1st Billing:
         </td>
         <td  class="cellInfo lineHeight80 col400">
-            @licensee.LicenseeInfor.FirstBilling.ToDayMonthYear()
+            @licensee.LicenseeInfor.FirstBilling.ToAresDayMonthYear()
         </td>
     </tr>
     <tr>
@@ -88,7 +89,7 @@
               Head of Terms:
         </td>
         <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.HeadOfTerms.ToDayMonthYear()
+             @licensee.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()
         </td>
     </tr>
 </table>
@@ -156,7 +157,7 @@
                         var evenClass = GetEvenClass(i);
                         <tr class="colborder01">
                             <td class="cellstyle col40 aligncenter @evenClass">
-                                @report.WinlostDate.ToDayMonthYear()
+                                @report.WinlostDate.ToAresDayMonthYear()
                             </td>
                             <td class="cellstyle col40 aligncenter @evenClass">
                                 @report.CurrencyName
@@ -324,7 +325,7 @@
     IDR & VND * 
     </td>
     <td class="cellInfo">
-     Amount in IDR is stated in '000, when converted to @ViewBag.BaseCurrency Equv, x 1000
+     Amount in IDR is stated in '000, when converted to @licensee.LicenseeInfor.CurrencyBilling Equv, x 1000
     </td>
 </tr>
 <tr>
@@ -332,7 +333,7 @@
     FOREX
     </td>
     <td class="cellInfo lineHeight80">
-     www.oanda.com provided minor difference between "@ViewBag.BaseCurrency / 1Unit" vs "Units/ 1 @ViewBag.BaseCurrency", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency" to prevail all
+     www.oanda.com provided minor difference between " @licensee.LicenseeInfor.CurrencyBilling / 1Unit" vs "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency" to prevail all
     </td>
 </tr>
 </table>
