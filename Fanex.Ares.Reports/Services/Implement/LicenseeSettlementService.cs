@@ -27,6 +27,8 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         private const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+        private const string SessionKeyLicenseeFromDate = "Fanex.Ares.Report.Services.FromDate";
+        private const string SessionKeyLicenseeToDate = "Fanex.Ares.Report.Services.ToDate";
 
         public LicenseeSettlementService()
         {
@@ -295,9 +297,12 @@ namespace Fanex.Ares.Report.Services.Interface
             try
             {
                 #region local varialbles
-                var reportName = "LicenseeSettlementReport";
+
                 var model = new LicenseeSettlementModel();
                 model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+                DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeFromDate);
+                DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate);
+                var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;

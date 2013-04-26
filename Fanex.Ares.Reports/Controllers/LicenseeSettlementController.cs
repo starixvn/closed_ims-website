@@ -38,7 +38,8 @@ namespace Fanex.Ares.Report.Controllers
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
-
+        private const string SessionKeyLicenseeFromDate = "Fanex.Ares.Report.Services.FromDate";
+        private const string SessionKeyLicenseeToDate = "Fanex.Ares.Report.Services.ToDate";
         public LicenseeSettlementController()
         {
             _service = new LicenseeSettlementService();
@@ -66,10 +67,12 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeFromDate, criteria.FromDate);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate, criteria.ToDate); 
             return PartialView("LicenseeSettlement", model);
         }
 
-        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName)
         {
            
             // Render the view html to a string.
@@ -83,7 +86,7 @@ namespace Fanex.Ares.Report.Controllers
             Response.Clear();
             MemoryStream ms = new MemoryStream(buffer);
             Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename= LicenseeSettlement.pdf");
+            Response.AddHeader("content-disposition", "attachment;filename= "+fileName+ ".pdf");
             Response.Buffer = true;
             ms.WriteTo(Response.OutputStream);
             Response.End();
@@ -97,8 +100,11 @@ namespace Fanex.Ares.Report.Controllers
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+            DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeFromDate);
+            DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate);
+            string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1);
+            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1, fileName);
         }
         
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
