@@ -10,7 +10,7 @@ $(document).ready(function () {
     $('#btnGenerate').click(function () { Submit(); });
 
     $('#btnExcel').click(function () { exportReportToExcel(); });
-    
+
     RenderFilterNote();
 
     $('#LicenseeId').change(function () {
@@ -139,4 +139,12 @@ function GetCurrencyByLicenseeID(licenseeID) {
         complete: function (jqXHR, textStatus) {
         }
     });
+}
+
+function ClientPrinting() {
+    if ($.browser.msie) {
+        window.open('LicenseeSettlement/PrintScreen');
+    } else {
+        window.open('LicenseeSettlement/ExportPDF?isSavePDF=false');
+    }
 }

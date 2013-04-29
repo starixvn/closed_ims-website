@@ -685,6 +685,9 @@
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_ConfirmDelete.cshtml" />
+    <Content Include="Views\Shared\_PrintLayout.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Report\Scripts\AdvancedMode\" />
