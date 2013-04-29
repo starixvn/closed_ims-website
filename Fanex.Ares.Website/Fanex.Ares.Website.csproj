@@ -216,18 +216,6 @@
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
-    <Content Include="Areas\Report\Scripts\RecoverTicket\RecoverTicket.js" />
-    <Content Include="Areas\Report\Scripts\VoidMixParlayTicket\SubTicketMixParlay.js" />
-    <Content Include="Areas\Report\Scripts\VoidMixParlayTicket\VoidMixParlayTicket.js" />
-    <Content Include="Areas\Report\Scripts\VoidMixParlayTicket\VoidMixParlayTicketHelper.js" />
-    <Content Include="Areas\Report\Scripts\VoidMixParlayTicket\VoidMixParlayTicketManager.js" />
-    <Content Include="Areas\Report\Scripts\VoidMixParlayTicket\VoidMixParlayTicketValidateData.js" />
-    <Content Include="Areas\Report\Scripts\VoidOutrightTicket\VoidOutrightTicket.js" />
-    <Content Include="Areas\Report\Scripts\VoidOutrightTicket\VoidOutrightTicketValidateData.js" />
-    <Content Include="Areas\Report\Scripts\VoidSingleTicket\VoidSingleTicketValidateData.js" />
-    <Content Include="Areas\Report\Scripts\VoidSingleTicket\VoidSingleTicket.js" />
-    <Content Include="Areas\Report\Scripts\VoidSingleTicket\VoidSingleTicketHelper.js" />
-    <Content Include="Areas\Report\Scripts\VoidSingleTicket\VoidSingleTicketManager.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css" />
@@ -553,7 +541,6 @@
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
     <Content Include="Areas\Misc\Views\TicketListing\LewisIndex.cshtml" />
-    <Content Include="Areas\Report\Styles\VoidSingleTicket.less" />
     <Content Include="Areas\Report\Views\_ViewStart.cshtml" />
     <Content Include="Content\bootstrap\accordion.less" />
     <Content Include="Content\bootstrap\alerts.less" />
@@ -599,11 +586,6 @@
     <Content Include="Content\fonts\BrandonLight.woff" />
     <Content Include="Content\fonts\ProximaNovaBold.woff" />
     <Content Include="Content\fonts\ProximaNovaReg.woff" />
-    <Content Include="Areas\Report\Views\VoidMixParlayTicket\Index.cshtml" />
-    <Content Include="Areas\Report\Styles\VoidMixParlayTicket.less" />
-    <Content Include="Areas\Report\Views\RecoverTicket\Index.cshtml" />
-    <Content Include="Areas\Report\Views\VoidOutrightTicket\Index.cshtml" />
-    <Content Include="Areas\Report\Styles\VoidOutrightTicket.less" />
     <Content Include="Areas\Misc\Views\BatchMessage\Index.cshtml" />
     <Content Include="Areas\Misc\Styles\BatchMessage.less" />
     <Content Include="Areas\Admin\Styles\BatchMessage.less" />
@@ -651,7 +633,6 @@
     <Content Include="Areas\UserControl\Views\User\ChangePassword.cshtml" />
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
-    <Content Include="Areas\Report\Views\DeleteSingleTicket\Index.cshtml" />
     <Content Include="Areas\Misc\Views\TicketListing\Index.cshtml" />
     <Content Include="Areas\Misc\Views\Web.config" />
     <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
@@ -690,7 +671,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Report\Scripts\AdvancedMode\" />
+    <Folder Include="Areas\Report\Scripts\" />
+    <Folder Include="Areas\Report\Styles\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
