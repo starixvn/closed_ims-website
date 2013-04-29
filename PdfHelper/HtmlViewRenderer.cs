@@ -4,14 +4,14 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace PdfHelper
-{
-    using System.IO;
-    using System.Text;
-    using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Mvc.Html;
+using System.IO;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
+namespace Fanex.Core.PdfHelper
+{
     /// <summary>
     /// This class is responsible for rendering a HTML view into a string. 
     /// </summary>

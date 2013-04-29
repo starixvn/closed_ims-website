@@ -4,13 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace PdfHelper
+using System;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+
+namespace Fanex.Core.PdfHelper
 {
-    using System;
-
-    using iTextSharp.text;
-    using iTextSharp.text.pdf;
-
     /// <summary>
     /// This class represents the standard header and footer for a PDF print.
     /// application.

@@ -194,12 +194,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NAPInvoiceSpNames.xml">
+    <Content Include="Test\Default.aspx" />
+    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="App_Data\NAPFrameworkSpNames.xml" />
+    <Content Include="Web.Configuration\StoreProcedure\NAPFrameworkSpNames.xml" />
     <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageHelper.js" />
@@ -669,6 +677,9 @@
     <Content Include="Views\Shared\_PrintLayout.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Web.Configuration\PdfHelper.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Report\Scripts\" />
@@ -696,6 +707,10 @@
     <ProjectReference Include="..\Fanex.Ares.Reports\Report.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
+      <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
+      <Name>PdfHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
