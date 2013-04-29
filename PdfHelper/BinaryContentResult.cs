@@ -4,12 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace PdfHelper
-{
-    using System.IO;
-    using System.Web;
-    using System.Web.Mvc;
+using System.IO;
+using System.Web;
+using System.Web.Mvc;
 
+namespace Fanex.Core.PdfHelper
+{
     /// <summary>
     /// An ActionResult used to send binary data to the browser.
     /// </summary>

@@ -4,10 +4,10 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace PdfHelper
+using System.Web.Mvc;
+using System.Web;
+namespace Fanex.Core.PdfHelper
 {
-    using System.Web.Mvc;
-
     /// <summary>
     /// Extends the controller with functionality for rendering PDF views
     /// </summary>
@@ -28,7 +28,10 @@ namespace PdfHelper
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
-            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows);
+
+            var cssFilePath = Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, cssFilePath);
 
             // Return the PDF as a binary stream to the client.
             return new BinaryContentResult(buffer, "application/pdf");
