@@ -99,7 +99,7 @@
 }
 .col650
 {
-    width: 100% !important;
+    width: 980px !important;
 }
 
 .col120
@@ -175,4 +175,5 @@
 .cellPadding
 {
     border-collapse: collapse;
+    width: 100%;
 }
