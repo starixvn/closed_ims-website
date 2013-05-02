@@ -4,12 +4,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace PdfHelper
-{
-    using System;
-    using System.IO;
-    using System.Web.Mvc;
+using System;
+using System.IO;
+using System.Web.Mvc;
 
+namespace Fanex.Core.PdfHelper
+{
     public class FakeView : IView
     {
         #region IView Members
