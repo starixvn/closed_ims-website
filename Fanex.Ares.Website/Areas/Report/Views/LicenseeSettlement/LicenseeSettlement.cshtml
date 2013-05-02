@@ -26,7 +26,7 @@
             </td>
         </tr>
     </table>
-    <table class="tblinfo" width="100%" cellpadding="3" cellspacing="3">
+    <table class="tblinfo" width="100%">
         <tr>
             <td class="cellInfo lineHeight200 col120">
                 SETTLEMENT REPORT
@@ -47,7 +47,7 @@
                 @licensee.LicenseeInfor.LicenseeName
             </td>
             <td class="cellInfo lineHeight80 col100 product-name">
-                @licensee.LicenseeInfor.ProductName
+                @licensee.LicenseeInfor.ProductName.ToUpper()
             </td>
             <td class="cellInfo lineHeight80 col80">
                 1st Billing:
@@ -235,11 +235,11 @@
                         <tr>
                             <th class="noborder nobackground">
                             </th>
-                            <th class="col100">
-                                @licensee.LicenseeInfor.CurrencyBilling/ 1Unit
+                            <th class="col130">
+                                @licensee.LicenseeInfor.CurrencyBilling / 1Unit
                             </th>
                             <th class="col150">
-                                Units/ 1  @licensee.LicenseeInfor.CurrencyBilling
+                                Units / 1 @licensee.LicenseeInfor.CurrencyBilling
                             </th>
                         </tr>
                     </thead>
@@ -276,8 +276,8 @@
                 IDR & VND *
             </td>
             <td class="cellInfo">
-                Amount in IDR is stated in '000, when converted to @licensee.LicenseeInfor.CurrencyBilling Equv, x
-                1000
+                Amount in IDR is stated in '000, when converted to @licensee.LicenseeInfor.CurrencyBilling
+                Equv, x 1000
             </td>
         </tr>
         <tr>
@@ -285,9 +285,9 @@
                 FOREX
             </td>
             <td class="cellInfo lineHeight80">
-                www.oanda.com provided minor difference between "@licensee.LicenseeInfor.CurrencyBilling / 1Unit"
-                vs "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling", we standardize the use of "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling"
-                to prevail all
+                www.oanda.com provided minor difference between "@licensee.LicenseeInfor.CurrencyBilling
+                / 1Unit" vs "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling", we standardize the
+                use of "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling" to prevail all
             </td>
         </tr>
     </table>

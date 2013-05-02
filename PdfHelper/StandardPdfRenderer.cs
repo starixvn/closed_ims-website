@@ -4,21 +4,17 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Fanex.Core.PdfHelper.Configuration;
 using Fanex.Web.HtmlHelper;
+using System.IO;
+using iTextSharp.text;
+using iTextSharp.text.html.simpleparser;
+using iTextSharp.text.pdf;
+using System.Collections.Generic;
+using System.Web;
 
-namespace PdfHelper
+namespace Fanex.Core.PdfHelper
 {
-    using System.IO;
-
-    using iTextSharp.text;
-    using iTextSharp.text.html.simpleparser;
-    using iTextSharp.text.pdf;
-    using System.Collections.Generic;
-    using System;
-    using iTextSharp.text.html;
-    
-    using System.Web;
-
     /// <summary>
     /// This class is responsible for rendering a html text string to a PDF document using the html renderer of iTextSharp.
     /// </summary>
@@ -27,7 +23,7 @@ namespace PdfHelper
         private const int HorizontalMargin = 20;
         private const int VerticalMargin = 20;
 
-        public byte[] Render(string htmlText, string pageTitle, int numericRows)
+        public byte[] Render(string htmlText, string pageTitle, int numericRows, string cssFilePath)
         {
             byte[] renderedBuffer;
 
@@ -43,10 +39,9 @@ namespace PdfHelper
                     pdfWriter.PageEvent = new PrintHeaderFooter { Title = pageTitle };
                     pdfDocument.Open();
 
-                    var styles = LoadStyleSheet();
+                    var styles = LoadStyleSheet(cssFilePath);
 
 
-                    PdfContentByte cb = pdfWriter.DirectContent;
                     List<IElement> htmlElements = HTMLWorker.ParseToList(new StringReader(htmlText), styles);
 
                     for (int i = 0; i < htmlElements.Count; i++)
@@ -65,40 +60,54 @@ namespace PdfHelper
             return renderedBuffer;
         }
 
-        private void RotatePDF(string inputFile, string outputFile)
+        private void RotatePdf(string inputFile, string outputFile)
         {
-            using (FileStream outStream = new FileStream(outputFile, FileMode.Create))
+            using (var outStream = new FileStream(outputFile, FileMode.Create))
             {
-                iTextSharp.text.pdf.PdfReader reader = new iTextSharp.text.pdf.PdfReader(inputFile);
-                iTextSharp.text.pdf.PdfStamper stamper = new iTextSharp.text.pdf.PdfStamper(reader, outStream);
+                var reader = new PdfReader(inputFile);
+                var stamper = new PdfStamper(reader, outStream);
 
-                iTextSharp.text.pdf.PdfDictionary pageDict = reader.GetPageN(1);
+                var pageDict = reader.GetPageN(1);
                 int desiredRot = 90; // 90 degrees clockwise from what it is now
-                iTextSharp.text.pdf.PdfNumber rotation = pageDict.GetAsNumber(iTextSharp.text.pdf.PdfName.ROTATE);
+                var rotation = pageDict.GetAsNumber(PdfName.ROTATE);
 
                 if (rotation != null)
                 {
                     desiredRot += rotation.IntValue;
                     desiredRot %= 360; // must be 0, 90, 180, or 270
                 }
-                pageDict.Put(iTextSharp.text.pdf.PdfName.ROTATE, new iTextSharp.text.pdf.PdfNumber(desiredRot));
+                pageDict.Put(PdfName.ROTATE, new PdfNumber(desiredRot));
 
                 stamper.Close();
             }
         }
 
 
-        private static StyleSheet LoadStyleSheet()
+        private static StyleSheet LoadStyleSheet(string cssFilePath)
         {
             var styles = new StyleSheet();
 
-            var stylePath = HttpContext.Current.Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+            if (string.IsNullOrEmpty(cssFilePath))
+                return styles;
 
-            ICssParser cssParser = new CssParser(stylePath);
+            //var stylePath = HttpContext.Current.Server.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
 
-            var test = cssParser.GetProperties(".lineHeight200");
+            var cssParser = new CssParser(cssFilePath);
 
 
+
+            var pdfSection = PdfHelperSection.Instance;
+
+            var listException = pdfSection != null ? pdfSection.StyleSheet["SpecialStyle"].Items : new PdfHelperCollection();
+
+            var lsExceptionStyle = new List<string>();
+
+            for (var i = 0; i < listException.Count; i ++)
+            {
+                
+                lsExceptionStyle.Add(listException[i].Name);
+            }
+           
 
             var lsClassName = cssParser.GetListClassName();
             foreach (var data in lsClassName)
@@ -114,7 +123,7 @@ namespace PdfHelper
                     var attributeName = property.Key;
                     var attributeValue = property.Value;
 
-                    if (attributeName.Contains("line-height"))
+                    if (lsExceptionStyle.Contains(attributeName))
                     {
                         attributeValue = string.Join(":", attributeName, attributeValue);
                         attributeName = "style";

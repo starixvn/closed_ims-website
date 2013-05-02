@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿/// <reference path="../../../../../Scripts/NapTicketControl.js" />
+$(document).ready(function () {
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {
@@ -9,10 +10,12 @@
     $('#btnGenerate').click(function () { Submit(); });
 
     $('#btnExcel').click(function () { exportReportToExcel(); });
+
     RenderFilterNote();
 
     $('#LicenseeId').change(function () {
-        GetProductByLicenseeID($(this).val(), $('Product'));
+        GetProductByLicenseeID($(this).val());
+        GetCurrencyByLicenseeID($(this).val());
     });
 });
 
@@ -64,6 +67,7 @@ function RenderFilterNote() {
 };
 
 function Submit() {
+    NapTicketControl.disableInput();
     $.ajax({
         url: "LicenseeSettlement/GetInvoice",
         type: "POST",
@@ -77,6 +81,7 @@ function Submit() {
             alert("faild");
         },
         complete: function (jqXHR, textStatus) {
+            NapTicketControl.enableInput();
         }
     });
 }
@@ -94,7 +99,7 @@ function exportReportToExcel() {
     iframe.attr('src', url);
 }
 
-function GetProductByLicenseeID(licenseeID, destinationElement) {
+function GetProductByLicenseeID(licenseeID) {
     $.ajax({
         url: "LicenseeSettlement/GetProductByLicenseeID",
         type: "POST",
@@ -114,13 +119,15 @@ function GetProductByLicenseeID(licenseeID, destinationElement) {
     });
 }
 
-function GetProductByLicenseeID(licenseeID, destinationElement) {
+function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
         url: "LicenseeSettlement/GetCurencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
-            var html = "<option value='0' selected='selected'>All</option>";
+            var html = "";
+            if (data.length != 0)
+                html = "<option value='0' selected='selected'>All</option>";
             for (var i = 0; i < data.length; i++) {
                 html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
             }
@@ -132,4 +139,12 @@ function GetProductByLicenseeID(licenseeID, destinationElement) {
         complete: function (jqXHR, textStatus) {
         }
     });
+}
+
+function ClientPrinting() {
+    if ($.browser.msie) {
+        window.open('LicenseeSettlement/PrintScreen');
+    } else {
+        window.open('LicenseeSettlement/ExportPDF?isSavePDF=false');
+    }
 }

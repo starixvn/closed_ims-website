@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
+
 }
 @section Headline {
     <div class="title">
@@ -74,8 +75,8 @@
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-     <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", null)'" >
-        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />
+     <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" >
+        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" onClick="ClientPrinting();" />
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
     </div>
 </div>

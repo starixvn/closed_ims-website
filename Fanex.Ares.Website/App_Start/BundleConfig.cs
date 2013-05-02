@@ -12,6 +12,7 @@ namespace Fanex.Ares.Website.App_Start
             bundles.Add(new ScriptBundle("~/scripts/common").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.js",
+                "~/Scripts/_Libs/jQuery/jquery.jqprint-0.3.js",
                 "~/Scripts/_Libs/jQuery/jquery.formattyping.js",
                 "~/Scripts/_Libs/Bootstrap/bootstrap-alert.js",
                 "~/Scripts/_Libs/Bootstrap/bootstrap-tooltip.js",

@@ -27,6 +27,8 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         private const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+        private const string SessionKeyLicenseeFromDate = "Fanex.Ares.Report.Services.FromDate";
+        private const string SessionKeyLicenseeToDate = "Fanex.Ares.Report.Services.ToDate";
 
         public LicenseeSettlementService()
         {
@@ -220,6 +222,7 @@ namespace Fanex.Ares.Report.Services.Interface
             var listLicensee = this.GetAllLicensees();
             var listProduct = this.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
             var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
+            var listBaseCurrency = this.GetBaseCurrency(new IMS_BaseCurrencySel());
             var model = new LicenseeSettlementModel();
             var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
             licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
@@ -274,7 +277,7 @@ namespace Fanex.Ares.Report.Services.Interface
             exchangeRateCriteria.Currency = exchangeRatecurrencies;
             exchangeRateCriteria.ExchangeDate = criteria.ToDate;
             exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
-            exchangeRateCriteria.BaseCurrencyName = listCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
+            exchangeRateCriteria.BaseCurrencyName = listBaseCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
 
             var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
 
@@ -295,9 +298,12 @@ namespace Fanex.Ares.Report.Services.Interface
             try
             {
                 #region local varialbles
-                var reportName = "LicenseeSettlementReport";
+
                 var model = new LicenseeSettlementModel();
                 model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+                DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeFromDate);
+                DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate);
+                var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;
@@ -348,7 +354,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 3].Value = product.ToUpper();
             ewReport.Cells[rowIndex, 5].Value = string.Format("{0}:", Labels.FBilling);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.FirstBilling.ToString("dd-MMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.FirstBilling.ToString("MMM-yy");
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Basis_of_Billing);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.BasisOfBilling;

@@ -4,7 +4,6 @@
 @{
     LicenseeSettlementModel licensee = new LicenseeSettlementModel();
     licensee = Model;
-    
 }
 @functions{
     public string GetNegativeClass(double number)
@@ -33,8 +32,8 @@
         <td class="cellInfo lineHeight200 col120" >
             SETTLEMENT REPORT
         </td>
-        <td class="cellInfo lineHeight200 col100">
-            @licensee.LicenseeInfor.SettlementDate.ToDayMonthYear()
+        <td class="lineHeight200 col100 ">
+           <span class="cellInfo bold"> @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear() </span>
         </td>
         <td class="col80" align="left">
         </td>
@@ -43,17 +42,17 @@
     </tr>
     <tr>
         <td  class="cellInfo lineHeight80 col120" >
-           LICENSEE:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+           LICENSEE:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
            <span  class="licensee-name"> @licensee.LicenseeInfor.LicenseeName </span> 
         </td>
-        <td  class="cellInfo lineHeight80 col100 product-name">
-            @licensee.LicenseeInfor.ProductName
+        <td  class="lineHeight80 col100 product-name">
+             <span class="cellInfo bold"> @licensee.LicenseeInfor.ProductName.ToUpper()</span>
         </td>
         <td  class="cellInfo lineHeight80 col80">
             1st Billing:
         </td>
-        <td  class="cellInfo lineHeight80 col400">
-            @licensee.LicenseeInfor.FirstBilling.ToDayMonthYear()
+        <td  class="lineHeight80 col400 ">
+           <span class="cellInfo bold">  @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()</span>
         </td>
     </tr>
     <tr>
@@ -64,8 +63,8 @@
         <td class="cellInfo lineHeight80 col80">
             Basics of Billing:
         </td>
-        <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.BasisOfBilling
+        <td class="lineHeight80 col400">
+            <span class="cellInfo bold">  @licensee.LicenseeInfor.BasisOfBilling</span>
         </td>
     </tr>
     <tr>
@@ -76,8 +75,8 @@
         <td class="cellInfo lineHeight200 col80">
              Minimum Fees:
         </td>
-        <td class="cellInfo lineHeight200 col400">
-            @licensee.LicenseeInfor.MinimumFees
+        <td class="lineHeight200 col400">
+            <span class="cellInfo bold"> @licensee.LicenseeInfor.MinimumFees</span>
         </td>
     </tr>
      <tr>
@@ -88,8 +87,8 @@
         <td class="cellInfo lineHeight80 col80">
               Head of Terms:
         </td>
-        <td class="cellInfo lineHeight80 col400">
-             @licensee.LicenseeInfor.HeadOfTerms.ToDayMonthYear()
+        <td class="lineHeight80 col400">
+             <span class="cellInfo bold"> @licensee.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()</span>
         </td>
     </tr>
 </table>
@@ -112,13 +111,13 @@
                             TurnOver
                         </th>
                         <th rowspan="2" class="headerReport">
-                            trans
+                            Total Trans
                         </th>
                         <th colspan="3" class="headerReport">
                             Member
                         </th>
                         <th colspan="3" class="headerReport">
-                            Macuabet
+                             @licensee.LicenseeInfor.LicenseeName
                         </th>
                          <th rowspan="2" class="headerReport">
                             Company
@@ -157,7 +156,7 @@
                         var evenClass = GetEvenClass(i);
                         <tr class="colborder01">
                             <td class="cellstyle col40 aligncenter @evenClass">
-                                @report.WinlostDate.ToDayMonthYear()
+                                @report.WinlostDate.ToAresDayMonthYear()
                             </td>
                             <td class="cellstyle col40 aligncenter @evenClass">
                                 @report.CurrencyName
@@ -242,8 +241,8 @@
                             <td class="cellstyle col65">
                             
                             </td>
-                            <td  class="cellstyle col65 alignright  @GetNegativeClass(licensee.Report.GrandTotal)">
-                               @licensee.Report.GrandTotal.FormatNegative(2)
+                            <td  class="grandtotal col65 alignright @GetNegativeClass(licensee.Report.GrandTotal)">
+                              @licensee.Report.GrandTotal.FormatNegative(2)
                             </td>
                         </tr>
                          <tr class="colborder10">
@@ -262,7 +261,7 @@
                         <th class="colborder0">
                         </th>
                         <th colspan="2" class="headerReport colborder01">
-                                Forex 31/Mar/13
+                                Forex  @@  @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
                         </th>
                     </tr>
                     <tr class="colborder01">
@@ -302,12 +301,12 @@
                             <td class="cellstyle col50">
                                
                             </td>
-                            <td class="cellstyle col60" >
+                            <td class="grandtotal cellstyle col60" >
                                 &nbsp;
                             </td>
                         </tr>
                         <tr class="colborder0">
-                            <td colspan="3"  class="cellstyle col650 alignright">
+                            <td colspan="3"  class="col650 alignright">
                             <hr />
                                <u>&nbsp;</u>
                             </td>
@@ -333,7 +332,7 @@
     FOREX
     </td>
     <td class="cellInfo lineHeight80">
-     www.oanda.com provided minor difference between " @licensee.LicenseeInfor.CurrencyBilling / 1Unit" vs "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling", we standardize the use of "Units/ 1 @ViewBag.BaseCurrency" to prevail all
+     www.oanda.com provided minor difference between " @licensee.LicenseeInfor.CurrencyBilling / 1Unit" vs "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling", we standardize the use of "Units/ 1 @licensee.LicenseeInfor.CurrencyBilling" to prevail all
     </td>
 </tr>
 </table>

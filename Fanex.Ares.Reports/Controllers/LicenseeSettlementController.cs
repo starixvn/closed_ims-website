@@ -10,6 +10,7 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web;
@@ -17,11 +18,11 @@ using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Report.Criteria;
 using Fanex.Ares.Report.Services.Implement;
 using Fanex.Ares.Report.Services.Interface;
+using Fanex.Core.PdfHelper;
 using Fanex.NAP.Core.Web.Attribute;
 using Fanex.NAP.Core.Business;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using System.Collections.Generic;
-using PdfHelper;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using System.Linq;
 using System;
@@ -38,13 +39,28 @@ namespace Fanex.Ares.Report.Controllers
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+        private const string SessionKeyLicenseeFromDate = "Fanex.Ares.Report.Services.FromDate";
+        private const string SessionKeyLicenseeToDate = "Fanex.Ares.Report.Services.ToDate";
+
+        private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+        
+        #region View path
+
+        private static string LicenseeSettlementView = "LicenseeSettlement";
+        private static readonly string LicenseeSettlementPdfView = "LicenseeSettlementPDF";
+
+        #endregion
+
 
         public LicenseeSettlementController()
         {
+            
+
             _service = new LicenseeSettlementService();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
+
         //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
@@ -65,39 +81,53 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
-            return PartialView("LicenseeSettlement", model);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeFromDate, criteria.FromDate);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate, criteria.ToDate); 
+            return PartialView(LicenseeSettlementView, model);
         }
 
-        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows)
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
         {
            
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
-            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows);
+
+            
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath);
 
             // Return the PDF as a binary stream to the client.
             //return new BinaryContentResult(buffer, "application/pdf");
-            Response.Clear();
-            MemoryStream ms = new MemoryStream(buffer);
-            Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename= LicenseeSettlement.pdf");
-            Response.Buffer = true;
-            ms.WriteTo(Response.OutputStream);
-            Response.End();
+            if (isSavePDF)
+            {
+                Response.Clear();
+                MemoryStream ms = new MemoryStream(buffer);
+                Response.ContentType = "application/pdf";
+            Response.AddHeader("content-disposition", "attachment;filename= "+fileName+ ".pdf");
+                Response.Buffer = true;
+                ms.WriteTo(Response.OutputStream);
+                Response.End();
 
-            // Return the PDF as a binary stream to the client.
-            return  new EmptyResult();
+                // Return the PDF as a binary stream to the client.
+                return new EmptyResult();
+            }
+            else
+            {
+                return new BinaryContentResult(buffer, "application/pdf");
+            }
         }
 
-        public ActionResult ExportPDF()
+        public ActionResult ExportPDF(bool isSavePDF)
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+            DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeFromDate);
+            DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate);
+            string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "LicenseeSettlementPDF", model, model.Report.EntityList.Count + 1);
+            return this.ViewPdf("", LicenseeSettlementPdfView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
         }
         
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
@@ -114,6 +144,12 @@ namespace Fanex.Ares.Report.Controllers
         public JsonResult GetCurencyByLicenseeID(int licenseeID)
         {
             return Json(_service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }));
+        }
+
+        public ActionResult PrintScreen()
+        {
+            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+            return View("PrintReport", model);
         }
     }
 }
