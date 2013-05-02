@@ -34,7 +34,7 @@
                             @Html.LabelFor(m => m.LicenseeId, "Licensee")
                         </div>
                         <div class="edit-field col_6 align-left">
-                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new { @class = "alpha auto-width" })
+                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "-1" }, new { @class = "alpha auto-width" })
                         </div>
                         @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
                     </div>*@
@@ -60,7 +60,7 @@
                         @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
                     </div>
                     <div class="lbl-field col_3 align-right">
-                         @Html.LabelFor(m => m.Currency, "Currency")
+                        @Html.LabelFor(m => m.Currency, "Currency")
                     </div>
                     <div class="edit-field col_6 align-left">
                         @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
