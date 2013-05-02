@@ -14,7 +14,6 @@
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
-
 }
 @section Headline {
     <div class="title">
@@ -24,77 +23,75 @@
     </div>
 }
 <div>
-@using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
-{
-    <div id="filter-bar" class="filter-bar" style="width: 1260px;">
-        <span id="notemessage" class="note-info-message" title=''></span>
-        <div class="filter-form">
-            <div class="filter-row">
-                <div class="filter-cell">
-                    <div class="lbl-field col_3 align-right">
-                        @*@Html.LabelFor(m=>m.LicenseeId, "Licensee")*@
-                        aaaaa
-                    </div>
-                    <div class="edit-field col_6 align-left">
-                        @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new { @class = "alpha auto-width" })
-                    </div>
-                    @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
+    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
+    {
+        <div id="filter-bar" class="filter-bar" style="width: 1260px;">
+            <span id="notemessage" class="note-info-message" title=''></span>
+            <div class="filter-form">
+                <div class="filter-row">
+                    <div class="filter-cell">
+                        <div class="lbl-field col_3 align-right">
+                            @Html.LabelFor(m => m.LicenseeId, "Licensee")
+                        </div>
+                        <div class="edit-field col_6 align-left">
+                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new { @class = "alpha auto-width" })
+                        </div>
+                        @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
                     </div>*@
+                        <div class="lbl-field col_3 align-right">
+                            @Html.LabelFor(m => m.Month, "Month")
+                        </div>
+                        <div class="edit-field col_6 align-left">
+                            @Html.DropDownListForMonth(m => m.Month, new { @class = "alpha auto-width" })
+                        </div>
+                        <div class="lbl-field col_3 align-right">
+                            @Html.LabelFor(m => m.Year, "Year")
+                        </div>
+                        <div class="edit-field col_6 align-left">
+                            @Html.DropDownListForYear(m => m.Year, new { @class = "alpha auto-width" })
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-row">
                     <div class="lbl-field col_3 align-right">
-                        Month
+                        @Html.LabelFor(m => m.Product, "Product")
                     </div>
                     <div class="edit-field col_6 align-left">
-                        @Html.DropDownListForMonth(m => m.Month, new { @class = "alpha auto-width" })
+                        @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
                     </div>
                     <div class="lbl-field col_3 align-right">
-                        Year
+                         @Html.LabelFor(m => m.Currency, "Currency")
                     </div>
                     <div class="edit-field col_6 align-left">
-                        @Html.DropDownListForYear(m => m.Year, new { @class = "alpha auto-width" })
+                        @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
                     </div>
-                </div>
-            </div>
-            <div class="filter-row">
-                <div class="lbl-field col_3 align-right">
-                    Product
-                </div>
-                <div class="edit-field col_6 align-left">
-                    @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
-                </div>
-                <div class="lbl-field col_3 align-right">
-                    Currency
-                </div>
-                <div class="edit-field col_6 align-left">
-                    @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
-                </div>
-                <div class="lbl-field col_3 align-right">
-                    Exchange
-                </div>
-                <div class="edit-field col_6 align-left">
-                    @Html.DropDownListFor(m => m.BaseCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
-                </div>
-                <div class="lbl-field col_3 align-right">
-                </div>
-                <div class="submit col_6">
-                    <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
+                    <div class="lbl-field col_3 align-right">
+                        @Html.LabelFor(m => m.BaseCurrency, "Exchange")
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListFor(m => m.BaseCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
+                    </div>
+                    <div class="lbl-field col_3 align-right">
+                    </div>
+                    <div class="submit col_6">
+                        <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
 </div>
-
-<div class="grid-title" style="clear: both; display:none;">
+<div class="grid-title" style="clear: both; display: none;">
     <div class="grid-title-label">
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-     <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" >
-        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" onClick="ClientPrinting();" />
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" >
+        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print"
+            onclick="ClientPrinting();" />
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
     </div>
 </div>
-
 <div id="parentContainer" class="content-grid">
 </div>
 @{
