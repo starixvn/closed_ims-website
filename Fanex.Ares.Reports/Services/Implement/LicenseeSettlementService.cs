@@ -527,7 +527,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
+                ewReport.Cells[rowIndex, colIndex].Value = detail.CompanyBaseCurrency;
                 #endregion
 
                 #region exchange rate
