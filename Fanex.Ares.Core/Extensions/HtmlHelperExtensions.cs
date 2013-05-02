@@ -327,29 +327,14 @@ namespace Fanex.Ares.Core.Extensions
             var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
             int year = metaData == null ? 1 : metaData.Model == null ? 1 : (int)metaData.Model;
             List<SelectListItem> newitems = new List<SelectListItem>();
-            var currentYear = DateTime.Now.Year;
 
-            newitems.Add(new SelectListItem()
-            {
-                Text = (currentYear).ToString(),
-                Value = (currentYear).ToString(),
-                Selected = (year == currentYear)
-            });
-
-            for (var i = 1; i <= 10; i++)
+            for (var i = 2005; i <= DateTime.Now.Year; i++)
             {
                 newitems.Add(new SelectListItem()
                 {
-                    Text = (currentYear + i).ToString(),
-                    Value = (currentYear + i).ToString(),
-                    Selected = (year == currentYear + i)
-                });
-
-                newitems.Add(new SelectListItem()
-                {
-                    Text = (currentYear - i).ToString(),
-                    Value = (currentYear - i).ToString(),
-                    Selected = (year == currentYear - i)
+                    Text = (i).ToString(),
+                    Value = (i).ToString(),
+                    Selected = (year == i)
                 });
             }
 
