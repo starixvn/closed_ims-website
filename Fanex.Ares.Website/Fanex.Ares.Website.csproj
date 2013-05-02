@@ -216,9 +216,9 @@
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
-    <Content Include="Areas\Report\Views\SportsBook\Scripts\SportsBook.js" />
-    <Content Include="Areas\Report\Views\SportsBook\Styles\SportsBook.css" />
-    <Content Include="Areas\Report\Views\SportsBook\Styles\SportsBookPDF.css" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
@@ -604,9 +604,9 @@
     <Content Include="Areas\Invoice\Views\TicketListing\LewisIndex.cshtml" />
     <Content Include="Areas\Invoice\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
-    <Content Include="Areas\Report\Views\SportsBook\Index.cshtml" />
-    <Content Include="Areas\Report\Views\SportsBook\_SportsBook.cshtml" />
-    <Content Include="Areas\Report\Views\SportsBook\PrintReport.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_LicenseeSettlement.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

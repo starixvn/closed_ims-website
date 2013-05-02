@@ -23,7 +23,7 @@ using Fanex.NAP.Core.Web.Attribute;
 using Fanex.NAP.Core.Business;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using System.Collections.Generic;
-using Fanex.Ares.Report.ViewModels.SportsBook;
+using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using System.Linq;
 using System;
 using Fanex.Ares.Report.ViewModels;
@@ -33,25 +33,25 @@ using Fanex.Common.Extensions;
 namespace Fanex.Ares.Report.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class SportsBookController : BaseController
+    public class LicenseeSettlementController : BaseController
     {
-        ISportsBookService _service;
+        ILicenseeSettlementService _service;
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
-        private const string SessionKeySportsBookReport = "Fanex.Ares.Report.Services.SportsBookReport";
-        private const string SessionKeySportsBookFromDate = "Fanex.Ares.Report.Services.FromDate";
-        private const string SessionKeySportsBookToDate = "Fanex.Ares.Report.Services.ToDate";
+        private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+        private const string SessionKeyLicenseeSettlementFromDate = "Fanex.Ares.Report.Services.FromDate";
+        private const string SessionKeyLicenseeSettlementToDate = "Fanex.Ares.Report.Services.ToDate";
 
-        private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\SportsBook\Styles\SportsBookPDF.css");
+        private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
 
         #region View path
 
-        private static string SportsBookView = "_SportsBook";
+        private static string SportsBookView = "_LicenseeSettlement";
 
         #endregion
 
 
-        public SportsBookController()
+        public LicenseeSettlementController()
         {
 
 
@@ -82,8 +82,8 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookFromDate, criteria.FromDate);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookToDate, criteria.ToDate);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate, criteria.FromDate);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate, criteria.ToDate);
             return PartialView(SportsBookView, model);
         }
 
@@ -122,10 +122,10 @@ namespace Fanex.Ares.Report.Controllers
         public ActionResult ExportPDF(bool isSavePDF)
         {
             //var model = GenerateReport(criteria);
-            var model = new SportsBookModel();
-            model = (SportsBookModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookReport);
-            DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookFromDate);
-            DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookToDate);
+            var model = new LicenseeSettlementModel();
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+            DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate);
+            DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate);
             string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", SportsBookView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
@@ -149,7 +149,7 @@ namespace Fanex.Ares.Report.Controllers
 
         public ActionResult PrintScreen()
         {
-            var model = (SportsBookModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookReport);
+            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
             return View("PrintReport", model);
         }
     }

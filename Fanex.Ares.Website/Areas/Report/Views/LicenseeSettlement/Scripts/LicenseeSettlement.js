@@ -80,7 +80,7 @@ function RenderFilterNote() {
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "SportsBook/GetInvoice",
+        url: "LicenseeSettlement/GetInvoice",
         type: "POST",
         data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text(),
         success: function (data, textStatus, jqXHR) {
@@ -103,7 +103,7 @@ function Submit() {
 
 
 function exportReportToExcel() {
-    var url = window.rootUrl + 'SportsBook/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
+    var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
 
     var iframe = $('body iframe');
     if (iframe.length == 0) {
@@ -116,7 +116,7 @@ function exportReportToExcel() {
 
 function GetProductByLicenseeID(licenseeID) {
     $.ajax({
-        url: "SportsBook/GetProductByLicenseeID",
+        url: "LicenseeSettlement/GetProductByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -136,7 +136,7 @@ function GetProductByLicenseeID(licenseeID) {
 
 function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
-        url: "SportsBook/GetCurencyByLicenseeID",
+        url: "LicenseeSettlement/GetCurencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -158,9 +158,9 @@ function GetCurrencyByLicenseeID(licenseeID) {
 
 function ClientPrinting() {
     if ($.browser.msie) {
-        window.open('SportsBook/PrintScreen');
+        window.open('LicenseeSettlement/PrintScreen');
     } else {
-        window.open('SportsBook/ExportPDF?isSavePDF=false');
+        window.open('LicenseeSettlement/ExportPDF?isSavePDF=false');
     }
 }
 

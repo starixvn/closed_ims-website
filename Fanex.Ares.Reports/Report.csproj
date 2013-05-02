@@ -77,47 +77,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SportsBookController.cs" />
-    <Compile Include="Criteria\GetAllLicenseeCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\GetOutrightLeagueCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\GetOutrightTeamCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\GetOutrightTicketCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\GetParlaySubTicketCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\GetParlayTicketCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\GetRecoverTicketCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\GetSingleTicketCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />
+    <Compile Include="Controllers\LicenseeSettlementController.cs" />
+    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
+    <Compile Include="Criteria\GetOutrightLeagueCriteria.cs" />
+    <Compile Include="Criteria\GetOutrightTeamCriteria.cs" />
+    <Compile Include="Criteria\GetOutrightTicketCriteria.cs" />
+    <Compile Include="Criteria\GetParlaySubTicketCriteria.cs" />
+    <Compile Include="Criteria\GetRecoverTicketCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
-    <Compile Include="Criteria\IMS_LicenseeCurrencySelCriteria.cs" />
-    <Compile Include="Criteria\IMS_LicenseeProductSelCriteria.cs" />
-    <Compile Include="Criteria\IMS_LicenseeSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
-    <Compile Include="Criteria\RecoverTicketCriteria.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\VoidParlayTicketCritetia.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Criteria\VoidSingleTicketCritetia.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Criteria\LicenseeSettlement\IMS_BaseCurrencySel.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeCurrencySelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeProductSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeSelCriteria.cs" />
+    <Compile Include="Criteria\RecoverTicketCriteria.cs" />
+    <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
+    <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
+    <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
+    <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Entities\Outright\League.cs" />
     <Compile Include="Entities\Outright\Team.cs" />
@@ -129,50 +107,26 @@
     <Compile Include="Repositories\Impl\VoidOutrightTicketRepository.cs" />
     <Compile Include="Repositories\Impl\VoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Impl\VoidSingleTicketRepository.cs" />
-    <Compile Include="Repositories\Interface\IRecoverTicketRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Interface\IVoidOutrightTicketRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Implement\RecoverTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Implement\SportsBookService.cs" />
-    <Compile Include="Services\Implement\VoidOutrightTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Implement\VoidParlayTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Implement\VoidSingleTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Interface\IRecoverTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Interface\ISportsBookService.cs" />
-    <Compile Include="Services\Interface\IVoidOutrightTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Interface\IVoidParlayTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Services\Interface\IVoidSingleTicketService.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Repositories\Interface\IRecoverTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IVoidOutrightTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
+    <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
+    <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
+    <Compile Include="Services\Implement\RecoverTicketService.cs" />
+    <Compile Include="Services\Implement\VoidOutrightTicketService.cs" />
+    <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
+    <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
+    <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />
+    <Compile Include="Services\Interface\IRecoverTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
+    <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
     <Compile Include="ViewModels\ExchangeRate.cs" />
     <Compile Include="ViewModels\LicenseeInformation.cs" />
     <Compile Include="ViewModels\Outright\OutrightTicketModel.cs" />
     <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
     <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
-    <Compile Include="ViewModels\SportsBook\SportsBookModel.cs" />
+    <Compile Include="ViewModels\LicenseeSettlement\LicenseeSettlementModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
@@ -187,6 +141,9 @@
       <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
       <Name>Resources</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Criteria\LicenseeSettlement\SportsBook\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

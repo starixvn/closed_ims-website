@@ -10,7 +10,7 @@ using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using Fanex.Ares.Report.Criteria;
 using System.Linq;
 using Fanex.Caching;
-using Fanex.Ares.Report.ViewModels.SportsBook;
+using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Ares.Report.ViewModels;
 using System.Drawing;
 using Fanex.Ares.Core.Extensions;
@@ -19,7 +19,7 @@ using Fanex.Common.Extensions;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
-    public class SportsBookService : ServiceBase, ISportsBookService
+    public class SportsBookService : ServiceBase, ILicenseeSettlementService
     {
         private readonly BaseRepository _repository;
 
@@ -27,9 +27,9 @@ namespace Fanex.Ares.Report.Services.Interface
         /// Cache key for All Licensees
         /// </summary>
         private const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
-        private const string SessionKeySportsBookReport = "Fanex.Ares.Report.Services.SportsBookReport";
-        private const string SessionKeySportsBookFromDate = "Fanex.Ares.Report.Services.FromDate";
-        private const string SessionKeySportsBookToDate = "Fanex.Ares.Report.Services.ToDate";
+        private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
+        private const string SessionKeyLicenseeSettlementFromDate = "Fanex.Ares.Report.Services.FromDate";
+        private const string SessionKeyLicenseeSettlementToDate = "Fanex.Ares.Report.Services.ToDate";
 
         public SportsBookService()
         {
@@ -139,9 +139,9 @@ namespace Fanex.Ares.Report.Services.Interface
             return listLicenseeInfo;
         }
 
-        public Fanex.Ares.Report.ViewModels.SportsBook.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
-            var report = new Fanex.Ares.Report.ViewModels.SportsBook.Report();
+            var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
             try
             {
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
@@ -207,14 +207,14 @@ namespace Fanex.Ares.Report.Services.Interface
             return listExchangeRate;
         }
 
-        public SportsBookModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             // Licensee Information
             var listLicensee = this.GetAllLicensees();
             var listProduct = this.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
             var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
             var listBaseCurrency = this.GetBaseCurrency(new IMS_BaseCurrencySel());
-            var model = new SportsBookModel();
+            var model = new LicenseeSettlementModel();
             var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
             licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
             licenseeInfoCriteria.ProductId = criteria.Product;
@@ -279,7 +279,7 @@ namespace Fanex.Ares.Report.Services.Interface
                                   .ToList();
 
             model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookReport, model); 
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, model); 
             return model;
         }
 
@@ -290,10 +290,10 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 #region local varialbles
 
-                var model = new SportsBookModel();
-                model = (SportsBookModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookReport);
-                DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookFromDate);
-                DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeySportsBookToDate);
+                var model = new LicenseeSettlementModel();
+                model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+                DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate);
+                DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate);
                 var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
@@ -359,7 +359,7 @@ namespace Fanex.Ares.Report.Services.Interface
 
 
         private void ExportSportsBookReportToExcelAssignDetailAndExchangeRate(List<ExchangeRate> exchangeRateInfo, 
-            Fanex.Ares.Report.ViewModels.SportsBook.Report reportDetails, string licenseeName, DateTime settlementDate,
+            Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report reportDetails, string licenseeName, DateTime settlementDate,
             ref int rowIndex, ref ExcelWorksheet ewReport, string exchangeTo)
         {            
             //(228, 242, 253)
