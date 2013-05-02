@@ -145,21 +145,11 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 Func<IDataReader, ReportEntity> mappingFunc = r =>
                 {
-                    var baseColName = string.Empty;
-                    if (criteria.BaseCurrency == 3) // USD = 3
-                    {
-                        baseColName = "CompanyBaseUSD";
-                    }
-                    else // EUR = 6
-                    {
-                        baseColName = "CompanyBaseEUR";
-                    }
-
                     var res = new ReportEntity
                     {
                         Betcount = Convert.ToInt32(r["Betcount"].ToString()),
                         Company = Convert.ToDouble(r["Company"].ToString()),
-                        CompanyBaseCurrency = Convert.ToDouble(r[baseColName].ToString()),
+                        CompanyBaseCurrency = Convert.ToDouble(r["Company" + criteria.BaseCurrencyName.Trim()].ToString()),
                         Currency = Convert.ToInt32(r["Currency"].ToString()),
                         CurrencyName = r["CurrencyName"].ToString(),
                         LicenseeComm = Convert.ToDouble(r["LicenseeComm"].ToString()),
@@ -229,22 +219,22 @@ namespace Fanex.Ares.Report.Services.Interface
             licenseeInfoCriteria.ProductId = criteria.Product;
             model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
             model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
-            model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItem>().Text;
+            criteria.LicenseeName = model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItem>().Text;
             model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
             //model.LicenseeInfor.SettlementDate = DateTime.Now;
             model.LicenseeInfor.SettlementDate = criteria.ToDate;
 
             // Licensee Report
-            var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
-            reportCriteria.LicenseeId = criteria.LicenseeId;
-            reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
-            reportCriteria.Product = criteria.Product;
-            reportCriteria.Currency = criteria.Currency;
-            reportCriteria.BaseCurrency = criteria.BaseCurrency;
-            reportCriteria.FromDate = criteria.FromDate;
-            reportCriteria.ToDate = criteria.ToDate;
+            //var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            //reportCriteria.LicenseeId = criteria.LicenseeId;
+            //reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
+            //reportCriteria.Product = criteria.Product;
+            //reportCriteria.Currency = criteria.Currency;
+            //reportCriteria.BaseCurrency = criteria.BaseCurrency;
+            //reportCriteria.FromDate = criteria.FromDate;
+            //reportCriteria.ToDate = criteria.ToDate;
 
-            model.Report = this.GetLicenseeReport(reportCriteria);
+            model.Report = this.GetLicenseeReport(criteria);
 
             // Exchange Rate
             var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
@@ -287,7 +277,7 @@ namespace Fanex.Ares.Report.Services.Interface
                                   select Item2)
                                   .ToList();
 
-            model.LicenseeInfor.CurrencyBilling = exchangeRateCriteria.BaseCurrencyName;
+            model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, model); 
             return model;
         }

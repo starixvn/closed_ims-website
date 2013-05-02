@@ -33,6 +33,6 @@ namespace Fanex.Ares.Report.ViewModels
 
         public DateTime HeadOfTerms { get; set; }
 
-        public string CurrencyBilling { get; set; }
+        public string BaseCurrencyName { get; set; }
     }
 }

@@ -15,13 +15,38 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     {
         public int LicenseeId { get; set; }
         public string LicenseeName { get; set; }
-        public DateTime FromDate { get; set; }
-        public DateTime ToDate { get; set; }
+        public DateTime FromDate
+        {
+            get
+            {
+                return new DateTime(this.Year, this.Month, 1);
+            }
+        }
+
+        public DateTime ToDate
+        {
+            get
+            {
+                return new DateTime(this.Year, this.Month, DateTime.DaysInMonth(this.Year, this.Month));
+            }
+        }
+
         public int Product { get; set; }
         public int Currency { get; set; }
-        //public DateTime MoveBetsDay { get; set; }
         public int BaseCurrency { get; set; }
         public string BaseCurrencyName { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int Month { get; set; }
+        [SpParam(Ignored = true)]
+        public int Year { get; set; }
+
+        public IMS_Rpt_LicenseeSettlementCriteria()
+            :base()
+        {
+            this.Month = DateTime.Now.Month - 1;
+            this.Year = DateTime.Now.Year;
+        }
 
         public override string GetSettingKey()
         {

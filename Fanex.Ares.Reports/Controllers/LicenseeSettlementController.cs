@@ -63,6 +63,8 @@ namespace Fanex.Ares.Report.Controllers
         //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
+            IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();
+            model.Year = DateTime.Now.Year;
             ViewBag.ListLicensee = _service.GetAllLicensees();
             var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
             ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
@@ -74,7 +76,7 @@ namespace Fanex.Ares.Report.Controllers
             //listExchangeRate.Add(new SelectListItem() { Selected = false, Text = "USD", Value = "3" });
             ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
 
-            return View();
+            return View(model);
         }
 
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)

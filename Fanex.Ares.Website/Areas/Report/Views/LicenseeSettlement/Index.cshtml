@@ -2,6 +2,7 @@
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
 @using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+@using Fanex.Ares.Core.Extensions
 @model IMS_Rpt_LicenseeSettlementCriteria
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
@@ -31,12 +32,25 @@
             <div class="filter-row">
                 <div class="filter-cell">
                     <div class="lbl-field col_3 align-right">
-                        Licensee
+                        @*@Html.LabelFor(m=>m.LicenseeId, "Licensee")*@
+                        aaaaa
                     </div>
                     <div class="edit-field col_6 align-left">
                         @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new { @class = "alpha auto-width" })
                     </div>
-                    <div id="datepickerplugin" class="lbl-field col_27 align-right">
+                    @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
+                    </div>*@
+                    <div class="lbl-field col_3 align-right">
+                        Month
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListForMonth(m => m.Month, new { @class = "alpha auto-width" })
+                    </div>
+                    <div class="lbl-field col_3 align-right">
+                        Year
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListForYear(m => m.Year, new { @class = "alpha auto-width" })
                     </div>
                 </div>
             </div>

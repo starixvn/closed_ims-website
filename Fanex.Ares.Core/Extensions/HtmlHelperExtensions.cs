@@ -13,6 +13,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using System.Globalization;
 
 namespace Fanex.Ares.Core.Extensions
 {
@@ -295,6 +296,64 @@ namespace Fanex.Ares.Core.Extensions
             }
 
             return SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, htmlAttributes);
+        }
+
+        public static MvcHtmlString DropDownListForMonth<TModel,
+            TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            object htmlAttributes)
+        {
+            var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            int month = metaData == null ? 1: metaData.Model == null ? 1: (int)metaData.Model;
+            var newitems = DateTimeFormatInfo
+                .InvariantInfo
+                .MonthNames
+                .Where(m => m.Trim().Length != 0)
+                .Select((monthName, index) => new SelectListItem
+                {
+                    Value = (index + 1).ToString(),
+                    Text = monthName,
+                    Selected = (month == (index + 1))
+                });
+
+            return SelectExtensions.DropDownListFor(htmlHelper, expression, newitems, htmlAttributes);
+        }
+
+        public static MvcHtmlString DropDownListForYear<TModel,
+            TProperty>(this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            object htmlAttributes)
+        {
+            var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+            int year = metaData == null ? 1 : metaData.Model == null ? 1 : (int)metaData.Model;
+            List<SelectListItem> newitems = new List<SelectListItem>();
+            var currentYear = DateTime.Now.Year;
+
+            newitems.Add(new SelectListItem()
+            {
+                Text = (currentYear).ToString(),
+                Value = (currentYear).ToString(),
+                Selected = (year == currentYear)
+            });
+
+            for (var i = 1; i <= 10; i++)
+            {
+                newitems.Add(new SelectListItem()
+                {
+                    Text = (currentYear + i).ToString(),
+                    Value = (currentYear + i).ToString(),
+                    Selected = (year == currentYear + i)
+                });
+
+                newitems.Add(new SelectListItem()
+                {
+                    Text = (currentYear - i).ToString(),
+                    Value = (currentYear - i).ToString(),
+                    Selected = (year == currentYear - i)
+                });
+            }
+
+            return SelectExtensions.DropDownListFor(htmlHelper, expression, newitems.OrderByDescending(m => m.Value), htmlAttributes);
         }
 
         #endregion Dropdownlist
