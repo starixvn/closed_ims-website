@@ -2,8 +2,8 @@
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
 @using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-@model Fanex.Ares.Report.ViewModels.LicenseeSettlement.LicenseeSettlementModel
+@using Fanex.Ares.Report.ViewModels.SportsBook;
+@model Fanex.Ares.Report.ViewModels.SportsBook.SportsBookModel
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Licensee Settlement Report for Sportbook";
@@ -14,7 +14,7 @@
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
-    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/SportsBook/Styles/SportsBook.css" />
     <style type="text/css">
         @@media print
         {
@@ -26,4 +26,4 @@
     
     </style>
 }
-    @Html.Partial("LicenseeSettlement", Model)
+    @Html.Partial("_SportsBook", Model)

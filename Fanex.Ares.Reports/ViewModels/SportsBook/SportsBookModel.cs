@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
+namespace Fanex.Ares.Report.ViewModels.SportsBook
 {
     using System;
     using System.Collections.Generic;
@@ -16,7 +16,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
     /// TODO: Update summary.
     /// </summary>
     [Serializable]
-    public class LicenseeSettlementModel
+    public class SportsBookModel
     {
         public LicenseeInformation LicenseeInfor { get; set; }
 
@@ -24,7 +24,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 
         public List<ExchangeRate> ExchangeList { get; set; }
 
-        public LicenseeSettlementModel()
+        public SportsBookModel()
         {
             ExchangeList = new List<ExchangeRate>();
             Report = new Report();

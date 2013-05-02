@@ -1,9 +1,9 @@
-﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+﻿@using Fanex.Ares.Report.ViewModels.SportsBook;
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @{
-    LicenseeSettlementModel licensee = new LicenseeSettlementModel();
-    licensee = Model;
+    SportsBookModel sportsBook = new SportsBookModel();
+    sportsBook = Model;
 }
 @functions{
     public string GetNegativeClass(double number)
@@ -33,7 +33,7 @@
                 SETTLEMENT REPORT
             </td>
             <td class="lineHeight200 col100 ">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
+                <span class="cellInfo bold">@sportsBook.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
                 </span>
             </td>
             <td class="col65" align="left">
@@ -43,17 +43,17 @@
         </tr>
         <tr>
             <td class="cellInfo lineHeight80 col100">
-                LICENSEE:&nbsp; &nbsp; <span class="licensee-name">@licensee.LicenseeInfor.LicenseeName
+                LICENSEE:&nbsp; &nbsp; <span class="licensee-name">@sportsBook.LicenseeInfor.LicenseeName
                 </span>
             </td>
             <td class="lineHeight80 col100 product-name">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.ProductName.ToUpper()</span>
+                <span class="cellInfo bold">@sportsBook.LicenseeInfor.ProductName.ToUpper()</span>
             </td>
             <td class="cellInfo lineHeight80 col65">
                 1st Billing:
             </td>
             <td class="lineHeight80 col400 ">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()</span>
+                <span class="cellInfo bold">@sportsBook.LicenseeInfor.FirstBilling.ToAresMonthYear()</span>
             </td>
         </tr>
         <tr>
@@ -65,7 +65,7 @@
                 Basics of Billing:
             </td>
             <td class="lineHeight80 col400">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.BasisOfBilling</span>
+                <span class="cellInfo bold">@sportsBook.LicenseeInfor.BasisOfBilling</span>
             </td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@
                 Minimum Fees:
             </td>
             <td class="lineHeight200 col400">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.MinimumFees</span>
+                <span class="cellInfo bold">@sportsBook.LicenseeInfor.MinimumFees</span>
             </td>
         </tr>
         <tr>
@@ -89,7 +89,7 @@
                 Head of Terms:
             </td>
             <td class="lineHeight80 col400">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()</span>
+                <span class="cellInfo bold">@sportsBook.LicenseeInfor.HeadOfTerms.ToAresDayMonthYear()</span>
             </td>
         </tr>
     </table>
@@ -116,13 +116,13 @@
                                 Member
                             </th>
                             <th colspan="3" class="headerReport">
-                                @licensee.LicenseeInfor.LicenseeName
+                                @sportsBook.LicenseeInfor.LicenseeName
                             </th>
                             <th rowspan="2" class="headerReport">
                                 Company
                             </th>
                             <th rowspan="2" class="headerReport">
-                                @licensee.LicenseeInfor.BaseCurrencyName
+                                @sportsBook.LicenseeInfor.BaseCurrencyName
                             </th>
                         </tr>
                         <tr class="colborder01">
@@ -147,10 +147,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @for (int i = 0; i < licensee.Report.EntityList.Count; i++)
+                        @for (int i = 0; i < sportsBook.Report.EntityList.Count; i++)
                         {
                             ReportEntity report = new ReportEntity();
-                            report = licensee.Report.EntityList[i];
+                            report = sportsBook.Report.EntityList[i];
                             var evenClass = GetEvenClass(i);
 
                             <tr class="colborder01">
@@ -231,8 +231,8 @@
                             </td>
                             <td class="col65">
                             </td>
-                            <td  class="grandtotal col65 alignright @GetNegativeClass(licensee.Report.GrandTotal)">
-                                @licensee.Report.GrandTotal.FormatNegative(2)
+                            <td  class="grandtotal col65 alignright @GetNegativeClass(sportsBook.Report.GrandTotal)">
+                                @sportsBook.Report.GrandTotal.FormatNegative(2)
                             </td>
                         </tr>
                         <tr class="boldBorderBlack">
@@ -258,7 +258,7 @@
                             </td>
                             <td class="col65">
                             </td>
-                            <td  class="grandtotal col65 alignright @GetNegativeClass(licensee.Report.GrandTotal)">
+                            <td  class="grandtotal col65 alignright @GetNegativeClass(sportsBook.Report.GrandTotal)">
                             </td>
                         </tr>
                     </tbody>
@@ -271,25 +271,25 @@
                             <th class="noneBorder">
                             </th>
                             <th colspan="2" class="headerReport colborder01">
-                                Forex @@ @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
+                                Forex @@ @sportsBook.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
                             </th>
                         </tr>
                         <tr class="colborder01">
                             <th class="noneBorder col30">
                             </th>
                             <th class="headerReport colborder01 col50">
-                                @licensee.LicenseeInfor.BaseCurrencyName / 1Unit
+                                @sportsBook.LicenseeInfor.BaseCurrencyName / 1Unit
                             </th>
                             <th class="headerReport colborder01 col60">
-                                Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName
+                                Units/ 1 @sportsBook.LicenseeInfor.BaseCurrencyName
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @for (int i = 0; i < licensee.ExchangeList.Count; i++)
+                        @for (int i = 0; i < sportsBook.ExchangeList.Count; i++)
                         {
                             ExchangeRate exchange = new ExchangeRate();
-                            exchange = licensee.ExchangeList[i];
+                            exchange = sportsBook.ExchangeList[i];
                             var evenClass = GetEvenClass(i);
 
                             <tr class="colborder01">
@@ -327,7 +327,7 @@
             </td>
         </tr>
     </table>
-    @if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
+    @if (sportsBook.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
     {
     <table width="100%">
         <tr>
@@ -335,7 +335,7 @@
                 IDR & VND *
             </td>
             <td class="cellInfo">
-                Amount in IDR is stated in '000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
+                Amount in IDR is stated in '000, when converted to @sportsBook.LicenseeInfor.BaseCurrencyName
                 Equv, x 1000
             </td>
         </tr>
@@ -344,9 +344,9 @@
                 FOREX
             </td>
             <td class="cellInfo lineHeight80">
-                www.oanda.com provided minor difference between " @licensee.LicenseeInfor.BaseCurrencyName
-                / 1Unit" vs "Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName", we standardize the
-                use of "Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName" to prevall all
+                www.oanda.com provided minor difference between " @sportsBook.LicenseeInfor.BaseCurrencyName
+                / 1Unit" vs "Units/ 1 @sportsBook.LicenseeInfor.BaseCurrencyName", we standardize the
+                use of "Units/ 1 @sportsBook.LicenseeInfor.BaseCurrencyName" to prevall all
             </td>
         </tr>
     </table>

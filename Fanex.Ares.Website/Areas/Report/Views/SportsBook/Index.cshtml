@@ -13,7 +13,7 @@
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
-    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/SportsBook/Styles/SportsBook.css" />
 }
 @section Headline {
     <div class="title">
@@ -86,7 +86,7 @@
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" >
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "SportsBook", new { isSavePDF = true })'" >
         <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print"
             onclick="ClientPrinting();" />
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
@@ -115,7 +115,7 @@
 }
 @section Foot {
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker")
-    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js"></script>
+    <script type="text/javascript" src="~/Areas/Report/Views/SportsBook/Scripts/SportsBook.js"></script>
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     @*<script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/MultipleSelect/jquery.multiselect.nlevel.js"></script>
