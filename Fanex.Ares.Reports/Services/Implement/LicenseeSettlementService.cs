@@ -337,7 +337,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMM-yy");
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format("{0}:", Labels.Licensee.ToUpper());
             ewReport.Cells[rowIndex, 2].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 2].Style.Font.Color = Color.FromArgb(204, 35, 162);
+            ewReport.Cells[rowIndex, 2].Style.Font.Color = Color.FromArgb(0, 64, 255);
             ewReport.Cells[rowIndex, 2].Value = licenseeInfo.LicenseeName;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 3].Style.Font.Color = Color.FromArgb(194, 21, 21);
@@ -517,7 +517,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
+                ewReport.Cells[rowIndex, colIndex].Value = detail.CompanyBaseCurrency;
                 #endregion
 
                 #region exchange rate
@@ -549,12 +549,16 @@ namespace Fanex.Ares.Report.Services.Interface
             #endregion            
             #endregion
 
-            #region note
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex).Merged = true;
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
-            ewReport.Rows[rowIndex].Height = 300;
-            ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
+            #region note *
+            if (!exchangeTo.ToLower().Equals("cny"))
+            {
+                ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex).Merged = true;
+                ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
+                ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+                ewReport.Rows[rowIndex].Height = 300;
+                ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
+            }
+            
             #endregion
         }
         #endregion
