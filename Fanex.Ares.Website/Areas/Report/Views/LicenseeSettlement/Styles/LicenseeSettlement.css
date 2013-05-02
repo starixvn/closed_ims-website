@@ -133,21 +133,17 @@
 {
     width: 10% !important;
 }
-.colborder0
+.noneBorder
 {
     border:  0 none !important;
 }
-.colborder01
-{
-   
-}
 
-.colborderBlack10
+.boldBorderBlack
 {
     border-bottom: 2px solid black;
 }
 
-.colborderWhite10
+.boldBorderWhite
 {
     border-bottom: 2px solid white;
 }
