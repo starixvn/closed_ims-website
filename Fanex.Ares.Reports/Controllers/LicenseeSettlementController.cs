@@ -43,18 +43,17 @@ namespace Fanex.Ares.Report.Controllers
         private const string SessionKeyLicenseeToDate = "Fanex.Ares.Report.Services.ToDate";
 
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
-        
+
         #region View path
 
         private static string LicenseeSettlementView = "LicenseeSettlement";
-        private static readonly string LicenseeSettlementPdfView = "LicenseeSettlementPDF";
 
         #endregion
 
 
         public LicenseeSettlementController()
         {
-            
+
 
             _service = new LicenseeSettlementService();
             this.htmlViewRenderer = new HtmlViewRenderer();
@@ -82,19 +81,19 @@ namespace Fanex.Ares.Report.Controllers
         {
             var model = _service.GenerateReport(criteria);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeFromDate, criteria.FromDate);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate, criteria.ToDate); 
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate, criteria.ToDate);
             return PartialView(LicenseeSettlementView, model);
         }
 
         protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
         {
-           
+
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
 
-            
+
             byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath);
 
             // Return the PDF as a binary stream to the client.
@@ -104,7 +103,7 @@ namespace Fanex.Ares.Report.Controllers
                 Response.Clear();
                 MemoryStream ms = new MemoryStream(buffer);
                 Response.ContentType = "application/pdf";
-            Response.AddHeader("content-disposition", "attachment;filename= "+fileName+ ".pdf");
+                Response.AddHeader("content-disposition", "attachment;filename= " + fileName + ".pdf");
                 Response.Buffer = true;
                 ms.WriteTo(Response.OutputStream);
                 Response.End();
@@ -127,9 +126,9 @@ namespace Fanex.Ares.Report.Controllers
             DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate);
             string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", LicenseeSettlementPdfView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
+            return this.ViewPdf("", LicenseeSettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
         }
-        
+
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
         {
             _service.ExportSettlementReportToExcel(exchange, product);
