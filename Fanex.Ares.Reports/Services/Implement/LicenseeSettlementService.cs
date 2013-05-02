@@ -559,12 +559,16 @@ namespace Fanex.Ares.Report.Services.Interface
             #endregion            
             #endregion
 
-            #region note
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex).Merged = true;
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
-            ewReport.Rows[rowIndex].Height = 300;
-            ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
+            #region note *
+            if (!exchangeTo.ToLower().Equals("cny"))
+            {
+                ewReport.Cells.GetSubrangeAbsolute(rowIndex += 2, 0, rowIndex, colIndex).Merged = true;
+                ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).SetBorders(MultipleBorders.Top, Color.Black, LineStyle.Medium);
+                ewReport.Cells.GetSubrangeAbsolute(rowIndex, 0, rowIndex, colIndex).Value = string.Format(Labels.IDR_VND_Amount_In_IDR, exchangeTo);
+                ewReport.Rows[rowIndex].Height = 300;
+                ewReport.Cells[rowIndex += 1, 0].Value = string.Format(Labels.FOREX_Info, exchangeTo);
+            }
+            
             #endregion
         }
         #endregion
