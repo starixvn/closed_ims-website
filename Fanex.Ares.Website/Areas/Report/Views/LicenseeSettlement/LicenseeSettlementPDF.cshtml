@@ -29,27 +29,27 @@
     </table>
     <table width="100%" cellpadding="3" cellspacing="3">
         <tr>
-            <td class="cellInfo lineHeight200 col120">
+            <td class="cellInfo lineHeight200 col100">
                 SETTLEMENT REPORT
             </td>
-            <td class="lineHeight200 col100 ">
+            <td class="lineHeight200 col65 ">
                 <span class="cellInfo bold">@licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
                 </span>
             </td>
-            <td class="col80" align="left">
+            <td class="col65" align="left">
             </td>
             <td class="col400" align="left">
             </td>
         </tr>
         <tr>
-            <td class="cellInfo lineHeight80 col120">
-                LICENSEE:&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="licensee-name">@licensee.LicenseeInfor.LicenseeName
+            <td class="cellInfo lineHeight80 col100">
+                LICENSEE:&nbsp; &nbsp; <span class="licensee-name">@licensee.LicenseeInfor.LicenseeName
                 </span>
             </td>
-            <td class="lineHeight80 col100 product-name">
+            <td class="lineHeight80 col65 product-name">
                 <span class="cellInfo bold">@licensee.LicenseeInfor.ProductName.ToUpper()</span>
             </td>
-            <td class="cellInfo lineHeight80 col80">
+            <td class="cellInfo lineHeight80 col65">
                 1st Billing:
             </td>
             <td class="lineHeight80 col400 ">
@@ -57,23 +57,23 @@
             </td>
         </tr>
         <tr>
-            <td class="col120">
-            </td>
             <td class="col100">
             </td>
-            <td class="cellInfo lineHeight80 col80">
+            <td class="col65">
+            </td>
+            <td class="cellInfo lineHeight80 col65">
                 Basics of Billing:
             </td>
             <td class="lineHeight80 col400">
                 <span class="cellInfo bold">@licensee.LicenseeInfor.BasisOfBilling</span>
             </td>
         </tr>
-        <tr>
-            <td class="col120">
-            </td>
+        <tr>s
             <td class="col100">
             </td>
-            <td class="cellInfo lineHeight200 col80">
+            <td class="col65">
+            </td>
+            <td class="cellInfo lineHeight200 col65">
                 Minimum Fees:
             </td>
             <td class="lineHeight200 col400">
@@ -81,11 +81,11 @@
             </td>
         </tr>
         <tr>
-            <td class="col120">
-            </td>
             <td class="col100">
             </td>
-            <td class="cellInfo lineHeight80 col80">
+            <td class="col65">
+            </td>
+            <td class="cellInfo lineHeight80 col65">
                 Head of Terms:
             </td>
             <td class="lineHeight80 col400">
@@ -94,7 +94,7 @@
         </tr>
     </table>
     <br />
-    <table>
+    <table width="100%">
         <tr>
             <td class="col650">
                 <table class="cellPadding" align="left">
@@ -235,7 +235,7 @@
                                 @licensee.Report.GrandTotal.FormatNegative(2)
                             </td>
                         </tr>
-                        <tr class="colborder10">
+                        <tr class="colborderBlack10">
                             <td class="col40">
                             </td>
                             <td class="col40">
@@ -314,7 +314,7 @@
                                 &nbsp;
                             </td>
                         </tr>
-                        <tr class="colborder10">
+                        <tr class="colborderWhite10">
                             <td class="col30">
                             </td>
                             <td class="col50">

@@ -4,6 +4,7 @@
     width: 1260px; 
     margin:6px 0 0 10px;
 }
+
 .titleBold
 {
     font-size: 17px !important;
@@ -25,12 +26,12 @@
 
 .lineHeight200
 {
-   line-height:200% !important;
+    padding-top: 15px !important;
 }
 
 .lineHeight80
 {
-   line-height:80% !important;
+   padding-top: 0px !important;
 }
 
 .headerReport
@@ -121,7 +122,7 @@
 }
 .col400
 {
-    width: 400px !important;
+    width: 600px !important;
 }
 .col140
 {
@@ -141,9 +142,14 @@
    
 }
 
-.colborder10
+.colborderBlack10
 {
     border-bottom: 2px solid black;
+}
+
+.colborderWhite10
+{
+    border-bottom: 2px solid white;
 }
 
 .negative-number

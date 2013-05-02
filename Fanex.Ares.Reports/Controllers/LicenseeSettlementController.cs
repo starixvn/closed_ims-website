@@ -47,7 +47,6 @@ namespace Fanex.Ares.Report.Controllers
         #region View path
 
         private static string LicenseeSettlementView = "LicenseeSettlement";
-        private static readonly string LicenseeSettlementPdfView = "LicenseeSettlementPDF";
 
         #endregion
 
@@ -127,7 +126,7 @@ namespace Fanex.Ares.Report.Controllers
             DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeToDate);
             string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", LicenseeSettlementPdfView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
+            return this.ViewPdf("", LicenseeSettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
         }
         
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)

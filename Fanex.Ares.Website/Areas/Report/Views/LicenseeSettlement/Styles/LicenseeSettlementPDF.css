@@ -131,9 +131,14 @@
     border: 0.1;
 }
 
-.colborder10
+.colborderBlack10
 {
-    border: 1;
+     border: 1;
+}
+
+.colborderWhite10
+{
+    border: 0;
 }
 
 .negative-number
