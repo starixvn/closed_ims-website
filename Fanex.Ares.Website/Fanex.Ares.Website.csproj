@@ -624,7 +624,6 @@
     <Content Include="Areas\Invoice\Views\Web.config" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\LicenseeSettlement.cshtml" />
-    <Content Include="Areas\Report\Views\LicenseeSettlement\LicenseeSettlementPDF.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
