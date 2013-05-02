@@ -56,7 +56,6 @@
     <Compile Include="Configuration\PdfHelperSection.cs" />
     <Compile Include="FakeView.cs" />
     <Compile Include="HtmlViewRenderer.cs" />
-    <Compile Include="PdfViewController.cs" />
     <Compile Include="PrintHeaderFooter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StandardPdfRenderer.cs" />
