@@ -85,11 +85,15 @@ function Submit() {
         data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text(),
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
+            var month = $('#Month').val();
+            var year = $('#Year').val();
+            var fromDate = new Date(year, month - 1, 1);
+            var toDate = lastDateInMonth(month, year);
             $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
             $(".grid-title").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert("faild");
+            alert("fail");
         },
         complete: function (jqXHR, textStatus) {
             NapTicketControl.enableInput();
@@ -158,4 +162,12 @@ function ClientPrinting() {
     } else {
         window.open('SportsBook/ExportPDF?isSavePDF=false');
     }
+}
+
+function daysInMonth(month, year) {
+    return new Date(year, month, 0).getDate();
+}
+
+function lastDateInMonth(month, year) {
+    return new Date(year, month, daysInMonth(month, year));
 }

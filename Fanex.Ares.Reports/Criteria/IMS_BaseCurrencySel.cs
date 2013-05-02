@@ -1,25 +1,21 @@
 // -----------------------------------------------------------------------
-// <copyright file="IMS_LicenseeSelCriteria.cs" company="Nexcel">
+// <copyright file="IMS_BaseCurrencySel.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>
-//   <change who="Phillip.Truong" date="2013.4.23">Created</change>
+//   <change who="Phillip.Truong" date="2013.4.25">Created</change>
 // </history>
-namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
+
+namespace Fanex.Ares.Report.Criteria
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
-    public class IMS_LicenseeSelCriteria : CriteriaBase
+    public class IMS_BaseCurrencySel : CriteriaBase
     {
-
         public override string GetSettingKey()
         {
-            return "IMS_LicenseeSel";
+            return "IMS_BaseCurrencySel";
         }
 
         public override bool IsValid() { return true; }

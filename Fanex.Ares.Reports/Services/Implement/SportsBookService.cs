@@ -7,6 +7,7 @@ using ExcelUtil.Spreadsheet;
 using Fanex.Ares.Core.Repository.Impl;
 using Fanex.Ares.Core.Services.Impl;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+using Fanex.Ares.Report.Criteria;
 using System.Linq;
 using Fanex.Caching;
 using Fanex.Ares.Report.ViewModels.SportsBook;
