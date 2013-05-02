@@ -55,7 +55,7 @@ namespace Fanex.Ares.Report.Controllers
         {
 
 
-            _service = new SportsBookService();
+            _service = new LicenseeSettlementService();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
         }

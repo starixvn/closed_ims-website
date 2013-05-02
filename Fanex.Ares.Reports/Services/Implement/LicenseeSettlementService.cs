@@ -19,7 +19,7 @@ using Fanex.Common.Extensions;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
-    public class SportsBookService : ServiceBase, ILicenseeSettlementService
+    public class LicenseeSettlementService : ServiceBase, ILicenseeSettlementService
     {
         private readonly BaseRepository _repository;
 
@@ -31,7 +31,7 @@ namespace Fanex.Ares.Report.Services.Interface
         private const string SessionKeyLicenseeSettlementFromDate = "Fanex.Ares.Report.Services.FromDate";
         private const string SessionKeyLicenseeSettlementToDate = "Fanex.Ares.Report.Services.ToDate";
 
-        public SportsBookService()
+        public LicenseeSettlementService()
         {
             _repository = new BaseRepository();
         }
