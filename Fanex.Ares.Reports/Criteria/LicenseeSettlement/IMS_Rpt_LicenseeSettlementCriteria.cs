@@ -32,6 +32,7 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         }
 
         public int Product { get; set; }
+        public string ProductName { get; set; }
         public int Currency { get; set; }
         public int BaseCurrency { get; set; }
         public string BaseCurrencyName { get; set; }

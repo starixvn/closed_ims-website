@@ -605,7 +605,7 @@
     <Content Include="Areas\Invoice\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
-    <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsBookSettlement.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsbookSettlement.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BASettlement.cshtml" />
     <None Include="Content\base\common.less" />

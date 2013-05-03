@@ -62,30 +62,6 @@
             <td class="col100">
             </td>
             <td class="cellInfo lineHeight80 col65">
-                Basics of Billing:
-            </td>
-            <td class="lineHeight80 col400">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.BasisOfBilling</span>
-            </td>
-        </tr>
-        <tr>
-            <td class="col100">
-            </td>
-            <td class="col100">
-            </td>
-            <td class="cellInfo lineHeight200 col65">
-                Minimum Fees:
-            </td>
-            <td class="lineHeight200 col400">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.MinimumFees</span>
-            </td>
-        </tr>
-        <tr>
-            <td class="col100">
-            </td>
-            <td class="col100">
-            </td>
-            <td class="cellInfo lineHeight80 col65">
                 Head of Terms:
             </td>
             <td class="lineHeight80 col400">
@@ -110,33 +86,39 @@
                                 TurnOver
                             </th>
                             <th rowspan="2" class="headerReport">
-                                TurnOver(EUR)
-                            </th>
-                            <th rowspan="2" class="headerReport">
                                 Total Trans
                             </th>
-                             <th rowspan="2" class="headerReport">
-                                Customer Win Loss
+                            <th colspan="3" class="headerReport">
+                                Member
+                            </th>
+                            <th colspan="3" class="headerReport">
+                                @licensee.LicenseeInfor.LicenseeName
                             </th>
                             <th rowspan="2" class="headerReport">
-                                Customer Win Loss(EUR)
+                                Company
                             </th>
                             <th rowspan="2" class="headerReport">
-                               BA Comm
-                            </th>
-                            <th rowspan="2" class="headerReport">
-                                BA Comm(EUR)
-                            </th>
-                            <th colspan="2" class="headerReport">
-                                Amount Due (to/from)
+                                @licensee.LicenseeInfor.BaseCurrencyName
                             </th>
                         </tr>
                         <tr class="colborder01">
                             <th class="headerReport">
-                                BA
+                                Winloss
                             </th>
                             <th class="headerReport">
-                                BA Equi EUR
+                                Comm
+                            </th>
+                            <th class="headerReport">
+                                Total
+                            </th>
+                            <th class="headerReport">
+                                Winloss
+                            </th>
+                            <th class="headerReport">
+                                Comm
+                            </th>
+                            <th class="headerReport">
+                                Total
                             </th>
                         </tr>
                     </thead>
@@ -180,6 +162,17 @@
                                 <td class="cellstyle col65 alignright @evenClass  @GetNegativeClass(report.LicenseeWL)">
                                     @report.LicenseeWL.FormatNegative(2)
                                 </td>
+                                <td class="cellstyle col40 alignright @evenClass">
+                                    @if (report.LicenseeComm != 0)
+                                    {
+                                         @report.LicenseeComm.Format(2);
+                                    }
+                                    else
+                                    { 
+
+                                        <span>-</span>
+                                    }
+                                </td>
                                 <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.LicenseeTotal)">
                                     @report.LicenseeTotal.FormatNegative(2)
                                 </td>
@@ -208,6 +201,8 @@
                             </td>
                             <td class="col65">
                             </td>
+                            <td class="col40">
+                            </td>
                             <td class="col65">
                             </td>
                             <td class="col65">
@@ -222,6 +217,8 @@
                             <td class="col40">
                             </td>
                             <td class="col65">
+                            </td>
+                            <td class="col40">
                             </td>
                             <td class="col65">
                             </td>

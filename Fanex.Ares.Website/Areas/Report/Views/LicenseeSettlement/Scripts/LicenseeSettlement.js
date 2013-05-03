@@ -82,7 +82,7 @@ function Submit() {
     $.ajax({
         url: "LicenseeSettlement/GetInvoice",
         type: "POST",
-        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text(),
+        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text() + "&ProductName=" + $('#Product option:selected').text(),
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
             var month = $('#Month').val();
