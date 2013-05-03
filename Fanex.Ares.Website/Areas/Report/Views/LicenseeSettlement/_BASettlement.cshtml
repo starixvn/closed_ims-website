@@ -87,8 +87,8 @@
                             <th rowspan="2" class="headerReport">
                                 TurnOver
                             </th>
-                            <th rowspan="2" class="headerReport">
-                                TurnOver(EUR)
+                            <th  rowspan="2" class="headerReport">
+                               <span>TurnOver</span><br />  <span class="padding5">(EUR)</span>
                             </th>
                             <th rowspan="2" class="headerReport">
                                 Total Trans
@@ -97,13 +97,13 @@
                                 Customer  <br /> Win Loss
                             </th>
                             <th rowspan="2" class="headerReport">
-                                Customer <br /> Win Loss(EUR)
+                                Customer <br /> Win Loss (EUR)
                             </th>
                             <th rowspan="2" class="headerReport">
                                BA Comm
                             </th>
                             <th rowspan="2" class="headerReport">
-                                BA Comm(EUR)
+                                BA Comm (EUR)
                             </th>
                             <th colspan="2" class="headerReport">
                                 Amount Due (to/from)
@@ -136,23 +136,15 @@
                                     @report.Turnover.Format(2)
                                 </td>
                                 <td class="cellstyle col65 alignright @evenClass">
-                                    @report.Betcount.Format(0)
+                                    
                                 </td>
-                                <td class="cellstyle col65 alignright @evenClass  @GetNegativeClass(report.MemberWinloss)">
-                                    @report.MemberWinloss.FormatNegative(2)
+                                <td class="cellstyle col65 alignright @evenClass ">
+                                  @report.Betcount.Format(0)
                                 </td>
-                                <td class="cellstyle col65 alignright @evenClass" >
-                                    @if (report.MemberComm != 0)
-                                    {
-                                        @report.MemberComm.Format(2);
-                                    }
-                                    else
-                                    { 
-
-                                        <span>-</span>
-                                    }
+                                <td class="cellstyle col65 alignright @evenClass  @GetNegativeClass(report.MemberWinloss)" >
+                                     @report.MemberWinloss.FormatNegative(2)
                                 </td>
-                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.MemberTotal)">
+                                <td class="cellstyle col80 alignright @evenClass @GetNegativeClass(report.MemberTotal)">
                                     @report.MemberTotal.FormatNegative(2)
                                 </td>
                                 <td class="cellstyle col40 alignright @evenClass  @GetNegativeClass(report.LicenseeWL)">
@@ -182,9 +174,9 @@
                             </td>
                             <td class="col65">
                             </td>
-                            <td class="col40">
+                            <td class="col80">
                             </td>
-                            <td class="col65">
+                            <td class="col40">
                             </td>
                             <td class="col65">
                             </td>
@@ -207,9 +199,9 @@
                             </td>
                             <td class="col65">
                             </td>
-                            <td class="col40">
+                            <td class="col80">
                             </td>
-                            <td class="col65">
+                            <td class="col40">
                             </td>
                             <td class="col65">
                             </td>
