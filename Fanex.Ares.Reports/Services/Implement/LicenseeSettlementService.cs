@@ -150,13 +150,13 @@ namespace Fanex.Ares.Report.Services.Interface
         public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
-            Func<IDataReader, ReportEntity> mappingFunc = r =>
+            Func<IDataReader, ReportEntity> mappingFunc;
+            mappingFunc = r =>
             {
                 var res = new ReportEntity
                 {
                     Betcount = Convert.ToInt32(r["Betcount"].ToString()),
                     Company = Convert.ToDouble(r["Company"].ToString()),
-                    CompanyBaseCurrency = 0,
                     Currency = Convert.ToInt32(r["Currency"].ToString()),
                     CurrencyName = r["CurrencyName"].ToString(),
                     LicenseeComm = Convert.ToDouble(r["LicenseeComm"].ToString()),
@@ -164,13 +164,35 @@ namespace Fanex.Ares.Report.Services.Interface
                     MemberComm = Convert.ToDouble(r["MemberComm"].ToString()),
                     MemberWinloss = Convert.ToDouble(r["MemberWinloss"].ToString()),
                     Turnover = Convert.ToDouble(r["Turnover"].ToString()),
-                    WinlostDate = DateTime.Parse(r["WinLostMonth"].ToString())
+                    WinlostDate = DateTime.Parse(r["WinLostMonth"].ToString()),
+                    BaseCurrencyExchangeRate = Convert.ToDouble(r[criteria.BaseCurrencyName].ToString())
                 };
+
+                res.TurnoverBase = res.Turnover * res.BaseCurrencyExchangeRate;
+                res.CompanyBaseCurrency = res.Company * res.BaseCurrencyExchangeRate;
+                res.LicenseeCommBase = res.LicenseeComm * res.BaseCurrencyExchangeRate;
+                res.LicenseeWLBase = res.LicenseeWL * res.BaseCurrencyExchangeRate;
+                res.MemberWinlossBase = res.MemberWinloss * res.BaseCurrencyExchangeRate;
+
+                report.GrandTotal.Betcount += res.Betcount;
+                report.GrandTotal.Company += res.Company;
+                report.GrandTotal.CompanyBaseCurrency += res.CompanyBaseCurrency;
+                report.GrandTotal.Currency += res.Currency;
+                report.GrandTotal.LicenseeComm += res.LicenseeComm;
+                report.GrandTotal.LicenseeCommBase += res.LicenseeCommBase;
+                report.GrandTotal.LicenseeWL += res.LicenseeWL;
+                report.GrandTotal.LicenseeWLBase += res.LicenseeWLBase;
+                report.GrandTotal.MemberComm += res.MemberComm;
+                report.GrandTotal.MemberWinloss += res.MemberWinloss;
+                report.GrandTotal.MemberWinlossBase += res.MemberWinlossBase;
+                report.GrandTotal.Turnover += res.Turnover;
+                report.GrandTotal.TurnoverBase += res.TurnoverBase;
+                report.GrandTotal.BaseCurrencyExchangeRate += res.BaseCurrencyExchangeRate;
+
                 return res;
             };
 
             report.EntityList = _repository.Fetch<ReportEntity>(criteria, mappingFunc).ToList();
-
             return report;
         }
 
@@ -269,14 +291,7 @@ namespace Fanex.Ares.Report.Services.Interface
             var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
 
             model.ExchangeList = exchangeList;
-            model.Report.GrandTotal = 0;
-            foreach (ReportEntity row in model.Report.EntityList)
-            {
-                var exchangeRate = model.ExchangeList.Where(m => m.Currency == row.Currency).GetFirstOrDefault().BasePerUnit;
-                row.CompanyBaseCurrency = row.Company * exchangeRate;
-                model.Report.GrandTotal += row.CompanyBaseCurrency;
-            }
-
+           
             model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, model);
             return model;

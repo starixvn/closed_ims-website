@@ -58,7 +58,6 @@ namespace Fanex.Ares.Report.Controllers
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
 
-        //[NapAuth(FunctionKey = NAPSpecialDeleteFunctionKeys.VoidSportsbookBet, Policy = Constant.Policy.Read)]
         public ActionResult Index()
         {
             IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();
@@ -69,9 +68,6 @@ namespace Fanex.Ares.Report.Controllers
             var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();
             listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
             ViewBag.ListCurrency = listCurrency;
-            //var listExchangeRate = new List<SelectListItem>();
-            //listExchangeRate.Add(new SelectListItem() { Selected = true, Text = "EUR", Value = "6" });
-            //listExchangeRate.Add(new SelectListItem() { Selected = false, Text = "USD", Value = "3" });
             ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
 
             return View(model);

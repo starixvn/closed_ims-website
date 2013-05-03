@@ -91,7 +91,7 @@ namespace Fanex.Ares.Core.Repository.Impl
         }
 
         /// <summary>
-        /// Get DataTable and Output params from Criteria
+        /// Get DataTable from Criteria
         /// </summary>
         /// <param name="criteria"></param>
         /// <param name="outputParams"></param>

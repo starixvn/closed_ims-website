@@ -37,11 +37,12 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
     {
         public List<ReportEntity> EntityList { get; set; }
 
-        public double GrandTotal { get; set; }
+        public ReportEntity GrandTotal { get; set; }
 
         public Report()
         {
             EntityList = new List<ReportEntity>();
+            GrandTotal = new ReportEntity();
         }
     }
 
@@ -56,9 +57,13 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 
         public double Turnover { get; set; }
 
+        public double TurnoverBase { get; set; }
+
         public double Betcount { get; set; }
 
         public double MemberWinloss { get; set; }
+
+        public double MemberWinlossBase { get; set; }
 
         public double MemberComm { get; set; }
 
@@ -66,12 +71,18 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 
         public double LicenseeWL { get; set; }
 
+        public double LicenseeWLBase { get; set; }
+
         public double LicenseeComm { get; set; }
+
+        public double LicenseeCommBase { get; set; }
 
         public double LicenseeTotal { get; set; }
 
         public double Company { get; set; }
 
-        public double CompanyBaseCurrency { get; set; } 
+        public double CompanyBaseCurrency { get; set; }
+
+        public double BaseCurrencyExchangeRate { get; set; }
     }
 }
