@@ -132,11 +132,11 @@
                                 <td class="cellstyle col40 aligncenter @evenClass">
                                     @report.CurrencyName
                                 </td>
-                                <td class="cellstyle col65 alignright @evenClass">
+                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.Turnover)">
                                     @report.Turnover.Format(2)
                                 </td>
-                                <td class="cellstyle col65 alignright @evenClass">
-                                    
+                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.TurnoverBase)">
+                                      @report.TurnoverBase.Format(2)
                                 </td>
                                 <td class="cellstyle col40 alignright @evenClass ">
                                   @report.Betcount.Format(0)
@@ -144,44 +144,54 @@
                                 <td class="cellstyle col65 alignright @evenClass  @GetNegativeClass(report.MemberWinloss)" >
                                      @report.MemberWinloss.FormatNegative(2)
                                 </td>
-                                <td class="cellstyle col80 alignright @evenClass @GetNegativeClass(report.MemberTotal)">
-                                    @report.MemberTotal.FormatNegative(2)
+                                <td class="cellstyle col80 alignright @evenClass @GetNegativeClass(report.MemberWinlossBase)">
+                                    @report.MemberWinlossBase.FormatNegative(2)
                                 </td>
-                                <td class="cellstyle col40 alignright @evenClass  @GetNegativeClass(report.LicenseeWL)">
+                                <td class="cellstyle col40 alignright @evenClass  @GetNegativeClass(report.LicenseeComm)">
+                                    @report.LicenseeComm.FormatNegative(2)
+                                </td>
+                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.LicenseeCommBase)">
+                                    @report.LicenseeCommBase.FormatNegative(2)
+                                </td>
+                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.LicenseeWL)">
                                     @report.LicenseeWL.FormatNegative(2)
                                 </td>
-                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.LicenseeTotal)">
-                                    @report.LicenseeTotal.FormatNegative(2)
-                                </td>
-                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.Company)">
-                                    @report.Company.FormatNegative(2)
-                                </td>
-                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.CompanyBaseCurrency)">
-                                    @report.CompanyBaseCurrency.FormatNegative(2)
+                                <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.LicenseeWLBase)">
+                                    @report.LicenseeWLBase.FormatNegative(2)
                                 </td>
                             </tr>
                         }
                         <tr class="noneBorder">
                             <td class="col40">
-                            </td>
-                            <td class="col40">
-                            </td>
-                            <td class="col65">
-                            </td>
-                            <td class="col65">
-                            </td>
-                            <td class="col40">
-                            </td>
-                            <td class="col65">
-                            </td>
-                            <td class="col80">
-                            </td>
-                            <td class="col40">
-                            </td>
-                            <td class="col65">
-                            </td>
-                            <td class="col65">
-                            </td>
+                                 
+                                </td>
+                                <td class="col40">
+                                   
+                                </td>
+                                <td class="col65">
+                                  
+                                </td>
+                                <td class="col65 alignright  @GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">
+                                      @licensee.Report.GrandTotal.TurnoverBase.Format(2)
+                                </td>
+                                <td class="col40">
+                                 
+                                </td>
+                                <td class="col65" >
+                                     
+                                </td>
+                                <td class="col80 alignright  @GetNegativeClass(licensee.Report.GrandTotal.MemberWinlossBase)">
+                                    @licensee.Report.GrandTotal.MemberWinlossBase.FormatNegative(2)
+                                </td>
+                                <td class="col40">
+                                   
+                                </td>
+                                <td class="col65 alignright @GetNegativeClass(licensee.Report.GrandTotal.LicenseeCommBase)">
+                                    @licensee.Report.GrandTotal.LicenseeCommBase.FormatNegative(2)
+                                </td>
+                                <td class="col65">
+                                  
+                                </td>
                             <td  class="grandtotal col65 alignright @GetNegativeClass(licensee.Report.GrandTotal.LicenseeWLBase)">
                                 @licensee.Report.GrandTotal.LicenseeWLBase.FormatNegative(2)
                             </td>
