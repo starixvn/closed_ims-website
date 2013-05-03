@@ -46,15 +46,12 @@ namespace Fanex.Ares.Report.Controllers
 
         #region View path
 
-        private static string SportsBookView = "_LicenseeSettlement";
+        private static string SportsBookView = "_SportsBook";
 
         #endregion
 
-
         public LicenseeSettlementController()
         {
-
-
             _service = new LicenseeSettlementService();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
@@ -89,12 +86,10 @@ namespace Fanex.Ares.Report.Controllers
 
         protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
         {
-
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
-
 
             byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath);
 
