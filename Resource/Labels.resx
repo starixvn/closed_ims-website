@@ -139,7 +139,7 @@
     <value>Finance Department</value>
   </data>
   <data name="FOREX_Info" xml:space="preserve">
-    <value>FOREX www.oanda.com provided minor difference between '{0}/1 Unit' vs 'Units/1 {0}', we standardize the use of 'Units/1 {0}' rate to prevall all.</value>
+    <value>FOREX www.oanda.com provided minor difference between '{0}/1 Unit' vs 'Units/1 {0}', we standardize the use of 'Units/1 {0}' rate to prevail all.</value>
   </data>
   <data name="Head_of_Terms" xml:space="preserve">
     <value>Head of Terms</value>
