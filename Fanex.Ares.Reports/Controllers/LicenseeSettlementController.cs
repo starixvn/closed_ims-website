@@ -46,7 +46,7 @@ namespace Fanex.Ares.Report.Controllers
 
         #region View path
 
-        private static string SportsBookView = "_SportsBook";
+        private static string SportsBookView = "_SportsBookSettlement";
 
         #endregion
 
