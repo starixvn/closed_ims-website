@@ -94,10 +94,10 @@
                                 Total Trans
                             </th>
                              <th rowspan="2" class="headerReport">
-                                Customer Win Loss
+                                Customer  <br /> Win Loss
                             </th>
                             <th rowspan="2" class="headerReport">
-                                Customer Win Loss(EUR)
+                                Customer <br /> Win Loss(EUR)
                             </th>
                             <th rowspan="2" class="headerReport">
                                BA Comm
@@ -135,13 +135,13 @@
                                 <td class="cellstyle col65 alignright @evenClass">
                                     @report.Turnover.Format(2)
                                 </td>
-                                <td class="cellstyle col40 alignright @evenClass">
+                                <td class="cellstyle col65 alignright @evenClass">
                                     @report.Betcount.Format(0)
                                 </td>
                                 <td class="cellstyle col65 alignright @evenClass  @GetNegativeClass(report.MemberWinloss)">
                                     @report.MemberWinloss.FormatNegative(2)
                                 </td>
-                                <td class="cellstyle col40 alignright @evenClass" >
+                                <td class="cellstyle col65 alignright @evenClass" >
                                     @if (report.MemberComm != 0)
                                     {
                                         @report.MemberComm.Format(2);
@@ -155,7 +155,7 @@
                                 <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.MemberTotal)">
                                     @report.MemberTotal.FormatNegative(2)
                                 </td>
-                                <td class="cellstyle col65 alignright @evenClass  @GetNegativeClass(report.LicenseeWL)">
+                                <td class="cellstyle col40 alignright @evenClass  @GetNegativeClass(report.LicenseeWL)">
                                     @report.LicenseeWL.FormatNegative(2)
                                 </td>
                                 <td class="cellstyle col65 alignright @evenClass @GetNegativeClass(report.LicenseeTotal)">
@@ -176,13 +176,13 @@
                             </td>
                             <td class="col65">
                             </td>
-                            <td class="col40">
+                            <td class="col65">
+                            </td>
+                            <td class="col65">
                             </td>
                             <td class="col65">
                             </td>
                             <td class="col40">
-                            </td>
-                            <td class="col65">
                             </td>
                             <td class="col65">
                             </td>
@@ -203,13 +203,13 @@
                             </td>
                             <td class="col65">
                             </td>
-                            <td class="col40">
-                            </td>
                             <td class="col65">
                             </td>
                             <td class="col65">
                             </td>
                             <td class="col40">
+                            </td>
+                            <td class="col65">
                             </td>
                             <td class="col65">
                             </td>

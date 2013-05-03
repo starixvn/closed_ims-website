@@ -41,6 +41,7 @@ namespace Fanex.Ares.Report.Controllers
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
         private const string SessionKeyLicenseeSettlementFromDate = "Fanex.Ares.Report.Services.FromDate";
         private const string SessionKeyLicenseeSettlementToDate = "Fanex.Ares.Report.Services.ToDate";
+        private const string SessionKeyLicenseeSettlementViewName = "Fanex.Ares.Report.Services.LicenseeSettlementViewName";
 
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
 
@@ -82,6 +83,7 @@ namespace Fanex.Ares.Report.Controllers
             SettlementView = "_" + criteria.ProductName + "Settlement";
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate, criteria.FromDate);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate, criteria.ToDate);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementViewName, SettlementView);
             return PartialView(SettlementView, model);
         }
 
@@ -119,6 +121,7 @@ namespace Fanex.Ares.Report.Controllers
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
+            SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementViewName);
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
             DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate);
             DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate);
