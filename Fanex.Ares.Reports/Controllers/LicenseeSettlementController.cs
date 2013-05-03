@@ -46,7 +46,7 @@ namespace Fanex.Ares.Report.Controllers
 
         #region View path
 
-        private static string SportsBookView = "_SportsBookSettlement";
+        protected string SettlementView = string.Empty;
 
         #endregion
 
@@ -81,7 +81,7 @@ namespace Fanex.Ares.Report.Controllers
             var model = _service.GenerateReport(criteria);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate, criteria.FromDate);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate, criteria.ToDate);
-            return PartialView(SportsBookView, model);
+            return PartialView(SettlementView, model);
         }
 
         protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
@@ -123,7 +123,7 @@ namespace Fanex.Ares.Report.Controllers
             DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate);
             string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", SportsBookView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
+            return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
         }
 
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
