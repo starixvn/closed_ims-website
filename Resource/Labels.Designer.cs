@@ -22,21 +22,21 @@ namespace Resource {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Labels {
+    public class Labels {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Labels() {
+        public Labels() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Resource.Labels", typeof(Labels).Assembly);
@@ -51,7 +51,7 @@ namespace Resource {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Basis of Billing.
         /// </summary>
-        internal static string Basis_of_Billing {
+        public static string Basis_of_Billing {
             get {
                 return ResourceManager.GetString("Basis_of_Billing", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Comm.
         /// </summary>
-        internal static string Comm {
+        public static string Comm {
             get {
                 return ResourceManager.GetString("Comm", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Company.
         /// </summary>
-        internal static string Company {
+        public static string Company {
             get {
                 return ResourceManager.GetString("Company", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Currency.
         /// </summary>
-        internal static string Currency {
+        public static string Currency {
             get {
                 return ResourceManager.GetString("Currency", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
-        internal static string Date {
+        public static string Date {
             get {
                 return ResourceManager.GetString("Date", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to 1st Billing.
         /// </summary>
-        internal static string FBilling {
+        public static string FBilling {
             get {
                 return ResourceManager.GetString("FBilling", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Finance Department.
         /// </summary>
-        internal static string Finance_Department {
+        public static string Finance_Department {
             get {
                 return ResourceManager.GetString("Finance_Department", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to FOREX www.oanda.com provided minor difference between &apos;{0}/1 Unit&apos; vs &apos;Units/1 {0}&apos;, we standardize the use of &apos;Units/1 {0}&apos; rate to prevail all..
         /// </summary>
-        internal static string FOREX_Info {
+        public static string FOREX_Info {
             get {
                 return ResourceManager.GetString("FOREX_Info", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Head of Terms.
         /// </summary>
-        internal static string Head_of_Terms {
+        public static string Head_of_Terms {
             get {
                 return ResourceManager.GetString("Head_of_Terms", resourceCulture);
             }
@@ -144,16 +144,16 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to IDR &amp; VND * Amount in IDR is stated in 000, when converted to {0} Equv, x1000.
         /// </summary>
-        internal static string IDR_VND_Amount_In_IDR {
+        public static string IDR_VND_Amount_In_IDR {
             get {
                 return ResourceManager.GetString("IDR_VND_Amount_In_IDR", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to INTERNAL WORKSHEET FOR SETTLEMENT.
+        ///   Looks up a localized string similar to public WORKSHEET FOR SETTLEMENT.
         /// </summary>
-        internal static string INTERNAL_WORKSHEET_FOR_SETTLEMENT {
+        public static string INTERNAL_WORKSHEET_FOR_SETTLEMENT {
             get {
                 return ResourceManager.GetString("INTERNAL_WORKSHEET_FOR_SETTLEMENT", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Licensee.
         /// </summary>
-        internal static string Licensee {
+        public static string Licensee {
             get {
                 return ResourceManager.GetString("Licensee", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Member.
         /// </summary>
-        internal static string Member {
+        public static string Member {
             get {
                 return ResourceManager.GetString("Member", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Minimum Fees.
         /// </summary>
-        internal static string Minimum_Fees {
+        public static string Minimum_Fees {
             get {
                 return ResourceManager.GetString("Minimum_Fees", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to SETTLEMENT REPORT.
         /// </summary>
-        internal static string SETTLEMENT_REPORT {
+        public static string SETTLEMENT_REPORT {
             get {
                 return ResourceManager.GetString("SETTLEMENT_REPORT", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
-        internal static string Total {
+        public static string Total {
             get {
                 return ResourceManager.GetString("Total", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Total Trans.
         /// </summary>
-        internal static string TotalTrans {
+        public static string TotalTrans {
             get {
                 return ResourceManager.GetString("TotalTrans", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Turnover.
         /// </summary>
-        internal static string Turnover {
+        public static string Turnover {
             get {
                 return ResourceManager.GetString("Turnover", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace Resource {
         /// <summary>
         ///   Looks up a localized string similar to Win Loss.
         /// </summary>
-        internal static string WinLoss {
+        public static string WinLoss {
             get {
                 return ResourceManager.GetString("WinLoss", resourceCulture);
             }
