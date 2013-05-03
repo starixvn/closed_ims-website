@@ -89,7 +89,7 @@ function Submit() {
             var year = $('#Year').val();
             var fromDate = new Date(year, month - 1, 1);
             var toDate = lastDateInMonth(month, year);
-            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " from " + $('#FromDate').val() + " to " + $('#ToDate').val());
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#Month  option:selected').text() + "-" + $('#Year').val());
             $(".grid-title").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
