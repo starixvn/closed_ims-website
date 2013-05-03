@@ -21,8 +21,11 @@ namespace Fanex.Ares.Report.Services.Interface
 {
     public class LicenseeSettlementService : ServiceBase, ILicenseeSettlementService
     {
+        #region Local Variables
         private readonly BaseRepository _repository;
+        #endregion
 
+        #region Constants
         /// <summary>
         /// Cache key for All Licensees
         /// </summary>
@@ -30,13 +33,16 @@ namespace Fanex.Ares.Report.Services.Interface
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
         private const string SessionKeyLicenseeSettlementFromDate = "Fanex.Ares.Report.Services.FromDate";
         private const string SessionKeyLicenseeSettlementToDate = "Fanex.Ares.Report.Services.ToDate";
+        #endregion
 
+        #region ctor
         public LicenseeSettlementService()
         {
             _repository = new BaseRepository();
         }
+        #endregion
 
-
+        #region Get data for combobox
         public IEnumerable<SelectListItem> GetAllLicensees()
         {
             IList<SelectListItem> listLicensees = new List<SelectListItem>();
@@ -131,7 +137,9 @@ namespace Fanex.Ares.Report.Services.Interface
 
             return listProducts;
         }
+        #endregion
 
+        #region Generate Report
         public LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
         {
             var listLicenseeInfo = base.DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
@@ -273,8 +281,9 @@ namespace Fanex.Ares.Report.Services.Interface
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport, model);
             return model;
         }
+        #endregion
 
-
+        #region Export Excel
         public void ExportSportsBookReportToExcel(string exchange, string product)
         {
             try
@@ -346,7 +355,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex, 7].Value = licenseeInfo.MinimumFees;
             ewReport.Cells[rowIndex += 1, 5].Value = string.Format("{0}:", Labels.Head_of_Terms);
             ewReport.Cells[rowIndex, 7].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTerms.ToString("dd-MMM-yy");
+            ewReport.Cells[rowIndex, 7].Value = licenseeInfo.HeadOfTerms;
         }
 
 
@@ -555,6 +564,6 @@ namespace Fanex.Ares.Report.Services.Interface
             #endregion
         }
         #endregion
+        #endregion
     }
-
 }
