@@ -76,7 +76,7 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
-            SettlementView = "_" + criteria.ProductName + "Settlement";
+            SettlementView = "_" + criteria.ProductName;
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate, criteria.FromDate);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate, criteria.ToDate);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementViewName, SettlementView);
