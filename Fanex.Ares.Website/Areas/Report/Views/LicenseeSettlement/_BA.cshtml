@@ -230,7 +230,18 @@
                             <th class="noneBorder">
                             </th>
                             <th colspan="2" class="headerReport colborder01">
-                                Forex @@ @licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
+                                @{
+                                    string forexTime = string.Empty;
+                                    if (DateTime.Now.ToAresMonthYear() == licensee.LicenseeInfor.SettlementDate.ToAresMonthYear())
+                                    {
+                                        forexTime = DateTime.Now.ToString("dd-MM-yy");
+                                    }
+                                    else
+                                    {
+                                        forexTime = licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear();
+                                    }
+                            }
+                                Forex @@ @forexTime
                             </th>
                         </tr>
                         <tr class="colborder01">

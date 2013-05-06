@@ -456,10 +456,21 @@ namespace Fanex.Ares.Report.Services.Interface
             #endregion
 
             #region header - exchange rate
+
+                                    string forexTime = string.Empty;
+                                    if (DateTime.Now.ToAresMonthYear() == settlementDate.ToAresMonthYear())
+                                    {
+                                        forexTime = DateTime.Now.ToAresDayMonthYear();
+                                    }
+                                    else
+                                    {
+                                        forexTime = settlementDate.ToAresDayMonthYear();
+                                    }
+                            
+ 
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex += 2, rowIndex, colIndex + 1).Merged = true;
             ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 1).Style.FormatTitleCell(headerColor);
-            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 1).Value = string.Format("FOREX @ {0}",
-                settlementDate.ToString("dd-MMM-yy"));
+            ewReport.Cells.GetSubrangeAbsolute(rowIndex, colIndex, rowIndex, colIndex + 1).Value = string.Format("FOREX @ {0}",forexTime);
 
             ewReport.Cells[rowIndex += 1, colIndex].Style.FormatTitleCell(headerColor);
             ewReport.Cells[rowIndex, colIndex].Value = string.Format("{0}/1 Unit", exchangeTo);
