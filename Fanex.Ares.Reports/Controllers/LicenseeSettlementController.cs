@@ -38,10 +38,6 @@ namespace Fanex.Ares.Report.Controllers
         ILicenseeSettlementService _service;
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
-        private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
-        private const string SessionKeyLicenseeSettlementMonth = "Fanex.Ares.Report.Services.Month";
-        private const string SessionKeyLicenseeSettlementYear = "Fanex.Ares.Report.Services.Year";
-        private const string SessionKeyLicenseeSettlementViewName = "Fanex.Ares.Report.Services.LicenseeSettlementViewName";
 
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
 
@@ -73,13 +69,13 @@ namespace Fanex.Ares.Report.Controllers
             return View(model);
         }
 
-        public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
             SettlementView = "_" + criteria.ProductName;
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementMonth, criteria.Month);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementYear, criteria.Year);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementViewName, SettlementView);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, SettlementView);
             return PartialView(SettlementView, model);
         }
 
@@ -117,10 +113,10 @@ namespace Fanex.Ares.Report.Controllers
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
-            SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementViewName);
-            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
-            int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementMonth);
-            int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementYear);
+            SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
+            int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
             string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
@@ -144,7 +140,7 @@ namespace Fanex.Ares.Report.Controllers
 
         public ActionResult PrintScreen()
         {
-            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
+            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             return View("PrintReport", model);
         }
     }

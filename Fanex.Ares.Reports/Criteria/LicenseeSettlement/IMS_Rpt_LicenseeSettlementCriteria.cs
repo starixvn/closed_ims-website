@@ -11,6 +11,7 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     using System;
     using Fanex.NAP.Framework.Data;
 
+    [Serializable]
     public class IMS_Rpt_LicenseeSettlementCriteria : CriteriaBase
     {
         public int LicenseeId { get; set; }
