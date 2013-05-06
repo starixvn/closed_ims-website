@@ -234,7 +234,7 @@
                                     string forexTime = string.Empty;
                                     if (DateTime.Now.ToAresMonthYear() == licensee.LicenseeInfor.SettlementDate.ToAresMonthYear())
                                     {
-                                        forexTime = DateTime.Now.ToString("dd-MM-yy");
+                                        forexTime = DateTime.Now.ToAresDayMonthYear();
                                     }
                                     else
                                     {
