@@ -31,8 +31,8 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         private const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
         private const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
-        private const string SessionKeyLicenseeSettlementFromDate = "Fanex.Ares.Report.Services.FromDate";
-        private const string SessionKeyLicenseeSettlementToDate = "Fanex.Ares.Report.Services.ToDate";
+        private const string SessionKeyLicenseeSettlementMonth = "Fanex.Ares.Report.Services.Month";
+        private const string SessionKeyLicenseeSettlementYear = "Fanex.Ares.Report.Services.Year";
         #endregion
 
         #region ctor
@@ -307,9 +307,9 @@ namespace Fanex.Ares.Report.Services.Interface
 
                 var model = new LicenseeSettlementModel();
                 model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementReport);
-                DateTime fromdate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementFromDate);
-                DateTime todate = (DateTime)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementToDate);
-                var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + fromdate.ToString("dd-MMM-yy") + "_To_" + todate.ToString("dd-MMM-yy");
+                int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementMonth);
+                int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, SessionKeyLicenseeSettlementYear);
+                var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;
@@ -561,7 +561,7 @@ namespace Fanex.Ares.Report.Services.Interface
             colIndex -= 1;
             ewReport.Cells[rowIndex, colIndex].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, colIndex].Style.NumberFormat = "#,##0.00_);[RED](#,##0.00)";
-            ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal;
+            ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal.CompanyBaseCurrency;
             #endregion
             #endregion
             #endregion
