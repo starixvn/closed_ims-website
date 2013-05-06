@@ -90,6 +90,7 @@ function Submit() {
             var fromDate = new Date(year, month - 1, 1);
             var toDate = lastDateInMonth(month, year);
             $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#Month  option:selected').text() + "-" + $('#Year').val());
+            $(".curr").empty().text("Licensee Settlement Report for " + $('#Product option:selected').text());
             $(".grid-title").show();
         },
         error: function (xhr, ajaxOptions, thrownError) {
@@ -158,7 +159,7 @@ function GetCurrencyByLicenseeID(licenseeID) {
 
 function ClientPrinting() {
     if ($.browser.msie) {
-        window.open('LicenseeSettlement/PrintScreen');
+        window.open('LicenseeSettlement/PrintScreen?productName=' + $('#Product :selected').text());
     } else {
         window.open('LicenseeSettlement/ExportPDF?isSavePDF=false');
     }
