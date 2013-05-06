@@ -17,7 +17,7 @@ namespace Fanex.Ares.Core.Utils
 
         public const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";
         public const string SessionKeyLicenseeSettlementReport = "Fanex.Ares.Report.Services.LicenseeSettlementReport";
-        public const string SessionKeyLicenseeSettlementFromDate = "Fanex.Ares.Report.Services.FromDate";
-        public const string SessionKeyLicenseeSettlementToDate = "Fanex.Ares.Report.Services.ToDate";
+        public const string SessionKeyLicenseeSettlementMonth = "Fanex.Ares.Report.Services.Month";
+        public const string SessionKeyLicenseeSettlementYear = "Fanex.Ares.Report.Services.Year";
     }
 }
