@@ -80,7 +80,7 @@ function RenderFilterNote() {
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "LicenseeSettlement/GetInvoice",
+        url: "LicenseeSettlement/GetReport",
         type: "POST",
         data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text() + "&ProductName=" + $('#Product option:selected').text(),
         success: function (data, textStatus, jqXHR) {

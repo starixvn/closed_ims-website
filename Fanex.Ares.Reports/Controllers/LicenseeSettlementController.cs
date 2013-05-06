@@ -69,7 +69,7 @@ namespace Fanex.Ares.Report.Controllers
             return View(model);
         }
 
-        public PartialViewResult GetInvoice(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
             SettlementView = "_" + criteria.ProductName;
