@@ -133,7 +133,8 @@ namespace Resource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Customer Win Loss.
+        ///   Looks up a localized string similar to Customer
+        ///Win Loss.
         /// </summary>
         public static string CustomerWinLoss {
             get {

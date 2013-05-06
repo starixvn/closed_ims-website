@@ -187,6 +187,7 @@
     <value>BA Equi</value>
   </data>
   <data name="CustomerWinLoss" xml:space="preserve">
-    <value>Customer Win Loss</value>
+    <value>Customer
+Win Loss</value>
   </data>
 </root>
