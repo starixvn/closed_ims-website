@@ -174,4 +174,19 @@
   <data name="Member" xml:space="preserve">
     <value>Member</value>
   </data>
+  <data name="AmountDue" xml:space="preserve">
+    <value>Amount Due (to/from)</value>
+  </data>
+  <data name="BA" xml:space="preserve">
+    <value>BA</value>
+  </data>
+  <data name="BAComm" xml:space="preserve">
+    <value>BA Comm</value>
+  </data>
+  <data name="BAEqui" xml:space="preserve">
+    <value>BA Equi</value>
+  </data>
+  <data name="CustomerWinLoss" xml:space="preserve">
+    <value>Customer Win Loss</value>
+  </data>
 </root>

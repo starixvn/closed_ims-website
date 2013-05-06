@@ -128,7 +128,7 @@ namespace Fanex.Ares.Report.Controllers
 
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
         {
-            _service.ExportSportsBookReportToExcel(exchange, product);
+            _service.ExportReportToExcel(exchange, product);
             return new EmptyResult();
         }
 

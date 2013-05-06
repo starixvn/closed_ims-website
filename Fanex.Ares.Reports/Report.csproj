@@ -111,11 +111,15 @@
     <Compile Include="Repositories\Interface\IVoidOutrightTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
+    <Compile Include="Services\Implement\BAExcelService.cs" />
+    <Compile Include="Services\Implement\SportsbookExcelService.cs" />
     <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
     <Compile Include="Services\Implement\RecoverTicketService.cs" />
     <Compile Include="Services\Implement\VoidOutrightTicketService.cs" />
     <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
     <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
+    <Compile Include="Services\Interface\IBAExcelService.cs" />
+    <Compile Include="Services\Interface\ISportsbookExcelService.cs" />
     <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />
     <Compile Include="Services\Interface\IRecoverTicketService.cs" />
     <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
