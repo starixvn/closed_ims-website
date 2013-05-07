@@ -28,6 +28,23 @@ $(document).ready(function () {
             $('#btnGenerate').removeClass("ui-state-disabled");
         }
     });
+    var now = new Date();
+    $('#ddlMonth').monPickr({
+        today: now,
+        maxDate: now,
+        minDate: new Date(2005, 1, 1),
+        showDateRange: true,
+        fromDayId: 'ddlFrom',
+        month: now,
+        sortDesc: true,
+        log: function (msg) {
+            console.warn(msg);
+        }
+    });
+
+    $('.monpickr-super-wrapper .monpickr-label').eq(0).addClass('col_3 align-right lbl-field');
+    $('.monpickr-super-wrapper .daypickr-wrap-parent').eq(0).addClass('col_3');
+
 });
 
 var renderDatePicker = function () {
@@ -82,7 +99,12 @@ function Submit() {
     $.ajax({
         url: "LicenseeSettlement/GetReport",
         type: "POST",
-        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text() + "&ProductName=" + $('#Product option:selected').text(),
+        data: $('#formLicenseeSettlement').serialize()
+                + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
+                + "&ProductName=" + $('#Product option:selected').text()
+                + "&FromDate=" + $('#ddlMonth').monPickr("getFromDate", "MMM dd, yyyy")
+                + "&ToDate=" + $('#ddlMonth').monPickr("getToDate", "MMM dd, yyyy")
+                ,
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
             var month = $('#Month').val();

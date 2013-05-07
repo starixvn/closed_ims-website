@@ -341,6 +341,11 @@ namespace Fanex.Ares.Core.Extensions
             return SelectExtensions.DropDownListFor(htmlHelper, expression, newitems.OrderByDescending(m => m.Value), htmlAttributes);
         }
 
+        public static MvcHtmlString RawWithLineBreak(this HtmlHelper helper, string htmlString)
+        {
+            return new MvcHtmlString(htmlString.Replace("\n", "<br />"));
+        }
+
         #endregion Dropdownlist
     }
 }

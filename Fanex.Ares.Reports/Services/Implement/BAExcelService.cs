@@ -25,43 +25,36 @@ namespace Fanex.Ares.Report.Services.Interface
         #region Export Excel
         public void ExportReportToExcel(string exchange, string product)
         {
-            try
+            #region local varialbles
+
+            var model = new LicenseeSettlementModel();
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
+            int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
+            var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
+            var excelFile = new ExcelFile();
+            var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
+            var rowIndex = 0;
+            #endregion
+
+            if (model != null && model.Report.EntityList.Count > 0)
             {
-                #region local varialbles
 
-                var model = new LicenseeSettlementModel();
-                model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-                int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
-                int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-                var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
-                var excelFile = new ExcelFile();
-                var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
-                var rowIndex = 0;
-                #endregion
-
-                if (model != null && model.Report.EntityList.Count > 0)
-                {
-
-                    //Billing info
-                    ExportReportToExcelAssignBillingInfo(model.LicenseeInfor, ref rowIndex, ref ewReport, product);
-                    rowIndex += 2;
-                    //report & exchange rate
-                    ExportReportToExcelAssignDetailAndExchangeRate(model.ExchangeList, model.Report, model.LicenseeInfor.LicenseeName, model.LicenseeInfor.SettlementDate,
-                        ref rowIndex, ref ewReport, exchange);
-                }
-
-                #region response file
-                var response = HttpContext.Current.Response;
-                response.Clear();
-                response.ContentType = "application/vnd.ms-excel";
-                response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", reportName));
-                excelFile.SaveXls(response.OutputStream);
-                #endregion
+                //Billing info
+                ExportReportToExcelAssignBillingInfo(model.LicenseeInfor, ref rowIndex, ref ewReport, product);
+                rowIndex += 2;
+                //report & exchange rate
+                ExportReportToExcelAssignDetailAndExchangeRate(model.ExchangeList, model.Report, model.LicenseeInfor.LicenseeName, model.LicenseeInfor.SettlementDate,
+                    ref rowIndex, ref ewReport, exchange);
             }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
+
+            #region response file
+            var response = HttpContext.Current.Response;
+            response.Clear();
+            response.ContentType = "application/vnd.ms-excel";
+            response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", reportName));
+            excelFile.SaveXls(response.OutputStream);
+            #endregion
         }
 
         #region private functions
@@ -219,21 +212,33 @@ namespace Fanex.Ares.Report.Services.Interface
                 #endregion
 
                 #region winloss report
+                // Date
                 ewReport.Cells[rowIndex, colIndex].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.WinlostDate.ToString("dd-MMM-yy");
+
+                // Currency
                 ewReport.Cells[rowIndex, colIndex += 1].Style = normalStyle;
                 ewReport.Cells[rowIndex, colIndex].Style.HorizontalAlignment = HorizontalAlignmentStyle.Center;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.CurrencyName;
+
+                // Turnover
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Turnover;
+
+                // Turnover(EUR)
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.TurnoverBase;
+
+                // Total Trans
                 ewReport.Cells[rowIndex, colIndex += 1].Style = numberStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.Betcount;
+
+                // Customer Win Loss
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 ewReport.Cells[rowIndex, colIndex].Value = detail.MemberWinloss;
 
+                // Customer Win Loss(EUR)
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
                 if (detail.MemberWinlossBase != 0)
                 {
@@ -244,23 +249,28 @@ namespace Fanex.Ares.Report.Services.Interface
                     ewReport.Cells[rowIndex, colIndex].Value = "-";
                 }
 
+                // BA Comm
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeComm;
+                ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeWL;
 
+                // BA Comm (EUR)
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
-                if (detail.LicenseeCommBase != 0)
+                if (detail.LicenseeWLBase != 0)
                 {
-                    ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeCommBase;
+                    ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeWLBase;
                 }
                 else
                 {
                     ewReport.Cells[rowIndex, colIndex].Value = "-";
                 }
 
+                // BA
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeWL;
+                ewReport.Cells[rowIndex, colIndex].Value = detail.Company;
+
+                // BA Equi EUR
                 ewReport.Cells[rowIndex, colIndex += 1].Style = decimalStyle;
-                ewReport.Cells[rowIndex, colIndex].Value = detail.LicenseeWLBase;
+                ewReport.Cells[rowIndex, colIndex].Value = detail.CompanyBaseCurrency;
                 #endregion
 
                 #region exchange rate
@@ -298,12 +308,12 @@ namespace Fanex.Ares.Report.Services.Interface
             // BA Comm (EUR)
             ewReport.Cells[rowIndex, 8].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 8].Style.NumberFormat = "#,##0.00_);[RED](#,##0.00)";
-            ewReport.Cells[rowIndex, 8].Value = reportDetails.GrandTotal.LicenseeCommBase;
+            ewReport.Cells[rowIndex, 8].Value = reportDetails.GrandTotal.LicenseeWLBase;
 
             // BA Equi EUR
             ewReport.Cells[rowIndex, colIndex].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, colIndex].Style.NumberFormat = "#,##0.00_);[RED](#,##0.00)";
-            ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal.LicenseeWLBase;
+            ewReport.Cells[rowIndex, colIndex].Value = reportDetails.GrandTotal.CompanyBaseCurrency;
             #endregion
             #endregion
             #endregion
