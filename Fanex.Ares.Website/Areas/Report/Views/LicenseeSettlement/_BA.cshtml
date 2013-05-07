@@ -29,10 +29,10 @@
     </table>
     <table width="100%">
         <tr>
-            <td class="cellInfo lineHeight200 col100">
+            <td class="cellInfo lineHeight200 col200">
                 SETTLEMENT REPORT
             </td>
-            <td class="lineHeight200 col100 ">
+            <td class="lineHeight200 col200 ">
                 <span class="cellInfo bold">@licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
                 </span>
             </td>
@@ -234,13 +234,13 @@
                             <th colspan="2" class="headerReport colborder01">
                                 @{
                                     string forexTime = string.Empty;
-                                    if (DateTime.Now.ToAresMonthYear() == licensee.LicenseeInfor.SettlementDate.ToAresMonthYear())
+                                    if (DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
                                     {
-                                        forexTime = DateTime.Now.ToAresDayMonthYear();
+                                        forexTime = licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear();
                                     }
                                     else
                                     {
-                                        forexTime = licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear();
+                                        forexTime = licensee.LicenseeInfor.SettlementDate.LastDayOfMonth().ToAresDayMonthYear();
                                     }
                                 }
                                 Forex @@ @forexTime
@@ -250,7 +250,7 @@
                             <th class="noneBorder col30">
                             </th>
                             <th class="headerReport colborder01 col50">
-                                @licensee.LicenseeInfor.BaseCurrencyName / 1Unit
+                                @licensee.LicenseeInfor.BaseCurrencyName/ 1Unit
                             </th>
                             <th class="headerReport colborder01 col60">
                                 Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName
@@ -316,8 +316,7 @@
                     FOREX
                 </td>
                 <td class="cellInfo lineHeight80">
-                    www.oanda.com provided minor difference between " @licensee.LicenseeInfor.BaseCurrencyName
-                    / 1Unit" vs "Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName", we standardize
+                    www.oanda.com provided minor difference between " @licensee.LicenseeInfor.BaseCurrencyName/ 1Unit" vs "Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName", we standardize
                     the use of "Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName" to prevail all
                 </td>
             </tr>

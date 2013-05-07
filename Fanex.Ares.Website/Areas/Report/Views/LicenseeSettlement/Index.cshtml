@@ -23,7 +23,7 @@
     </div>
 }
 <div>
-    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
+    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement", autocomplete = "off"}))
     {
         <div id="filter-bar" class="filter-bar" style="width: 1260px;">
             <span id="notemessage" class="note-info-message" title=''></span>
@@ -34,7 +34,7 @@
                             @Html.LabelFor(m => m.LicenseeId, "Licensee")
                         </div>
                         <div class="edit-field col_6 align-left">
-                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "-1" }, new { @class = "alpha auto-width" })
+                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
                         </div>
                         @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
                     </div>*@

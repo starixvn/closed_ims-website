@@ -276,17 +276,22 @@ namespace Fanex.Ares.Core.Extensions
            SelectListItem firstItem,
            object htmlAttributes)
         {
+            var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
+
             if (firstItem != null)
             {
                 if (firstItem.Value != null)
                 {
                     List<SelectListItem> list = new List<SelectListItem>();
+                    firstItem.Selected = (metaData == null || metaData.Model == null || firstItem.Value == metaData.Model.ToString());
+
                     list.Add(firstItem);
 
                     if (selectList != null)
                     {
                         foreach (SelectListItem item in selectList)
                         {
+                            item.Selected = (metaData == null || metaData.Model == null || firstItem.Value == metaData.Model.ToString());
                             list.Add(item);
                         }
                     }
@@ -304,7 +309,7 @@ namespace Fanex.Ares.Core.Extensions
             object htmlAttributes)
         {
             var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            int month = metaData == null ? 1: metaData.Model == null ? 1: (int)metaData.Model;
+            int month = metaData == null ? 1 : metaData.Model == null ? 1 : (int)metaData.Model;
             var newitems = DateTimeFormatInfo
                 .InvariantInfo
                 .MonthNames

@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     RenderFilterNote();
 
-    if ($('#LicenseeId').val() == "-1") {
+    if ($('#LicenseeId').val() == "0") {
         $('#btnGenerate').addClass("ui-state-disabled");
     } else {
         $('#btnGenerate').removeClass("ui-state-disabled");
@@ -114,6 +114,12 @@ function Submit() {
             $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#ddlMonth').monPickr("getFromDate", "MMMM-yyyy"));
             $(".curr").empty().text("Licensee Settlement Report for " + $('#Product option:selected').text());
             $(".grid-title").show();
+            if (data.indexOf("There is no data") !== -1) {
+                $(".grid-toolbox").hide();
+            }
+            else {
+                $(".grid-toolbox").show();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("fail");
@@ -164,8 +170,13 @@ function GetCurrencyByLicenseeID(licenseeID) {
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
             var html = "";
-            if (data.length != 0)
+            if (data.length != 0) {
                 html = "<option value='0' selected='selected'>All</option>";
+                $('#btnGenerate').removeClass("ui-state-disabled");
+            } else {
+                $('#btnGenerate').addClass("ui-state-disabled");
+            }
+
             for (var i = 0; i < data.length; i++) {
                 html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
             }
