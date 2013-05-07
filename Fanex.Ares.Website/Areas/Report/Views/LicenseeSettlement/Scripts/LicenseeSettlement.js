@@ -111,7 +111,7 @@ function Submit() {
             var year = $('#Year').val();
             var fromDate = new Date(year, month - 1, 1);
             var toDate = lastDateInMonth(month, year);
-            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#Month  option:selected').text() + "-" + $('#Year').val());
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#ddlMonth').monPickr("getFromDate", "MMMM-yyyy"));
             $(".curr").empty().text("Licensee Settlement Report for " + $('#Product option:selected').text());
             $(".grid-title").show();
         },
