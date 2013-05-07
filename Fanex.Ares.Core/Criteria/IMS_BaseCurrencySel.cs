@@ -7,7 +7,7 @@
 //   <change who="Phillip.Truong" date="2013.4.25">Created</change>
 // </history>
 
-namespace Fanex.Ares.Report.Criteria
+namespace Fanex.Ares.Core.Criteria
 {
     using Fanex.NAP.Framework.Data;
 

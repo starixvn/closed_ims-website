@@ -8,27 +8,22 @@
 // </history>
 
 
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Web;
+using System.IO;
+using System.Linq;
 using System.Web.Hosting;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Utils;
-using Fanex.Ares.Core.Web;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Report.Criteria;
-using Fanex.Ares.Report.Services.Implement;
-using Fanex.Ares.Report.Services.Interface;
-using Fanex.Core.PdfHelper;
-using Fanex.NAP.Core.Web.Attribute;
-using Fanex.NAP.Core.Business;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-using System.Collections.Generic;
+using Fanex.Ares.Report.Services.Interface;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-using System.Linq;
-using System;
-using Fanex.Ares.Report.ViewModels;
-using System.IO;
 using Fanex.Common.Extensions;
+using Fanex.Core.PdfHelper;
+using Fanex.Ares.Core.Criteria;
 
 namespace Fanex.Ares.Report.Controllers
 {
