@@ -175,9 +175,23 @@
             if (isFromDay) {
                 data.fromDay = parseInt(value, 10);
                 data.fromDate = new Date(data.year, data.month, value);
+
+                // if fromDate greater than toDate then assign toDate to fromDate and vice versa
+                if (data.fromDate > data.toDate) {
+                    data.toDate = data.fromDate;
+                    data.toDay = data.fromDay;
+                    _setDayLabel(data.ddlToDate, data.toDay);
+                }
             } else {
                 data.toDay = parseInt(value, 10);
                 data.toDate = new Date(data.year, data.month, value);
+
+                // if fromDate greater than toDate then assign toDate to fromDate and vice versa
+                if (data.fromDate > data.toDate) {
+                    data.fromDate = data.toDate;
+                    data.fromDay = data.toDay;
+                    _setDayLabel(data.ddlFromDate, data.fromDay);
+                }
             }
         },
 
