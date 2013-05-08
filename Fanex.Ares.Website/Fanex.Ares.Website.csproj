@@ -69,9 +69,22 @@
     <Reference Include="Fanex.NAP.Framework">
       <HintPath>..\_Dependency\FanexLibs\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="GemBox.Spreadsheet, Version=37.3.30.1030, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Excel\GemBox.Spreadsheet.DLL</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\_Dependency\FanexLibs\Excel\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\_Dependency\Entlib\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI, Version=1.2.4.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_Dependency\FanexLibs\Excel\NPOI.dll</HintPath>
     </Reference>
     <Reference Include="RemotingRef">
       <HintPath>..\_Dependency\FanexLibs\RemotingRef.dll</HintPath>
@@ -190,16 +203,15 @@
     <Compile Include="Areas\UserLogin\Controllers\SSOController.cs" />
     <Compile Include="Areas\UserLogin\UserLoginAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Model\Test\IssueDetail.cs" />
+    <Compile Include="Model\Test\IssueDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NAPInvoiceSpNames.xml">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="App_Data\NAPFrameworkSpNames.xml" />
     <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageHelper.js" />
@@ -619,6 +631,8 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Web.Configuration\StoreProcedure\NAPFrameworkSpNames.xml" />
+    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -669,6 +683,9 @@
     <Content Include="Views\Shared\_PrintLayout.cshtml">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\Employee.cshtml" />
+    <Content Include="Web.Configuration\PdfHelper.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
