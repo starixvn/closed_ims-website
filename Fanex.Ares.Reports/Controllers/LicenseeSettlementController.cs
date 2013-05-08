@@ -67,8 +67,8 @@ namespace Fanex.Ares.Report.Controllers
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
-            ViewBag.FromDate = criteria.FromDate;
-            ViewBag.ToDate = criteria.ToDate;
+            model.LicenseeInfor.FromDate = criteria.FromDate;
+            model.LicenseeInfor.ToDate = criteria.ToDate;
             SettlementView = "_" + criteria.ProductName;
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
