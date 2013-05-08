@@ -47,6 +47,9 @@
     <Reference Include="Enyim.Caching">
       <HintPath>..\_Dependency\FanexLibs\Enyim.Caching.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Ares.Core">
+      <HintPath>..\Fanex.Ares.Core\bin\Debug\Fanex.Ares.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
@@ -210,6 +213,13 @@
     <Compile Include="Model\Test\IssueDetail.cs" />
     <Compile Include="Model\Test\IssueDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\NumberWheelChoice.txt" />
@@ -631,6 +641,7 @@
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
+    <Content Include="Test\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -714,6 +725,10 @@
     <ProjectReference Include="..\Fanex.Ares.Reports\Report.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
+      <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
+      <Name>PdfHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
