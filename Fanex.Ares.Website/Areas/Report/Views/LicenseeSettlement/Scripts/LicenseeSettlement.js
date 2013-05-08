@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     RenderFilterNote();
 
-    if ($('#LicenseeId').val() == "-1") {
+    if ($('#LicenseeId').val() == "0") {
         $('#btnGenerate').addClass("ui-state-disabled");
     } else {
         $('#btnGenerate').removeClass("ui-state-disabled");
@@ -28,6 +28,23 @@ $(document).ready(function () {
             $('#btnGenerate').removeClass("ui-state-disabled");
         }
     });
+    var now = new Date();
+    $('#ddlMonth').monPickr({
+        today: now,
+        maxDate: now,
+        minDate: new Date(2005, 1, 1),
+        showDateRange: true,
+        fromDayId: 'ddlFrom',
+        month: now,
+        sortDesc: true,
+        log: function (msg) {
+            console.warn(msg);
+        }
+    });
+
+    $('.monpickr-super-wrapper .monpickr-label').eq(0).addClass('col_3 align-right lbl-field');
+    $('.monpickr-super-wrapper .daypickr-wrap-parent').eq(0).addClass('col_3');
+
 });
 
 var renderDatePicker = function () {
@@ -80,18 +97,29 @@ function RenderFilterNote() {
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "LicenseeSettlement/GetInvoice",
+        url: "LicenseeSettlement/GetReport",
         type: "POST",
-        data: $('#formLicenseeSettlement').serialize() + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text() + "&ProductName=" + $('#Product option:selected').text(),
+        data: $('#formLicenseeSettlement').serialize()
+                + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
+                + "&ProductName=" + $('#Product option:selected').text()
+                + "&FromDate=" + $('#ddlMonth').monPickr("getFromDate", "MMM dd, yyyy")
+                + "&ToDate=" + $('#ddlMonth').monPickr("getToDate", "MMM dd, yyyy")
+                ,
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
             var month = $('#Month').val();
             var year = $('#Year').val();
             var fromDate = new Date(year, month - 1, 1);
             var toDate = lastDateInMonth(month, year);
-            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#Month  option:selected').text() + "-" + $('#Year').val());
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#ddlMonth').monPickr("getFromDate", "MMMM-yyyy"));
             $(".curr").empty().text("Licensee Settlement Report for " + $('#Product option:selected').text());
             $(".grid-title").show();
+            if (data.indexOf("There is no data") !== -1) {
+                $(".grid-toolbox").hide();
+            }
+            else {
+                $(".grid-toolbox").show();
+            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("fail");
@@ -142,8 +170,13 @@ function GetCurrencyByLicenseeID(licenseeID) {
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
             var html = "";
-            if (data.length != 0)
+            if (data.length != 0) {
                 html = "<option value='0' selected='selected'>All</option>";
+                $('#btnGenerate').removeClass("ui-state-disabled");
+            } else {
+                $('#btnGenerate').addClass("ui-state-disabled");
+            }
+
             for (var i = 0; i < data.length; i++) {
                 html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
             }

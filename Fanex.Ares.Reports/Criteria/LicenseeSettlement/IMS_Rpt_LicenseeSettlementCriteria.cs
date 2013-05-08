@@ -11,25 +11,14 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     using System;
     using Fanex.NAP.Framework.Data;
 
+    [Serializable]
     public class IMS_Rpt_LicenseeSettlementCriteria : CriteriaBase
     {
         public int LicenseeId { get; set; }
         public string LicenseeName { get; set; }
-        public DateTime FromDate
-        {
-            get
-            {
-                return new DateTime(this.Year, this.Month, 1);
-            }
-        }
+        public DateTime FromDate { get; set; }
 
-        public DateTime ToDate
-        {
-            get
-            {
-                return new DateTime(this.Year, this.Month, DateTime.DaysInMonth(this.Year, this.Month));
-            }
-        }
+        public DateTime ToDate { get; set; }
 
         public int Product { get; set; }
         public string ProductName { get; set; }
@@ -43,7 +32,7 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         public int Year { get; set; }
 
         public IMS_Rpt_LicenseeSettlementCriteria()
-            :base()
+            : base()
         {
             this.Month = DateTime.Now.Month - 1;
             this.Year = DateTime.Now.Year;

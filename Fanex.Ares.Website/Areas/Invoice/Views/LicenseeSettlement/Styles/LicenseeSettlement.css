@@ -1,0 +1,186 @@
+﻿.div-content
+{
+    clear:both; 
+    width: 1260px; 
+    margin:6px 0 0 10px;
+}
+
+.titleBold
+{
+    font-size: 17px !important;
+    text-align: left !important;
+    font-weight: bold !important;
+}
+
+.titleSub
+{
+    font-size: 17px !important;
+    text-align: left !important;
+}
+
+.cellInfo
+{
+    font-size: 13px !important;
+    text-align: left !important;
+}
+
+.lineHeight200
+{
+    padding-top: 15px !important;
+}
+
+.lineHeight80
+{
+   padding-top: 0px !important;
+}
+
+.headerReport
+{
+    font-size: 12px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    background-color: #618ADA !important;
+    height: 18px !important;
+    border: 1.5px solid #736767
+}
+
+.cellstyle
+{
+     font-size: 11px !important;
+     vertical-align:middle !important;
+    line-height:100% !important;
+    height: 18px !important;
+    border: 1.5px solid #736767
+}
+.grandtotal
+{
+    font-size: 13px !important;
+     vertical-align:middle !important;
+    line-height:100% !important;
+     font-weight: bold !important;
+}
+
+.aligncenter
+{
+    text-align: center !important;
+}
+
+.alignright
+{
+    text-align: right !important;
+}
+
+.alignleft
+{
+    text-align: left !important;
+}
+
+.col60
+{
+    width: 82px !important;
+}
+.col30
+{
+    width: 30px !important;
+}
+.col200
+{
+    width: 200px !important;
+}
+
+.col65
+{
+    width: 65px !important;
+}
+.col40
+{
+    width: 55px !important;
+}
+.col650
+{
+    width: 980px !important;
+}
+
+.col120
+{
+    width: 120px !important;
+} 
+.col100
+{
+    width: 100px !important;
+}
+.col80
+{
+    width: 80px !important;
+}
+
+.col50
+{
+    width: 65px !important;
+}
+.col400
+{
+    width: 600px !important;
+}
+.col140
+{
+    width:200px !important;
+}
+
+.col10percent
+{
+    width: 10% !important;
+}
+.noneBorder
+{
+    border:  0 none !important;
+}
+
+.boldBorderBlack
+{
+    border-bottom: 2px solid black;
+}
+
+.boldBorderWhite
+{
+    border-bottom: 2px solid white;
+}
+
+.negative-number
+{
+    color: Red !important;
+}
+
+.even
+{
+   background-color: #e4f2fd !important;
+}
+
+.product-name
+{
+    color:  #C21515;
+    font-weight: bold !important;
+}
+
+ .licensee-name {
+    color: #0040FF !important;
+    font-weight: bold !important;
+}
+
+.bold
+{
+   font-weight: bold !important;
+}
+
+.cellPadding
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.pad5
+{
+    padding-top:5px; 
+    display:block;
+}

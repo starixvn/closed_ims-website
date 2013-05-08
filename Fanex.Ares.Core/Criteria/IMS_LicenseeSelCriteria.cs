@@ -1,13 +1,12 @@
 // -----------------------------------------------------------------------
-// <copyright file="IMS_LicenseeCurrencySelCriteria.cs" company="Nexcel">
+// <copyright file="IMS_LicenseeSelCriteria.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 // <history>
 //   <change who="Phillip.Truong" date="2013.4.23">Created</change>
 // </history>
-
-namespace Fanex.Ares.Report.Criteria
+namespace Fanex.Ares.Core.Criteria
 {
     using System;
     using System.Collections.Generic;
@@ -15,13 +14,11 @@ namespace Fanex.Ares.Report.Criteria
     using System.Text;
     using Fanex.NAP.Framework.Data;
 
-    public class IMS_LicenseeCurrencySelCriteria : CriteriaBase
+    public class IMS_LicenseeSelCriteria : CriteriaBase
     {
-        public int LicenseeId { get; set; }
-
         public override string GetSettingKey()
         {
-            return "IMS_LicenseeCurrencySel";
+            return "IMS_LicenseeSel";
         }
 
         public override bool IsValid() { return true; }

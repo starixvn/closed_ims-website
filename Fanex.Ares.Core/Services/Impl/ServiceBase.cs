@@ -15,6 +15,10 @@ using Fanex.Ares.Core.Services.Interface;
 using Fanex.Common.Helper;
 using Fanex.NAP.Framework.Data;
 using Fanex.Caching;
+using System.Web.Mvc;
+using System.Data;
+using Fanex.Ares.Core.Criteria;
+using Fanex.Ares.Core.Repository.Impl;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
@@ -25,10 +29,13 @@ namespace Fanex.Ares.Core.Services.Impl
 
         protected readonly ICache _cacheManager;
 
+        protected readonly BaseRepository _repository;
+
         public ServiceBase(IDynamicRepository repository = null)
         {
             this.DynamicRepository = repository ?? new DynamicRepository();
             this._cacheManager = CacheService.CreateInstance();
+            this._repository = new BaseRepository();
         }
 
         /// <summary>
@@ -74,5 +81,102 @@ namespace Fanex.Ares.Core.Services.Impl
                 return null;
             }
         }
+
+        #region Get data for combobox
+        public IEnumerable<SelectListItem> GetAllLicensees()
+        {
+            IList<SelectListItem> listLicensees = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["LicenseeID"]),
+                        Text = Convert.ToString(r["LicenseeName"])
+                    };
+                };
+
+                listLicensees = _repository.Fetch<SelectListItem>(new IMS_LicenseeSelCriteria(), mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return listLicensees;
+        }
+
+
+        public IEnumerable<SelectListItem> GetProductsByLicensee(IMS_LicenseeProductSelCriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["productid"]),
+                        Text = Convert.ToString(r["productname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return listProducts;
+        }
+
+        public IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
+        }
+
+        public IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
+        }
+        #endregion
     }
 }

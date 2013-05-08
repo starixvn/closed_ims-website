@@ -88,10 +88,6 @@
     <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_BaseCurrencySel.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeCurrencySelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeProductSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeSelCriteria.cs" />
     <Compile Include="Criteria\RecoverTicketCriteria.cs" />
     <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
     <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
@@ -112,11 +108,15 @@
     <Compile Include="Repositories\Interface\IVoidOutrightTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
     <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
+    <Compile Include="Services\Implement\BAExcelService.cs" />
+    <Compile Include="Services\Implement\SportsbookExcelService.cs" />
     <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
     <Compile Include="Services\Implement\RecoverTicketService.cs" />
     <Compile Include="Services\Implement\VoidOutrightTicketService.cs" />
     <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
     <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
+    <Compile Include="Services\Interface\IBAExcelService.cs" />
+    <Compile Include="Services\Interface\ISportsbookExcelService.cs" />
     <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />
     <Compile Include="Services\Interface\IRecoverTicketService.cs" />
     <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />

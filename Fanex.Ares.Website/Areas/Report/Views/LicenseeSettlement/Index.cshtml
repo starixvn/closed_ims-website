@@ -10,8 +10,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
-    @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
-    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
+    @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style", "~/Scripts/_Libs/MonthPicker/style")
+    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
 }
@@ -23,7 +23,7 @@
     </div>
 }
 <div>
-    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
+    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement", autocomplete = "off"}))
     {
         <div id="filter-bar" class="filter-bar" style="width: 1260px;">
             <span id="notemessage" class="note-info-message" title=''></span>
@@ -34,11 +34,19 @@
                             @Html.LabelFor(m => m.LicenseeId, "Licensee")
                         </div>
                         <div class="edit-field col_6 align-left">
-                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "-1" }, new { @class = "alpha auto-width" })
+                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
                         </div>
                         @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
                     </div>*@
-                        <div class="lbl-field col_3 align-right">
+                        <div class="lbl-field col_3">
+                            <div>
+                                Month</div>
+                        </div>
+                        <div class="edit-field col_16">
+                            <div id="ddlMonth">
+                            </div>
+                        </div>
+                        @*<div class="lbl-field col_3 align-right">
                             @Html.LabelFor(m => m.Month, "Month")
                         </div>
                         <div class="edit-field col_6 align-left">
@@ -49,7 +57,7 @@
                         </div>
                         <div class="edit-field col_6 align-left">
                             @Html.DropDownListForYear(m => m.Year, new { @class = "alpha auto-width" })
-                        </div>
+                        </div>*@
                     </div>
                 </div>
                 <div class="filter-row">
@@ -86,7 +94,7 @@
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true})'" />
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />
         <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print"
             onclick="ClientPrinting();" />
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
@@ -114,8 +122,8 @@
     </script>
 }
 @section Foot {
-    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker")
-    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js"></script>
+    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
+    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=@DateTime.Now.ToString()"></script>
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     @*<script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/MultipleSelect/jquery.multiselect.nlevel.js"></script>

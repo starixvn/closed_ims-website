@@ -91,15 +91,37 @@
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Controllers\CommonController.cs" />
-    <Compile Include="Criteria\BalanceUpCriteria.cs" />
-    <Compile Include="Criteria\CheckMatchIdWithRefNoCriteria.cs" />
-    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
-    <Compile Include="Criteria\GetBettypeCriteria.cs" />
-    <Compile Include="Criteria\GetCurrencyCriteria.cs" />
-    <Compile Include="Criteria\GetMatchInfoCriteria.cs" />
-    <Compile Include="Criteria\SetUsrMessageCriteria.cs" />
-    <Compile Include="Criteria\TestCriteria.cs" />
-    <Compile Include="Criteria\SetMessageCriteria.cs" />
+    <Compile Include="Criteria\BalanceUpCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\CheckMatchIdWithRefNoCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\GetAllLicenseeCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\GetBettypeCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\GetCurrencyCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\GetMatchInfoCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />
+    <Compile Include="Criteria\IMS_LicenseeCurrencySelCriteria.cs" />
+    <Compile Include="Criteria\IMS_LicenseeProductSelCriteria.cs" />
+    <Compile Include="Criteria\IMS_LicenseeSelCriteria.cs" />
+    <Compile Include="Criteria\SetMessageCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\SetUsrMessageCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Criteria\TestCriteria.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />

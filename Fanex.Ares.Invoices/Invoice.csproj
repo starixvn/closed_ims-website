@@ -31,6 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Fanex.Caching">
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Common">
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Fanex.Data">
+      <HintPath>..\_Dependency\FanexLibs\Fanex.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.NAP.Core">
       <HintPath>..\_Dependency\FanexLibs\Fanex.NAP.Core.dll</HintPath>
     </Reference>
@@ -39,6 +48,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -52,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Controllers\DeleteSingleTicketController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Criteria\GetBettypeCriteria.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\SingleTicket\SingleTicket.cs" />
@@ -67,6 +78,14 @@
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
+      <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
+      <Name>PdfHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Resource\Resources.csproj">
+      <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
+      <Name>Resources</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
