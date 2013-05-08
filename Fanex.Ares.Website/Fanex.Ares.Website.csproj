@@ -180,7 +180,7 @@
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
     <Compile Include="Areas\Report\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Report\Area_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Report\ReportBookcAreaRegistration.cs" />
+    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Areas\UserControl\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\UserControl\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserControl\Controllers\UserController.cs" />
@@ -693,6 +693,10 @@
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Ares.Invoices\Invoice.csproj">
+      <Project>{FEA3AA51-57AF-42B8-BBA6-27A5CC4E074F}</Project>
+      <Name>Invoice</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Ares.Reports\Report.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>

@@ -20,7 +20,7 @@ using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
 
-namespace Fanex.Ares.Report.Controllers
+namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class InvoiceController : BaseController

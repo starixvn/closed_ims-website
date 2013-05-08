@@ -32,11 +32,10 @@
             <td class="cellInfo lineHeight200 col200">
                 SETTLEMENT REPORT
             </td>
-            <td class="lineHeight200 col200 ">
-                <span class="cellInfo bold">@licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear()
+            <td class="lineHeight200 col200" colspan="2">
+                <span class="cellInfo bold">From @(((DateTime)ViewBag.FromDate).ToAresDayMonthYear())
+                    To @(((DateTime)ViewBag.ToDate).ToAresDayMonthYear())
                 </span>
-            </td>
-            <td class="col65" align="left">
             </td>
             <td class="col400" align="left">
             </td>
@@ -283,7 +282,7 @@
                                     string forexTime = string.Empty;
                                     if (DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
                                     {
-                                        forexTime = licensee.LicenseeInfor.SettlementDate.ToAresDayMonthYear();
+                                        forexTime = DateTime.Now.ToAresDayMonthYear();
                                     }
                                     else
                                     {
@@ -363,7 +362,7 @@
                     FOREX
                 </td>
                 <td class="cellInfo lineHeight80">
-                    www.oanda.com provided minor difference between " @licensee.LicenseeInfor.BaseCurrencyName/
+                    www.oanda.com provided minor difference between "@licensee.LicenseeInfor.BaseCurrencyName/
                     1Unit" vs "Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName", we standardize the
                     use of "Units/ 1 @licensee.LicenseeInfor.BaseCurrencyName" to prevail all
                 </td>
