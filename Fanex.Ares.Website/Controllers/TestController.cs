@@ -39,9 +39,14 @@ namespace Fanex.Ares.Website.Controllers
             string html = RenderPartialViewToString("Employee", new IssueDTO());
             // if your view don't have any model then you can pass as null
 
+            
+
             html = html.Replace("\n", "");
             html = html.Replace("\r", "");
             html = html.Replace("  ", "");
+
+            html = @" <html xmlns:o='urn:schemas-microsoft-com:office:office'\n" +
+                   "xmlns:x='urn:schemas-microsoft-com:office:excel'\n" + "xmlns='http://www.w3.org/TR/REC-html40'>\n" + html + "</html>";
 
             
 
@@ -127,6 +132,8 @@ namespace Fanex.Ares.Website.Controllers
             SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
             var excel = ExcelFile.Load(excelFile);
 
+            
+
             var ms = new MemoryStream();
 
             excel.Save(ms, SaveOptions.XlsxDefault);
@@ -203,6 +210,9 @@ namespace Fanex.Ares.Website.Controllers
             var fileName = Guid.NewGuid() + ".xls";
 
 
+            
+
+
             using (FileStream fileStream = System.IO.File.Create(_fileDirectory + fileName, (int)stream.Length))
             {
                 // Fill the bytes[] array with the stream data
@@ -212,6 +222,8 @@ namespace Fanex.Ares.Website.Controllers
                 // Use FileStream object to write to the specified file
                 fileStream.Write(bytesInStream, 0, bytesInStream.Length);
             }
+
+         
             return _fileDirectory + fileName;
         }
 
