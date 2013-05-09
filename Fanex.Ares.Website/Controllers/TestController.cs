@@ -39,26 +39,33 @@ namespace Fanex.Ares.Website.Controllers
             string html = RenderPartialViewToString("Employee", new IssueDTO());
             // if your view don't have any model then you can pass as null
 
-            html = html.Replace("\n", "");
-            html = html.Replace("\r", "");
-            html = html.Replace("  ", "");
+            //html = html.Replace("\n", "");
+            //html = html.Replace("\r", "");
+            //html = html.Replace("  ", "");
 
-            
+            //string header = @"&CMultiplication Table\000ANumber of Pages &N";
+            //string footer = "&LDate\\: &D &RPage &P\000ASignature\\:";
+            //html.("table @page {{ mso-header-data:\"{0}\"; mso-footer-data:\"{1}\"; }}", header, footer);
+
+            HttpContext.Response.AddHeader("content-disposition", "attachment; filename=student_" + DateTime.Now.Year.ToString() + ".xls");
+            this.Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(html.ToString());
+            return File(buffer, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
             //return  new DownloadFileActionResult(html, "test13413", DownloadFileActionResult.ExcelFormat.Xlsx);
 
 
-            var excelExtension = new ExcelExtension(ExcelExtension.ExcelFormat.Xlsx);
-            var ms = excelExtension.CreateExcel(html);
-            if (ms != null)
-            {
-                // return the filestream
-                // Rewind the memory stream to the beginning
-                ms.Seek(0, SeekOrigin.Begin);
+            //var excelExtension = new ExcelExtension(ExcelExtension.ExcelFormat.Xlsx);
+            //var ms = excelExtension.CreateExcel(html);
+            //if (ms != null)
+            //{
+            //    // return the filestream
+            //    // Rewind the memory stream to the beginning
+            //    ms.Seek(0, SeekOrigin.Begin);
 
-                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", "tetsa.xlsx");
-            }
-            return new EmptyResult();
+            //    return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", "tetsa.xlsx");
+            //}
+            //return new EmptyResult();
         }
 
 
