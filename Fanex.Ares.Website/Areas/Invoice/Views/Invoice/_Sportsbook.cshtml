@@ -3,22 +3,17 @@
 @using Fanex.Ares.Core.Extensions;
 @{
     var str = Server.MapPath("/Areas/Invoice/Styles/Images/Boping-logo.png");
-    var str2 = Url.Content("../../Areas/Invoice/Styles/Images/Boping-logo.png");
+    var str2 = Url.Content("~/Areas/Invoice/Styles/Images/Boping-logo.png");
+    string url = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
     int i = 0;
 }
-<style type="text/css">
-.image-logo
-{
-    background-image: url(@Url.Content("../../Areas/Invoice/Styles/Images/Boping-logo.png"));
 
-}
-</style>
 <div class="div-content">
     <table style="border: 1px solid black;">
         <tr>
             <td class="image-logo" style="width: 60%;">
                 @*<a class="image-logo"></a>*@
-                <img src="@Url.Content("../../Areas/Invoice/Styles/Images/Boping-logo.png")" />
+                <img src="@Url.Content(url +"Areas/Invoice/Styles/Images/Boping-logo.png")" />
                 @*<img src="@Server.MapPath("/Areas/Invoice/Styles/Images/Boping-logo.png")" />*@
             </td>
             <td style="width: 40%;">
