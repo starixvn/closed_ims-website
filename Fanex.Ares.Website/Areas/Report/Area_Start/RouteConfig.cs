@@ -8,9 +8,9 @@ namespace Fanex.Ares.Website.Areas.Report.Area_Start
         {
             context.MapRoute(
                 areaName + "_Default",
-                "Report/{controller}/{action}/{id}",                
+                "Report/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional },
-                new[] { "Fanex.Ares.Report.Controllers" });            
+                new[] { "Fanex.Ares.Report.Controllers" });
         }
     }
 }

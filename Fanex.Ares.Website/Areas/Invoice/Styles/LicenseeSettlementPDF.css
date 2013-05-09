@@ -1,0 +1,4 @@
+﻿.image-logo
+{
+    src: @Server.MapPath("/Areas/Invoice/Styles/Images/Boping-logo.png")
+}
