@@ -95,8 +95,8 @@
     </div>
     <div class="grid-toolbox">
         <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />
-        <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print"
-            onclick="ClientPrinting();" />
+       @* <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print"
+            onclick="ClientPrinting();" />*@
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
     </div>
 </div>
@@ -123,7 +123,7 @@
 }
 @section Foot {
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
-    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=@DateTime.Now.ToString()"></script>
+    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js"></script>
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     @*<script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/MultipleSelect/jquery.multiselect.nlevel.js"></script>

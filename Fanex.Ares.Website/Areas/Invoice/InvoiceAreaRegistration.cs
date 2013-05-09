@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 using System.Web.Optimization;
-using Fanex.Ares.Website.Areas.Misc.Area_Start;
+using Fanex.Ares.Website.Areas.Invoice.Area_Start;
 
 namespace Fanex.Ares.Website.Areas.Invoice
 {

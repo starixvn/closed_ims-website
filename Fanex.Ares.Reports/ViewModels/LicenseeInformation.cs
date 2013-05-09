@@ -19,6 +19,10 @@ namespace Fanex.Ares.Report.ViewModels
     {
         public DateTime SettlementDate { get; set; }
 
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
         public int LicenseeID { get; set; }
 
         public string LicenseeName { get; set; }

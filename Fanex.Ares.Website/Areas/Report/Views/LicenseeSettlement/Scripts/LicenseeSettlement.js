@@ -28,14 +28,17 @@ $(document).ready(function () {
             $('#btnGenerate').removeClass("ui-state-disabled");
         }
     });
+
     var now = new Date();
+    var lastMonth = new Date();
+    lastMonth = lastMonth.setMonth(lastMonth.getMonth() - 1);
     $('#ddlMonth').monPickr({
         today: now,
         maxDate: now,
         minDate: new Date(2005, 1, 1),
         showDateRange: true,
         fromDayId: 'ddlFrom',
-        month: now,
+        month: lastMonth,
         sortDesc: true,
         log: function (msg) {
             console.warn(msg);
@@ -111,7 +114,9 @@ function Submit() {
             var year = $('#Year').val();
             var fromDate = new Date(year, month - 1, 1);
             var toDate = lastDateInMonth(month, year);
-            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#ddlMonth').monPickr("getFromDate", "MMMM-yyyy"));
+            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text()
+                + " from  " + $('#ddlMonth').monPickr("getFromDate", "dd-MMM-yyyy")
+                + " to  " + $('#ddlMonth').monPickr("getToDate", "dd-MMM-yyyy"));
             $(".curr").empty().text("Licensee Settlement Report for " + $('#Product option:selected').text());
             $(".grid-title").show();
             if (data.indexOf("There is no data") !== -1) {

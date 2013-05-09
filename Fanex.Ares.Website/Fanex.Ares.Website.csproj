@@ -47,6 +47,9 @@
     <Reference Include="Enyim.Caching">
       <HintPath>..\_Dependency\FanexLibs\Enyim.Caching.dll</HintPath>
     </Reference>
+    <Reference Include="Fanex.Ares.Core">
+      <HintPath>..\Fanex.Ares.Core\bin\Debug\Fanex.Ares.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
@@ -193,7 +196,7 @@
     <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
     <Compile Include="Areas\Report\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Report\Area_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Report\ReportBookcAreaRegistration.cs" />
+    <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
     <Compile Include="Areas\UserControl\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\UserControl\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\UserControl\Controllers\UserController.cs" />
@@ -210,6 +213,13 @@
     <Compile Include="Model\Test\IssueDetail.cs" />
     <Compile Include="Model\Test\IssueDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Test\Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\NumberWheelChoice.txt" />
@@ -223,9 +233,12 @@
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Invoice\Scripts\TicketListing.js" />
     <Content Include="Areas\Invoice\Scripts\TicketListingManager.js" />
-    <Content Include="Areas\Invoice\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
-    <Content Include="Areas\Invoice\Views\LicenseeSettlement\Styles\LicenseeSettlement.css" />
-    <Content Include="Areas\Invoice\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
+    <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
+    <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
@@ -619,10 +632,10 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\LicenseeSettlement\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\LicenseeSettlement\_Sportsbook.cshtml" />
-    <Content Include="Areas\Invoice\Views\LicenseeSettlement\Index.cshtml" />
-    <Content Include="Areas\Invoice\Views\LicenseeSettlement\PrintReport.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -631,6 +644,7 @@
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
+    <Content Include="Test\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -711,9 +725,17 @@
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fanex.Ares.Invoices\Invoice.csproj">
+      <Project>{FEA3AA51-57AF-42B8-BBA6-27A5CC4E074F}</Project>
+      <Name>Invoice</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fanex.Ares.Reports\Report.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>Report</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
+      <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
+      <Name>PdfHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,196 @@
+﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+@using Fanex.Ares.Report.ViewModels;
+@using Fanex.Ares.Core.Extensions;
+@{
+    var str = Server.MapPath("/Areas/Invoice/Styles/Images/Boping-logo.png");
+    var str2 = Url.Content("~/Areas/Invoice/Styles/Images/Boping-logo.png");
+    string url = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+    int i = 0;
+}
+
+<div class="div-content">
+    <table style="border: 1px solid black;">
+        <tr>
+            <td class="image-logo" style="width: 60%;">
+                @*<a class="image-logo"></a>*@
+                <img src="@Url.Content(url +"Areas/Invoice/Styles/Images/Boping-logo.png")" />
+                @*<img src="@Server.MapPath("/Areas/Invoice/Styles/Images/Boping-logo.png")" />*@
+            </td>
+            <td style="width: 40%;">
+                <span class="title">INVOICE</span>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                325 Waterfront Drive,<br />
+                Omar Hodge Building,<br />
+                Wickham's Cay,Road Town,<br />
+                Tortola,<br />
+                British Virgin Island
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table style="border: 1px solid black;">
+                    <tr>
+                        <td>
+                            TO:
+                        </td>
+                        <td>
+                            Kastraki Limited Company "Macaubet"<br />
+                            Inchalla, Le Val, Aldernet,<br />
+                            Channel Island, GY9 3ULE
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            ATTN:
+                        </td>
+                        <td>
+                            Paul Cantwell
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table style="border: 1px solid black;">
+                    <tr>
+                        <td>
+                            Invoice No:
+                        </td>
+                        <td>
+                            061
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Date:
+                        </td>
+                        <td>
+                            31-Mar-2013
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Due Date:
+                        </td>
+                        <td>
+                            30-Apr-2013
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Currency:
+                        </td>
+                        <td>
+                            EUR
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <table style="border: 1px solid black;">
+        <tr>
+            <td>
+                ITEM
+            </td>
+            <td>
+                PARTICULARS
+            </td>
+            <td>
+                REF NO
+            </td>
+            <td>
+                AMOUNT
+            </td>
+        </tr>
+        <tr>
+            <td>
+                1
+            </td>
+            <td>
+                SOftware & Data licensing & Data transmission fees for Mar 2013
+            </td>
+            <td>
+            </td>
+            <td>
+                26,713.91
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                less: Discount/Rebate
+            </td>
+            <td>
+            </td>
+            <td>
+                (nil)
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" rowspan="8">
+                For Telegraphic Transfer payment:<br />
+                Beneficiary<br />
+                Account Number<br />
+                IBAN:<br />
+                <br />
+                Correspondent<br />
+                Swiftcode:<br />
+                Account Number<br />
+                Beneficiary Bank<br />
+                Swiftcode:
+            </td>
+            <td>
+                TOTAL
+            </td>
+            <td>
+                EUR 26,713.91
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Prepared by:
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Accounting Department
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Approved By:
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Authoied Signatỏy
+            </td>
+        </tr>
+    </table>
+</div>

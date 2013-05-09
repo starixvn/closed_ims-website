@@ -18,7 +18,7 @@ $(document).ready(function () {
     } else {
         $('#btnGenerate').removeClass("ui-state-disabled");
     }
-    
+
     $('#LicenseeId').change(function () {
         GetProductByLicenseeID($(this).val());
         GetCurrencyByLicenseeID($(this).val());
@@ -100,7 +100,7 @@ function RenderFilterNote() {
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "LicenseeSettlement/GetReport",
+        url: "Invoice/GetReport",
         type: "POST",
         data: $('#formLicenseeSettlement').serialize()
                 + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
@@ -148,7 +148,7 @@ function exportReportToExcel() {
 
 function GetProductByLicenseeID(licenseeID) {
     $.ajax({
-        url: "LicenseeSettlement/GetProductByLicenseeID",
+        url: "Invoice/GetProductByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -168,7 +168,7 @@ function GetProductByLicenseeID(licenseeID) {
 
 function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
-        url: "LicenseeSettlement/GetCurencyByLicenseeID",
+        url: "Invoice/GetCurencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -194,11 +194,11 @@ function GetCurrencyByLicenseeID(licenseeID) {
 }
 
 function ClientPrinting() {
-    if ($.browser.msie) {
-        window.open('LicenseeSettlement/PrintScreen?productName=' + $('#Product :selected').text());
-    } else {
-        window.open('LicenseeSettlement/ExportPDF?isSavePDF=false');
-    }
+    //    if ($.browser.msie) {
+    //        window.open('Invoice/PrintScreen?productName=' + $('#Product :selected').text());
+    //    } else {
+    window.open('Invoice/ExportPDF?isSavePDF=false');
+    //    }
 }
 
 function daysInMonth(month, year) {
