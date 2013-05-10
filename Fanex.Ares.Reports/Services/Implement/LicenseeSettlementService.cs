@@ -198,11 +198,11 @@ namespace Fanex.Ares.Report.Services.Interface
         #endregion
 
         #region Export Excel
-        public void ExportReportToExcel(string exchange, string product)
+        public void ExportReportToExcel(string exchange, string product, bool isSaveFile = false)
         {
             if (product == "Sportsbook")
             {
-                _sportsbookExcelService.ExportReportToExcel(exchange, product);
+                _sportsbookExcelService.ExportReportToExcel(exchange, product, isSaveFile);
             }
             else if (product == "BA")
             {
@@ -210,7 +210,7 @@ namespace Fanex.Ares.Report.Services.Interface
             }
             else
             {
-                _sportsbookExcelService.ExportReportToExcel(exchange, product);
+                _sportsbookExcelService.ExportReportToExcel(exchange, product, isSaveFile);
             }
         }
         #endregion

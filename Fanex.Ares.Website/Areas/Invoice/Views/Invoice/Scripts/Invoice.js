@@ -197,7 +197,7 @@ function ClientPrinting() {
     //    if ($.browser.msie) {
     //        window.open('Invoice/PrintScreen?productName=' + $('#Product :selected').text());
     //    } else {
-    window.open('Invoice/ExportPDF?isSavePDF=false');
+    window.open('Invoice/ExportPDF?isSavePDF=false&isLandscape=false');
     //    }
 }
 

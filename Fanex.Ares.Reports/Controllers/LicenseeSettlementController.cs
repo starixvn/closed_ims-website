@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using System.Web;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Report.Criteria;
@@ -24,6 +25,7 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
+using Microsoft.Office.Interop.Excel;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -76,14 +78,14 @@ namespace Fanex.Ares.Report.Controllers
             return PartialView(SettlementView, model);
         }
 
-        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF, bool isLandscape = false)
         {
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
 
-            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath);
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath, isLandscape);
 
             // Return the PDF as a binary stream to the client.
             //return new BinaryContentResult(buffer, "application/pdf");
@@ -106,7 +108,7 @@ namespace Fanex.Ares.Report.Controllers
             }
         }
 
-        public ActionResult ExportPDF(bool isSavePDF)
+        public ActionResult ExportPDF(bool isSavePDF, bool isLandscape = true)
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
@@ -116,7 +118,37 @@ namespace Fanex.Ares.Report.Controllers
             int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
             string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
+            return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
+        }
+
+        public ActionResult ExportPDFUsingInterop(string exchange, string product)
+        {
+            var model = new LicenseeSettlementModel();
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
+            int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
+            var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
+            _service.ExportReportToExcel(exchange, product, true);
+            Application _excelApplication = new Application();
+            var workbook = _excelApplication.Workbooks.Open(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + CurrentSession.Username + "\\" + reportName + DateTime.Now.ToString("dd-MMM-yyyy") + ".xls");
+            string oldPrinter = _excelApplication.ActivePrinter;
+            _excelApplication.ActivePrinter = "Bullzip PDF Printer";
+
+
+            Worksheet sheet = workbook.ActiveSheet;
+            sheet.PageSetup.PaperSize = XlPaperSize.xlPaperA4;
+            sheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
+            sheet.PageSetup.FitToPagesWide = 1;
+            sheet.PageSetup.FitToPagesTall = 1;
+            sheet.PageSetup.LeftMargin = _excelApplication.InchesToPoints(0.7);
+            sheet.PageSetup.RightMargin = _excelApplication.InchesToPoints(0.7);
+            sheet.PageSetup.TopMargin = _excelApplication.InchesToPoints(0.75);
+            sheet.PageSetup.BottomMargin = _excelApplication.InchesToPoints(0.75);
+            sheet.PageSetup.HeaderMargin = _excelApplication.InchesToPoints(0.3);
+            sheet.PageSetup.FooterMargin = _excelApplication.InchesToPoints(0.3);
+            _excelApplication.Range["A1", "O32"].PrintOutEx();
+            _excelApplication.ActivePrinter = oldPrinter;
+            return new EmptyResult();
         }
 
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)

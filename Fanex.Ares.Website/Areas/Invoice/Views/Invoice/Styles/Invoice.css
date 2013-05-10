@@ -7,9 +7,9 @@
 
 .titleBold
 {
-    font-size: 17px !important;
+    font-size: 28px !important;
     text-align: left !important;
-    font-weight: bold !important;
+    font-weight: normal !important;
 }
 
 .titleSub
@@ -26,7 +26,7 @@
 
 .lineHeight200
 {
-    padding-top: 15px !important;
+    line-height: 20px;
 }
 
 .lineHeight80
@@ -49,9 +49,8 @@
 {
      font-size: 11px !important;
      vertical-align:middle !important;
-    line-height:100% !important;
-    height: 18px !important;
-    border: 1.5px solid #736767
+    line-height:150% !important;
+    height: 18px;
 }
 .grandtotal
 {
@@ -121,7 +120,19 @@
 }
 .col400
 {
+    width: 400px !important;
+}
+.col500
+{
+    width: 500px !important;
+}
+.col600
+{
     width: 600px !important;
+}
+.col900
+{
+    width: 900px !important;
 }
 .col140
 {
@@ -132,6 +143,18 @@
 {
     width: 10% !important;
 }
+.col40percent
+{
+    width: 40% !important;
+}
+.col60percent
+{
+    width: 60% !important;
+}
+.col100percent
+{
+    width: 100% !important;
+}
 .noneBorder
 {
     border:  0 none !important;
@@ -139,12 +162,17 @@
 
 .boldBorderBlack
 {
-    border-bottom: 2px solid black;
+    border: 2px solid black;
 }
 
 .boldBorderWhite
 {
     border-bottom: 2px solid white;
+}
+
+.boldBottomBorderBlack
+{
+    border-bottom: 2px solid black;
 }
 
 .negative-number
@@ -183,4 +211,71 @@
 {
     padding-top:5px; 
     display:block;
+}
+
+.noborder
+{
+    border: none !important;
+}
+
+.hasborder
+{
+    border: 1px solid Black !important;
+}
+
+.vertical-top
+{
+    vertical-align: top !important;
+}
+.border-left
+{
+    border-left: 1px solid black !important;
+}
+.border-right
+{
+    border-right: 1px solid black !important;
+}
+.border-top
+{
+    border-top: 1px solid black !important;
+}
+.border-bottom
+{
+    border-bottom: 1px solid black !important;
+}
+.height50
+{
+    height:50px;
+}
+.height70
+{
+    height:70px;
+}
+.height100
+{
+    height:100px;
+}
+.height200
+{
+    height:200px;
+}
+.height300
+{
+    height:300px;
+}
+.height400
+{
+    height:400px;
+}
+.height500
+{
+    height:500px;
+}
+.padding-top10
+{
+    padding-top: 10px;
+}
+.red
+{
+    color: Red;
 }

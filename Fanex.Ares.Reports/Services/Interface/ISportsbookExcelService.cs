@@ -9,6 +9,6 @@ namespace Fanex.Ares.Report.Services.Interface
 {
     public interface ISportsbookExcelService
     {
-        void ExportReportToExcel(string exchange, string product);
+        void ExportReportToExcel(string exchange, string product, bool isSaveFile = false);
     }
 }

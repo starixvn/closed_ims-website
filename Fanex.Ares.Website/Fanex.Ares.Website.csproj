@@ -636,6 +636,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

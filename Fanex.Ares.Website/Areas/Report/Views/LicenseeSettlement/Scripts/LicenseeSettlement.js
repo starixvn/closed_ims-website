@@ -10,6 +10,7 @@ $(document).ready(function () {
     $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
     $('#btnExcel').click(function () { exportReportToExcel(); });
+    $('#btnPrint').click(function () { exportReportToPDF(); });
 
     RenderFilterNote();
 
@@ -138,6 +139,18 @@ function Submit() {
 
 function exportReportToExcel() {
     var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
+
+    var iframe = $('body iframe');
+    if (iframe.length == 0) {
+        iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
+        iframe.appendTo('body');
+    }
+
+    iframe.attr('src', url);
+}
+
+function exportReportToPDF() {
+    var url = window.rootUrl + 'LicenseeSettlement/ExportPDFUsingInterop?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
 
     var iframe = $('body iframe');
     if (iframe.length == 0) {

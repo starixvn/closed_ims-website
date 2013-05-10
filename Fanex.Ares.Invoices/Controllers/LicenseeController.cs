@@ -75,14 +75,14 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView(SettlementView, model);
         }
 
-        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF, bool isLandscape = false)
         {
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
 
-            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath);
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath, isLandscape);
 
             // Return the PDF as a binary stream to the client.
             //return new BinaryContentResult(buffer, "application/pdf");
@@ -105,7 +105,7 @@ namespace Fanex.Ares.Invoice.Controllers
             }
         }
 
-        public ActionResult ExportPDF(bool isSavePDF)
+        public ActionResult ExportPDF(bool isSavePDF, bool isLandscape = false)
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
@@ -117,7 +117,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
             string fileName = "test";
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "_Sportsbook", model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
+            return this.ViewPdf("", "_Sportsbook", model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
         }
     }
 }

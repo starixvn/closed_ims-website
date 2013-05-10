@@ -14,6 +14,8 @@ using System.Linq.Expressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Globalization;
+using System.Web;
+using System.Collections.Specialized;
 
 namespace Fanex.Ares.Core.Extensions
 {
@@ -349,6 +351,16 @@ namespace Fanex.Ares.Core.Extensions
         public static MvcHtmlString RawWithLineBreak(this HtmlHelper helper, string htmlString)
         {
             return new MvcHtmlString(htmlString.Replace("\n", "<br />"));
+        }
+
+        public static string GetFullDomainURL()
+        {
+            NameValueCollection variables = HttpContext.Current.Request.ServerVariables;
+
+            string protocol = (variables["SERVER_PORT_SECURE"] == "1") ? "https://" : "http://";
+            string domain = variables["SERVER_NAME"];
+            string port = variables["SERVER_PORT"];
+            return protocol + domain + ":" + port + (HttpRuntime.AppDomainAppVirtualPath == "/" ? string.Empty : HttpRuntime.AppDomainAppVirtualPath);
         }
 
         #endregion Dropdownlist

@@ -17,13 +17,14 @@ using Fanex.Ares.Core.Extensions;
 using Resource;
 using Fanex.Common.Extensions;
 using Fanex.Ares.Core.Utils;
+using System.IO;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
     public class SportsbookExcelService : ServiceBase, ISportsbookExcelService
     {
         #region Export Excel
-        public void ExportReportToExcel(string exchange, string product)
+        public void ExportReportToExcel(string exchange, string product, bool isSaveFile = false)
         {
             try
             {
@@ -48,6 +49,21 @@ namespace Fanex.Ares.Report.Services.Interface
                     //report & exchange rate
                     ExportSportsBookReportToExcelAssignDetailAndExchangeRate(model.ExchangeList, model.Report, model.LicenseeInfor.LicenseeName, model.LicenseeInfor.SettlementDate,
                         ref rowIndex, ref ewReport, exchange);
+                }
+
+                if (isSaveFile) 
+                {
+                    if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile"))
+                    {
+                        Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile");
+                    }
+
+                    if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username))
+                    {
+                        Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username);
+                    }
+
+                    excelFile.SaveXls(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username + "\\" + reportName + DateTime.Now.ToString("dd-MMM-yyyy") + ".xls");
                 }
 
                 #region response file

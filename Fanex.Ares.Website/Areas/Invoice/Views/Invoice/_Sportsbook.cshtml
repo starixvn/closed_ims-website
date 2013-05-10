@@ -2,26 +2,20 @@
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @{
-    var str = Server.MapPath("/Areas/Invoice/Styles/Images/Boping-logo.png");
-    var str2 = Url.Content("~/Areas/Invoice/Styles/Images/Boping-logo.png");
-    string url = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
-    int i = 0;
+    string domain = HtmlHelperExtensions.GetFullDomainURL();
 }
-
 <div class="div-content">
-    <table style="border: 1px solid black;">
+    <table class="col900">
         <tr>
-            <td class="image-logo" style="width: 60%;">
-                @*<a class="image-logo"></a>*@
-                <img src="@Url.Content(url +"Areas/Invoice/Styles/Images/Boping-logo.png")" />
-                @*<img src="@Server.MapPath("/Areas/Invoice/Styles/Images/Boping-logo.png")" />*@
+            <td class="col500">
+                <img width=500 height=70 src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Boping-logo.png")" />
             </td>
-            <td style="width: 40%;">
-                <span class="title">INVOICE</span>
+            <td class="col400 alignright">
+                <span class="title alignright titleBold">INVOICE</span>
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="cellstyle noborder" colspan="2">
                 325 Waterfront Drive,<br />
                 Omar Hodge Building,<br />
                 Wickham's Cay,Road Town,<br />
@@ -29,113 +23,202 @@
                 British Virgin Island
             </td>
         </tr>
+    </table>
+    <table class="col900">
         <tr>
             <td>
-                <table style="border: 1px solid black;">
+                <table class="cellPadding hasborder col100percent">
                     <tr>
-                        <td>
+                        <td class="cellstyle col30 vertical-top" valign="top">
                             TO:
                         </td>
-                        <td>
-                            Kastraki Limited Company "Macaubet"<br />
+                        <td class="cellstyle vertical-top">
+                            <span class="bold red">Kastraki Limited Company "Macaubet"</span><br />
                             Inchalla, Le Val, Aldernet,<br />
-                            Channel Island, GY9 3ULE
+                            Channel Island, GY9 3ULE<br />
+                            <br />
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2">
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
+                        <td class="cellstyle col30 vertical-top">
                             ATTN:
                         </td>
-                        <td>
+                        <td class="cellstyle vertical-top">
                             Paul Cantwell
                         </td>
                     </tr>
                 </table>
             </td>
             <td>
-                <table style="border: 1px solid black;">
+            </td>
+            <td>
+                <table class="noborder col100percent">
                     <tr>
-                        <td>
+                        <td class="cellstyle" rowspan="2">
                             Invoice No:
                         </td>
-                        <td>
+                        <td class="cellstyle aligncenter">
                             061
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="boldBottomBorderBlack">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cellstyle" rowspan="2">
                             Date:
                         </td>
-                        <td>
+                        <td class="cellstyle aligncenter">
                             31-Mar-2013
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="boldBottomBorderBlack">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cellstyle" rowspan="2">
                             Due Date:
                         </td>
-                        <td>
+                        <td class="cellstyle aligncenter">
                             30-Apr-2013
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td class="boldBottomBorderBlack">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="cellstyle" rowspan="2">
                             Currency:
                         </td>
-                        <td>
+                        <td class="cellstyle aligncenter bold-red">
                             EUR
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="boldBottomBorderBlack">
                         </td>
                     </tr>
                 </table>
             </td>
         </tr>
     </table>
-    <table style="border: 1px solid black;">
+    <table class="cellPadding col900 hasborder height200">
         <tr>
-            <td>
+            <td class="cellstyle hasborder aligncenter">
                 ITEM
             </td>
-            <td>
+            <td class="cellstyle hasborder aligncenter">
                 PARTICULARS
             </td>
-            <td>
+            <td class="cellstyle hasborder aligncenter">
                 REF NO
             </td>
-            <td>
+            <td class="cellstyle hasborder aligncenter">
                 AMOUNT
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="noborder">
                 1
             </td>
-            <td>
+            <td class="noborder">
                 SOftware & Data licensing & Data transmission fees for Mar 2013
             </td>
-            <td>
+            <td class="border-left border-right">
             </td>
-            <td>
+            <td class="border-left border-right alignright">
                 26,713.91
             </td>
         </tr>
         <tr>
-            <td>
+            <td class="noborder">
             </td>
-            <td>
+            <td class="noborder">
                 less: Discount/Rebate
             </td>
-            <td>
+            <td class="border-left border-right">
             </td>
-            <td>
+            <td class="border-left border-right alignright">
                 (nil)
             </td>
         </tr>
+        <tr class="height50">
+            <td class="noborder">
+            </td>
+            <td class="noborder">
+            </td>
+            <td class="border-left border-right">
+            </td>
+            <td class="border-left border-right alignright">
+            </td>
+        </tr>
+        <tr class="height50">
+            <td class="noborder">
+            </td>
+            <td class="noborder">
+            </td>
+            <td class="border-left border-right">
+            </td>
+            <td class="border-left border-right alignright">
+            </td>
+        </tr>
         <tr>
-            <td colspan="2" rowspan="8">
+            <td class="noborder">
+            </td>
+            <td class="noborder">
+            </td>
+            <td class="border-left border-right">
+            </td>
+            <td class="border-left border-right alignright">
+            </td>
+        </tr>
+        <tr>
+            <td class="hasborder" colspan="2" rowspan="5">
+                <span class="bold">For Telegraphic Transfer payment:</span><br />
+                Beneficiary<br />
+                Account Number<br />
+                IBAN:<br />
+                <br />
+                Correspondent<br />
+                Swiftcode:<br />
+                Account Number<br />
+                Beneficiary Bank<br />
+                Swiftcode:
+            </td>
+            <td class="hasborder height50 aligncenter bold">
+                TOTAL
+            </td>
+            <td class="hasborder alignright bold">
+                EUR 26,713.91
+            </td>
+        </tr>
+        <tr>
+            <td class="hasborder height70 alignleft padding-top10 vertical-top" colspan="2">
+                Prepared by:
+            </td>
+        </tr>
+        <tr>
+            <td class="noborder height50 alignleft vertical-top bold" colspan="2">
+                Accounting Department:
+            </td>
+        </tr>
+        <tr>
+            <td class="noborder height50 alignleft vertical-top border-bottom" colspan="2">
+                Approved By:
+            </td>
+        </tr>
+        <tr>
+            <td class="hasborder alignleft vertical-top bold" colspan="2">
+                Authorized Signatory
+            </td>
+        </tr>
+    </table>
+    @* <table>
+        <tr>
+            <td class="cellstyle boldBorderBlack col250">
                 For Telegraphic Transfer payment:<br />
                 Beneficiary<br />
                 Account Number<br />
@@ -147,50 +230,33 @@
                 Beneficiary Bank<br />
                 Swiftcode:
             </td>
-            <td>
+            <td class="cellstyle boldBorderBlack col50">
                 TOTAL
             </td>
-            <td>
+            <td class="cellstyle boldBorderBlack col50">
                 EUR 26,713.91
             </td>
         </tr>
         <tr>
-            <td colspan="2">
+            <td class="cellstyle boldBorderBlack col100" colspan="2">
                 Prepared by:
             </td>
         </tr>
         <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
+            <td class="cellstyle boldBorderBlack col100" colspan="2">
                 Accounting Department
             </td>
         </tr>
         <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
+            <td class="cellstyle boldBorderBlack col100" colspan="2">
                 Approved By:
             </td>
         </tr>
+        
         <tr>
-            <td>
-            </td>
-            <td>
+            <td class="cellstyle boldBorderBlack col100" colspan="2">
+                Authoied Signatory
             </td>
         </tr>
-        <tr>
-            <td colspan="2">
-                Authoied Signatỏy
-            </td>
-        </tr>
-    </table>
+    </table>*@
 </div>
