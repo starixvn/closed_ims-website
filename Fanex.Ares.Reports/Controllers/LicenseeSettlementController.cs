@@ -26,6 +26,7 @@ using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
 using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -116,7 +117,7 @@ namespace Fanex.Ares.Report.Controllers
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
             int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
+            string fileName = _service.GetFileName();
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
         }
@@ -127,28 +128,65 @@ namespace Fanex.Ares.Report.Controllers
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
             int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
+            var reportName = _service.GetFileName();
+            var reportFolder = AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + CurrentSession.Username + "\\";
             _service.ExportReportToExcel(exchange, product, true);
-            Application _excelApplication = new Application();
-            var workbook = _excelApplication.Workbooks.Open(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + CurrentSession.Username + "\\" + reportName + DateTime.Now.ToString("dd-MMM-yyyy") + ".xls");
-            string oldPrinter = _excelApplication.ActivePrinter;
-            _excelApplication.ActivePrinter = "Bullzip PDF Printer";
+            Application _excelApplication = null;
+            Workbook workbook = null;
+            try
+            {
+                _excelApplication = new Application();
+                _excelApplication.Visible = false;
+                workbook = _excelApplication.Workbooks.Open(reportFolder + reportName + ".xls");
+                string oldPrinter = _excelApplication.ActivePrinter;
+                //_excelApplication.ActivePrinter = "Bullzip PDF Printer on Ne06:";
+                //_excelApplication.ActivePrinter = string.Empty;
+                Worksheet sheet = workbook.ActiveSheet;
+                //sheet.PageSetup.PaperSize = XlPaperSize.xlPaperA5;
+                sheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
+                sheet.PageSetup.Zoom = false;
+                sheet.PageSetup.FitToPagesWide = 1;
+                sheet.PageSetup.FitToPagesTall = 1;
+                sheet.PageSetup.LeftMargin = _excelApplication.InchesToPoints(0.7);
+                sheet.PageSetup.RightMargin = _excelApplication.InchesToPoints(0.7);
+                sheet.PageSetup.TopMargin = _excelApplication.InchesToPoints(0.75);
+                sheet.PageSetup.BottomMargin = _excelApplication.InchesToPoints(0.75);
+                sheet.PageSetup.HeaderMargin = _excelApplication.InchesToPoints(0.3);
+                sheet.PageSetup.FooterMargin = _excelApplication.InchesToPoints(0.3);
+                //_excelApplication.PrintCommunication = true;
+                _excelApplication.Range["A1", "O32"].ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, reportFolder + reportName.Replace(".xls", ".pdf"), OpenAfterPublish: false);
+                //_excelApplication.Dialogs[XlBuiltInDialog.xlDialogPrint]
+                // _excelApplication.ActivePrinter = oldPrinter;
+                //workbook.Save();
+                //workbook.SaveAs(reportFolder + reportName + ".pdf", XlFixedFormatType.xlTypePDF);
+                //_excelApplication.ActiveWorkbook.SaveAs(reportFolder + reportName + ".pdf", XlFixedFormatType.xlTypePDF);
+                workbook.Close(false);
+                Marshal.FinalReleaseComObject(workbook);
+                _excelApplication.Quit();
+                Marshal.FinalReleaseComObject(_excelApplication);
+            }
+            catch (Exception ex)
+            {
+                workbook.Close(false);
+                Marshal.FinalReleaseComObject(workbook);
+                _excelApplication.Quit();
+                Marshal.FinalReleaseComObject(_excelApplication);
+            }
 
 
-            Worksheet sheet = workbook.ActiveSheet;
-            sheet.PageSetup.PaperSize = XlPaperSize.xlPaperA4;
-            sheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
-            sheet.PageSetup.FitToPagesWide = 1;
-            sheet.PageSetup.FitToPagesTall = 1;
-            sheet.PageSetup.LeftMargin = _excelApplication.InchesToPoints(0.7);
-            sheet.PageSetup.RightMargin = _excelApplication.InchesToPoints(0.7);
-            sheet.PageSetup.TopMargin = _excelApplication.InchesToPoints(0.75);
-            sheet.PageSetup.BottomMargin = _excelApplication.InchesToPoints(0.75);
-            sheet.PageSetup.HeaderMargin = _excelApplication.InchesToPoints(0.3);
-            sheet.PageSetup.FooterMargin = _excelApplication.InchesToPoints(0.3);
-            _excelApplication.Range["A1", "O32"].PrintOutEx();
-            _excelApplication.ActivePrinter = oldPrinter;
-            return new EmptyResult();
+            System.IO.FileInfo file = new System.IO.FileInfo(reportFolder + reportName + ".pdf");
+            var ms = file.OpenRead();
+            ms.Position = 0;
+            //System.IO.Stream stream = new System.IO.StreamReader(reportFolder + reportName + ".pdf").ReadToEnd;
+            //System.IO.Stream stream = System.IO.File.OpenRead(reportFolder + reportName + ".pdf");
+            //var response = HttpContext.Response;
+            //response.Clear();
+            //response.ContentType = "application/vnd.ms-excel";
+            //response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", reportName));
+            return new FileStreamResult(ms, "application/pdf") {
+                FileDownloadName = reportName + ".pdf"
+            };
+            //return new EmptyResult();
         }
 
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
