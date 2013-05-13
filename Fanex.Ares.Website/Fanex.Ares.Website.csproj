@@ -234,6 +234,7 @@
     <Content Include="Areas\Invoice\Scripts\TicketListing.js" />
     <Content Include="Areas\Invoice\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />

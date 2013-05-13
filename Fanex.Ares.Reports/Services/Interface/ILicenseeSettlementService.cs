@@ -18,5 +18,6 @@ namespace Fanex.Ares.Report.Services.Interface
         Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria);
         IEnumerable<ExchangeRate> GetLicenseeExchangeRate(IMS_ExchangeRateBillingSelCriteria criteria);
         LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria);
+        string GetFileName();
     }
 }

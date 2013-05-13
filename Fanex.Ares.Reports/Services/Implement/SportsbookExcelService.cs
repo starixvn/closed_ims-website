@@ -24,7 +24,7 @@ namespace Fanex.Ares.Report.Services.Interface
     public class SportsbookExcelService : ServiceBase, ISportsbookExcelService
     {
         #region Export Excel
-        public void ExportReportToExcel(string exchange, string product, bool isSaveFile = false)
+        public void ExportReportToExcel(string exchange, string product, string fileName, bool isSaveFile = false)
         {
             try
             {
@@ -34,7 +34,6 @@ namespace Fanex.Ares.Report.Services.Interface
                 model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session,CacheServiceKey.SessionKeyLicenseeSettlementReport);
                 int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
                 int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-                var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;
@@ -63,14 +62,14 @@ namespace Fanex.Ares.Report.Services.Interface
                         Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username);
                     }
 
-                    excelFile.SaveXls(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username + "\\" + reportName + DateTime.Now.ToString("dd-MMM-yyyy") + ".xls");
+                    excelFile.SaveXls(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username + "\\" + fileName);
                 }
 
                 #region response file
                 var response = HttpContext.Current.Response;
                 response.Clear();
                 response.ContentType = "application/vnd.ms-excel";
-                response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", reportName));
+                response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", fileName));
                 excelFile.SaveXls(response.OutputStream);
                 #endregion
             }

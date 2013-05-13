@@ -117,7 +117,7 @@ namespace Fanex.Ares.Report.Controllers
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
             int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
+            string fileName = _service.GetFileName();
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
         }
@@ -128,7 +128,7 @@ namespace Fanex.Ares.Report.Controllers
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
             int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
+            var reportName = _service.GetFileName();
             var reportFolder = AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + CurrentSession.Username + "\\";
             _service.ExportReportToExcel(exchange, product, true);
             Application _excelApplication = null;
@@ -137,7 +137,7 @@ namespace Fanex.Ares.Report.Controllers
             {
                 _excelApplication = new Application();
                 _excelApplication.Visible = false;
-                workbook = _excelApplication.Workbooks.Open(reportFolder + reportName + DateTime.Now.ToString("dd-MMM-yyyy") + ".xls");
+                workbook = _excelApplication.Workbooks.Open(reportFolder + reportName + ".xls");
                 string oldPrinter = _excelApplication.ActivePrinter;
                 //_excelApplication.ActivePrinter = "Bullzip PDF Printer on Ne06:";
                 //_excelApplication.ActivePrinter = string.Empty;
