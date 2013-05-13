@@ -126,64 +126,70 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         [HttpGet]
         public ActionResult AccountingLogin(string username, string onuserId, string time)
         {
-            Session.Clear();
-            username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
-            onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
-            time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
-            string currentTime = _userService.UserSSOGetTime();
-
-            var expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
-
-            if (expiration.TotalSeconds <= _timeExipration)
+            try
             {
-                #region do SSO check-in
+                Session.Clear();
+                username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
+                onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
+                time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
+                string currentTime = _userService.UserSSOGetTime();
 
-                var criteria = new AccountingUserCheckOnlineStatusCriteria
-                {
-                    IsKickedOut = false,
-                    On_UserID = Convert.ToInt32(onuserId)
-                };
+                
+                    #region do SSO check-in
 
-                var onlineStatus = _iAdminService.CheckUserOnlineStatus(criteria);
-
-                #endregion do SSO check-in
-
-                if (onlineStatus)
-                {
-                    var user = _userService.GetByUsername(username) as User;
-                    if (user != null)
+                    var criteria = new AccountingUserCheckOnlineStatusCriteria
                     {
-                        #region saves user session & auth info
+                        IsKickedOut = false,
+                        On_UserID = Convert.ToInt32(onuserId)
+                    };
 
-                        _currentSession.UserId = user.Id;
-                        _currentSession.Username = user.Username;
-                        _currentSession.OnUserId = criteria.On_UserID;
-                        _currentSession.SessionId = Session.SessionID.ToString();
-                        _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
+                    var onlineStatus = _iAdminService.CheckUserOnlineStatus(criteria);
 
-                        AppSession.CurrentUser = user;
-                        AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
-                        //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
+                    #endregion do SSO check-in
 
-                        if (this.SiteId != 0)
+                    if (onlineStatus)
+                    {
+                        var user = _userService.GetByUsername(username) as User;
+                        if (user != null)
                         {
-                            _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
-                                                                                    user.Id,
-                                                                                    SiteId,
-                                                                                    Environment,
-                                                                                    true) as IList<MenuItem>;
-                            AppSession.CurrentUserMenu = _currentSession.MenuItemList;
+                            #region saves user session & auth info
+
+                            _currentSession.UserId = user.Id;
+                            _currentSession.Username = user.Username;
+                            _currentSession.OnUserId = criteria.On_UserID;
+                            _currentSession.SessionId = Session.SessionID.ToString();
+                            _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
+
+                            AppSession.CurrentUser = user;
+                            AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
+                            //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
+
+                            if (this.SiteId != 0)
+                            {
+                                _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
+                                                                                        user.Id,
+                                                                                        SiteId,
+                                                                                        Environment,
+                                                                                        true) as IList<MenuItem>;
+                                AppSession.CurrentUserMenu = _currentSession.MenuItemList;
+                            }
+
+                            CreateAuthInfo(user);
+
+                            #endregion saves user session & auth info
                         }
 
-                        CreateAuthInfo(user);
-
-                        #endregion saves user session & auth info
+                        return Redirect(FormsAuthentication.DefaultUrl);
                     }
-                    
-                    return Redirect(FormsAuthentication.DefaultUrl);
-                }
+                
+                return Redirect(FormsAuthentication.LoginUrl);
             }
-            return Redirect(FormsAuthentication.LoginUrl);
+            catch (Exception ex) 
+            {
+                LoggingHandler.Log(ex);
+                return Redirect(FormsAuthentication.LoginUrl);
+            }
+            
         }
         #region utilities
 
