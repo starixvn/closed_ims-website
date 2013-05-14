@@ -249,7 +249,18 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement_bk.css" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\alert.png" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\btn-close.png" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\confirm.png" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\error.png" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\info.png" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\question.png" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.css" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.js" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.min.css" />
+    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.min.js" />
     <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
     <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
     <Content Include="Areas\UserLogin\themes\Copy of login.css" />
@@ -640,6 +651,8 @@
     <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Racing.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsbookBK.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

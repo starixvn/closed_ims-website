@@ -36,6 +36,16 @@ namespace Fanex.Ares.Website.App_Start
                 ));
             #endregion
 
+            #region NAP msgbox
+            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/lib/msgbox/JS").Include(
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/Areas/UserLogin/scripts/lib/msgbox/CSS").Include(
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"
+            ));
+            #endregion
+
             #region Multiselect Plugin
             bundles.Add(new StyleBundle("~/Scripts/_Libs/MultipleSelect/style").Include(
             "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"
