@@ -23,7 +23,7 @@ namespace Fanex.Core.PdfHelper
         private const int HorizontalMargin = 20;
         private const int VerticalMargin = 20;
 
-        public byte[] Render(string htmlText, string pageTitle, int numericRows, string cssFilePath)
+        public byte[] Render(string htmlText, string pageTitle, int numericRows, string cssFilePath, bool isLandscape = true)
         {
             byte[] renderedBuffer;
 
@@ -32,7 +32,7 @@ namespace Fanex.Core.PdfHelper
             using (var outputMemoryStream = new MemoryStream())
             {
                 //using (var pdfDocument = new Document(PageSize.A4, HorizontalMargin, HorizontalMargin, VerticalMargin, VerticalMargin))
-                using (var pdfDocument = new Document(PageSize.A4.Rotate(), HorizontalMargin, HorizontalMargin, VerticalMargin, VerticalMargin))
+                using (var pdfDocument = new Document(isLandscape ? PageSize.A4.Rotate() : PageSize.A4, HorizontalMargin, HorizontalMargin, VerticalMargin, VerticalMargin))
                 {
                     PdfWriter pdfWriter = PdfWriter.GetInstance(pdfDocument, outputMemoryStream);
                     pdfWriter.CloseStream = false;

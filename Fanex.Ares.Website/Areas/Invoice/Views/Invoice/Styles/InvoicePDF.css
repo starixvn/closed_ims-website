@@ -2,3 +2,236 @@
 {
     background-image: url(D:\Gito\ims\Fanex.Ares.Website\Areas\Invoice\Styles\Images\Boping-logo.png);
 }
+.titleBold
+{
+    size: 20pt;
+    align: left;
+    font-weight: normal;
+}
+.titleSub
+{
+    size: 11pt;
+    align: left;
+}
+.cellInfo
+{
+    size: 8pt;
+    align: left;
+}
+
+.lineHeight200
+{
+    line-height: 200%;
+}
+.lineHeight80
+{
+    line-height: 80%;
+}
+.headerReport
+{
+    size: 7pt;
+    align: center;
+    font-weight: bold;
+    color: #ffffff;
+    bgcolor: #618ADA;
+}
+.cellstyle
+{
+    size: 7pt;
+    valign: middle;
+    line-height: 120%;
+}
+.grandtotal
+{
+    size: 7pt;
+    valign: middle;
+    line-height: 100%;
+    font-weight: bold;
+}
+
+.aligncenter
+{
+    align: center;
+}
+
+.alignright
+{
+    align: right;
+}
+
+.alignleft
+{
+    align: left;
+}
+
+.col60
+{
+    width: 60;
+}
+.col10
+{
+    width: 10;
+}
+.col30
+{
+    width: 30;
+}
+.col200
+{
+    width: 200;
+}
+.col250
+{
+    width: 250;
+}
+.col65
+{
+    width: 65;
+}
+.col40
+{
+    width: 40;
+}
+.col650
+{
+    width: 600;
+}
+
+.col120
+{
+    width: 120;
+}
+.col100
+{
+    width: 100;
+}
+.col80
+{
+    width: 80;
+}
+
+.col50
+{
+    width: 50;
+}
+.col380
+{
+    width: 380;
+}
+
+.col400
+{
+    width: 400;
+}
+.col300
+{
+    width: 300;
+}
+.col600
+{
+    width: 600;
+}
+.col140
+{
+    width: 140;
+}
+
+.col10percent
+{
+    width: 10%;
+}
+.col10percent
+{
+    width: 20%;
+}
+.noneBorder
+{
+    border: 0;
+}
+.colborder01
+{
+    border: 0.1;
+}
+
+.boldBorderBlack
+{
+    border: 1;
+}
+.boldBorderBlack-top
+{
+    border: 1;
+}
+.boldBorderBlack-left
+{
+    border: 1;
+}
+.roundedBoldBorderBlack
+{
+    border-top: 1;
+    border-left: 1;
+    border-right: 1;
+    border-bottom: 1;
+}
+
+.boldBorderWhite
+{
+    border: 0;
+}
+
+.negative-number
+{
+    color: Red;
+}
+
+.even
+{
+    bgcolor: #e4f2fd;
+}
+
+.product-name
+{
+    color: #C21515;
+    font-weight: bold;
+}
+
+.licensee-name
+{
+    color: #0040FF;
+    font-weight: bold;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.bold-red
+{
+    font-weight: bold;
+    color: Red;
+}
+
+
+.pad5
+{
+    br: br;
+}
+
+.height100
+{
+    height: 100px;
+}
+
+.padding-top-none
+{
+    padding: 0;
+}
+
+.lineHeight400
+{
+    line-height: 400%;
+}
+.borderCollapse
+{
+    border-collapse: collapse;
+}

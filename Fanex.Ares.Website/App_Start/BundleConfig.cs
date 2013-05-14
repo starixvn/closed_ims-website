@@ -26,9 +26,14 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
                 "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"
-
             ));
 
+            #endregion
+
+            #region NAP Recheckin
+            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts").Include(
+                "~/Areas/UserLogin/scripts/ReCheckIn.js"
+                ));
             #endregion
 
             #region Multiselect Plugin

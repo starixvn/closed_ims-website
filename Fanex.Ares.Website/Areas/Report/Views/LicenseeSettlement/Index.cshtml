@@ -96,8 +96,7 @@
     </div>
     <div class="grid-toolbox">
         <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
-       @* <input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print"
-            onclick="ClientPrinting();" />*@
+        @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Xlsx })'"  />
     </div>
 </div>

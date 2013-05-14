@@ -17,13 +17,14 @@ using Fanex.Ares.Core.Extensions;
 using Resource;
 using Fanex.Common.Extensions;
 using Fanex.Ares.Core.Utils;
+using System.IO;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
     public class SportsbookExcelService : ServiceBase, ISportsbookExcelService
     {
         #region Export Excel
-        public void ExportReportToExcel(string exchange, string product)
+        public void ExportReportToExcel(string exchange, string product, string fileName, bool isSaveFile = false)
         {
             try
             {
@@ -33,7 +34,6 @@ namespace Fanex.Ares.Report.Services.Interface
                 model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session,CacheServiceKey.SessionKeyLicenseeSettlementReport);
                 int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
                 int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-                var reportName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
                 var rowIndex = 0;
@@ -50,11 +50,26 @@ namespace Fanex.Ares.Report.Services.Interface
                         ref rowIndex, ref ewReport, exchange);
                 }
 
+                if (isSaveFile) 
+                {
+                    if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile"))
+                    {
+                        Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile");
+                    }
+
+                    if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username))
+                    {
+                        Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username);
+                    }
+
+                    excelFile.SaveXls(AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + base._session.Username + "\\" + fileName);
+                }
+
                 #region response file
                 var response = HttpContext.Current.Response;
                 response.Clear();
                 response.ContentType = "application/vnd.ms-excel";
-                response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", reportName));
+                response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", fileName));
                 excelFile.SaveXls(response.OutputStream);
                 #endregion
             }
@@ -75,7 +90,7 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Cells[rowIndex += 1, 0].Value = Labels.Finance_Department;
             ewReport.Cells[rowIndex += 2, 0].Value = Labels.SETTLEMENT_REPORT;
             ewReport.Cells[rowIndex, 3].Style.Font.Weight = ExcelFont.BoldWeight;
-            ewReport.Cells[rowIndex, 3].Value = licenseeInfo.SettlementDate.ToString("dd-MMM-yy");
+            ewReport.Cells[rowIndex, 3].Value = "From " + licenseeInfo.FromDate.ToAresDayMonthYear() + " To " + licenseeInfo.ToDate.ToAresDayMonthYear();
             ewReport.Cells[rowIndex += 1, 0].Value = string.Format("{0}:", Labels.Licensee.ToUpper());
             ewReport.Cells[rowIndex, 2].Style.Font.Weight = ExcelFont.BoldWeight;
             ewReport.Cells[rowIndex, 2].Style.Font.Color = Color.FromArgb(0, 64, 255);

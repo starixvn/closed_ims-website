@@ -36,7 +36,17 @@ namespace Fanex.Ares.Report.Services.Interface
         }
         #endregion
 
-        
+        public string GetFileName()
+        {
+            LicenseeSettlementModel model = null;
+            if (SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport) == null)
+            {
+                return string.Empty;
+            }
+
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            return model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + model.LicenseeInfor.FromDate.ToAresDayMonthYear() + "_To_" + model.LicenseeInfor.ToDate.ToAresDayMonthYear();
+        }
 
         #region Generate Report
         public LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
@@ -198,11 +208,11 @@ namespace Fanex.Ares.Report.Services.Interface
         #endregion
 
         #region Export Excel
-        public void ExportReportToExcel(string exchange, string product)
+        public void ExportReportToExcel(string exchange, string product, bool isSaveFile = false)
         {
             if (product == "Sportsbook")
             {
-                _sportsbookExcelService.ExportReportToExcel(exchange, product);
+                _sportsbookExcelService.ExportReportToExcel(exchange, product, GetFileName(), isSaveFile);
             }
             else if (product == "BA")
             {
@@ -210,7 +220,7 @@ namespace Fanex.Ares.Report.Services.Interface
             }
             else
             {
-                _sportsbookExcelService.ExportReportToExcel(exchange, product);
+                _sportsbookExcelService.ExportReportToExcel(exchange, product, GetFileName(), isSaveFile);
             }
         }
         #endregion

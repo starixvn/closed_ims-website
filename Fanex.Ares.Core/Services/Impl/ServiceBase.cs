@@ -19,6 +19,8 @@ using System.Web.Mvc;
 using System.Data;
 using Fanex.Ares.Core.Criteria;
 using Fanex.Ares.Core.Repository.Impl;
+using Fanex.NAP.Core.Web.Context;
+using Fanex.NAP.Core.Web.Session;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
@@ -31,11 +33,17 @@ namespace Fanex.Ares.Core.Services.Impl
 
         protected readonly BaseRepository _repository;
 
+        protected readonly ICurrentContext _context;
+
+        protected readonly ICurrentSession _session;
+
         public ServiceBase(IDynamicRepository repository = null)
         {
             this.DynamicRepository = repository ?? new DynamicRepository();
             this._cacheManager = CacheService.CreateInstance();
             this._repository = new BaseRepository();
+            this._context = this._context ?? new CurrentContext();
+            this._session = this._session ?? new CurrentSession();
         }
 
         /// <summary>
