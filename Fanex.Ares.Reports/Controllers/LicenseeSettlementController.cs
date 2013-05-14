@@ -13,8 +13,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using Fanex.Ares.Core.Extensions;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Report.Criteria;
@@ -35,6 +37,8 @@ namespace Fanex.Ares.Report.Controllers
         private readonly StandardPdfRenderer standardPdfRenderer;
 
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+
+        
 
         #region View path
 
@@ -123,6 +127,68 @@ namespace Fanex.Ares.Report.Controllers
         {
             _service.ExportReportToExcel(exchange, product);
             return new EmptyResult();
+        }
+
+
+
+
+        //testing
+        public ActionResult ExportDocument(WorkBookExtension.DocumentType documentType )
+        {
+            var model = new LicenseeSettlementModel();
+
+
+            
+
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+
+
+            
+
+            string html = this.htmlViewRenderer.RenderViewToString(this, SettlementView, model);
+
+
+            
+            var excelCssFilePath = new List<string>();
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
+           
+            var excelExtension = new WorkBookExtension();
+            var ms = excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Landscape);
+            if (ms != null)
+            {
+                // return the filestream
+                // Rewind the memory stream to the beginning
+                ms.Seek(0, SeekOrigin.Begin);
+
+                int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
+                int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
+                string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year + "." + documentType.ToString().ToLower();
+
+                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
+            }
+            return new EmptyResult();
+
+            
+        }
+
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);// ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                return sw.GetStringBuilder().ToString();
+
+
+            }
         }
 
         public JsonResult GetProductByLicenseeID(int licenseeID)

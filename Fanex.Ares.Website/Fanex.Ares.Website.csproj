@@ -245,6 +245,7 @@
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement_bk.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
@@ -629,13 +630,15 @@
     <Content Include="Areas\Invoice\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
-    <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsbookBK.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -703,6 +706,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Employee.cshtml" />
     <Content Include="Web.Configuration\PdfHelper.config" />
+    <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
