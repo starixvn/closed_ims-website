@@ -4,6 +4,12 @@
     width: 1260px;
     margin: 6px 0 0 10px;
 }
+.Racing-default-font
+{
+    font-size: 12px;
+    font-family:"Times New Roman" , Times, serif;
+    line-height: 100%;
+}
 
 .titleBold
 {
@@ -229,6 +235,10 @@
 {
     vertical-align: top !important;
 }
+.vertical-middle
+{
+    vertical-align: middle !important;
+}
 .border-left
 {
     border-left: 1px solid black !important;
@@ -285,6 +295,10 @@
 {
     color: Red;
 }
+.blue
+{
+    color: Blue;
+}
 .light-blue
 {
     color: #1C67A9;
@@ -297,6 +311,10 @@
 .fontsize20
 {
     font-size: 20px;
+}
+.padding-left-5px
+{
+    padding-left: 5px;
 }
 .BA-tbl-detail
 {
@@ -327,4 +345,9 @@
     background-color: #70A2CE !important;
     height: 18px !important;
     border-bottom: 1.5px solid #70A2CE;
+}
+.Racing-tbl-detail
+{
+    border-collapse: collapse;
+    border: 1px solid #ffffff;
 }

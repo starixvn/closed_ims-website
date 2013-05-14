@@ -20,7 +20,7 @@ $(document).ready(function () {
     }
 
     $('#LicenseeId').change(function () {
-        GetProductByLicenseeID($(this).val());
+        //GetProductByLicenseeID($(this).val());
         GetCurrencyByLicenseeID($(this).val());
         if ($(this).val() == "-1") {
             $('#btnGenerate').addClass("ui-state-disabled");
