@@ -1,8 +1,8 @@
 ﻿.div-content
 {
-    clear:both; 
-    width: 1260px; 
-    margin:6px 0 0 10px;
+    clear: both;
+    width: 1260px;
+    margin: 6px 0 0 10px;
 }
 
 .titleBold
@@ -31,7 +31,7 @@
 
 .lineHeight80
 {
-   padding-top: 0px !important;
+    padding-top: 0px !important;
 }
 
 .headerReport
@@ -42,7 +42,7 @@
     color: #ffffff !important;
     background-color: #618ADA !important;
     height: 18px !important;
-    border: 1.5px solid #736767
+    border: 1.5px solid #736767;
 }
 
 .cellstyle
@@ -52,12 +52,13 @@
     line-height:150% !important;
     height: 18px;
 }
+
 .grandtotal
 {
     font-size: 13px !important;
-     vertical-align:middle !important;
-    line-height:100% !important;
-     font-weight: bold !important;
+    vertical-align: middle !important;
+    line-height: 100% !important;
+    font-weight: bold !important;
 }
 
 .aligncenter
@@ -104,7 +105,7 @@
 .col120
 {
     width: 120px !important;
-} 
+}
 .col100
 {
     width: 100px !important;
@@ -136,7 +137,7 @@
 }
 .col140
 {
-    width:200px !important;
+    width: 200px !important;
 }
 
 .col10percent
@@ -157,7 +158,7 @@
 }
 .noneBorder
 {
-    border:  0 none !important;
+    border: 0 none !important;
 }
 
 .boldBorderBlack
@@ -182,23 +183,24 @@
 
 .even
 {
-   background-color: #e4f2fd !important;
+    background-color: #e4f2fd !important;
 }
 
 .product-name
 {
-    color:  #C21515;
+    color: #C21515;
     font-weight: bold !important;
 }
 
- .licensee-name {
+.licensee-name
+{
     color: #0040FF !important;
     font-weight: bold !important;
 }
 
 .bold
 {
-   font-weight: bold !important;
+    font-weight: bold !important;
 }
 
 .cellPadding
@@ -209,8 +211,8 @@
 
 .pad5
 {
-    padding-top:5px; 
-    display:block;
+    padding-top: 5px;
+    display: block;
 }
 
 .noborder
@@ -243,33 +245,37 @@
 {
     border-bottom: 1px solid black !important;
 }
+.height25
+{
+    height: 25px;
+}
 .height50
 {
-    height:50px;
+    height: 50px;
 }
 .height70
 {
-    height:70px;
+    height: 70px;
 }
 .height100
 {
-    height:100px;
+    height: 100px;
 }
 .height200
 {
-    height:200px;
+    height: 200px;
 }
 .height300
 {
-    height:300px;
+    height: 300px;
 }
 .height400
 {
-    height:400px;
+    height: 400px;
 }
 .height500
 {
-    height:500px;
+    height: 500px;
 }
 .padding-top10
 {
@@ -281,5 +287,44 @@
 }
 .light-blue
 {
-    color:
+    color: #1C67A9;
+    font-family: "Times New Roman" , Times, serif;
+}
+.fontsize40
+{
+    font-size: 40px;
+}
+.fontsize20
+{
+    font-size: 20px;
+}
+.BA-tbl-detail
+{
+    border-collapse: collapse;
+    border: 1px solid #70A2CE;
+}
+.BA-tbl-detail>tbody>tr>td
+{
+    font-size: 11px !important;
+    vertical-align: middle !important;
+    line-height: 150% !important;
+    height: 18px;
+    border: 1px solid #70A2CE;
+}
+.BA-tbl-rowheight
+{
+    height: 25px;
+}
+.BA-text-padding-left-5px
+{
+    padding-left: 5px;
+}
+.BA-header
+{
+    text-align: left !important;
+    font-weight: bold !important;
+    color: White !important;
+    background-color: #70A2CE !important;
+    height: 18px !important;
+    border-bottom: 1.5px solid #70A2CE;
 }
