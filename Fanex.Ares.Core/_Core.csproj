@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExcelUtil">
-      <HintPath>..\_Dependency\ExcelUtil.dll</HintPath>
+      <HintPath>..\_Dependency\FanexLibs\Excel\ExcelUtil.dll</HintPath>
     </Reference>
     <Reference Include="Fanex.BetList.Core, Version=1.0.4827.30669, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

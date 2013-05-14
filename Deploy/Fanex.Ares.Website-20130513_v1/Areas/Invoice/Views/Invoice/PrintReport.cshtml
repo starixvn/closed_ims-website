@@ -1,0 +1,31 @@
+﻿@using Fanex.Ares.Core.Resources;
+@using Fanex.Ares.Core.Web;
+@using Fanex.Ares.Core.Services.Impl;
+@using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+@using Fanex.Ares.Report.ViewModels.LicenseeSettlement
+@model Fanex.Ares.Report.ViewModels.LicenseeSettlement.LicenseeSettlementModel
+@{
+    string productName = Request["productName"];
+    ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
+    ViewBag.Title = "Licensee Settlement Report for " + productName;
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+    
+}
+@section Head {
+    
+    @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
+    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/DatePicker/jquery.nexDatePicker.css" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/InvoicePDF.css" />
+    <style type="text/css">
+        @@media print
+        {
+            body
+            {
+                font-size: 104px;
+            }
+        }
+    
+    </style>
+}
+    @Html.Partial("_" + productName, Model)
