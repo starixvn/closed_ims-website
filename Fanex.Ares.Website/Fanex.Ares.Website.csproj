@@ -234,6 +234,7 @@
     <Content Include="Areas\Invoice\Scripts\TicketListing.js" />
     <Content Include="Areas\Invoice\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Invoice\Styles\Images\Acqua-logo.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
@@ -653,6 +654,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Racing.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsbookBK.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Host Fee.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

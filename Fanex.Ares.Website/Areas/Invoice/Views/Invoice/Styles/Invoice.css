@@ -209,6 +209,14 @@
     font-weight: bold !important;
 }
 
+.italic
+{
+    font-style: italic !important;
+}
+.super
+{
+    vertical-align: super !important;
+}
 .cellPadding
 {
     border-collapse: collapse;
@@ -245,6 +253,11 @@
 }
 .border-right
 {
+    border-right: 1px solid black !important;
+}
+.border-left-right
+{
+    border-left: 1px solid black !important;
     border-right: 1px solid black !important;
 }
 .border-top
@@ -304,14 +317,19 @@
     color: #1C67A9;
     font-family: "Times New Roman" , Times, serif;
 }
-.fontsize40
-{
-    font-size: 40px;
-}
 .fontsize20
 {
     font-size: 20px;
 }
+.fontsize30
+{
+    font-size: 30px;
+}
+.fontsize40
+{
+    font-size: 40px;
+}
+
 .padding-left-5px
 {
     padding-left: 5px;
