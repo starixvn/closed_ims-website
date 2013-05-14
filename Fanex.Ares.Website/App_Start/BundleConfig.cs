@@ -31,7 +31,7 @@ namespace Fanex.Ares.Website.App_Start
             #endregion
 
             #region NAP Recheckin
-            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/JS").Include(
                 "~/Areas/UserLogin/scripts/ReCheckIn.js"
                 ));
             #endregion
