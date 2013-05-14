@@ -13,9 +13,10 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web.Hosting;
 using System.Web.Mvc;
-using System.Web;
+using Fanex.Ares.Core.Extensions;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Report.Criteria;
@@ -25,8 +26,6 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
-using Microsoft.Office.Interop.Excel;
-using System.Runtime.InteropServices;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -38,6 +37,8 @@ namespace Fanex.Ares.Report.Controllers
         private readonly StandardPdfRenderer standardPdfRenderer;
 
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+
+        
 
         #region View path
 
@@ -79,14 +80,14 @@ namespace Fanex.Ares.Report.Controllers
             return PartialView(SettlementView, model);
         }
 
-        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF, bool isLandscape = false)
+        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
         {
             // Render the view html to a string.
             string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
 
-            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath, isLandscape);
+            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath);
 
             // Return the PDF as a binary stream to the client.
             //return new BinaryContentResult(buffer, "application/pdf");
@@ -109,7 +110,7 @@ namespace Fanex.Ares.Report.Controllers
             }
         }
 
-        public ActionResult ExportPDF(bool isSavePDF, bool isLandscape = true)
+        public ActionResult ExportPDF(bool isSavePDF)
         {
             //var model = GenerateReport(criteria);
             var model = new LicenseeSettlementModel();
@@ -117,82 +118,77 @@ namespace Fanex.Ares.Report.Controllers
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
             int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            string fileName = _service.GetFileName();
+            string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
             //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
-        }
-
-        public ActionResult ExportPDFUsingInterop(string exchange, string product)
-        {
-            var model = new LicenseeSettlementModel();
-            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
-            int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            var reportName = _service.GetFileName();
-            var reportFolder = AppDomain.CurrentDomain.BaseDirectory + "ExcelFile\\" + CurrentSession.Username + "\\";
-            _service.ExportReportToExcel(exchange, product, true);
-            Application _excelApplication = null;
-            Workbook workbook = null;
-            try
-            {
-                _excelApplication = new Application();
-                _excelApplication.Visible = false;
-                workbook = _excelApplication.Workbooks.Open(reportFolder + reportName + ".xls");
-                string oldPrinter = _excelApplication.ActivePrinter;
-                //_excelApplication.ActivePrinter = "Bullzip PDF Printer on Ne06:";
-                //_excelApplication.ActivePrinter = string.Empty;
-                Worksheet sheet = workbook.ActiveSheet;
-                //sheet.PageSetup.PaperSize = XlPaperSize.xlPaperA5;
-                sheet.PageSetup.Orientation = XlPageOrientation.xlLandscape;
-                sheet.PageSetup.Zoom = false;
-                sheet.PageSetup.FitToPagesWide = 1;
-                sheet.PageSetup.FitToPagesTall = 1;
-                sheet.PageSetup.LeftMargin = _excelApplication.InchesToPoints(0.7);
-                sheet.PageSetup.RightMargin = _excelApplication.InchesToPoints(0.7);
-                sheet.PageSetup.TopMargin = _excelApplication.InchesToPoints(0.75);
-                sheet.PageSetup.BottomMargin = _excelApplication.InchesToPoints(0.75);
-                sheet.PageSetup.HeaderMargin = _excelApplication.InchesToPoints(0.3);
-                sheet.PageSetup.FooterMargin = _excelApplication.InchesToPoints(0.3);
-                //_excelApplication.PrintCommunication = true;
-                _excelApplication.Range["A1", "O32"].ExportAsFixedFormat(XlFixedFormatType.xlTypePDF, reportFolder + reportName.Replace(".xls", ".pdf"), OpenAfterPublish: false);
-                //_excelApplication.Dialogs[XlBuiltInDialog.xlDialogPrint]
-                // _excelApplication.ActivePrinter = oldPrinter;
-                //workbook.Save();
-                //workbook.SaveAs(reportFolder + reportName + ".pdf", XlFixedFormatType.xlTypePDF);
-                //_excelApplication.ActiveWorkbook.SaveAs(reportFolder + reportName + ".pdf", XlFixedFormatType.xlTypePDF);
-                workbook.Close(false);
-                Marshal.FinalReleaseComObject(workbook);
-                _excelApplication.Quit();
-                Marshal.FinalReleaseComObject(_excelApplication);
-            }
-            catch (Exception ex)
-            {
-                workbook.Close(false);
-                Marshal.FinalReleaseComObject(workbook);
-                _excelApplication.Quit();
-                Marshal.FinalReleaseComObject(_excelApplication);
-            }
-
-
-            System.IO.FileInfo file = new System.IO.FileInfo(reportFolder + reportName + ".pdf");
-            var ms = file.OpenRead();
-            ms.Position = 0;
-            //System.IO.Stream stream = new System.IO.StreamReader(reportFolder + reportName + ".pdf").ReadToEnd;
-            //System.IO.Stream stream = System.IO.File.OpenRead(reportFolder + reportName + ".pdf");
-            //var response = HttpContext.Response;
-            //response.Clear();
-            //response.ContentType = "application/vnd.ms-excel";
-            //response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", reportName));
-            return new FileStreamResult(ms, "application/pdf") {
-                FileDownloadName = reportName + ".pdf"
-            };
-            //return new EmptyResult();
+            return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
         }
 
         public ActionResult ExportSettlementReportToExcel(string exchange, string product)
         {
             _service.ExportReportToExcel(exchange, product);
             return new EmptyResult();
+        }
+
+
+
+
+        //testing
+        public ActionResult ExportDocument(WorkBookExtension.DocumentType documentType )
+        {
+            var model = new LicenseeSettlementModel();
+
+
+            
+
+            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+
+
+            
+
+            string html = this.htmlViewRenderer.RenderViewToString(this, SettlementView, model);
+
+
+            
+            var excelCssFilePath = new List<string>();
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
+           
+            var excelExtension = new WorkBookExtension();
+            var ms = excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Landscape);
+            if (ms != null)
+            {
+                // return the filestream
+                // Rewind the memory stream to the beginning
+                ms.Seek(0, SeekOrigin.Begin);
+
+                int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
+                int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
+                string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year + "." + documentType.ToString().ToLower();
+
+                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
+            }
+            return new EmptyResult();
+
+            
+        }
+
+        protected string RenderPartialViewToString(string viewName, object model)
+        {
+            if (string.IsNullOrEmpty(viewName))
+                viewName = ControllerContext.RouteData.GetRequiredString("action");
+
+            ViewData.Model = model;
+
+            using (StringWriter sw = new StringWriter())
+            {
+                
+                ViewEngineResult viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);// ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                return sw.GetStringBuilder().ToString();
+
+
+            }
         }
 
         public JsonResult GetProductByLicenseeID(int licenseeID)

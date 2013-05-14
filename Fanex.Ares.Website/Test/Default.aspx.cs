@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -11,9 +12,13 @@ namespace Fanex.Ares.Website.Test
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var pdfSection = Fanex.Core.PdfHelper.Configuration.PdfHelperSection.Instance;
-
-            var test = pdfSection.StyleSheet["SpecialStyle"].Items[0];
+            var filePath = "D:/img1.jpg";
+            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            {
+                var buffer = new byte[fs.Length];
+                fs.Read(buffer, 0, (int)fs.Length);
+                var base64 = Convert.ToBase64String(buffer);
+            }
         }
     }
 }

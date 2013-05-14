@@ -72,6 +72,8 @@
     <div class="loader">
         <img src="~/content/img/loader.gif" alt="loading..." />
     </div>*@
+    @*@Html.Hidden("NapHubRoot", Fanex.Ares.Core.Extensions.HtmlHelperExtensions.GetFullDomainURL())*@
+    @Html.Hidden("NapHubRoot", Url.Content("~/"))
 </body>
 </html>
 @Scripts.Render("~/scripts/common")

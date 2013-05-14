@@ -53,7 +53,20 @@ namespace Fanex.Ares.Invoice.Controllers
             model.Year = DateTime.Now.Year;
             ViewBag.ListLicensee = _service.GetAllLicensees();
             var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
-            ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
+            var listProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID }).ToList();
+            listProduct.Add(new SelectListItem()
+            {
+                Text = "Racing",
+                Value = "4"
+            });
+
+            listProduct.Add(new SelectListItem()
+            {
+                Text = "Host Fee",
+                Value = "5"
+            });
+
+            ViewBag.ListProduct = listProduct;
             var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();
             listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
             ViewBag.ListCurrency = listCurrency;
@@ -69,9 +82,9 @@ namespace Fanex.Ares.Invoice.Controllers
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
             SettlementView = "_" + criteria.ProductName;
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, SettlementView);
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, SettlementView);
             return PartialView(SettlementView, model);
         }
 

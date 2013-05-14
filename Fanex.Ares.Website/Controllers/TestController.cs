@@ -48,7 +48,7 @@ namespace Fanex.Ares.Website.Controllers
             //return  new DownloadFileActionResult(html, "test13413", DownloadFileActionResult.ExcelFormat.Xlsx);
 
 
-            var excelExtension = new ExcelExtension(ExcelExtension.ExcelFormat.Xlsx);
+            var excelExtension = new ExcelExtension(ExcelExtension.ExcelFormat.Xls);
             var ms = excelExtension.CreateExcel(html);
             if (ms != null)
             {
@@ -56,7 +56,7 @@ namespace Fanex.Ares.Website.Controllers
                 // Rewind the memory stream to the beginning
                 ms.Seek(0, SeekOrigin.Begin);
 
-                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", "tetsa.xlsx");
+                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", "tetsa.xls");
             }
             return new EmptyResult();
         }
@@ -96,7 +96,7 @@ namespace Fanex.Ares.Website.Controllers
 
         public enum ExcelFormat
         {
-            Xlsx
+            Xls
         }
 
        
@@ -125,11 +125,23 @@ namespace Fanex.Ares.Website.Controllers
             Thread.Sleep(100);
 
             SpreadsheetInfo.SetLicense("FREE-LIMITED-KEY");
-            var excel = ExcelFile.Load(excelFile);
+            //var excel = ExcelFile.Load("D:/test5.xls");
+
+           // var excel = ExcelFile.Load(excelFile);
 
             var ms = new MemoryStream();
 
-            excel.Save(ms, SaveOptions.XlsxDefault);
+            //excel.Save(ms, SaveOptions.XlsDefault);
+
+
+
+            FileStream file = new FileStream(excelFile,FileMode.Open);
+            byte[] bytes = new byte[file.Length];
+            file.Read(bytes, 0, (int)file.Length);
+            ms.Write(bytes, 0, (int)file.Length);
+            file.Close();
+            //ms.Close();
+
 
             Thread.Sleep(100);
             if (File.Exists(excelFile))
@@ -172,7 +184,7 @@ namespace Fanex.Ares.Website.Controllers
             //save workbook to new real Excel file
             app.DisplayAlerts = false;
             var excelFile = _fileDirectory + Guid.NewGuid();
-            workBook.SaveAs(excelFile, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+            workBook.SaveAs(excelFile, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, Type.Missing, Type.Missing,
             false, false, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlShared,
             Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
 
@@ -200,7 +212,7 @@ namespace Fanex.Ares.Website.Controllers
             if (stream.Length == 0) return string.Empty;
 
 
-            var fileName = Guid.NewGuid() + ".xls";
+            var fileName = Guid.NewGuid() + _xlsFileFormat;
 
 
             using (FileStream fileStream = System.IO.File.Create(_fileDirectory + fileName, (int)stream.Length))

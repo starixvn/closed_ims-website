@@ -233,6 +233,7 @@
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Invoice\Scripts\TicketListing.js" />
     <Content Include="Areas\Invoice\Scripts\TicketListingManager.js" />
+    <Content Include="Areas\Invoice\Styles\Images\Acqua-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
@@ -638,6 +639,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Racing.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -756,7 +758,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>58035</DevelopmentServerPort>
+          <DevelopmentServerPort>55465</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

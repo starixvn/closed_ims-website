@@ -1,0 +1,1605 @@
+<style type='text/css'>.div-content
+{
+    clear:both; 
+    width: 1260px; 
+    margin:6px 0 0 10px;
+}
+
+.titleBold
+{
+    font-size: 17px !important;
+    text-align: left !important;
+    font-weight: bold !important;
+}
+
+.titleSub
+{
+    font-size: 17px !important;
+    text-align: left !important;
+}
+
+.cellInfo
+{
+    font-size: 13px !important;
+    text-align: left !important;
+}
+
+.lineHeight200
+{
+    padding-top: 15px !important;
+}
+
+.lineHeight80
+{
+   padding-top: 0px !important;
+}
+
+.headerReport
+{
+    font-size: 12px !important;
+    text-align: center !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    background-color: #618ADA !important;
+    height: 18px !important;
+    border: 1.5px solid #736767
+}
+
+.cellstyle
+{
+     font-size: 11px !important;
+     vertical-align:middle !important;
+    line-height:100% !important;
+    height: 18px !important;
+    border: 1.5px solid #736767
+}
+.grandtotal
+{
+    font-size: 13px !important;
+     vertical-align:middle !important;
+    line-height:100% !important;
+     font-weight: bold !important;
+}
+
+.aligncenter
+{
+    text-align: center !important;
+}
+
+.alignright
+{
+    text-align: right !important;
+}
+
+.alignleft
+{
+    text-align: left !important;
+}
+
+.col60
+{
+    width: 82px !important;
+}
+.col30
+{
+    width: 30px !important;
+}
+.col200
+{
+    width: 200px !important;
+}
+
+.col65
+{
+    width: 65px !important;
+}
+.col40
+{
+    width: 55px !important;
+}
+.col650
+{
+    width: 980px !important;
+}
+
+.col120
+{
+    width: 120px !important;
+} 
+.col100
+{
+    width: 100px !important;
+}
+.col80
+{
+    width: 80px !important;
+}
+
+.col50
+{
+    width: 65px !important;
+}
+.col400
+{
+    width: 600px !important;
+}
+.col140
+{
+    width:200px !important;
+}
+
+.col10percent
+{
+    width: 10% !important;
+}
+.noneBorder
+{
+    border:  0 none !important;
+}
+
+.boldBorderBlack
+{
+    border-bottom: 2px solid black;
+}
+
+.boldBorderWhite
+{
+    border-bottom: 2px solid white;
+}
+
+.negative-number
+{
+    color: Red !important;
+}
+
+.even
+{
+   background-color: #e4f2fd !important;
+}
+
+.product-name
+{
+    color:  #C21515;
+    font-weight: bold !important;
+}
+
+ .licensee-name {
+    color: #0040FF !important;
+    font-weight: bold !important;
+}
+
+.bold
+{
+   font-weight: bold !important;
+}
+
+.cellPadding
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.pad5
+{
+    padding-top:5px; 
+    display:block;
+}</style><html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Excel.Sheet>
+<meta name=Generator content="Microsoft Excel 14">
+
+
+<style>
+<!--table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+@page
+	{margin:1.0in .25in 1.0in .25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-page-orientation:landscape;}
+-->
+
+
+tr
+	{mso-height-source:auto;}
+col
+	{mso-width-source:auto;}
+br
+	{mso-data-placement:same-cell;}
+.style0
+	{mso-number-format:General;
+	text-align:general;
+	vertical-align:bottom;
+	white-space:nowrap;
+	mso-rotate:0;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial;
+	mso-generic-font-family:auto;
+	mso-font-charset:0;
+	border:none;
+	mso-protection:locked visible;
+	mso-style-name:Normal;
+	mso-style-id:0;}
+td
+	{mso-style-parent:style0;
+	padding-top:1px;
+	padding-right:1px;
+	padding-left:1px;
+	mso-ignore:padding;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial;
+	mso-generic-font-family:auto;
+	mso-font-charset:0;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:bottom;
+	border:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	mso-protection:locked visible;
+	white-space:nowrap;
+	mso-rotate:0;}
+.xl65
+	{mso-style-parent:style0;
+	font-size:11.5pt;
+	font-weight:700;}
+.xl66
+	{mso-style-parent:style0;
+	font-weight:700;}
+.xl67
+	{mso-style-parent:style0;
+	color:#0040FF;
+	font-weight:700;}
+.xl68
+	{mso-style-parent:style0;
+	color:#C21515;
+	font-weight:700;}
+.xl69
+	{mso-style-parent:style0;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;}
+.xl70
+	{mso-style-parent:style0;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;}
+.xl71
+	{mso-style-parent:style0;
+	border-top:none;
+	border-right:none;
+	border-bottom:1.0pt solid windowtext;
+	border-left:none;}
+.xl72
+	{mso-style-parent:style0;
+	font-size:9.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	border-top:none;
+	border-right:none;
+	border-bottom:1.0pt solid windowtext;
+	border-left:none;}
+.xl73
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid #A6A6A6;
+	border-right:.5pt solid #A6A6A6;
+	border-bottom:none;
+	border-left:.5pt solid #A6A6A6;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl74
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid #A6A6A6;
+	border-right:.5pt solid #A6A6A6;
+	border-bottom:none;
+	border-left:none;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl75
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:.5pt solid gray;
+	border-bottom:.5pt solid #A6A6A6;
+	border-left:.5pt solid gray;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl76
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:.5pt solid #A6A6A6;
+	border-bottom:.5pt solid #A6A6A6;
+	border-left:none;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl77
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:.5pt solid #A6A6A6;
+	border-bottom:.5pt solid #A6A6A6;
+	border-left:.5pt solid #A6A6A6;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl78
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:.5pt solid gray;
+	border-bottom:.5pt solid #A6A6A6;
+	border-left:.5pt solid #A6A6A6;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl79
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid #A6A6A6;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:.5pt solid #A6A6A6;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl80
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:.5pt solid #D9D9D9;
+	border-bottom:.5pt solid #D9D9D9;
+	border-left:.5pt solid gray;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl81
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:.5pt solid gray;
+	border-bottom:.5pt solid #D9D9D9;
+	border-left:.5pt solid #D9D9D9;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl82
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid #A6A6A6;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl83
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl84
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl85
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0_\)\;\\-\#\,\#\#0";
+	text-align:right;
+	vertical-align:middle;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl86
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:center;
+	vertical-align:middle;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl87
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	background:white;
+	mso-pattern:white none;}
+.xl88
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	background:white;
+	mso-pattern:white none;}
+.xl89
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0_\)\;\\-\#\,\#\#0";
+	text-align:right;
+	vertical-align:middle;
+	background:white;
+	mso-pattern:white none;}
+.xl90
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:center;
+	vertical-align:middle;
+	background:white;
+	mso-pattern:white none;}
+.xl91
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl92
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:none;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl93
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	background:white;
+	mso-pattern:white none;}
+.xl94
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+.xl95
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid gray;
+	border-left:.5pt solid gray;
+	background:white;
+	mso-pattern:white none;}
+.xl96
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid gray;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+.xl97
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid gray;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+.xl98
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0_\)\;\\-\#\,\#\#0";
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid gray;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+.xl99
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid gray;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+.xl100
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid gray;
+	border-bottom:.5pt solid gray;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+.xl101
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid #D9D9D9;
+	border-right:.5pt solid #D9D9D9;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl102
+	{mso-style-parent:style0;
+	color:white;
+	font-size:8.0pt;
+	font-weight:700;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:.5pt solid #D9D9D9;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:.5pt solid #D9D9D9;
+	background:#3C5EA5;
+	mso-pattern:white none;
+	white-space:normal;}
+.xl103
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl104
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:none;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl105
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	background:white;
+	mso-pattern:white none;}
+.xl106
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+.xl107
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl108
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid gray;
+	border-bottom:none;
+	border-left:none;
+	background:#E4F2FD;
+	mso-pattern:white none;}
+.xl109
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:.5pt solid gray;
+	border-left:.5pt solid gray;
+	background:white;
+	mso-pattern:white none;}
+.xl110
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:right;
+	vertical-align:middle;
+	border-top:none;
+	border-right:.5pt solid gray;
+	border-bottom:.5pt solid gray;
+	border-left:none;
+	background:white;
+	mso-pattern:white none;}
+
+
+</style>
+
+</head>
+
+<body>
+
+<div style="width:1025px; margin-left: 40px; overflow-x:hidden">
+    <table border="0" cellpadding="0" cellspacing="0" width="1019" style='border-collapse: collapse;
+        table-layout: fixed; width: 767pt'>
+        <col width="57" style='mso-width-source: userset; mso-width-alt: 2084; width: 43pt'>
+        <col width="48" style='mso-width-source: userset; mso-width-alt: 1755; width: 36pt'>
+        <col width="86" style='mso-width-source: userset; mso-width-alt: 3145; width: 65pt'>
+        <col width="68" style='mso-width-source: userset; mso-width-alt: 2486; width: 51pt'>
+        <col width="88" style='mso-width-source: userset; mso-width-alt: 3218; width: 66pt'>
+        <col width="48" style='mso-width-source: userset; mso-width-alt: 1755; width: 36pt'>
+        <col width="85" style='mso-width-source: userset; mso-width-alt: 3108; width: 64pt'>
+        <col width="84" style='mso-width-source: userset; mso-width-alt: 3072; width: 63pt'>
+        <col width="49" style='mso-width-source: userset; mso-width-alt: 1792; width: 37pt'>
+        <col width="83" style='mso-width-source: userset; mso-width-alt: 3035; width: 62pt'>
+        <col width="78" style='mso-width-source: userset; mso-width-alt: 2852; width: 59pt'>
+        <col width="72" style='mso-width-source: userset; mso-width-alt: 2633; width: 54pt'>
+        <col width="50" style='mso-width-source: userset; mso-width-alt: 1828; width: 38pt'>
+        <col width="61" style='mso-width-source: userset; mso-width-alt: 2230; width: 46pt'>
+        <col width="62" style='mso-width-source: userset; mso-width-alt: 2267; width: 47pt'>
+        <col width="72" style='mso-width-source: userset; mso-width-alt: 2633; width: 54pt'>
+        <col width="72" span="240" style='mso-width-source: userset; mso-width-alt: 2633;
+            width: 54pt'>
+        <tr height="22" style='mso-height-source: userset; height: 16.5pt'>
+            <td height="22" class="xl65" colspan="5" width="347" style='height: 16.5pt; mso-ignore: colspan;
+                width: 261pt'>
+                INTERNAL WORKSHEET FOR SETTLEMENT
+            </td>
+            <td width="48" style='width: 36pt'>
+            </td>
+            <td width="85" style='width: 64pt'>
+            </td>
+            <td width="84" style='width: 63pt'>
+            </td>
+            <td width="49" style='width: 37pt'>
+            </td>
+            <td width="83" style='width: 62pt'>
+            </td>
+            <td width="78" style='width: 59pt'>
+            </td>
+            <td width="72" style='width: 54pt'>
+            </td>
+            <td width="50" style='width: 38pt'>
+            </td>
+            <td width="61" style='width: 46pt'>
+            </td>
+            <td width="62" style='width: 47pt'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="3" style='height: 12.75pt; mso-ignore: colspan'>
+                Finance Department
+            </td>
+            <td colspan="12" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="15" style='height: 12.75pt; mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="3" style='height: 12.75pt; mso-ignore: colspan'>
+                SETTLEMENT REPORT
+            </td>
+            <td class="xl66">
+                30-Apr-13
+            </td>
+            <td colspan="11" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="2" style='height: 12.75pt; mso-ignore: colspan'>
+                LICENSEE:
+            </td>
+            <td class="xl67">
+                12Bet
+            </td>
+            <td class="xl68" colspan="2" style='mso-ignore: colspan'>
+                SPORTSBOOK
+            </td>
+            <td colspan="2" style='mso-ignore: colspan'>
+                1st Billing:
+            </td>
+            <td class="xl66">
+                May-13
+            </td>
+            <td colspan="7" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="5" style='height: 12.75pt; mso-ignore: colspan'>
+            </td>
+            <td colspan="2" style='mso-ignore: colspan'>
+                Basis of Billing:
+            </td>
+            <td class="xl66" colspan="2" style='mso-ignore: colspan'>
+                15% of Net Win
+            </td>
+            <td colspan="6" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="15" style='height: 12.75pt; mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="5" style='height: 12.75pt; mso-ignore: colspan'>
+            </td>
+            <td colspan="2" style='mso-ignore: colspan'>
+                Minimum Fees:
+            </td>
+            <td class="xl66" colspan="6" style='mso-ignore: colspan'>
+                EUR15000 (minimum fees waived 3 months from date of launch)
+            </td>
+            <td colspan="2" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="5" style='height: 12.75pt; mso-ignore: colspan'>
+            </td>
+            <td colspan="2" style='mso-ignore: colspan'>
+                Head of Terms:
+            </td>
+            <td class="xl66">
+                13-May-13
+            </td>
+            <td colspan="7" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="15" style='height: 12.75pt; mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td rowspan="2" height="34" class="xl75" width="57" style='height: 25.5pt; width: 43pt'>
+                Date
+            </td>
+            <td rowspan="2" class="xl76" width="48" style='width: 36pt'>
+                Currency
+            </td>
+            <td rowspan="2" class="xl77" width="86" style='width: 65pt'>
+                Turnover
+            </td>
+            <td rowspan="2" class="xl77" width="68" style='width: 51pt'>
+                Total Trans
+            </td>
+            <td colspan="3" class="xl77" width="221" style='border-left: none; width: 166pt'>
+                Member
+            </td>
+            <td colspan="3" class="xl77" width="216" style='border-left: none; width: 162pt'>
+                12Bet
+            </td>
+            <td rowspan="2" class="xl77" width="78" style='width: 59pt'>
+                Company
+            </td>
+            <td rowspan="2" class="xl78" width="72" style='width: 54pt'>
+                EUR
+            </td>
+            <td class="xl69">
+            </td>
+            <td colspan="2" class="xl80" width="123" style='border-right: .5pt solid gray; width: 93pt'>
+                FOREX @30-Apr-13
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl73" width="88" style='height: 12.75pt; border-top: none;
+                border-left: none; width: 66pt'>
+                Win Loss
+            </td>
+            <td class="xl73" width="48" style='border-top: none; border-left: none; width: 36pt'>
+                Comm
+            </td>
+            <td class="xl73" width="85" style='border-top: none; border-left: none; width: 64pt'>
+                Total
+            </td>
+            <td class="xl73" width="84" style='border-top: none; border-left: none; width: 63pt'>
+                Win Loss
+            </td>
+            <td class="xl73" width="49" style='border-top: none; border-left: none; width: 37pt'>
+                Comm
+            </td>
+            <td class="xl73" width="83" style='border-top: none; border-left: none; width: 62pt'>
+                Total
+            </td>
+            <td class="xl69">
+            </td>
+            <td class="xl101" width="61" style='border-top: none; width: 46pt'>
+                EUR/1 Unit
+            </td>
+            <td class="xl102" width="62" style='border-top: none; border-left: none; width: 47pt'>
+                Units/1 EUR
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl91" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl83">
+                MYR
+            </td>
+            <td class="xl84">
+                35,102,183.00
+            </td>
+            <td class="xl85">
+                240,474
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(1,378,462.89)</font>
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(1,378,462.89)</font>
+            </td>
+            <td class="xl84">
+                1,171,693.38
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                1,171,693.38
+            </td>
+            <td class="xl84">
+                206,769.51
+            </td>
+            <td class="xl92">
+                52,229.98
+            </td>
+            <td class="xl70">
+                MYR
+            </td>
+            <td class="xl103">
+                0.25260
+            </td>
+            <td class="xl104">
+                3.95883
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl93" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl87">
+                USD
+            </td>
+            <td class="xl88">
+                2,197,851.00
+            </td>
+            <td class="xl89">
+                19,149
+            </td>
+            <td class="xl88">
+                98,757.76
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                98,757.76
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(83,944.10)</font>
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(83,944.10)</font>
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(14,813.66)</font>
+            </td>
+            <td class="xl94">
+                <font color="#FF0000" style='mso-ignore: color'>(11,330.97)</font>
+            </td>
+            <td class="xl70">
+                USD
+            </td>
+            <td class="xl105">
+                0.76490
+            </td>
+            <td class="xl106">
+                1.30736
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl91" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl83">
+                THB
+            </td>
+            <td class="xl84">
+                757,012,132.00
+            </td>
+            <td class="xl85">
+                1,140,633
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(29,055,479.39)</font>
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(29,055,479.39)</font>
+            </td>
+            <td class="xl84">
+                24,697,157.16
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                24,697,157.16
+            </td>
+            <td class="xl84">
+                4,358,322.23
+            </td>
+            <td class="xl92">
+                114,057.29
+            </td>
+            <td class="xl70">
+                THB
+            </td>
+            <td class="xl107">
+                0.02617
+            </td>
+            <td class="xl108">
+                38.21169
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl93" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl87">
+                EUR
+            </td>
+            <td class="xl88">
+                3,179,362.00
+            </td>
+            <td class="xl89">
+                34,221
+            </td>
+            <td class="xl88">
+                4,300.76
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                4,300.76
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(3,655.66)</font>
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(3,655.66)</font>
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(645.10)</font>
+            </td>
+            <td class="xl94">
+                <font color="#FF0000" style='mso-ignore: color'>(645.10)</font>
+            </td>
+            <td class="xl70">
+                EUR
+            </td>
+            <td class="xl105">
+                1.00000
+            </td>
+            <td class="xl106">
+                1.00000
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl91" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl83">
+                AUD
+            </td>
+            <td class="xl84">
+                422,299.00
+            </td>
+            <td class="xl85">
+                3,617
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(13,954.37)</font>
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(13,954.37)</font>
+            </td>
+            <td class="xl84">
+                11,861.21
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                11,861.21
+            </td>
+            <td class="xl84">
+                2,093.16
+            </td>
+            <td class="xl92">
+                1,652.97
+            </td>
+            <td class="xl70">
+                AUD
+            </td>
+            <td class="xl107">
+                0.78970
+            </td>
+            <td class="xl108">
+                1.26630
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl93" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl87">
+                GBP
+            </td>
+            <td class="xl88">
+                774,737.00
+            </td>
+            <td class="xl89">
+                11,567
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(45,391.70)</font>
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(45,391.70)</font>
+            </td>
+            <td class="xl88">
+                38,582.94
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                38,582.94
+            </td>
+            <td class="xl88">
+                6,808.76
+            </td>
+            <td class="xl94">
+                8,077.91
+            </td>
+            <td class="xl70">
+                GBP
+            </td>
+            <td class="xl105">
+                1.18640
+            </td>
+            <td class="xl106">
+                0.84289
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl91" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl83">
+                CNY
+            </td>
+            <td class="xl84">
+                396,951,473.00
+            </td>
+            <td class="xl85">
+                859,984
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(13,367,091.69)</font>
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(13,367,091.69)</font>
+            </td>
+            <td class="xl84">
+                11,362,027.61
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                11,362,027.61
+            </td>
+            <td class="xl84">
+                2,005,064.07
+            </td>
+            <td class="xl92">
+                246,823.39
+            </td>
+            <td class="xl70">
+                CNY
+            </td>
+            <td class="xl107">
+                0.12310
+            </td>
+            <td class="xl108">
+                8.12348
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl93" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl87">
+                IDR
+            </td>
+            <td class="xl88">
+                50,309,276.00
+            </td>
+            <td class="xl89">
+                414,516
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(2,584,119.15)</font>
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                <font color="#FF0000" style='mso-ignore: color'>(2,584,119.15)</font>
+            </td>
+            <td class="xl88">
+                2,196,501.21
+            </td>
+            <td class="xl90">
+                -
+            </td>
+            <td class="xl88">
+                2,196,501.21
+            </td>
+            <td class="xl88">
+                387,617.95
+            </td>
+            <td class="xl94">
+                30,629.57
+            </td>
+            <td class="xl70">
+                IDR
+            </td>
+            <td class="xl105">
+                0.07902
+            </td>
+            <td class="xl106">
+                12.65502
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl91" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl83">
+                CHF
+            </td>
+            <td class="xl84">
+                2,155.00
+            </td>
+            <td class="xl85">
+                22
+            </td>
+            <td class="xl84">
+                284.95
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                284.95
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(242.21)</font>
+            </td>
+            <td class="xl86">
+                -
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(242.21)</font>
+            </td>
+            <td class="xl84">
+                <font color="#FF0000" style='mso-ignore: color'>(42.74)</font>
+            </td>
+            <td class="xl92">
+                <font color="#FF0000" style='mso-ignore: color'>(34.80)</font>
+            </td>
+            <td class="xl70">
+                CHF
+            </td>
+            <td class="xl107">
+                0.81410
+            </td>
+            <td class="xl108">
+                1.22835
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" class="xl95" style='height: 12.75pt'>
+                30-Apr-13
+            </td>
+            <td class="xl96">
+                VND
+            </td>
+            <td class="xl97">
+                465,031,822.00
+            </td>
+            <td class="xl98">
+                1,229,130
+            </td>
+            <td class="xl97">
+                <font color="#FF0000" style='mso-ignore: color'>(14,014,601.74)</font>
+            </td>
+            <td class="xl99">
+                -
+            </td>
+            <td class="xl97">
+                <font color="#FF0000" style='mso-ignore: color'>(14,014,601.74)</font>
+            </td>
+            <td class="xl97">
+                11,912,411.35
+            </td>
+            <td class="xl99">
+                -
+            </td>
+            <td class="xl97">
+                11,912,411.35
+            </td>
+            <td class="xl97">
+                2,102,190.39
+            </td>
+            <td class="xl100">
+                76,982.21
+            </td>
+            <td class="xl70">
+                VND
+            </td>
+            <td class="xl109">
+                0.03662
+            </td>
+            <td class="xl110">
+                27.30748
+            </td>
+        </tr>
+        <tr height="18" style='height: 13.5pt'>
+            <td height="18" class="xl71" style='height: 13.5pt'>
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl71">
+                &nbsp;
+            </td>
+            <td class="xl72" align="right">
+                518,442.46
+            </td>
+            <td colspan="3" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='mso-height-source: userset; height: 12.75pt'>
+            <td height="17" style='height: 12.75pt'>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr height="20" style='mso-height-source: userset; height: 15.0pt'>
+            <td colspan="12" height="20" style='height: 15.0pt'>
+                IDR &amp; VND * Amount in IDR is stated in 000, when converted to EUR Equv, x1000
+            </td>
+            <td colspan="3" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <tr height="17" style='height: 12.75pt'>
+            <td height="17" colspan="12" style='height: 12.75pt; mso-ignore: colspan'>
+                FOREX www.oanda.com provided minor difference between 'EUR/1 Unit' vs 'Units/1 EUR',
+                we standardize the use of 'Units/1 EUR' rate to prevail all.
+            </td>
+            <td colspan="3" style='mso-ignore: colspan'>
+            </td>
+        </tr>
+        <![if supportMisalignedColumns]>
+        <tr height="0" style='display: none'>
+            <td width="57" style='width: 43pt'>
+            </td>
+            <td width="48" style='width: 36pt'>
+            </td>
+            <td width="86" style='width: 65pt'>
+            </td>
+            <td width="68" style='width: 51pt'>
+            </td>
+            <td width="88" style='width: 66pt'>
+            </td>
+            <td width="48" style='width: 36pt'>
+            </td>
+            <td width="85" style='width: 64pt'>
+            </td>
+            <td width="84" style='width: 63pt'>
+            </td>
+            <td width="49" style='width: 37pt'>
+            </td>
+            <td width="83" style='width: 62pt'>
+            </td>
+            <td width="78" style='width: 59pt'>
+            </td>
+            <td width="72" style='width: 54pt'>
+            </td>
+            <td width="50" style='width: 38pt'>
+            </td>
+            <td width="61" style='width: 46pt'>
+            </td>
+            <td width="62" style='width: 47pt'>
+            </td>
+        </tr>
+        <![endif]>
+    </table>
+
+    </div>
+
+</body>
+
+</html>

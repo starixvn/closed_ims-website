@@ -3,6 +3,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Fanex.Ares.Core.Web.ViewEngine;
 using Fanex.Ares.Website.App_Start;
 using Fanex.Data.Configuration;
 
@@ -23,6 +24,8 @@ namespace Fanex.Ares.Website
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ViewEngines.Engines.Add(new CustomViewEngine());
         }
 
         protected void Session_End(object sender, EventArgs e)
