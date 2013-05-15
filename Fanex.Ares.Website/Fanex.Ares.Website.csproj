@@ -722,6 +722,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Employee.cshtml" />
     <Content Include="Web.Configuration\PdfHelper.config" />
+    <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
