@@ -622,3 +622,18 @@ td
 {
    background-color: #ff00ff !important;
 }
+
+.xl200
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	border-top:.5pt solid gray;
+	border-right:none;
+	border-bottom:none;
+	border-left:none;
+	
+	mso-pattern:white none;}
