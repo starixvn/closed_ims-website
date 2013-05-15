@@ -20,7 +20,7 @@
 <div class="div-content" style="overflow-x: hidden">
     <table border="0" cellpadding="0" cellspacing="0" width="1019px" style='border-collapse: collapse;
         table-layout: fixed;'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt'>
+        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 1718; width: 40pt'>
         <col style='mso-width-source: userset; mso-width-alt: 3181; width: 80pt'>
         <col style='mso-width-source: userset; mso-width-alt: 2340; width: 50pt'>
@@ -55,11 +55,9 @@
             <td colspan="3" style='height: 12.75pt;'>
                 SETTLEMENT REPORT
             </td>
-            <td colspan="3">
+            <td colspan="12">
                 From @licensee.LicenseeInfor.FromDate.ToAresDayMonthYear()
                 To @licensee.LicenseeInfor.ToDate.ToAresDayMonthYear()
-            </td>
-            <td colspan="9">
             </td>
         </tr>
         <tr>
@@ -75,10 +73,8 @@
             <td colspan="2">
                 1st Billing:
             </td>
-            <td class="xl66">
+            <td class="xl66" colspan="9">
                 @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
-            </td>
-            <td colspan="8">
             </td>
         </tr>
         <tr>
@@ -87,10 +83,8 @@
             <td colspan="2">
                 Basis of Billing:
             </td>
-            <td class="xl66" colspan="2">
+            <td class="xl66" colspan="8">
                 15% of Net Win
-            </td>
-            <td colspan="6">
             </td>
         </tr>
         <tr>
@@ -103,10 +97,8 @@
             <td colspan="2">
                 Minimum Fees:
             </td>
-            <td class="xl66" colspan="6">
+            <td class="xl66" colspan="8">
                 @licensee.LicenseeInfor.MinimumFees
-            </td>
-            <td colspan="2">
             </td>
         </tr>
         <tr>
@@ -115,10 +107,8 @@
             <td colspan="2">
                 Head of Terms:
             </td>
-            <td class="xl66">
+            <td class="xl66" colspan="8">
                 @licensee.LicenseeInfor.HeadOfTerms
-            </td>
-            <td colspan="7" >
             </td>
         </tr>
         <tr >
@@ -186,7 +176,7 @@
             <td class="xl73">
                 @Labels.Total
             </td>
-            <td class="xl69">
+            <td >
             </td>
             <td class="xl101">
                 @licensee.LicenseeInfor.BaseCurrencyName/1 Unit
