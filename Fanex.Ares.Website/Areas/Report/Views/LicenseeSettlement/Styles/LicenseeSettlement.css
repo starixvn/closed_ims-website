@@ -637,3 +637,19 @@ td
 	border-left:none;
 	
 	mso-pattern:white none;}
+	
+	
+	.xl91_center
+	{mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	text-align:center;
+	vertical-align:middle;
+	border-top:none;
+	border-right:none;
+	border-bottom:none;
+	border-left:.5pt solid gray;
+	
+	mso-pattern:white none;
+	mso-number-format:"\@";}
