@@ -1,46 +1,43 @@
-﻿
-.boldTilte
-	{
-	font-size:11.5pt !important;}
-	
-
+﻿.boldTilte
+{
+	font-size: 11.5pt !important;
+}
 .header
 {
-	font-size:10.0pt  !important;
-    border:1pt solid gray;
+	border: 1pt solid gray;
+	font-size: 10.0pt !important;
 }
-
 .colNumber
 {
-	font-size:10.0pt  !important;
+	font-size: 10.0pt !important;
 }
-
 .colText
 {
-	font-size:10.0pt  !important;
+	font-size: 10.0pt !important;
 }
-
 .grandtotal
-	{
-	font-size:12.0pt  !important;
-   border-top:1pt solid gray !important;
-	border-right:none;
-	border-bottom:2pt solid black !important;
-	border-left:none;
-	}
-	.emptyheader
-	{
-	   border:0pt solid white !important;
-	}
-	.emptytotal
-	{
-	    border-top:1pt solid gray !important;
-	    border-right:none;
-	    border-bottom:3pt solid white !important;
-	    border-left:none;
-	}
-	
-	.emptyCell
-	{
-	   border:3pt solid white !important;
-	}
+{
+	border-bottom: 2pt solid black !important;
+	border-left: none;
+	border-right: none;
+	border-top: 1pt solid gray !important;
+	font-size: 12.0pt !important;
+}
+.emptyheader
+{
+	border: 0pt solid white !important;
+}
+.emptytotal
+{
+	border-bottom: 3pt solid white !important;
+	border-left: none;
+	border-right: none;
+	border-top: 1pt solid gray !important;
+}
+.emptyCell
+{
+    border-bottom: 3pt solid white !important;
+	border-left: none;
+	border-right: none;
+	border-top: 0pt solid white !important;
+}
