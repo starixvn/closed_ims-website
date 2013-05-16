@@ -1,4 +1,4 @@
-@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @using Resource;
@@ -112,7 +112,7 @@
             </td>
         </tr>
         <tr >
-            <td colspan="15" style='height: 12.75pt;'>
+            <td colspan="15" style='height: 12.75pt;border: 1pt solid white;'>
             </td>
         </tr>
         <tr>
@@ -140,7 +140,8 @@
             <td rowspan="2" class="xl78">
                 @licensee.LicenseeInfor.BaseCurrencyName
             </td>
-            <td >
+            <td id="chromeBug" rowspan="2" style="display: table-cell">
+           
             </td>
             <td colspan="2" class="xl80">
                 @{
@@ -175,8 +176,6 @@
             </td>
             <td class="xl73">
                 @Labels.Total
-            </td>
-            <td >
             </td>
             <td class="xl101">
                 @licensee.LicenseeInfor.BaseCurrencyName/1 Unit
@@ -267,10 +266,10 @@
             </tr>
         }
         <tr>
-            <td colspan="12" align="right" class="xl72" style='height: 15pt'>
+            <td colspan="12" align="right" class="xl72" style='height: 15pt;'>
                 @licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)
             </td>
-            <td>
+            <td class="xl201">
             </td>
             <td class="xl200" colspan="2">
             </td>

@@ -633,7 +633,24 @@ td
 	vertical-align:middle;
 	border-top:1pt solid gray;
 	border-right:none;
-	border-bottom:none;
+	border-bottom:1pt solid white;
 	border-left:none;
 	
 	mso-pattern:white none;}
+	
+	.xl201
+	{
+	mso-style-parent:style0;
+	font-size:8.0pt;
+	font-family:Calibri, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:"\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
+	text-align:right;
+	vertical-align:middle;
+	border-top:1pt solid white;
+	border-right:none;
+	border-bottom:1pt solid white;
+	border-left:none;
+	
+	mso-pattern:white none;}}
+	
