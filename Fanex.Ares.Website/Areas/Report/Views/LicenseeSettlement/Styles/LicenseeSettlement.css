@@ -115,6 +115,7 @@ td
 	font-family:Calibri, sans-serif;
 	text-align:right;
 	vertical-align:middle;
+	border:.5pt solid gray;
 }
 
 .colText
@@ -126,6 +127,7 @@ td
 	font-family:Calibri, sans-serif;
 	text-align:center;
 	vertical-align:middle;
+	border:.5pt solid gray;
 }
 
 .grandtotal

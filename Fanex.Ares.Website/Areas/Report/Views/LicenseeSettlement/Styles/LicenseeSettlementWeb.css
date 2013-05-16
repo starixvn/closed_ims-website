@@ -1,8 +1,4 @@
-﻿.boldTilte
-{
-	font-size: 11.5pt !important;
-}
-.header
+﻿.header
 {
 	border: 1pt solid gray;
 	font-size: 10.0pt !important;
@@ -10,10 +6,12 @@
 .colNumber
 {
 	font-size: 10.0pt !important;
+	border:1pt solid gray !important;
 }
 .colText
 {
 	font-size: 10.0pt !important;
+	border:1pt solid gray !important;
 }
 .grandtotal
 {
