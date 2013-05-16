@@ -644,7 +644,7 @@
     <Content Include="Areas\Invoice\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Invoice\Views\Web.config" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
-    <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsbookBK.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
@@ -653,7 +653,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Racing.cshtml" />
-    <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsbookBK.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Host Fee.cshtml" />
     <None Include="Content\base\common.less" />
@@ -723,6 +723,7 @@
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\Employee.cshtml" />
     <Content Include="Web.Configuration\PdfHelper.config" />
+    <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
