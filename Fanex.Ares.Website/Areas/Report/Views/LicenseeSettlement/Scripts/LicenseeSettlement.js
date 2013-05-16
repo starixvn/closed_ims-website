@@ -9,7 +9,7 @@ $(document).ready(function () {
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
-    $('#btnExcel').click(function () { exportReportToExcel(); });
+//    $('#btnExcel').click(function () { exportReportToExcel(); });
     $('#btnPrint').click(function () { exportReportToPDF(); });
 
     RenderFilterNote();

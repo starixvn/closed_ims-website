@@ -116,33 +116,33 @@
             </td>
         </tr>
         <tr>
-            <td rowspan="2" class="xl75" style='height: 26pt'>
+            <td rowspan="2" class="header" style='height: 26pt'>
                 @Labels.Date
             </td>
-            <td rowspan="2" class="xl76">
+            <td rowspan="2" class="header">
                 @Labels.Currency
             </td>
-            <td rowspan="2" class="xl77">
+            <td rowspan="2" class="header">
                 @Labels.Turnover
             </td>
-            <td rowspan="2" class="xl77">
+            <td rowspan="2" class="header">
                 @Labels.TotalTrans
             </td>
-            <td colspan="3" class="xl77">
+            <td colspan="3" class="header">
                 @Labels.Member
             </td>
-            <td colspan="3" class="xl77">
+            <td colspan="3" class="header">
                 @licensee.LicenseeInfor.LicenseeName
             </td>
-            <td rowspan="2" class="xl77">
+            <td rowspan="2" class="header">
                 @Labels.Company
             </td>
-            <td rowspan="2" class="xl78">
+            <td rowspan="2" class="header">
                 @licensee.LicenseeInfor.BaseCurrencyName
             </td>
-            <td  rowspan="2" style="display: table-cell">
+            <td  rowspan="2" >
             </td>
-            <td colspan="2" class="xl80">
+            <td colspan="2" class="header">
                 @{
                     string forexTime = string.Empty;
                     if (DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
@@ -158,28 +158,28 @@
             </td>
         </tr>
         <tr>
-            <td class="xl73">
+            <td class="header">
                 @Labels.WinLoss
             </td>
-            <td class="xl73">
+            <td class="header">
                 @Labels.Comm
             </td>
-            <td class="xl73">
+            <td class="header">
                 @Labels.Total
             </td>
-            <td class="xl73">
+            <td class="header">
                 @Labels.WinLoss
             </td>
-            <td class="xl73">
+            <td class="header">
                 @Labels.Comm
             </td>
-            <td class="xl73">
+            <td class="header">
                 @Labels.Total
             </td>
-            <td class="xl101">
+            <td class="header">
                 @licensee.LicenseeInfor.BaseCurrencyName/1 Unit
             </td>
-            <td class="xl102">
+            <td class="header">
                 Units/1 @licensee.LicenseeInfor.BaseCurrencyName
             </td>
         </tr>
@@ -202,22 +202,22 @@
             var evenClass = GetEvenClass(i);
             
             <tr>
-                <td height="17" class="xl91_center" style='height: 15pt; @evenClass'>
+                <td height="17" class="colText" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
                     @report.WinlostDate.ToAresDayMonthYear()
                 </td>
-                <td class="xl83" style="@evenClass">
+                <td class="colText" style="@evenClass">
                     @report.CurrencyName
                 </td>
-                <td class="xl84" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     @report.Turnover.Format(2)
                 </td>
-                <td class="xl85" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     @report.Betcount.Format(0)
                 </td>
-                <td class="xl84" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.MemberWinloss)">@report.MemberWinloss.FormatNegative(2)</span>
                 </td>
-                <td class="xl86" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     @if (report.MemberComm != 0)
                     {
                         @report.MemberComm.Format(2);
@@ -227,13 +227,13 @@
                         <span>-</span>
                     }
                 </td>
-                <td class="xl84" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.MemberTotal)">@report.MemberTotal.FormatNegative(2)</span>
                 </td>
-                <td class="xl84" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.LicenseeWL)">@report.LicenseeWL.FormatNegative(2)</span>
                 </td>
-                <td class="xl86" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     @if (report.LicenseeComm != 0)
                     {
                         @report.LicenseeComm.Format(2);
@@ -244,22 +244,22 @@
                         <span>-</span>
                     }
                 </td>
-                <td class="xl84" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.LicenseeTotal);">@report.LicenseeTotal.FormatNegative(2)</span>
                 </td>
-                <td class="xl84" style="@evenClass">
+                <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.Company);">@report.Company.FormatNegative(2)</span>
                 </td>
-                <td class="xl92" style="@evenClass">
+                <td class="colNumber" style="border-right: .5pt solid gray;@evenClass">
                     <span class="@GetNegativeClass(report.CompanyBaseCurrency);">@report.CompanyBaseCurrency.FormatNegative(2)</span>
                 </td>
                 <td class="xl70">
                     @exchange.CurrencyName
                 </td>
-                <td class="xl91" style="@evenClass">
+                <td class="colNumber" style="border-left: .5pt solid gray;@evenClass">
                     @exchange.BasePerUnit.Format(5)
                 </td>
-                <td class="xl92" style="@evenClass">
+                <td class="colNumber" style="border-right: .5pt solid gray; @evenClass">
                     @exchange.UnitsPerBase.Format(5)
                 </td>
             </tr>
