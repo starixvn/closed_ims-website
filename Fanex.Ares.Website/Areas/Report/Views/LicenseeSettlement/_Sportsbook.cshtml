@@ -36,7 +36,7 @@
         <col style='mso-width-source: userset; mso-width-alt: 2433; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 2433; width: 50pt'>
         <tr >
-            <td colspan="15" class="xl65"  style='height: 16.5pt;'>
+            <td colspan="15" class="boldTilte"  style='height: 16.5pt;'>
                 INTERNAL WORKSHEET FOR SETTLEMENT
             </td>
         </tr>
@@ -64,16 +64,16 @@
             <td colspan="2" style='height: 12.75pt;'>
                 LICENSEE:
             </td>
-            <td class="xl67">
+            <td class="licenseeName">
                 @licensee.LicenseeInfor.LicenseeName
             </td>
-            <td class="xl68" colspan="2">
+            <td class="sportName" colspan="2">
                 @licensee.LicenseeInfor.ProductName.ToUpper()
             </td>
             <td colspan="2">
                 1st Billing:
             </td>
-            <td class="xl66" colspan="9">
+            <td class="boldInfor" colspan="9">
                 @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
             </td>
         </tr>
@@ -83,7 +83,7 @@
             <td colspan="2">
                 Basis of Billing:
             </td>
-            <td class="xl66" colspan="8">
+            <td class="boldInfor" colspan="8">
                 15% of Net Win
             </td>
         </tr>
@@ -97,7 +97,7 @@
             <td colspan="2">
                 Minimum Fees:
             </td>
-            <td class="xl66" colspan="8">
+            <td class="boldInfor" colspan="8">
                 @licensee.LicenseeInfor.MinimumFees
             </td>
         </tr>
@@ -107,7 +107,7 @@
             <td colspan="2">
                 Head of Terms:
             </td>
-            <td class="xl66" colspan="8">
+            <td class="boldInfor" colspan="8">
                 @licensee.LicenseeInfor.HeadOfTerms
             </td>
         </tr>
@@ -140,7 +140,7 @@
             <td rowspan="2" class="header">
                 @licensee.LicenseeInfor.BaseCurrencyName
             </td>
-            <td  rowspan="2" >
+            <td  rowspan="2" class="emptyCell">
             </td>
             <td colspan="2" class="header">
                 @{
@@ -265,12 +265,12 @@
             </tr>
         }
         <tr>
-            <td colspan="12" align="right" class="xl72" style='height: 15pt;'>
+            <td colspan="12" align="right" class="grandtotal" style='height: 15pt;'>
                 @licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)
             </td>
-            <td class="xl201">
+            <td class="emptyCell">
             </td>
-            <td class="xl200" colspan="2">
+            <td class="emptyGrandtotal" colspan="2">
             </td>
         </tr>
         <tr>
