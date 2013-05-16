@@ -7,7 +7,7 @@
 .header
 {
 	font-size:10.0pt  !important;
-
+    border:1pt solid gray;
 }
 
 .colNumber
@@ -23,6 +23,24 @@
 .grandtotal
 	{
 	font-size:12.0pt  !important;
-
+   border-top:1pt solid gray !important;
+	border-right:none;
+	border-bottom:2pt solid black !important;
+	border-left:none;
+	}
+	.emptyheader
+	{
+	   border:0pt solid white !important;
+	}
+	.emptytotal
+	{
+	    border-top:1pt solid gray !important;
+	    border-right:none;
+	    border-bottom:3pt solid white !important;
+	    border-left:none;
 	}
 	
+	.emptyCell
+	{
+	   border:3pt solid white !important;
+	}

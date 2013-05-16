@@ -137,21 +137,21 @@ td
 	font-family:Calibri, sans-serif;
 	border-top:.5pt solid gray;
 	border-right:none;
-	border-bottom:1.0pt solid windowtext;
+	border-bottom:1.0pt solid black;
 	border-left:none;
 	}
 	
-.emptyGrandtotal
+.emptytotal
 	{
 	    border-top:.5pt solid gray;
 	    border-right:none;
-	    border-bottom:none
+	    border-bottom:none;
 	    border-left:none;
 	}
 
 .emptyCell
 	{
-	    border-right:none !important;
+	    border-right:none;
 	}
 	
 
