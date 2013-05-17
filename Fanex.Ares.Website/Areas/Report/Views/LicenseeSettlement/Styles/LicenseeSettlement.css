@@ -95,11 +95,12 @@ td
 	 mso-font-charset:0;
 	 mso-pattern:white none;
 	color:white;
-	font-size:7.5pt;
+	font-size:6.5pt;
 	text-align:center;
 	font-weight:700;
 	font-family:Calibri, sans-serif;
 	vertical-align:middle;
+	
 	white-space:normal;
 	border:.5pt solid gray;
 	background:#3C5EA5;
@@ -111,7 +112,7 @@ td
 	 mso-font-charset:0;
 	mso-number-format:"\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
 	mso-pattern:white none;
-	font-size:7.5pt;
+	font-size:6.5pt;
 	font-family:Calibri, sans-serif;
 	text-align:right;
 	vertical-align:middle;
@@ -123,7 +124,7 @@ td
     mso-style-parent:style0;
 	 mso-font-charset:0;
 	 mso-pattern:white none;
-	font-size:7.5pt;
+	font-size:6.5pt;
 	font-family:Calibri, sans-serif;
 	text-align:center;
 	vertical-align:middle;
