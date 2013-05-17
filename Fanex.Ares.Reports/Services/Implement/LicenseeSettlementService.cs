@@ -150,7 +150,8 @@ namespace Fanex.Ares.Report.Services.Interface
                 licenseeInfoCriteria.ProductId = criteria.Product;
                 model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
                 model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
-                criteria.LicenseeName = model.LicenseeInfor.LicenseeName = Convert.ToString(listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>().extension["LicenseeName"]);
+                criteria.LicenseeName = Convert.ToString(listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>().extension["LicenseeName"]);
+                model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>().item.Text;
                 model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
                 //model.LicenseeInfor.SettlementDate = DateTime.Now;
                 model.LicenseeInfor.SettlementDate = criteria.ToDate;
@@ -162,7 +163,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 //reportCriteria.Product = criteria.Product;
                 //reportCriteria.Currency = criteria.Currency;
                 //reportCriteria.BaseCurrency = criteria.BaseCurrency;
-                //reportCriteria.FromDate = criteria.FromDate;
+                //reportCriteria.FromDate = criteria.FromDate;Hit
                 //reportCriteria.ToDate = criteria.ToDate;
 
                 model.Report = this.GetLicenseeReport(criteria);

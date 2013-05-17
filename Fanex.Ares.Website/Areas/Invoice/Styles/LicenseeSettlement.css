@@ -4,7 +4,12 @@
     width: 1260px; 
     margin:6px 0 0 10px;
 }
-
+.div-content1
+{
+    clear:both; 
+    width: 1260px; 
+    margin:6px 0 0 10px;
+}
 .titleBold
 {
     font-size: 17px !important;
