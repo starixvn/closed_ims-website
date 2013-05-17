@@ -36,6 +36,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
                 var excelFile = new ExcelFile();
                 var ewReport = excelFile.Worksheets.Add(string.Format("LicenseeSettlementReport"));
+                ewReport.PrintOptions.FitWorksheetWidthToPages = 1;
                 var rowIndex = 0;
                 #endregion
 
@@ -131,15 +132,16 @@ namespace Fanex.Ares.Report.Services.Interface
             ewReport.Columns[2].Width = 255 * 15;
             ewReport.Columns[3].Width = 255 * 10;
             ewReport.Columns[4].Width = 255 * 15;
-            ewReport.Columns[5].Width = 255 * 8;
+            ewReport.Columns[5].Width = 255 * 15;
             ewReport.Columns[6].Width = 255 * 15;
             ewReport.Columns[7].Width = 255 * 15;
-            ewReport.Columns[8].Width = 255 * 8;
+            ewReport.Columns[8].Width = 255 * 15;
             ewReport.Columns[9].Width = 255 * 15;
             ewReport.Columns[10].Width = 255 * 15;
             ewReport.Columns[11].Width = 255 * 15;
             ewReport.Columns[12].Width = 255 * 8;
             #endregion
+            
 
             #region win/loss & exchange rate
             #region header - winloss

@@ -58,6 +58,7 @@ namespace Fanex.Ares.Report.Controllers
             IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();
             model.Year = DateTime.Now.Year;
             ViewBag.ListLicensee = _service.GetAllLicensees();
+            ViewBag.ListLicenseeEx = _service.GetAllLicenseesEx();
             var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
             ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
             var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();

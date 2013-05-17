@@ -21,6 +21,7 @@ using Fanex.Ares.Core.Criteria;
 using Fanex.Ares.Core.Repository.Impl;
 using Fanex.NAP.Core.Web.Context;
 using Fanex.NAP.Core.Web.Session;
+using Fanex.Ares.Core.Extensions;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
@@ -101,7 +102,7 @@ namespace Fanex.Ares.Core.Services.Impl
                     return new SelectListItem
                     {
                         Value = Convert.ToString(r["LicenseeID"]),
-                        Text = Convert.ToString(r["LicenseeName"])
+                        Text = Convert.ToString(r["BrandName"])
                     };
                 };
 
@@ -114,6 +115,35 @@ namespace Fanex.Ares.Core.Services.Impl
             return listLicensees;
         }
 
+        public IEnumerable<SelectListItemEx> GetAllLicenseesEx()
+        {
+            IList<SelectListItemEx> listLicensees = new List<SelectListItemEx>();
+            try
+            {
+                Func<IDataReader, SelectListItemEx> mappingFunc = r =>
+                {
+                    return new SelectListItemEx
+                    {
+                        item = new SelectListItem()
+                        {
+                            Value = Convert.ToString(r["LicenseeID"]),
+                            Text = Convert.ToString(r["BrandName"])
+                        },
+                        extension = new Dictionary<string, object>() 
+                        { 
+                            { "LicenseeName", Convert.ToString(r["LicenseeName"]) } 
+                        }
+                    };
+                };
+
+                listLicensees = _repository.Fetch<SelectListItemEx>(new IMS_LicenseeSelCriteria(), mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return listLicensees;
+        }
 
         public IEnumerable<SelectListItem> GetProductsByLicensee(IMS_LicenseeProductSelCriteria criteria)
         {

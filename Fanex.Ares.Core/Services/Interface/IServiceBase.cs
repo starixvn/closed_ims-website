@@ -11,6 +11,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Fanex.NAP.Framework.Data;
+using Fanex.Ares.Core.Extensions;
 
 namespace Fanex.Ares.Core.Services.Interface
 {
