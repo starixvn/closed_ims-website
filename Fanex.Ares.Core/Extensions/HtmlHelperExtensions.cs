@@ -9,8 +9,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 using System.Globalization;
@@ -364,5 +366,45 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         #endregion Dropdownlist
+
+
+        public static string RenderViewToString(Controller controller, string viewName, object viewData)
+        {
+            var renderedView = new StringBuilder();
+            using (var responseWriter = new StringWriter(renderedView))
+            {
+                var fakeResponse = new HttpResponse(responseWriter);
+                var fakeContext = new HttpContext(HttpContext.Current.Request, fakeResponse);
+                var fakeControllerContext = new ControllerContext(new HttpContextWrapper(fakeContext), controller.ControllerContext.RouteData, controller.ControllerContext.Controller);
+
+                var oldContext = HttpContext.Current;
+                HttpContext.Current = fakeContext;
+
+                using (var viewPage = new ViewPage())
+                {
+                    var html = new HtmlHelper(CreateViewContext(responseWriter, fakeControllerContext), viewPage);
+                    html.RenderPartial(viewName, viewData);
+                    HttpContext.Current = oldContext;
+                }
+            }
+
+            return renderedView.ToString();
+        }
+
+        private static ViewContext CreateViewContext(TextWriter responseWriter, ControllerContext fakeControllerContext)
+        {
+            return new ViewContext(fakeControllerContext, new FakeView(), new ViewDataDictionary(), new TempDataDictionary(), responseWriter);
+        }
+    }
+    public class FakeView : IView
+    {
+        #region IView Members
+
+        public void Render(ViewContext viewContext, TextWriter writer)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
