@@ -21,11 +21,11 @@
   <Function Name="Licensee Settlement">
     <Setting Key="IMS_LicenseeSel" SpName="IMS_LicenseeSel" DbName="licensee" />
     <Setting Key="IMS_LicenseeProductSel" SpName="IMS_LicenseeProductSel" DbName="licensee" />
-    <Setting Key="IMS_ExchangeRateBillingSel" SpName="IMS_ExchangeRateBillingSel" DbName="db053" />
+    <Setting Key="IMS_ExchangeRateBillingSel" SpName="IMS_ExchangeRateBillingSel" DbName="archive" />
     <Setting Key="IMS_LicenseeBillingInfoSel" SpName="IMS_LicenseeBillingInfoSel" DbName="licensee" />
-    <Setting Key="IMS_Rpt_LicenseeSettlement" SpName="IMS_Rpt_LicenseeSettlement" DbName="db053" />
+    <Setting Key="IMS_Rpt_LicenseeSettlement" SpName="IMS_Rpt_LicenseeSettlement" DbName="archive" />
     <Setting Key="IMS_LicenseeCurrencySel" SpName="IMS_LicenseeCurrencySel" DbName="licensee" />
-    <Setting Key="IMS_BaseCurrencySel" SpName="IMS_BaseCurrencySel" DbName="db053" />
+    <Setting Key="IMS_BaseCurrencySel" SpName="IMS_BaseCurrencySel" DbName="archive" />
   </Function>
 
 </Functions>

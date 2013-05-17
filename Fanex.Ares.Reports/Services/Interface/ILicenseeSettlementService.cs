@@ -4,12 +4,14 @@ using Fanex.Ares.Core.Criteria;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using Fanex.Ares.Report.ViewModels;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+using Fanex.Ares.Core.Extensions;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
     public interface ILicenseeSettlementService
     {
         IEnumerable<SelectListItem> GetAllLicensees();
+        IEnumerable<SelectListItemEx> GetAllLicenseesEx();
         IEnumerable<SelectListItem> GetProductsByLicensee(IMS_LicenseeProductSelCriteria criteria);
         IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria);
         IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria);

@@ -9,8 +9,8 @@ $(document).ready(function () {
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
-   // $('#btnExcel').click(function () { exportReportToExcel(); });
-    $('#btnPrint').click(function () { exportReportToPDF(); });
+//    $('#btnExcel').click(function () { exportReportToExcel(); });
+//    $('#btnPrint').click(function () { exportReportToPDF(); });
 
     RenderFilterNote();
 
@@ -23,7 +23,7 @@ $(document).ready(function () {
     $('#LicenseeId').change(function () {
         GetProductByLicenseeID($(this).val());
         GetCurrencyByLicenseeID($(this).val());
-        if ($(this).val() == "-1") {
+        if ($(this).val() == "0") {
             $('#btnGenerate').addClass("ui-state-disabled");
         } else {
             $('#btnGenerate').removeClass("ui-state-disabled");

@@ -58,6 +58,7 @@ namespace Fanex.Ares.Report.Controllers
             IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();
             model.Year = DateTime.Now.Year;
             ViewBag.ListLicensee = _service.GetAllLicensees();
+            ViewBag.ListLicenseeEx = _service.GetAllLicenseesEx();
             var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
             ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
             var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();
@@ -118,7 +119,7 @@ namespace Fanex.Ares.Report.Controllers
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
             int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
+            string fileName = _service.GetFileName();
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", SettlementView, model, model.Report.EntityList.Count + 1, fileName, isSavePDF);
         }

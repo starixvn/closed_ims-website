@@ -31,9 +31,19 @@ namespace Fanex.Ares.Website.App_Start
             #endregion
 
             #region NAP Recheckin
-            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts").Include(
+            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/JS").Include(
                 "~/Areas/UserLogin/scripts/ReCheckIn.js"
                 ));
+            #endregion
+
+            #region NAP msgbox
+            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/lib/msgbox/JS").Include(
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.js"
+                ));
+
+            bundles.Add(new StyleBundle("~/Areas/UserLogin/scripts/lib/msgbox/CSS").Include(
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"
+            ));
             #endregion
 
             #region Multiselect Plugin

@@ -22,6 +22,7 @@ using Fanex.Ares.Core.Criteria;
 using Fanex.Ares.Invoice.ViewModels.LicenseeSettlement;
 using Fanex.Ares.Invoice.Criteria.LicenseeSettlement;
 using Fanex.Ares.Core.Services.Impl;
+using Fanex.Ares.Core.Extensions;
 
 namespace Fanex.Ares.Invoice.Controllers
 {
@@ -53,7 +54,20 @@ namespace Fanex.Ares.Invoice.Controllers
             model.Year = DateTime.Now.Year;
             ViewBag.ListLicensee = _service.GetAllLicensees();
             var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
-            ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID });
+            var listProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID }).ToList();
+            listProduct.Add(new SelectListItem()
+            {
+                Text = "Racing",
+                Value = "4"
+            });
+
+            listProduct.Add(new SelectListItem()
+            {
+                Text = "Host Fee",
+                Value = "5"
+            });
+
+            ViewBag.ListProduct = listProduct;
             var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();
             listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
             ViewBag.ListCurrency = listCurrency;
@@ -69,9 +83,9 @@ namespace Fanex.Ares.Invoice.Controllers
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
             SettlementView = "_" + criteria.ProductName;
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, SettlementView);
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, SettlementView);
             return PartialView(SettlementView, model);
         }
 
@@ -118,6 +132,39 @@ namespace Fanex.Ares.Invoice.Controllers
             string fileName = "test";
             //FillImageUrl(customerList, "report.jpg");
             return this.ViewPdf("", "_Sportsbook", model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
+        }
+
+        public ActionResult ExportDocument(WorkBookExtension.DocumentType documentType)
+        {
+            var model = new LicenseeSettlementModel();
+
+            //model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            //SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+
+            string html = this.htmlViewRenderer.RenderViewToString(this, "_Sportsbook", model);
+
+
+
+            var excelCssFilePath = new List<string>();
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
+
+            var excelExtension = new WorkBookExtension();
+            var ms = excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Portrait);
+            if (ms != null)
+            {
+                // return the filestream
+                // Rewind the memory stream to the beginning
+                ms.Seek(0, SeekOrigin.Begin);
+
+                int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
+                int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
+                string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year + "." + documentType.ToString().ToLower();
+
+                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
+            }
+            return new EmptyResult();
+
+
         }
     }
 }
