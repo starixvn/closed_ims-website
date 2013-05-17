@@ -26,6 +26,7 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
+using Fanex.Workbooks;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -134,7 +135,7 @@ namespace Fanex.Ares.Report.Controllers
 
 
         //testing
-        public ActionResult ExportDocument(WorkBookExtension.DocumentType documentType )
+        public ActionResult ExportDocument(WorkbookManager.DocumentType documentType )
         {
             var model = new LicenseeSettlementModel();
 
@@ -154,8 +155,8 @@ namespace Fanex.Ares.Report.Controllers
             var excelCssFilePath = new List<string>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
            
-            var excelExtension = new WorkBookExtension();
-            var ms = excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Landscape);
+            var workbook = new WorkbookManager();
+            var ms = workbook.CreateDocument(html, excelCssFilePath, documentType, WorkbookManager.PageOrientation.Landscape);
             if (ms != null)
             {
                 // return the filestream

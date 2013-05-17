@@ -95,9 +95,9 @@
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = Fanex.Workbooks.WorkbookManager.DocumentType.Pdf })'" />
         @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
-        <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Xlsx })'"  />
+        <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = Fanex.Workbooks.WorkbookManager.DocumentType.Xlsx })'"  />
     </div>
 </div>
 <div id="parentContainer" class="content-grid">
