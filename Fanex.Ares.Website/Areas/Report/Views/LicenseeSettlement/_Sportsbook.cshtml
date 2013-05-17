@@ -180,7 +180,7 @@
                                 <td class="cellstyle col40 alignright @evenClass @GetNegativeClass(report.MemberComm)" >
                                     @if (report.MemberComm != 0)
                                     {
-                                        report.MemberComm.FormatNegative(2);
+                                        @report.MemberComm.FormatNegative(2);
                                     }
                                     else
                                     { 
@@ -196,7 +196,7 @@
                                 <td class="cellstyle col40 alignright @evenClass @GetNegativeClass(report.LicenseeComm)">
                                     @if (report.LicenseeComm != 0)
                                     {
-                                        report.LicenseeComm.FormatNegative(2);
+                                        @report.LicenseeComm.FormatNegative(2);
                                     }
                                     else
                                     { 
