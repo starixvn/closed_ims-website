@@ -137,72 +137,81 @@ namespace Fanex.Ares.Report.Services.Interface
         public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             // Licensee Information
-            var listLicensee = this.GetAllLicensees();
+            var listLicensee = this.GetAllLicenseesEx();
             var listProduct = this.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
             var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
             var listBaseCurrency = this.GetBaseCurrency(new IMS_BaseCurrencySel());
             var model = new LicenseeSettlementModel();
             var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
-            licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
-            licenseeInfoCriteria.ProductId = criteria.Product;
-            model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
-            model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
-            criteria.LicenseeName = model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItem>().Text;
-            model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
-            //model.LicenseeInfor.SettlementDate = DateTime.Now;
-            model.LicenseeInfor.SettlementDate = criteria.ToDate;
 
-            // Licensee Report
-            //var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
-            //reportCriteria.LicenseeId = criteria.LicenseeId;
-            //reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
-            //reportCriteria.Product = criteria.Product;
-            //reportCriteria.Currency = criteria.Currency;
-            //reportCriteria.BaseCurrency = criteria.BaseCurrency;
-            //reportCriteria.FromDate = criteria.FromDate;
-            //reportCriteria.ToDate = criteria.ToDate;
-
-            model.Report = this.GetLicenseeReport(criteria);
-
-            // Exchange Rate
-            var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
-            model.ExchangeList = new List<ViewModels.ExchangeRate>();
-
-            var exchangeRatecurrencies = string.Empty;
-            foreach (ReportEntity item in model.Report.EntityList)
+            try
             {
-                // Calculate membertotal = memberwinloss + membercomm
-                item.MemberTotal = item.MemberWinloss + item.MemberComm;
+                licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
+                licenseeInfoCriteria.ProductId = criteria.Product;
+                model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
+                model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
+                criteria.LicenseeName = model.LicenseeInfor.LicenseeName = Convert.ToString(listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>().extension["LicenseeName"]);
+                model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
+                //model.LicenseeInfor.SettlementDate = DateTime.Now;
+                model.LicenseeInfor.SettlementDate = criteria.ToDate;
 
-                // Calculate licenseetotal = licenseewinloss + licenseecomm
-                item.LicenseeTotal = item.LicenseeWL + item.LicenseeComm;
+                // Licensee Report
+                //var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
+                //reportCriteria.LicenseeId = criteria.LicenseeId;
+                //reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
+                //reportCriteria.Product = criteria.Product;
+                //reportCriteria.Currency = criteria.Currency;
+                //reportCriteria.BaseCurrency = criteria.BaseCurrency;
+                //reportCriteria.FromDate = criteria.FromDate;
+                //reportCriteria.ToDate = criteria.ToDate;
 
-                if (criteria.Currency == 0) // All Currency
+                model.Report = this.GetLicenseeReport(criteria);
+
+                // Exchange Rate
+                var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
+                model.ExchangeList = new List<ViewModels.ExchangeRate>();
+
+                var exchangeRatecurrencies = string.Empty;
+                foreach (ReportEntity item in model.Report.EntityList)
                 {
-                    if (!exchangeRatecurrencies.Contains(item.Currency.ToString()))
+                    // Calculate membertotal = memberwinloss + membercomm
+                    item.MemberTotal = item.MemberWinloss + item.MemberComm;
+
+                    // Calculate licenseetotal = licenseewinloss + licenseecomm
+                    item.LicenseeTotal = item.LicenseeWL + item.LicenseeComm;
+
+                    if (criteria.Currency == 0) // All Currency
                     {
-                        exchangeRatecurrencies += item.Currency.ToString() + ",";
+                        if (!exchangeRatecurrencies.Contains(item.Currency.ToString()))
+                        {
+                            exchangeRatecurrencies += item.Currency.ToString() + ",";
+                        }
+                    }
+                    else // Single currency
+                    {
+                        exchangeRatecurrencies = item.Currency.ToString();
                     }
                 }
-                else // Single currency
-                {
-                    exchangeRatecurrencies = item.Currency.ToString();
-                }
+
+                exchangeRatecurrencies.Trim(',');
+
+                exchangeRateCriteria.Currency = exchangeRatecurrencies;
+                exchangeRateCriteria.ExchangeDate = criteria.ToDate;
+                exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
+                exchangeRateCriteria.BaseCurrencyName = listBaseCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
+
+                var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
+
+                model.ExchangeList = exchangeList;
+
+                model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
+                SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport, model);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
             }
 
-            exchangeRatecurrencies.Trim(',');
-
-            exchangeRateCriteria.Currency = exchangeRatecurrencies;
-            exchangeRateCriteria.ExchangeDate = criteria.ToDate;
-            exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
-            exchangeRateCriteria.BaseCurrencyName = listBaseCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
-
-            var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
-
-            model.ExchangeList = exchangeList;
-           
-            model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport, model);
             return model;
         }
         #endregion

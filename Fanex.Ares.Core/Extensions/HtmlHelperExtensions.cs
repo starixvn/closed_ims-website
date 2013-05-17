@@ -301,8 +301,8 @@ namespace Fanex.Ares.Core.Extensions
                     selectList = list;
                 }
             }
-
-            return SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, htmlAttributes);
+            var result = SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, htmlAttributes);
+            return result;
         }
 
         public static MvcHtmlString DropDownListForMonth<TModel,
@@ -356,13 +356,31 @@ namespace Fanex.Ares.Core.Extensions
         public static string GetFullDomainURL()
         {
             NameValueCollection variables = HttpContext.Current.Request.ServerVariables;
-
             string protocol = (variables["SERVER_PORT_SECURE"] == "1") ? "https://" : "http://";
             string domain = variables["SERVER_NAME"];
             string port = variables["SERVER_PORT"];
             return protocol + domain + ":" + port + (HttpRuntime.AppDomainAppVirtualPath == "/" ? string.Empty : HttpRuntime.AppDomainAppVirtualPath);
         }
 
+        public static IEnumerable<SelectListItem> ToListSelectListItem(this List<SelectListItemEx> listEx)
+        {
+            foreach (var item in listEx)
+            {
+                yield return item.item;
+            }
+        }
+
         #endregion Dropdownlist
+    }
+
+    public class SelectListItemEx
+    {
+        public SelectListItem item { get; set; }
+        public Dictionary<string, object> extension { get; set; }
+
+        public SelectListItemEx() {
+            item = new SelectListItem();
+            extension = new Dictionary<string, object>();
+        }
     }
 }
