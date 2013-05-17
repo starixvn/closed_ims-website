@@ -8,22 +8,12 @@
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Licensee Settlement Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
-@* if (Request.UserAgent.Contains("Chrome"))
-      {
-      <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlementChrome.css" />
-      }
-      else
-      {
-           <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
-      }*@
-
 }
 @section Head {
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style", "~/Scripts/_Libs/MonthPicker/style")
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
-    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css?ver=1" />
-    @*<link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlementWeb.css" />*@
+    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
 }
 @section Headline {
     <div class="title">
@@ -32,8 +22,9 @@
         </div>
     </div>
 }
+
 <div>
-    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement", autocomplete = "off" }))
+    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement", autocomplete = "off"}))
     {
         <div id="filter-bar" class="filter-bar" style="width: 1260px;">
             <span id="notemessage" class="note-info-message" title=''></span>
@@ -44,7 +35,7 @@
                             @Html.LabelFor(m => m.LicenseeId, "Licensee")
                         </div>
                         <div class="edit-field col_6 align-left">
-                            @Html.DropDownListFor(m => m.LicenseeId, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
+                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
                         </div>
                         @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
                     </div>*@
@@ -104,11 +95,9 @@
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />
-        <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />
-        @*<input id="btnPDF1" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
-        <input id="btnExcel1" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Xlsx })'" />*@
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = Fanex.Workbooks.WorkbookManager.DocumentType.Pdf })'" />
         @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
+        <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = Fanex.Workbooks.WorkbookManager.DocumentType.Xlsx })'"  />
     </div>
 </div>
 <div id="parentContainer" class="content-grid">

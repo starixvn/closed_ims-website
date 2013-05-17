@@ -149,7 +149,7 @@ namespace Fanex.Ares.Invoice.Controllers
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
 
             var excelExtension = new WorkBookExtension();
-            var ms = excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Portrait);
+            var ms = new MemoryStream();//excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Portrait);
             if (ms != null)
             {
                 // return the filestream

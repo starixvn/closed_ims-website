@@ -97,39 +97,15 @@
     <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
     <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
-    <Compile Include="Entities\Outright\League.cs" />
-    <Compile Include="Entities\Outright\Team.cs" />
-    <Compile Include="Entities\Outright\TicketInfo.cs" />
-    <Compile Include="Entities\ParlayTicket\TicketInfo.cs" />
-    <Compile Include="Entities\SingleTicket\TicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\Impl\RecoverTicketRepository.cs" />
-    <Compile Include="Repositories\Impl\VoidOutrightTicketRepository.cs" />
-    <Compile Include="Repositories\Impl\VoidParlayTicketRepository.cs" />
-    <Compile Include="Repositories\Impl\VoidSingleTicketRepository.cs" />
-    <Compile Include="Repositories\Interface\IRecoverTicketRepository.cs" />
-    <Compile Include="Repositories\Interface\IVoidOutrightTicketRepository.cs" />
-    <Compile Include="Repositories\Interface\IVoidParlayTicketRepository.cs" />
-    <Compile Include="Repositories\Interface\IVoidSingleTicketRepository.cs" />
     <Compile Include="Services\Implement\BAExcelService.cs" />
     <Compile Include="Services\Implement\SportsbookExcelService.cs" />
     <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
-    <Compile Include="Services\Implement\RecoverTicketService.cs" />
-    <Compile Include="Services\Implement\VoidOutrightTicketService.cs" />
-    <Compile Include="Services\Implement\VoidParlayTicketService.cs" />
-    <Compile Include="Services\Implement\VoidSingleTicketService.cs" />
     <Compile Include="Services\Interface\IBAExcelService.cs" />
     <Compile Include="Services\Interface\ISportsbookExcelService.cs" />
     <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />
-    <Compile Include="Services\Interface\IRecoverTicketService.cs" />
-    <Compile Include="Services\Interface\IVoidOutrightTicketService.cs" />
-    <Compile Include="Services\Interface\IVoidParlayTicketService.cs" />
-    <Compile Include="Services\Interface\IVoidSingleTicketService.cs" />
     <Compile Include="ViewModels\ExchangeRate.cs" />
     <Compile Include="ViewModels\LicenseeInformation.cs" />
-    <Compile Include="ViewModels\Outright\OutrightTicketModel.cs" />
-    <Compile Include="ViewModels\ParlayTicket\ParlayTicketModel.cs" />
-    <Compile Include="ViewModels\SingleTicket\SingleTicketModel.cs" />
     <Compile Include="ViewModels\LicenseeSettlement\LicenseeSettlementModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +120,10 @@
     <ProjectReference Include="..\Resource\Resources.csproj">
       <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
       <Name>Resources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Workbook\Fanex.Workbooks.csproj">
+      <Project>{C0D5A32D-72BC-4737-949D-FDF9342B243F}</Project>
+      <Name>Fanex.Workbooks</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -165,6 +145,10 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\Impl\" />
+    <Folder Include="Repositories\Interface\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

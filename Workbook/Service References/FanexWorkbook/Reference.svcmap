@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="1f4bf907-8ffb-4906-97a5-fd0255d24ae2" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="0f445f9d-3d85-4052-b760-862e2d9d2a16" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="6cd00dc0-76cb-4caf-845f-144247937661" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="cb2a02bf-3e35-49a5-b97a-a3f5ffedf588" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="Fanex.Workbook.Service.Entities.xsd" MetadataType="Schema" ID="d2e5fd33-70e4-465d-97b3-744fedbbf478" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="Fanex.Workbook.Service.Business.xsd" MetadataType="Schema" ID="158426cb-ba49-4198-89ff-31a94ee120c6" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="Fanex.Workbook.Service.xsd" MetadataType="Schema" ID="6efc20a0-a2fa-4792-9702-a2f6551ad662" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>
