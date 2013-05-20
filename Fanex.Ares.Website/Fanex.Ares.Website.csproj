@@ -245,6 +245,7 @@
     <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement_bk.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css" />
