@@ -27,10 +27,13 @@ using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
 using Fanex.Workbooks;
+using Fanex.NAP.Core.Web.Attribute;
+using Fanex.NAP.Core.Business;
 
 namespace Fanex.Ares.Report.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [NapSuperAuth]
     public class LicenseeSettlementController : BaseController
     {
         ILicenseeSettlementService _service;
