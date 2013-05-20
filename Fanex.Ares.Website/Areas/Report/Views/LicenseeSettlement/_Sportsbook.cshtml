@@ -19,22 +19,7 @@
 }
 <div class="div-content" style="overflow-x: hidden">
     <table border="0" cellpadding="0" cellspacing="0" width="1019px" style='border-collapse: collapse;
-        table-layout: fixed;'>
-        <col style='mso-width-source: userset; mso-width-alt: 2500; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 40pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2500; width: 80pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2400; width: 70pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 1536; width: 40pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2500; width: 60pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2500; width: 60pt'>
+        '>
         <tr>
             <td colspan="15" class="boldTilte" style='height: 16.5pt;'>
                 INTERNAL WORKSHEET FOR SETTLEMENT
@@ -255,16 +240,38 @@
                 <td class="currency">
                     @exchange.CurrencyName
                 </td>
-                <td class="colNumber" style="border-left: .5pt solid gray;@evenClass">
+                <td class="colNumber5Odd" style="border-left: .5pt solid gray;@evenClass">
                     @exchange.BasePerUnit.Format(5)
                 </td>
-                <td class="colNumber" style="border-right: .5pt solid gray; @evenClass">
+                <td class="colNumber5Odd" style="border-right: .5pt solid gray; @evenClass">
                     @exchange.UnitsPerBase.Format(5)
                 </td>
             </tr>
         }
         <tr>
-            <td colspan="12" align="right" class="grandtotal" style='height: 15pt;'>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td class="grandtotal">
+            </td>
+            <td align="right" class="grandtotal" style='height: 15pt;'>
                 @licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)
             </td>
             <td class="emptyCell">

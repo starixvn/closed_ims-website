@@ -85,9 +85,7 @@ td
 
 .currency
 	{mso-style-parent:style0;
-	font-family:Calibri, sans-serif;
 	mso-font-charset:0;
-	font-size:7.0pt;
 	text-align:right;}
 	
 
@@ -97,10 +95,8 @@ td
 	 mso-font-charset:0;
 	 mso-pattern:white none;
 	color:white;
-	font-size:7.0pt;
 	text-align:center;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
+	font-weight:bold;
 	vertical-align:middle;
 	white-space:normal;
 	border:.5pt solid gray;
@@ -113,8 +109,6 @@ td
 	 mso-font-charset:0;
 	mso-number-format:"\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
 	mso-pattern:white none;
-	font-size:7.0pt;
-	font-family:Calibri, sans-serif;
 	text-align:right;
 	vertical-align:middle;
 	border:.5pt solid gray;
@@ -125,8 +119,6 @@ td
     mso-style-parent:style0;
 	 mso-font-charset:0;
 	 mso-pattern:white none;
-	font-size:7.0pt;
-	font-family:Calibri, sans-serif;
 	text-align:center;
 	vertical-align:middle;
 	border:.5pt solid gray;
@@ -136,21 +128,17 @@ td
 {
     mso-number-format: "Medium Date";
     mso-font-charset:0;
-	 mso-pattern:white none;
-	font-size:7.0pt;
-	font-family:Calibri, sans-serif;
-	text-align:center;
-	vertical-align:middle;
-	border:.5pt solid gray;
+    mso-pattern:white none;
+    text-align:center;
+    vertical-align:middle;
+    border:.5pt solid gray;
 }
 
 .grandtotal
 	{mso-style-parent:style0;
 	 mso-font-charset:0;
 	mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
-	font-size:9.0pt;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
+	font-weight:bold;
 	border-top:.5pt solid gray;
 	border-right:none;
 	border-bottom:1.0pt solid black;
@@ -175,6 +163,18 @@ td
 .negative-number
 {
     color: Red !important;
+}
+
+.colNumber5Odd
+{
+    mso-style-parent:style0;
+    color:black;
+    mso-number-format:"\#\,\#\#0\.00000_\)\;\\\(\#\,\#\#0\.00000\\\)";
+    text-align:right;
+    vertical-align:middle;
+    border:.5pt solid gray;
+    mso-background-source:auto;
+    mso-pattern:white none;
 }
 
 .even
