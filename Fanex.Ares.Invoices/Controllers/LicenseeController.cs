@@ -23,6 +23,7 @@ using Fanex.Ares.Invoice.ViewModels.LicenseeSettlement;
 using Fanex.Ares.Invoice.Criteria.LicenseeSettlement;
 using Fanex.Ares.Core.Services.Impl;
 using Fanex.Ares.Core.Extensions;
+using Fanex.Workbooks;
 
 namespace Fanex.Ares.Invoice.Controllers
 {
@@ -134,22 +135,26 @@ namespace Fanex.Ares.Invoice.Controllers
             return this.ViewPdf("", "_Sportsbook", model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
         }
 
-        public ActionResult ExportDocument(WorkBookExtension.DocumentType documentType)
+        public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
         {
             var model = new LicenseeSettlementModel();
+
 
             //model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             //SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
 
-            string html = this.htmlViewRenderer.RenderViewToString(this, "_Sportsbook", model);
+
+
+
+            string html = HtmlHelperExtensions.RenderViewToString(this, "_Sportsbook", model);
 
 
 
             var excelCssFilePath = new List<string>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
 
-            var excelExtension = new WorkBookExtension();
-            var ms = new MemoryStream();//excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Portrait);
+            var workbook = new WorkbookManager();
+            var ms = workbook.CreateDocument(html, excelCssFilePath, documentType, WorkbookManager.PageOrientation.Landscape);
             if (ms != null)
             {
                 // return the filestream
@@ -158,12 +163,11 @@ namespace Fanex.Ares.Invoice.Controllers
 
                 //int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
                 //int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-                string fileName = model.LicenseeInfor.LicenseeName + "" + model.LicenseeInfor.ProductName + "" + "Settlement_For." + documentType.ToString().ToLower();
+                string fileName = "Settlement_For." + documentType.ToString().ToLower();
 
                 return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
             }
             return new EmptyResult();
-
 
         }
     }

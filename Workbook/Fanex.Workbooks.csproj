@@ -55,23 +55,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Service References\FanexWorkbook\Fanex.Workbook.Service.Business.xsd">
+    <None Include="Service References\FanexWorkbook\Fanex.Workbook.Service.Business1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FanexWorkbook\Fanex.Workbook.Service.Entities.xsd">
+    <None Include="Service References\FanexWorkbook\Fanex.Workbook.Service.Entities1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FanexWorkbook\Fanex.Workbook.Service.xsd">
+    <None Include="Service References\FanexWorkbook\Fanex.Workbook.Service1.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\FanexWorkbook\Fanex.Workbooks.FanexWorkbook.CompositeType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\FanexWorkbook\service.wsdl" />
-    <None Include="Service References\FanexWorkbook\service.xsd">
+    <None Include="Service References\FanexWorkbook\service1.wsdl" />
+    <None Include="Service References\FanexWorkbook\service2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\FanexWorkbook\service1.xsd">
+    <None Include="Service References\FanexWorkbook\service21.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
