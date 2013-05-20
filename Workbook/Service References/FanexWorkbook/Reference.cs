@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Fanex.Workbooks.ServiceReference1 {
+namespace Fanex.Workbooks.FanexWorkbook {
     using System.Runtime.Serialization;
     using System;
     
@@ -26,13 +26,13 @@ namespace Fanex.Workbooks.ServiceReference1 {
         private string CssContentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Fanex.Workbooks.ServiceReference1.WorkBookManagerDocumentType DocumentTypeField;
+        private Fanex.Workbooks.FanexWorkbook.WorkBookManagerDocumentType DocumentTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string HtmlContentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Fanex.Workbooks.ServiceReference1.WorkBookManagerPageOrientation PageOrientationField;
+        private Fanex.Workbooks.FanexWorkbook.WorkBookManagerPageOrientation PageOrientationField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -58,7 +58,7 @@ namespace Fanex.Workbooks.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fanex.Workbooks.ServiceReference1.WorkBookManagerDocumentType DocumentType {
+        public Fanex.Workbooks.FanexWorkbook.WorkBookManagerDocumentType DocumentType {
             get {
                 return this.DocumentTypeField;
             }
@@ -84,7 +84,7 @@ namespace Fanex.Workbooks.ServiceReference1 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fanex.Workbooks.ServiceReference1.WorkBookManagerPageOrientation PageOrientation {
+        public Fanex.Workbooks.FanexWorkbook.WorkBookManagerPageOrientation PageOrientation {
             get {
                 return this.PageOrientationField;
             }
@@ -190,26 +190,26 @@ namespace Fanex.Workbooks.ServiceReference1 {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IWorkBookService")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="FanexWorkbook.IWorkBookService")]
     public interface IWorkBookService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkBookService/GetData", ReplyAction="http://tempuri.org/IWorkBookService/GetDataResponse")]
         string GetData(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkBookService/CreateDocument", ReplyAction="http://tempuri.org/IWorkBookService/CreateDocumentResponse")]
-        byte[] CreateDocument(Fanex.Workbooks.ServiceReference1.DocumentSetting input);
+        byte[] CreateDocument(Fanex.Workbooks.FanexWorkbook.DocumentSetting input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkBookService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IWorkBookService/GetDataUsingDataContractResponse")]
-        Fanex.Workbooks.ServiceReference1.CompositeType GetDataUsingDataContract(Fanex.Workbooks.ServiceReference1.CompositeType composite);
+        Fanex.Workbooks.FanexWorkbook.CompositeType GetDataUsingDataContract(Fanex.Workbooks.FanexWorkbook.CompositeType composite);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IWorkBookServiceChannel : Fanex.Workbooks.ServiceReference1.IWorkBookService, System.ServiceModel.IClientChannel {
+    public interface IWorkBookServiceChannel : Fanex.Workbooks.FanexWorkbook.IWorkBookService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class WorkBookServiceClient : System.ServiceModel.ClientBase<Fanex.Workbooks.ServiceReference1.IWorkBookService>, Fanex.Workbooks.ServiceReference1.IWorkBookService {
+    public partial class WorkBookServiceClient : System.ServiceModel.ClientBase<Fanex.Workbooks.FanexWorkbook.IWorkBookService>, Fanex.Workbooks.FanexWorkbook.IWorkBookService {
         
         public WorkBookServiceClient() {
         }
@@ -234,11 +234,11 @@ namespace Fanex.Workbooks.ServiceReference1 {
             return base.Channel.GetData(value);
         }
         
-        public byte[] CreateDocument(Fanex.Workbooks.ServiceReference1.DocumentSetting input) {
+        public byte[] CreateDocument(Fanex.Workbooks.FanexWorkbook.DocumentSetting input) {
             return base.Channel.CreateDocument(input);
         }
         
-        public Fanex.Workbooks.ServiceReference1.CompositeType GetDataUsingDataContract(Fanex.Workbooks.ServiceReference1.CompositeType composite) {
+        public Fanex.Workbooks.FanexWorkbook.CompositeType GetDataUsingDataContract(Fanex.Workbooks.FanexWorkbook.CompositeType composite) {
             return base.Channel.GetDataUsingDataContract(composite);
         }
     }

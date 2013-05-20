@@ -8,11 +8,24 @@
 	font-size: 10.0pt !important;
 	border:1pt solid gray !important;
 }
+
+.currency
+	{
+	font-size:10.0pt;
+	}
+	
 .colText
 {
 	font-size: 10.0pt !important;
 	border:1pt solid gray !important;
 }
+
+.colDateTime
+{
+   font-size: 10.0pt !important;
+	border:1pt solid gray !important;
+}
+
 .grandtotal
 {
 	border-bottom: 2pt solid black !important;
