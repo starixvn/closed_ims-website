@@ -49,6 +49,7 @@ namespace Fanex.Ares.Report.Services.Interface
                     //report & exchange rate
                     ExportSportsBookReportToExcelAssignDetailAndExchangeRate(model.ExchangeList, model.Report, model.LicenseeInfor.LicenseeName, model.LicenseeInfor.SettlementDate,
                         ref rowIndex, ref ewReport, exchange);
+
                 }
 
                 if (isSaveFile) 
@@ -127,6 +128,7 @@ namespace Fanex.Ares.Report.Services.Interface
             var colIndex = 0;
 
             #region set width of each col
+            
             ewReport.Columns[0].Width = 255 * 10;
             ewReport.Columns[1].Width = 255 * 9;
             ewReport.Columns[2].Width = 255 * 15;

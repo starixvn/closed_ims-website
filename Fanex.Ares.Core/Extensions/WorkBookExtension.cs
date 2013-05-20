@@ -5,8 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web.Hosting;
+using Fanex.Ares.Core.Services.Impl;
 using Fanex.Web.HtmlHelper;
 using Microsoft.Office.Interop.Excel;
+
 
 namespace Fanex.Ares.Core.Extensions
 {
@@ -15,9 +17,9 @@ namespace Fanex.Ares.Core.Extensions
     /// </summary>
     public class WorkBookExtension
     {
-        private readonly string _fileDirectory;
+        
 
-        private string _xlsFileFormat;
+        
 
         public enum DocumentType
         {
@@ -32,16 +34,13 @@ namespace Fanex.Ares.Core.Extensions
 
         public WorkBookExtension()
         {
-            _fileDirectory = HostingEnvironment.MapPath("~/") + "App_Data/";
-
-            var isExists = System.IO.Directory.Exists(_fileDirectory);
-
-            if (!isExists)
-                System.IO.Directory.CreateDirectory(_fileDirectory);
+            
 
             
         }
 
+       
+        /*
 
         /// <summary>
         /// Create Excel Memory Stream from html
@@ -109,6 +108,7 @@ namespace Fanex.Ares.Core.Extensions
 
         }
 
+         
         private static string LoadCss(List<string> listCssFilePath)
         {
             string css = string.Empty;
@@ -257,6 +257,6 @@ namespace Fanex.Ares.Core.Extensions
                 fileStream.Write(bytesInStream, 0, bytesInStream.Length);
             }
             return _fileDirectory + fileName;
-        }
+        }*/
     }
 }

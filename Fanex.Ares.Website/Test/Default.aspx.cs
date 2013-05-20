@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Fanex.Workbooks;
+
 
 namespace Fanex.Ares.Website.Test
 {
@@ -12,13 +14,9 @@ namespace Fanex.Ares.Website.Test
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            var filePath = "D:/img1.jpg";
-            using (var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-            {
-                var buffer = new byte[fs.Length];
-                fs.Read(buffer, 0, (int)fs.Length);
-                var base64 = Convert.ToBase64String(buffer);
-            }
+           var wb = new WorkbookManager();
+           var test = wb.CreateDocument("<table><tr><td>hello</td></tr></table>", null, WorkbookManager.DocumentType.Pdf, WorkbookManager.PageOrientation.Landscape);
+
         }
     }
 }

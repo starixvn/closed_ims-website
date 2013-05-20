@@ -26,6 +26,7 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
+using Fanex.Workbooks;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -33,7 +34,7 @@ namespace Fanex.Ares.Report.Controllers
     public class LicenseeSettlementController : BaseController
     {
         ILicenseeSettlementService _service;
-        private readonly HtmlViewRenderer htmlViewRenderer;
+        
         private readonly StandardPdfRenderer standardPdfRenderer;
 
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
@@ -49,7 +50,7 @@ namespace Fanex.Ares.Report.Controllers
         public LicenseeSettlementController()
         {
             _service = new LicenseeSettlementService();
-            this.htmlViewRenderer = new HtmlViewRenderer();
+            
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
 
@@ -84,7 +85,7 @@ namespace Fanex.Ares.Report.Controllers
         protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF)
         {
             // Render the view html to a string.
-            string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
+            string htmlText = HtmlHelperExtensions.RenderViewToString(this, viewName, model);
 
             // Let the html be rendered into a PDF document through iTextSharp.
 
@@ -134,7 +135,7 @@ namespace Fanex.Ares.Report.Controllers
 
 
         //testing
-        public ActionResult ExportDocument(WorkBookExtension.DocumentType documentType )
+        public ActionResult ExportDocument(WorkbookManager.DocumentType documentType )
         {
             var model = new LicenseeSettlementModel();
 
@@ -147,15 +148,15 @@ namespace Fanex.Ares.Report.Controllers
 
             
 
-            string html = this.htmlViewRenderer.RenderViewToString(this, SettlementView, model);
+            string html = HtmlHelperExtensions.RenderViewToString(this, SettlementView, model);
 
 
             
             var excelCssFilePath = new List<string>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
            
-            var excelExtension = new WorkBookExtension();
-            var ms = excelExtension.CreateDocument(html, excelCssFilePath, documentType, WorkBookExtension.PageOrientation.Landscape);
+            var workbook = new WorkbookManager();
+            var ms = workbook.CreateDocument(html, excelCssFilePath, documentType, WorkbookManager.PageOrientation.Landscape);
             if (ms != null)
             {
                 // return the filestream
