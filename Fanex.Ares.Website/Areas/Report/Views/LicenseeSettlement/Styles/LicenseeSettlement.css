@@ -74,7 +74,7 @@ td
 .boldTilte
 {
     mso-style-parent:style0;
-    font-size:8pt;
+    font-size:10pt;
     font-weight:700;
 }
 
@@ -175,9 +175,12 @@ td
     font-weight:bold;
     border-top:.5pt solid gray;
     border-right:none;
-    border-bottom:1.0pt solid black;
+    border-bottom:2.0pt solid black;
     border-left:none;
     text-align: right;
+    font-size: 8pt;
+    height: 18pt;
+    mso-height-source:userset;
 }
 	
 .emptytotal

@@ -205,7 +205,7 @@
                 <td class="colNumber" style="@evenClass">
                     @if (report.MemberComm != 0)
                     {
-                         <span class="@GetNegativeClass(report.MemberComm)"> @report.MemberComm.Format(2)</span>
+                         <span class="@GetNegativeClass(report.MemberComm)"> @report.MemberComm.FormatNegative(2)</span>
                     }
                     else
                     {
@@ -221,7 +221,7 @@
                 <td class="colNumber" style="@evenClass">
                     @if (report.LicenseeComm != 0)
                     {
-                        <span class="@GetNegativeClass(report.LicenseeComm)"> @report.LicenseeComm.Format(2)</span>
+                        <span class="@GetNegativeClass(report.LicenseeComm)"> @report.LicenseeComm.FormatNegative(2)</span>
                     }
                     else
                     { 
@@ -271,7 +271,7 @@
             </td>
             <td class="grandtotal">
             </td>
-            <td align="right" class="grandtotal" style='height: 15pt;'>
+            <td align="right" class="grandtotal">
                 @licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)
             </td>
             <td class="emptyCell">
