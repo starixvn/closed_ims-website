@@ -1,4 +1,4 @@
-.header
+﻿.header
 {
 	border: 1pt solid gray;
 	padding: 0 5px 0 5px;
@@ -55,5 +55,11 @@
 .colNumber5Odd
 {
     border:1pt solid gray !important;
+    padding: 0 5px 0 5px;
+}
+
+.colInteger
+{
+   border:1pt solid gray !important;
     padding: 0 5px 0 5px;
 }
