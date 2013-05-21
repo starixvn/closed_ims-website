@@ -186,7 +186,7 @@
                 <td class="colNumber" style="@evenClass">
                     <span class="  @GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="border-right: .5pt solid gray;@evenClass;">
+                <td class="colNumber" style="@evenClass">
                     <span class="  @GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
                 </td>
                 <td class="currency">
@@ -225,14 +225,20 @@
         @if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
         {
             <tr>
-                <td colspan="14" style='height: 15pt'>
-                    IDR &amp; VND * Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
+                <td style='height: 15pt'>
+                    IDR &amp; VND * 
+                </td>
+                <td colspan="13" style='height: 15pt'>
+                    Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
                     Equv, x1000
                 </td>
             </tr>
             <tr>
-                <td colspan="14" style='height: 15pt;'>
-                    FOREX www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
+                <td style='height: 15pt;'>
+                    FOREX 
+                </td>
+                <td colspan="13" style='height: 15pt;'>
+                    www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
                     Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
                     use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
                 </td>

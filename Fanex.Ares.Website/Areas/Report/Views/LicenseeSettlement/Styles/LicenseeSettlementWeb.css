@@ -1,28 +1,20 @@
 ﻿.header
 {
 	border: 1pt solid gray;
-	font-size: 10.0pt !important;
+	padding: 0 5px 0 5px;
 }
 .colNumber
 {
-	font-size: 10.0pt !important;
 	border:1pt solid gray !important;
 }
 
-.currency
-	{
-	font-size:10.0pt;
-	}
-	
 .colText
 {
-	font-size: 10.0pt !important;
 	border:1pt solid gray !important;
 }
 
 .colDateTime
 {
-   font-size: 10.0pt !important;
 	border:1pt solid gray !important;
 }
 
@@ -32,14 +24,13 @@
 	border-left: none;
 	border-right: none;
 	border-top: 1pt solid gray !important;
-	font-size: 12.0pt !important;
 }
 .emptyheader
 { 
-	  border-bottom: none !important;
-	border-left: none;
-	border-right: none;
-	border-top: 1pt solid white !important;
+    border-bottom: none !important;
+    border-left: none;
+    border-right: none;
+    border-top: 1pt solid white !important;
 }
 
 .emptytotal
@@ -55,4 +46,9 @@
 	border-left: none;
 	border-right: none;
 	border-top: 0pt solid white !important;
+}
+
+.colNumber5Odd
+{
+    border:1pt solid gray !important;
 }

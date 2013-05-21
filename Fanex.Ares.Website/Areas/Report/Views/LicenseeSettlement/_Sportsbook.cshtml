@@ -187,7 +187,7 @@
             var evenClass = GetEvenClass(i);
             
             <tr>
-                <td height="17" class="colDateTime" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
+                <td height="17" class="colDateTime" style='@evenClass'>
                     @report.WinlostDate.ToAresDayMonthYear()
                 </td>
                 <td class="colText" style="@evenClass">
@@ -234,16 +234,16 @@
                 <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="border-right: .5pt solid gray;@evenClass">
+                <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
                 </td>
                 <td class="currency">
                     @exchange.CurrencyName
                 </td>
-                <td class="colNumber5Odd" style="border-left: .5pt solid gray;@evenClass">
+                <td class="colNumber5Odd" style="@evenClass">
                     @exchange.BasePerUnit.Format(5)
                 </td>
-                <td class="colNumber5Odd" style="border-right: .5pt solid gray; @evenClass">
+                <td class="colNumber5Odd" style=" @evenClass">
                     @exchange.UnitsPerBase.Format(5)
                 </td>
             </tr>
@@ -280,20 +280,26 @@
             </td>
         </tr>
         <tr>
-            <td colspan="15" style='height: 10pt; border: 1pt solid white;'>
+            <td colspan="12"'>
             </td>
         </tr>
         @if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
         {
             <tr>
-                <td colspan="15" style='height: 15pt'>
-                    IDR &amp; VND * Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
+                <td style='height: 15pt'>
+                    IDR &amp; VND * 
+                </td>
+                <td colspan="14" style='height: 15pt'>
+                    Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
                     Equv, x1000
                 </td>
             </tr>
             <tr>
-                <td colspan="15" style='height: 15pt;'>
-                    FOREX www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
+                <td style='height: 15pt;'>
+                    FOREX 
+                </td>
+                <td colspan="14" style='height: 15pt;'>
+                    www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
                     Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
                     use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
                 </td>
