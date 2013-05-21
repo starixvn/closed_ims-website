@@ -74,7 +74,7 @@ td
 .boldTilte
 {
     mso-style-parent:style0;
-    font-size:11.5pt;
+    font-size:8pt;
     font-weight:700;
 }
 
@@ -116,7 +116,7 @@ td
     text-align:center;
     font-weight:bold;
     vertical-align:middle;
-    white-space:normal;
+    white-space:nowrap;
     border:.5pt solid gray;
     background:#3C5EA5;
 }
@@ -130,6 +130,7 @@ td
     text-align:right;
     vertical-align:middle;
     border:.5pt solid gray;
+    font-size: 8pt;
 }
 
 .colInteger
@@ -141,6 +142,7 @@ td
     text-align:right;
     vertical-align:middle;
     border:.5pt solid gray;
+    font-size: 8pt;
 }
 
 .colText
@@ -151,6 +153,7 @@ td
     text-align:center;
     vertical-align:middle;
     border:.5pt solid gray;
+    font-size: 8pt;
 }
 
 .colDateTime
@@ -161,6 +164,7 @@ td
     text-align:center;
     vertical-align:middle;
     border:.5pt solid gray;
+    font-size: 8pt;
 }
 
 .grandtotal
@@ -204,6 +208,7 @@ td
     border:.5pt solid gray;
     mso-background-source:auto;
     mso-pattern:white none;
+    font-size: 8pt;
 }
 
 .even

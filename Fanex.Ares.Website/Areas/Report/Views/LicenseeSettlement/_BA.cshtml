@@ -54,20 +54,20 @@
             <td class="sportName" colspan="2">
                 @licensee.LicenseeInfor.ProductName.ToUpper()
             </td>
-            <td colspan="2">
+            <td colspan="1">
                 1st Billing:
             </td>
-            <td class="boldInfor" colspan="7">
+            <td class="boldInfor" colspan="8">
                 @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
             </td>
         </tr>
         <tr>
             <td colspan="5" style='height: 12.75pt;'>
             </td>
-            <td colspan="2">
+            <td colspan="1">
                 Head of Terms:
             </td>
-            <td class="boldInfor" colspan="7">
+            <td class="boldInfor" colspan="8">
                 @licensee.LicenseeInfor.HeadOfTerms
             </td>
         </tr>
@@ -86,23 +86,22 @@
                 @Labels.Turnover
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.Turnover + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Labels.Turnover (@licensee.LicenseeInfor.BaseCurrencyName)
             </td>
             <td rowspan="2" class="header">
                 @Labels.TotalTrans
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.CustomerWinLoss)
+                @Labels.CustomerWinLoss
             </td>
             <td rowspan="2" class="header">
-                Customer <br /> Win Loss (EUR)
-                @*@Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + licensee.LicenseeInfor.BaseCurrencyName + ")")*@
+                @Labels.CustomerWinLoss (@licensee.LicenseeInfor.BaseCurrencyName)
             </td>
             <td rowspan="2" class="header">
                 @Labels.BAComm
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.BAComm + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Labels.BAComm (@licensee.LicenseeInfor.BaseCurrencyName)
             </td>
             <td colspan="2" class="header">
                 @Labels.AmountDue

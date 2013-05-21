@@ -166,9 +166,7 @@ namespace Fanex.Ares.Report.Controllers
                 // Rewind the memory stream to the beginning
                 ms.Seek(0, SeekOrigin.Begin);
 
-                int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
-                int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-                string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year + "." + documentType.ToString().ToLower();
+                string fileName = _service.GetFileName() + "." + documentType.ToString().ToLower();
 
                 return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
             }
