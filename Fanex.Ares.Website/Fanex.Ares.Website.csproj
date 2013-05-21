@@ -646,6 +646,7 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Copy of _Sportsbook1.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_NumberGame.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
