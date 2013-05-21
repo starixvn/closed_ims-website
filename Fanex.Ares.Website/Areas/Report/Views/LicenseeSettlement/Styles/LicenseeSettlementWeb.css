@@ -1,4 +1,4 @@
-﻿.header
+.header
 {
 	border: 1pt solid gray;
 	padding: 0 5px 0 5px;
@@ -6,16 +6,19 @@
 .colNumber
 {
 	border:1pt solid gray !important;
+	padding: 0 5px 0 5px;
 }
 
 .colText
 {
 	border:1pt solid gray !important;
+	padding: 0 5px 0 5px;
 }
 
 .colDateTime
 {
 	border:1pt solid gray !important;
+	padding: 0 5px 0 5px;
 }
 
 .grandtotal
@@ -24,6 +27,7 @@
 	border-left: none;
 	border-right: none;
 	border-top: 1pt solid gray !important;
+	padding: 0 5px 0 5px;
 }
 .emptyheader
 { 
@@ -51,9 +55,5 @@
 .colNumber5Odd
 {
     border:1pt solid gray !important;
-}
-
-.colInteger
-{
-    border:1pt solid gray !important;
+    padding: 0 5px 0 5px;
 }
