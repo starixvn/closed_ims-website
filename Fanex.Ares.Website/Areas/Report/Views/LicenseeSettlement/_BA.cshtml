@@ -18,22 +18,7 @@
     }
 }
 <div class="div-content" style="overflow-x: hidden">
-    <table border="0" cellpadding="0" cellspacing="0" width="1019px" style='border-collapse: collapse;
-        table-layout: fixed;'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1718; width: 40pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 1718; width: 40pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2433; width: 60pt'>
+    <table border="0" cellpadding="0" cellspacing="0" width="1019px" style='border-collapse: collapse;'>
         <tr>
             <td colspan="14" class="boldTilte" style='height: 16.5pt;'>
                 INTERNAL WORKSHEET FOR SETTLEMENT
@@ -54,7 +39,7 @@
             <td colspan="3" style='height: 12.75pt;'>
                 SETTLEMENT REPORT
             </td>
-            <td colspan="11">
+            <td colspan="11" class="boldInfor">
                 From @licensee.LicenseeInfor.FromDate.ToAresDayMonthYear()
                 To @licensee.LicenseeInfor.ToDate.ToAresDayMonthYear()
             </td>
@@ -110,7 +95,8 @@
                 @Html.RawWithLineBreak(Labels.CustomerWinLoss)
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                Customer <br /> Win Loss (EUR)
+                @*@Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + licensee.LicenseeInfor.BaseCurrencyName + ")")*@
             </td>
             <td rowspan="2" class="header">
                 @Labels.BAComm
@@ -171,7 +157,7 @@
             var evenClass = GetEvenClass(i);
             
             <tr>
-                <td height="17" class="colText" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
+                <td height="17" class="colDateTime" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
                     @report.WinlostDate.ToAresDayMonthYear()
                 </td>
                 <td class="colText" style="@evenClass">
@@ -183,7 +169,7 @@
                 <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.Format(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colInteger" style="@evenClass">
                     @report.Betcount.Format(0)
                 </td>
                 <td class="colNumber" style="@evenClass">
@@ -207,10 +193,10 @@
                 <td class="currency">
                     @exchange.CurrencyName
                 </td>
-                <td class="colNumber" style="border-left: .5pt solid gray;@evenClass">
+                <td class="colNumber5Odd" style="border-left: .5pt solid gray;@evenClass">
                     @exchange.BasePerUnit.Format(5)
                 </td>
-                <td class="colNumber" style="border-right: .5pt solid gray; @evenClass">
+                <td class="colNumber5Odd" style="border-right: .5pt solid gray; @evenClass">
                     @exchange.UnitsPerBase.Format(5)
                 </td>
             </tr>
