@@ -164,10 +164,10 @@
                     @report.CurrencyName
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class=" @GetNegativeClass(report.Turnover)">@report.Turnover.Format(2)</span>
+                    <span class=" @GetNegativeClass(report.Turnover)">@report.Turnover.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.Format(2)</span>
+                    <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.FormatNegative(2)</span>
                 </td>
                 <td class="colInteger" style="@evenClass">
                     @report.Betcount.Format(0)
@@ -203,7 +203,7 @@
         }
         <tr>
             <td colspan="4" align="right" class="grandtotal" style='height: 15pt;'>
-                <span class="@GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">@licensee.Report.GrandTotal.TurnoverBase.Format(2)</span>
+                <span class="@GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">@licensee.Report.GrandTotal.TurnoverBase.FormatNegative(2)</span>
             </td>
             <td colspan="3" align="right" class="grandtotal">
                 <span class="@GetNegativeClass(licensee.Report.GrandTotal.MemberWinlossBase)">@licensee.Report.GrandTotal.MemberWinlossBase.FormatNegative(2)</span>
