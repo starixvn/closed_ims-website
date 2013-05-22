@@ -56,18 +56,6 @@
                             <div id="ddlMonth">
                             </div>
                         </div>
-                        @*<div class="lbl-field col_3 align-right">
-                            @Html.LabelFor(m => m.Month, "Month")
-                        </div>
-                        <div class="edit-field col_6 align-left">
-                            @Html.DropDownListForMonth(m => m.Month, new { @class = "alpha auto-width" })
-                        </div>
-                        <div class="lbl-field col_3 align-right">
-                            @Html.LabelFor(m => m.Year, "Year")
-                        </div>
-                        <div class="edit-field col_6 align-left">
-                            @Html.DropDownListForYear(m => m.Year, new { @class = "alpha auto-width" })
-                        </div>*@
                     </div>
                 </div>
                 <div class="filter-row">
@@ -81,7 +69,7 @@
                         @Html.LabelFor(m => m.Currency, "Currency")
                     </div>
                     <div class="edit-field col_6 align-left">
-                        @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
+                        @Html.DropDownListFor(m => m.Currency, ((List<SelectListItem>)ViewBag.ListCurrency), new SelectListItem() { Selected = true, Text = "All", Value = "0" }, new { @class = "alpha auto-width" })
                     </div>
                     <div class="lbl-field col_3 align-right">
                         @Html.LabelFor(m => m.BaseCurrency, "Exchange")

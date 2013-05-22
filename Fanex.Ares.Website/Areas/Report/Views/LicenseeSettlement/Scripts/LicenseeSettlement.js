@@ -14,11 +14,7 @@ $(document).ready(function () {
 
     RenderFilterNote();
 
-    if ($('#LicenseeId').val() == "0") {
-        $('#btnGenerate').addClass("ui-state-disabled");
-    } else {
-        $('#btnGenerate').removeClass("ui-state-disabled");
-    }
+    $('#btnGenerate').addClass("ui-state-disabled");
 
     $('#LicenseeId').change(function () {
         GetProductByLicenseeID($(this).val());
@@ -136,31 +132,6 @@ function Submit() {
     });
 }
 
-
-function exportReportToExcel() {
-    var url = window.rootUrl + 'ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
-
-    var iframe = $('body iframe');
-    if (iframe.length == 0) {
-        iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
-        iframe.appendTo('body');
-    }
-
-    iframe.attr('src', url);
-}
-
-function exportReportToPDF() {
-    var url = window.rootUrl + 'ExportPDFUsingInterop?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
-
-    var iframe = $('body iframe');
-    if (iframe.length == 0) {
-        iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
-        iframe.appendTo('body');
-    }
-
-    iframe.attr('src', url);
-}
-
 function GetProductByLicenseeID(licenseeID) {
     $.ajax({
         url: "GetProductByLicenseeID",
@@ -190,11 +161,11 @@ function GetCurrencyByLicenseeID(licenseeID) {
             var html = "";
             if (data.length != 0) {
                 html = "<option value='0' selected='selected'>All</option>";
-                if ($('#LicenseeId').val() == "0") {
-                    $('#btnGenerate').addClass("ui-state-disabled");
-                } else {
-                    $('#btnGenerate').removeClass("ui-state-disabled");
-                }
+//                if ($('#LicenseeId').val() == "0") {
+//                    $('#btnGenerate').addClass("ui-state-disabled");
+//                } else {
+//                    $('#btnGenerate').removeClass("ui-state-disabled");
+//                }
             } else {
                 $('#btnGenerate').addClass("ui-state-disabled");
             }
