@@ -19,6 +19,11 @@ namespace Fanex.Ares.Core.Web.Security
             Host
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="authenticationType">Read or Host</param>
+        /// <param name="mainAction">Main action of page ex: Index</param>
         public AuthenticateAction(AuthenticationType authenticationType, string mainAction)
         {
             _authenticationType = authenticationType;
