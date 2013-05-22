@@ -25,6 +25,6 @@ namespace Fanex.Ares.Core.Services.Interface
 
         void Test();
 
-        ActionResult CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria);
+        Result CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria);
     }
 }

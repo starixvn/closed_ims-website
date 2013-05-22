@@ -107,9 +107,9 @@ namespace Fanex.Ares.Core.Services.Impl
         }
 
 
-        public ActionResult CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria)
+        public Result CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria)
         {
-            ActionResult result = new ActionResult();
+            Result result = new Result();
             try
             {
                 using (ObjectDb objectDb = new ObjectDb(criteria.GetSettingKey()))
@@ -117,10 +117,10 @@ namespace Fanex.Ares.Core.Services.Impl
                     var ds = objectDb.ExecuteDataSet(criteria.GetSpParams());
                     var hashOutputParams = objectDb.GetOuputParams();
 
-                    result = new ActionResult()
+                    result = new Result()
                     {
                         ErrorCode = Convert.ToInt32(hashOutputParams["errcode"]),
-                        ErrorMsg = Convert.ToString(hashOutputParams["errmsg"])
+                        ErrorMessage = Convert.ToString(hashOutputParams["errmsg"])
                     };
                 }
             }

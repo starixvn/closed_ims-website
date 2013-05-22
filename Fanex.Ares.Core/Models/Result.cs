@@ -5,18 +5,18 @@ namespace Fanex.Ares.Core.Models
 {
     [Serializable]
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class ActionResult
+    public class Result
     {
         public int ErrorCode { get; set; }
 
-        public string ErrorMsg { get; set; }
+        public string ErrorMessage { get; set; }
 
        // public dynamic ExtendContent { get; set; }
 
-        public ActionResult()
+        public Result()
         {
             ErrorCode = 0;
-            ErrorMsg = string.Empty;
+            ErrorMessage = string.Empty;
         }
     }
 }
