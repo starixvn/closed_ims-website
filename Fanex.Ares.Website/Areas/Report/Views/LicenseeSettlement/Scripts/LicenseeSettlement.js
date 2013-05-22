@@ -101,7 +101,7 @@ function RenderFilterNote() {
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "LicenseeSettlement/GetReport",
+        url: "GetReport",
         type: "POST",
         data: $('#formLicenseeSettlement').serialize()
                 + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
@@ -138,7 +138,7 @@ function Submit() {
 
 
 function exportReportToExcel() {
-    var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
+    var url = window.rootUrl + 'ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
 
     var iframe = $('body iframe');
     if (iframe.length == 0) {
@@ -150,7 +150,7 @@ function exportReportToExcel() {
 }
 
 function exportReportToPDF() {
-    var url = window.rootUrl + 'LicenseeSettlement/ExportPDFUsingInterop?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
+    var url = window.rootUrl + 'ExportPDFUsingInterop?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
 
     var iframe = $('body iframe');
     if (iframe.length == 0) {
@@ -163,7 +163,7 @@ function exportReportToPDF() {
 
 function GetProductByLicenseeID(licenseeID) {
     $.ajax({
-        url: "LicenseeSettlement/GetProductByLicenseeID",
+        url: "GetProductByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -183,7 +183,7 @@ function GetProductByLicenseeID(licenseeID) {
 
 function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
-        url: "LicenseeSettlement/GetCurencyByLicenseeID",
+        url: "GetCurencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -210,14 +210,6 @@ function GetCurrencyByLicenseeID(licenseeID) {
         complete: function (jqXHR, textStatus) {
         }
     });
-}
-
-function ClientPrinting() {
-    if ($.browser.msie) {
-        window.open('LicenseeSettlement/PrintScreen?productName=' + $('#Product :selected').text());
-    } else {
-        window.open('LicenseeSettlement/ExportPDF?isSavePDF=false');
-    }
 }
 
 function daysInMonth(month, year) {
