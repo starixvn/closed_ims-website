@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web;
+using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Fanex.Ares.Report.Controllers;
 using Fanex.Workbooks;
 
 
@@ -14,9 +17,16 @@ namespace Fanex.Ares.Website.Test
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           var wb = new WorkbookManager();
-           var test = wb.CreateDocument("<table><tr><td>hello</td></tr></table>", null, WorkbookManager.DocumentType.Pdf, WorkbookManager.PageOrientation.Landscape);
-
+            Type t = typeof(LicenseeSettlementController);
+            MethodInfo[] mi = t.GetMethods();
+            foreach (MethodInfo m in mi)
+            {
+                if (m.IsPublic)
+                    if (typeof(ActionResult).IsAssignableFrom(m.ReturnParameter.ParameterType))
+                    {
+                        var methods = m.Name + Environment.NewLine;
+                    }
+            }
         }
     }
 }
