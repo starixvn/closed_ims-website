@@ -86,22 +86,22 @@
                 @Labels.Turnover
             </td>
             <td rowspan="2" class="header">
-                @Labels.Turnover (@licensee.LicenseeInfor.BaseCurrencyName)
+                @Html.RawWithLineBreak(Labels.Turnover + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td rowspan="2" class="header">
                 @Labels.TotalTrans
             </td>
             <td rowspan="2" class="header">
-                @Labels.CustomerWinLoss
+                @Html.RawWithLineBreak(Labels.CustomerWinLoss)
             </td>
             <td rowspan="2" class="header">
-                @Labels.CustomerWinLoss (@licensee.LicenseeInfor.BaseCurrencyName)
+                @Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td rowspan="2" class="header">
                 @Labels.BAComm
             </td>
             <td rowspan="2" class="header">
-                @Labels.BAComm (@licensee.LicenseeInfor.BaseCurrencyName)
+                @Html.RawWithLineBreak(Labels.BAComm + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td colspan="2" class="header">
                 @Labels.AmountDue
@@ -125,7 +125,7 @@
         </tr>
         <tr>
             <td class="header">
-                @Labels.BA
+                &nbsp;&nbsp;&nbsp;@Labels.BA&nbsp;&nbsp;&nbsp;
             </td>
             <td class="header">
                 @Labels.BAEqui @licensee.LicenseeInfor.BaseCurrencyName
@@ -184,7 +184,7 @@
                     <span class="  @GetNegativeClass(report.LicenseeWLBase)">@report.LicenseeWLBase.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="  @GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
+                    <span class="  @GetNegativeClass(report.Company)">1.00@*@report.Company.FormatNegative(2)*@</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
                     <span class="  @GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
@@ -226,7 +226,7 @@
         {
             <tr>
                 <td style='height: 15pt'>
-                    IDR &amp; VND * 
+                    IDR &amp; VND *
                 </td>
                 <td colspan="13" style='height: 15pt'>
                     Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
@@ -235,7 +235,7 @@
             </tr>
             <tr>
                 <td style='height: 15pt;'>
-                    FOREX 
+                    FOREX
                 </td>
                 <td colspan="13" style='height: 15pt;'>
                     www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
