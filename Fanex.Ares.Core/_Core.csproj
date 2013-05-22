@@ -103,7 +103,6 @@
   <ItemGroup>
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Criteria\BalanceUpCriteria.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -148,7 +147,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Licensee.cs" />
     <Compile Include="Models\MailItem.cs" />
-    <Compile Include="Models\ActionResult.cs" />
+    <Compile Include="Models\Result.cs" />
     <Compile Include="Models\MatchInfo.cs" />
     <Compile Include="Models\Message.cs" />
     <Compile Include="Models\TicketDetail.cs" />
@@ -156,6 +155,11 @@
     <Compile Include="Repository\Impl\BaseRepository.cs" />
     <Compile Include="Repository\Impl\MessageRepository.cs" />
     <Compile Include="Repository\Interface\IMessageRepository.cs" />
+    <Compile Include="Resources\Errors.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Errors.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Labels.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -175,12 +179,10 @@
     <Compile Include="Services\Impl\CoreService.cs" />
     <Compile Include="Services\Impl\LoggingHandler.cs" />
     <Compile Include="Services\Impl\MailService.cs" />
-    <Compile Include="Services\Impl\MessageService.cs" />
     <Compile Include="Services\Impl\PermissionService.cs" />
     <Compile Include="Services\Impl\ReportService.cs" />
     <Compile Include="Services\Impl\ServiceBase.cs" />
     <Compile Include="Services\Interface\ICoreService.cs" />
-    <Compile Include="Services\Interface\IMessageService.cs" />
     <Compile Include="Services\Interface\IServiceBase.cs" />
     <Compile Include="Utils\CacheServiceKey.cs" />
     <Compile Include="Utils\FormatKey.cs" />
@@ -192,10 +194,15 @@
     <Compile Include="Web\CustomResults\ExcelResult.cs" />
     <Compile Include="Web\CustomResults\SpreadSheetResult.cs" />
     <Compile Include="Web\NAPSpecialDeleteFunctionKeys.cs" />
+    <Compile Include="Web\Security\AuthenticateAction.cs" />
     <Compile Include="Web\SessionManager.cs" />
     <Compile Include="Web\ViewEngine\CustomViewEngine.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Resources\Errors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Errors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Labels.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Labels.Designer.cs</LastGenOutput>
@@ -212,10 +219,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

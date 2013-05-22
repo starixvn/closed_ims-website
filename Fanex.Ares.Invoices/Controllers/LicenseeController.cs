@@ -16,6 +16,7 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
+using Fanex.Ares.Core.Web.Security;
 using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.Ares.Core.Criteria;
@@ -49,6 +50,7 @@ namespace Fanex.Ares.Invoice.Controllers
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();

@@ -47,7 +47,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 
         public ActionResult AccessDenied()
         {
-            return View();
+            return View("AccessDenied");
         }
     }
 }

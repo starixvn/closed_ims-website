@@ -19,6 +19,7 @@ using System.Web.Mvc;
 using Fanex.Ares.Core.Extensions;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
+using Fanex.Ares.Core.Web.Security;
 using Fanex.Ares.Report.Criteria;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using Fanex.Ares.Report.Services.Interface;
@@ -57,6 +58,7 @@ namespace Fanex.Ares.Report.Controllers
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();
