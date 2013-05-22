@@ -17,23 +17,9 @@
         return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
     }
 }
-<div class="div-content" style="overflow-x: hidden">
-    <table border="0" cellpadding="0" cellspacing="0" width="1019px" style='border-collapse: collapse;
-        table-layout: fixed;'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1718; width: 40pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2084; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 1718; width: 40pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2681; width: 75pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2433; width: 60pt'>
+<div class="div-content" style=overflow: scroll; width:98%">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;
+        '>
         <tr>
             <td colspan="14" class="boldTilte" style='height: 16.5pt;'>
                 INTERNAL WORKSHEET FOR SETTLEMENT
@@ -54,7 +40,7 @@
             <td colspan="3" style='height: 12.75pt;'>
                 SETTLEMENT REPORT
             </td>
-            <td colspan="11">
+            <td colspan="11" class="boldInfor">
                 From @licensee.LicenseeInfor.FromDate.ToAresDayMonthYear()
                 To @licensee.LicenseeInfor.ToDate.ToAresDayMonthYear()
             </td>
@@ -69,20 +55,20 @@
             <td class="sportName" colspan="2">
                 @licensee.LicenseeInfor.ProductName.ToUpper()
             </td>
-            <td colspan="2">
+            <td colspan="1">
                 1st Billing:
             </td>
-            <td class="boldInfor" colspan="7">
+            <td class="boldInfor" colspan="8">
                 @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
             </td>
         </tr>
         <tr>
             <td colspan="5" style='height: 12.75pt;'>
             </td>
-            <td colspan="2">
+            <td colspan="1">
                 Head of Terms:
             </td>
-            <td class="boldInfor" colspan="7">
+            <td class="boldInfor" colspan="8">
                 @licensee.LicenseeInfor.HeadOfTerms
             </td>
         </tr>
@@ -101,22 +87,22 @@
                 @Labels.Turnover
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.Turnover + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Labels.Turnover (@licensee.LicenseeInfor.BaseCurrencyName)
             </td>
             <td rowspan="2" class="header">
                 @Labels.TotalTrans
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.CustomerWinLoss)
+                @Labels.CustomerWinLoss
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Labels.CustomerWinLoss (@licensee.LicenseeInfor.BaseCurrencyName)
             </td>
             <td rowspan="2" class="header">
                 @Labels.BAComm
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.BAComm + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Labels.BAComm (@licensee.LicenseeInfor.BaseCurrencyName)
             </td>
             <td colspan="2" class="header">
                 @Labels.AmountDue
@@ -171,7 +157,7 @@
             var evenClass = GetEvenClass(i);
             
             <tr>
-                <td height="17" class="colText" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
+                <td height="17" class="colDateTime" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
                     @report.WinlostDate.ToAresDayMonthYear()
                 </td>
                 <td class="colText" style="@evenClass">
@@ -183,7 +169,7 @@
                 <td class="colNumber" style="@evenClass">
                     <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.Format(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colInteger" style="@evenClass">
                     @report.Betcount.Format(0)
                 </td>
                 <td class="colNumber" style="@evenClass">
@@ -201,16 +187,16 @@
                 <td class="colNumber" style="@evenClass">
                     <span class="  @GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="border-right: .5pt solid gray;@evenClass;">
+                <td class="colNumber" style="@evenClass">
                     <span class="  @GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
                 </td>
                 <td class="currency">
                     @exchange.CurrencyName
                 </td>
-                <td class="colNumber" style="border-left: .5pt solid gray;@evenClass">
+                <td class="colNumber5Odd" style="border-left: .5pt solid gray;@evenClass">
                     @exchange.BasePerUnit.Format(5)
                 </td>
-                <td class="colNumber" style="border-right: .5pt solid gray; @evenClass">
+                <td class="colNumber5Odd" style="border-right: .5pt solid gray; @evenClass">
                     @exchange.UnitsPerBase.Format(5)
                 </td>
             </tr>
@@ -234,20 +220,26 @@
             </td>
         </tr>
         <tr>
-            <td colspan="14" style='height: 10pt; border: 1pt solid white;'>
+            <td colspan="14" style='height: 10pt;'>
             </td>
         </tr>
         @if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
         {
             <tr>
-                <td colspan="14" style='height: 15pt'>
-                    IDR &amp; VND * Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
+                <td style='height: 15pt'>
+                    IDR &amp; VND * 
+                </td>
+                <td colspan="13" style='height: 15pt'>
+                    Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
                     Equv, x1000
                 </td>
             </tr>
             <tr>
-                <td colspan="14" style='height: 15pt;'>
-                    FOREX www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
+                <td style='height: 15pt;'>
+                    FOREX 
+                </td>
+                <td colspan="13" style='height: 15pt;'>
+                    www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
                     Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
                     use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
                 </td>

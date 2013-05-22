@@ -1,0 +1,54 @@
+﻿.header
+{
+	border: 1pt solid gray;
+	padding: 0 5px 0 5px;
+}
+.colNumber
+{
+	border:1pt solid gray !important;
+}
+
+.colText
+{
+	border:1pt solid gray !important;
+}
+
+.colDateTime
+{
+	border:1pt solid gray !important;
+}
+
+.grandtotal
+{
+	border-bottom: 2pt solid black !important;
+	border-left: none;
+	border-right: none;
+	border-top: 1pt solid gray !important;
+}
+.emptyheader
+{ 
+    border-bottom: none !important;
+    border-left: none;
+    border-right: none;
+    border-top: 1pt solid white !important;
+}
+
+.emptytotal
+{
+	border-bottom: 3pt solid white !important;
+	border-left: none;
+	border-right: none;
+	border-top: 1pt solid gray !important;
+}
+.emptyCell
+{
+    border-bottom: 3pt solid white !important;
+	border-left: none;
+	border-right: none;
+	border-top: 0pt solid white !important;
+}
+
+.colNumber5Odd
+{
+    border:1pt solid gray !important;
+}

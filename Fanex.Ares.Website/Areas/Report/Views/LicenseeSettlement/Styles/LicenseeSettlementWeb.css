@@ -1,32 +1,40 @@
 ﻿.header
 {
 	border: 1pt solid gray;
-	font-size: 10.0pt !important;
+	padding: 0 5px 0 5px;
 }
 .colNumber
 {
-	font-size: 10.0pt !important;
 	border:1pt solid gray !important;
+	padding: 0 5px 0 5px;
 }
+
 .colText
 {
-	font-size: 10.0pt !important;
 	border:1pt solid gray !important;
+	padding: 0 5px 0 5px;
 }
+
+.colDateTime
+{
+	border:1pt solid gray !important;
+	padding: 0 5px 0 5px;
+}
+
 .grandtotal
 {
-	border-bottom: 2pt solid black !important;
+	border-bottom: 1pt solid black !important;
 	border-left: none;
 	border-right: none;
 	border-top: 1pt solid gray !important;
-	font-size: 12.0pt !important;
+	padding: 0 5px 0 5px;
 }
 .emptyheader
 { 
-	  border-bottom: none !important;
-	border-left: none;
-	border-right: none;
-	border-top: 1pt solid white !important;
+    border-bottom: none !important;
+    border-left: none;
+    border-right: none;
+    border-top: 1pt solid white !important;
 }
 
 .emptytotal
@@ -42,4 +50,16 @@
 	border-left: none;
 	border-right: none;
 	border-top: 0pt solid white !important;
+}
+
+.colNumber5Odd
+{
+    border:1pt solid gray !important;
+    padding: 0 5px 0 5px;
+}
+
+.colInteger
+{
+   border:1pt solid gray !important;
+    padding: 0 5px 0 5px;
 }
