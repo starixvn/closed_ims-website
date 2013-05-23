@@ -102,10 +102,6 @@
 </div>
 <div id="parentContainer" class="content-grid">
 </div>
-@{
-    var minDateDaily = DateTime.Now.AddDays(-1).AddMonths(-3);
-    var minDateWeekly = DateTime.Now.AddDays(-1).AddMonths(-3);
-}
 @section scripts
 {
     <script type="text/javascript">
@@ -113,9 +109,6 @@
         var labelTo = '@Labels.To';
         var today = '@DateTime.Today.ToShortDateString()';
         var minDate = '@(new DateTime(2007, 1, 1).ToShortDateString())';
-
-        var minDateDaily = '1/1/2007';
-        var minDateWeekly = '1/1/2007';
         var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
         var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
     </script>
@@ -124,5 +117,4 @@
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=1"></script>
- 
 }
