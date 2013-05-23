@@ -130,7 +130,7 @@
             <td colspan="2" class="header">
                 @{
                     string forexTime = string.Empty;
-                    if (DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
+                    if (DateTime.Now.Year != licensee.LicenseeInfor.SettlementDate.Year && DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
                     {
                         forexTime = DateTime.Now.ToAresDayMonthYear();
                     }
