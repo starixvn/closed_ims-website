@@ -1,5 +1,7 @@
 ﻿/// <reference path="../../../../../Scripts/NapTicketControl.js" />
+var domain;
 $(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {
@@ -97,7 +99,7 @@ function RenderFilterNote() {
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "GetReport",
+        url: domain + "Report/LicenseeSettlement/GetReport",
         type: "POST",
         data: $('#formLicenseeSettlement').serialize()
                 + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
@@ -134,7 +136,7 @@ function Submit() {
 
 function GetProductByLicenseeID(licenseeID) {
     $.ajax({
-        url: "GetProductByLicenseeID",
+        url: domain + "Report/LicenseeSettlement/GetProductByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -154,7 +156,7 @@ function GetProductByLicenseeID(licenseeID) {
 
 function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
-        url: "GetCurencyByLicenseeID",
+        url: domain + "Report/LicenseeSettlement/GetCurencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
