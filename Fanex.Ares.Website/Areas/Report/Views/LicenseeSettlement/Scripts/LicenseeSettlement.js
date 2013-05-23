@@ -11,8 +11,8 @@ $(document).ready(function () {
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
-//    $('#btnExcel').click(function () { exportReportToExcel(); });
-//    $('#btnPrint').click(function () { exportReportToPDF(); });
+    //    $('#btnExcel').click(function () { exportReportToExcel(); });
+    //    $('#btnPrint').click(function () { exportReportToPDF(); });
 
     RenderFilterNote();
 
@@ -163,11 +163,11 @@ function GetCurrencyByLicenseeID(licenseeID) {
             var html = "";
             if (data.length != 0) {
                 html = "<option value='0' selected='selected'>All</option>";
-//                if ($('#LicenseeId').val() == "0") {
-//                    $('#btnGenerate').addClass("ui-state-disabled");
-//                } else {
-//                    $('#btnGenerate').removeClass("ui-state-disabled");
-//                }
+                //                if ($('#LicenseeId').val() == "0") {
+                //                    $('#btnGenerate').addClass("ui-state-disabled");
+                //                } else {
+                //                    $('#btnGenerate').removeClass("ui-state-disabled");
+                //                }
             } else {
                 $('#btnGenerate').addClass("ui-state-disabled");
             }
