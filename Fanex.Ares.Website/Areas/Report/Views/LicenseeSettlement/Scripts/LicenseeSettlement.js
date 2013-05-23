@@ -1,194 +1,128 @@
-﻿/// <reference path="../../../../../Scripts/NapTicketControl.js" />
-var domain;
-$(document).ready(function () {
-    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
-    renderDatePicker();
-    $('#dropDownListId').addClass('auto-width');
-    $('#FromDate, #ToDate').each(function () {
-        $(this).width($('#dropDownListId').width() + 2);
-    });
+﻿﻿@using Fanex.Ares.Core.Resources;
+@using Fanex.Ares.Core.Web;
+@using Fanex.Ares.Core.Services.Impl;
+@using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+@using Fanex.Ares.Core.Extensions
+@model IMS_Rpt_LicenseeSettlementCriteria
+@{
+    ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
+    ViewBag.Title = "Licensee Settlement Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+     @* if (Request.UserAgent.Contains("Chrome"))
+      {
+      <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlementChrome.css" />
+      }
+      else
+      {
+           <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
+      }*@
 
-    $('#btnGenerate').button();
-    $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
-
-//    $('#btnExcel').click(function () { exportReportToExcel(); });
-//    $('#btnPrint').click(function () { exportReportToPDF(); });
-
-    RenderFilterNote();
-
-    $('#btnGenerate').addClass("ui-state-disabled");
-
-    $('#LicenseeId').change(function () {
-        GetProductByLicenseeID($(this).val());
-        GetCurrencyByLicenseeID($(this).val());
-        if ($(this).val() == "0") {
-            $('#btnGenerate').addClass("ui-state-disabled");
-        } else {
-            $('#btnGenerate').removeClass("ui-state-disabled");
-        }
-    });
-
-    var now = new Date();
-    var lastMonth = new Date();
-    lastMonth = lastMonth.setMonth(lastMonth.getMonth() - 1);
-    $('#ddlMonth').monPickr({
-        today: now,
-        maxDate: now,
-        minDate: new Date(2005, 1, 1),
-        showDateRange: true,
-        fromDayId: 'ddlFrom',
-        month: lastMonth,
-        sortDesc: true,
-        log: function (msg) {
-            console.warn(msg);
-        }
-    });
-
-    $('.monpickr-super-wrapper .monpickr-label').eq(0).addClass('col_3 align-right lbl-field');
-    $('.monpickr-super-wrapper .daypickr-wrap-parent').eq(0).addClass('col_3');
-
-});
-
-var renderDatePicker = function () {
-    $('#datepickerplugin').nexDatePicker({
-        nexDatePickerType: "quickchoose",
-        datePickerFormat: {
-            changeMonth: true,
-            changeYear: true,
-            dateFormat: "d M yy"
-        },
-        dropDownList:
-            {
-                Id: "dropDownListId",
-                Label: "Date ",
-                LabelCss: "lbl-field col_3",
-                OptionCss: "edit-field col_6"
-            },
-        firstDatePicker: {
-            Id: "FromDate",
-            Label: labelFrom,
-            InitDate: today,
-            LabelCss: "lbl-field col_3",
-            TextboxCss: "edit-field col_6"
-        },
-        secondDatePicker: {
-            Id: "ToDate",
-            Label: labelTo,
-            InitDate: today,
-            LabelCss: "lbl-field col_3",
-            TextboxCss: "edit-field col_6"
-        },
-        selectedItem: 5,
-        onSelectDatePicker: function () {
-        },
-        minDate: new Date(minDate),
-        maxDate: new Date(today)
-    });
-};
-
-function RenderFilterNote() {
-    var $this = $('#notemessage');
-    $this.attr("title", notemessage);
-    $this.tipsy({
-        html: true,
-        opacity: 0.9,
-        gravity: 'ne'
-    });
-};
-
-function Submit() {
-    NapTicketControl.disableInput();
-    $.ajax({
-        url: domain + "Report/LicenseeSettlement/GetReport",
-        type: "POST",
-        data: $('#formLicenseeSettlement').serialize()
-                + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
-                + "&ProductName=" + $('#Product option:selected').text()
-                + "&FromDate=" + $('#ddlMonth').monPickr("getFromDate", "MMM dd, yyyy")
-                + "&ToDate=" + $('#ddlMonth').monPickr("getToDate", "MMM dd, yyyy")
-                ,
-        success: function (data, textStatus, jqXHR) {
-            $('#parentContainer').html(data);
-            var month = $('#Month').val();
-            var year = $('#Year').val();
-            var fromDate = new Date(year, month - 1, 1);
-            var toDate = lastDateInMonth(month, year);
-            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text()
-                + " from  " + $('#ddlMonth').monPickr("getFromDate", "dd-MMM-yyyy")
-                + " to  " + $('#ddlMonth').monPickr("getToDate", "dd-MMM-yyyy"));
-            $(".curr").empty().text("Licensee Settlement Report for " + $('#Product option:selected').text());
-            $(".grid-title").show();
-            if (data.indexOf("There is no data") !== -1) {
-                $(".grid-toolbox").hide();
-            }
-            else {
-                $(".grid-toolbox").show();
-            }
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
-        },
-        complete: function (jqXHR, textStatus) {
-            NapTicketControl.enableInput();
-        }
-    });
 }
-
-function GetProductByLicenseeID(licenseeID) {
-    $.ajax({
-        url: domain + "Report/LicenseeSettlement/GetProductByLicenseeID",
-        type: "POST",
-        data: "&licenseeID=" + $('#LicenseeId').val(),
-        success: function (data, textStatus, jqXHR) {
-            var html = "";
-            for (var i = 0; i < data.length; i++) {
-                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
-            }
-            $('#Product').html(html);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
-        },
-        complete: function (jqXHR, textStatus) {
-        }
-    });
+@section Head {
+    @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style", "~/Scripts/_Libs/MonthPicker/style")
+    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlementWeb.css" />
+ }   
+@section Headline {
+    <div class="title">
+        <div>
+            <span>Invoice System / </span><span class="curr">@ViewBag.Title </span>
+        </div>
+    </div>
 }
-
-function GetCurrencyByLicenseeID(licenseeID) {
-    $.ajax({
-        url: domain + "Report/LicenseeSettlement/GetCurencyByLicenseeID",
-        type: "POST",
-        data: "&licenseeID=" + $('#LicenseeId').val(),
-        success: function (data, textStatus, jqXHR) {
-            var html = "";
-            if (data.length != 0) {
-                html = "<option value='0' selected='selected'>All</option>";
-//                if ($('#LicenseeId').val() == "0") {
-//                    $('#btnGenerate').addClass("ui-state-disabled");
-//                } else {
-//                    $('#btnGenerate').removeClass("ui-state-disabled");
-//                }
-            } else {
-                $('#btnGenerate').addClass("ui-state-disabled");
-            }
-
-            for (var i = 0; i < data.length; i++) {
-                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
-            }
-            $('#Currency').html(html);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
-        },
-        complete: function (jqXHR, textStatus) {
-        }
-    });
+<div>
+    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement", autocomplete = "off" }))
+    {
+        <div id="filter-bar" class="filter-bar" style="width: 1260px;">
+            <span id="notemessage" class="note-info-message" title=''></span>
+            <div class="filter-form">
+                <div class="filter-row">
+                    <div class="filter-cell">
+                        <div class="lbl-field col_3 align-right">
+                            @Html.LabelFor(m => m.LicenseeId, "Licensee")
+                        </div>
+                        <div class="edit-field col_6 align-left">
+                            @Html.DropDownListFor(m => m.LicenseeId, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
+                        </div>
+                        @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
+                    </div>*@
+                        <div class="lbl-field col_3">
+                            <div>
+                                Month</div>
+                        </div>
+                        <div class="edit-field col_16">
+                            <div id="ddlMonth">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-row">
+                    <div class="lbl-field col_3 align-right">
+                        @Html.LabelFor(m => m.Product, "Product")
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
+                    </div>
+                    <div class="lbl-field col_3 align-right">
+                        @Html.LabelFor(m => m.Currency, "Currency")
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListFor(m => m.Currency, ((List<SelectListItem>)ViewBag.ListCurrency), new SelectListItem() { Selected = true, Text = "All", Value = "0" }, new { @class = "alpha auto-width" })
+                    </div>
+                    <div class="lbl-field col_3 align-right">
+                        @Html.LabelFor(m => m.BaseCurrency, "Exchange")
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListFor(m => m.BaseCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
+                    </div>
+                    <div class="lbl-field col_3 align-right">
+                    </div>
+                    <div class="submit col_6">
+                        <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="grid-title" style="clear: both; display: none;">
+    <div class="grid-title-label">
+        <span id="nonLiveBingoReportTitle"></span>
+    </div>
+    <div class="grid-toolbox">
+        @*<input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />*@
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
+        @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
+        
+      @*  <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />*@
+        <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Xlsx })'"  />
+    </div>
+</div>
+<div id="parentContainer" class="content-grid">
+</div>
+@{
+    var minDateDaily = DateTime.Now.AddDays(-1).AddMonths(-3);
+    var minDateWeekly = DateTime.Now.AddDays(-1).AddMonths(-3);
 }
-
-function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
+@section scripts
+{
+    <script type="text/javascript">
+        var labelFrom = '@Labels.From';
+        var labelTo = '@Labels.To';
+        var today = '@DateTime.Today.ToShortDateString()';
+        var minDate = '@(new DateTime(2007, 1, 1).ToShortDateString())';
+     
+        var minDateDaily = '1/1/2007';
+        var minDateWeekly = '1/1/2007';
+        var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
+        var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
+    </script>
 }
-
-function lastDateInMonth(month, year) {
-    return new Date(year, month, daysInMonth(month, year));
+@section Foot {
+    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
+    <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=1"></script>
+ 
 }
