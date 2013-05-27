@@ -220,7 +220,8 @@
     <value>Current Week</value>
   </data>
   <data name="CustomerWinLoss" xml:space="preserve">
-    <value>Customer Win Loss</value>
+    <value>Customer
+Win Loss</value>
   </data>
   <data name="Daily" xml:space="preserve">
     <value>Daily</value>
@@ -711,5 +712,38 @@
   </data>
   <data name="Update_Batch_Message" xml:space="preserve">
     <value>Update Batch Message</value>
+  </data>
+  <data name="AmountDue" xml:space="preserve">
+    <value>Amount Due (to/from)</value>
+  </data>
+  <data name="BAEqui" xml:space="preserve">
+    <value>BA Equi</value>
+  </data>
+  <data name="Basis_of_Billing" xml:space="preserve">
+    <value>Basis of Billing</value>
+  </data>
+  <data name="FBilling" xml:space="preserve">
+    <value>1st Billing</value>
+  </data>
+  <data name="Finance_Department" xml:space="preserve">
+    <value>Finance Department</value>
+  </data>
+  <data name="FOREX_Info" xml:space="preserve">
+    <value>FOREX www.oanda.com provided minor difference between '{0}/1 Unit' vs 'Units/1 {0}', we standardize the use of 'Units/1 {0}' rate to prevail all.</value>
+  </data>
+  <data name="Head_of_Terms" xml:space="preserve">
+    <value>Head of Terms</value>
+  </data>
+  <data name="IDR_VND_Amount_In_IDR" xml:space="preserve">
+    <value>IDR &amp; VND * Amount in IDR is stated in 000, when converted to {0} Equv, x1000</value>
+  </data>
+  <data name="INTERNAL_WORKSHEET_FOR_SETTLEMENT" xml:space="preserve">
+    <value>INTERNAL WORKSHEET FOR SETTLEMENT</value>
+  </data>
+  <data name="Minimum_Fees" xml:space="preserve">
+    <value>Minimum Fees</value>
+  </data>
+  <data name="SETTLEMENT_REPORT" xml:space="preserve">
+    <value>SETTLEMENT REPORT</value>
   </data>
 </root>
