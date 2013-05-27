@@ -97,14 +97,18 @@ function RenderFilterNote() {
     });
 };
 
+
+
+
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "Invoice/GetReport",
+        url: "GetReport",
         type: "POST",
         data: $('#formLicenseeSettlement').serialize()
                 + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
                 + "&ProductName=" + $('#Product option:selected').text()
+                + "&LicenseeName=" + $('#LicenseeId option:selected').text()
                 + "&FromDate=" + $('#ddlMonth').monPickr("getFromDate", "MMM dd, yyyy")
                 + "&ToDate=" + $('#ddlMonth').monPickr("getToDate", "MMM dd, yyyy")
                 ,

@@ -228,6 +228,8 @@
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Admin\Scripts\TicketListing.js" />
     <Content Include="Areas\Admin\Scripts\TicketListingManager.js" />
+    <Content Include="Areas\Admin\Views\Party\Scripts\Party.js" />
+    <Content Include="Areas\Admin\Views\Party\Styles\Party.css" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -636,9 +638,6 @@
     <Content Include="Areas\Admin\Styles\TicketListing.less" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\BatchMessage\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\TicketListing\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\TicketListing\LewisIndex.cshtml" />
-    <Content Include="Areas\Admin\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Invoice\Styles\BatchMessage.less" />
     <Content Include="Areas\Invoice\Styles\TicketListing.less" />
@@ -657,6 +656,8 @@
     <Content Include="Areas\Invoice\Views\Invoice\Copy of _Sportsbook1.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Number Game.cshtml" />
+    <Content Include="Areas\Admin\Views\Party\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Party\_AddNew.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

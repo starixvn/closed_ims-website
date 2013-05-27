@@ -25,10 +25,12 @@ using Fanex.Ares.Invoice.Criteria.LicenseeSettlement;
 using Fanex.Ares.Core.Services.Impl;
 using Fanex.Ares.Core.Extensions;
 using Fanex.Workbooks;
+using Fanex.NAP.Core.Web.Attribute;
 
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [NapSuperAuth]
     public class InvoiceController : BaseController
     {
         ServiceBase _service;

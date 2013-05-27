@@ -28,4 +28,12 @@
     <Setting Key="IMS_BaseCurrencySel" SpName="IMS_BaseCurrencySel" DbName="archive" />
   </Function>
 
+  <Function Name="Setting">
+    <Setting Key="IMS_PartyIns" SpName="IMS_PartyIns" DbName="archive" />
+    <Setting Key="IMS_PartyTypeSel" SpName="IMS_PartyTypeSel" DbName="archive" />
+    <Setting Key="IMS_PartyInfoUpd" SpName="IMS_PartyInfoUpd" DbName="archive" />
+    <Setting Key="IMS_PartyInfoSel" SpName="IMS_PartyInfoSel" DbName="archive" />
+  </Function>
+
+  
 </Functions>

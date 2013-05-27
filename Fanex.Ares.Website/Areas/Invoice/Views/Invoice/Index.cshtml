@@ -17,7 +17,7 @@
      <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/InvoiceWeb.css" />
 }
 @section Headline {
-    <div class="title">
+    <div class="title" style="width:  width:98%;">
         <div>
             <span>Invoice System / </span><span class="curr">@ViewBag.Title </span>
         </div>
@@ -26,7 +26,7 @@
 <div>
     @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
     {
-        <div id="filter-bar" class="filter-bar" style="width: 1260px;">
+        <div id="filter-bar" class="filter-bar" >
             <span id="notemessage" class="note-info-message" title=''></span>
             <div class="filter-form">
                 <div class="filter-row">
@@ -90,7 +90,7 @@
         </div>
     }
 </div>
-<div class="grid-title" style="clear: both; display: none;">
+<div class="grid-title" style="clear: both; display: none; ">
     <div class="grid-title-label">
         <span id="nonLiveBingoReportTitle"></span>
     </div>
@@ -105,7 +105,7 @@
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = WorkBookExtension.DocumentType.Xlsx })'"  />
     </div>
 </div>
-<div id="parentContainer" class="content-grid">
+<div id="parentContainer" class="content-grid" style="width:97%" >
 </div>
 @{
     var minDateDaily = DateTime.Now.AddDays(-1).AddMonths(-3);
@@ -128,7 +128,7 @@
 }
 @section Foot {
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
-    <script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/Invoice.js?ver=@DateTime.Now.ToString()"></script>
+    <script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/Invoice.js"></script>
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     @*<script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
     <script type="text/javascript" src="~/scripts/_lib/MultipleSelect/jquery.multiselect.nlevel.js"></script>

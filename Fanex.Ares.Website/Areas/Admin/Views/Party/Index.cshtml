@@ -1,0 +1,108 @@
+﻿﻿@using Fanex.Ares.Core.Resources;
+@using Fanex.Ares.Core.Web;
+@using Fanex.Ares.Core.Services.Impl;
+@using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+@using Fanex.Ares.Core.Extensions
+@model Fanex.Ares.Admin.Models.Party.PartyModel
+@{
+    ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
+    ViewBag.Title = "Manage Party";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Head {
+    <link href="~/Areas/Admin/Views/Party/Styles/Party.css" rel="stylesheet" type="text/css" />
+}
+@section Headline {
+    <div class="title">
+        <div>
+            <span>Seeting/ </span><span class="curr">@ViewBag.Title </span>
+        </div>
+    </div>
+}
+<div>
+    <div id="filter-bar" class="filter-bar" style="width: 1260px;">
+        <div class="filter-form">
+            <div class="filter-row">
+                <div class="filter-cell">
+@*                    <div class="lbl-field col_3 align-center">
+                        Party
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        <input type="text" />
+                    </div>
+                    <div class="submit col_3">
+                        <input id="btnSearch" name="btnSearch" type="button" value="Search" />
+                    </div>*@
+                    <div class="submit col_3">
+                        <input id="btnAddNew" name="btnAddNew" type="button" value="Add New" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid-title" style="clear: both; display: none;">
+    <div class="grid-title-label">
+        <span id="nonLiveBingoReportTitle"></span>
+    </div>
+    <div class="grid-toolbox">
+    </div>
+</div>
+<div id="parentContainer content-grid" style="clear: both; padding-top: 10px; padding-left: 10px;">
+    <table cellpadding="2" cellspacing="2" style="border-collapse: collapse;">
+        <thead>
+            <tr>
+                <th style="width: 100px;">
+                    Party Name
+                </th>
+                <th style="width: 200px;">
+                    Address
+                </th>
+                <th style="width: 200px;">
+                    Phone
+                </th>
+                <th style="width: 100px;">
+                    Edit
+                </th>
+                <th style="width: 200px;">
+                    Add Licensee
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.PartyName
+                </td>
+                <td>
+                    @Model.Description
+                </td>
+                <td>
+                    @Model.AttnName
+                </td>
+                <td>
+                    <input id="btnEdit" name="btnEdit" type="button" value="Edit" />
+                </td>
+                <td>
+                    <input id="btnAddLicensee" name="btnAddLicensee" type="button" value="Add Licensee" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        var labelFrom = '@Labels.From';
+        var labelTo = '@Labels.To';
+        var today = '@DateTime.Today.ToShortDateString()';
+        var minDate = '@(new DateTime(2007, 1, 1).ToShortDateString())';
+        var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
+        var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
+    </script>
+}
+@section Foot {
+    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
+    <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
+    <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=1"></script>
+}

@@ -1,0 +1,36 @@
+﻿
+th
+{
+     color:white;
+    text-align:center;
+    font-weight:bold;
+    vertical-align:middle;
+    white-space:nowrap;
+    background:#3C5EA5;
+    white-space: normal;
+    border:1px solid gray;
+    height: 20px;
+}
+
+td
+{
+    text-align:center;
+    vertical-align:middle;
+    white-space:nowrap;
+    border:1px solid gray;
+    white-space: normal;
+}
+
+
+.even
+{
+   background-color: #ff00ff !important;
+}
+
+.div-content
+{
+    clear:both; 
+    width: 1260px; 
+    margin:40px 0 0 10px;
+    padding: 2px;
+}
