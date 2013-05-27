@@ -18,5 +18,6 @@ namespace Fanex.Ares.Admin.Services.Interface
     public class IPartyService
     {
         List<PartyModel> GetPartyList(IMS_PartySelCriteria partySelCriteria);
+
     }
 }
