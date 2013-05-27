@@ -23,16 +23,9 @@ namespace Fanex.Ares.Report.Services.Interface
 {
     public class LicenseeSettlementService : ServiceBase, ILicenseeSettlementService
     {
-        #region Local Variables
-        private readonly ISportsbookExcelService _sportsbookExcelService;
-        private readonly IBAExcelService _BAExcelService;
-        #endregion
-
         #region ctor
         public LicenseeSettlementService()
         {
-            _sportsbookExcelService = new SportsbookExcelService();
-            _BAExcelService = new BAExcelService();
         }
         #endregion
 
