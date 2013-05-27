@@ -98,11 +98,7 @@
     <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implement\BAExcelService.cs" />
-    <Compile Include="Services\Implement\SportsbookExcelService.cs" />
     <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
-    <Compile Include="Services\Interface\IBAExcelService.cs" />
-    <Compile Include="Services\Interface\ISportsbookExcelService.cs" />
     <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />
     <Compile Include="ViewModels\ExchangeRate.cs" />
     <Compile Include="ViewModels\LicenseeInformation.cs" />
