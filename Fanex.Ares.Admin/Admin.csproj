@@ -65,7 +65,6 @@
     <Compile Include="Repositories\Interface\IAdminRepository.cs" />
     <Compile Include="Services\Implement\AdminService.cs" />
     <Compile Include="Services\Interface\IAdminService.cs" />
-    <Compile Include="Services\Interface\IPartyService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
