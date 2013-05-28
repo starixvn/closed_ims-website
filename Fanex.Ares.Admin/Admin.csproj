@@ -57,7 +57,7 @@
     <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Criteria\AccountingUserCheckOnlineStatusCriteria.cs" />
     <Compile Include="Criteria\IMS_PartyInsUpCriteria.cs" />
-    <Compile Include="Criteria\IMS_PartySelCriteria.cs" />
+    <Compile Include="Criteria\IMS_PartyInfoSelCriteria.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Party\PartyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +65,8 @@
     <Compile Include="Repositories\Interface\IAdminRepository.cs" />
     <Compile Include="Services\Implement\AdminService.cs" />
     <Compile Include="Services\Interface\IAdminService.cs" />
+    <Compile Include="Services\Party\Implement\PartyService.cs" />
+    <Compile Include="Services\Party\Interface\IPartyService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

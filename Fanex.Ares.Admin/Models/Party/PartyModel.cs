@@ -16,6 +16,8 @@ namespace Fanex.Ares.Admin.Models.Party
     /// </summary>
     public class PartyModel
     {
+        public int PartyID { get; set; }
+
         public string PartyName { get; set; }
 
         public int PartyType { get; set; }
@@ -43,6 +45,8 @@ namespace Fanex.Ares.Admin.Models.Party
         public string To1 { get; set; }
 
         public string To2 { get; set; }
+
+        public string Logo { get; set; }
 
         //public PartyModel()
         //{

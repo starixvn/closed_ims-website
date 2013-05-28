@@ -1,5 +1,20 @@
 ﻿/* File Created: January 28, 2013 */
 
+var FormatConstant = {
+    INT_NUMBER: '0,0',
+    TWO_DECIMAL_NUMBER: '0,0.00',
+    FOUR_DECIMAL_NUMBER: '0,0.0000',
+    TWO_DECIMAL_PERCENT_NUMBER: '0,0.00%',
+    MMM_DD_YYYY_STRING: 'MMM DD, YYYY',
+    M_DD_YY_STRING: 'M dd, yy',
+    MM_DD_YYYY_WITH_SLASH_STRING: 'MM/dd/yyyy',
+    MMM_YY_STRING: 'MMM YY',
+    MMM_YY_STRING_MONTH_PICKER: 'MMM yyyy',
+    MMM_DD_YY_STRING_MONTH_PICKER: 'MMM dd, yyyy',
+    MM_DD_YYYY_WITH_SLASH_STRING_MOMENT: 'M/D/YYYY',
+    MMM_DD_YYYY_STRING_MOMENT: 'MMM D, YYYY'
+}
+
 var NapTicketControl = (function ($) {
     var MessageType = {
         Success: 1,

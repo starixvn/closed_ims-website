@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Functions>
+  <Function Name="Admin">
+    <Setting Key="IMS_PartyIns" SpName="IMS_PartyIns" DbName="invoice" />
+    <Setting Key="IMS_PartyTypeSel" SpName="IMS_PartyTypeSel" DbName="invoice" />
+    <Setting Key="IMS_PartyInfoUpd" SpName="IMS_PartyInfoUpd" DbName="invoice" />
+    <Setting Key="IMS_PartyInfoSel" SpName="IMS_PartyInfoSel" DbName="invoice" />
+    <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="invoice" />
+  </Function>
+</Functions>
