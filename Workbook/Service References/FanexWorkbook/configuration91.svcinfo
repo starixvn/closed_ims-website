@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="xgCT1QYBxID2mwADdUbyC+OUBtU=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="OvPULAIkFz0GKeutgosTjdeBVIw=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IWorkBookService">
       <properties>
@@ -118,10 +118,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetTcpBinding_IWorkBookService" contract="FanexWorkbook.IWorkBookService" bindingType="netTcpBinding" address="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/" bindingConfiguration="NetTcpBinding_IWorkBookService">
+    <endpoint name="NetTcpBinding_IWorkBookService" contract="FanexWorkbook.IWorkBookService" bindingType="netTcpBinding" address="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/" bindingConfiguration="NetTcpBinding_IWorkBookService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/</serializedValue>
+          <serializedValue>net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

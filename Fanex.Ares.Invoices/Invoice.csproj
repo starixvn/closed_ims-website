@@ -63,6 +63,7 @@
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Controllers\LicenseeController.cs" />
     <Compile Include="Criteria\GetBettypeCriteria.cs" />
+    <Compile Include="Criteria\Invoice\InvoiceCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Services\Interface\ISingleTickketService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Models\Invoice\" />
     <Folder Include="Repositories\Impl\" />
     <Folder Include="Repositories\Interface\" />
   </ItemGroup>

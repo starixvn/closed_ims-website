@@ -27,6 +27,7 @@ using Fanex.Ares.Core.Extensions;
 using Fanex.Workbooks;
 using Fanex.NAP.Core.Web.Attribute;
 
+
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -139,40 +140,57 @@ namespace Fanex.Ares.Invoice.Controllers
             return this.ViewPdf("", "_Sportsbook", model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
         }
 
-        public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
-        {
-            var model = new LicenseeSettlementModel();
+        //public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
+        //{
+        //    var model = new LicenseeSettlementModel();
+        //    model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+        //    SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
 
+        //    List<string> htmlList = new List<string>();
+        //    string[] arrayView = new string[] { "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA" };
+        //    List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
-            //model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            //SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    foreach (string view in arrayView)
+        //    {
+        //        string html = HtmlHelperExtensions.RenderViewToString(this, view, model);
+        //        htmlList.Add(html);
+        //    }
 
+        //    var excelCssFilePath = new List<string>();
+        //    excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
 
+        //    var workbook = new WorkbookManager();
+        //    var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
+        //    if (ms != null)
+        //    {
+        //        // return the filestream
+        //        // Rewind the memory stream to the beginning
+        //        ms.Seek(0, SeekOrigin.Begin);
 
+        //        string fileName = "invoice" + "." + documentType.ToString().ToLower();
 
-            string html = HtmlHelperExtensions.RenderViewToString(this, "_Sportsbook", model);
+        //        return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
+        //    }
 
-
-
-            var excelCssFilePath = new List<string>();
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
-
-            var workbook = new WorkbookManager();
-            var ms = workbook.CreateDocument(html, excelCssFilePath, documentType, WorkbookManager.PageOrientation.Landscape);
-            if (ms != null)
-            {
-                // return the filestream
-                // Rewind the memory stream to the beginning
-                ms.Seek(0, SeekOrigin.Begin);
-
-                //int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
-                //int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-                string fileName = "Settlement_For." + documentType.ToString().ToLower();
-
-                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
-            }
-            return new EmptyResult();
-
-        }
+        //    return new EmptyResult();
+        //}
     }
 }

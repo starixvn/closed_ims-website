@@ -85,9 +85,9 @@
   </wsdl:binding>
   <wsdl:service name="WorkBookService">
     <wsdl:port name="NetTcpBinding_IWorkBookService" binding="tns:NetTcpBinding_IWorkBookService">
-      <soap12:address location="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/" />
+      <soap12:address location="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <Dns>localhost</Dns>
         </Identity>
