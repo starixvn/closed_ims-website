@@ -650,11 +650,8 @@
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Copy of _Sportsbook1.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Number Game.cshtml" />
     <Content Include="Areas\Admin\Views\Party\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Party\_AddNew.cshtml" />

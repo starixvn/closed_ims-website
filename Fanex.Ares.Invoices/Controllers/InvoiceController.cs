@@ -27,7 +27,8 @@ using Fanex.Ares.Core.Extensions;
 using Fanex.Workbooks;
 using Fanex.NAP.Core.Web.Attribute;
 
-
+using Fanex.Ares.Invoice.Models.Invoice;
+using Fanex.Ares.Report.Services.Interface; 
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -35,6 +36,7 @@ namespace Fanex.Ares.Invoice.Controllers
     public class InvoiceController : BaseController
     {
         ServiceBase _service;
+        ILicenseeSettlementService _reportService;
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
 
@@ -48,6 +50,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
         public InvoiceController()
         {
+            _reportService = new LicenseeSettlementService();
             _service = new ServiceBase();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
@@ -56,29 +59,10 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();
-            model.Year = DateTime.Now.Year;
-            ViewBag.ListLicensee = _service.GetAllLicensees();
-            var licenseeID = int.Parse(((List<SelectListItem>)ViewBag.ListLicensee)[0].Value);
-            var listProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID }).ToList();
-            listProduct.Add(new SelectListItem()
-            {
-                Text = "Racing",
-                Value = "4"
-            });
-
-            listProduct.Add(new SelectListItem()
-            {
-                Text = "Host Fee",
-                Value = "5"
-            });
-
-            ViewBag.ListProduct = listProduct;
-            var listCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }).ToList<SelectListItem>();
-            listCurrency.Add(new SelectListItem() { Selected = true, Text = "All", Value = "0" });
-            ViewBag.ListCurrency = listCurrency;
-            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
-
+            ViewBag.ListLicenseeEx = _reportService.GetAllLicenseesEx();
+            ViewBag.ListProduct = _reportService.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = 0 });
+            ViewBag.ListCurrency = _reportService.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
+            ViewBag.ListExchangeRate = _reportService.GetBaseCurrency(new IMS_BaseCurrencySel());
             return View();
         }
 

@@ -14,7 +14,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class InvoiceCriteria
+    public class IMS_InvoiceCriteria
     {
         public int OperatorID { get; set; }
 
@@ -28,11 +28,15 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
 
         public int InvoiceNo { get; set; }
 
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
         public DateTime DueDate { get; set; }
 
-        public List<DateRangeCriteria> DateRangeList { get; set; }
+        //public List<DateRangeCriteria> DateRangeList { get; set; }
 
-        public List<ProductCriteria> ProductList { get; set; }
+        //public List<ProductCriteria> ProductList { get; set; }
 
     }
 
