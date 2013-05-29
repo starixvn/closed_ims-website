@@ -1,17 +1,17 @@
 ﻿using Fanex.NAP.Framework.Data;
 
-namespace Fanex.Ares.Core.Criteria
+namespace Fanex.Ares.Report.Criteria
 {
-    public class TestCriteria : CriteriaBase
+    public class GetOutrightLeagueCriteria : CriteriaBase
     {
         public override string GetSettingKey()
         {
-            return "Test_BetTypeSel";
+            return "OutRightTicket_BettransDelSpecial_LeagueSelOutright";
         }
 
         public override bool IsValid()
         {
             return true;
-        }
+        }      
     }
 }

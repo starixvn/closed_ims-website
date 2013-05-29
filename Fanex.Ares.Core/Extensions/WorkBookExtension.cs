@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Web.Hosting;
-using Fanex.Ares.Core.Services.Impl;
 using Fanex.Web.HtmlHelper;
 using Microsoft.Office.Interop.Excel;
 

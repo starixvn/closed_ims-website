@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Bettype.cs" company="Microsoft">
+// <copyright file="ISingleTickketService.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,21 +7,19 @@
 //   <change who="Robert.Tran" date="2013.2.05">Created</change>
 // </history>
 
-
-using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Fanex.Ares.Admin.Criteria;
+using Fanex.Ares.Admin.Models.SingleTicket;
 
-namespace Fanex.Ares.Core.Models
+namespace Fanex.Ares.Admin.Services.Interface
 {
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [Serializable]
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class Bettypes:BaseModel
+    public interface ISingleTickketService
     {
-        public int Type { get; set; }
-
-        public bool LiveIndicator { get; set; }
+        List<Bettype> SelBettype(GetBettypeCriteria criteria);
     }
 }

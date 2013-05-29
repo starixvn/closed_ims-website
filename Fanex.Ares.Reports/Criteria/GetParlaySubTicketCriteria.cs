@@ -1,26 +1,28 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="GetBettypeCriteria.cs" company="Microsoft">
+// <copyright file="GetSingleTicket.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-using Fanex.Ares.Core.Models;
+using System;
 using Fanex.NAP.Framework.Data;
-using System.Diagnostics.CodeAnalysis;
 
-namespace Fanex.Ares.Core.Criteria
+namespace Fanex.Ares.Report.Criteria
 {
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class GetBettypeCriteria : CriteriaBase
+    public class GetParlaySubTicketCriteria : CriteriaBase
     {
-        public ProductType Mode { get; set; }
+        public string RefNo { get; set; }
+
+        public Int64 TransId { get; set; }
+
+        public int CurrencyId { get; set; }
 
         public override string GetSettingKey()
         {
-            return "Core_SelBettype";
+            return "ParlayTicket_SubTicket_BettransSelSpecialDel_MixParlay";
         }
 
         public override bool IsValid()

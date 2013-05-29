@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="Enums.cs" company="Microsoft">
+// <copyright file="GetBettypeCriteria.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,19 +8,29 @@
 // </history>
 
 
+using Fanex.Ares.Admin.Common;
+using Fanex.NAP.Framework.Data;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Fanex.Ares.Core.Models
+namespace Fanex.Ares.Admin.Criteria
 {
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public enum ProductType
+    public class GetBettypeCriteria : CriteriaBase
     {
-        Sportsbook = 0,
-        NumberGame = 1,
-        MixParlay = 2,
-        TicketListing = 3
+
+        public Enums.TicketControlMode Mode { get; set; }
+
+        public override string GetSettingKey()
+        {
+            return "Common_SelBettype";
+        }
+
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }
