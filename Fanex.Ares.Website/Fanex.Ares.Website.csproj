@@ -228,7 +228,7 @@
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Admin\Scripts\TicketListing.js" />
     <Content Include="Areas\Admin\Scripts\TicketListingManager.js" />
-    <Content Include="Areas\Admin\Views\Party\Scripts\Party.js" />
+    <Content Include="Areas\Admin\Views\Party\Scripts\PartyManager.js" />
     <Content Include="Areas\Admin\Views\Party\Styles\Party.css" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageHelper.js" />
@@ -667,8 +667,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Configuration\StoreProcedure\NAPFrameworkSpNames.xml" />
     <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml" />
+    <Content Include="Web.Configuration\StoreProcedure\NAPFrameworkSpNames.xml" />
+    <Content Include="Web.Configuration\StoreProcedure\AresAdminSpNames.xml" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

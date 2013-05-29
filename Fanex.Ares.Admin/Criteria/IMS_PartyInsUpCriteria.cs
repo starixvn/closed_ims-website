@@ -1,8 +1,12 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PartyCriteria.cs" company="Microsoft">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------
+// <copyright file="IMS_PartyInfoSelCriteria.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.05.28">Created</change>
+// </history>
+
 using System;
 using Fanex.NAP.Framework.Data;
 namespace Fanex.Ares.Admin.Criteria
