@@ -86,10 +86,6 @@
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Fanex.Ares.Reports\Report.csproj">
-      <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
-      <Name>Report</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
       <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
       <Name>PdfHelper</Name>
