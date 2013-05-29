@@ -16,7 +16,29 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// </summary>
     public class InvoiceModel
     {
+        public List<Statement> StatementList { get; set; }
+
+
+        public double TotalAmount { get; set; }
+
+        public InvoiceModel()
+        {
+            this.StatementList = new List<Statement>();
+        }
+
     }
+
+    public class Statement
+    {
+        public int ID { get; set; }
+
+        public string Description { get; set; }
+
+        public string Reference { get; set; }
+
+        public double Amount { get; set; }
+    }
+
 
     public class Licensee
     {
