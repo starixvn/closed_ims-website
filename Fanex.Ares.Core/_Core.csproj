@@ -107,6 +107,7 @@
     <Compile Include="Criteria\IMS_LicenseeCurrencySelCriteria.cs" />
     <Compile Include="Criteria\IMS_LicenseeProductSelCriteria.cs" />
     <Compile Include="Criteria\IMS_LicenseeSelCriteria.cs" />
+    <Compile Include="Criteria\IMS_OperatorSelCriteria.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />

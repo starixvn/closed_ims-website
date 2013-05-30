@@ -655,6 +655,7 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Number Game.cshtml" />
     <Content Include="Areas\Admin\Views\Party\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Party\_AddNew.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Invoice.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

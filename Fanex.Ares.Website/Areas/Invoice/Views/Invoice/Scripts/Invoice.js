@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
+
     $('#fromTopickerplugin').nexDatePicker({
         nexDatePickerType: "quickchoose",
         datePickerFormat: {
@@ -47,4 +49,25 @@
         onSelectDatePicker: function () {
         }
     });
+
+
+    $('#btnGenerate').button();
+    $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 });
+
+function Submit() {
+    NapTicketControl.disableInput();
+    $.ajax({
+        url: domain + "Invoice/Invoice/GetInvoice",
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            $('#parentContainer').html(data);
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("fail");
+        },
+        complete: function (jqXHR, textStatus) {
+            NapTicketControl.enableInput();
+        }
+    });
+}

@@ -1,0 +1,188 @@
+﻿@using Fanex.Ares.Invoice.Models.Invoice;
+@{
+    InvoiceModel model = new InvoiceModel();
+    int i = 0;
+}
+<style type="text/css">
+    table, th, td
+    {
+        background: #EDECEA;
+        border: 1px solid #CECCCD;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    
+    th
+    {
+        background-color: #E9E480;
+        color: black;
+        font-weight: bold;
+    }
+    table
+    {
+        border-collapse: collapse;
+    }
+    
+    textarea#styled
+    {
+        width: 95%;
+        height: 40px;
+        border: 1px solid #cccccc;
+        padding: 5px;
+        font-family: Tahoma, sans-serif;
+        background-image: url(bg.gif);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+    }
+</style>
+<div class="div-content" style="overflow: auto; width: 100%; padding-top: 20px; margin: 0px !important;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;'>
+        <tr>
+            <td>
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th style="height: 34px;">
+                                ITEM
+                            </th>
+                            <th>
+                                DESCRIPTION
+                            </th>
+                            <th>
+                                REFERENCE
+                            </th>
+                            <th>
+                                AMOUNT
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (StatementDetail statementDetail in model.Statement.StatementList)
+                        {
+                            <tr style="width: 100%; text-align: center;">
+                                <td style="width: 10%;">
+                                    @statementDetail.ID
+                                </td>
+                                <td style="width: 55%; text-align: center; height: 60px;">
+                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_@i" onfocus="setbg('#e5fff3',@i);" onblur="setbg('white',@i)">@statementDetail.Description</textarea>
+                                </td>
+                                @{
+                            i++;
+                                }
+                                <td style="width: 20%; text-align: center;">
+                                    <textarea rows="2" cols="33" name="styled-textarea" id="styled_@i" onfocus="setbg('#e5fff3',@i);" onblur="setbg('white',@i)">@statementDetail.Reference</textarea>
+                                </td>
+                                <td style="width: 15%; text-align: center;">
+                                    <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 0px 0px 10px;">
+                                        <label style="font-weight: bold;">@statementDetail.Amount
+                                        </label>
+                                    </div>
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table style="width: 100%; border-collapse: collapse; border: 0px !important;">
+                    <tr style="width: 100%;">
+                        <td colspan="2" style="border: 0px !important; text-align: left; font-weight: bold; padding-left: 5px;">
+                            For Telegraphic Transfer Payments:
+                        </td>
+                        <td rowspan="7" style="border: 0px !important;">
+                            <div>
+                                <textarea rows="4" cols="105" name="styled-textarea" id="noteId"></textarea>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            Beneficiary
+                        </td>
+                        <td style="height: 20px; border: 0px !important; text-align: left; ">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            Account No
+                        </td>
+                        <td style="height: 20px; border: 0px !important;text-align: left;">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            IBAN
+                        </td>
+                        <td style="height: 20px; border: 0px !important;text-align: left;">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            Beneficiary Bank
+                        </td>
+                        <td style="height: 20px; border: 0px !important;text-align: left; ">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            Swift Code
+                        </td>
+                        <td style="height: 20px; border: 0px !important;text-align: left;">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;">
+                        </td>
+                        <td style="height: 20px; border: 0px !important;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 10%; height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            Correspondent
+                        </td>
+                        <td style="width: 35%; height: 20px; border: 0px !important;text-align: left;">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                        <td rowspan="3" style="width: 55%; height: 20px; border: 0px !important;">
+                            <div>
+                                <input id="" name="" type="button" value="SAVE" />
+                                <input id="" name="" type="button" value="REVIEW" />
+                                <input id="" name="" type="button" value="EXPORT PDF" />
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            Swift Code
+                        </td>
+                        <td style="height: 20px; border: 0px !important;text-align: left;">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="height: 20px; border: 0px !important;  text-align: left; padding-left: 5px;">
+                            Account No
+                        </td>
+                        <td style="height: 20px; border: 0px !important;text-align: left;">
+                        :&nbsp;&nbsp;&nbsp;<input style="width:70%;" type="text" />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    function setbg(color, id) {
+        document.getElementById("styled_" + id).style.background = color
+    }
+</script>

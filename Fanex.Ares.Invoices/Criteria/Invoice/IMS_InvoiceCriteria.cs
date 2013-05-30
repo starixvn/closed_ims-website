@@ -24,7 +24,13 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
 
         public string LicenseeName { get; set; }
 
-        public string ExchangeName { get; set; }
+        public int CurrencyID { get; set; }
+
+        public string CurrencyName { get; set; }
+
+        public int InvoiceTypeID { get; set; }
+
+        public string InvoiceTypeName { get; set; }
 
         public int InvoiceNo { get; set; }
 

@@ -62,9 +62,12 @@
   <ItemGroup>
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_InvoiceTypeCriteria.cs" />
     <Compile Include="Models\Invoice\InvoiceModel.cs" />
     <Compile Include="Models\LicenseeSettlement\LicenseeSettlementModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\Imp\InvoiceService.cs" />
+    <Compile Include="Service\Interface\IInvoiceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\Impl\" />

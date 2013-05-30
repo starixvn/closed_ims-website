@@ -1,9 +1,9 @@
 ﻿@using Fanex.Ares.Core.Resources;
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
-@using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+@using Fanex.Ares.Invoice.Criteria.Invoice;
 @using Fanex.Ares.Core.Extensions
-@model IMS_Rpt_LicenseeSettlementCriteria
+@model IMS_InvoiceCriteria
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Invoice";
@@ -15,6 +15,8 @@
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/Invoice.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/InvoiceWeb.css" />
+    
+
 }
 @section Headline {
     <div class="title" style="width: width:98%;">
@@ -32,14 +34,13 @@
                     Operator/Distributor
                 </div>
                 <div class="edit-field col_4">
-                    <select id="ddlOperator">
-                    </select>
+                      @Html.DropDownListFor(m => m.OperatorID, ((List<SelectListItem>)ViewBag.ListOperator), new { @class = "alpha auto-width" })
                 </div>
                 <div class="lbl-field col_3 align-right">
                     @Labels.Licensee
                 </div>
                 <div class="edit-field col_4">
-                    @Html.DropDownListFor(m => m.LicenseeId, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
+                    @Html.DropDownListFor(m => m.LicenseeID, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
                 </div>
                 <div id="fromTopickerplugin">
                 </div>
@@ -51,14 +52,14 @@
                     Invoice Type
                 </div>
                 <div class="edit-field col_4">
-                    <select id="ddlInvoiceTYpe">
-                    </select>
+                    @Html.DropDownListFor(m => m.InvoiceTypeID, ((List<SelectListItem>)ViewBag.ListInvoiceType), new SelectListItem() { Selected = true, Text = "All", Value = "0" }, new { @class = "alpha auto-width" })
                 </div>
                 <div class="lbl-field col_3 align-right">
                     Currency
                 </div>
-                <div class="edit-field col_4 align-left">
-                    @Html.DropDownListFor(m => m.Currency, ((List<SelectListItem>)ViewBag.ListCurrency), new SelectListItem() { Selected = true, Text = "All", Value = "0" }, new { @class = "alpha auto-width" })
+               <div class="edit-field col_6">
+                    <select id="ddlInvoiceType">
+                    </select>
                 </div>
                 <div class="lbl-field col_3 align-right">
                     Invoice No.
@@ -69,7 +70,7 @@
                 <div id="duteDatepickerplugin">
                 </div>
                 <div class="submit col_4">
-                    <input id="btnGenerate" value="Generate" type="submit" />
+                    <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
                 </div>
             </div>
         </div>
