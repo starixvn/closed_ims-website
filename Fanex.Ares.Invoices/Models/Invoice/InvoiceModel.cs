@@ -34,39 +34,47 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public int InvoiceNo { get; set; }
 
-        public Statement Statement { get; set; }
+        public List<Statement> StatementList { get; set; } // List statement
 
         public string Note { get; set; }
 
         public InvoiceModel()
         {
-            this.Statement = new Statement();
+            this.StatementList = new List<Statement>();
+
+            for (int j = 0; j < 2; j++)
+            {
+                this.StatementList.Add(new Statement
+                {
+                    StatementID = j
+
+                });
+            }
         }
     }
 
     public class Statement
     {
-        public List<StatementDetail> StatementList { get; set; }
+        public List<StatementDetail> StatementDetailList { get; set; }
+
+        public int StatementID { get; set; }
 
         public double TotalAmount { get; set; }
 
         public Statement()
         {
-            this.StatementList = new List<StatementDetail>();
+            this.StatementDetailList = new List<StatementDetail>();
 
-            for (int i = 0; i < 3; i++)
-            {
                 for (int j = 0; j < 2; j++)
                 {
-                    this.StatementList.Add(new StatementDetail
+                    this.StatementDetailList.Add(new StatementDetail
                     {
-                        ID = i,
+                        ID = j,
                         Description ="Description Description Description",
                         Reference = "Reference",
-                        Amount =  i + j *1000
+                        Amount =   (j + 1) *1000
                     });
                 }
-            }
         }
     }
 
