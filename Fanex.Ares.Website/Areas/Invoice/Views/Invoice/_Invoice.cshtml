@@ -55,7 +55,7 @@
     
     .label
     {
-        width: 70%;
+        width: 75%;
         font-weight: bold;
         background-color: #9A9696 !important;
         display: inline-block;
@@ -93,12 +93,13 @@
                             <tr style="width: 100%; text-align: center;">
                                 @if (j == 0)
                                 {
-                                    <td rowspan="@state.StatementDetailList.Count" style="width: 10%;">
+                                    <td rowspan="@state.StatementDetailList.Count" style="width: 10%; vertical-align:top;">
+                                        <br />
                                         @state.StatementID
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_@index onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)">@detail.Description</textarea>
+                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)">@detail.Description</textarea>
                                 </td>
                                 @{
                                 index++;
@@ -143,12 +144,12 @@
                             <div style="width: 70%; display: inline-block; text-align: left;">
                                 For Telegraphic Transfer Payments:
                             </div>
-                            <div style="width: 30%; display: inline-block; text-align: right;">
+                            <div style="width: 27%; display: inline-block; text-align: right;">
                                 Note</div>
                         </td>
-                        <td rowspan="7" style="border: 0px !important;">
+                        <td rowspan="7" style="border: 0px !important; vertical-align:top">
                             <div>
-                                <textarea rows="7" cols="105" name="styled-textarea" id="noteId"></textarea>
+                                <textarea rows="5" cols="90" name="styled-textarea" id="noteId"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -212,12 +213,12 @@
                         <td style="width: 10%;" class="noneBorder paddingLeft height20">
                             Correspondent
                         </td>
-                        <td style="width: 35%;" class="noneBorder paddingLeft height20">
+                        <td style="width: 45%;" class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
                             <div class="label">
                                 &nbsp;</div>
                         </td>
-                        <td style="width: 55%;" rowspan="3" class="noneBorder  height20">
+                        <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                             <div>
                                 <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="SAVE" />
