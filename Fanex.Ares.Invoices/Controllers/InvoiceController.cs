@@ -30,6 +30,7 @@ using Fanex.Workbooks;
 using Fanex.NAP.Core.Web.Attribute;
 
 using Fanex.Ares.Invoice.Models.Invoice;
+using Fanex.Ares.Invoice.Service.Imp;
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -37,6 +38,7 @@ namespace Fanex.Ares.Invoice.Controllers
     public class InvoiceController : BaseController
     {
         ServiceBase _service;
+        InvoiceService _invoiceService;
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
 
@@ -51,6 +53,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public InvoiceController()
         {
             _service = new ServiceBase();
+            _invoiceService = new InvoiceService();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
@@ -62,8 +65,8 @@ namespace Fanex.Ares.Invoice.Controllers
             ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = 0 });
             ViewBag.ListCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
             ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
-            ViewBag.ListOperator =  _service.GetOperator(new IMS_OperatorSelCriteria());
-            //ViewBag.ListInvoiceType = _service.GetInvoiceType(new IMS_InvoiceTypeCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
+            ViewBag.ListOperator = _invoiceService.GetOperator(new IMS_OperatorSelCriteria());
+            ViewBag.ListInvoiceType = _service.GetInvoieType(new IMS_InvoieTypesSel() { LicenseeId = 1 });
             return View();
         }
 

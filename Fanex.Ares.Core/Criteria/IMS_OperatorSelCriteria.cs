@@ -19,7 +19,7 @@ namespace Fanex.Ares.Core.Criteria
     {
         public override string GetSettingKey()
         {
-            return "IMS_PartySel";
+            return "IMS_PartyInfoSel";
         }
 
         public override bool IsValid() { return true; }

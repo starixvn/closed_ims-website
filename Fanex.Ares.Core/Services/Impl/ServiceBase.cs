@@ -22,6 +22,8 @@ using Fanex.Ares.Core.Repository.Impl;
 using Fanex.NAP.Core.Web.Context;
 using Fanex.NAP.Core.Web.Session;
 using Fanex.Ares.Core.Extensions;
+using Fanex.Ares.Core.Models;
+using Fanex.Common;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
@@ -216,29 +218,107 @@ namespace Fanex.Ares.Core.Services.Impl
             return listProducts;
         }
 
-        public IEnumerable<SelectListItem> GetOperator(IMS_OperatorSelCriteria criteria)
+        public IEnumerable<Operator> GetOperator(IMS_OperatorSelCriteria criteria)
         {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            IEnumerable<Operator> operatorProducts = new List<Operator>();
             try
             {
-                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                Func<IDataReader, Operator> mappingFunc = r =>
                 {
-                    return new SelectListItem
+                    return new Operator
                     {
-                        Value = Convert.ToString(r["PartyID"]),
-                        Text = Convert.ToString(r["PartyName"])
+                        PartyID = Converter.To<int>(r["PartyID"]),
+                        PartyName = Converter.To<string>(r["PartyName"]),
+                        PartyType = Converter.To<int>(r["PartyType"]),
+                        Description = Converter.To<string>(r["Description"]),
+                        Company = Converter.To<string>(r["Company"]),
+                        AccountNumber = Converter.To<string>(r["AccountNumber"]),
+                        AccountName = Converter.To<string>(r["AccountName"]),
+                        BankName = Converter.To<string>(r["BankName"]),
+                        Benificiary = Converter.To<string>(r["Benificiary"]),
+                        IBAN = Converter.To<string>(r["IBAN"]),
+                        SwiftCode = Converter.To<string>(r["SwiftCode"]),
+                        CorrespondentBank = Converter.To<string>(r["CorrespondentBank"]),
+                        AttnName = Converter.To<string>(r["AttnName"]),
+                        To1 = Converter.To<string>(r["To1"]),
+                        To2 = Converter.To<string>(r["To2"]),
+                        Logo = Converter.To<string>(r["Logo"]),
+                        Phone = Converter.To<string>(r["Phone"]),
+                        MobilePhone = Converter.To<string>(r["MobilePhone"]),
+                        Fax = Converter.To<string>(r["Fax"]),
+                        Email = Converter.To<string>(r["Email"])
                     };
                 };
 
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+                operatorProducts = _repository.Fetch<Operator>(criteria, mappingFunc);
             }
             catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
             }
 
-            return listProducts;
+            return operatorProducts;
         }
+
+        public List<InvoiceType> GetInvoieType(IMS_InvoieTypesSel criteria)
+        {
+             List<InvoiceType> invoiceTypeList= new List<InvoiceType>();
+            
+            try
+            {
+                var rawData = GetListData<dynamic>(criteria);
+                if (rawData != null)
+                {
+                    foreach (var row in rawData)
+                    {
+                        List<Product> productList = new List<Product>();
+                        productList.Add(new Product
+                        {
+                            ProductID = Converter.To<int>(row["productID"]),
+                            ProductName = Converter.To<int>(row["productName"]),
+                        });
+
+                        invoiceTypeList.Add(new InvoiceType
+                        {
+                            InvoiceTypeID = Converter.To<int>(row["invoiceTypeID"]),
+                            InvoiceTypeName = Converter.To<string>(row["invoiceTypeName"]),
+                            ProductList = productList
+                        });
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex);
+            }
+
+            return invoiceTypeList;
+        }
+
+        //public IEnumerable<SelectListItem> GetOperator(IMS_OperatorSelCriteria criteria)
+        //{
+        //    IList<SelectListItem> listProducts = new List<SelectListItem>();
+        //    try
+        //    {
+        //        Func<IDataReader, SelectListItem> mappingFunc = r =>
+        //        {
+        //            return new SelectListItem
+        //            {
+        //                Value = Convert.ToString(r["PartyID"]),
+        //                Text = Convert.ToString(r["PartyName"])
+        //            };
+        //        };
+
+        //        listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        LoggingHandler.Log(ex);
+        //    }
+
+        //    return listProducts;
+        //}
         #endregion
     }
 }

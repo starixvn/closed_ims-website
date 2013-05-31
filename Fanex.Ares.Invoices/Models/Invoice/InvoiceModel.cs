@@ -11,6 +11,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     using System.Linq;
     using System.Text;
     using Fanex.Ares.Invoice.Criteria.Invoice;
+    using Fanex.Ares.Core.Models;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -28,7 +29,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public string Currency { get; set; }
 
-        public string InvoiceType { get; set; }
+        public InvoiceType InvoiceType { get; set; }
 
         public string Product { get; set; }
 
