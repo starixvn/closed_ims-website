@@ -61,7 +61,7 @@
                     Currency
                 </div>
                <div class="edit-field col_4">
-                @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListCurrency), new SelectListItem() { Selected = true, Text = "All", Value = "0" }, new { @class = "alpha auto-width" })
+                @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListExchangeRate), new { @class = "alpha auto-width" })
                    
                 </div>
                 <div class="lbl-field col_3 align-right">

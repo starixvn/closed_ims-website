@@ -263,7 +263,7 @@ namespace Fanex.Ares.Core.Services.Impl
         public List<InvoiceType> GetInvoieType(IMS_InvoieTypesSel criteria)
         {
              List<InvoiceType> invoiceTypeList= new List<InvoiceType>();
-            
+
             try
             {
                 var rawData = GetListData<dynamic>(criteria);
@@ -271,19 +271,37 @@ namespace Fanex.Ares.Core.Services.Impl
                 {
                     foreach (var row in rawData)
                     {
-                        List<Product> productList = new List<Product>();
-                        productList.Add(new Product
+                        int id = (int)row.invoiceTypeID;
+                        bool isExist = false;
+                       
+                        foreach (InvoiceType invoiceType in invoiceTypeList)
                         {
-                            ProductID = Converter.To<int>(row["productID"]),
-                            ProductName = Converter.To<int>(row["productName"]),
-                        });
+                            if (id == invoiceType.InvoiceTypeID)
+                            {
+                                invoiceType.ProductList.Add(new Product
+                                {
+                                    ProductID = (int)row.productID,
+                                    ProductName = row.productName,
+                                });
+                                isExist = true;
+                            }
+                        }
 
-                        invoiceTypeList.Add(new InvoiceType
+                        if (!isExist)
                         {
-                            InvoiceTypeID = Converter.To<int>(row["invoiceTypeID"]),
-                            InvoiceTypeName = Converter.To<string>(row["invoiceTypeName"]),
-                            ProductList = productList
-                        });
+                            List<Product> productList = new List<Product>();
+                            productList.Add(new Product
+                            {
+                                ProductID = (int)row.productID,
+                                ProductName = row.productName,
+                            });
+                            invoiceTypeList.Add(new InvoiceType
+                            {
+                                InvoiceTypeID = (int)row.invoiceTypeID,
+                                InvoiceTypeName = row.invoiceTypeName,
+                                ProductList = productList
+                            });
+                        }
 
                     }
                 }
@@ -295,30 +313,6 @@ namespace Fanex.Ares.Core.Services.Impl
 
             return invoiceTypeList;
         }
-
-        //public IEnumerable<SelectListItem> GetOperator(IMS_OperatorSelCriteria criteria)
-        //{
-        //    IList<SelectListItem> listProducts = new List<SelectListItem>();
-        //    try
-        //    {
-        //        Func<IDataReader, SelectListItem> mappingFunc = r =>
-        //        {
-        //            return new SelectListItem
-        //            {
-        //                Value = Convert.ToString(r["PartyID"]),
-        //                Text = Convert.ToString(r["PartyName"])
-        //            };
-        //        };
-
-        //        listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-
-        //    return listProducts;
-        //}
         #endregion
     }
 }

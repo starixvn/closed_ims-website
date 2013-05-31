@@ -31,6 +31,7 @@ using Fanex.NAP.Core.Web.Attribute;
 
 using Fanex.Ares.Invoice.Models.Invoice;
 using Fanex.Ares.Invoice.Service.Imp;
+using  Fanex.Ares.Core.Models;
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -66,10 +67,16 @@ namespace Fanex.Ares.Invoice.Controllers
             ViewBag.ListCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
             ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
             ViewBag.ListOperator = _invoiceService.GetOperator(new IMS_OperatorSelCriteria());
-            ViewBag.ListInvoiceType = _service.GetInvoieType(new IMS_InvoieTypesSel() { LicenseeId = 1 });
             return View();
         }
 
+        [HttpPost]
+        public JsonResult GetInvoiceType(int licenseeID)
+        {
+            List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
+            invoiceTypeList = _service.GetInvoieType(new IMS_InvoieTypesSel() { LicenseeId = licenseeID });
+            return Json(invoiceTypeList);
+        }
 
         public PartialViewResult GetInvoice()
         {
