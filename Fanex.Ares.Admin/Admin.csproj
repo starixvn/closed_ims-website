@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -53,11 +54,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\CustomEqualityComparer.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Criteria\AccountingUserCheckOnlineStatusCriteria.cs" />
+    <Compile Include="Criteria\IMS_LicenseePartyMultipleIns.cs" />
+    <Compile Include="Criteria\IMS_AvailableLicenseeSelByParty.cs" />
+    <Compile Include="Criteria\IMS_LicenseePartyIns.cs" />
+    <Compile Include="Criteria\IMS_LicenseeSelByParty.cs" />
+    <Compile Include="Criteria\IMS_PartyInfoUpd.cs" />
+    <Compile Include="Criteria\IMS_PartyTypeSel.cs" />
+    <Compile Include="Criteria\IMS_PartyIns.cs" />
     <Compile Include="Criteria\IMS_PartyInsUpCriteria.cs" />
     <Compile Include="Criteria\IMS_PartyInfoSelCriteria.cs" />
+    <Compile Include="Criteria\IMS_PartySelByLicensee.cs" />
     <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Party\PartyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

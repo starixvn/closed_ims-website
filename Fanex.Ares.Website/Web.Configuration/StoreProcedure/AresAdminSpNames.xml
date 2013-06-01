@@ -6,5 +6,11 @@
     <Setting Key="IMS_PartyInfoUpd" SpName="IMS_PartyInfoUpd" DbName="invoice" />
     <Setting Key="IMS_PartyInfoSel" SpName="IMS_PartyInfoSel" DbName="invoice" />
     <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="invoice" />
+    <Setting Key="IMS_LicenseePartyIns" SpName="IMS_LicenseePartyIns" DbName="invoice" />
+    <Setting Key="IMS_LicenseeSelByParty" SpName="IMS_LicenseeSelByParty" DbName="invoice" />
+    <Setting Key="IMS_PartySelByLicensee" SpName="IMS_PartySelByLicensee" DbName="invoice" />
+    <Setting Key="IMS_AvailableLicenseeSelByParty" SpName="IMS_AvailableLicenseeSelByParty" DbName="invoice" />
+    <Setting Key="IMS_LicenseePartyMultipleIns" SpName="IMS_LicenseePartyMultipleIns" DbName="invoice" />
+    
   </Function>
 </Functions>

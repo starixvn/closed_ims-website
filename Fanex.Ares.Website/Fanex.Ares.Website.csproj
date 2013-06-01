@@ -420,6 +420,7 @@
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.0.js" />
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.1.js" />
     <Content Include="Scripts\_Libs\jQuery\classList.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.form.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery.formattyping.js" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\error.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
@@ -658,6 +659,7 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Number Game.cshtml" />
     <Content Include="Areas\Admin\Views\Party\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Party\_AddNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Party\_PartyLicensee.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -670,7 +672,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml" />
+    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Configuration\StoreProcedure\NAPFrameworkSpNames.xml" />
     <Content Include="Web.Configuration\StoreProcedure\AresAdminSpNames.xml" />
     <Content Include="Web.Debug.config">

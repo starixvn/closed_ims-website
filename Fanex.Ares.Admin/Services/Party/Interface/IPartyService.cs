@@ -9,12 +9,17 @@
 
 namespace Fanex.Ares.Admin.Services.Party.Interface
 {
+    using System.Collections;
     using System.Collections.Generic;
+    using System.Web.Mvc;
     using Fanex.Ares.Admin.Models.Party;
     using Fanex.NAP.Framework.Data;
 
     public interface IPartyService
     {
         IEnumerable<PartyModel> GetAllParties(ICriteria criteria);
+        IEnumerable<SelectListItem> GetAllPartyTypes(ICriteria criteria);
+        Hashtable ExecuteCommand(ICriteria criteria);
+        IEnumerable<SelectListItem> GetAvailableOrSelectedLicensees(ICriteria criteria);
     }
 }

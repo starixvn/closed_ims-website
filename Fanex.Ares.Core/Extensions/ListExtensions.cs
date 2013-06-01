@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using Fanex.Common;
+using System.Web.Mvc;
 
 namespace Fanex.Ares.Core.Extensions
 {
@@ -50,6 +51,21 @@ namespace Fanex.Ares.Core.Extensions
             };
 
             dataSource.Sort(compare);
+        }
+
+        public static IEnumerable<SelectListItem> ToSelectListItem<T>(this List<T> source, string textField, string valueField, string selectedValue = null)
+        {
+            foreach (var item in source)
+            {
+                var tmpText = item.GetType().GetProperty(textField).GetValue(item, null).ToString();
+                var tmpValue = item.GetType().GetProperty(textField).GetValue(item, null).ToString();
+                yield return new SelectListItem()
+                {
+                    Text = tmpText,
+                    Value = tmpValue,
+                    Selected = selectedValue != null && selectedValue == tmpText
+                };
+            }
         }
     }
 }

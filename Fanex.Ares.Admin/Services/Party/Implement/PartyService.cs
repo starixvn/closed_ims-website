@@ -10,15 +10,19 @@
 namespace Fanex.Ares.Admin.Services.Party.Implement
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Web.Mvc;
     using Fanex.Ares.Admin.Models.Party;
     using Fanex.Ares.Admin.Repositories.Impl;
     using Fanex.Ares.Admin.Repositories.Interface;
     using Fanex.Ares.Admin.Services.Party.Interface;
+    using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
+    using Fanex.Ares.Admin.Criteria;
 
     public class PartyService : ServiceBase, IPartyService
     {
@@ -67,6 +71,80 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             }
 
             return listParties;
+        }
+
+        public IEnumerable<SelectListItem> GetAllPartyTypes(ICriteria criteria)
+        {
+            var listPartyTypes = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    var res = new SelectListItem
+                    {
+                       Value = r["PartyTypeID"].ToString(),
+                       Text = r["PartyTypename"].ToString()
+                    };
+
+                    return res;
+                };
+
+                listPartyTypes = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listPartyTypes;
+        }
+
+        public IEnumerable<SelectListItem> GetAvailableOrSelectedLicensees(ICriteria criteria)
+        {
+            var listAvailableLicensees = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    var brandName = r["BrandName"].ToString1();
+                    var licenseeName = r["LicenseeName"].ToString1();
+                    var res = new SelectListItem
+                    {
+                        Value = r["LicenseeID"].ToString1(),
+                        Text = brandName != "" ? brandName : licenseeName
+                    };
+
+                    return res;
+                };
+
+                listAvailableLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listAvailableLicensees;
+        }
+
+        /// <summary>
+        /// Using for Insert, Update, Delete
+        /// </summary>
+        /// <param name="criteria">Criteria</param>
+        /// <returns>ErrCode, ErrMsg</returns>
+        public Hashtable ExecuteCommand(ICriteria criteria)
+        {
+            Hashtable rs = new Hashtable();
+            try
+            {
+                rs = _repository.ExecuteCommand(criteria);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return rs;
         }
     }
 }
