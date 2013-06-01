@@ -60,20 +60,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Enums.cs" />
-    <Compile Include="Controllers\LicenseeController.cs" />
-    <Compile Include="Criteria\GetBettypeCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
-    <Compile Include="Models\BaseModel.cs" />
-    <Compile Include="Models\ExchangeRate.cs" />
-    <Compile Include="Models\LicenseeInformation.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_InvoiceTypeCriteria.cs" />
+    <Compile Include="Models\Invoice\InvoiceModel.cs" />
     <Compile Include="Models\LicenseeSettlement\LicenseeSettlementModel.cs" />
-    <Compile Include="Models\SingleTicket\SingleTicket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implement\SingleTickketService.cs" />
-    <Compile Include="Services\Interface\ISingleTickketService.cs" />
+    <Compile Include="Service\Imp\InvoiceService.cs" />
+    <Compile Include="Service\Interface\IInvoiceService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Repositories\Impl\" />
@@ -83,6 +77,10 @@
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fanex.Ares.Reports\Report.csproj">
+      <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
+      <Name>Report</Name>
     </ProjectReference>
     <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
       <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>

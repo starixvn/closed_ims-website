@@ -84,14 +84,19 @@ namespace Fanex.Ares.Report.Controllers
         public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
         {
             var model = new LicenseeSettlementModel();
+            List<string> htmlList = new List<string>();
+            List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
             string html = HtmlHelperExtensions.RenderViewToString(this, SettlementView, model);
+            htmlList.Add(html);
+            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
             var excelCssFilePath = new List<string>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
 
             var workbook = new WorkbookManager();
-            var ms = workbook.CreateDocument(html, excelCssFilePath, documentType, WorkbookManager.PageOrientation.Landscape);
+
+            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
             if (ms != null)
             {
                 // return the filestream

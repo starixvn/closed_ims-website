@@ -1,0 +1,158 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="InvoiceModel.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Ares.Invoice.Models.Invoice
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Fanex.Ares.Invoice.Criteria.Invoice;
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    public class InvoiceModel
+    {
+        public Licensee Licensee { get; set; }
+
+        public Operator Operator { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+
+        public DateTime DueDate { get; set; }
+
+        public string Currency { get; set; }
+
+        public string InvoiceType { get; set; }
+
+        public string Product { get; set; }
+
+        public int InvoiceNo { get; set; }
+
+        public List<Statement> StatementList { get; set; } // List statement
+
+        public string Note { get; set; }
+
+        public InvoiceModel()
+        {
+            this.StatementList = new List<Statement>();
+
+            for (int j = 0; j < 2; j++)
+            {
+                this.StatementList.Add(new Statement
+                {
+                    StatementID = j
+
+                });
+            }
+        }
+    }
+
+    public class Statement
+    {
+        public List<StatementDetail> StatementDetailList { get; set; }
+
+        public int StatementID { get; set; }
+
+        public double TotalAmount { get; set; }
+
+        public Statement()
+        {
+            this.StatementDetailList = new List<StatementDetail>();
+
+                for (int j = 0; j < 2; j++)
+                {
+                    this.StatementDetailList.Add(new StatementDetail
+                    {
+                        ID = j,
+                        Description ="Description Description Description",
+                        Reference = "Reference",
+                        Amount =   (j + 1) *1000
+                    });
+                }
+        }
+    }
+
+    public class StatementDetail
+    {
+        public int ID { get; set; }
+
+        public string Description { get; set; }
+
+        public string Reference { get; set; }
+
+        public double Amount { get; set; }
+    }
+
+    public class Operator
+    {
+        public string PartyName { get; set; }
+
+        public int PartyID { get; set; }
+
+        public int PartyType { get; set; }
+
+        public string Company {get;set;}
+
+        public string Description { get; set; }
+
+        public string PartyFullName { get; set; }
+
+        public string AccountNumber { get; set; }
+
+        public string AccountName { get; set; }
+
+        public string BankName { get; set; }
+
+        public string Benificiary { get; set; }
+
+        public string IBAN { get; set; }
+
+        public string SwiftCode { get; set; }
+
+        public string CorrespondentBank { get; set; }
+
+        public string AttnName { get; set; }
+
+        public string To1 { get; set; }
+
+        public string To2 { get; set; }
+
+        public string Logo { get; set; }
+
+        public string Phone { get; set; }
+
+        public string MobilePhone { get; set; }
+
+        public string Fax { get; set; }
+
+        public string Email { get; set; }
+    }
+
+    public class Licensee
+    {
+        public string LicenseeName { get; set; }
+
+        public int LicenseeID { get; set; }
+
+        public string BrandName { get; set; }
+
+        public string CompanyName { get; set; }
+
+        public bool IsLabel { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public string AttnName { get; set; }
+
+        public string To1 { get; set; }
+
+        public string To2 { get; set; }
+    }
+
+}

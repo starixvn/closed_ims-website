@@ -215,6 +215,30 @@ namespace Fanex.Ares.Core.Services.Impl
 
             return listProducts;
         }
+
+        public IEnumerable<SelectListItem> GetOperator(IMS_OperatorSelCriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["PartyID"]),
+                        Text = Convert.ToString(r["PartyName"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
+        }
         #endregion
     }
 }

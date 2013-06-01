@@ -1,132 +1,67 @@
-﻿/// <reference path="../../../../../Scripts/NapTicketControl.js" />
-$(document).ready(function () {
-    renderDatePicker();
-    $('#dropDownListId').addClass('auto-width');
-    $('#FromDate, #ToDate').each(function () {
-        $(this).width($('#dropDownListId').width() + 2);
-    });
+﻿$(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
 
-    $('#btnGenerate').button();
-    $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
-
-//    $('#btnExcel').click(function () { exportReportToExcel(); });
-
-    RenderFilterNote();
-
-    if ($('#LicenseeId').val() == "0") {
-        $('#btnGenerate').addClass("ui-state-disabled");
-    } else {
-        $('#btnGenerate').removeClass("ui-state-disabled");
-    }
-
-    $('#LicenseeId').change(function () {
-        //GetProductByLicenseeID($(this).val());
-        GetCurrencyByLicenseeID($(this).val());
-        if ($(this).val() == "-1") {
-            $('#btnGenerate').addClass("ui-state-disabled");
-        } else {
-            $('#btnGenerate').removeClass("ui-state-disabled");
-        }
-    });
-
-    $('#LicenseeId').val($('#LicenseeId').val());
-
-    var now = new Date();
-    $('#ddlMonth').monPickr({
-        today: now,
-        maxDate: now,
-        minDate: new Date(2005, 1, 1),
-        showDateRange: true,
-        fromDayId: 'ddlFrom',
-        month: now,
-        sortDesc: true,
-        log: function (msg) {
-            console.warn(msg);
-        }
-    });
-
-    $('.monpickr-super-wrapper .monpickr-label').eq(0).addClass('col_3 align-right lbl-field');
-    $('.monpickr-super-wrapper .daypickr-wrap-parent').eq(0).addClass('col_3');
-
-});
-
-var renderDatePicker = function () {
-    $('#datepickerplugin').nexDatePicker({
+    $('#fromTopickerplugin').nexDatePicker({
         nexDatePickerType: "quickchoose",
         datePickerFormat: {
             changeMonth: true,
-            changeYear: true,
-            dateFormat: "d M yy"
+            dateFormat: "M dd, yy"
         },
-        dropDownList:
-            {
-                Id: "dropDownListId",
-                Label: "Date ",
-                LabelCss: "lbl-field col_3",
-                OptionCss: "edit-field col_6"
-            },
         firstDatePicker: {
-            Id: "FromDate",
+            Id: "FromDatePicker",
             Label: labelFrom,
-            InitDate: today,
+            InitDate: _today,
             LabelCss: "lbl-field col_3",
             TextboxCss: "edit-field col_6"
         },
         secondDatePicker: {
-            Id: "ToDate",
+            Id: "ToDatePicker",
             Label: labelTo,
-            InitDate: today,
-            LabelCss: "lbl-field col_3",
+            InitDate: _today,
+            LabelCss: "lbl-field col_1",
             TextboxCss: "edit-field col_6"
         },
-        selectedItem: 5,
         onSelectDatePicker: function () {
         },
-        minDate: new Date(minDate),
-        maxDate: new Date(today)
+        dropDownList:
+        {
+            Id: "dropDownListId1",
+            Label: "Date ",
+            LabelCss: "lbl-field col_3",
+            OptionCss: "edit-field col_5"
+        }
     });
-};
 
-function RenderFilterNote() {
-    var $this = $('#notemessage');
-    $this.attr("title", notemessage);
-    $this.tipsy({
-        html: true,
-        opacity: 0.9,
-        gravity: 'ne'
+
+    $('#duteDatepickerplugin').nexDatePicker({
+        nexDatePickerType: "single",
+        datePickerFormat: {
+            changeMonth: true,
+            dateFormat: "M dd, yy"
+        },
+        firstDatePicker: {
+            Id: "DueDatePicker",
+            Label: "Due Date",
+            InitDate: "",
+            LabelCss: "lbl-field col_3",
+            TextboxCss: "edit-field col_8"
+        },
+        onSelectDatePicker: function () {
+        }
     });
-};
 
 
-
+    $('#btnGenerate').button();
+    $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+});
 
 function Submit() {
     NapTicketControl.disableInput();
     $.ajax({
-        url: "GetReport",
+        url: domain + "Invoice/Invoice/GetInvoice",
         type: "POST",
-        data: $('#formLicenseeSettlement').serialize()
-                + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
-                + "&ProductName=" + $('#Product option:selected').text()
-                + "&LicenseeName=" + $('#LicenseeId option:selected').text()
-                + "&FromDate=" + $('#ddlMonth').monPickr("getFromDate", "MMM dd, yyyy")
-                + "&ToDate=" + $('#ddlMonth').monPickr("getToDate", "MMM dd, yyyy")
-                ,
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
-            var month = $('#Month').val();
-            var year = $('#Year').val();
-            var fromDate = new Date(year, month - 1, 1);
-            var toDate = lastDateInMonth(month, year);
-            $('#nonLiveBingoReportTitle').text("Settlement Report for " + $('#LicenseeId option:selected').text() + " of  " + $('#ddlMonth').monPickr("getFromDate", "MMMM-yyyy"));
-            $(".curr").empty().text("Licensee Settlement Report for " + $('#Product option:selected').text());
-            $(".grid-title").show();
-            if (data.indexOf("There is no data") !== -1) {
-                $(".grid-toolbox").hide();
-            }
-            else {
-                $(".grid-toolbox").show();
-            }
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("fail");
@@ -135,80 +70,4 @@ function Submit() {
             NapTicketControl.enableInput();
         }
     });
-}
-
-
-function exportReportToExcel() {
-    var url = window.rootUrl + 'LicenseeSettlement/ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
-
-    var iframe = $('body iframe');
-    if (iframe.length == 0) {
-        iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
-        iframe.appendTo('body');
-    }
-
-    iframe.attr('src', url);
-}
-
-function GetProductByLicenseeID(licenseeID) {
-    $.ajax({
-        url: "Invoice/GetProductByLicenseeID",
-        type: "POST",
-        data: "&licenseeID=" + $('#LicenseeId').val(),
-        success: function (data, textStatus, jqXHR) {
-            var html = "";
-            for (var i = 0; i < data.length; i++) {
-                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
-            }
-            $('#Product').html(html);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
-        },
-        complete: function (jqXHR, textStatus) {
-        }
-    });
-}
-
-function GetCurrencyByLicenseeID(licenseeID) {
-    $.ajax({
-        url: "Invoice/GetCurencyByLicenseeID",
-        type: "POST",
-        data: "&licenseeID=" + $('#LicenseeId').val(),
-        success: function (data, textStatus, jqXHR) {
-            var html = "";
-            if (data.length != 0) {
-                html = "<option value='0' selected='selected'>All</option>";
-                $('#btnGenerate').addClass("ui-state-disabled");
-            } else {
-                $('#btnGenerate').removeClass("ui-state-disabled");
-            }
-
-            for (var i = 0; i < data.length; i++) {
-                html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
-            }
-            $('#Currency').html(html);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
-        },
-        complete: function (jqXHR, textStatus) {
-        }
-    });
-}
-
-function ClientPrinting() {
-    //    if ($.browser.msie) {
-    //        window.open('Invoice/PrintScreen?productName=' + $('#Product :selected').text());
-    //    } else {
-    window.open('Invoice/ExportPDF?isSavePDF=false&isLandscape=false');
-    //    }
-}
-
-function daysInMonth(month, year) {
-    return new Date(year, month, 0).getDate();
-}
-
-function lastDateInMonth(month, year) {
-    return new Date(year, month, daysInMonth(month, year));
 }
