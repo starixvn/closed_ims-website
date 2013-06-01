@@ -56,8 +56,13 @@
   <ItemGroup>
     <Compile Include="Common\CustomEqualityComparer.cs" />
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Controllers\LicenseeController.cs" />
     <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Criteria\AccountingUserCheckOnlineStatusCriteria.cs" />
+    <Compile Include="Criteria\IMS_AvailablePartySelByLicensee.cs" />
+    <Compile Include="Criteria\IMS_LicenseeInfoSel.cs" />
+    <Compile Include="Criteria\IMS_LicenseeInfoUpd.cs" />
+    <Compile Include="Criteria\IMS_LicenseeIns.cs" />
     <Compile Include="Criteria\IMS_LicenseePartyMultipleIns.cs" />
     <Compile Include="Criteria\IMS_AvailableLicenseeSelByParty.cs" />
     <Compile Include="Criteria\IMS_LicenseePartyIns.cs" />
@@ -69,10 +74,13 @@
     <Compile Include="Criteria\IMS_PartyInfoSelCriteria.cs" />
     <Compile Include="Criteria\IMS_PartySelByLicensee.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Licensee\LicenseeModel.cs" />
     <Compile Include="Models\Party\PartyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\AdminRepository.cs" />
     <Compile Include="Repositories\Interface\IAdminRepository.cs" />
+    <Compile Include="Services\Licensee\Implement\LicenseeService.cs" />
+    <Compile Include="Services\Licensee\Interface\ILicenseeService.cs" />
     <Compile Include="Services\Implement\AdminService.cs" />
     <Compile Include="Services\Interface\IAdminService.cs" />
     <Compile Include="Services\Party\Implement\PartyService.cs" />

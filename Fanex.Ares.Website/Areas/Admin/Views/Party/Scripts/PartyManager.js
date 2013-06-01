@@ -228,7 +228,7 @@ PartyManager = function () {
             width: 500,
             modal: true,
             buttons: {
-                "Create an Party": function () {
+                "Create a Party": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
                         _table.frmParty.submit();
@@ -309,7 +309,7 @@ PartyManager = function () {
                         listLicenseeID += $(this).attr('value') + ",";
                     })
 
-                    $('#formPartyLicensee > #LicenseeID').val(listLicenseeID);
+                    $('#formPartyLicensee > #ListLicenseeID').val(listLicenseeID);
                     $('#formPartyLicensee').submit();
                     $(this).dialog("close");
                 },

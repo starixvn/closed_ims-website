@@ -137,8 +137,6 @@ namespace Fanex.Ares.Admin.Controllers
                 }
             }
 
-
-
             TempData["Result"] = rs;
             return RedirectToAction("Index");
         }
@@ -147,28 +145,31 @@ namespace Fanex.Ares.Admin.Controllers
         public ActionResult CreatePartyLicensee(IMS_LicenseePartyMultipleIns criteria)
         {
             var rs = new Hashtable();
-
-            var arrayLicensees = criteria.LicenseeID.Trim(',').Split(',');
-
-            var xml = "<Settings>";
-            foreach (var licensee in arrayLicensees)
+            if (!string.IsNullOrEmpty(criteria.ListLicenseeID))
             {
-                xml += "<Setting>";
-                xml += "<Party>";
-                xml += criteria.PartyID.ToString();
-                xml += "</Party>";
-                xml += "<Licensee>";
-                xml += licensee.ToString();
-                xml += "</Licensee>";
-                xml += "</Setting>";
+                var arrayLicensees = criteria.ListLicenseeID.Trim(',').Split(',');
+
+                var xml = "<Settings>";
+                foreach (var licensee in arrayLicensees)
+                {
+                    xml += "<Setting>";
+                    xml += "<Party>";
+                    xml += criteria.PartyID.ToString();
+                    xml += "</Party>";
+                    xml += "<Licensee>";
+                    xml += licensee.ToString();
+                    xml += "</Licensee>";
+                    xml += "</Setting>";
+                }
+
+                xml += "</Settings>";
+
+                criteria.XmlSettings = xml;
+                rs = _partyService.ExecuteCommand(criteria);
             }
 
-            xml += "</Settings>";
-
-            criteria.XmlSettings = xml;
-            rs = _partyService.ExecuteCommand(criteria);
-
             TempData["Result"] = rs;
+
             return RedirectToAction("Index");
         }
     }

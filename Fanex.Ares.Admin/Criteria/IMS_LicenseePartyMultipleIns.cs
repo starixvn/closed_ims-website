@@ -16,10 +16,17 @@ namespace Fanex.Ares.Admin.Criteria
         public string XmlSettings { get; set; }
 
         [SpParam(Ignored=true)]
-        public string LicenseeID { get; set; }
+        public string ListLicenseeID { get; set; }
+
+        [SpParam(Ignored = true)]
+        public string ListPartyID { get; set; }
+
+        [SpParam(Ignored = true)]
+        public int LicenseeID { get; set; }
 
         [SpParam(Ignored = true)]
         public int PartyID { get; set; }
+
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
 
