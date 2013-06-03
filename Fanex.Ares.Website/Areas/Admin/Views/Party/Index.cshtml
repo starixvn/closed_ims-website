@@ -7,6 +7,14 @@
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Manage Party";
+    var errCode = string.Empty;
+    var errMsg = string.Empty;
+    if (TempData != null && TempData["Result"] != null )
+    {
+        errCode = ((System.Collections.Hashtable)TempData["Result"])["errcode"].ToString1();
+        errMsg = ((System.Collections.Hashtable)TempData["Result"])["errmsg"].ToString1();
+    }
+
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
@@ -19,31 +27,29 @@
         </div>
     </div>
 }
-    <div id="filter-bar" class="filter-bar" style="width: 1260px;">
-        <div class="filter-form">
-            <div class="filter-row">
-                <div class="filter-cell">
-                    @*                    <div class="lbl-field col_3 align-center">
-                        Party
-                    </div>
-                    <div class="edit-field col_6 align-left">
-                        <input type="text" />
-                    </div>
-                    <div class="submit col_3">
-                        <input id="btnSearch" name="btnSearch" type="button" value="Search" />
-                    </div>*@
-                    <div class="submit col_3">
-                        <input id="btnAddNew" name="btnAddNew" type="button" class="ui-button" value="Add New" />
-                    </div>
+<div id="filter-bar" class="filter-bar" style="width: 1260px;">
+    <div class="filter-form">
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="submit col_3">
+                    <input id="btnAddNew" name="btnAddNew" type="button" class="ui-button" value="Add New" />
                 </div>
             </div>
         </div>
     </div>
-    <div style="clear:both;"></div>
+</div>
+<div style="clear: both;">
+</div>
 <div id="numberGameWLByDateGrid" class="content-grid width-100percent">
-    <div id="GridParties" class="freegrid">
+    <div id="PartiesContainer" class="freegrid">
     </div>
 </div>
+@Html.Action("_AddNew")
+<div id="PartyLicenseeDialog" class="model-dialog" title="Add new Party" style="display: none">
+</div>
+
+<input id="ErrCode" type="hidden" value="@errCode" />
+<input id="ErrMsg" type="hidden" value="@errMsg" />
 @section scripts
 {
     <script type="text/javascript">

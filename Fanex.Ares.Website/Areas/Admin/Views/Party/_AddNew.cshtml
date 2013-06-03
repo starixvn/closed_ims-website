@@ -1,1 +1,59 @@
-﻿
+﻿@using System.Collections;
+<div id="AddNewDialog" class="model-dialog" title="Edit Party" style="display: none">
+    <div id="validateTips" class="validateTips">
+    </div>
+    @using (Html.BeginForm("CreateNewparty", "Party", FormMethod.Post, new { enctype = "multipart/form-data", id = "formParty" }))
+    {
+        <fieldset>
+            <label for="PartyID" class="update">
+                Party ID</label>
+            <input type="text" name="txtPartyID" id="txtPartyID" class="update text ui-widget-content ui-corner-all ui-state-disabled" disabled=disabled />
+            <input type="hidden" name="PartyID" id="PartyID" />
+            <label for="PartyName">
+                Party Name</label>
+            <input type="text" name="PartyName" id="PartyName" class="text ui-widget-content ui-corner-all" />
+            <label for="PartyType">
+                Party type</label>
+            @Html.DropDownList("PartyType", (IEnumerable<SelectListItem>)ViewBag.lstPartyTypes, new { @class = "select ui-widget-content ui-corner-all" })
+            <label for="Description">
+                Description</label>
+            <textarea name="Description" rows="5" cols="0" id="Description" class="text ui-widget-content ui-corner-all"></textarea>
+            <label for="PartyFullName">
+                Party Full Name</label>
+            <input type="text" name="PartyFullName" id="PartyFullName" class="text ui-widget-content ui-corner-all" />
+            <label for="AccountNumber">
+                Account Number</label>
+            <input type="text" name="AccountNumber" id="AccountNumber" class="text ui-widget-content ui-corner-all" />
+            <label for="AccountName">
+                Account Name</label>
+            <input type="text" name="AccountName" id="AccountName" class="text ui-widget-content ui-corner-all" />
+            <label for="BankName">
+                Bank Name</label>
+            <input type="text" name="BankName" id="BankName" class="text ui-widget-content ui-corner-all" />
+            <label for="Benificiary">
+                Benificiary</label>
+            <input type="text" name="Benificiary" id="Benificiary" class="text ui-widget-content ui-corner-all" />
+            <label for="IBAN">
+                IBAN</label>
+            <input type="text" name="IBAN" id="IBAN" class="text ui-widget-content ui-corner-all" />
+            <label for="SwiftCode">
+                Swift Code</label>
+            <input type="text" name="SwiftCode" id="SwiftCode" class="text ui-widget-content ui-corner-all" />
+            <label for="CorrespondentBank">
+                Correspondent Bank</label>
+            <input type="text" name="CorrespondentBank" id="CorrespondentBank" class="text ui-widget-content ui-corner-all" />
+            <label for="AttnName">
+                Attn Name</label>
+            <input type="text" name="AttnName" id="AttnName" class="text ui-widget-content ui-corner-all" />
+            <label for="To1">
+                To1</label>
+            <textarea name="To1" rows="5" cols="0" id="To1" class="text ui-widget-content ui-corner-all"></textarea>
+            <label for="To2">
+                To2</label>
+            <textarea name="To2" rows="5" cols="0" id="To2" class="text ui-widget-content ui-corner-all"></textarea>
+            <label for="Logo">
+                Logo</label>
+            <input type="file" name="Logo" id="Logo" size="38" />
+        </fieldset>
+    }
+</div>

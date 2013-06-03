@@ -1,0 +1,42 @@
+﻿@using System.Collections;
+<div id="AddNewDialog" class="model-dialog" title="Edit Licensee" style="display: none">
+    <div id="validateTips" class="validateTips">
+    </div>
+    @using (Html.BeginForm("CreateNewLicensee", "Licensee", FormMethod.Post, new { enctype = "multipart/form-data", id = "formLicensee" }))
+    {
+        <fieldset>
+            <label for="LicenseeID" class="update">
+                Licensee ID</label>
+            <input type="text" name="txtLicenseeID" id="txtLicenseeID" class="update text ui-widget-content ui-corner-all ui-state-disabled" disabled=disabled />
+            <input type="hidden" name="LicenseeID" id="LicenseeID" />
+            <label for="LicenseeName">
+                Licensee Name</label>
+            <input type="text" name="LicenseeName" id="LicenseeName" class="text ui-widget-content ui-corner-all" />
+
+            <label for="BrandName">
+                Brand Name</label>
+            <input type="text" name="BrandName" id="BrandName" class="text ui-widget-content ui-corner-all" />
+            <label for="CompanyName">
+                Company Name</label>
+            <input type="text" name="CompanyName" id="CompanyName" class="text ui-widget-content ui-corner-all" />
+            <label for="IsLabel">
+                Is Label</label>
+            <input type="checkbox" name="IsLabel" id="IsLabel" class="ui-widget-content ui-corner-all" value="true" />
+            <label for="IsActive">
+                Is Active</label>
+            <input type="checkbox" name="IsActive" id="IsActive" class="ui-widget-content ui-corner-all" value="true" />
+            <label for="IsOneWorkActive">
+                Is One Work Active</label>
+            <input type="checkbox" name="IsOneWorkActive" id="IsOneWorkActive" class="ui-widget-content ui-corner-all" value="true" />
+            <label for="AttnName">
+                Attn Name</label>
+            <input type="text" name="AttnName" id="AttnName" class="text ui-widget-content ui-corner-all" />
+            <label for="To1">
+                To1</label>
+            <textarea name="To1" rows="5" cols="0" id="To1" class="text ui-widget-content ui-corner-all"></textarea>
+            <label for="To2">
+                To2</label>
+            <textarea name="To2" rows="5" cols="0" id="To2" class="text ui-widget-content ui-corner-all"></textarea>
+        </fieldset>
+    }
+</div>

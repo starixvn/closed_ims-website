@@ -1,0 +1,28 @@
+// --------------------------------------------------------------------------
+// <copyright file="IMS_PartySelByLicensee.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.05.31">Created</change>
+// </history>
+
+namespace Fanex.Ares.Admin.Criteria
+{
+    using Fanex.NAP.Framework.Data;
+
+    public class IMS_LicenseePartyIns : CriteriaBase
+    {
+        public string LicenseeID { get; set; }
+        public int PartyID { get; set; }
+        public int ErrCode { get; set; }
+        public string ErrMsg { get; set; }
+
+        public override string GetSettingKey()
+        {
+            return "IMS_LicenseePartyIns";
+        }
+
+        public override bool IsValid() { return true; }
+    }
+}
