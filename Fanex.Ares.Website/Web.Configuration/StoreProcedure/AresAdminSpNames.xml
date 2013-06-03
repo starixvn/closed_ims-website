@@ -18,4 +18,10 @@
     <Setting Key="IMS_LicenseeInfoUpd" SpName="IMS_LicenseeInfoUpd" DbName="invoice" />
     <Setting Key="IMS_LicenseeIns" SpName="IMS_LicenseeIns" DbName="invoice" />
   </Function>
+
+  <Function Name="Product">
+  <Setting Key="IMS_ProductInfoSel" SpName="IMS_ProductInfoSel" DbName="invoice" />
+  <Setting Key="IMS_ProductIns" SpName="IMS_ProductIns" DbName="invoice" />
+  <Setting Key="IMS_ProductnfoUpd" SpName="IMS_ProductnfoUpd" DbName="invoice" />
+  </Function>
 </Functions>

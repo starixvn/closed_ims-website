@@ -228,6 +228,8 @@
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Admin\Scripts\TicketListing.js" />
     <Content Include="Areas\Admin\Scripts\TicketListingManager.js" />
+    <Content Include="Areas\Admin\Views\Product\Scripts\ProductManager.js" />
+    <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
     <Content Include="Areas\Admin\Views\Licensee\Scripts\LicenseeManager.js" />
     <Content Include="Areas\Admin\Views\Licensee\Styles\Licensee.css" />
     <Content Include="Areas\Admin\Views\Party\Scripts\PartyManager.js" />
@@ -663,6 +665,9 @@
     <Content Include="Areas\Admin\Views\Licensee\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\_PartyLicensee.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
