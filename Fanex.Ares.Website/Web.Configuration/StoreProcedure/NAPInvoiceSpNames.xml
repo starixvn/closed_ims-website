@@ -38,5 +38,7 @@
   <Function Name="Invoice">
     <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="archive" />
     <Setting Key="IMS_InvoiceTypeSel" SpName="IMS_InvoiceTypeSel" DbName="invoice" />
+    <Setting Key="IMS_NewInvoiceIDSel" SpName="IMS_NewInvoiceIDSel" DbName="invoice" />
+    
   </Function>
 </Functions>

@@ -1,264 +1,246 @@
 ﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
-@using Resource;
+@using Fanex.Ares.Core.Resources;
 @{
-    string domain = HtmlHelperExtensions.GetFullDomainURL();
+    LicenseeSettlementModel licensee = new LicenseeSettlementModel();
+    licensee = Model;
+    var reportCount = licensee.Report.EntityList.Count;
 }
-<div class="div-content">
-    <table class="col900">
+@functions{
+    public string GetNegativeClass(double number)
+    {
+        return number < 0 ? "negative-number" : string.Empty;
+    }
+
+    public string GetEvenClass(int number)
+    {
+        return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
+    }
+}
+<div class="div-content" style="overflow: auto; width: 90%;  height: 600px;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;'>
         <tr>
-            <td class="col600">
-                <img width=600 height=200 src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Startlit-logo.png")" />
-            </td>
-            <td class="col400 light-blue lineHeight200">
-                <br />
-                <br />
-                <br />
-                <br />
-                <br />
-                Registered Address:<br />
-                <br />
-                ARIAS, FABREGA & FABREGA TRUST<br />
-                CO, BVI LIMITED<br />
-                325 Waterfront Drive, Omar Hodge<br />
-                Building, 2nd Floor, Wickam's Cay 1 Road Tov<br />
-                Tortola, British Virgin Island<br />
-            </td>
-        </tr>
-    </table>
-    <table class="col900">
-        <tr>
-            <td colspan="3" class="light-blue fontsize40 aligncenter">
-                STATEMENT OF ACCOUNT
+            <td colspan="14" class="boldTilte" style='height: 16.5pt;'>
+                INTERNAL WORKSHEET FOR SETTLEMENT
             </td>
         </tr>
         <tr>
-            <td class="light-blue lineHeight200">
-                <span class="fontsize20">WELTON PLAY LIMITED</span><br />
-                Suite 8/9 West House, West Street Ramsey,<br />
-                Isle of Man IM8 1AE<br />
-                British Virgin Island
+            <td colspan="3" style='height: 12.75pt;'>
+                Finance Department
             </td>
-            <td colspan="2" class="lineHeight200">
-                <span class="fontsize20">Bet Aggregator<br />
-                    For the month of March 2013</span><br />
-                Term:<br />
-                State of Account No: SWL20130302<br />
-                Statement of Account Date: 31 March 2013
+            <td colspan="11">
             </td>
         </tr>
+        <tr>
+            <td colspan="14" style='height: 12.75pt;'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style='height: 12.75pt;'>
+                SETTLEMENT REPORT
+            </td>
+            <td colspan="12" class="boldInfor">
+                From @licensee.LicenseeInfor.FromDate.ToAresDayMonthYear()
+                To @licensee.LicenseeInfor.ToDate.ToAresDayMonthYear()
+            </td>
+        </tr>
+        <tr>
+            <td style='height: 12.75pt;'>
+                LICENSEE:
+            </td>
+            <td colspan="1" class="licenseeName">
+                @licensee.LicenseeInfor.LicenseeName
+            </td>
+            <td class="sportName" colspan="3">
+                @licensee.LicenseeInfor.ProductName.ToUpper()
+            </td>
+            <td colspan="1">
+                1st Billing:
+            </td>
+            <td class="boldInfor" colspan="8">
+                @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style='height: 12.75pt;'>
+            </td>
+            <td colspan="1">
+                Head of Terms:
+            </td>
+            <td class="boldInfor" colspan="8">
+                @licensee.LicenseeInfor.HeadOfTerms
+            </td>
+        </tr>
+        <tr>
+            <td colspan="10" style='height: 12.75pt; border: none !important;'>
+            </td>
+        </tr>
+        <tr>
+            <td rowspan="2" class="header" style='height: 26pt'>
+                @Labels.Date
+            </td>
+            <td rowspan="2" class="header">
+                @Labels.Currency
+            </td>
+            <td rowspan="2" class="header">
+                @Labels.Turnover
+            </td>
+            <td rowspan="2" class="header">
+                @Html.RawWithLineBreak(Labels.Turnover + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+            </td>
+            <td rowspan="2" class="header">
+                @Labels.TotalTrans
+            </td>
+            <td rowspan="2" class="header">
+                @Html.RawWithLineBreak(Labels.CustomerWinLoss)
+            </td>
+            <td rowspan="2" class="header">
+                @Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+            </td>
+            <td rowspan="2" class="header">
+                @Labels.BAComm
+            </td>
+            <td rowspan="2" class="header">
+                @Html.RawWithLineBreak(Labels.BAComm + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+            </td>
+            <td colspan="2" class="header">
+                @Labels.AmountDue
+            </td>
+            <td rowspan="2" class="emptyheader">
+            </td>
+            <td colspan="2" class="header">
+                @{
+                    string forexTime = string.Empty;
+                    if (DateTime.Now.Year == licensee.LicenseeInfor.SettlementDate.Year && DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
+                    {
+                        forexTime = DateTime.Now.ToAresDayMonthYear();
+                    }
+                    else
+                    {
+                        forexTime = licensee.LicenseeInfor.SettlementDate.LastDayOfMonth().ToAresDayMonthYear();
+                    }
+                }
+                Forex @@ @forexTime
+            </td>
+        </tr>
+        <tr>
+            <td class="header">
+                &nbsp;&nbsp;&nbsp;@Labels.BA&nbsp;&nbsp;&nbsp;
+            </td>
+            <td class="header">
+                @Labels.BAEqui @licensee.LicenseeInfor.BaseCurrencyName
+            </td>
+            <td class="header">
+                @licensee.LicenseeInfor.BaseCurrencyName/1 Unit
+            </td>
+            <td class="header">
+                Units/1 @licensee.LicenseeInfor.BaseCurrencyName
+            </td>
+        </tr>
+        @if (reportCount == 0)
+        {
+            <tr>
+                <td class="cellstyle aligncenter colText" colspan="11">
+                    There is no data
+                </td>
+                <td>
+                </td>
+                <td class="cellstyle aligncenter colText" colspan="2">
+                    There is no data
+                </td>
+            </tr>
+        }
+        else
+        {
+            for (int i = 0; i < licensee.Report.EntityList.Count; i++)
+            {
+                ReportEntity report = new ReportEntity();
+                report = licensee.Report.EntityList[i];
+
+                ExchangeRate exchange = new ExchangeRate();
+                exchange = licensee.ExchangeList[i];
+
+                var evenClass = GetEvenClass(i);
+            
+            <tr>
+                <td height="17" class="colDateTime" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
+                    @report.WinlostDate.ToAresDayMonthYear()
+                </td>
+                <td class="colText" style="@evenClass">
+                    @report.CurrencyName
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class=" @GetNegativeClass(report.Turnover)">@report.Turnover.FormatNegative(2)</span>
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.FormatNegative(2)</span>
+                </td>
+                <td class="colInteger" style="@evenClass">
+                    @report.Betcount.Format(0)
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class=" @GetNegativeClass(report.MemberWinloss)">@report.MemberWinloss.FormatNegative(2)</span>
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class="  @GetNegativeClass(report.MemberWinlossBase)">@report.MemberWinlossBase.FormatNegative(2)</span>
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class="  @GetNegativeClass(report.LicenseeWL)">@report.LicenseeWL.FormatNegative(2)</span>
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class="  @GetNegativeClass(report.LicenseeWLBase)">@report.LicenseeWLBase.FormatNegative(2)</span>
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class="  @GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
+                </td>
+                <td class="colNumber" style="@evenClass">
+                    <span class="  @GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
+                </td>
+                <td class="currency">
+                    &nbsp;&nbsp;&nbsp;@exchange.CurrencyName
+                </td>
+                <td class="colNumber5Odd" style="border-left: .5pt solid gray;@evenClass">
+                    @exchange.BasePerUnit.Format(5)
+                </td>
+                <td class="colNumber5Odd" style="border-right: .5pt solid gray; @evenClass">
+                    @exchange.UnitsPerBase.Format(5)
+                </td>
+            </tr>
+            }
+            <tr>
+                <td colspan="4" align="right" class="grandtotal" style='height: 15pt;'>
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">@licensee.Report.GrandTotal.TurnoverBase.FormatNegative(2)</span>
+                </td>
+                <td colspan="3" align="right" class="grandtotal">
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.MemberWinlossBase)">@licensee.Report.GrandTotal.MemberWinlossBase.FormatNegative(2)</span>
+                </td>
+                <td colspan="2" align="right" class="grandtotal">
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.LicenseeWLBase)">@licensee.Report.GrandTotal.LicenseeWLBase.FormatNegative(2)</span>
+                </td>
+                <td colspan="2" align="right" class="grandtotal">
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.CompanyBaseCurrency)">@licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)</span>
+                </td>
+                <td class="emptyCell">
+                </td>
+                <td class="emptytotal" style="height: 10pt;" colspan="2">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="14" style='height: 10pt;'>
+                </td>
+            </tr>
+            if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
+            {
+                <tr> <td style='height: 15pt'> IDR &amp; VND * </td> <td colspan="13" style='height:
+                15pt'> Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
+                Equv, x1000 </td> </tr>
+                <tr> <td style='height: 15pt;'> FOREX </td> <td colspan="13" style='height: 15pt;'>
+                www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
+                Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
+                use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
+            </td> </tr>
+            }
+        }
     </table>
-    <table class="col900 BA-tbl-detail">
-        <thead class="BA-header">
-            <th>
-                Description
-            </th>
-            <th>
-            </th>
-            <th>
-                Amount
-            </th>
-        </thead>
-        <tbody>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td class="light-blue">
-                    Total Reported Turnover
-                </td>
-                <td class="light-blue aligncenter">
-                    EUR 1,294,827.70
-                </td>
-                <td class="light-blue">
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td class="light-blue">
-                    Total Player (Win)/loss
-                </td>
-                <td class="light-blue alignright">
-                </td>
-                <td class="light-blue alignright">
-                    (29,982.01)
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td class="light-blue">
-                    Commission for Bet Aggregator
-                </td>
-                <td class="light-blue alignright">
-                </td>
-                <td class="light-blue alignright">
-                    (6,430.28)
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td>
-                </td>
-                <td>
-                </td>
-                <td>
-                </td>
-            </tr>
-            <tr class="BA-tbl-rowheight">
-                <td class="light-blue">
-                    Net Payable by Starlit Worldwide Limited
-                </td>
-                <td>
-                </td>
-                <td class="light-blue alignright">
-                    (36,412.29)
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <span class="light-blue bold BA-text-padding-left-5px">For the Amount Due to Starlit,
-        Please Make the necessary payment to: </span>
-    <br />
-    <br />
-    <table class="col900 BA-tbl-detail">
-        <thead class="BA-header">
-            <th>
-                Bank Details:
-            </th>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="light-blue">
-                    Beneficiary Name
-                </td>
-            </tr>
-            <tr>
-                <td class="light-blue">
-                    Account Number
-                </td>
-            </tr>
-            <tr>
-                <td class="light-blue">
-                    IBAN (EUR)
-                </td>
-            </tr>
-            <tr>
-                <td class="light-blue">
-                    Bank
-                </td>
-            </tr>
-            <tr>
-                <td class="light-blue">
-                    Address
-                </td>
-            </tr>
-            <tr>
-                <td class="light-blue">
-                    Swiftcode
-                </td>
-            </tr>
-            <tr>
-                <td class="light-blue">
-                    Correspondent Bank
-                </td>
-            </tr>
-            <tr>
-                <td class="light-blue">
-                    Swift/BIC
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="col900 light-blue aligncenter">This is a computer generated invoice. No signature is required.</div>
 </div>

@@ -98,6 +98,7 @@
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />
+    <Compile Include="Criteria\IMS_InvoiceNoSel.cs" />
     <Compile Include="Criteria\IMS_InvoieTypesSel.cs" />
     <Compile Include="Criteria\IMS_LicenseeCurrencySelCriteria.cs" />
     <Compile Include="Criteria\IMS_LicenseeProductSelCriteria.cs" />

@@ -313,6 +313,31 @@ namespace Fanex.Ares.Core.Services.Impl
 
             return invoiceTypeList;
         }
+
+
+
+        public int GetInvoieNo(IMS_InvoiceNoSel criteria)
+        {
+            int invoiceNo = 0;
+
+            try
+            {
+                var rawData = GetListData<dynamic>(criteria);
+                if (rawData != null)
+                {
+                    foreach (var row in rawData)
+                    {
+                        invoiceNo = (int)row.NewInvoiceID;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex);
+            }
+
+            return invoiceNo;
+        }
         #endregion
     }
 }

@@ -647,7 +647,7 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Inoive-pdf.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
@@ -659,6 +659,9 @@
     <Content Include="Areas\Admin\Views\Licensee\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\_PartyLicensee.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

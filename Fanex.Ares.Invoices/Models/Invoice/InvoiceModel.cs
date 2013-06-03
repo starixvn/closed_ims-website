@@ -12,9 +12,11 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     using System.Text;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Core.Models;
+    using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [Serializable]
     public class InvoiceModel
     {
         public Licensee Licensee { get; set; }
@@ -39,10 +41,15 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public string Note { get; set; }
 
+        public List<string> HTMLReportList { get; set; }
+
+        public List<InvoiceReport> InvoiceReportList { get; set; }
+
         public InvoiceModel()
         {
             this.StatementList = new List<Statement>();
-
+            this.InvoiceReportList = new List<InvoiceReport>();
+            this.HTMLReportList = new List<string>();
             for (int j = 0; j < 2; j++)
             {
                 this.StatementList.Add(new Statement
@@ -53,7 +60,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
             }
         }
     }
-
+    [Serializable]
     public class Statement
     {
         public List<StatementDetail> StatementDetailList { get; set; }
@@ -79,6 +86,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         }
     }
 
+    [Serializable]
     public class StatementDetail
     {
         public int ID { get; set; }
@@ -90,6 +98,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public double Amount { get; set; }
     }
 
+    [Serializable]
     public class Operator
     {
         public string PartyName { get; set; }
@@ -135,6 +144,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string Email { get; set; }
     }
 
+    [Serializable]
     public class Licensee
     {
         public string LicenseeName { get; set; }
@@ -154,6 +164,14 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string To1 { get; set; }
 
         public string To2 { get; set; }
+    }
+
+    [Serializable]
+    public class InvoiceReport {
+        public string Name { get; set; }
+
+        public LicenseeSettlementModel LicenseeModel { get; set; }
+
     }
 
 }
