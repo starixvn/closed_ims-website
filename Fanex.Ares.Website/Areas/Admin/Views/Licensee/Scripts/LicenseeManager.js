@@ -259,7 +259,7 @@ LicenseeManager = function () {
             }
         });
 
-        _table.dlgAddNew.dialog('option', 'title', 'Edit Party');
+        _table.dlgAddNew.dialog('option', 'title', 'Edit Licensee');
         _table.dlgAddNew.dialog('open');
     };
 
