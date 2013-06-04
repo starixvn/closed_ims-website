@@ -1,27 +1,23 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMS_OperatorSelCriteria.cs" company="Microsoft">
+// <copyright file="Product.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Ares.Core.Criteria
+namespace Fanex.Ares.Core.Models
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class IMS_OperatorSelCriteria : CriteriaBase
+    public class Product
     {
-        public override string GetSettingKey()
-        {
-            return "IMS_PartySel";
-        }
+        public int ProductID { get; set; }
 
-        public override bool IsValid() { return true; }
+        public string ProductName { get; set; }
     }
 }

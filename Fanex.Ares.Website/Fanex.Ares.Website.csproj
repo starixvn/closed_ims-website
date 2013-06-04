@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -85,28 +85,31 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\_Dependency\Entlib\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\_Dependency\FanexLibs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI, Version=1.2.4.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Excel\NPOI.dll</HintPath>
-    </Reference>
-    <Reference Include="RemotingRef">
-      <HintPath>..\_Dependency\FanexLibs\RemotingRef.dll</HintPath>
-    </Reference>
-    <Reference Include="SPSRemoting">
-      <HintPath>..\_Dependency\FanexLibs\SPSRemoting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -120,9 +123,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -154,10 +154,6 @@
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -228,10 +224,6 @@
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Admin\Scripts\TicketListing.js" />
     <Content Include="Areas\Admin\Scripts\TicketListingManager.js" />
-    <Content Include="Areas\Admin\Views\Setting\Scripts\SettingManager.js" />
-    <Content Include="Areas\Admin\Views\Setting\Styles\Setting.css" />
-    <Content Include="Areas\Admin\Views\Product\Scripts\ProductManager.js" />
-    <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
     <Content Include="Areas\Admin\Views\Licensee\Scripts\LicenseeManager.js" />
     <Content Include="Areas\Admin\Views\Licensee\Styles\Licensee.css" />
     <Content Include="Areas\Admin\Views\Party\Scripts\PartyManager.js" />
@@ -244,6 +236,7 @@
     <Content Include="Areas\Invoice\Styles\Images\Acqua-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
+    <Content Include="Areas\Invoice\Styles\Images\BCH.png" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
@@ -251,6 +244,8 @@
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
@@ -391,8 +386,6 @@
     <Content Include="Scripts\_Libs\FanexGrid\images\sorting_bg.gif" />
     <Content Include="Scripts\_Libs\FanexGrid\images\sorting_desc.gif" />
     <Content Include="Scripts\_Libs\FanexGrid\images\white-top-bottom.gif" />
-    <Content Include="Scripts\_Libs\FanexGrid\moment.js" />
-    <Content Include="Scripts\_Libs\FanexGrid\numeral.js" />
     <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.js" />
     <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.min.js" />
     <Content Include="Scripts\_Libs\FormatLibs\jquery.customformat.js" />
@@ -646,6 +639,7 @@
     <Content Include="Areas\Admin\Styles\BatchMessage.less" />
     <Content Include="Areas\Admin\Styles\TicketListing.less" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\BatchMessage\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Invoice\Styles\BatchMessage.less" />
     <Content Include="Areas\Invoice\Styles\TicketListing.less" />
@@ -656,7 +650,7 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Inoive-pdf.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
@@ -668,12 +662,10 @@
     <Content Include="Areas\Admin\Views\Licensee\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\_PartyLicensee.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\Index.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_InvoiceSportsBook.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

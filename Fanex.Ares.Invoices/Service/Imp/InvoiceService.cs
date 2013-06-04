@@ -9,59 +9,213 @@ namespace Fanex.Ares.Invoice.Service.Imp
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Fanex.Ares.Invoice.Service.Interface;
-    using Fanex.Ares.Invoice.Models.Invoice;
-    using Fanex.Ares.Invoice.Criteria.Invoice;
     using System.Data;
     using Fanex.Ares.Core.Services.Impl;
+    using Fanex.Ares.Invoice.Models.Invoice;
+    using Fanex.Ares.Invoice.Service.Interface;
     using Fanex.Common;
+    using Fanex.Ares.Invoice.Criteria.Invoice;
+    using System.Linq;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class InvoiceService : ServiceBase,IInvoiceService
     {
-        public List<Operator> GetOperatorList(IMS_InvoiceTypeCriteria criteria)
+        public List<Operator> GetOperatorList(IMS_OperatorSelCriteria criteria)
         {
-            List<Operator> operatorProducts = new List<Operator>();
+            List<Operator> operators = new List<Operator>();
             try
             {
                 Func<IDataReader, Operator> mappingFunc = r =>
                 {
-                    return new Operator
+                    var res = new Operator
                     {
-                        PartyID = Converter.To<int>(r["PartyID"]),
-                        PartyName = Converter.To<string>(r["PartyName"]),
-                        PartyType = Converter.To<int>(r["PartyType"]),
-                        Description = Converter.To<string>(r["Description"]),
-                        Company = Converter.To<string>(r["Company"]),
-                        AccountNumber = Converter.To<string>(r["AccountNumber"]),
-                        AccountName = Converter.To<string>(r["AccountName"]),
-                        BankName = Converter.To<string>(r["BankName"]),
-                        Benificiary = Converter.To<string>(r["Benificiary"]),
-                        IBAN = Converter.To<string>(r["IBAN"]),
-                        SwiftCode = Converter.To<string>(r["SwiftCode"]),
-                        CorrespondentBank = Converter.To<string>(r["CorrespondentBank"]),
-                        AttnName = Converter.To<string>(r["AttnName"]),
-                        To1 = Converter.To<string>(r["To1"]),
-                        To2 = Converter.To<string>(r["To2"]),
-                        Logo = Converter.To<string>(r["Logo"]),
-                        Phone = Converter.To<string>(r["Phone"]),
-                        MobilePhone = Converter.To<string>(r["MobilePhone"]),
-                        Fax = Converter.To<string>(r["Fax"]),
-                        Email = Converter.To<string>(r["Email"])
+                        PartyID = Convert.ToInt32(r["PartyID"]),
+                        PartyName = Convert.ToString(r["PartyName"]),
+                        PartyType = Convert.ToInt32(r["PartyType"]),
+                        Description = Convert.ToString(r["Description"]),
+                        PartyFullName = Convert.ToString(r["PartyFullName"]),
+                        AccountNumber = Convert.ToString(r["AccountNumber"]),
+                        AccountName = Convert.ToString(r["AccountName"]),
+                        BankName = Convert.ToString(r["BankName"]),
+                        Benificiary = Convert.ToString(r["Benificiary"]),
+                        IBAN = Convert.ToString(r["IBAN"]),
+                        SwiftCode = Convert.ToString(r["SwiftCode"]),
+                        CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
+                        AttnName = Convert.ToString(r["AttnName"]),
+                        To1 = Convert.ToString(r["To1"]),
+                        To2 = Convert.ToString(r["To2"]),
+                        Logo = Convert.ToString(r["Logo"])
                     };
+
+                    return res;
                 };
 
-                //operatorProducts = _repository.Fetch<Operator>(criteria, mappingFunc);
+                operators = _repository.Fetch<Operator>(criteria, mappingFunc).ToList();             
             }
             catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
             }
 
-            return operatorProducts;
+            return operators;
+        }
+
+        public List<Licensee> GeLicenseesList(IMS_LicenseeSelByPartyCriteria criteria)
+        {
+            var licensees = new List<Licensee>();
+            try
+            {
+                Func<IDataReader, Licensee> mappingFunc = r =>
+                {
+                    var res = new Licensee
+                    {
+                        LicenseeID = Convert.ToInt32(r["LicenseeID"]),
+                        LicenseeName = r["LicenseeName"].ToString(),
+                        BrandName = Convert.ToString(r["BrandName"]),
+                        CompanyName = Convert.ToString(r["CompanyName"]),
+                        AttnName = r["AttnName"].ToString(),
+                        To1 = Convert.ToString(r["To1"]),
+                        To2 = Convert.ToString(r["To2"])
+                    };
+
+                    return res;
+                };
+
+                licensees = _repository.Fetch<Licensee>(criteria, mappingFunc).ToList();
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return licensees;
+        }
+
+        public List<InvoiceType> GetInvoieType(IMS_InvoieTypesSelCriteria criteria)
+        {
+            List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
+
+            try
+            {
+                var rawData = GetListData<dynamic>(criteria);
+                if (rawData != null)
+                {
+                    foreach (var row in rawData)
+                    {
+                        int id = (int)row.invoiceTypeID;
+                        bool isExist = false;
+
+                        foreach (InvoiceType invoiceType in invoiceTypeList)
+                        {
+                            if (id == invoiceType.InvoiceTypeID)
+                            {
+                                invoiceType.ProductList.Add(new Product
+                                {
+                                    ProductID = (int)row.productID,
+                                    ProductName = row.productName,
+                                });
+                                isExist = true;
+                            }
+                        }
+
+                        if (!isExist)
+                        {
+                            List<Product> productList = new List<Product>();
+                            productList.Add(new Product
+                            {
+                                ProductID = (int)row.productID,
+                                ProductName = row.productName,
+                            });
+                            invoiceTypeList.Add(new InvoiceType
+                            {
+                                InvoiceTypeID = (int)row.invoiceTypeID,
+                                InvoiceTypeName = row.invoiceTypeName,
+                                ProductList = productList
+                            });
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex);
+            }
+
+            return invoiceTypeList;
+        }
+
+        public int GetInvoieNo(IMS_InvoiceNoSelCriteria criteria)
+        {
+            int invoiceNo = 0;
+
+            try
+            {
+                var rawData = GetListData<dynamic>(criteria);
+                if (rawData != null)
+                {
+                    foreach (var row in rawData)
+                    {
+                        invoiceNo = (int)row.NewInvoiceNo;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex);
+            }
+
+            return invoiceNo;
+        }
+
+        public InvoiceModel GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
+        {
+            var invoice = new InvoiceModel();
+            try
+            {   
+                #region mapping invoice items
+                invoice.StatementList = new List<Statement>();
+                var statementRawData = GetListData<dynamic>(criteria);
+
+                if (statementRawData != null)
+                {
+                    var statement = new Statement();
+                    statement.StatementDetailList = new List<StatementDetail>();
+                    var oldMonth = string.Empty;
+                    foreach (var row in statementRawData)
+                    {
+                        string invoiceMonth = (string)row.InvoiceMonth;
+                        if (!string.IsNullOrEmpty(oldMonth) && !oldMonth.Equals(invoiceMonth))
+                        {
+                            invoice.StatementList.Add(statement);
+                            statement = new Statement();
+                            statement.StatementDetailList = new List<StatementDetail>();
+                        }                        
+                        statement.StatementDetailList.Add(new StatementDetail()
+                        {
+                            ID = 0,
+                            Description = row.Description,
+                            Reference = row.Reference,
+                            Amount = (double)row.TotalAmount
+                        });
+                        oldMonth = invoiceMonth;
+                    }
+
+                    if (statement != null && statement.StatementDetailList.Count > 0)
+                    {
+                        invoice.StatementList.Add(statement);
+                    }
+                }
+                #endregion                
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return invoice;
         }
     }
 }

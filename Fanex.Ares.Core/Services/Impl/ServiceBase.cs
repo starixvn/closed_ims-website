@@ -10,18 +10,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.Ares.Core.Services.Interface;
-using Fanex.Common.Helper;
-using Fanex.NAP.Framework.Data;
-using Fanex.Caching;
-using System.Web.Mvc;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
+using System.Web.Mvc;
 using Fanex.Ares.Core.Criteria;
+using Fanex.Ares.Core.Extensions;
+using Fanex.Ares.Core.Models;
 using Fanex.Ares.Core.Repository.Impl;
+using Fanex.Ares.Core.Services.Interface;
+using Fanex.Caching;
+using Fanex.Common;
+using Fanex.Common.Helper;
 using Fanex.NAP.Core.Web.Context;
 using Fanex.NAP.Core.Web.Session;
-using Fanex.Ares.Core.Extensions;
+using Fanex.NAP.Framework.Data;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
@@ -215,30 +217,7 @@ namespace Fanex.Ares.Core.Services.Impl
 
             return listProducts;
         }
-
-        public IEnumerable<SelectListItem> GetOperator(IMS_OperatorSelCriteria criteria)
-        {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
-            try
-            {
-                Func<IDataReader, SelectListItem> mappingFunc = r =>
-                {
-                    return new SelectListItem
-                    {
-                        Value = Convert.ToString(r["PartyID"]),
-                        Text = Convert.ToString(r["PartyName"])
-                    };
-                };
-
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-
-            return listProducts;
-        }
+                
         #endregion
     }
 }

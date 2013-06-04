@@ -1,20 +1,19 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="BaseModel.cs" company="Microsoft">
+// <copyright file="Product.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
-
-namespace Fanex.Ares.Core.Models
+namespace Fanex.Ares.Invoice.Models.Invoice
 {
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [Serializable]
-    public class BaseModel
+    public class Product
     {
-        public string Name { get; set; }
-        public string Id { get; set; }
+        public int ProductID { get; set; }
+
+        public string ProductName { get; set; }
     }
 }
