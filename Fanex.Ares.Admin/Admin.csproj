@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -53,16 +54,40 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\CustomEqualityComparer.cs" />
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Controllers\LicenseeController.cs" />
     <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Criteria\AccountingUserCheckOnlineStatusCriteria.cs" />
+    <Compile Include="Criteria\IMS_AvailablePartySelByLicensee.cs" />
+    <Compile Include="Criteria\IMS_LicenseeInfoSel.cs" />
+    <Compile Include="Criteria\IMS_LicenseeInfoUpd.cs" />
+    <Compile Include="Criteria\IMS_LicenseeIns.cs" />
+    <Compile Include="Criteria\IMS_LicenseePartyMultipleIns.cs" />
+    <Compile Include="Criteria\IMS_AvailableLicenseeSelByParty.cs" />
+    <Compile Include="Criteria\IMS_LicenseePartyIns.cs" />
+    <Compile Include="Criteria\IMS_LicenseeSelByParty.cs" />
+    <Compile Include="Criteria\IMS_PartyInfoUpd.cs" />
+    <Compile Include="Criteria\IMS_PartyTypeSel.cs" />
+    <Compile Include="Criteria\IMS_PartyIns.cs" />
     <Compile Include="Criteria\IMS_PartyInsUpCriteria.cs" />
     <Compile Include="Criteria\IMS_PartyInfoSelCriteria.cs" />
+    <Compile Include="Criteria\IMS_PartySelByLicensee.cs" />
+    <Compile Include="Criteria\IMS_ProductInfoSel.cs" />
+    <Compile Include="Criteria\IMS_ProductIns.cs" />
+    <Compile Include="Criteria\IMS_ProductnfoUpd.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Product\ProductModel.cs" />
+    <Compile Include="Models\Licensee\LicenseeModel.cs" />
     <Compile Include="Models\Party\PartyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\AdminRepository.cs" />
     <Compile Include="Repositories\Interface\IAdminRepository.cs" />
+    <Compile Include="Services\Product\Implement\ProductService.cs" />
+    <Compile Include="Services\Product\Interface\IProductService.cs" />
+    <Compile Include="Services\Licensee\Implement\LicenseeService.cs" />
+    <Compile Include="Services\Licensee\Interface\ILicenseeService.cs" />
     <Compile Include="Services\Implement\AdminService.cs" />
     <Compile Include="Services\Interface\IAdminService.cs" />
     <Compile Include="Services\Party\Implement\PartyService.cs" />

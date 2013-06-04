@@ -35,14 +35,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Excel\ExcelUtil.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=1.0.4827.30669, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core.TicketHelper, Version=1.0.4827.30670, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.TicketHelper.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>

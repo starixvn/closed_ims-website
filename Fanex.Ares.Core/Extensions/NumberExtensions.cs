@@ -127,5 +127,15 @@ namespace Fanex.Ares.Core.Extensions
                 throw new NullReferenceException();
             }
         }
+
+        public static string ToString1(this object source)
+        {
+            if (source == null)
+            {
+                return string.Empty;
+            }
+
+            return source.ToString();
+        }
     }
 }

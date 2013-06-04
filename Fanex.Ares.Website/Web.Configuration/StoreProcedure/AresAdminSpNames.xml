@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Functions>
-  <Function Name="Admin">
+  <Function Name="Party">
     <Setting Key="IMS_PartyIns" SpName="IMS_PartyIns" DbName="invoice" />
     <Setting Key="IMS_PartyTypeSel" SpName="IMS_PartyTypeSel" DbName="invoice" />
     <Setting Key="IMS_PartyInfoUpd" SpName="IMS_PartyInfoUpd" DbName="invoice" />
     <Setting Key="IMS_PartyInfoSel" SpName="IMS_PartyInfoSel" DbName="invoice" />
     <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="invoice" />
+    <Setting Key="IMS_LicenseePartyIns" SpName="IMS_LicenseePartyIns" DbName="invoice" />
+    <Setting Key="IMS_LicenseeSelByParty" SpName="IMS_LicenseeSelByParty" DbName="invoice" />
+    <Setting Key="IMS_AvailableLicenseeSelByParty" SpName="IMS_AvailableLicenseeSelByParty" DbName="invoice" />
+    <Setting Key="IMS_LicenseePartyMultipleIns" SpName="IMS_LicenseePartyMultipleIns" DbName="invoice" />
+  </Function>
+  <Function Name="Licensee">
+    <Setting Key="IMS_PartySelByLicensee" SpName="IMS_PartySelByLicensee" DbName="invoice" />
+    <Setting Key="IMS_AvailablePartySelByLicensee" SpName="IMS_AvailablePartySelByLicensee" DbName="invoice" />
+    <Setting Key="IMS_LicenseeInfoSel" SpName="IMS_LicenseeInfoSel" DbName="invoice" />
+    <Setting Key="IMS_LicenseeInfoUpd" SpName="IMS_LicenseeInfoUpd" DbName="invoice" />
+    <Setting Key="IMS_LicenseeIns" SpName="IMS_LicenseeIns" DbName="invoice" />
+  </Function>
+
+  <Function Name="Product">
+  <Setting Key="IMS_ProductInfoSel" SpName="IMS_ProductInfoSel" DbName="invoice" />
+  <Setting Key="IMS_ProductIns" SpName="IMS_ProductIns" DbName="invoice" />
+  <Setting Key="IMS_ProductnfoUpd" SpName="IMS_ProductnfoUpd" DbName="invoice" />
   </Function>
 </Functions>

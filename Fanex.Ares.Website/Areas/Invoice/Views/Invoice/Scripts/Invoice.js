@@ -51,8 +51,16 @@
     });
 
 
+
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+
+   
+
+    $("#LicenseeID").change(function () {
+        GetInvoiceType();
+    });
+
 });
 
 function Submit() {
@@ -62,9 +70,71 @@ function Submit() {
         type: "POST",
         success: function (data, textStatus, jqXHR) {
             $('#parentContainer').html(data);
+            $('#pdfID').button();
+            $('#pdfID').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert("fail");
+        },
+        complete: function (jqXHR, textStatus) {
+            NapTicketControl.enableInput();
+        }
+    });
+}
+
+
+function GetInvoiceType() {
+    NapTicketControl.disableInput();
+    $.ajax({
+        url: domain + "Invoice/Invoice/GetInvoiceType",
+        type: "POST",
+        data: 'licenseeID=' + $("#LicenseeID").val(),
+        success: function (result) {
+            var invoiceTypeList = [];
+            var productList = [];
+            for (var i = 0; i < result.length; i++) {
+                for (var j = 0; j < result[i].ProductList.length; j++) {
+                    productList.push({
+                        Id: "#ddlProduct" + result[i].ProductList[j].ProductID,
+                        Value: result[i].ProductList[j].ProductID,
+                        Text: result[i].ProductList[j].ProductName,
+                        Checked: true,
+                        Enable: true,
+                        CssClass: ""
+                    });
+                }
+                invoiceTypeList.push({
+                    Id: "#ddInvoice" + result[i].InvoiceTypeID,
+                    Value: result[i].InvoiceTypeID,
+                    Text: result[i].InvoiceTypeName,
+                    Checked: true,
+                    Enable: true,
+                    CssClass: "",
+                    Items: productList
+                });
+
+                productList = [];
+            }
+
+
+            $("#ddlInvoiceType").multiSelect(
+        {
+            header: false,
+            minWidth: 170,
+            maxHeight: 200,
+            shadow: true,
+            showHeader: false,
+            isCheckAll: false,
+            showFooter: false,
+            selectedList: 4,
+            checkAllText: 'All',
+            isUsedCustomCheckAllText: false,
+            customCheckAllText: 'All',
+            listData: invoiceTypeList
+        });
+        },
+        error: function () {
+            try { parent.jQuery.unblockUI(); } catch (e) { }
         },
         complete: function (jqXHR, textStatus) {
             NapTicketControl.enableInput();

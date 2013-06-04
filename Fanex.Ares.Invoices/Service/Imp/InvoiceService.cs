@@ -17,12 +17,13 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using System.Data;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.Common;
+using Fanex.Ares.Core.Criteria;
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class InvoiceService : ServiceBase,IInvoiceService
     {
-        public List<Operator> GetOperatorList(IMS_InvoiceTypeCriteria criteria)
+        public List<Operator> GetOperatorList(IMS_OperatorSelCriteria criteria)
         {
             List<Operator> operatorProducts = new List<Operator>();
             try

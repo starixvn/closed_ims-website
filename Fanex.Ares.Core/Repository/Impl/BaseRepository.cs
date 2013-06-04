@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using Fanex.Data;
 using Fanex.NAP.Framework.Data;
+using Fanex.Ares.Core.Models;
 
 namespace Fanex.Ares.Core.Repository.Impl
 {

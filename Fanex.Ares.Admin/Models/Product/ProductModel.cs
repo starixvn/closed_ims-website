@@ -1,0 +1,30 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="ProductModel.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.05.28">Created</change>
+// </history>
+
+namespace Fanex.Ares.Admin.Models.Product
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    public class ProductModel
+    {
+        public int ProductID { get; set; }
+
+        public string ProductName { get; set; }
+
+        public string Description { get; set; }
+
+        public string ProductPrefix { get; set; }
+    }
+}

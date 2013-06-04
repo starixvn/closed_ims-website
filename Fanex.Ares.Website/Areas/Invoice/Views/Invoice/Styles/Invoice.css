@@ -60,7 +60,7 @@ br
 	mso-font-charset:0;}
 .font6
 	{color:black;
-	font-size:8.0pt;
+	font-size:12.0pt;
 	font-weight:400;
 	font-style:normal;
 	text-decoration:none;
@@ -86,472 +86,13 @@ td
 	mso-protection:locked visible;
 	white-space:nowrap;
 	mso-rotate:0;}
-.xl107
-	{mso-style-parent:style21;
-	color:black;}
-.xl108
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl109
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl110
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border-top:1.0pt solid black;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl111
-	{mso-style-parent:style21;
-	color:red;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl112
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl113
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:top;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl114
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:top;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl115
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl116
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:right;
-	vertical-align:top;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl117
-	{mso-style-parent:style21;
-	color:black;
-	white-space:normal;}
-.xl118
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:1.0pt solid black;
-	border-right:1.0pt solid black;
-	border-bottom:none;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl119
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:none;
-	border-right:1.0pt solid black;
-	border-bottom:none;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl120
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:none;
-	border-right:1.0pt solid black;
-	border-bottom:1.0pt solid black;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl121
-	{mso-style-parent:style21;
-	color:black;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;}
-.xl122
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:1.0pt solid black;
-	border-right:1.0pt solid black;
-	border-bottom:none;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl123
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:top;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl124
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl125
-	{mso-style-parent:style21;
-	color:black;
-	font-size:25.0pt;
-	text-align:right;
-	vertical-align:top;}
 
-td
-	{mso-style-parent:style0;
-	padding:0px;
-	mso-ignore:padding;
-	color:windowtext;
-	font-size:10.0pt;
-	font-weight:400;
-	font-style:normal;
-	text-decoration:none;
-	font-family:Arial, sans-serif;
-	mso-font-charset:0;
-	mso-number-format:General;
-	text-align:general;
-	vertical-align:bottom;
-	border:none;
-	mso-background-source:auto;
-	mso-pattern:auto;
-	mso-protection:locked visible;
-	white-space:nowrap;
-	mso-rotate:0;}
-.xl107
-	{mso-style-parent:style21;
-	color:black;}
-.xl108
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl109
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl110
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border-top:1.0pt solid black;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl111
-	{mso-style-parent:style21;
-	color:red;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl112
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:middle;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl113
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:center;
-	vertical-align:top;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl114
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:top;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl115
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl116
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:right;
-	vertical-align:top;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl117
-	{mso-style-parent:style21;
-	color:black;
-	white-space:normal;}
-.xl118
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:1.0pt solid black;
-	border-right:1.0pt solid black;
-	border-bottom:none;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl119
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:none;
-	border-right:1.0pt solid black;
-	border-bottom:none;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl120
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:none;
-	border-right:1.0pt solid black;
-	border-bottom:1.0pt solid black;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl121
-	{mso-style-parent:style21;
-	color:black;
-	border-top:none;
-	border-right:none;
-	border-bottom:1.0pt solid black;
-	border-left:none;}
-.xl122
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border-top:1.0pt solid black;
-	border-right:1.0pt solid black;
-	border-bottom:none;
-	border-left:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl123
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:top;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;
-	white-space:normal;}
-.xl124
-	{mso-style-parent:style21;
-	color:black;
-	font-size:8.0pt;
-	font-weight:700;
-	font-family:Calibri, sans-serif;
-	mso-font-charset:0;
-	text-align:left;
-	vertical-align:middle;
-	border:1.0pt solid black;
-	background:white;
-	mso-pattern:#F2F2F2 none;}
-.xl125
-	{mso-style-parent:style21;
-	color:black;
-	font-size:25.0pt;
-	text-align:right;
-	vertical-align:top;}
-
-	
-	
 	.colText
 {
     mso-style-parent:style0;
 	 mso-font-charset:0;
 	 mso-pattern:white none;
-	font-size:8.0pt;
+	font-size:12.0pt;
 	font-family:Calibri, sans-serif;
 	text-align:left;
 	vertical-align:middle;
@@ -562,7 +103,7 @@ td
     mso-style-parent:style0;
 	 mso-font-charset:0;
 	 mso-pattern:white none;
-	font-size:8.0pt;
+	font-size:12.0pt;
 	font-family:Calibri, sans-serif;
 	text-align:center;
 	vertical-align:middle;
@@ -574,7 +115,7 @@ td
     mso-style-parent:style0;
 	 mso-font-charset:0;
 	 mso-pattern:white none;
-	font-size:8.0pt;
+	font-size:12.0pt;
 	font-family:Calibri, sans-serif;
 	text-align:right;
 	vertical-align:middle;
@@ -583,7 +124,7 @@ td
 .div-content
 {
     clear: both;
-    width: 1260px;
+    width: 1230px;
     margin: 6px 0 0 10px;
 }
 
@@ -619,7 +160,7 @@ td
 	 mso-font-charset:0;
 	 mso-pattern:white none;
 	color:white;
-	font-size:8.0pt;
+	font-size:12.0pt;
 	text-align:center;
 	font-weight:700;
 	font-family:Calibri, sans-serif;
@@ -635,7 +176,7 @@ td
 	 mso-font-charset:0;
 	mso-number-format:"\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
 	mso-pattern:white none;
-	font-size:8.0pt;
+	font-size:12.0pt;
 	font-family:Calibri, sans-serif;
 	text-align:right;
 	vertical-align:middle;

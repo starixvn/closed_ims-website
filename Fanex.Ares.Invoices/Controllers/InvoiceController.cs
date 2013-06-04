@@ -30,6 +30,8 @@ using Fanex.Workbooks;
 using Fanex.NAP.Core.Web.Attribute;
 
 using Fanex.Ares.Invoice.Models.Invoice;
+using Fanex.Ares.Invoice.Service.Imp;
+using  Fanex.Ares.Core.Models;
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -37,6 +39,8 @@ namespace Fanex.Ares.Invoice.Controllers
     public class InvoiceController : BaseController
     {
         ServiceBase _service;
+        InvoiceService _invoiceService;
+        ILicenseeSettlementService _reportService;
         private readonly HtmlViewRenderer htmlViewRenderer;
         private readonly StandardPdfRenderer standardPdfRenderer;
 
@@ -51,6 +55,8 @@ namespace Fanex.Ares.Invoice.Controllers
         public InvoiceController()
         {
             _service = new ServiceBase();
+            _invoiceService = new InvoiceService();
+            _reportService = new LicenseeSettlementService();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
@@ -62,9 +68,23 @@ namespace Fanex.Ares.Invoice.Controllers
             ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = 0 });
             ViewBag.ListCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
             ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
-            ViewBag.ListOperator =  _service.GetOperator(new IMS_OperatorSelCriteria());
-            //ViewBag.ListInvoiceType = _service.GetInvoiceType(new IMS_InvoiceTypeCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
+            ViewBag.ListOperator = _invoiceService.GetOperator(new IMS_OperatorSelCriteria());
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetInvoiceType(int licenseeID)
+        {
+            List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
+            invoiceTypeList = _service.GetInvoieType(new IMS_InvoieTypesSel() { LicenseeId = licenseeID });
+            return Json(invoiceTypeList);
+        }
+
+        [HttpPost]
+        public JsonResult GetInvoiceNo(IMS_InvoiceNoSel criteria)
+        {
+            int invoiceNo = _service.GetInvoieNo(criteria);
+            return Json(invoiceNo);
         }
 
 
@@ -84,102 +104,105 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView(SettlementView, model);
         }
 
-        protected ActionResult ViewPdf(string pageTitle, string viewName, object model, int numericRows, string fileName, bool isSavePDF, bool isLandscape = false)
+        public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
         {
-            // Render the view html to a string.
-            string htmlText = this.htmlViewRenderer.RenderViewToString(this, viewName, model);
+            InvoiceModel invoiceModel = new InvoiceModel();
 
-            // Let the html be rendered into a PDF document through iTextSharp.
 
-            byte[] buffer = standardPdfRenderer.Render(htmlText, pageTitle, numericRows, PdfCssFilePath, isLandscape);
+            IMS_Rpt_LicenseeSettlementCriteria criteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            criteria.LicenseeId = 1;
+            criteria.BaseCurrency = 6;
+            criteria.BaseCurrencyName = "EUR";
+            criteria.Currency = 0;
+            criteria.FromDate = new DateTime(2013, 5, 01);
+            criteria.ToDate = new DateTime(2013, 5, 31);
+            criteria.Product = 0;
+            criteria.ProductName = "Sportsbook";
 
-            // Return the PDF as a binary stream to the client.
-            //return new BinaryContentResult(buffer, "application/pdf");
-            if (isSavePDF)
+            var model = _reportService.GenerateReport(criteria);
+
+            List<string> htmlList = new List<string>();
+            string[] arrayView = new string[] { "_InvoiceSportsBook" };
+            List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+
+            PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+            //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
+            //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            foreach (string view in arrayView)
             {
-                Response.Clear();
-                MemoryStream ms = new MemoryStream(buffer);
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment;filename= " + fileName + ".pdf");
-                Response.Buffer = true;
-                ms.WriteTo(Response.OutputStream);
-                Response.End();
+                string html = HtmlHelperExtensions.RenderViewToString(this, view, model);
+                htmlList.Add(html);
 
-                // Return the PDF as a binary stream to the client.
-                return new EmptyResult();
+                invoiceModel.HTMLReportList.Add(html);
             }
-            else
+
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session,"InvoiceHTML", invoiceModel);
+
+            var excelCssFilePath = new List<string>();
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
+
+            var workbook = new WorkbookManager();
+            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
+            if (ms != null)
             {
-                return new BinaryContentResult(buffer, "application/pdf");
+                // return the filestream
+                // Rewind the memory stream to the beginning
+                ms.Seek(0, SeekOrigin.Begin);
+
+                string fileName = "invoice" + "." + documentType.ToString().ToLower();
+
+                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
             }
+
+            return new EmptyResult();
         }
 
-        public ActionResult ExportPDF(bool isSavePDF, bool isLandscape = false)
+        public ActionResult PrintScreen()
         {
-            //var model = GenerateReport(criteria);
-            var model = new LicenseeSettlementModel();
-            //SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
-            SettlementView = "_USD";
-            //model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            int month = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth);
-            int year = (int)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear);
-            //string fileName = model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_For_" + month + "-" + year;
-            string fileName = "test";
-            //FillImageUrl(customerList, "report.jpg");
-            return this.ViewPdf("", "_Sportsbook", model, model.Report.EntityList.Count + 1, fileName, isSavePDF, isLandscape);
+            InvoiceModel invoiceModel = new InvoiceModel();
+
+
+            IMS_Rpt_LicenseeSettlementCriteria criteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            criteria.LicenseeId = 1;
+            criteria.BaseCurrency = 6;
+            criteria.BaseCurrencyName = "EUR";
+            criteria.Currency = 0;
+            criteria.FromDate = new DateTime(2013, 5, 01);
+            criteria.ToDate = new DateTime(2013, 5, 31);
+            criteria.Product = 0;
+            criteria.ProductName = "Sportsbook";
+
+            var model = _reportService.GenerateReport(criteria);
+
+            List<string> htmlList = new List<string>();
+            string[] arrayView = new string[] { "_InvoiceSportsBook"};
+            List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+
+            PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+            //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
+            //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            foreach (string view in arrayView)
+            {
+                string html = HtmlHelperExtensions.RenderViewToString(this, view, model);
+                htmlList.Add(html);
+
+                invoiceModel.HTMLReportList.Add(html);
+            }
+
+            //InvoiceModel invoiceModel = new InvoiceModel();
+
+            //invoiceModel = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "InvoiceHTML");
+            return View("PrintReport", invoiceModel);
         }
-
-        //public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
-        //{
-        //    var model = new LicenseeSettlementModel();
-        //    model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-        //    SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
-
-        //    List<string> htmlList = new List<string>();
-        //    string[] arrayView = new string[] { "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA", "_Number Game", "_Sportsbook", "_BA" };
-        //    List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
-
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-        //    PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-        //    foreach (string view in arrayView)
-        //    {
-        //        string html = HtmlHelperExtensions.RenderViewToString(this, view, model);
-        //        htmlList.Add(html);
-        //    }
-
-        //    var excelCssFilePath = new List<string>();
-        //    excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
-
-        //    var workbook = new WorkbookManager();
-        //    var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
-        //    if (ms != null)
-        //    {
-        //        // return the filestream
-        //        // Rewind the memory stream to the beginning
-        //        ms.Seek(0, SeekOrigin.Begin);
-
-        //        string fileName = "invoice" + "." + documentType.ToString().ToLower();
-
-        //        return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
-        //    }
-
-        //    return new EmptyResult();
-        //}
     }
 }
