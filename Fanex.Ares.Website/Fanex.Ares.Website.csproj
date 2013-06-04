@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -237,6 +237,7 @@
     <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\BCH.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Checkbox.gif" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
@@ -427,6 +428,7 @@
     <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.js" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiradioselect.nlevel_new.js" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.css" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\_Libs\Utils\html5shiv.js" />
