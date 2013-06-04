@@ -1,8 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PartyController.cs" company="Microsoft">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------
+// <copyright file="PartyController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.06.03">Created</change>
+// </history>
 
 using System.Web;
 using System.Web.Mvc;
@@ -49,13 +52,13 @@ namespace Fanex.Ares.Admin.Controllers
         [HttpPost]
         public JsonResult GetAllParties()
         {
-            return Json(_partyService.GetAllParties(new IMS_PartyInfoSelCriteria()));
+            return Json(_partyService.GetAllParties(new IMS_PartyInfoSel()));
         }
 
         [HttpPost]
         public JsonResult GetAllPartyTypes()
         {
-            return Json(_partyService.GetAllPartyTypes(new IMS_PartyInfoSelCriteria()));
+            return Json(_partyService.GetAllPartyTypes(new IMS_PartyInfoSel()));
         }
 
         public PartialViewResult _AddNew()

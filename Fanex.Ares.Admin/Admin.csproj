@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Common\CustomEqualityComparer.cs" />
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\LicenseeController.cs" />
     <Compile Include="Controllers\PartyController.cs" />
@@ -77,13 +78,26 @@
     <Compile Include="Criteria\IMS_ProductInfoSel.cs" />
     <Compile Include="Criteria\IMS_ProductIns.cs" />
     <Compile Include="Criteria\IMS_ProductnfoUpd.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeInfoSel.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeIns.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeMultipleIns.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductDiscountInfoSel.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductDiscountIns.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductDiscountMultipleIns.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductSettingInfoSel.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductSettingIns.cs" />
+    <Compile Include="Criteria\Setting\IMS_LicenseeProductSettingUpd.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Setting\LicenseeProductChargeModel.cs" />
+    <Compile Include="Models\Setting\SettingModel.cs" />
     <Compile Include="Models\Product\ProductModel.cs" />
     <Compile Include="Models\Licensee\LicenseeModel.cs" />
     <Compile Include="Models\Party\PartyModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Impl\AdminRepository.cs" />
     <Compile Include="Repositories\Interface\IAdminRepository.cs" />
+    <Compile Include="Services\Setting\Implement\SettingService.cs" />
+    <Compile Include="Services\Setting\Interface\ISettingService.cs" />
     <Compile Include="Services\Product\Implement\ProductService.cs" />
     <Compile Include="Services\Product\Interface\IProductService.cs" />
     <Compile Include="Services\Licensee\Implement\LicenseeService.cs" />

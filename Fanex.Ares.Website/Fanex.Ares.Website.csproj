@@ -228,6 +228,8 @@
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Admin\Scripts\TicketListing.js" />
     <Content Include="Areas\Admin\Scripts\TicketListingManager.js" />
+    <Content Include="Areas\Admin\Views\Setting\Scripts\SettingManager.js" />
+    <Content Include="Areas\Admin\Views\Setting\Styles\Setting.css" />
     <Content Include="Areas\Admin\Views\Product\Scripts\ProductManager.js" />
     <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
     <Content Include="Areas\Admin\Views\Licensee\Scripts\LicenseeManager.js" />
@@ -389,6 +391,8 @@
     <Content Include="Scripts\_Libs\FanexGrid\images\sorting_bg.gif" />
     <Content Include="Scripts\_Libs\FanexGrid\images\sorting_desc.gif" />
     <Content Include="Scripts\_Libs\FanexGrid\images\white-top-bottom.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\moment.js" />
+    <Content Include="Scripts\_Libs\FanexGrid\numeral.js" />
     <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.js" />
     <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.min.js" />
     <Content Include="Scripts\_Libs\FormatLibs\jquery.customformat.js" />
@@ -642,7 +646,6 @@
     <Content Include="Areas\Admin\Styles\BatchMessage.less" />
     <Content Include="Areas\Admin\Styles\TicketListing.less" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\BatchMessage\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Invoice\Styles\BatchMessage.less" />
     <Content Include="Areas\Invoice\Styles\TicketListing.less" />
@@ -668,6 +671,9 @@
     <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\Index.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
