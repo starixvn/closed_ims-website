@@ -1,10 +1,10 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMS_InvoieType.cs" company="Microsoft">
+// <copyright file="IMS_OperatorSelCriteria.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Ares.Core.Criteria
+namespace Fanex.Ares.Invoice.Service.Imp
 {
     using System;
     using System.Collections.Generic;
@@ -15,13 +15,13 @@ namespace Fanex.Ares.Core.Criteria
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class IMS_InvoieTypesSel : CriteriaBase
+    public class IMS_OperatorSelCriteria : CriteriaBase
     {
-        public int LicenseeId { get; set; }
+        public int PartyID { get; set; }
 
         public override string GetSettingKey()
         {
-            return "IMS_InvoiceTypeSel";
+            return "IMS_PartyInfoSel";
         }
 
         public override bool IsValid() { return true; }
