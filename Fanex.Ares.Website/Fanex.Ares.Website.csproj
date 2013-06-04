@@ -668,7 +668,9 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml" />
+    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Configuration\StoreProcedure\NAPFrameworkSpNames.xml" />
     <Content Include="Web.Configuration\StoreProcedure\AresAdminSpNames.xml" />
     <Content Include="Web.Debug.config">
