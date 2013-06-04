@@ -122,13 +122,17 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "_Inoive-pdf","_Number Game", "_Sportsbook", "_BA" };
+            string[] arrayView = new string[] { "_InvoiceSportsBook" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
+            //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
             foreach (string view in arrayView)
             {
                 string html = HtmlHelperExtensions.RenderViewToString(this, view, model);
@@ -140,7 +144,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session,"InvoiceHTML", invoiceModel);
 
             var excelCssFilePath = new List<string>();
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
 
             var workbook = new WorkbookManager();
             var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
@@ -176,13 +180,17 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "_Inoive-pdf", "_Number Game", "_Sportsbook", "_BA" };
+            string[] arrayView = new string[] { "_InvoiceSportsBook"};
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
+            //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
             foreach (string view in arrayView)
             {
                 string html = HtmlHelperExtensions.RenderViewToString(this, view, model);

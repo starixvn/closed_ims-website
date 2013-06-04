@@ -236,6 +236,7 @@
     <Content Include="Areas\Invoice\Styles\Images\Acqua-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
+    <Content Include="Areas\Invoice\Styles\Images\BCH.png" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
@@ -243,6 +244,8 @@
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
@@ -662,6 +665,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_InvoiceSportsBook.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
