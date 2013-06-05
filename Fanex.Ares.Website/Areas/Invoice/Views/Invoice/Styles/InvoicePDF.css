@@ -1,237 +1,128 @@
-﻿.image-logo
-{
-    background-image: url(D:\Gito\ims\Fanex.Ares.Website\Areas\Invoice\Styles\Images\Boping-logo.png);
-}
-.titleBold
-{
-    size: 20pt;
-    align: left;
-    font-weight: normal;
-}
-.titleSub
-{
-    size: 11pt;
-    align: left;
-}
-.cellInfo
-{
-    size: 8pt;
-    align: left;
+﻿<!--table
+	{mso-displayed-decimal-separator:"\.";
+	mso-displayed-thousand-separator:"\,";}
+@page
+	{margin:1.0in .25in 1.0in .25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-page-orientation:landscape;}
+	
+tr
+	{mso-height-source:auto;}
+col
+	{mso-width-source:auto;}
+br
+	{mso-data-placement:same-cell;}
+.style21
+	{mso-number-format:General;
+	text-align:general;
+	vertical-align:bottom;
+	white-space:nowrap;
+	mso-rotate:0;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	color:black;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	mso-font-charset:0;
+	border:none;
+	mso-protection:locked visible;
+	mso-style-name:"Excel Built-in Normal";}
+.style0
+	{mso-number-format:General;
+	text-align:general;
+	vertical-align:bottom;
+	white-space:nowrap;
+	mso-rotate:0;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	color:windowtext;
+	font-size:10.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	mso-font-charset:0;
+	border:none;
+	mso-protection:locked visible;
+	mso-style-name:Normal;
+	mso-style-id:0;}
+td
+	{mso-style-parent:style0;
+	padding:0px;
+	mso-ignore:padding;
+	color:windowtext;
+	font-size:18.0pt;
+	font-weight:400;
+	font-style:normal;
+	text-decoration:none;
+	font-family:Arial, sans-serif;
+	mso-font-charset:0;
+	mso-number-format:General;
+	text-align:general;
+	vertical-align:bottom;
+	border:none;
+	mso-background-source:auto;
+	mso-pattern:auto;
+	mso-protection:locked visible;
+	white-space:normal;
+	mso-rotate:0;}
+
+
+
+html {
+        overflow: auto;
 }
 
-.lineHeight200
+
+.fontSize16
 {
-    line-height: 200%;
-}
-.lineHeight80
-{
-    line-height: 80%;
-}
-.headerReport
-{
-    size: 7pt;
-    align: center;
-    font-weight: bold;
-    color: #ffffff;
-    bgcolor: #618ADA;
-}
-.cellstyle
-{
-    size: 7pt;
-    valign: middle;
-    line-height: 120%;
-}
-.grandtotal
-{
-    size: 7pt;
-    valign: middle;
-    line-height: 100%;
-    font-weight: bold;
+    font-size: 16pt;
 }
 
-.aligncenter
+.fontSize12
 {
-    align: center;
+    font-size: 16pt;
 }
 
-.alignright
+
+.border-TRBL
 {
-    align: right;
+    border: 1pt solid black;
 }
 
-.alignleft
+.border-L
 {
-    align: left;
+    border-left: 1pt solid black;
 }
 
-.col60
+.border-R
 {
-    width: 60;
+    border-right: 1pt solid black;
 }
-.col10
+.border-B
 {
-    width: 10;
-}
-.col30
-{
-    width: 30;
-}
-.col200
-{
-    width: 200;
-}
-.col250
-{
-    width: 250;
-}
-.col65
-{
-    width: 65;
-}
-.col40
-{
-    width: 40;
-}
-.col650
-{
-    width: 600;
+    border-bottom: 1pt solid black;
 }
 
-.col120
+.border-RTB
 {
-    width: 120;
+    border-right: 1pt solid black;
+    border-top: 1pt solid black;
+    border-bottom: 1pt solid black;
 }
-.col100
+.border-LTB
 {
-    width: 100;
-}
-.col80
-{
-    width: 80;
-}
-
-.col50
-{
-    width: 50;
-}
-.col380
-{
-    width: 380;
-}
-
-.col400
-{
-    width: 400;
-}
-.col300
-{
-    width: 300;
-}
-.col600
-{
-    width: 600;
-}
-.col140
-{
-    width: 140;
-}
-
-.col10percent
-{
-    width: 10%;
-}
-.col10percent
-{
-    width: 20%;
-}
-.noneBorder
-{
-    border: 0;
-}
-.colborder01
-{
-    border: 0.1;
-}
-
-.boldBorderBlack
-{
-    border: 1;
-}
-.boldBorderBlack-top
-{
-    border: 1;
-}
-.boldBorderBlack-left
-{
-    border: 1;
-}
-.roundedBoldBorderBlack
-{
-    border-top: 1;
-    border-left: 1;
-    border-right: 1;
-    border-bottom: 1;
-}
-
-.boldBorderWhite
-{
-    border: 0;
-}
-
-.negative-number
-{
-    color: Red;
-}
-
-.even
-{
-    bgcolor: #e4f2fd;
-}
-
-.product-name
-{
-    color: #C21515;
-    font-weight: bold;
-}
-
-.licensee-name
-{
-    color: #0040FF;
-    font-weight: bold;
-}
-
-.bold
-{
-    font-weight: bold;
+    border-left: 1pt solid black;
+    border-top: 1pt solid black;
+    border-bottom: 1pt solid black;
 }
 
 .bold-red
 {
+    color: Red; 
     font-weight: bold;
-    color: Red;
-}
-
-
-.pad5
-{
-    br: br;
-}
-
-.height100
-{
-    height: 100px;
-}
-
-.padding-top-none
-{
-    padding: 0;
-}
-
-.lineHeight400
-{
-    line-height: 400%;
-}
-.borderCollapse
-{
-    border-collapse: collapse;
 }

@@ -124,7 +124,7 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "_InvoiceSportsBook" };
+            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
@@ -146,7 +146,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session,"InvoiceHTML", invoiceModel);
 
             var excelCssFilePath = new List<string>();
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
 
             var workbook = new WorkbookManager();
             var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
@@ -182,7 +182,7 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "_InvoiceSportsBook"};
+            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
@@ -204,7 +204,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //InvoiceModel invoiceModel = new InvoiceModel();
 
             //invoiceModel = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "InvoiceHTML");
-            return View("PrintReport", invoiceModel);
+            return View("_Review", invoiceModel);
         }
     }
 }

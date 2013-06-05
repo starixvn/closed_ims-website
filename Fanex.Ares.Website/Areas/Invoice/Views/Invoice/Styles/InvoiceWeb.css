@@ -1,20 +1,4 @@
-﻿	.colText
+﻿td
 {
-    
-	font-size:12.0pt !important;
-
-}
-
-.colText_center 
-{
-    
-	font-size:12.0pt !important;
-
-}
-
-.colText_right
-{
-    
-	font-size:12.0pt !important;
-
+    font-size: 16.0px !important;
 }
