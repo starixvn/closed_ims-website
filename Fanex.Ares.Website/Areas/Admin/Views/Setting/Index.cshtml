@@ -44,8 +44,12 @@
     </div>
 </div>
 @Html.Action("_AddNew")
-<div id="LicenseeChargeDialog" class="model-dialog" title="Add new Licensee" style="display: none; background-color: #EDECEA;">
+<div id="LicenseeProductChargeDialog" class="model-dialog" title="Add new Licensee" style="display: none; background-color: #EDECEA;">
 @Html.Action("_LicenseeProductCharge")
+</div>
+
+<div id="LicenseeProductDiscountDialog" class="model-dialog" title="Add new Licensee" style="display: none; background-color: #EDECEA;">
+@Html.Action("_LicenseeProductDiscount")
 </div>
 
 <input id="ErrCode" type="hidden" value="@errCode" />

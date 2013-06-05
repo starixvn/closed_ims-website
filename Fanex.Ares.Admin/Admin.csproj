@@ -88,6 +88,7 @@
     <Compile Include="Criteria\Setting\IMS_LicenseeProductSettingIns.cs" />
     <Compile Include="Criteria\Setting\IMS_LicenseeProductSettingUpd.cs" />
     <Compile Include="Models\BaseModel.cs" />
+    <Compile Include="Models\Setting\LicenseeProductDiscountModel.cs" />
     <Compile Include="Models\Setting\LicenseeProductChargeModel.cs" />
     <Compile Include="Models\Setting\SettingModel.cs" />
     <Compile Include="Models\Product\ProductModel.cs" />

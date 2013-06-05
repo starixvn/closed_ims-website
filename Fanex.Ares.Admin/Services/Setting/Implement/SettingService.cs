@@ -101,6 +101,38 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listObjects;
         }
 
+        public IEnumerable<LicenseeProductDiscountModel> GetAllLicenseeProductDiscount(ICriteria criteria)
+        {
+            var listObjects = new List<LicenseeProductDiscountModel>();
+            try
+            {
+                Func<IDataReader, LicenseeProductDiscountModel> mappingFunc = r =>
+                {
+                    var res = new LicenseeProductDiscountModel
+                    {
+                        ID = Convert.ToInt32(r["ID"]),
+                        LicenseeID = Convert.ToInt32(r["LicenseeID"]),
+                        ProductID = Convert.ToInt32(r["ProductID"]),
+                        Currency = Convert.ToInt32(r["Currency"]),
+                        FromTotalAmount = Convert.ToDouble(r["FromTotalAmount"]),
+                        ToTotalAmount = Convert.ToDouble(r["ToTotalAmount"]),
+                        DiscountRate = Convert.ToDouble(r["DiscountRate"]),
+                        PartyID = Convert.ToInt32(r["PartyID"]),
+                    };
+
+                    return res;
+                };
+
+                listObjects = _repository.Fetch<LicenseeProductDiscountModel>(criteria, mappingFunc).ToList();
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listObjects;
+        }
+
         /// <summary>
         /// Using for Insert, Update, Delete
         /// </summary>

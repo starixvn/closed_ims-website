@@ -58,6 +58,12 @@ namespace Fanex.Ares.Admin.Controllers
             return Json(_settingService.GetAllLicenseeProductCharge(criteria));
         }
 
+        [HttpPost]
+        public JsonResult GetAllLicenseeProductDiscount(IMS_LicenseeProductDiscountInfoSel criteria)
+        {
+            return Json(_settingService.GetAllLicenseeProductDiscount(criteria));
+        }
+
         public PartialViewResult _AddNew()
         {
             ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID","LicenseeName", "BrandName");
@@ -114,6 +120,12 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         public PartialViewResult _LicenseeProductCharge() {
+            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
+            return PartialView();
+        }
+
+        public PartialViewResult _LicenseeProductDiscount()
+        {
             ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
             return PartialView();
         }

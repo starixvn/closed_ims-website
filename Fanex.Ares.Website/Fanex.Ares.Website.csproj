@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -228,6 +228,10 @@
     <Content Include="Areas\Admin\Views\Licensee\Styles\Licensee.css" />
     <Content Include="Areas\Admin\Views\Party\Scripts\PartyManager.js" />
     <Content Include="Areas\Admin\Views\Party\Styles\Party.css" />
+    <Content Include="Areas\Admin\Views\Product\Scripts\ProductManager.js" />
+    <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
+    <Content Include="Areas\Admin\Views\Setting\Scripts\SettingManager.js" />
+    <Content Include="Areas\Admin\Views\Setting\Styles\Setting.css" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -666,6 +670,13 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_InvoiceSportsBook.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

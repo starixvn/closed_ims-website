@@ -22,5 +22,6 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
         Hashtable ExecuteCommand(ICriteria criteria);
         IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria);
         IEnumerable<LicenseeProductChargeModel> GetAllLicenseeProductCharge(ICriteria criteria);
+        IEnumerable<LicenseeProductDiscountModel> GetAllLicenseeProductDiscount(ICriteria criteria);
     }
 }

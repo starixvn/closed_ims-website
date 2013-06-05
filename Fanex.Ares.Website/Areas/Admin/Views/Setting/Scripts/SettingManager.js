@@ -12,6 +12,7 @@ SettingManager = function () {
         settingsContainer: null,
         dlgAddNew: null,
         dlgLicenseeProductCharge: null,
+        dlgLicenseeProductDiscount: null,
         formSetting: null,
         frmPartyLicensee: null,
         errCode: null,
@@ -48,7 +49,9 @@ SettingManager = function () {
         _table.btnAddNew = $('#btnAddNew');
         _table.settingsContainer = $('#SettingsContainer');
         _table.dlgAddNew = $('#AddNewDialog');
-        _table.dlgLicenseeProductCharge = $('#LicenseeChargeDialog');
+        _table.dlgLicenseeProductCharge = $('#LicenseeProductChargeDialog');
+        _table.dlgLicenseeProductDiscount = $('#LicenseeProductDiscountDialog');
+        
         _table.formSetting = $('#formSetting');
         _table.frmPartyLicensee = $('#formPartyLicensee');
         _table.errCode = $('#ErrCode');
@@ -132,7 +135,8 @@ SettingManager = function () {
                                 { Name: "WaivedMonth", Value: item.WaivedMonth },
                                 { Name: "Currency", Value: item.Currency },
                                 { Name: "Edit", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateEditButton(cell, cellFormated); } },
-                                { Name: "LicenseeProductCharge", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductChargeButton(cell, cellFormated); } }
+                                { Name: "LicenseeProductCharge", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductChargeButton(cell, cellFormated); } },
+                                { Name: "LicenseeProductDiscount", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductDiscountButton(cell, cellFormated); } }
                             ]
                 };
 
@@ -148,6 +152,10 @@ SettingManager = function () {
             return "<input value='Charge' type='button' onclick='settingManager.LicenseeProductCharge(" + cell.Value + ")' />";
         }
 
+        var GenerateLicenseeProductDiscountButton = function (cell, cellFormated) {
+            return "<input value='Discount' type='button' onclick='settingManager.LicenseeProductDiscount(" + cell.Value + ")' />";
+        }
+
         gridOptions = {
             columns: [
                     { HeaderText: "LicenseeID", Width: 100, Name: "LicenseeID", HeaderAlign: "center", CellAlign: "left" },
@@ -160,7 +168,9 @@ SettingManager = function () {
                     { HeaderText: "Waived Month", Width: 100, Name: "WaivedMonth", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Currency", Width: 100, Name: "Currency", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Charge", Width: 100, Name: "LicenseeProductCharge", HeaderAlign: "center", CellAlign: "left"}],
+                    { HeaderText: "Charge", Width: 100, Name: "LicenseeProductCharge", HeaderAlign: "center", CellAlign: "left"},
+                    { HeaderText: "Discount", Width: 100, Name: "LicenseeProductDiscount", HeaderAlign: "center", CellAlign: "left"}],
+                    
             showTitle: true,
             //showFooter: true,
             titleInfo:
@@ -270,7 +280,7 @@ SettingManager = function () {
             modal: true,
             buttons: {
                 "Save": function () {
-                    $('#formLicenseeProductCharge > #XmlSettings').val(tableToXML());
+                    $('#formLicenseeProductCharge > #XmlSettings').val(tableToXML('formLicenseeProductCharge'));
                     $('#formLicenseeProductCharge').submit();
                     $(this).dialog("close");
                 },
@@ -302,7 +312,7 @@ SettingManager = function () {
                                     $('#ONEWorksRate', $row).val(data[i].ONEWorksRate);
                                     $('#StartDate', $row).val(moment(data[i].StartDate).format('DD MMM YYYY'));
                                 } else {
-                                    var $newRow = addNewRow();
+                                    var $newRow = addNewRow('formLicenseeProductCharge');
                                     $('#DistributorRate', $newRow).val(data[i].DistributorRate);
                                     $('#PartnerRate', $newRow).val(data[i].PartnerRate);
                                     $('#BillingCurrency', $newRow).val(data[i].BillingCurrency);
@@ -333,8 +343,83 @@ SettingManager = function () {
             }
         });
 
-        _table.dlgLicenseeProductCharge.dialog('option', 'title', 'Add Party to Licensee');
+        _table.dlgLicenseeProductCharge.dialog('option', 'title', 'Licensee Product Charge');
         _table.dlgLicenseeProductCharge.dialog('open');
+    }
+
+    self.LicenseeProductDiscount = function (rowNum) {
+        var originalDialog = _table.dlgLicenseeProductDiscount.html();
+        var row = gridOptions.bodyRows[rowNum].Columns;
+        var LicenseeID = row[_mappingColumns.LicenseeID].Value;
+        var PartyID = row[_mappingColumns.PartyID].Value;
+        var ProductID = row[_mappingColumns.ProductID].Value;
+        $('#formLicenseeProductDiscount > #LicenseeID').val(LicenseeID);
+        $('#formLicenseeProductDiscount > #ProductID').val(ProductID);
+        $('#formLicenseeProductDiscount > #PartyID').val(PartyID);
+        _table.dlgLicenseeProductDiscount.dialog({
+            autoOpen: false,
+            height: 600,
+            width: 1000,
+            modal: true,
+            buttons: {
+                "Save": function () {
+                    $('#formLicenseeProductDiscount > #XmlSettings').val(tableToXML('formLicenseeProductDiscount'));
+                    $('#formLicenseeProductDiscount').submit();
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            open: function () {
+                $.ajax({
+                    type: "POST",
+                    url: window.rootUrl + "Admin/Setting/GetAllLicenseeProductDiscount",
+                    dataType: "html",
+                    data: "LicenseeID=" + LicenseeID + "&PartyID=" + PartyID + "&ProductID=" + ProductID,
+                    beforeSend: function () {
+                        NapTicketControl.disableInput();
+                    },
+                    success: function (rs) {
+                        var data = eval(rs);
+                        if (data.length > 0) {
+                            var $row = $('#formLicenseeProductDiscount>table>tbody>tr').eq(0);
+                            // FillData
+                            for (var i = 0; i < data.length; i++) {
+                                if (i == 0) {
+                                    $('#Currency', $row).val(data[i].Currency);
+                                    $('#FromTotalAmount', $row).val(data[i].FromTotalAmount);
+                                    $('#ToTotalAmount', $row).val(data[i].ToTotalAmount);
+                                    $('#DiscountRate', $row).val(data[i].DiscountRate);
+                                } else {
+                                    var $newRow = addNewRow('formLicenseeProductDiscount');
+                                    $('#Currency', $newRow).val(data[i].Currency);
+                                    $('#FromTotalAmount', $newRow).val(data[i].FromTotalAmount);
+                                    $('#ToTotalAmount', $newRow).val(data[i].ToTotalAmount);
+                                    $('#DiscountRate', $newRow).val(data[i].DiscountRate);
+                                }
+                            }
+                        }
+                    },
+                    error: function (event, jqXHR, ajaxSettings) {
+                        alert('fail');
+                    },
+                    complete: function () {
+                        NapTicketControl.enableInput();
+                    }
+                });
+
+                $('#selected_columns option').each(function () {
+                    $(this).attr('disabled', 'disabled');
+                })
+            },
+            close: function () {
+                _table.dlgLicenseeProductDiscount.html(originalDialog);
+            }
+        });
+
+        _table.dlgLicenseeProductDiscount.dialog('option', 'title', 'Licensee Product Discount');
+        _table.dlgLicenseeProductDiscount.dialog('open');
     }
 
     var FillDataToEditForm = function (rowNum) {
@@ -363,8 +448,8 @@ SettingManager = function () {
     }
 }
 
-var addNewRow = function () {
-    var $lastRow = $('#formLicenseeProductCharge>table>tbody>tr:last');
+var addNewRow = function (formID) {
+    var $lastRow = $('#' + formID + '>table>tbody>tr:last');
     var isBlankRow = true;
     $lastRow.find(':text').each(function () {
         value = $(this).val();
@@ -382,10 +467,10 @@ var addNewRow = function () {
     return $cloneRow;
 }
 
-var deleteRow = function (e, element) {
+var deleteRow = function (e, element, formID) {
     if (e.keyCode == 46)
         if (confirm('Do you want to delete this row?'))
-            if ($('#formLicenseeProductCharge>table>tbody>tr').length > 1) {
+            if ($('#' + formID + '>table>tbody>tr').length > 1) {
                 $(element).remove();
             }
             else {
@@ -393,14 +478,14 @@ var deleteRow = function (e, element) {
             }
 }
 
-var tableToXML = function () {
-    var $rowCollection = $('#formLicenseeProductCharge>table>tbody>tr');
+var tableToXML = function (formID) {
+    var $rowCollection = $('#' + formID + '>table>tbody>tr');
     var xmlData = "<Settings>";
-    $('#formLicenseeProductCharge>table>tbody>tr').each(function () {
+    $('#' + formID + '>table>tbody>tr').each(function () {
         xmlData += "<Setting>";
-        var licenseeID = $('#formLicenseeProductCharge>#LicenseeID').val();
-        var productID = $('#formLicenseeProductCharge>#ProductID').val();
-        var partyID = $('#formLicenseeProductCharge>#PartyID').val();
+        var licenseeID = $('#' + formID + '>#LicenseeID').val();
+        var productID = $('#' + formID + '>#ProductID').val();
+        var partyID = $('#' + formID + '>#PartyID').val();
         xmlData += "<LicenseeID>";
         xmlData += licenseeID.toString();
         xmlData += "</LicenseeID>";
