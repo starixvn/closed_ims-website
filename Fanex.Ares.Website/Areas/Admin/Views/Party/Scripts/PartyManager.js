@@ -243,7 +243,7 @@ PartyManager = function () {
                 }
             },
             open: function () {
-                
+
             },
             close: function () {
                 _table.dlgAddNew.html(originalDialog);
@@ -281,7 +281,7 @@ PartyManager = function () {
                 }
             },
             open: function () {
-                
+
             },
             close: function () {
                 _table.dlgAddNew.html(originalDialog);
@@ -304,12 +304,21 @@ PartyManager = function () {
             modal: true,
             buttons: {
                 "Save": function () {
-                    var listLicenseeID = "";
+                    var xmlData = "<Settings>";
                     $('#selected_columns option').each(function () {
-                        listLicenseeID += $(this).attr('value') + ",";
+                        xmlData += "<Setting>";
+                        xmlData += "<Party>";
+                        xmlData += partyID.toString();
+                        xmlData += "</Party>";
+                        xmlData += "<Licensee>";
+                        xmlData += $(this).attr('value');
+                        xmlData += "</Licensee>";
+                        xmlData += "</Setting>";
                     })
 
-                    $('#formPartyLicensee > #ListLicenseeID').val(listLicenseeID);
+                    xmlData += "</Settings>";
+
+                    $('#formPartyLicensee > #XmlSettings').val(xmlData);
                     $('#formPartyLicensee').submit();
                     $(this).dialog("close");
                 },

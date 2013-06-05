@@ -38,6 +38,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string InvoiceName { get; set; }
         public List<Statement> StatementList { get; set; } // List statement
 
+        public double TotalAmount { get; set; }
+
         public string Note { get; set; }
 
         public List<string> HTMLReportList { get; set; }
@@ -58,7 +60,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public int StatementID { get; set; }
 
-        public double TotalAmount { get; set; }
+        
 
         public Statement()
         {

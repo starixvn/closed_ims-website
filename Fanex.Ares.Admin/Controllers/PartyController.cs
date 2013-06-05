@@ -7,26 +7,17 @@
 //   <change who="Phillip.Truong" date="2013.06.03">Created</change>
 // </history>
 
-using System.Web;
-using System.Web.Mvc;
+using System;
+using System.Collections;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Web.Mvc;
 using Fanex.Ares.Admin.Criteria;
-using Fanex.Ares.Admin.Services.Implement;
-using Fanex.Ares.Admin.Services.Interface;
-using Fanex.Ares.Core.Web;
-using Fanex.NAP.Core.Web.Attribute;
-using Fanex.NAP.Core.Business;
-using Fanex.Ares.Core.Web.Security;
-using Fanex.Ares.Admin.Models.Party;
 using Fanex.Ares.Admin.Services.Party.Implement;
 using Fanex.Ares.Admin.Services.Party.Interface;
-using Fanex.Ares.Admin.Common;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
 using Fanex.Ares.Core.Web.Controllers;
-using System.IO;
-using System;
+using Fanex.Ares.Core.Web.Security;
+using Fanex.NAP.Core.Web.Attribute;
 
 namespace Fanex.Ares.Admin.Controllers
 {
@@ -50,23 +41,27 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllParties()
         {
             return Json(_partyService.GetAllParties(new IMS_PartyInfoSel()));
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllPartyTypes()
         {
             return Json(_partyService.GetAllPartyTypes(new IMS_PartyInfoSel()));
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             ViewBag.lstPartyTypes = _partyService.GetAllPartyTypes(new IMS_PartyTypeSel());
             return PartialView();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _PartyLicensee(IMS_LicenseeSelByParty criteria)
         {
             ViewBag.lstAvailableLicensee = _partyService.GetAvailableOrSelectedLicensees(new IMS_AvailableLicenseeSelByParty() { PartyID = criteria.PartyID });
@@ -77,102 +72,26 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateNewparty(IMS_PartyIns criteria)
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        public ActionResult CreateNewParty(IMS_PartyIns criteria)
         {
-            var rs = new Hashtable();
-            if (Request.Files.Count <= 0)
-            {
-                criteria.Logo = string.Empty;
-                rs = _partyService.ExecuteCommand(criteria);
-            }
-            else
-            {
-                string directory = Server.MapPath("~\\App_Data\\Logo\\") + criteria.PartyName + "\\";
-                string fileName = "Logo" + Path.GetExtension(Request.Files[0].FileName);
-                criteria.Logo = fileName;
-                rs = _partyService.ExecuteCommand(criteria);
-
-                if (Convert.ToInt32(rs["ErrCode"]) == 0)
-                {
-                    if (!Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
-                    Request.Files[0].SaveAs(Path.Combine(directory, fileName));
-                }
-            }
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _partyService.CreateUpdateParty(criteria, Request);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateParty(IMS_PartyInfoUpd criteria)
         {
-            var rs = new Hashtable();
-            if (Request.Files.Count <= 0)
-            {
-                criteria.Logo = string.Empty;
-                rs = _partyService.ExecuteCommand(criteria);
-            }
-            else
-            {
-                string directory = Server.MapPath("~\\App_Data\\Logo\\") + criteria.PartyName + "\\";
-                string fileName = "Logo" + Path.GetExtension(Request.Files[0].FileName);
-                string fullFileName = Path.Combine(directory, fileName);
-                criteria.Logo = fileName;
-                rs = _partyService.ExecuteCommand(criteria);
-
-                if (Convert.ToInt32(rs["ErrCode"]) == 0)
-                {
-                    if (!Directory.Exists(directory))
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-
-                    if (System.IO.File.Exists(fullFileName))
-                    {
-                        System.IO.File.Delete(fullFileName);
-                    }
-
-                    Request.Files[0].SaveAs(fullFileName);
-                }
-            }
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _partyService.CreateUpdateParty(criteria, Request);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreatePartyLicensee(IMS_LicenseePartyMultipleIns criteria)
         {
-            var rs = new Hashtable();
-            if (!string.IsNullOrEmpty(criteria.ListLicenseeID))
-            {
-                var arrayLicensees = criteria.ListLicenseeID.Trim(',').Split(',');
-
-                var xml = "<Settings>";
-                foreach (var licensee in arrayLicensees)
-                {
-                    xml += "<Setting>";
-                    xml += "<Party>";
-                    xml += criteria.PartyID.ToString();
-                    xml += "</Party>";
-                    xml += "<Licensee>";
-                    xml += licensee.ToString();
-                    xml += "</Licensee>";
-                    xml += "</Setting>";
-                }
-
-                xml += "</Settings>";
-
-                criteria.XmlSettings = xml;
-                rs = _partyService.ExecuteCommand(criteria);
-            }
-
-            TempData["Result"] = rs;
-
+            TempData["Result"] = _partyService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
     }

@@ -228,10 +228,6 @@
     <Content Include="Areas\Admin\Views\Licensee\Styles\Licensee.css" />
     <Content Include="Areas\Admin\Views\Party\Scripts\PartyManager.js" />
     <Content Include="Areas\Admin\Views\Party\Styles\Party.css" />
-    <Content Include="Areas\Admin\Views\Product\Scripts\ProductManager.js" />
-    <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
-    <Content Include="Areas\Admin\Views\Setting\Scripts\SettingManager.js" />
-    <Content Include="Areas\Admin\Views\Setting\Styles\Setting.css" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -241,15 +237,13 @@
     <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\BCH.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Checkbox.gif" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
@@ -431,6 +425,7 @@
     <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.js" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiradioselect.nlevel_new.js" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.css" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\_Libs\Utils\html5shiv.js" />
@@ -654,7 +649,6 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Inoive-pdf.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
@@ -668,15 +662,8 @@
     <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_InvoiceSportsBook.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-DataFees.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -751,6 +738,7 @@
     <Content Include="Views\Common\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Invoice\Views\Invoice\Template\BHC\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />

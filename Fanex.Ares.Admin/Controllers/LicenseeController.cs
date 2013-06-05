@@ -50,16 +50,19 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicensees()
         {
             return Json(_licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()));
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             return PartialView();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _PartyLicensee(IMS_PartySelByLicensee criteria)
         {
             ViewBag.lstAvailableParties = _licenseeService.GetAvailableOrSelectedParties(new IMS_AvailablePartySelByLicensee() { LinceseeID = criteria.LicenseeID });
@@ -73,9 +76,7 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewLicensee(IMS_LicenseeIns criteria)
         {
-            var rs = new Hashtable();
-            rs = _licenseeService.ExecuteCommand(criteria);
-            TempData["Result"] = rs;
+            TempData["Result"] = _licenseeService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 
@@ -83,41 +84,15 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateLicensee(IMS_LicenseeInfoUpd criteria)
         {
-            var rs = new Hashtable();
-            rs = _licenseeService.ExecuteCommand(criteria);
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _licenseeService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreatePartyLicensee(IMS_LicenseePartyMultipleIns criteria)
         {
-            var rs = new Hashtable();
-            if (!string.IsNullOrEmpty(criteria.ListPartyID))
-            {
-                var arrayParties = criteria.ListPartyID.Trim(',').Split(',');
-
-                var xml = "<Settings>";
-                foreach (var party in arrayParties)
-                {
-                    xml += "<Setting>";
-                    xml += "<Party>";
-                    xml += party.ToString();
-                    xml += "</Party>";
-                    xml += "<Licensee>";
-                    xml += criteria.LicenseeID.ToString();
-                    xml += "</Licensee>";
-                    xml += "</Setting>";
-                }
-
-                xml += "</Settings>";
-
-                criteria.XmlSettings = xml;
-                rs = _licenseeService.ExecuteCommand(criteria);
-            }
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _licenseeService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
     }

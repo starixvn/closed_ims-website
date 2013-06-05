@@ -317,13 +317,13 @@ SettingManager = function () {
                                     $('#PartnerRate', $newRow).val(data[i].PartnerRate);
                                     $('#BillingCurrency', $newRow).val(data[i].BillingCurrency);
                                     $('#ChargeType', $newRow).val(data[i].ChargeType);
-                                    $('#EndDate', $newRow).val(moment(data[i].EndDate).format('DD MMM YYYY'));
+                                    $('#EndDate' + (i + 1), $newRow).val(moment(data[i].EndDate).format('DD MMM YYYY'));
                                     $('#ONEWorksRate', $newRow).val(data[i].ONEWorksRate);
-                                    $('#StartDate', $newRow).val(moment(data[i].StartDate).format('DD MMM YYYY'));
+                                    $('#StartDate' + (i + 1), $newRow).val(moment(data[i].StartDate).format('DD MMM YYYY'));
                                 }
                             }
 
-                            $('.hasDatePicker').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
+                            $('.date').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
                         }
                     },
                     error: function (event, jqXHR, ajaxSettings) {
@@ -459,8 +459,11 @@ var addNewRow = function (formID) {
 
     if (!isBlankRow) {
         var $cloneRow = $lastRow.clone();
+        var rowNum = parseInt($cloneRow.find('td.No').html()) + 1
         $cloneRow.find(":text").val('');
-        $cloneRow.find('td.No').html(parseInt($cloneRow.find('td.No').html()) + 1);
+        $cloneRow.find('td.No').html(rowNum);
+        $cloneRow.find('input[name="StartDate"]:eq(0)').attr('id', 'StartDate' + rowNum.toString());
+        $cloneRow.find('input[name="EndDate"]:eq(0)').attr('id', 'EndDate' + rowNum.toString());
         $lastRow.after($cloneRow);
 
     }
@@ -501,8 +504,13 @@ var tableToXML = function (formID) {
                 var name = $(this).attr('name');
                 var value = $(this).val();
                 xmlData += "<" + name + ">";
-                xmlData += value.toString();
+                if (name.toLowerCase().contains('date')) {
+                    xmlData += moment(value).format('MM/DD/YYYY');
+                } else {
+                    xmlData += value.toString();
+                }
                 xmlData += "</" + name + ">";
+
             });
         });
 
