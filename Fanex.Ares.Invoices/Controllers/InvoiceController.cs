@@ -204,7 +204,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //InvoiceModel invoiceModel = new InvoiceModel();
 
             //invoiceModel = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "InvoiceHTML");
-            return View("PrintReport", invoiceModel);
+            return View("_Review", invoiceModel);
         }
     }
 }
