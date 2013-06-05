@@ -55,8 +55,9 @@
     });
 
     $("#ddlOperator").change(function () {
-        GetLicensees();
+        CreatingInvoice.GetLicensees();
     });
+
     //------binding data
     $.each(operatorListModel, function (i, item) {
         $('#ddlOperator').append('<option value="'
@@ -66,34 +67,19 @@
                                  + '</option>');
     });
 
-    GetLicensees();
+    CreatingInvoice.GetLicensees();
 
+
+
+    NapAres.NapAresPopUp = $('#dialog-popup');
 });
 
 function Submit() {
-    NapTicketControl.disableInput();
-    $.ajax({
-        url: domain + "Invoice/Invoice/GetInvoice",
-        type: "POST",
-        data: 'PartyID=' + $('#ddlOperator').val() + '&LicenseeID=' + $('#ddlLicensee').val() +
-                '&Products=1,2,3,5' + '&FromDate=' + $('#FromDatePicker').val() + '&ToDate=' + $('#ToDatePicker').val() +
-                '&BillingCurrency=' + $('#CurrencyID').val(),
-        success: function (data, textStatus, jqXHR) {
-            $('#parentContainer').html(data);
-            $('#pdfID').button();
-            $('#pdfID').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
-        },
-        complete: function (jqXHR, textStatus) {
-            NapTicketControl.enableInput();
-        }
-    });
+    CreatingInvoice.GetNewInvoiceData();
 }
 
 function GetInvoiceType() {
-    NapTicketControl.disableInput();
+    NapAres.disableInput();
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceType",
         type: "POST",
@@ -146,7 +132,7 @@ function GetInvoiceType() {
             try { parent.jQuery.unblockUI(); } catch (e) { }
         },
         complete: function (jqXHR, textStatus) {
-            NapTicketControl.enableInput();
+            NapAres.enableInput();
         }
     });
 
@@ -154,11 +140,11 @@ function GetInvoiceType() {
 }
 
 function GetInvoiceNo() {
-    NapTicketControl.disableInput();
+    NapAres.disableInput();
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceNo",
         type: "POST",
-        data: 'PartyId=' + $('#ddlOperator').val() + '&LicenseeID=' + $('#ddlLicensee').val() + '&InvoiceTypeID=1',
+        data: 'PartyId=' + $('#ddlOperator').val() + '&LicenseeId=' + $('#ddlLicensee').val() + '&InvoiceTypeID=1',
         success: function (data, textStatus, jqXHR) {
             $('#invoiceNo').val(data);
         },
@@ -166,36 +152,135 @@ function GetInvoiceNo() {
             alert("fail");
         },
         complete: function (jqXHR, textStatus) {
-            NapTicketControl.enableInput();
+            NapAres.enableInput();
         }
     });
 }
 
-function GetLicensees() {
-    NapTicketControl.disableInput();
-    $('#ddlLicensee').html('');
-    $.ajax({
-        url: domain + "Invoice/Invoice/GetLicenseesByParty",
-        type: "POST",
-        data: 'PartyId=' + $('#ddlOperator').val(),
-        success: function (data, textStatus, jqXHR) {
-            if (data && data.length > 0) {
-                $.each(data, function (i, item) {
-                    $('#ddlLicensee').append('<option value="'
+var CreatingInvoice = {
+    Licensees: [],
+    FromDate: '',
+    ToDate: '',
+    DueDate: '',
+    Operator: null,
+    Licensee: null,
+    InvoiceType: null,
+    Currency: null,
+    Products: '',
+    InvoiceNo: '',
+    InvoiceName: '',
+    GetLicensees: function () {
+        NapAres.disableInput();
+        $('#ddlLicensee').html('');
+        $.ajax({
+            url: domain + "Invoice/Invoice/GetLicenseesByParty",
+            type: "POST",
+            data: 'PartyId=' + $('#ddlOperator').val(),
+            success: function (data, textStatus, jqXHR) {
+                if (data && data.length > 0) {
+                    $.each(data, function (i, item) {
+                        $('#ddlLicensee').append('<option value="'
                                  + item.LicenseeID
                                  + '">'
                                  + item.BrandName
                                  + '</option>');
-                });
+                    });
 
+                }
+                CreatingInvoice.Licensees = data;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("fail");
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
             }
+        });
+    },
+    GetFilteringInfo: function () {
+        var Operator = operatorListModel[$("#ddlOperator").prop("selectedIndex")];
+        var Licensee = CreatingInvoice.Licensees[$("#ddlLicensee").prop("selectedIndex")];
 
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
-        },
-        complete: function (jqXHR, textStatus) {
-            NapTicketControl.enableInput();
-        }
-    });
+        CreatingInvoice.Operator = Operator;
+        CreatingInvoice.Licensee = Licensee;
+        CreatingInvoice.FromDate = $('#FromDatePicker').val();
+        CreatingInvoice.ToDate = $('#ToDatePicker').val();
+        CreatingInvoice.DueDate = $('#DueDatePicker').val();
+        CreatingInvoice.InvoiceType = { InvoiceTypeID: 1, InvoiceTypeName: 'Software-Data Fees' };
+        CreatingInvoice.Currency = { CurrencyID: $('#CurrencyID').val(), CurrencyName: $('#CurrencyID option:selected').text() };
+        CreatingInvoice.InvoiceNo = $('#invoiceNo').val();
+        CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
+        CreatingInvoice.Products = '1,2,3,5';
+    },
+    GetNewInvoiceData: function () {
+        NapAres.disableInput();
+        CreatingInvoice.GetFilteringInfo();
+
+        $.ajax({
+            url: domain + "Invoice/Invoice/GetInvoice",
+            type: "POST",
+            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
+                '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
+                '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
+            success: function (data, textStatus, jqXHR) {
+                $('#parentContainer').html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("fail");
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
+    },
+    SaveInvoice: function () {
+        
+        invoiceInfoModel.Operator = CreatingInvoice.Operator;
+        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+        invoiceInfoModel.Product = CreatingInvoice.Products;
+        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+        var message = '';
+        $.ajax({
+            url: domain + "Invoice/Invoice/SaveInvoice",
+            data: '{"invoiceModel":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    if (data.ErrorCode == 0) {
+                        $('#saveID').addClass('ui-state-disabled');
+                        $('#btnGenerate').addClass('ui-state-disabled');
+                        $('#reviewID').removeClass('ui-state-disabled');
+                        $('#pdfID').removeClass('ui-state-disabled');
+                        
+                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
+                    }
+                    else {
+                        NapAres.Helper.showMsgBox(data);
+                    }
+                }
+                else {
+                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });                    
+                }
+
+                NapAres.popUp.removeHighLight();
+                NapAres.popUp.show(message, 'btnGenerate');
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("fail");
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
+
+    }
+
 }

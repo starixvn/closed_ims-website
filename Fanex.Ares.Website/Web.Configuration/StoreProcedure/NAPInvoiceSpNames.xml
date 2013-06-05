@@ -40,5 +40,7 @@
     <Setting Key="IMS_InvoiceTypeSel" SpName="IMS_InvoiceTypeSel" DbName="invoice" />
     <Setting Key="IMS_NewInvoiceNoSel" SpName="IMS_NewInvoiceNoSel" DbName="invoice" />
     <Setting Key="IMS_NewInvoiceItemsSel" SpName="IMS_NewInvoiceItemsSel" DbName="invoice" />
+    <Setting Key="IMS_InvoiceIns" SpName="IMS_InvoiceIns" DbName="invoice" />
+    <Setting Key="IMS_InvoiceItemsIns" SpName="IMS_InvoiceItemsIns" DbName="invoice" />
   </Function>
 </Functions>

@@ -206,5 +206,12 @@ namespace Fanex.Ares.Invoice.Controllers
             //invoiceModel = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "InvoiceHTML");
             return View("PrintReport", invoiceModel);
         }
+
+        [HttpPost]
+        public JsonResult SaveInvoice(InvoiceModel invoiceModel)
+        {
+            var insertResult = _invoiceService.SaveInvoice(invoiceModel);
+            return Json(insertResult);
+        }
     }
 }

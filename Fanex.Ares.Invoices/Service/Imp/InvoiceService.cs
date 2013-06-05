@@ -16,6 +16,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using Fanex.Common;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using System.Linq;
+using System.Text;
+    using System.Collections;
+    using Fanex.Ares.Core.Web;
 
     /// <summary>
     /// TODO: Update summary.
@@ -216,6 +219,63 @@ namespace Fanex.Ares.Invoice.Service.Imp
             }
 
             return invoice;
+        }
+
+        public Core.Models.Result SaveInvoice(InvoiceModel invoiceModel)
+        {
+            var result = new Core.Models.Result();
+
+            try
+            {
+                double totalAmount = 0;
+                var invoiceXmlFormat = new StringBuilder();
+                
+                invoiceXmlFormat.Append("<Invoice>");
+                invoiceXmlFormat.Append("   <InvoiceNo>" + invoiceModel.InvoiceNo + "</InvoiceNo>");
+                invoiceXmlFormat.Append("   <InvoiceName>" + invoiceModel.InvoiceName + "</InvoiceName>");
+                invoiceXmlFormat.Append("   <PartyID>" + invoiceModel.Operator.PartyID + "</PartyID>");
+                invoiceXmlFormat.Append("   <PartyName>" + invoiceModel.Operator.PartyFullName + "</PartyName>");
+                invoiceXmlFormat.Append("   <LicenseeID>" + invoiceModel.Licensee.LicenseeID + "</LicenseeID>");
+                invoiceXmlFormat.Append("   <LicenseeName>" + invoiceModel.Licensee.LicenseeName + "</LicenseeName>");
+                invoiceXmlFormat.Append("   <InvoiceType>" + invoiceModel.InvoiceType.InvoiceTypeID + "</InvoiceType>");
+                invoiceXmlFormat.Append("   <InvoiceTypeName>" + invoiceModel.InvoiceType.InvoiceTypeName + "</InvoiceTypeName>");
+                invoiceXmlFormat.Append("   <Products>" + invoiceModel.Product + "</Products>");
+                invoiceXmlFormat.Append("   <Currency>" + invoiceModel.Currency + "</Currency>");
+                invoiceXmlFormat.Append("   <CurrencyName>" + invoiceModel.CurrencyName + "</CurrencyName>");
+                invoiceXmlFormat.Append("   <FromDate>" + invoiceModel.FromDate + "</FromDate>");
+                invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
+                invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
+                invoiceXmlFormat.Append("   <InvoiceItems>");
+                foreach (Statement statement in invoiceModel.StatementList)
+                {
+                    foreach (StatementDetail statementDetail in statement.StatementDetailList)
+                    {
+                        invoiceXmlFormat.Append("<InvoiceItem>");
+                        invoiceXmlFormat.Append("<Description>" + statementDetail.Description + "</Description>");
+                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
+                        invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
+                        invoiceXmlFormat.Append("</InvoiceItem>");
+                        totalAmount += statementDetail.Amount;
+                    }
+                }
+                invoiceXmlFormat.Append("   </InvoiceItems>");
+                invoiceXmlFormat.Append("</Invoice>");
+
+                var criteria = new IMS_InvoiceInsCriteria();
+                criteria.AdminID = AppSession.CurrentUser.Id;
+                criteria.XMLInvoice = invoiceXmlFormat.ToString();
+
+                var hashResult = _repository.ExecuteCommand(criteria);
+                result.ErrorCode = Convert.ToInt32(hashResult["errcode"]);
+                result.ErrorMessage = hashResult["errmsg"].ToString();
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+                result.ErrorCode = 100;
+                result.ErrorMessage = ex.Message;
+            }
+            return result;
         }
     }
 }

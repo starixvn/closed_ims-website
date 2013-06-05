@@ -29,14 +29,13 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public DateTime DueDate { get; set; }
 
-        public string Currency { get; set; }
+        public int Currency { get; set; }
+        public string CurrencyName { get; set; }
 
         public InvoiceType InvoiceType { get; set; }
-
         public string Product { get; set; }
-
         public int InvoiceNo { get; set; }
-
+        public string InvoiceName { get; set; }
         public List<Statement> StatementList { get; set; } // List statement
 
         public string Note { get; set; }

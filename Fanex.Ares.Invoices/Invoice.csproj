@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_InvoiceItemInsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceNoSelCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceTypeCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoieTypesSelCriteria.cs" />
