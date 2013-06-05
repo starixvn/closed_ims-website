@@ -1,0 +1,76 @@
+﻿@using System.Collections;
+@using (Html.BeginForm("CreateLicenseeProductCharge", "Setting", FormMethod.Post, new { id = "formLicenseeProductCharge" }))
+{
+    <table border="1" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>
+                    No
+                </th>
+                <th>
+                    Distributer Rate
+                </th>
+                <th>
+                    Partner Rate
+                </th>
+                <th>
+                    ONEWorks Rate
+                </th>
+                <th>
+                    Start Date
+                </th>
+                <th>
+                    End Date
+                </th>
+                <th>
+                    Charge Type
+                </th>
+                <th>
+                    Billing Currency
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr onkeyup="deleteRow(event, this, 'formLicenseeProductCharge')">
+                <td class="No">
+                    1
+                </td>
+                <td>
+                    <input style="float: left; width: 80%; text-align: right;" type="text" id="DistributorRate"
+                        name="DistributorRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />&nbsp%
+                </td>
+                <td>
+                    <input style="float: left; width: 80%; text-align: right;" type="text" id="PartnerRate"
+                        name="PartnerRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />&nbsp%
+                </td>
+                <td>
+                    <input style="float: left; width: 80%; text-align: right;" type="text" id="ONEWorksRate"
+                        name="ONEWorksRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />&nbsp%
+                </td>
+                <td>
+                    <input type="text" id="StartDate" class="date" name="StartDate" value="" />
+                </td>
+                <td>
+                    <input type="text" id="EndDate" class="date" name="EndDate" value="" />
+                </td>
+                <td>
+                    <select id="ChargeType" name="ChargeType">
+                        <option value="1">Distributor's revenue</option>
+                        <option value="2">GrossWin</option>
+                        <option value="3">NetWin</option>
+                    </select>
+                </td>
+                <td>
+                    @Html.DropDownList("BillingCurrency", (IEnumerable<SelectListItem>)ViewBag.lstCurrencies, new { id = "BillingCurrency", style = "width:100%" })
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+    <input type="button" id="btnAddRow" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+        value="Add row" style="float: right" onclick="addNewRow('formLicenseeProductCharge');" />
+    <input type="hidden" id="PartyID" name="PartyID" value="@ViewBag.PartyID" />
+    <input type="hidden" id="LicenseeID" name = "LicenseeID" value="@ViewBag.LicenseeID" />
+    <input type="hidden" id="ProductID" name = "ProductID" value="@ViewBag.ProductID" />
+    <input type="hidden" id="XmlSettings" name="XmlSettings" value="" />
+}

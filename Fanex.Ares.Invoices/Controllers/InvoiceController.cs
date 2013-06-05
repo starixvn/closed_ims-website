@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="LicenseeSettlementController.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="InvoiceController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -14,24 +14,20 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using System.Web.Mvc;
-using Fanex.Ares.Core.Utils;
+using Fanex.Ares.Core.Criteria;
+using Fanex.Ares.Core.Extensions;
+using Fanex.Ares.Core.Services.Impl;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Core.Web.Security;
-using Fanex.Common.Extensions;
-using Fanex.Core.PdfHelper;
-using Fanex.Ares.Core.Criteria;
-using Fanex.Ares.Report.Criteria;
+using Fanex.Ares.Invoice.Criteria.Invoice;
+using Fanex.Ares.Invoice.Models.Invoice;
+using Fanex.Ares.Invoice.Service.Imp;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using Fanex.Ares.Report.Services.Interface;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-using Fanex.Ares.Core.Services.Impl;
-using Fanex.Ares.Core.Extensions;
-using Fanex.Workbooks;
+using Fanex.Core.PdfHelper;
 using Fanex.NAP.Core.Web.Attribute;
-
-using Fanex.Ares.Invoice.Models.Invoice;
-using Fanex.Ares.Invoice.Service.Imp;
-using  Fanex.Ares.Core.Models;
+using Fanex.Workbooks;
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -64,33 +60,39 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            ViewBag.ListLicenseeEx = _service.GetAllLicenseesEx();
-            ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = 0 });
-            ViewBag.ListCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
-            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
-            ViewBag.ListOperator = _invoiceService.GetOperator(new IMS_OperatorSelCriteria());
+            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorSelCriteria() { PartyID = 0});           
+            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());            
             return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetLicenseesByParty(int partyID)
+        {
+            List<Licensee> licensees = new List<Licensee>();
+            licensees = _invoiceService.GeLicenseesList(new IMS_LicenseeSelByPartyCriteria() { PartyID = partyID });
+            return Json(licensees);
         }
 
         [HttpPost]
         public JsonResult GetInvoiceType(int licenseeID)
         {
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
-            invoiceTypeList = _service.GetInvoieType(new IMS_InvoieTypesSel() { LicenseeId = licenseeID });
+            invoiceTypeList = _invoiceService.GetInvoieType(new IMS_InvoieTypesSelCriteria() { LicenseeId = licenseeID });
             return Json(invoiceTypeList);
         }
 
         [HttpPost]
-        public JsonResult GetInvoiceNo(IMS_InvoiceNoSel criteria)
+        public JsonResult GetInvoiceNo(IMS_InvoiceNoSelCriteria criteria)
         {
-            int invoiceNo = _service.GetInvoieNo(criteria);
+            int invoiceNo = _invoiceService.GetInvoieNo(criteria);
             return Json(invoiceNo);
         }
 
-
-        public PartialViewResult GetInvoice()
+        
+        public PartialViewResult GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
         {
-            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml");
+            var model = _invoiceService.GetInvoice(criteria);
+            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
 

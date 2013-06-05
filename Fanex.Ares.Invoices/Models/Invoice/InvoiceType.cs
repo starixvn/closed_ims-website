@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Ares.Core.Models
+namespace Fanex.Ares.Invoice.Models.Invoice
 {
     using System;
     using System.Collections.Generic;

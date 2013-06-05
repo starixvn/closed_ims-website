@@ -1,7 +1,10 @@
 ﻿@using Fanex.Ares.Invoice.Models.Invoice;
 @{
     InvoiceModel model = new InvoiceModel();
+    model = Model;
     int index = 0;
+    double totalAmount = 0;
+    
 }
 <style type="text/css">
     table, th, td
@@ -97,11 +100,12 @@
                             for (int j = 0; j < state.StatementDetailList.Count; j++)
                             {
                                 StatementDetail detail = state.StatementDetailList[j];
+                                totalAmount += detail.Amount;
                             <tr style="width: 100%; text-align: center;">
                                 @if (j == 0)
                                 {
                                     <td rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
-                                        @state.StatementID
+                                        @(i + 1)
                                         <br /><br /><br /><br /><br />
                                           <a style="text-decoration:underline;cursor: pointer; font-style:italic;">Detail</a>
                                     </td>
@@ -136,7 +140,7 @@
                                 TOTAL AMOUNT
                             </td>
                             <td style="width: 15%; text-align: center; font-weight: bold;">
-                                EUR 50,566.85
+                                EUR @totalAmount
                             </td>
                         </tr>
                     </tbody>

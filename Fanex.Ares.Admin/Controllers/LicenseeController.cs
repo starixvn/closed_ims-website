@@ -1,8 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PartyController.cs" company="Microsoft">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------
+// <copyright file="LicenseeController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.06.03">Created</change>
+// </history>
 
 using System.Web;
 using System.Web.Mvc;
@@ -67,6 +70,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewLicensee(IMS_LicenseeIns criteria)
         {
             var rs = new Hashtable();
@@ -76,6 +80,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateLicensee(IMS_LicenseeInfoUpd criteria)
         {
             var rs = new Hashtable();

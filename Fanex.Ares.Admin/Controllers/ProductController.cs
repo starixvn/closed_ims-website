@@ -1,8 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ProductController.cs" company="Microsoft">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------
+// <copyright file="ProductController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// -----------------------------------------------------------------------
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.06.03">Created</change>
+// </history>
 
 using System.Web;
 using System.Web.Mvc;

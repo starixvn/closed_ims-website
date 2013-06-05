@@ -10,20 +10,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.Ares.Core.Services.Interface;
-using Fanex.Common.Helper;
-using Fanex.NAP.Framework.Data;
-using Fanex.Caching;
-using System.Web.Mvc;
 using System.Data;
+using System.Diagnostics.CodeAnalysis;
+using System.Web.Mvc;
 using Fanex.Ares.Core.Criteria;
-using Fanex.Ares.Core.Repository.Impl;
-using Fanex.NAP.Core.Web.Context;
-using Fanex.NAP.Core.Web.Session;
 using Fanex.Ares.Core.Extensions;
 using Fanex.Ares.Core.Models;
+using Fanex.Ares.Core.Repository.Impl;
+using Fanex.Ares.Core.Services.Interface;
+using Fanex.Caching;
 using Fanex.Common;
+using Fanex.Common.Helper;
+using Fanex.NAP.Core.Web.Context;
+using Fanex.NAP.Core.Web.Session;
+using Fanex.NAP.Framework.Data;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
@@ -217,127 +217,7 @@ namespace Fanex.Ares.Core.Services.Impl
 
             return listProducts;
         }
-
-        public IEnumerable<Operator> GetOperator(IMS_OperatorSelCriteria criteria)
-        {
-            IEnumerable<Operator> operatorProducts = new List<Operator>();
-            try
-            {
-                Func<IDataReader, Operator> mappingFunc = r =>
-                {
-                    return new Operator
-                    {
-                        PartyID = Converter.To<int>(r["PartyID"]),
-                        PartyName = Converter.To<string>(r["PartyName"]),
-                        PartyType = Converter.To<int>(r["PartyType"]),
-                        Description = Converter.To<string>(r["Description"]),
-                        Company = Converter.To<string>(r["Company"]),
-                        AccountNumber = Converter.To<string>(r["AccountNumber"]),
-                        AccountName = Converter.To<string>(r["AccountName"]),
-                        BankName = Converter.To<string>(r["BankName"]),
-                        Benificiary = Converter.To<string>(r["Benificiary"]),
-                        IBAN = Converter.To<string>(r["IBAN"]),
-                        SwiftCode = Converter.To<string>(r["SwiftCode"]),
-                        CorrespondentBank = Converter.To<string>(r["CorrespondentBank"]),
-                        AttnName = Converter.To<string>(r["AttnName"]),
-                        To1 = Converter.To<string>(r["To1"]),
-                        To2 = Converter.To<string>(r["To2"]),
-                        Logo = Converter.To<string>(r["Logo"]),
-                        Phone = Converter.To<string>(r["Phone"]),
-                        MobilePhone = Converter.To<string>(r["MobilePhone"]),
-                        Fax = Converter.To<string>(r["Fax"]),
-                        Email = Converter.To<string>(r["Email"])
-                    };
-                };
-
-                operatorProducts = _repository.Fetch<Operator>(criteria, mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-
-            return operatorProducts;
-        }
-
-        public List<InvoiceType> GetInvoieType(IMS_InvoieTypesSel criteria)
-        {
-             List<InvoiceType> invoiceTypeList= new List<InvoiceType>();
-
-            try
-            {
-                var rawData = GetListData<dynamic>(criteria);
-                if (rawData != null)
-                {
-                    foreach (var row in rawData)
-                    {
-                        int id = (int)row.invoiceTypeID;
-                        bool isExist = false;
-                       
-                        foreach (InvoiceType invoiceType in invoiceTypeList)
-                        {
-                            if (id == invoiceType.InvoiceTypeID)
-                            {
-                                invoiceType.ProductList.Add(new Product
-                                {
-                                    ProductID = (int)row.productID,
-                                    ProductName = row.productName,
-                                });
-                                isExist = true;
-                            }
-                        }
-
-                        if (!isExist)
-                        {
-                            List<Product> productList = new List<Product>();
-                            productList.Add(new Product
-                            {
-                                ProductID = (int)row.productID,
-                                ProductName = row.productName,
-                            });
-                            invoiceTypeList.Add(new InvoiceType
-                            {
-                                InvoiceTypeID = (int)row.invoiceTypeID,
-                                InvoiceTypeName = row.invoiceTypeName,
-                                ProductList = productList
-                            });
-                        }
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                this.HandleException(ex);
-            }
-
-            return invoiceTypeList;
-        }
-
-
-
-        public int GetInvoieNo(IMS_InvoiceNoSel criteria)
-        {
-            int invoiceNo = 0;
-
-            try
-            {
-                var rawData = GetListData<dynamic>(criteria);
-                if (rawData != null)
-                {
-                    foreach (var row in rawData)
-                    {
-                        invoiceNo = (int)row.NewInvoiceID;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                this.HandleException(ex);
-            }
-
-            return invoiceNo;
-        }
+                
         #endregion
     }
 }

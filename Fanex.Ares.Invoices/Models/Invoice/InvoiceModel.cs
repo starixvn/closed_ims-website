@@ -52,14 +52,6 @@ namespace Fanex.Ares.Invoice.Models.Invoice
             this.StatementList = new List<Statement>();
             this.InvoiceReportList = new List<InvoiceReport>();
             this.HTMLReportList = new List<string>();
-            for (int j = 0; j < 2; j++)
-            {
-                this.StatementList.Add(new Statement
-                {
-                    StatementID = j
-
-                });
-            }
         }
     }
     [Serializable]
@@ -74,17 +66,6 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public Statement()
         {
             this.StatementDetailList = new List<StatementDetail>();
-
-                for (int j = 0; j < 2; j++)
-                {
-                    this.StatementDetailList.Add(new StatementDetail
-                    {
-                        ID = j,
-                        Description ="Description Description Description",
-                        Reference = "Reference",
-                        Amount =   (j + 1) *1000
-                    });
-                }
         }
     }
 

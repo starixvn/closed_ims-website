@@ -55,24 +55,6 @@
     <section id="body">
         @RenderBody()
     </section>
-    @*
-    <div class="alert alert-success" id="msg-box" style="z-index: 9999;">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <div class="alert-content">
-            <b>Bet transactions deleted!</b>
-            <span class="error">Email sent to ricky shit</span><br />
-            <span class="success">Email sent to ricky shit</span><br />
-            Email sent to ricky shit<br />
-            Email sent to ricky shit<br />
-        </div>
-    </div>
-
-    <div id="msg"></div>
-
-    <div class="loader">
-        <img src="~/content/img/loader.gif" alt="loading..." />
-    </div>*@
-    @*@Html.Hidden("NapHubRoot", Fanex.Ares.Core.Extensions.HtmlHelperExtensions.GetFullDomainURL())*@
     @Html.Hidden("NapHubRoot", Url.Content("~/"))
 </body>
 </html>

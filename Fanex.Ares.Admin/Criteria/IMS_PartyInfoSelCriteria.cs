@@ -14,7 +14,7 @@ namespace Fanex.Ares.Admin.Criteria
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class IMS_PartyInfoSelCriteria :  CriteriaBase
+    public class IMS_PartyInfoSel :  CriteriaBase
     {
         public int PartyID;
 

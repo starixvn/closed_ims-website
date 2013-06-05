@@ -35,14 +35,14 @@
                  @*@Html.DropDownList("dllSite", ViewBag.ListOperator as SelectList, new { id = "dllSite" })*@
                      @* @Html.DropDownListFor(m => m.OperatorID, ((List<Operator>)ViewBag.ListOperator), new { @class = "alpha auto-width" })*@
 
-                      <select id="ddlOperator" style="width: 100px; ">
-                                                    </select>
+                      <select id="ddlOperator" style="width: 100px; "></select>
                 </div>
                 <div class="lbl-field col_3 align-right">
                     @Labels.Licensee
                 </div>
                 <div class="edit-field col_4">
-                    @Html.DropDownListFor(m => m.LicenseeID, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
+                    @*@Html.DropDownListFor(m => m.LicenseeID, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })*@
+                    <select id="ddlLicensee" style="width: 100px; "></select>
                 </div>
                 <div id="fromTopickerplugin">
                 </div>
@@ -68,7 +68,7 @@
                     Invoice No.
                 </div>
                 <div class="edit-field col_5 align-left">
-                    <input type="text" name="invoiceNo" />
+                    <input type="text" name="invoiceNo" id="invoiceNo" />
                 </div>
                 <div id="duteDatepickerplugin">
                 </div>
@@ -96,10 +96,7 @@
 </div>
 <div id="parentContainer" class="content-grid" style="width: 97%">
 </div>
-@{
-    var minDateDaily = DateTime.Now.AddDays(-1).AddMonths(-3);
-    var minDateWeekly = DateTime.Now.AddDays(-1).AddMonths(-3);
-}
+
 @section scripts
 {
     <script type="text/javascript">
@@ -107,23 +104,11 @@
         operatorList = operatorList.replace(/&quot;/g, '"');
         var operatorListModel = jQuery.parseJSON(operatorList);
 
-        $.each(operatorListModel, function (i, item) {
-            $('#ddlOperator').append('<option value="'
-                                 + item.PartyID
-                                 + '">'
-                                 + item.PartyName
-                                 + '</option>');
-        });
-
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var _today = '@DateTime.Today.ToShortDateString()';
         var _yesterday = '@DateTime.Today.AddDays(-1).ToShortDateString()';
         var minDate = '@(new DateTime(2007, 1, 1).ToShortDateString())';
-        //        var minDateDaily = '@string.Format("{0}/{1}/{2}", minDateDaily.Month, 1, minDateDaily.Year)';
-        //        var minDateWeekly = '@string.Format("{0}/{1}/{2}", minDateWeekly.Month, 1, minDateWeekly.Year)';
-        var minDateDaily = '1/1/2007';
-        var minDateWeekly = '1/1/2007';
         var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
         var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
     </script>
