@@ -41,23 +41,27 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllParties()
         {
             return Json(_partyService.GetAllParties(new IMS_PartyInfoSel()));
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllPartyTypes()
         {
             return Json(_partyService.GetAllPartyTypes(new IMS_PartyInfoSel()));
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             ViewBag.lstPartyTypes = _partyService.GetAllPartyTypes(new IMS_PartyTypeSel());
             return PartialView();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _PartyLicensee(IMS_LicenseeSelByParty criteria)
         {
             ViewBag.lstAvailableLicensee = _partyService.GetAvailableOrSelectedLicensees(new IMS_AvailableLicenseeSelByParty() { PartyID = criteria.PartyID });
@@ -68,6 +72,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewParty(IMS_PartyIns criteria)
         {
             TempData["Result"] = _partyService.CreateUpdateParty(criteria, Request);
@@ -75,6 +80,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateParty(IMS_PartyInfoUpd criteria)
         {
             TempData["Result"] = _partyService.CreateUpdateParty(criteria, Request);
@@ -82,6 +88,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreatePartyLicensee(IMS_LicenseePartyMultipleIns criteria)
         {
             TempData["Result"] = _partyService.ExecuteCommand(criteria);

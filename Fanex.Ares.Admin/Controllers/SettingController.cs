@@ -67,6 +67,7 @@ namespace Fanex.Ares.Admin.Controllers
             return Json(_settingService.GetAllLicenseeProductDiscount(criteria));
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID","LicenseeName", "BrandName");
@@ -74,6 +75,20 @@ namespace Fanex.Ares.Admin.Controllers
             ViewBag.lstParties = _partyService.GetAllParties(new IMS_PartyInfoSel()).ToSelectListItem("PartyID", "PartyName");
             ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
 
+            return PartialView();
+        }
+
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public PartialViewResult _LicenseeProductCharge()
+        {
+            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
+            return PartialView();
+        }
+
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public PartialViewResult _LicenseeProductDiscount()
+        {
+            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
             return PartialView();
         }
 
@@ -86,6 +101,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateSetting(IMS_LicenseeProductSettingUpd criteria)
         {
             TempData["Result"] = _settingService.ExecuteCommand(criteria);
@@ -93,6 +109,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateLicenseeProductCharge(IMS_LicenseeProductChargeMultipleIns criteria)
         {
             var rs = new Hashtable();
@@ -106,6 +123,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateLicenseeProductDiscount(IMS_LicenseeProductDiscountMultipleIns criteria)
         {
             var rs = new Hashtable();
@@ -118,15 +136,5 @@ namespace Fanex.Ares.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public PartialViewResult _LicenseeProductCharge() {
-            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
-            return PartialView();
-        }
-
-        public PartialViewResult _LicenseeProductDiscount()
-        {
-            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
-            return PartialView();
-        }
     }
 }
