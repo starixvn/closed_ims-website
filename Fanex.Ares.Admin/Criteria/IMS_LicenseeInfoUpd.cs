@@ -11,26 +11,13 @@ namespace Fanex.Ares.Admin.Criteria
 {
     using Fanex.NAP.Framework.Data;
 
-    public class IMS_LicenseeInfoUpd : CriteriaBase
+    public class IMS_LicenseeInfoUpd : IMS_LicenseeIns
     {
         public int LicenseeID { get; set; }
-        public string LicenseeName { get; set; }
-        public string BrandName { get; set; }
-        public string CompanyName { get; set; }
-        public bool IsLabel { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsOneWorkActive { get; set; }
-        public string AttnName { get; set; }
-        public string To1 { get; set; }
-        public string To2 { get; set; }
-        public int ErrCode { get; set; }
-        public string ErrMsg { get; set; }
 
         public override string GetSettingKey()
         {
             return "IMS_LicenseeInfoUpd";
         }
-
-        public override bool IsValid() { return true; }
     }
 }

@@ -13,8 +13,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.Mvc;
+    using Fanex.Ares.Admin.Criteria;
     using Fanex.Ares.Admin.Models.Party;
     using Fanex.Ares.Admin.Repositories.Impl;
     using Fanex.Ares.Admin.Repositories.Interface;
@@ -22,7 +25,6 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
-    using Fanex.Ares.Admin.Criteria;
 
     public class PartyService : ServiceBase, IPartyService
     {
@@ -125,6 +127,41 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             }
 
             return listAvailableLicensees;
+        }
+
+        public Hashtable CreateUpdateParty(IMS_PartyIns criteria, HttpRequestBase Request)
+        {
+            var rs = new Hashtable();
+            if (Request.Files.Count <= 0)
+            {
+                criteria.Logo = string.Empty;
+                rs = this.ExecuteCommand(criteria);
+            }
+            else
+            {
+                string directory = System.Web.HttpContext.Current.Server.MapPath("~\\App_Data\\Logo\\") + criteria.PartyName + "\\";
+                string fileName = "Logo" + Path.GetExtension(Request.Files[0].FileName);
+                string fullFileName = Path.Combine(directory, fileName);
+                criteria.Logo = fileName;
+                rs = this.ExecuteCommand(criteria);
+
+                if (Convert.ToInt32(rs["ErrCode"]) == 0)
+                {
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    if (System.IO.File.Exists(fullFileName))
+                    {
+                        System.IO.File.Delete(fullFileName);
+                    }
+
+                    Request.Files[0].SaveAs(fullFileName);
+                }
+            }
+
+            return rs;
         }
 
         /// <summary>

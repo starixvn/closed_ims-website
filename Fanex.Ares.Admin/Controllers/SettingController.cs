@@ -47,18 +47,21 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllSettings()
         {
             return Json(_settingService.GetAllSettings(new IMS_LicenseeProductSettingInfoSel()));
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicenseeProductCharge(IMS_LicenseeProductChargeInfoSel criteria)
         {
             return Json(_settingService.GetAllLicenseeProductCharge(criteria));
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicenseeProductDiscount(IMS_LicenseeProductDiscountInfoSel criteria)
         {
             return Json(_settingService.GetAllLicenseeProductDiscount(criteria));
@@ -78,19 +81,14 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewSetting(IMS_LicenseeProductSettingIns criteria)
         {
-            var rs = new Hashtable();
-            rs = _settingService.ExecuteCommand(criteria);
-            TempData["Result"] = rs;
+            TempData["Result"] = _settingService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult UpdateSetting(IMS_LicenseeProductSettingUpd criteria)
         {
-            var rs = new Hashtable();
-            rs = _settingService.ExecuteCommand(criteria);
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _settingService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 

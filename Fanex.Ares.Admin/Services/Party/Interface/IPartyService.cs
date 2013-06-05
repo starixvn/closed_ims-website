@@ -14,6 +14,8 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
     using System.Web.Mvc;
     using Fanex.Ares.Admin.Models.Party;
     using Fanex.NAP.Framework.Data;
+    using Fanex.Ares.Admin.Criteria;
+    using System.Web;
 
     public interface IPartyService
     {
@@ -21,5 +23,6 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
         IEnumerable<SelectListItem> GetAllPartyTypes(ICriteria criteria);
         Hashtable ExecuteCommand(ICriteria criteria);
         IEnumerable<SelectListItem> GetAvailableOrSelectedLicensees(ICriteria criteria);
+        Hashtable CreateUpdateParty(IMS_PartyIns criteria, HttpRequestBase Request);
     }
 }

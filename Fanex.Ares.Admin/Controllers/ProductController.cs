@@ -63,19 +63,14 @@ namespace Fanex.Ares.Admin.Controllers
         [HttpPost]
         public ActionResult CreateNewProduct(IMS_ProductIns criteria)
         {
-            var rs = new Hashtable();
-            rs = _productService.ExecuteCommand(criteria);
-            TempData["Result"] = rs;
+            TempData["Result"] = _productService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public ActionResult UpdateProduct(IMS_ProductnfoUpd criteria)
         {
-            var rs = new Hashtable();
-            rs = _productService.ExecuteCommand(criteria);
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _productService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
     }
