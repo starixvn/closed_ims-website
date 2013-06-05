@@ -245,8 +245,6 @@
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
@@ -652,7 +650,6 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Inoive-pdf.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
@@ -666,8 +663,8 @@
     <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_InvoiceSportsBook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-DataFees.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -742,6 +739,7 @@
     <Content Include="Views\Common\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Areas\Invoice\Views\Invoice\Template\BHC\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />

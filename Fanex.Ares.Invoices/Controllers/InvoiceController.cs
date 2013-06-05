@@ -122,7 +122,7 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "_InvoiceSportsBook" };
+            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
@@ -180,7 +180,7 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "_InvoiceSportsBook"};
+            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
