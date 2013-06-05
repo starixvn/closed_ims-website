@@ -70,6 +70,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewLicensee(IMS_LicenseeIns criteria)
         {
             var rs = new Hashtable();
@@ -79,6 +80,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateLicensee(IMS_LicenseeInfoUpd criteria)
         {
             var rs = new Hashtable();

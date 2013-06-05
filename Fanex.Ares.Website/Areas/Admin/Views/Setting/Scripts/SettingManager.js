@@ -51,7 +51,7 @@ SettingManager = function () {
         _table.dlgAddNew = $('#AddNewDialog');
         _table.dlgLicenseeProductCharge = $('#LicenseeProductChargeDialog');
         _table.dlgLicenseeProductDiscount = $('#LicenseeProductDiscountDialog');
-        
+
         _table.formSetting = $('#formSetting');
         _table.frmPartyLicensee = $('#formPartyLicensee');
         _table.errCode = $('#ErrCode');
@@ -168,9 +168,9 @@ SettingManager = function () {
                     { HeaderText: "Waived Month", Width: 100, Name: "WaivedMonth", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Currency", Width: 100, Name: "Currency", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Charge", Width: 100, Name: "LicenseeProductCharge", HeaderAlign: "center", CellAlign: "left"},
+                    { HeaderText: "Charge", Width: 100, Name: "LicenseeProductCharge", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Discount", Width: 100, Name: "LicenseeProductDiscount", HeaderAlign: "center", CellAlign: "left"}],
-                    
+
             showTitle: true,
             //showFooter: true,
             titleInfo:
@@ -323,7 +323,7 @@ SettingManager = function () {
                                 }
                             }
 
-
+                            $('.hasDatePicker').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
                         }
                     },
                     error: function (event, jqXHR, ajaxSettings) {
@@ -462,6 +462,7 @@ var addNewRow = function (formID) {
         $cloneRow.find(":text").val('');
         $cloneRow.find('td.No').html(parseInt($cloneRow.find('td.No').html()) + 1);
         $lastRow.after($cloneRow);
+
     }
 
     return $cloneRow;

@@ -75,6 +75,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewSetting(IMS_LicenseeProductSettingIns criteria)
         {
             var rs = new Hashtable();
