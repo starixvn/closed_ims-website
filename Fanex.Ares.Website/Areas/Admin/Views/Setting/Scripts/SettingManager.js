@@ -323,7 +323,7 @@ SettingManager = function () {
                                 }
                             }
 
-                            //$('.date').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
+                            $('.date').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
                         }
                     },
                     error: function (event, jqXHR, ajaxSettings) {
