@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -242,7 +242,6 @@
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />

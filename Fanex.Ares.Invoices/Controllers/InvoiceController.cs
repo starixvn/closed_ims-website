@@ -146,7 +146,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session,"InvoiceHTML", invoiceModel);
 
             var excelCssFilePath = new List<string>();
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Invoice.css"));
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
 
             var workbook = new WorkbookManager();
             var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
