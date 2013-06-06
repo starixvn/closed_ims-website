@@ -10,7 +10,7 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
-    using Fanex.Ares.Invoice.Models;
+    using Fanex.Ares.Report.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.

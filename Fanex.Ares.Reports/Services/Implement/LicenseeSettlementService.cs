@@ -1,38 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Web;
-using System.Web.Mvc;
-using ExcelUtil.Spreadsheet;
-using Fanex.Ares.Core.Repository.Impl;
-using Fanex.Ares.Core.Services.Impl;
-using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-using Fanex.Ares.Report.Criteria;
 using System.Linq;
-using Fanex.Caching;
-using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-using Fanex.Ares.Report.ViewModels;
-using System.Drawing;
-using Fanex.Ares.Core.Extensions;
-using Resource;
-using Fanex.Common.Extensions;
+using System.Web.Mvc;
 using Fanex.Ares.Core.Criteria;
+using Fanex.Ares.Core.Extensions;
+using Fanex.Ares.Core.Services.Impl;
 using Fanex.Ares.Core.Utils;
+using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+using Fanex.Ares.Report.ViewModels;
+using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+using Fanex.Common.Extensions;
 
 namespace Fanex.Ares.Report.Services.Interface
 {
     public class LicenseeSettlementService : ServiceBase, ILicenseeSettlementService
     {
-        #region Local Variables
-        private readonly ISportsbookExcelService _sportsbookExcelService;
-        private readonly IBAExcelService _BAExcelService;
-        #endregion
-
         #region ctor
         public LicenseeSettlementService()
         {
-            _sportsbookExcelService = new SportsbookExcelService();
-            _BAExcelService = new BAExcelService();
         }
         #endregion
 
@@ -49,14 +35,16 @@ namespace Fanex.Ares.Report.Services.Interface
         }
 
         #region Generate Report
-        public LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
-        {
+        private LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
+        {   
             var listLicenseeInfo = base.DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
-
+            if (listLicenseeInfo == null)
+                listLicenseeInfo = new LicenseeInformation();
             return listLicenseeInfo;
+           
         }
 
-        public Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        private Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
             Func<IDataReader, ReportEntity> mappingFunc;
@@ -82,6 +70,8 @@ namespace Fanex.Ares.Report.Services.Interface
                 res.LicenseeCommBase = res.LicenseeComm * res.BaseCurrencyExchangeRate;
                 res.LicenseeWLBase = res.LicenseeWL * res.BaseCurrencyExchangeRate;
                 res.MemberWinlossBase = res.MemberWinloss * res.BaseCurrencyExchangeRate;
+                res.MemberTotal = res.MemberWinloss + res.MemberComm;
+                res.LicenseeTotal = res.LicenseeWL + res.LicenseeComm;
 
                 report.GrandTotal.Betcount += res.Betcount;
                 report.GrandTotal.Company += res.Company;
@@ -105,7 +95,7 @@ namespace Fanex.Ares.Report.Services.Interface
             return report;
         }
 
-        public IEnumerable<ExchangeRate> GetLicenseeExchangeRate(IMS_ExchangeRateBillingSelCriteria criteria)
+        private IEnumerable<ExchangeRate> GetLicenseeExchangeRate(IMS_ExchangeRateBillingSelCriteria criteria)
         {
             var listExchangeRate = new List<ExchangeRate>();
             try
@@ -150,21 +140,11 @@ namespace Fanex.Ares.Report.Services.Interface
                 licenseeInfoCriteria.ProductId = criteria.Product;
                 model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
                 model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
-                criteria.LicenseeName = Convert.ToString(listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>().extension["LicenseeName"]);
-                model.LicenseeInfor.LicenseeName = listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>().item.Text;
+                var licenseeItem = listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
+                criteria.LicenseeName = Convert.ToString(licenseeItem.extension["LicenseeName"]);
+                model.LicenseeInfor.LicenseeName = licenseeItem.item.Text;
                 model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
-                //model.LicenseeInfor.SettlementDate = DateTime.Now;
                 model.LicenseeInfor.SettlementDate = criteria.ToDate;
-
-                // Licensee Report
-                //var reportCriteria = new IMS_Rpt_LicenseeSettlementCriteria();
-                //reportCriteria.LicenseeId = criteria.LicenseeId;
-                //reportCriteria.LicenseeName = model.LicenseeInfor.LicenseeName;
-                //reportCriteria.Product = criteria.Product;
-                //reportCriteria.Currency = criteria.Currency;
-                //reportCriteria.BaseCurrency = criteria.BaseCurrency;
-                //reportCriteria.FromDate = criteria.FromDate;Hit
-                //reportCriteria.ToDate = criteria.ToDate;
 
                 model.Report = this.GetLicenseeReport(criteria);
 
@@ -173,28 +153,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 model.ExchangeList = new List<ViewModels.ExchangeRate>();
 
                 var exchangeRatecurrencies = string.Empty;
-                foreach (ReportEntity item in model.Report.EntityList)
-                {
-                    // Calculate membertotal = memberwinloss + membercomm
-                    item.MemberTotal = item.MemberWinloss + item.MemberComm;
-
-                    // Calculate licenseetotal = licenseewinloss + licenseecomm
-                    item.LicenseeTotal = item.LicenseeWL + item.LicenseeComm;
-
-                    if (criteria.Currency == 0) // All Currency
-                    {
-                        if (!exchangeRatecurrencies.Contains(item.Currency.ToString()))
-                        {
-                            exchangeRatecurrencies += item.Currency.ToString() + ",";
-                        }
-                    }
-                    else // Single currency
-                    {
-                        exchangeRatecurrencies = item.Currency.ToString();
-                    }
-                }
-
-                exchangeRatecurrencies.Trim(',');
+                exchangeRatecurrencies = string.Join(",", model.Report.EntityList.Select(m => m.Currency).Distinct().ToArray());
 
                 exchangeRateCriteria.Currency = exchangeRatecurrencies;
                 exchangeRateCriteria.ExchangeDate = criteria.ToDate;
@@ -214,24 +173,6 @@ namespace Fanex.Ares.Report.Services.Interface
             }
 
             return model;
-        }
-        #endregion
-
-        #region Export Excel
-        public void ExportReportToExcel(string exchange, string product, bool isSaveFile = false)
-        {
-            if (product == "Sportsbook")
-            {
-                _sportsbookExcelService.ExportReportToExcel(exchange, product, GetFileName(), isSaveFile);
-            }
-            else if (product == "BA")
-            {
-                _BAExcelService.ExportReportToExcel(exchange, product);
-            }
-            else
-            {
-                _sportsbookExcelService.ExportReportToExcel(exchange, product, GetFileName(), isSaveFile);
-            }
         }
         #endregion
     }

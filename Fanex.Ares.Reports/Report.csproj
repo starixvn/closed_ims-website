@@ -35,14 +35,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Excel\ExcelUtil.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=1.0.4827.30669, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core.TicketHelper, Version=1.0.4827.30670, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.TicketHelper.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Caching, Version=1.0.404.95, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
@@ -82,27 +74,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\LicenseeSettlementController.cs" />
-    <Compile Include="Criteria\GetAllLicenseeCriteria.cs" />
-    <Compile Include="Criteria\GetOutrightLeagueCriteria.cs" />
-    <Compile Include="Criteria\GetOutrightTeamCriteria.cs" />
-    <Compile Include="Criteria\GetOutrightTicketCriteria.cs" />
-    <Compile Include="Criteria\GetParlaySubTicketCriteria.cs" />
-    <Compile Include="Criteria\GetRecoverTicketCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
-    <Compile Include="Criteria\RecoverTicketCriteria.cs" />
-    <Compile Include="Criteria\VoidParlayTicketCritetia.cs" />
-    <Compile Include="Criteria\GetParlayTicketCriteria.cs" />
-    <Compile Include="Criteria\GetSingleTicketCriteria.cs" />
-    <Compile Include="Criteria\VoidSingleTicketCritetia.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implement\BAExcelService.cs" />
-    <Compile Include="Services\Implement\SportsbookExcelService.cs" />
     <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
-    <Compile Include="Services\Interface\IBAExcelService.cs" />
-    <Compile Include="Services\Interface\ISportsbookExcelService.cs" />
     <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />
     <Compile Include="ViewModels\ExchangeRate.cs" />
     <Compile Include="ViewModels\LicenseeInformation.cs" />

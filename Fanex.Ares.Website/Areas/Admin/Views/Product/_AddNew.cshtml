@@ -1,0 +1,23 @@
+﻿@using System.Collections;
+<div id="AddNewDialog" class="model-dialog" title="Edit Product" style="display: none">
+    <div id="validateTips" class="validateTips">
+    </div>
+    @using (Html.BeginForm("CreateNewProduct", "Product", FormMethod.Post, new { id = "formProduct" }))
+    {
+        <fieldset>
+            <label for="ProductID" class="update">
+                Product ID</label>
+            <input type="text" name="txtProductID" id="txtProductID" class="update text ui-widget-content ui-corner-all ui-state-disabled" disabled=disabled />
+            <input type="hidden" name="ProductID" id="ProductID" />
+            <label for="ProductName">
+                Product Name</label>
+            <input type="text" name="ProductName" id="ProductName" maxlength="30" class="text ui-widget-content ui-corner-all" />
+            <label for="Description">
+                Description</label>
+            <input type="text" name="Description" id="Description" maxlength="300" class="text ui-widget-content ui-corner-all" />
+            <label for="CompanyName">
+                Product Prefix</label>
+            <input type="text" name="ProductPrefix" id="ProductPrefix" maxlength="5" class="text ui-widget-content ui-corner-all" />
+        </fieldset>
+    }
+</div>

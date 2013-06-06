@@ -1,10 +1,11 @@
 ﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
-@using Resource;
+@using Fanex.Ares.Core.Resources;
 @{
     LicenseeSettlementModel licensee = new LicenseeSettlementModel();
     licensee = Model;
+    var reportCount = licensee.Report.EntityList.Count;
 }
 @functions{
     public string GetNegativeClass(double number)
@@ -17,9 +18,8 @@
         return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
     }
 }
-<div class="div-content" style=overflow: scroll; width:98%">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;
-        '>
+<div class="div-content" style="overflow: auto; width: 98%">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;'>
         <tr>
             <td colspan="14" class="boldTilte" style='height: 16.5pt;'>
                 INTERNAL WORKSHEET FOR SETTLEMENT
@@ -112,7 +112,7 @@
             <td colspan="2" class="header">
                 @{
                     string forexTime = string.Empty;
-                    if (DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
+                    if (DateTime.Now.Year == licensee.LicenseeInfor.SettlementDate.Year && DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
                     {
                         forexTime = DateTime.Now.ToAresDayMonthYear();
                     }
@@ -138,23 +138,30 @@
                 Units/1 @licensee.LicenseeInfor.BaseCurrencyName
             </td>
         </tr>
-        @if (licensee.Report.EntityList.Count == 0)
+        @if (reportCount == 0)
         {
-            <tr class="colborder01">
-                <td class="cellstyle aligncenter" colspan="15">
+            <tr>
+                <td class="cellstyle aligncenter colText" colspan="11">
+                    There is no data
+                </td>
+                <td>
+                </td>
+                <td class="cellstyle aligncenter colText" colspan="2">
                     There is no data
                 </td>
             </tr>
         }
-        @for (int i = 0; i < licensee.Report.EntityList.Count; i++)
+        else
         {
-            ReportEntity report = new ReportEntity();
-            report = licensee.Report.EntityList[i];
+            for (int i = 0; i < licensee.Report.EntityList.Count; i++)
+            {
+                ReportEntity report = new ReportEntity();
+                report = licensee.Report.EntityList[i];
 
-            ExchangeRate exchange = new ExchangeRate();
-            exchange = licensee.ExchangeList[i];
+                ExchangeRate exchange = new ExchangeRate();
+                exchange = licensee.ExchangeList[i];
 
-            var evenClass = GetEvenClass(i);
+                var evenClass = GetEvenClass(i);
             
             <tr>
                 <td height="17" class="colDateTime" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
@@ -164,10 +171,10 @@
                     @report.CurrencyName
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class=" @GetNegativeClass(report.Turnover)">@report.Turnover.Format(2)</span>
+                    <span class=" @GetNegativeClass(report.Turnover)">@report.Turnover.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.Format(2)</span>
+                    <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.FormatNegative(2)</span>
                 </td>
                 <td class="colInteger" style="@evenClass">
                     @report.Betcount.Format(0)
@@ -200,50 +207,40 @@
                     @exchange.UnitsPerBase.Format(5)
                 </td>
             </tr>
-        }
-        <tr>
-            <td colspan="4" align="right" class="grandtotal" style='height: 15pt;'>
-                <span class="@GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">@licensee.Report.GrandTotal.TurnoverBase.Format(2)</span>
-            </td>
-            <td colspan="3" align="right" class="grandtotal">
-                <span class="@GetNegativeClass(licensee.Report.GrandTotal.MemberWinlossBase)">@licensee.Report.GrandTotal.MemberWinlossBase.FormatNegative(2)</span>
-            </td>
-            <td colspan="2" align="right" class="grandtotal">
-                <span class="@GetNegativeClass(licensee.Report.GrandTotal.LicenseeWLBase)">@licensee.Report.GrandTotal.LicenseeWLBase.FormatNegative(2)</span>
-            </td>
-            <td colspan="2" align="right" class="grandtotal">
-                <span class="@GetNegativeClass(licensee.Report.GrandTotal.CompanyBaseCurrency)">@licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)</span>
-            </td>
-            <td class="emptyCell">
-            </td>
-            <td class="emptytotal" style="height: 10pt;" colspan="2">
-            </td>
-        </tr>
-        <tr>
-            <td colspan="14" style='height: 10pt;'>
-            </td>
-        </tr>
-        @if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
-        {
+            }
             <tr>
-                <td style='height: 15pt'>
-                    IDR &amp; VND *
+                <td colspan="4" align="right" class="grandtotal" style='height: 15pt;'>
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">@licensee.Report.GrandTotal.TurnoverBase.FormatNegative(2)</span>
                 </td>
-                <td colspan="13" style='height: 15pt'>
-                    Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
-                    Equv, x1000
+                <td colspan="3" align="right" class="grandtotal">
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.MemberWinlossBase)">@licensee.Report.GrandTotal.MemberWinlossBase.FormatNegative(2)</span>
+                </td>
+                <td colspan="2" align="right" class="grandtotal">
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.LicenseeWLBase)">@licensee.Report.GrandTotal.LicenseeWLBase.FormatNegative(2)</span>
+                </td>
+                <td colspan="2" align="right" class="grandtotal">
+                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.CompanyBaseCurrency)">@licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)</span>
+                </td>
+                <td class="emptyCell">
+                </td>
+                <td class="emptytotal" style="height: 10pt;" colspan="2">
                 </td>
             </tr>
             <tr>
-                <td style='height: 15pt;'>
-                    FOREX
-                </td>
-                <td colspan="13" style='height: 15pt;'>
-                    www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
-                    Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
-                    use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
+                <td colspan="14" style='height: 10pt;'>
                 </td>
             </tr>
+            if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
+            {
+                <tr> <td style='height: 15pt'> IDR &amp; VND * </td> <td colspan="13" style='height:
+                15pt'> Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
+                Equv, x1000 </td> </tr>
+                <tr> <td style='height: 15pt;'> FOREX </td> <td colspan="13" style='height: 15pt;'>
+                www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
+                Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
+                use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
+            </td> </tr>
+            }
         }
     </table>
 </div>

@@ -41,10 +41,10 @@ var batchMsg = {
             dataType: "json",
             data: JSON.stringify(param),
             beforeSend: function () {
-                NapTicketControl.disableInput();
+                NapAres.disableInput();
             },
             success: function (rs) {
-                NapTicketControl.Helper.showMsgBox(rs);
+                NapAres.Helper.showMsgBox(rs);
                 var isSuccess = true;
                 for (var i = 0; i < rs.length; i++) {
                     if (rs[i].ErrorCode > 0) {
@@ -61,9 +61,9 @@ var batchMsg = {
             error: function (e) { },
             complete: function (e) {
                 if (e.status == 403) {
-                    NapTicketControl.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
+                    NapAres.Helper.showMsgBox(NapTicketControl.Helper.authorizedMsg);
                 }
-                NapTicketControl.enableInput();
+                NapAres.enableInput();
             }
         });
     }

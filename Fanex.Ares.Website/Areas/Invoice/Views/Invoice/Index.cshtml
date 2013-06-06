@@ -1,155 +1,121 @@
-﻿@using Fanex.Ares.Core.Resources;
+@using Fanex.Ares.Core.Resources;
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
-@using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-@using Fanex.Ares.Core.Extensions
-@model IMS_Rpt_LicenseeSettlementCriteria
+@using Fanex.Ares.Invoice.Criteria.Invoice;
+@using Fanex.Ares.Core.Extensions;
+@using Fanex.Ares.Core.Models;
+@model IMS_InvoiceCriteria
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
-    ViewBag.Title = "Licensee Settlement Report";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Invoice";
 }
 @section Head {
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style", "~/Scripts/_Libs/MonthPicker/style")
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
-    <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
-    <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/Invoice.css" />
-     <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/InvoiceWeb.css" />
-}
+    <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />    
+    <link href="~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css" rel="stylesheet"type="text/css" />
+        }
 @section Headline {
-    <div class="title">
+    <div class="title" style="width: width:98%;">
         <div>
             <span>Invoice System / </span><span class="curr">@ViewBag.Title </span>
         </div>
     </div>
 }
-<div>
-    @using (Html.BeginForm("Home", "Index", FormMethod.Post, new { id = "formLicenseeSettlement" }))
-    {
-        <div id="filter-bar" class="filter-bar" style="width: 1260px;">
-            <span id="notemessage" class="note-info-message" title=''></span>
-            <div class="filter-form">
-                <div class="filter-row">
-                    <div class="filter-cell">
-                        <div class="lbl-field col_3 align-right">
-                            @Html.LabelFor(m => m.LicenseeId, "Licensee")
-                        </div>
-                        <div class="edit-field col_6 align-left">
-                            @Html.DropDownListFor(m => m.LicenseeId, (IEnumerable<SelectListItem>)ViewBag.ListLicensee, new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "-1" }, new { @class = "alpha auto-width" })
-                        </div>
-                        @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
-                    </div>*@
-                        <div class="lbl-field col_3">
-                            <div>
-                                Month</div>
-                        </div>
-                        <div class="edit-field col_16">
-                            <div id="ddlMonth">
-                            </div>
-                        </div>
-                        @*<div class="lbl-field col_3 align-right">
-                            @Html.LabelFor(m => m.Month, "Month")
-                        </div>
-                        <div class="edit-field col_6 align-left">
-                            @Html.DropDownListForMonth(m => m.Month, new { @class = "alpha auto-width" })
-                        </div>
-                        <div class="lbl-field col_3 align-right">
-                            @Html.LabelFor(m => m.Year, "Year")
-                        </div>
-                        <div class="edit-field col_6 align-left">
-                            @Html.DropDownListForYear(m => m.Year, new { @class = "alpha auto-width" })
-                        </div>*@
-                    </div>
+<div id="filter-bar">
+    <span id="notemessage" class="note-info-message" title=''></span>
+    <div class="filter-form">
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="lbl-field col_6  align-right">
+                    Operator/Distributor
                 </div>
-                <div class="filter-row">
-                    <div class="lbl-field col_3 align-right">
-                        @Html.LabelFor(m => m.Product, "Product")
-                    </div>
-                    <div class="edit-field col_6 align-left">
-                        @Html.DropDownListFor(m => m.Product, (IEnumerable<SelectListItem>)ViewBag.ListProduct, new { @class = "alpha auto-width" })
-                    </div>
-                    <div class="lbl-field col_3 align-right">
-                        @Html.LabelFor(m => m.Currency, "Currency")
-                    </div>
-                    <div class="edit-field col_6 align-left">
-                        @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.ListCurrency, new { @class = "alpha auto-width" })
-                    </div>
-                    <div class="lbl-field col_3 align-right">
-                        @Html.LabelFor(m => m.BaseCurrency, "Exchange")
-                    </div>
-                    <div class="edit-field col_6 align-left">
-                        @Html.DropDownListFor(m => m.BaseCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
-                    </div>
-                    <div class="lbl-field col_3 align-right">
-                    </div>
-                    <div class="submit col_6">
-                        <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
-                    </div>
+                <div class="edit-field col_6">
+                 @*@Html.DropDownList("dllSite", ViewBag.ListOperator as SelectList, new { id = "dllSite" })*@
+                     @* @Html.DropDownListFor(m => m.OperatorID, ((List<Operator>)ViewBag.ListOperator), new { @class = "alpha auto-width" })*@
+
+                      <select id="ddlOperator" style="width: 100px; "></select>
+                </div>
+                <div class="lbl-field col_3 align-right">
+                    @Labels.Licensee
+                </div>
+                <div class="edit-field col_4">
+                    @*@Html.DropDownListFor(m => m.LicenseeID, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })*@
+                    <select id="ddlLicensee" style="width: 100px; "></select>
+                </div>
+                <div id="fromTopickerplugin">
                 </div>
             </div>
         </div>
-    }
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div class="lbl-field col_6 align-right">
+                    Invoice Type
+                </div>
+                <div class="edit-field col_6">
+                    <select id="ddlInvoiceType">
+                    </select>
+                </div>
+                <div class="lbl-field col_3 align-right">
+                    Currency
+                </div>
+               <div class="edit-field col_4">
+                @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListExchangeRate), new { @class = "alpha auto-width" })
+                   
+                </div>
+                <div class="lbl-field col_3 align-right">
+                    Invoice No.
+                </div>
+                <div class="edit-field col_5 align-left">
+                    <input type="text" name="invoiceNo" id="invoiceNo" />
+                </div>
+                <div id="duteDatepickerplugin">
+                </div>
+                <div class="submit col_4">
+                    <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
+                </div>
+            </div>
+        </div>
+        <div class="filter-row">
+            <div class="filter-cell">
+                <div id="InformationMssg" class="col_35 display-none width-auto">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="grid-title" style="clear: both; display: none;">
     <div class="grid-title-label">
-        <span id="nonLiveBingoReportTitle"></span>
+        <span id=""></span>
     </div>
     <div class="grid-toolbox">
-      @*  <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "Invoice", new { isSavePDF = true })'" />*@
-        @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print"
-            onclick="ClientPrinting();" />*@
-        @*<input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />*@
-
-       
         <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
         <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = WorkBookExtension.DocumentType.Xlsx })'"  />
     </div>
 </div>
-<div id="parentContainer" class="content-grid">
+<div id="parentContainer" class="content-grid" style="width: 97%">
 </div>
-@{
-    var minDateDaily = DateTime.Now.AddDays(-1).AddMonths(-3);
-    var minDateWeekly = DateTime.Now.AddDays(-1).AddMonths(-3);
-}
+
 @section scripts
 {
     <script type="text/javascript">
+        var operatorList = '@Json.Encode(ViewBag.ListOperator)';
+        operatorList = operatorList.replace(/&quot;/g, '"');
+        var operatorListModel = jQuery.parseJSON(operatorList);
+
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
-        var today = '@DateTime.Today.ToShortDateString()';
+        var _today = '@DateTime.Today.ToShortDateString()';
+        var _yesterday = '@DateTime.Today.AddDays(-1).ToShortDateString()';
         var minDate = '@(new DateTime(2007, 1, 1).ToShortDateString())';
-        //        var minDateDaily = '@string.Format("{0}/{1}/{2}", minDateDaily.Month, 1, minDateDaily.Year)';
-        //        var minDateWeekly = '@string.Format("{0}/{1}/{2}", minDateWeekly.Month, 1, minDateWeekly.Year)';
-        var minDateDaily = '1/1/2007';
-        var minDateWeekly = '1/1/2007';
         var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
         var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
     </script>
 }
 @section Foot {
-    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
-    <script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/Invoice.js?ver=@DateTime.Now.ToString()"></script>
+    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")    
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
-    @*<script type="text/javascript" src="~/scripts/_lib/Namespace.js"></script>
-    <script type="text/javascript" src="~/scripts/_lib/MultipleSelect/jquery.multiselect.nlevel.js"></script>
-    <script type="text/javascript" src="~/scripts/_lib/Utils/jquery.fixBugsBrowser.js"></script>
-    <script type="text/javascript" src="~/scripts/_lib/DatePicker/jquery.nexDatePicker.js"></script>
-    <script type="text/javascript" src="~/scripts/_lib/FormatLibs/DateTimeFormat/moment.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/DatepickerManager.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/WeekPickerManager.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterByUser.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCountByUser.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterIPByUser.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunter_ByUser_SportType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCount_ByUser_SportType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCount_ByUser_BetType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunter_ByUser_BetType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunter_ByLeague.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunter_ByLeague_User.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCount_ByLeague_User.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunter_ByLeague_SportType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCount_ByLeague_SportType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunterBetCount_ByLeague_BetType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/TopPunter_ByLeague_BetType.js"></script>
-    <script type="text/javascript" src="~/Areas/Special/Views/PunterAnalysis/Scripts/ReportManager.js"></script>*@
+    <script src="~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js" type="text/javascript"></script>  
+    <script src="~/Scripts/_Libs/MultipleSelect/jquery.multiradioselect.nlevel_new.js" type="text/javascript"></script>  
+    <script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/Invoice.js"></script>
 }

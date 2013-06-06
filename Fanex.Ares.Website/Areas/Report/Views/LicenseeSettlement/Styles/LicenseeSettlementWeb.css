@@ -63,3 +63,7 @@
    border:1pt solid gray !important;
     padding: 0 5px 0 5px;
 }
+.aligncenter
+{
+    text-align: center;
+}

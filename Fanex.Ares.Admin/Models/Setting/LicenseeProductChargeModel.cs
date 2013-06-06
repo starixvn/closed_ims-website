@@ -1,0 +1,39 @@
+﻿// --------------------------------------------------------------------------
+// <copyright file="LicenseeProductChargeModel.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.06.03">Created</change>
+// </history>
+
+namespace Fanex.Ares.Admin.Models.Setting
+{
+    using System;
+
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    public class LicenseeProductChargeModel
+    {
+        public int PartyID { get; set; }
+
+        public int LicenseeID { get; set; }
+
+        public int ProductID { get; set; }
+
+        public double DistributorRate { get; set; }
+
+        public double PartnerRate { get; set; }
+
+        public double ONEWorksRate { get; set; }
+
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+
+        public int ChargeType { get; set; }
+
+        public int BillingCurrency { get; set; }
+    }
+}

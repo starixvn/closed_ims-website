@@ -15,16 +15,6 @@ namespace Fanex.Ares.Core.Services.Interface
     /// </summary>
     public interface ICoreService
     {
-        IList<Bettypes> GetBettypes(GetBettypeCriteria criteria);
-
-        IList<Licensee> GetAllLicensees();
-
-        MatchInfo GetMatchInfo(GetMatchInfoCriteria criteria);
-
-        IList<Currency> GetCurrency();
-
-        void Test();
-
-        Result CheckMatchIdWithRefno(CheckMatchIdWithRefNoCriteria criteria);
+       
     }
 }

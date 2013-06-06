@@ -1,5 +1,7 @@
 ﻿/// <reference path="../../../../../Scripts/NapTicketControl.js" />
+var domain;
 $(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {
@@ -9,16 +11,12 @@ $(document).ready(function () {
     $('#btnGenerate').button();
     $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
-//    $('#btnExcel').click(function () { exportReportToExcel(); });
-//    $('#btnPrint').click(function () { exportReportToPDF(); });
+    //    $('#btnExcel').click(function () { exportReportToExcel(); });
+    //    $('#btnPrint').click(function () { exportReportToPDF(); });
 
     RenderFilterNote();
 
-    if ($('#LicenseeId').val() == "0") {
-        $('#btnGenerate').addClass("ui-state-disabled");
-    } else {
-        $('#btnGenerate').removeClass("ui-state-disabled");
-    }
+    $('#btnGenerate').addClass("ui-state-disabled");
 
     $('#LicenseeId').change(function () {
         GetProductByLicenseeID($(this).val());
@@ -99,9 +97,9 @@ function RenderFilterNote() {
 };
 
 function Submit() {
-    NapTicketControl.disableInput();
+    NapAres.disableInput();
     $.ajax({
-        url: "GetReport",
+        url: domain + "Report/LicenseeSettlement/GetReport",
         type: "POST",
         data: $('#formLicenseeSettlement').serialize()
                 + "&BaseCurrencyName=" + $('#BaseCurrency option:selected').text()
@@ -131,39 +129,14 @@ function Submit() {
             alert("fail");
         },
         complete: function (jqXHR, textStatus) {
-            NapTicketControl.enableInput();
+            NapAres.enableInput();
         }
     });
 }
 
-
-function exportReportToExcel() {
-    var url = window.rootUrl + 'ExportSettlementReportToExcel?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
-
-    var iframe = $('body iframe');
-    if (iframe.length == 0) {
-        iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
-        iframe.appendTo('body');
-    }
-
-    iframe.attr('src', url);
-}
-
-function exportReportToPDF() {
-    var url = window.rootUrl + 'ExportPDFUsingInterop?exchange=' + $('#BaseCurrency :selected').text() + '&product=' + $('#Product :selected').text();
-
-    var iframe = $('body iframe');
-    if (iframe.length == 0) {
-        iframe = $('<iframe width="0" height="0" class="display-none"></iframe>');
-        iframe.appendTo('body');
-    }
-
-    iframe.attr('src', url);
-}
-
 function GetProductByLicenseeID(licenseeID) {
     $.ajax({
-        url: "GetProductByLicenseeID",
+        url: domain + "Report/LicenseeSettlement/GetProductByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
@@ -183,18 +156,18 @@ function GetProductByLicenseeID(licenseeID) {
 
 function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
-        url: "GetCurencyByLicenseeID",
+        url: domain + "Report/LicenseeSettlement/GetCurencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
             var html = "";
             if (data.length != 0) {
                 html = "<option value='0' selected='selected'>All</option>";
-                if ($('#LicenseeId').val() == "0") {
-                    $('#btnGenerate').addClass("ui-state-disabled");
-                } else {
-                    $('#btnGenerate').removeClass("ui-state-disabled");
-                }
+                //                if ($('#LicenseeId').val() == "0") {
+                //                    $('#btnGenerate').addClass("ui-state-disabled");
+                //                } else {
+                //                    $('#btnGenerate').removeClass("ui-state-disabled");
+                //                }
             } else {
                 $('#btnGenerate').addClass("ui-state-disabled");
             }

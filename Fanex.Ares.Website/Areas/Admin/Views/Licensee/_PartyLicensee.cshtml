@@ -1,0 +1,31 @@
+﻿@using System.Collections;
+
+    @using (Html.BeginForm("CreatePartyLicensee", "Licensee", FormMethod.Post, new { id = "formPartyLicensee" }))
+    {
+        <table style="border-collapse: collapse">
+            <tbody>
+                <tr>
+                    <td style="padding-left: 0; border: none;">
+                        <label for="available_columns" style="font-weight: bold;">
+                            Available Licensees</label>
+                        <br />
+                        @Html.DropDownList("available_columns[]", (IEnumerable<SelectListItem>)ViewBag.lstAvailableParties, new { multiple = "multiple", id = "available_columns", ondblclick = "moveOptions(document.getElementById('available_columns'), document.getElementById('selected_columns'));", size = "10", style = "width: 150px" })
+                    </td>
+                    <td class="buttons" style="border: none;">
+                        <input value="→" onclick="moveOptions(document.getElementById('available_columns'), document.getElementById('selected_columns'));"
+                            type="button" /><br />
+                        <input value="←" onclick="moveOptions(document.getElementById('selected_columns'), document.getElementById('available_columns'));"
+                            type="button" />
+                    </td>
+                    <td style="border: none;">
+                        <label for="selected_columns" style="font-weight: bold;">
+                            Selected Licensees</label>
+                        <br />
+                        @Html.DropDownList("c[]", (IEnumerable<SelectListItem>)ViewBag.lstSelectedParties, new { multiple = "multiple", id = "selected_columns", ondblclick = "moveOptions(document.getElementById('selected_columns'), document.getElementById('available_columns'));", size = "10", style = "width: 150px" })
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" id="LicenseeID" name = "LicenseeID" value="@ViewBag.LicenseeID" />
+        <input type="hidden" id="XmlSettings" name = "XmlSettings" value="" />
+    }

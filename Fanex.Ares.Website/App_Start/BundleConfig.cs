@@ -11,6 +11,7 @@ namespace Fanex.Ares.Website.App_Start
 
             bundles.Add(new ScriptBundle("~/scripts/common").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
+                "~/Scripts/_Libs/jQuery/jquery.form.js",
                 "~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.js",
                 "~/Scripts/_Libs/jQuery/jquery.jqprint-0.3.js",
                 "~/Scripts/_Libs/jQuery/jquery.formattyping.js",
@@ -19,10 +20,11 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/_Libs/BlockUI/jquery.blockUI.1.33.js",
                 "~/Scripts/_Libs/FanexGrid/Fanex.Grid.js",
                 "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js",
+                "~/Scripts/_Libs/FanexGrid/moment.js",
                 "~/Scripts/_Libs/FormatLibs/NumberFormat/numeral.js",
-                "~/Scripts/NapTicketControl.js",
-                "~/Scripts/NapTicketControl.Helper.js",
-                "~/Scripts/NapTicketControl.Validator.js",
+                "~/Scripts/NapAres.js",
+                "~/Scripts/NapAres.Helper.js",
+                "~/Scripts/NapAres.Validator.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
                 "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"

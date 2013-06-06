@@ -85,28 +85,31 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\_Dependency\Entlib\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\_Dependency\FanexLibs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NPOI, Version=1.2.4.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Excel\NPOI.dll</HintPath>
-    </Reference>
-    <Reference Include="RemotingRef">
-      <HintPath>..\_Dependency\FanexLibs\RemotingRef.dll</HintPath>
-    </Reference>
-    <Reference Include="SPSRemoting">
-      <HintPath>..\_Dependency\FanexLibs\SPSRemoting.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -120,9 +123,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -154,10 +154,6 @@
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -228,6 +224,10 @@
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Admin\Scripts\TicketListing.js" />
     <Content Include="Areas\Admin\Scripts\TicketListingManager.js" />
+    <Content Include="Areas\Admin\Views\Licensee\Scripts\LicenseeManager.js" />
+    <Content Include="Areas\Admin\Views\Licensee\Styles\Licensee.css" />
+    <Content Include="Areas\Admin\Views\Party\Scripts\PartyManager.js" />
+    <Content Include="Areas\Admin\Views\Party\Styles\Party.css" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -236,11 +236,13 @@
     <Content Include="Areas\Invoice\Styles\Images\Acqua-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
+    <Content Include="Areas\Invoice\Styles\Images\BCH.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Checkbox.gif" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\BHC_Boping\BHC_Boping.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -321,9 +323,9 @@
     <Content Include="Scripts\Common\Message.Validator.js" />
     <Content Include="Scripts\Common\Message.Helper.js" />
     <Content Include="Scripts\Common\ValidateMessage.js" />
-    <Content Include="Scripts\NapTicketControl.Helper.js" />
-    <Content Include="Scripts\NapTicketControl.js" />
-    <Content Include="Scripts\NapTicketControl.Validator.js" />
+    <Content Include="Scripts\NapAres.Helper.js" />
+    <Content Include="Scripts\NapAres.js" />
+    <Content Include="Scripts\NapAres.Validator.js" />
     <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.js" />
     <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.min.js" />
     <Content Include="Scripts\_Libs\Bootstrap\bootstrap-affix.js" />
@@ -418,11 +420,13 @@
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.0.js" />
     <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.1.js" />
     <Content Include="Scripts\_Libs\jQuery\classList.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.form.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery.formattyping.js" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\error.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.js" />
+    <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiradioselect.nlevel_new.js" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.css" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\_Libs\Utils\html5shiv.js" />
@@ -636,9 +640,6 @@
     <Content Include="Areas\Admin\Styles\TicketListing.less" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Admin\Views\BatchMessage\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\TicketListing\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\TicketListing\LewisIndex.cshtml" />
-    <Content Include="Areas\Admin\Views\TicketListing\TemplatePage.cshtml" />
     <Content Include="Areas\Admin\Views\Web.config" />
     <Content Include="Areas\Invoice\Styles\BatchMessage.less" />
     <Content Include="Areas\Invoice\Styles\TicketListing.less" />
@@ -649,14 +650,22 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Copy of _Sportsbook1.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\BK_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Number Game.cshtml" />
+    <Content Include="Areas\Admin\Views\Party\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Party\_AddNew.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Invoice.cshtml" />
+    <Content Include="Areas\Admin\Views\Party\_PartyLicensee.cshtml" />
+    <Content Include="Areas\Admin\Views\Licensee\_AddNew.cshtml" />
+    <Content Include="Areas\Admin\Views\Licensee\_PartyLicensee.cshtml" />
+    <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-DataFees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\BHC_Boping.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -669,8 +678,11 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Configuration\StoreProcedure\NAPFrameworkSpNames.xml" />
-    <Content Include="Web.Configuration\StoreProcedure\NAPInvoiceSpNames.xml" />
+    <Content Include="Web.Configuration\StoreProcedure\AresAdminSpNames.xml" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

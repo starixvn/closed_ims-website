@@ -1,1 +1,1 @@
-﻿/* File Created: February 8, 2013 */
+/* File Created: February 8, 2013 */

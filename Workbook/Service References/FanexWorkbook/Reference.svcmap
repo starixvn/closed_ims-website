@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3804165b-14ce-411b-baac-0b30fc455dcc" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ac267951-213d-46e3-861c-24f0d50ff427" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <EnableDataBinding>true</EnableDataBinding>
@@ -8,7 +8,9 @@
     <GenerateInternalTypes>false</GenerateInternalTypes>
     <GenerateMessageContracts>false</GenerateMessageContracts>
     <NamespaceMappings />
-    <CollectionMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
     <GenerateSerializableTypes>true</GenerateSerializableTypes>
     <Serializer>Auto</Serializer>
     <UseSerializerForFaults>true</UseSerializerForFaults>
@@ -18,15 +20,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="de8e85f8-9f63-4218-8548-476ac2fadedd" SourceId="1" SourceUrl="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/mex" />
-    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="39d31307-a613-44cc-bd5f-10d66e883d7f" SourceId="1" SourceUrl="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/mex" />
-    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="ac08cc53-a782-4e10-b3b8-5c7bcef57b39" SourceId="1" SourceUrl="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/mex" />
-    <MetadataFile FileName="Fanex.Workbook.Service.Entities.xsd" MetadataType="Schema" ID="17d1748a-99df-49e0-93d4-22a89572acec" SourceId="1" SourceUrl="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/mex" />
-    <MetadataFile FileName="Fanex.Workbook.Service.Business.xsd" MetadataType="Schema" ID="7a9ec497-945e-4bf3-92f6-046bb3c305dd" SourceId="1" SourceUrl="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/mex" />
-    <MetadataFile FileName="Fanex.Workbook.Service.xsd" MetadataType="Schema" ID="4ff0215b-efa7-4a76-905d-ee3e85ec8805" SourceId="1" SourceUrl="net.tcp://10.18.200.202:9898/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="f1150c31-870a-4eba-a6e0-43bf79e39426" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="9da1ae8d-e23d-4368-8397-43a6023076ae" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="service1.xsd" MetadataType="Schema" ID="e34e48d1-d445-4a02-924e-e34b05fb59e3" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="Fanex.Workbook.Service.Entities.xsd" MetadataType="Schema" ID="d4ff9dc0-0cee-4a75-a96c-0e907459ee5d" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="Fanex.Workbook.Service.Business.xsd" MetadataType="Schema" ID="122e000a-cd79-42cb-a06b-7d01ac391f38" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
+    <MetadataFile FileName="Fanex.Workbook.Service.xsd" MetadataType="Schema" ID="fe0307a2-d97d-442f-9a98-35d0b2480b9e" SourceId="1" SourceUrl="net.tcp://localhost:8585/Fanex.Workbook.Service/WorkbookService/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
