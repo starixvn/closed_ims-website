@@ -15,6 +15,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     {                     
         public string XMLInvoice { get; set; }
         public int AdminID { get; set; }
+        public int InvoiceID { get; set; }
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
 

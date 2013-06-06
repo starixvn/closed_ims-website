@@ -121,7 +121,7 @@
                                 </td>
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;text-align: right;">
-                                        <label style="font-weight: bold; ">@detail.Amount
+                                        <label style="font-weight: bold; ">@(detail.Amount == 0 ? "(nil)" : detail.Amount.ToString())
                                         </label>
                                     </div>
                                 </td>
@@ -238,10 +238,12 @@
                         </td>
                         <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                             <div>
-                                <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
                                 <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;
+
+                                <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
+                                                                    
                                 <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled"
                                     type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Pdf })'"/>
                             </div>

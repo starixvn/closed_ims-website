@@ -19,6 +19,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     [Serializable]
     public class InvoiceModel
     {
+        public int InvoiceID { get; set; }
+
         public Licensee Licensee { get; set; }
 
         public Operator Operator { get; set; }
