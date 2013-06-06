@@ -97,7 +97,7 @@ function RenderFilterNote() {
 };
 
 function Submit() {
-    NapTicketControl.disableInput();
+    NapAres.disableInput();
     $.ajax({
         url: domain + "Report/LicenseeSettlement/GetReport",
         type: "POST",
@@ -129,7 +129,7 @@ function Submit() {
             alert("fail");
         },
         complete: function (jqXHR, textStatus) {
-            NapTicketControl.enableInput();
+            NapAres.enableInput();
         }
     });
 }

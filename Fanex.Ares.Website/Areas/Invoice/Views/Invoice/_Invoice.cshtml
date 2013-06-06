@@ -240,7 +240,7 @@
                             <div>
                                 <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
-                                <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled"
+                                <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;
                                 <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all "
                                     type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Pdf })'"/>
@@ -292,10 +292,12 @@
     var invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
     if (invoiceInfoModel.StatementList.length == 0) {
         $('#saveID').addClass('ui-state-disabled');
+        $('#reviewID').addClass('ui-state-disabled');
     }
     else {
 
         $('#divBeneficiary').html(CreatingInvoice.Operator.Benificiary);
+        $('#divBeneficiaryBank').html(CreatingInvoice.Operator.BenificiaryBank);
         $('#divAccountNo').html(CreatingInvoice.Operator.AccountNumber);
         $('#divIBAN').html(CreatingInvoice.Operator.IBAN);
         $('#divSwiftCode').html(CreatingInvoice.Operator.SwiftCode);

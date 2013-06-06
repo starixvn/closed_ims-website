@@ -1,77 +1,7 @@
 ﻿$(document).ready(function () {
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     //------binding events
-    $('#fromTopickerplugin').nexDatePicker({
-        nexDatePickerType: "quickchoose",
-        datePickerFormat: {
-            changeMonth: true,
-            dateFormat: "M dd, yy"
-        },
-        firstDatePicker: {
-            Id: "FromDatePicker",
-            Label: labelFrom,
-            InitDate: _today,
-            LabelCss: "lbl-field col_3",
-            TextboxCss: "edit-field col_6"
-        },
-        secondDatePicker: {
-            Id: "ToDatePicker",
-            Label: labelTo,
-            InitDate: _today,
-            LabelCss: "lbl-field col_1",
-            TextboxCss: "edit-field col_6"
-        },
-        onSelectDatePicker: function () {
-        },
-        dropDownList:
-        {
-            Id: "dropDownListId1",
-            Label: "Date ",
-            LabelCss: "lbl-field col_3",
-            OptionCss: "edit-field col_5"
-        }
-    });
-    $('#duteDatepickerplugin').nexDatePicker({
-        nexDatePickerType: "single",
-        datePickerFormat: {
-            changeMonth: true,
-            dateFormat: "M dd, yy"
-        },
-        firstDatePicker: {
-            Id: "DueDatePicker",
-            Label: "Due Date",
-            InitDate: "",
-            LabelCss: "lbl-field col_3",
-            TextboxCss: "edit-field col_8"
-        },
-        onSelectDatePicker: function () {
-        }
-    });
-    $('#btnGenerate').button();
-    $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
-
-    $("#ddlLicensee").change(function () {
-        GetInvoiceType();
-    });
-
-    $("#ddlOperator").change(function () {
-        CreatingInvoice.GetLicensees();
-    });
-
-    //------binding data
-    $.each(operatorListModel, function (i, item) {
-        $('#ddlOperator').append('<option value="'
-                                 + item.PartyID
-                                 + '">'
-                                 + item.PartyFullName
-                                 + '</option>');
-    });
-
-    CreatingInvoice.GetLicensees();
-
-
-
-    NapAres.NapAresPopUp = $('#dialog-popup');
+    CreatingInvoice.init();
 });
 
 function Submit() {
@@ -189,7 +119,8 @@ function GetInvoiceNo() {
             $('#invoiceNo').val(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert("fail");
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading InvoiceNo fail.' });
+            setTimeout('NapAres.Helper.hideMsgBox()', 3000);
         },
         complete: function (jqXHR, textStatus) {
             NapAres.enableInput();
@@ -209,6 +140,77 @@ var CreatingInvoice = {
     Products: '',
     InvoiceNo: '',
     InvoiceName: '',
+    init: function () {
+        $('#fromTopickerplugin').nexDatePicker({
+            nexDatePickerType: "quickchoose",
+            datePickerFormat: {
+                changeMonth: true,
+                dateFormat: "M dd, yy"
+            },
+            firstDatePicker: {
+                Id: "FromDatePicker",
+                Label: labelFrom,
+                InitDate: _today,
+                LabelCss: "lbl-field col_3",
+                TextboxCss: "edit-field col_6"
+            },
+            secondDatePicker: {
+                Id: "ToDatePicker",
+                Label: labelTo,
+                InitDate: _today,
+                LabelCss: "lbl-field col_1",
+                TextboxCss: "edit-field col_6"
+            },
+            onSelectDatePicker: function () {
+            },
+            dropDownList:
+        {
+            Id: "dropDownListId1",
+            Label: "Date ",
+            LabelCss: "lbl-field col_3",
+            OptionCss: "edit-field col_5"
+        }
+        });
+        $('#duteDatepickerplugin').nexDatePicker({
+            nexDatePickerType: "single",
+            datePickerFormat: {
+                changeMonth: true,
+                dateFormat: "M dd, yy"
+            },
+            firstDatePicker: {
+                Id: "DueDatePicker",
+                Label: "Due Date",
+                InitDate: "",
+                LabelCss: "lbl-field col_3",
+                TextboxCss: "edit-field col_8"
+            },
+            onSelectDatePicker: function () {
+            }
+        });
+        $('#btnGenerate').button();
+        $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+
+        $("#ddlLicensee").change(function () {
+            GetInvoiceType();
+        });
+
+        $("#ddlOperator").change(function () {
+            CreatingInvoice.GetLicensees();
+        });
+
+        //------binding data
+        $.each(operatorListModel, function (i, item) {
+            $('#ddlOperator').append('<option value="'
+                                 + item.PartyID
+                                 + '">'
+                                 + item.PartyFullName
+                                 + '</option>');
+        });
+
+        CreatingInvoice.GetLicensees();
+
+        NapAres.NapAresPopUp = $('#dialog-popup');
+    },
     GetLicensees: function () {
         NapAres.disableInput();
         $('#ddlLicensee').html('');
@@ -227,15 +229,19 @@ var CreatingInvoice = {
                     });
 
                 }
+                GetInvoiceType();
                 CreatingInvoice.Licensees = data;
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert("fail");
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading Licensee data fail.' });
+                setTimeout('NapAres.Helper.hideMsgBox()', 3000);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
             }
         });
+
+
     },
     GetFilteringInfo: function () {
         var Operator = operatorListModel[$("#ddlOperator").prop("selectedIndex")];
@@ -263,10 +269,11 @@ var CreatingInvoice = {
                 '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
                 '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
             success: function (data, textStatus, jqXHR) {
-                $('#parentContainer').html(data);
+                $('#parentContainer').html(data);                
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert("fail");
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
+                setTimeout('NapAres.Helper.hideMsgBox()', 3000);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
@@ -274,7 +281,7 @@ var CreatingInvoice = {
         });
     },
     SaveInvoice: function () {
-        
+
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
         invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
@@ -297,9 +304,8 @@ var CreatingInvoice = {
                     if (data.ErrorCode == 0) {
                         $('#saveID').addClass('ui-state-disabled');
                         $('#btnGenerate').addClass('ui-state-disabled');
-                        $('#reviewID').removeClass('ui-state-disabled');
                         $('#pdfID').removeClass('ui-state-disabled');
-                        
+
                         NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
                     }
                     else {
@@ -307,20 +313,40 @@ var CreatingInvoice = {
                     }
                 }
                 else {
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });                    
+                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
                 }
-
-                NapAres.popUp.removeHighLight();
-                NapAres.popUp.show(message, 'btnGenerate');
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert("fail");
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
             }
         });
 
+        setTimeout('NapAres.Helper.hideMsgBox()', 3000);
+    },
+    ReloadData: function () {
+        NapAres.disableInput();
+        CreatingInvoice.GetFilteringInfo();
+
+        $.ajax({
+            url: domain + "Invoice/Invoice/GetInvoice",
+            type: "POST",
+            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
+                '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
+                '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
+            success: function (data, textStatus, jqXHR) {
+                $('#parentContainer').html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
+                setTimeout('NapAres.Helper.hideMsgBox()', 3000);
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
     }
 
 }
