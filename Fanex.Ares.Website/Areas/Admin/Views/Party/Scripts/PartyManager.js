@@ -116,7 +116,7 @@ PartyManager = function () {
             dataType: "json",
             data: null,
             beforeSend: function () {
-                NapTicketControl.disableInput();
+                NapAres.disableInput();
             },
             success: function (rs) {
                 renderParties(rs);
@@ -125,7 +125,7 @@ PartyManager = function () {
                 renderParties([]);
             },
             complete: function () {
-                NapTicketControl.enableInput();
+                NapAres.enableInput();
             }
         });
 
@@ -333,7 +333,7 @@ PartyManager = function () {
                     dataType: "html",
                     data: "PartyID=" + partyID,
                     beforeSend: function () {
-                        NapTicketControl.disableInput();
+                        NapAres.disableInput();
                     },
                     success: function (rs) {
                         $('#PartyLicenseeDialog').html(rs);
@@ -342,7 +342,7 @@ PartyManager = function () {
                         alert('fail');
                     },
                     complete: function () {
-                        NapTicketControl.enableInput();
+                        NapAres.enableInput();
                     }
                 });
 

@@ -25,7 +25,7 @@ NapAres.Helper = (function ($) {
 
     return {
         authorizedMsg: 'You are not authorized on this function.',
-
+        msgbox: $('#dialog-popup'),
         GetLicensees: function () {
             $.ajax({
                 type: "POST",
@@ -49,10 +49,8 @@ NapAres.Helper = (function ($) {
             });
         },
         showMsgBox: function (msgs) {
-            var msgbox = $('#dialog-popup');
-
-            if (msgbox.length == 0) {
-                msgbox = $(
+            if (this.msgbox.length == 0) {
+                this.msgbox = $(
                     '<div class="alert alert-error" id="dialog-popup">' +
                         '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
                         '<div class="alert-content">' +
@@ -62,11 +60,12 @@ NapAres.Helper = (function ($) {
 
 
             var html = [];
-
+            var isHasError = false;
             if ($.isPlainObject(msgs)) {
                 var msg = msgs;
                 if (msg.ErrorCode > 0) {//Fail
                     html.push('<span class="fail">' + msg.ErrorMsg + '<i class="icon-warning-sign"></i></span><br/>');
+                    isHasError = true;
                 }
                 else {
                     html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
@@ -79,6 +78,7 @@ NapAres.Helper = (function ($) {
                         if (msg.ErrorCode > 0) {
                             //Fail
                             html.push('<span class="fail">' + msg.ErrorMsg + '&nbsp;<i class="icon-warning-sign"></i></span><br/>');
+                            isHasError = true;
                         }
                         else {
                             html.push('<span>' + msg.ErrorMsg + '&nbsp;<i class="icon-ok"></i></span><br/>');
@@ -86,14 +86,14 @@ NapAres.Helper = (function ($) {
                     }
                 } else {
                     html.push('<span class="fail">' + msgs + '<i class="icon-warning-sign"></i></span><br/>');
+                    isHasError = true;
                 }
             }
 
-            msgbox.attr('class', 'alert alert-success').find('.alert-content').html(html.join(''));
-            msgbox.fadeIn();
-            msgbox.show();
+            this.msgbox.attr('class', 'alert alert-success' + (isHasError == true ? ' err' : '')).find('.alert-content').html(html.join(''));
+            this.msgbox.fadeIn();
+            this.msgbox.show();
         },
-
         displayContent: function (isShow) {
             if (isShow) {
                 $('#report-content').show();
@@ -102,7 +102,6 @@ NapAres.Helper = (function ($) {
                 $('#report-content').hide();
             }
         },
-
         ToggleFilterBar: function () {
             if ($('.filter-bar-inner').css('display') == 'none') {
                 $('.filter-bar-inner').show();
@@ -111,6 +110,10 @@ NapAres.Helper = (function ($) {
                 $('.filter-bar-inner').hide();
             }
 
+        },
+        hideMsgBox: function () {
+            this.msgbox.fadeOut();
+            this.msgbox.hide();
         }
     };
 } (jQuery));

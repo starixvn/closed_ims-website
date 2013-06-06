@@ -103,6 +103,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public string Benificiary { get; set; }
 
+        public string BenificiaryBank { get; set; }
+
         public string IBAN { get; set; }
 
         public string SwiftCode { get; set; }

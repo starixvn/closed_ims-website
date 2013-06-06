@@ -43,6 +43,7 @@ using System.Text;
                         AccountName = Convert.ToString(r["AccountName"]),
                         BankName = Convert.ToString(r["BankName"]),
                         Benificiary = Convert.ToString(r["Benificiary"]),
+                        BenificiaryBank = Convert.ToString(r["BenificiaryBank"]),
                         IBAN = Convert.ToString(r["IBAN"]),
                         SwiftCode = Convert.ToString(r["SwiftCode"]),
                         CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
@@ -251,6 +252,7 @@ using System.Text;
                     foreach (StatementDetail statementDetail in statement.StatementDetailList)
                     {
                         invoiceXmlFormat.Append("<InvoiceItem>");
+                        invoiceXmlFormat.Append("<InvoiceItemID>" + statementDetail.ID + "</InvoiceItemID>");
                         invoiceXmlFormat.Append("<Description>" + statementDetail.Description + "</Description>");
                         invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
