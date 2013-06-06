@@ -80,6 +80,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string Reference { get; set; }
 
         public double Amount { get; set; }
+
+        public bool AdjustItem { get; set; }
     }
 
     [Serializable]
