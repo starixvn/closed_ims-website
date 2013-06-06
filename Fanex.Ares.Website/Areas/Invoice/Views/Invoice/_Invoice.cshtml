@@ -1,4 +1,4 @@
-@using Fanex.Ares.Invoice.Models.Invoice;
+﻿@using Fanex.Ares.Invoice.Models.Invoice;
 @{
     InvoiceModel model = new InvoiceModel();
     model = Model;
@@ -131,7 +131,7 @@
                         }
                         <tr class="total" style="width: 100%;">
                             <td style="text-align: center; border-right: 0px solid black !important;">
-                                <a onClick="AddItem('newItem_'@index++)" style="text-decoration:underline; cursor: pointer; font-style:italic;">+New Item</a>
+                                <a onClick="AddItem('newItem_')" style="text-decoration:underline; cursor: pointer; font-style:italic;">+New Item</a>
                             </td>
                             <td style="width: 55%; height: 30px; text-align: left; border-left: 0px solid black!important;">
                                 <a onClick="AddItem()" style="text-decoration:underline;cursor: pointer; font-style:italic;">+New Discount</a>
