@@ -16,7 +16,9 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     {
         public string Currency { get; set; }
         public DateTime ExchangeDate { get; set; }
+        [SpParam(Ignored=true)]
         public int BaseCurrencyId { get; set; }
+        [SpParam(Ignored = true)]
         public string BaseCurrencyName { get; set; }
 
         public override string GetSettingKey()
