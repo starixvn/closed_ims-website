@@ -177,7 +177,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20 ">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divBeneficiary">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -187,7 +187,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divAccountNo">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -197,7 +197,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divIBAN">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -207,7 +207,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divBeneficiaryBank">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -217,7 +217,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divSwiftCode">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -233,16 +233,16 @@
                         </td>
                         <td style="width: 45%;" class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divCorrespondent">
                                 &nbsp;</div>
                         </td>
                         <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                             <div>
                                 <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
-                                <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled"
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;
-                                <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled"
                                     type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Pdf })'"/>
                                     <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="EXPORT ECXEL" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Xlsx })'"/>
@@ -283,5 +283,22 @@
 <script type="text/javascript">
     function setbg(color, id) {
         document.getElementById("styled_" + id).style.background = color
+    }
+    
+    $('#saveID').button();
+    $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
+    var invoiceInfo = '@Json.Encode(Model)';
+    invoiceInfo = invoiceInfo.replace(/&quot;/g, '"');
+    var invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
+    if (invoiceInfoModel.StatementList.length == 0) {
+        $('#saveID').addClass('ui-state-disabled');
+    }
+    else {
+
+        $('#divBeneficiary').html(CreatingInvoice.Operator.Benificiary);
+        $('#divAccountNo').html(CreatingInvoice.Operator.AccountNumber);
+        $('#divIBAN').html(CreatingInvoice.Operator.IBAN);
+        $('#divSwiftCode').html(CreatingInvoice.Operator.SwiftCode);
+        $('#divCorrespondent').html(CreatingInvoice.Operator.CorrespondentBank);
     }
 </script>

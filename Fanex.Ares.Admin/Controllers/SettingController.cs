@@ -47,23 +47,27 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllSettings()
         {
             return Json(_settingService.GetAllSettings(new IMS_LicenseeProductSettingInfoSel()));
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicenseeProductCharge(IMS_LicenseeProductChargeInfoSel criteria)
         {
             return Json(_settingService.GetAllLicenseeProductCharge(criteria));
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicenseeProductDiscount(IMS_LicenseeProductDiscountInfoSel criteria)
         {
             return Json(_settingService.GetAllLicenseeProductDiscount(criteria));
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID","LicenseeName", "BrandName");
@@ -74,27 +78,38 @@ namespace Fanex.Ares.Admin.Controllers
             return PartialView();
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public PartialViewResult _LicenseeProductCharge()
+        {
+            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
+            return PartialView();
+        }
+
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public PartialViewResult _LicenseeProductDiscount()
+        {
+            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
+            return PartialView();
+        }
+
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewSetting(IMS_LicenseeProductSettingIns criteria)
         {
-            var rs = new Hashtable();
-            rs = _settingService.ExecuteCommand(criteria);
-            TempData["Result"] = rs;
+            TempData["Result"] = _settingService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateSetting(IMS_LicenseeProductSettingUpd criteria)
         {
-            var rs = new Hashtable();
-            rs = _settingService.ExecuteCommand(criteria);
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _settingService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateLicenseeProductCharge(IMS_LicenseeProductChargeMultipleIns criteria)
         {
             var rs = new Hashtable();
@@ -108,6 +123,7 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateLicenseeProductDiscount(IMS_LicenseeProductDiscountMultipleIns criteria)
         {
             var rs = new Hashtable();
@@ -120,15 +136,5 @@ namespace Fanex.Ares.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public PartialViewResult _LicenseeProductCharge() {
-            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
-            return PartialView();
-        }
-
-        public PartialViewResult _LicenseeProductDiscount()
-        {
-            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
-            return PartialView();
-        }
     }
 }

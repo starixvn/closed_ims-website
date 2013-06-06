@@ -10,24 +10,15 @@
 namespace Fanex.Ares.Admin.Criteria
 {
     using Fanex.NAP.Framework.Data;
+    using System.Web.Mvc;
 
     public class IMS_LicenseePartyMultipleIns : CriteriaBase
     {
+        [AllowHtml]
         public string XmlSettings { get; set; }
 
-        [SpParam(Ignored=true)]
-        public string ListLicenseeID { get; set; }
-
-        [SpParam(Ignored = true)]
-        public string ListPartyID { get; set; }
-
-        [SpParam(Ignored = true)]
-        public int LicenseeID { get; set; }
-
-        [SpParam(Ignored = true)]
-        public int PartyID { get; set; }
-
         public int ErrCode { get; set; }
+
         public string ErrMsg { get; set; }
 
         public override string GetSettingKey()

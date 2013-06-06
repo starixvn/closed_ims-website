@@ -24,5 +24,7 @@ namespace Fanex.Ares.Invoice.Service.Interface
         int GetInvoieNo(IMS_InvoiceNoSelCriteria criteria);
 
         InvoiceModel GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria);
+
+        Core.Models.Result SaveInvoice(InvoiceModel invoiceModel);
     }
 }

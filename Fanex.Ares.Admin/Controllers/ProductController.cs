@@ -50,32 +50,31 @@ namespace Fanex.Ares.Admin.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllProducts()
         {
             return Json(_productService.GetAllProducts(new IMS_ProductInfoSel()));
         }
 
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             return PartialView();
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewProduct(IMS_ProductIns criteria)
         {
-            var rs = new Hashtable();
-            rs = _productService.ExecuteCommand(criteria);
-            TempData["Result"] = rs;
+            TempData["Result"] = _productService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateProduct(IMS_ProductnfoUpd criteria)
         {
-            var rs = new Hashtable();
-            rs = _productService.ExecuteCommand(criteria);
-
-            TempData["Result"] = rs;
+            TempData["Result"] = _productService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
     }

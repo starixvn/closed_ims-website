@@ -22,9 +22,9 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js",
                 "~/Scripts/_Libs/FanexGrid/moment.js",
                 "~/Scripts/_Libs/FormatLibs/NumberFormat/numeral.js",
-                "~/Scripts/NapTicketControl.js",
-                "~/Scripts/NapTicketControl.Helper.js",
-                "~/Scripts/NapTicketControl.Validator.js",
+                "~/Scripts/NapAres.js",
+                "~/Scripts/NapAres.Helper.js",
+                "~/Scripts/NapAres.Validator.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
                 "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"

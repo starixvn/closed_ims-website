@@ -275,12 +275,21 @@ LicenseeManager = function () {
             modal: true,
             buttons: {
                 "Save": function () {
-                    var listPartyID = "";
+                    var xmlData = "<Settings>";
                     $('#selected_columns option').each(function () {
-                        listPartyID += $(this).attr('value') + ",";
+                        xmlData += "<Setting>";
+                        xmlData += "<Party>";
+                        xmlData += $(this).attr('value');
+                        xmlData += "</Party>";
+                        xmlData += "<Licensee>";
+                        xmlData += LicenseeID.toString();
+                        xmlData += "</Licensee>";
+                        xmlData += "</Setting>";
                     })
 
-                    $('#formPartyLicensee > #ListPartyID').val(listPartyID);
+                    xmlData += "</Settings>";
+
+                    $('#formPartyLicensee > #XmlSettings').val(xmlData);
                     $('#formPartyLicensee').submit();
                     $(this).dialog("close");
                 },
