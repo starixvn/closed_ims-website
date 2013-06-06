@@ -121,7 +121,7 @@ function GetInvoiceNo() {
         },
         error: function (xhr, ajaxOptions, thrownError) {
             NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading InvoiceNo fail.' });
-            setTimeout('NapAres.Helper.hideMsgBox()', 3000);
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
         },
         complete: function (jqXHR, textStatus) {
             NapAres.enableInput();
@@ -152,6 +152,8 @@ var CreatingInvoice = {
     Products: '',
     InvoiceNo: '',
     InvoiceName: '',
+    InvoiceID: 0,
+    messageTimeOut: 4000,
     init: function () {
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "quickchoose",
@@ -197,8 +199,10 @@ var CreatingInvoice = {
                 TextboxCss: "edit-field col_8"
             },
             onSelectDatePicker: function () {
+                CreatingInvoice.DueDate = $('#DueDatePicker').val();
             }
         });
+
         $('#btnGenerate').button();
         $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
@@ -246,7 +250,7 @@ var CreatingInvoice = {
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading Licensee data fail.' });
-                setTimeout('NapAres.Helper.hideMsgBox()', 3000);
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
@@ -281,11 +285,11 @@ var CreatingInvoice = {
                 '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
                 '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
             success: function (data, textStatus, jqXHR) {
-                $('#parentContainer').html(data);                
+                $('#parentContainer').html(data);
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
-                setTimeout('NapAres.Helper.hideMsgBox()', 3000);
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
@@ -318,7 +322,8 @@ var CreatingInvoice = {
                         $('#btnGenerate').addClass('ui-state-disabled');
                         $('#pdfID').removeClass('ui-state-disabled');
 
-                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
+                        CreatingInvoice.InvoiceID = data.ErrorMessage;
+                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });                        
                     }
                     else {
                         NapAres.Helper.showMsgBox(data);
@@ -336,29 +341,6 @@ var CreatingInvoice = {
             }
         });
 
-        setTimeout('NapAres.Helper.hideMsgBox()', 3000);
-    },
-    ReloadData: function () {
-        NapAres.disableInput();
-        CreatingInvoice.GetFilteringInfo();
-
-        $.ajax({
-            url: domain + "Invoice/Invoice/GetInvoice",
-            type: "POST",
-            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
-                '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
-                '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
-            success: function (data, textStatus, jqXHR) {
-                $('#parentContainer').html(data);
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
-                setTimeout('NapAres.Helper.hideMsgBox()', 3000);
-            },
-            complete: function (jqXHR, textStatus) {
-                NapAres.enableInput();
-            }
-        });
+        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
     }
-
 }

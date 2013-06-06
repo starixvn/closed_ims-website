@@ -19,6 +19,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     [Serializable]
     public class InvoiceModel
     {
+        public int InvoiceID { get; set; }
+
         public Licensee Licensee { get; set; }
 
         public Operator Operator { get; set; }
@@ -78,6 +80,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string Reference { get; set; }
 
         public double Amount { get; set; }
+
+        public bool AdjustItem { get; set; }
     }
 
     [Serializable]

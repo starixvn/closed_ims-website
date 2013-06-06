@@ -202,7 +202,8 @@ using System.Text;
                             ID = 0,
                             Description = row.Description,
                             Reference = row.Reference,
-                            Amount = (double)row.TotalAmount
+                            Amount = (double)row.TotalAmount,
+                            AdjustItem = false
                         });
                         oldMonth = invoiceMonth;
                     }
@@ -232,6 +233,7 @@ using System.Text;
                 var invoiceXmlFormat = new StringBuilder();
                 
                 invoiceXmlFormat.Append("<Invoice>");
+                invoiceXmlFormat.Append("   <InvoiceID>" + invoiceModel.InvoiceID + "</InvoiceID>");
                 invoiceXmlFormat.Append("   <InvoiceNo>" + invoiceModel.InvoiceNo + "</InvoiceNo>");
                 invoiceXmlFormat.Append("   <InvoiceName>" + invoiceModel.InvoiceName + "</InvoiceName>");
                 invoiceXmlFormat.Append("   <PartyID>" + invoiceModel.Operator.PartyID + "</PartyID>");
@@ -256,6 +258,7 @@ using System.Text;
                         invoiceXmlFormat.Append("<Description>" + statementDetail.Description + "</Description>");
                         invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
+                        invoiceXmlFormat.Append("   <AdjustItem>" + statementDetail.AdjustItem + "</AdjustItem>");
                         invoiceXmlFormat.Append("</InvoiceItem>");
                         totalAmount += statementDetail.Amount;
                     }
@@ -269,7 +272,14 @@ using System.Text;
 
                 var hashResult = _repository.ExecuteCommand(criteria);
                 result.ErrorCode = Convert.ToInt32(hashResult["errcode"]);
-                result.ErrorMessage = hashResult["errmsg"].ToString();
+                if (result.ErrorCode == 0)
+                {
+                    result.ErrorMessage = hashResult["invoiceid"].ToString();
+                }
+                else
+                {
+                    result.ErrorMessage = hashResult["errmsg"].ToString();
+                }
             }
             catch (Exception ex)
             {
