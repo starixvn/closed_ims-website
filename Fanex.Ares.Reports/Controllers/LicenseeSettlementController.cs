@@ -211,5 +211,19 @@ namespace Fanex.Ares.Report.Controllers
             var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             return View("PrintReport", model);
         }
+
+
+        public ActionResult ExportDocument1(Student documentType)
+        {
+           
+            return new EmptyResult();
+
+
+        }
+    }
+
+    public class Student
+    {
+        public string Name { get; set; }
     }
 }

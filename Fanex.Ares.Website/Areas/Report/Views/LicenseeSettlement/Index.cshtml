@@ -1,6 +1,7 @@
 ﻿﻿@using Fanex.Ares.Core.Resources;
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
+@using Fanex.Ares.Report.Controllers
 @using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 @using Fanex.Ares.Core.Extensions
 @model IMS_Rpt_LicenseeSettlementCriteria
@@ -106,6 +107,7 @@
     <div class="grid-toolbox">
         @*<input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />*@
         <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
+        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument1", "LicenseeSettlement", new { documentType = new Student()})'" />
         @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
         
       @*  <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />*@
