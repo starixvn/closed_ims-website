@@ -13,23 +13,20 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web.Hosting;
 using System.Web.Mvc;
+using Fanex.Ares.Core.Criteria;
 using Fanex.Ares.Core.Extensions;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Core.Web.Security;
-using Fanex.Ares.Report.Criteria;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 using Fanex.Ares.Report.Services.Interface;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
-using Fanex.Ares.Core.Criteria;
-using Fanex.Workbooks;
 using Fanex.NAP.Core.Web.Attribute;
-using Fanex.NAP.Core.Business;
+using Fanex.Workbooks;
 
 namespace Fanex.Ares.Report.Controllers
 {

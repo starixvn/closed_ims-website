@@ -242,6 +242,7 @@
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\BHC_Boping\BHC_Boping.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -664,6 +665,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-DataFees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\BHC_Boping.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -738,7 +740,6 @@
     <Content Include="Views\Common\AccessDenied.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Invoice\Views\Invoice\Template\BHC\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
