@@ -130,14 +130,15 @@ function GetInvoiceNo() {
 }
 
 function AddItem(idItem) {
-    $('#invoiceTbl tr.total').before(' <tr id="' + idItem + '" style="width: 100%; text-align: center;">\
-                                    <td  style="width: 10%; "></td>\
-                                <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
-                                <td style="width: 15%; text-align: center;">\
-                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                        <input type="text" style="font-weight: bold; "></input></div></td></tr>');
+//    $('#invoiceTbl tr.total').before(' <tr id="' + idItem + '" style="width: 100%; text-align: center;">\
+//                                    <td  style="width: 10%; "></td>\
+//                                <td style="width: 55%; text-align: center; height: 60px;">\
+//                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
+//                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
+//                                <td style="width: 15%; text-align: center;">\
+//                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
+    //                                        <input type="text" style="font-weight: bold; "></input></div></td></tr>');
+    CreatingInvoice.addNewItem();
 }
 
 var CreatingInvoice = {
@@ -323,7 +324,7 @@ var CreatingInvoice = {
                         $('#pdfID').removeClass('ui-state-disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
-                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });                        
+                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
                     }
                     else {
                         NapAres.Helper.showMsgBox(data);
@@ -342,5 +343,35 @@ var CreatingInvoice = {
         });
 
         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+    },
+    addNewItem: function () {
+        var lastStatement = $('#invoiceTbl tr.total').prev();
+        var newStatementID = 0;
+        if (lastStatement.prop('id') != undefined) {
+            var currentStatementID = parseInt(lastStatement.prop('id').split('_')[1]);
+            newStatementID = currentStatementID + 1;
+
+            var isHasBlankRow = false;
+            lastStatement.find(':text').each(function () {
+                var value = $(this).val();
+                if (value != undefined && value == "")
+                    isHasBlankRow = true;
+            });
+
+            alert(isHasBlankRow);
+        }
+
+        if (!isHasBlankRow) {
+            $('#invoiceTbl tr.total').before(' <tr id="trStatement_' + newStatementID + '" style="width: 100%; text-align: center;">\
+                                    <td  style="width: 10%; "></td>\
+                                <td style="width: 55%; text-align: center; height: 60px;">\
+                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
+                                <td style="width: 15%; text-align: center;">\
+                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
+                                            <input type="text" style="font-weight: bold; "></input></div></td></tr>');
+        }
+    },
+    deleteItem: function () {
     }
 }
