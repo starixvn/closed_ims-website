@@ -2,6 +2,7 @@
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     //------binding events
     CreatingInvoice.init();
+
 });
 
 function Submit() {
@@ -126,6 +127,17 @@ function GetInvoiceNo() {
             NapAres.enableInput();
         }
     });
+}
+
+function AddItem(idItem) {
+    $('#invoiceTbl tr.total').before(' <tr id="' + idItem + '" style="width: 100%; text-align: center;">\
+                                    <td  style="width: 10%; "></td>\
+                                <td style="width: 55%; text-align: center; height: 60px;">\
+                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
+                                <td style="width: 15%; text-align: center;">\
+                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
+                                        <input type="text" style="font-weight: bold; "></input></div></td></tr>');
 }
 
 var CreatingInvoice = {
