@@ -323,9 +323,9 @@
     <Content Include="Scripts\Common\Message.Validator.js" />
     <Content Include="Scripts\Common\Message.Helper.js" />
     <Content Include="Scripts\Common\ValidateMessage.js" />
-    <Content Include="Scripts\NapTicketControl.Helper.js" />
-    <Content Include="Scripts\NapTicketControl.js" />
-    <Content Include="Scripts\NapTicketControl.Validator.js" />
+    <Content Include="Scripts\NapAres.Helper.js" />
+    <Content Include="Scripts\NapAres.js" />
+    <Content Include="Scripts\NapAres.Validator.js" />
     <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.js" />
     <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.min.js" />
     <Content Include="Scripts\_Libs\Bootstrap\bootstrap-affix.js" />

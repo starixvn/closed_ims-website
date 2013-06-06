@@ -19,6 +19,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     [Serializable]
     public class InvoiceModel
     {
+        public int InvoiceID { get; set; }
+
         public Licensee Licensee { get; set; }
 
         public Operator Operator { get; set; }
@@ -29,14 +31,13 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public DateTime DueDate { get; set; }
 
-        public string Currency { get; set; }
+        public int Currency { get; set; }
+        public string CurrencyName { get; set; }
 
         public InvoiceType InvoiceType { get; set; }
-
         public string Product { get; set; }
-
         public int InvoiceNo { get; set; }
-
+        public string InvoiceName { get; set; }
         public List<Statement> StatementList { get; set; } // List statement
 
         public double TotalAmount { get; set; }
@@ -79,6 +80,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string Reference { get; set; }
 
         public double Amount { get; set; }
+
+        public bool AdjustItem { get; set; }
     }
 
     [Serializable]
@@ -103,6 +106,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string BankName { get; set; }
 
         public string Benificiary { get; set; }
+
+        public string BenificiaryBank { get; set; }
 
         public string IBAN { get; set; }
 

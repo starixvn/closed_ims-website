@@ -1622,15 +1622,14 @@ ul.filter-note {
 /********************************************************/
 #dialog-popup.err {
     background: none repeat scroll 0 0 #FFD4D4;
-    border: 1px solid #FF0000;
-	}
-#dialog-popup.info {
-	background: none repeat scroll 0 0 #E6F1C9;
-	border: 1px solid #CFE493;
+    border: 1px solid red;
 }
-#dialog-popup
-{
-	border-radius: 2px 2px 2px 2px;
+#dialog-popup.info {
+    background: none repeat scroll 0 0 #E6F1C9;
+    border: 1px solid #CFE493;
+}
+#dialog-popup {
+    border-radius: 2px 2px 2px 2px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     color: #333333;
     display: none;
@@ -1641,31 +1640,23 @@ ul.filter-note {
     top: 43px;
     z-index: 99 !important;
 }
-#dialog-popup .close
-{
-	background: url("img/sprites-image.png") no-repeat scroll -79px -39px transparent;
+#dialog-popup .close {
+    background: url("img/sprites-image.png") no-repeat scroll -79px -39px transparent;
     border: 2px solid #333333;
     border-radius: 3px 3px 3px 3px;
     display: block;
     float: right;
     font-size: 0;
-    height: 10px;
+    height: 15px;
     margin: 0 0 0 10px;
     outline-style: none;
     padding: 1px;
     position: relative;
     text-indent: -99999px;
-    width: 10px;
+    width: 15px;
 }
-#dialog-popup .close:hover
-{
-	background: url("img/sprites-image.png") no-repeat scroll -79px -27px #333333;
-}
-
-.input-validation-error
-{
-	border: 1px solid #FFCCCC !important;
-    box-shadow: 0 0 2px 2px #FF6666 !important;
+#dialog-popup .close:hover {
+    background: url("img/sprites-image.png") no-repeat scroll -79px -27px #333333;
 }
 
 /********************************************************/
@@ -1864,4 +1855,35 @@ span.collapse{
 .even
 {
     background-color: #e4f2fd;
+}
+
+.alert {
+	position: fixed;
+	top: 300px;
+	left: 300px;
+	right: 300px;
+	
+	display: none;
+	z-index:9999;
+	min-width: 620px;
+    
+    
+	
+}
+.fail {
+		
+		color: #AC1E25;
+        display: inline-block;
+        margin-bottom: 2px;
+		display: inline-block;
+	}
+.alert
+{
+    text-shadow: none;
+}
+
+.alert-success {
+    background-color: #B1ED9A;
+    border-color: #575956;
+    color: #246625;
 }

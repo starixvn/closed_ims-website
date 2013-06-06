@@ -97,7 +97,7 @@ LicenseeManager = function () {
             dataType: "json",
             data: null,
             beforeSend: function () {
-                NapTicketControl.disableInput();
+                NapAres.disableInput();
             },
             success: function (rs) {
                 renderLicensees(rs);
@@ -106,7 +106,7 @@ LicenseeManager = function () {
                 renderLicensees([]);
             },
             complete: function () {
-                NapTicketControl.enableInput();
+                NapAres.enableInput();
             }
         });
 
@@ -304,7 +304,7 @@ LicenseeManager = function () {
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID,
                     beforeSend: function () {
-                        NapTicketControl.disableInput();
+                        NapAres.disableInput();
                     },
                     success: function (rs) {
                         $('#PartyLicenseeDialog').html(rs);
@@ -313,7 +313,7 @@ LicenseeManager = function () {
                         alert('fail');
                     },
                     complete: function () {
-                        NapTicketControl.enableInput();
+                        NapAres.enableInput();
                     }
                 });
 

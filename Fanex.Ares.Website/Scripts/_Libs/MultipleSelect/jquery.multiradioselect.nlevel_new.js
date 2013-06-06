@@ -413,7 +413,9 @@
         };
 
         var UpdateRemoveParentSelected = function (currentGroup) {
-            if (currentGroup.hasClass('ui-multiselect-ul-group') && currentGroup.length > 0) {
+            var currentChildren = currentGroup.find("li > div > label > input");
+            var currentChildSelected = currentChildren.filter(':not(:checked)').length;
+            if (currentGroup.hasClass('ui-multiselect-ul-group') && currentChildren.length == currentChildSelected) {
                 if (currentGroup.prev().find('input').prop('checked') == true) {//true) {
                     currentGroup.prev().find('input').prop('checked', false);
                     currentGroup.prev().find('input').removeAttr('checked');
@@ -673,13 +675,13 @@
                         var currentChildNotSelected = childrenNodes.filter(':not(:checked)');
                         childrenNodes.filter(':not(:checked)').parent().parent().next().find('input[type=checkbox]').prop('checked', false);
 
-                        var currentChildSelected = childrenNodes.filter(':checked').length;
-                        var currentChildLength = childrenNodes.length;
-                        if (currentChildLength == currentChildSelected) {
-                            currentGroup.prev().find('input').prop('checked', true);
-                            currentGroup.prev().find('input').attr('checked', 'checked');
-                            UpdateSelectedFromChild(current.parent().parent().parent().parent());
-                        }
+                        //                        var currentChildSelected = childrenNodes.filter(':checked').length;
+                        //                        var currentChildLength = childrenNodes.length;
+                        //                        if (currentChildLength == currentChildSelected) {
+                        currentGroup.prev().find('input').prop('checked', true);
+                        currentGroup.prev().find('input').attr('checked', 'checked');
+                        UpdateSelectedFromChild(current.parent().parent().parent().parent());
+                        //}
 
 
 
