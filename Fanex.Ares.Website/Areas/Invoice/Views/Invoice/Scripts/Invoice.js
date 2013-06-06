@@ -111,22 +111,62 @@ function GetInvoiceType() {
                 productList = [];
             }
 
+            $("#ddlInvoiceType").multiRadioSelect(
+            { //multiple: false,
+                showCheckAll: false,
+                maxHeight: 705,
+                minWidth: 170,
+                listData: invoiceTypeList,
+                hasOptGroup: true,
+                onLeave: function () {
+                    //alert($("#demoMultiselect").multiSelect("getCheckedItems").length);
+                    //                    var strTemp = "";
+                    //                    for (var i = 0; i < $("#demoMultiselect").multiSelect("getCheckedItems").length; i++) {
+                    //                        var temp = $("#demoMultiselect").multiSelect("getCheckedItems")[i];
+                    //                        if (temp != null) {
+                    //                            strTemp += "<br/>+" + temp;
+                    //                        }
+                    //                    }
+                    //                    $("#showDataOnLeave").html('[Multiselect <b>demoMultiselect</b>] List value checked is:' + strTemp);
+                }, // when all selected is made and datalist collapsed
+                onCheck: function () {
+                    // $("#showDataOnCheck").html('[Multiselect <b>demoMultiselect</b>:]' + this.value + ' is ' + (this.checked ? 'checked' : 'unchecked'));
+                }, // when an individual checkbox is clicked 
+                onOpen: function () { }, // when the select menu is opened 
+                onCheckAll: function () {
+                    //                    $("#showDataOnCheckAll").html('[Multiselect <b>demoMultiselect</b>] is checked all');
+                    //                    $("#showDataOnUnCheckAll").html("");
+                }, // when the check all link is clicked 
+                onUncheckAll: function () {
+                    //                    $("#showDataOnCheckAll").html("");
+                    //                    $("#showDataOnUnCheckAll").html('[Multiselect <b>demoMultiselect</b>] is unchecked all');
+                }, // when the uncheck all link is clicked 
+                selectedList: 0,
+                isCheckAll: false,
+//                onUpdateResult: function () {
+//                    //$("#demoMultiselect").multiSelect('hideMe');
+//                },
+                isRetrieveDataAfterClose: false,
+                showParentSelectedText: true,
+                multiple: false
+                //selectedList: 4
+            });
 
-            $("#ddlInvoiceType").multiSelect(
-        {
-            header: false,
-            minWidth: 170,
-            maxHeight: 200,
-            shadow: true,
-            showHeader: false,
-            isCheckAll: false,
-            showFooter: false,
-            selectedList: 4,
-            checkAllText: 'All',
-            isUsedCustomCheckAllText: false,
-            customCheckAllText: 'All',
-            listData: invoiceTypeList
-        });
+//            $("#ddlInvoiceType").multiSelect(
+//        {
+//            header: false,
+//            minWidth: 170,
+//            maxHeight: 200,
+//            shadow: true,
+//            showHeader: false,
+//            isCheckAll: false,
+//            showFooter: false,
+//            selectedList: 4,
+//            checkAllText: 'All',
+//            isUsedCustomCheckAllText: false,
+//            customCheckAllText: 'All',
+//            listData: invoiceTypeList
+//        });
         },
         error: function () {
             try { parent.jQuery.unblockUI(); } catch (e) { }
