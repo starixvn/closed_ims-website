@@ -36,10 +36,12 @@ namespace Fanex.Ares.Report.Services.Interface
 
         #region Generate Report
         private LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
-        {
+        {   
             var listLicenseeInfo = base.DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
-
+            if (listLicenseeInfo == null)
+                listLicenseeInfo = new LicenseeInformation();
             return listLicenseeInfo;
+           
         }
 
         private Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)

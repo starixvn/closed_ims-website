@@ -21,7 +21,7 @@
   <Function Name="Licensee Settlement">
     <Setting Key="IMS_LicenseeSel" SpName="IMS_LicenseeSel" DbName="licensee" />
     <Setting Key="IMS_LicenseeProductSel" SpName="IMS_LicenseeProductSel" DbName="licensee" />
-    <Setting Key="IMS_ExchangeRateBillingSel" SpName="IMS_ExchangeRateBillingSel" DbName="licensee" />
+    <Setting Key="IMS_ExchangeRateBillingSel" SpName="IMS_ExchangeRateBillingSel" DbName="archive" />
     <Setting Key="IMS_LicenseeBillingInfoSel" SpName="IMS_LicenseeBillingInfoSel" DbName="invoice" />
     <Setting Key="IMS_Rpt_LicenseeSettlement" SpName="IMS_Rpt_LicenseeSettlement" DbName="archive" />
     <Setting Key="IMS_LicenseeCurrencySel" SpName="IMS_LicenseeCurrencySel" DbName="licensee" />
