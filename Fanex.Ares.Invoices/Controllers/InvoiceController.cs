@@ -155,7 +155,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public ActionResult ExportDocument(string invoiceModel)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
-            IMS_Rpt_LicenseeSettlementCriteria criteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             criteria.LicenseeId = 4;
             criteria.BaseCurrency = 6;

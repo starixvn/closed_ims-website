@@ -24,16 +24,16 @@ function GetInvoiceType() {
                         Id: "#ddlProduct" + result[i].ProductList[j].ProductID,
                         Value: result[i].ProductList[j].ProductID,
                         Text: result[i].ProductList[j].ProductName,
-                        Checked: true,
+                        Checked: (i == 0 ? true : false),
                         Enable: true,
                         CssClass: ""
                     });
                 }
                 invoiceTypeList.push({
-                    Id: "#ddInvoice" + result[i].InvoiceTypeID,
+                    Id: "#ddlInvoiceType" + result[i].InvoiceTypeID,
                     Value: result[i].InvoiceTypeID,
                     Text: result[i].InvoiceTypeName,
-                    Checked: true,
+                    Checked: (i==0 ? true: false) ,
                     Enable: true,
                     CssClass: "",
                     Items: productList
@@ -47,57 +47,29 @@ function GetInvoiceType() {
                 showCheckAll: false,
                 maxHeight: 705,
                 minWidth: 170,
+                showFooter:false,
                 listData: invoiceTypeList,
                 hasOptGroup: true,
                 onLeave: function () {
-                    //alert($("#demoMultiselect").multiSelect("getCheckedItems").length);
-                    //                    var strTemp = "";
-                    //                    for (var i = 0; i < $("#demoMultiselect").multiSelect("getCheckedItems").length; i++) {
-                    //                        var temp = $("#demoMultiselect").multiSelect("getCheckedItems")[i];
-                    //                        if (temp != null) {
-                    //                            strTemp += "<br/>+" + temp;
-                    //                        }
-                    //                    }
-                    //                    $("#showDataOnLeave").html('[Multiselect <b>demoMultiselect</b>] List value checked is:' + strTemp);
+                
                 }, // when all selected is made and datalist collapsed
                 onCheck: function () {
-                    // $("#showDataOnCheck").html('[Multiselect <b>demoMultiselect</b>:]' + this.value + ' is ' + (this.checked ? 'checked' : 'unchecked'));
+                  
                 }, // when an individual checkbox is clicked 
                 onOpen: function () { }, // when the select menu is opened 
                 onCheckAll: function () {
-                    //                    $("#showDataOnCheckAll").html('[Multiselect <b>demoMultiselect</b>] is checked all');
-                    //                    $("#showDataOnUnCheckAll").html("");
+                  
                 }, // when the check all link is clicked 
                 onUncheckAll: function () {
-                    //                    $("#showDataOnCheckAll").html("");
-                    //                    $("#showDataOnUnCheckAll").html('[Multiselect <b>demoMultiselect</b>] is unchecked all');
+                  
                 }, // when the uncheck all link is clicked 
                 selectedList: 0,
                 isCheckAll: false,
-//                onUpdateResult: function () {
-//                    //$("#demoMultiselect").multiSelect('hideMe');
-//                },
                 isRetrieveDataAfterClose: false,
                 showParentSelectedText: true,
                 multiple: false
                 //selectedList: 4
             });
-
-//            $("#ddlInvoiceType").multiSelect(
-//        {
-//            header: false,
-//            minWidth: 170,
-//            maxHeight: 200,
-//            shadow: true,
-//            showHeader: false,
-//            isCheckAll: false,
-//            showFooter: false,
-//            selectedList: 4,
-//            checkAllText: 'All',
-//            isUsedCustomCheckAllText: false,
-//            customCheckAllText: 'All',
-//            listData: invoiceTypeList
-//        });
         },
         error: function () {
             try { parent.jQuery.unblockUI(); } catch (e) { }
@@ -264,6 +236,28 @@ var CreatingInvoice = {
 
     },
     GetFilteringInfo: function () {
+        var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
+
+        var productName = '';
+        var produtID = '';
+        var index = 0;
+        for (var i = 0; i < listChecked.length; i++) {
+            if (index < listChecked.length - 1) {
+                productName += listChecked[i].title + ',';
+                produtID += listChecked[i].value + ',';
+            }
+            else {
+                productName += listChecked[i].title;
+                produtID += listChecked[i].value;
+            }
+            index++;
+        }
+
+        var radioCheck = $("#divInvoiceType input[type='radio']:checked");
+
+        var InvoiceTypeIdTmp = radioCheck[0].value;
+        var InvoiceTypeNameTmp = radioCheck[0].title;
+
         var Operator = operatorListModel[$("#ddlOperator").prop("selectedIndex")];
         var Licensee = CreatingInvoice.Licensees[$("#ddlLicensee").prop("selectedIndex")];
 
@@ -272,12 +266,12 @@ var CreatingInvoice = {
         CreatingInvoice.FromDate = $('#FromDatePicker').val();
         CreatingInvoice.ToDate = $('#ToDatePicker').val();
         CreatingInvoice.DueDate = $('#DueDatePicker').val();
-        CreatingInvoice.InvoiceType = { InvoiceTypeID: 1, InvoiceTypeName: 'Software-Data Fees' };
+        CreatingInvoice.InvoiceType = { InvoiceTypeID: InvoiceTypeIdTmp, InvoiceTypeName: InvoiceTypeNameTmp };
         CreatingInvoice.Currency = { CurrencyID: $('#CurrencyID').val(), CurrencyName: $('#CurrencyID option:selected').text() };
         CreatingInvoice.InvoiceNo = $('#invoiceNo').val();
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
-        CreatingInvoice.Products = '0,2';
-        CreatingInvoice.ProductsName = 'Sportsbook,BA';
+        CreatingInvoice.Products = produtID;
+        CreatingInvoice.ProductsName = productName;
     },
     GetNewInvoiceData: function () {
         NapAres.disableInput();
@@ -348,69 +342,20 @@ var CreatingInvoice = {
 
         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
     },
-    //     ExportPDF: function () {
-    //        var parameters = $.param({
-    //        normallicensee: LiveCasinoWinLoss.normalLicensse.join(','),
-    //            operator: LiveCasinoWinLoss.operator,
-    //            fromDate: LiveCasinoWinLoss.fromDate,
-    //            toDate: LiveCasinoWinLoss.toDate
-    //        });
-    //        AccReport.downloadFile(window.rootUrl + "Licensee/LiveCasinoWinLoss/ExportLiveCasinoWinLossReport", parameters);
-    //    }
-
-    //        function Student() {
-    //            this.CurrencyName = "USD";
-    //        }
-
-    //        var student = new Student();
-    //        student.CurrencyName = "EUR";
-
-
-
-    Review: function () {
-        CreatingInvoice.GetFilteringInfo();
-        invoiceInfoModel.Operator = CreatingInvoice.Operator;
-        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-        invoiceInfoModel.Product = CreatingInvoice.Products;
-        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-        var message = '';
-        $.ajax({
-            url: domain + "Invoice/Invoice/PrintScreen",
-            data: '{"invoiceModel":' + JSON.stringify(invoiceInfoModel) + '}',
-            type: "POST",
-            success: function (data) {
-                if (data) {
-                    if (data.ErrorCode == 0) {
-                        //                        $('#saveID').addClass('ui-state-disabled');
-                        //                        $('#btnGenerate').addClass('ui-state-disabled');
-                        //                        $('#pdfID').removeClass('ui-state-disabled');
-
-                        CreatingInvoice.InvoiceID = data.ErrorMessage;
-                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
-                    }
-                    else {
-                        NapAres.Helper.showMsgBox(data);
-                    }
-                }
-                else {
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
-                }
-            },
-            error: function (xhr, ajaxOptions, thrownError) {
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
-            },
-            complete: function (jqXHR, textStatus) {
-                NapAres.enableInput();
+    getProductId: function () {
+        var listChecked = $('#ddlProduct').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlLicenseese').attr('id') + "HeaderCheckBox)").filter('[checked]');
+        var normalLicensees = [];
+        var operator = [];
+        for (var i = 0; i < listChecked.length; i++) {
+            if (listChecked[i].id.indexOf('Detail') != -1) {
+                normalLicensees.push(listChecked[i].value);
             }
-        });
+            else {
+                operator.push(listChecked[i].value);
+            }
+        }
+        var result = { 'normal': normalLicensees, 'operator': operator }
+        return result;
     }
 }
 
