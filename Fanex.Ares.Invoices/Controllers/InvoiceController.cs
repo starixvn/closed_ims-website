@@ -124,7 +124,7 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/Lupine/Lupine" };
+            string[] arrayView = new string[] { "Template/LDL/LDL" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
@@ -146,7 +146,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session,"InvoiceHTML", invoiceModel);
 
             var excelCssFilePath = new List<string>();
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\Lupine\Lupine.css"));
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LDL\LDL.css"));
 
             var workbook = new WorkbookManager();
             var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
@@ -182,7 +182,7 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _reportService.GenerateReport(criteria);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/Lupine/Lupine" };
+            string[] arrayView = new string[] { "Template/LDL/LDL" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
