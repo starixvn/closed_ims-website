@@ -130,14 +130,15 @@ function GetInvoiceNo() {
 }
 
 function AddItem(idItem) {
-    $('#invoiceTbl tr.total').before(' <tr id="' + idItem + '" style="width: 100%; text-align: center;">\
-                                    <td  style="width: 10%; "></td>\
-                                <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
-                                <td style="width: 15%; text-align: center;">\
-                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                        <input type="text" style="font-weight: bold; "></input></div></td></tr>');
+//    $('#invoiceTbl tr.total').before(' <tr id="' + idItem + '" style="width: 100%; text-align: center;">\
+//                                    <td  style="width: 10%; "></td>\
+//                                <td style="width: 55%; text-align: center; height: 60px;">\
+//                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
+//                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
+//                                <td style="width: 15%; text-align: center;">\
+//                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
+    //                                        <input type="text" style="font-weight: bold; "></input></div></td></tr>');
+    CreatingInvoice.addNewItem();
 }
 
 var CreatingInvoice = {
@@ -323,7 +324,7 @@ var CreatingInvoice = {
                         $('#pdfID').removeClass('ui-state-disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
-                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });                        
+                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
                     }
                     else {
                         NapAres.Helper.showMsgBox(data);
@@ -342,5 +343,41 @@ var CreatingInvoice = {
         });
 
         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+    },
+    addNewItem: function () {
+        var lastStatement = $('#invoiceTbl tr.total').prev();
+        var newStatementNo = 0;
+        if (lastStatement.prop('id') != undefined) {
+            var currentStatementNo = parseInt(lastStatement.prop('id').split('_')[1]);
+            newStatementNo = currentStatementNo + 1;
+
+            var isHasBlankRow = false;
+            var objAmount = $('#' + lastStatement.prop('id') + '_2');
+            if (objAmount != undefined && objAmount.val() == '') {
+                isHasBlankRow = true;
+            };
+        }
+
+        if (!isHasBlankRow) {
+            var newStatementID = 'trStatement_' + newStatementNo;
+            $('#invoiceTbl tr.total').before(
+                        '<tr id="' + newStatementID + '" style="width: 100%; text-align: center;">\
+                                <td  style="width: 10%; ">\
+                                    <input type="button" id="btn' + newStatementID + '" value="X"/>\
+                                </td>\
+                                <td style="width: 55%; text-align: center; height: 60px;">\
+                                    <textarea rows="2" cols="106" name="styled-textarea" id="' + newStatementID + '_0" ></textarea></td>\
+                                <td style="width: 20%; text-align: center;">\
+                                    <textarea rows="2" cols="33" name="styled-textarea" id="' + newStatementID + '_1"></textarea>\
+                                </td>\
+                                <td style="width: 15%; text-align: center;">\
+                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
+                                        <input type="text" style="font-weight: bold; " id="' + newStatementID + '_2"></input>\
+                                    </div>\
+                                </td>\
+                        </tr>');
+        }
+    },
+    deleteItem: function () {
     }
 }

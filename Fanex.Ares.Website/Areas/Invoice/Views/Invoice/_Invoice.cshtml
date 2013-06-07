@@ -2,7 +2,6 @@
 @{
     InvoiceModel model = new InvoiceModel();
     model = Model;
-    int index = 0;
     double totalAmount = 0;
     
 }
@@ -95,13 +94,14 @@
                     <tbody>
                         @for (int i = 0; i < model.StatementList.Count; i++)
                         {
+                            var index = 0;
                             Statement state = model.StatementList[i];
 
                             for (int j = 0; j < state.StatementDetailList.Count; j++)
                             {
                                 StatementDetail detail = state.StatementDetailList[j];
                                 totalAmount += detail.Amount;
-                            <tr style="width: 100%; text-align: center;">
+                            <tr style="width: 100%; text-align: center;" id="trStatement_@i">
                                 @if (j == 0)
                                 {
                                     <td rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
@@ -111,17 +111,17 @@
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)">@detail.Description</textarea>
+                                    <textarea rows="2" cols="106" name="styled-textarea" id="trStatement_@(i + "_" + index)" onfocus="setbg('#e5fff3', '@(i + "_" + index)');" onblur="setbg('white','@(i + "_" + index)')">@detail.Description</textarea>
                                 </td>
                                 @{
                                 index++;
                                 }
                                 <td style="width: 20%; text-align: center;">
-                                    <textarea rows="2" cols="33" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)">@detail.Reference</textarea>
+                                    <textarea rows="2" cols="33" name="styled-textarea" id="trStatement_@(i + "_" + index)" onfocus="setbg('#e5fff3','@(i + "_" + index)');" onblur="setbg('white','@(i + "_" + index)')">@detail.Reference</textarea>
                                 </td>
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;text-align: right;">
-                                        <label style="font-weight: bold; ">@detail.Amount
+                                        <label style="font-weight: bold; ">@(detail.Amount == 0 ? "(nil)" : detail.Amount.ToString())
                                         </label>
                                     </div>
                                 </td>
@@ -282,7 +282,7 @@
 </div>
 <script type="text/javascript">
     function setbg(color, id) {
-        document.getElementById("styled_" + id).style.background = color
+        document.getElementById("trStatement_" + id).style.background = color
     }
     
     $('#saveID').button();

@@ -8,6 +8,8 @@
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Invoice";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style", "~/Scripts/_Libs/MonthPicker/style")
