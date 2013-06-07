@@ -238,11 +238,17 @@
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\BCH.png" />
     <Content Include="Areas\Invoice\Styles\Images\Checkbox.gif" />
+    <Content Include="Areas\Invoice\Styles\Images\COZNI LIMITED.png" />
+    <Content Include="Areas\Invoice\Styles\Images\LDL.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Lupine.png" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\BHC_Boping\BHC_Boping.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Lupine\Lupine.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\COZNI LIMITED\COZNILIMITED.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LDL\LDL.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -666,6 +672,8 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-DataFees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\BHC_Boping.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\COZNI LIMITED\COZNI LIMITED.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\Lupine\Lupine.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
