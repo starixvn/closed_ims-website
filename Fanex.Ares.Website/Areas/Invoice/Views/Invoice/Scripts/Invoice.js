@@ -154,6 +154,7 @@ var CreatingInvoice = {
     InvoiceName: '',
     InvoiceID: 0,
     messageTimeOut: 4000,
+    invoiceInfoModel: [],
     init: function () {
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "quickchoose",
@@ -205,6 +206,8 @@ var CreatingInvoice = {
 
         $('#btnGenerate').button();
         $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+
+//        $('#pdfID').click(function () { CreatingInvoice.ExportPDF(); });
 
         $("#ddlLicensee").change(function () {
             GetInvoiceType();
@@ -297,7 +300,6 @@ var CreatingInvoice = {
         });
     },
     SaveInvoice: function () {
-
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
         invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
@@ -323,7 +325,7 @@ var CreatingInvoice = {
                         $('#pdfID').removeClass('ui-state-disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
-                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });                        
+                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
                     }
                     else {
                         NapAres.Helper.showMsgBox(data);
@@ -342,5 +344,58 @@ var CreatingInvoice = {
         });
 
         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+    },
+//     ExportPDF: function () {
+//        var parameters = $.param({
+//        normallicensee: LiveCasinoWinLoss.normalLicensse.join(','),
+//            operator: LiveCasinoWinLoss.operator,
+//            fromDate: LiveCasinoWinLoss.fromDate,
+//            toDate: LiveCasinoWinLoss.toDate
+//        });
+//        AccReport.downloadFile(window.rootUrl + "Licensee/LiveCasinoWinLoss/ExportLiveCasinoWinLossReport", parameters);
+    //    }
+
+//        function Student() {
+//            this.CurrencyName = "USD";
+//        }
+
+//        var student = new Student();
+//        student.CurrencyName = "EUR";
+
+         
+
+    Review: function () {
+
+        var message = '';
+        $.ajax({
+            url: domain + "Invoice/Invoice/PrintScreen",
+            data: '{"invoiceModel":' + JSON.stringify(invoiceInfoModel) + '}',
+            type: "POST",
+            success: function (data) {
+                if (data) {
+                    if (data.ErrorCode == 0) {
+//                        $('#saveID').addClass('ui-state-disabled');
+//                        $('#btnGenerate').addClass('ui-state-disabled');
+//                        $('#pdfID').removeClass('ui-state-disabled');
+
+                        CreatingInvoice.InvoiceID = data.ErrorMessage;
+                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
+                    }
+                    else {
+                        NapAres.Helper.showMsgBox(data);
+                    }
+                }
+                else {
+                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
     }
 }
+
