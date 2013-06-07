@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     //------binding events
     CreatingInvoice.init();
