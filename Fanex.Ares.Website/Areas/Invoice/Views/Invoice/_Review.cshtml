@@ -10,21 +10,31 @@
     Layout = "~/Views/Shared/_PrintLayout.cshtml";
     
 }
+<style type="text/css">
+    body
+    {
+        width: 98% !important;
+    }
+</style>
 @section Head {
-    
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
-     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
+    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
-     <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/InvoicePDF.css" />
+    <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/InvoicePDF.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/InvoiceWeb.css" />
-    <link href="~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css" rel="stylesheet"type="text/css" />
-
+    <link href="~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css" rel="stylesheet"
+        type="text/css" />
 }
-
- @foreach(string temp in Model.HTMLReportList)
-     {
-        <div style="width: 95%; height: 10px;background: #565656;" > </div>
-       @MvcHtmlString.Create(temp);
-     }
-
-
+@{
+    
+    int index = 1;
+}
+@foreach (string temp in Model.HTMLReportList)
+{
+    @MvcHtmlString.Create(temp);
+                               if (index < Model.HTMLReportList.Count)
+                               {                   
+    <div style="width: 95%; height: 10px; background: #565656;">
+    </div>
+                               }
+}

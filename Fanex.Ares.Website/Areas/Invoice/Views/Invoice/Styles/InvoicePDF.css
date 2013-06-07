@@ -55,7 +55,7 @@ td
 	padding:0px;
 	mso-ignore:padding;
 	color:windowtext;
-	font-size:12.0pt;
+	font-size:18.0pt;
 	font-weight:400;
 	font-style:normal;
 	text-decoration:none;
@@ -85,13 +85,13 @@ html {
 
 .fontSize12
 {
-    font-size: 12pt;
+    font-size: 16pt;
 }
 
 
 .border-TRBL
 {
-    border: 1pt solid black;
+    border: 1pt solid black !important;
 }
 
 .border-L
@@ -125,4 +125,10 @@ html {
 {
     color: Red; 
     font-weight: bold;
+}
+.invoiceFont
+{
+    font-size: 25pt !important; 
+    color: #4f81bd; 
+    font-weight: bold ;
 }
