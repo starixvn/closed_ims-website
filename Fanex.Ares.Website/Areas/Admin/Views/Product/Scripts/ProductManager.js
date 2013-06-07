@@ -78,7 +78,7 @@ ProductManager = function () {
             dataType: "json",
             data: null,
             beforeSend: function () {
-                NapTicketControl.disableInput();
+                NapAres.disableInput();
             },
             success: function (rs) {
                 renderProducts(rs);
@@ -87,7 +87,7 @@ ProductManager = function () {
                 renderProducts([]);
             },
             complete: function () {
-                NapTicketControl.enableInput();
+                NapAres.enableInput();
             }
         });
 

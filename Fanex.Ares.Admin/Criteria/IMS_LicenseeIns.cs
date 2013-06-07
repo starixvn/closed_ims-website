@@ -16,7 +16,7 @@ namespace Fanex.Ares.Admin.Criteria
         public string LicenseeName { get; set; }
         public string BrandName { get; set; }
         public string CompanyName { get; set; }
-        public bool IsLabel { get; set; }
+        public bool IsDeposit { get; set; }
         public bool IsActive { get; set; }
         public bool IsOneWorkActive { get; set; }
         public string AttnName { get; set; }

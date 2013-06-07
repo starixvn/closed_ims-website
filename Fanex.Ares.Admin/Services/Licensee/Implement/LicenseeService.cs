@@ -16,7 +16,6 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Ares.Admin.Models.Licensee;
-    using Fanex.Ares.Admin.Models.Party;
     using Fanex.Ares.Admin.Repositories.Impl;
     using Fanex.Ares.Admin.Repositories.Interface;
     using Fanex.Ares.Admin.Services.Party.Interface;
@@ -46,7 +45,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         LicenseeName = r["LicenseeName"].ToString1(),
                         BrandName = r["BrandName"].ToString1(),
                         CompanyName = r["CompanyName"].ToString1(),
-                        IsLabel = Convert.ToBoolean(r["IsLabel"]),
+                        IsDeposit = Convert.ToBoolean(r["IsDeposit"]),
                         IsActive = Convert.ToBoolean(r["IsActive"]),
                         IsOneWorkActive = Convert.ToBoolean(r["IsOneWorkActive"]),
                         AttnName = r["AttnName"].ToString1(),
