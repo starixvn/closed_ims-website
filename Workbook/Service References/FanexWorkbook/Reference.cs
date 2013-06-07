@@ -29,7 +29,10 @@ namespace Fanex.Workbooks.FanexWorkbook {
         private Fanex.Workbooks.FanexWorkbook.WorkBookManagerDocumentType DocumentTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.PageSetting> PageListField;
+        private string HtmlContentField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Fanex.Workbooks.FanexWorkbook.WorkBookManagerPageOrientation PageOrientationField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -68,65 +71,6 @@ namespace Fanex.Workbooks.FanexWorkbook {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.PageSetting> PageList {
-            get {
-                return this.PageListField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.PageListField, value) != true)) {
-                    this.PageListField = value;
-                    this.RaisePropertyChanged("PageList");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="WorkBookManager.DocumentType", Namespace="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Business")]
-    public enum WorkBookManagerDocumentType : int {
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Xlsx = 0,
-        
-        [System.Runtime.Serialization.EnumMemberAttribute()]
-        Pdf = 1,
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="PageSetting", Namespace="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Entities")]
-    [System.SerializableAttribute()]
-    public partial class PageSetting : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string HtmlContentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Fanex.Workbooks.FanexWorkbook.WorkBookManagerPageOrientation PageOrientationField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string HtmlContent {
             get {
                 return this.HtmlContentField;
@@ -160,6 +104,17 @@ namespace Fanex.Workbooks.FanexWorkbook {
                 propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="WorkBookManager.DocumentType", Namespace="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Business")]
+    public enum WorkBookManagerDocumentType : int {
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Xlsx = 0,
+        
+        [System.Runtime.Serialization.EnumMemberAttribute()]
+        Pdf = 1,
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
@@ -242,7 +197,7 @@ namespace Fanex.Workbooks.FanexWorkbook {
         string GetData(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkBookService/CreateDocument", ReplyAction="http://tempuri.org/IWorkBookService/CreateDocumentResponse")]
-        byte[] CreateDocument(Fanex.Workbooks.FanexWorkbook.DocumentSetting input);
+        byte[] CreateDocument(System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.DocumentSetting> input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkBookService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IWorkBookService/GetDataUsingDataContractResponse")]
         Fanex.Workbooks.FanexWorkbook.CompositeType GetDataUsingDataContract(Fanex.Workbooks.FanexWorkbook.CompositeType composite);
@@ -279,7 +234,7 @@ namespace Fanex.Workbooks.FanexWorkbook {
             return base.Channel.GetData(value);
         }
         
-        public byte[] CreateDocument(Fanex.Workbooks.FanexWorkbook.DocumentSetting input) {
+        public byte[] CreateDocument(System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.DocumentSetting> input) {
             return base.Channel.CreateDocument(input);
         }
         

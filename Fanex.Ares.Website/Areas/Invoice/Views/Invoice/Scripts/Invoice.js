@@ -276,7 +276,7 @@ var CreatingInvoice = {
         CreatingInvoice.Currency = { CurrencyID: $('#CurrencyID').val(), CurrencyName: $('#CurrencyID option:selected').text() };
         CreatingInvoice.InvoiceNo = $('#invoiceNo').val();
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
-        CreatingInvoice.Products = '1,3';
+        CreatingInvoice.Products = '0,2';
         CreatingInvoice.ProductsName = 'Sportsbook,BA';
     },
     GetNewInvoiceData: function () {

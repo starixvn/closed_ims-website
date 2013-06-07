@@ -120,24 +120,8 @@
     <script src="~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js" type="text/javascript"></script>  
     <script src="~/Scripts/_Libs/MultipleSelect/jquery.multiradioselect.nlevel_new.js" type="text/javascript"></script>  
     <script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/Invoice.js"></script>
-     <script type="text/javascript">         function Review() {
-             invoiceInfoModel.Operator = CreatingInvoice.Operator;
-             invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-             invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-             invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-             invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-             invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-             invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-             invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-             invoiceInfoModel.Product = CreatingInvoice.Products;
-             invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-             invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-             invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-             var link = '@Url.Action("PrintScreen", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
-             link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
-//             location.href = link;
-             var win = window.open(link, '_blank');
-             win.focus();
-         }</script>
+     <script type="text/javascript">         
+     
+         </script>
 
 }
