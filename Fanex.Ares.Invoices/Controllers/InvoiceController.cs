@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------
 // <copyright file="InvoiceController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -64,8 +64,8 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorSelCriteria() { PartyID = 0});           
-            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());            
+            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorSelCriteria() { PartyID = 0 });
+            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
             return View();
         }
 
@@ -92,7 +92,7 @@ namespace Fanex.Ares.Invoice.Controllers
             return Json(invoiceNo);
         }
 
-        
+
         public PartialViewResult GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
         {
             var model = _invoiceService.GetInvoice(criteria);
@@ -108,7 +108,7 @@ namespace Fanex.Ares.Invoice.Controllers
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
             SettlementView = "_" + criteria.ProductName;
-           
+
             return PartialView(SettlementView, model);
         }
 
@@ -124,7 +124,7 @@ namespace Fanex.Ares.Invoice.Controllers
         }
 
 
-        public ActionResult ExportDocument( string invoiceModel)
+        public ActionResult ExportDocument(string invoiceModel)
         {
             var invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
 
@@ -186,28 +186,33 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             List<DateRange> dateRangeList = new List<DateRange>();
             IMS_Rpt_LicenseeSettlementCriteria criteria = new IMS_Rpt_LicenseeSettlementCriteria();
+
             criteria.LicenseeId = 1;
             criteria.BaseCurrency = 6;
             criteria.BaseCurrencyName = "EUR";
             criteria.Currency = 0;
             //criteria.FromDate = new DateTime(2013, 5, 01);
             //criteria.ToDate = new DateTime(2013, 5, 31);
-            criteria.Product = 0;
-            criteria.ProductName = "Sportsbook";
+            //criteria.Product = 0;
+            //criteria.ProductName = "Sportsbook";
 
             InvoiceModel imodel = new InvoiceModel();
 
             InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
 
+            //criteria.LicenseeId = invoice.Licensee.LicenseeID;
+            //criteria.BaseCurrency = invoice.Currency;
+            //criteria.BaseCurrencyName = invoice.CurrencyName;
+            //criteria.Currency = 0;
 
-            DateTime  FromDate= CastAide.AsDateTime(invoice.FromDate);
+            DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
 
             int startMonth = FromDate.Month;
             int endMonth = ToDate.Month;
 
             int count = endMonth - startMonth + 1;
-            for (int i = 0; i <count; i++)
+            for (int i = 0; i < count; i++)
             {
                 DateRange range = new DateRange();
                 DateTime begin = new DateTime();
@@ -228,12 +233,12 @@ namespace Fanex.Ares.Invoice.Controllers
                 }
                 else
                 {
-                    begin = new DateTime(FromDate.Year , FromDate.Month + i , 1);
+                    begin = new DateTime(FromDate.Year, FromDate.Month + i, 1);
                     DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
                     //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
                     end = firstOfNextMonth.AddDays(-1);
 
-                   
+
                 }
 
                 range.StartDate = begin;
@@ -249,35 +254,46 @@ namespace Fanex.Ares.Invoice.Controllers
             htmlList.Add(html);
 
             invoice.HTMLReportList.Add(html);
+
+            string[] Products = invoice.ProductsName.Split(',');
+            string[] ProductID = invoice.Product.Split(',');
             for (int i = 0; i < dateRangeList.Count; i++)
             {
-                criteria.ToDate = dateRangeList[i].EndDate;
-                criteria.FromDate = dateRangeList[i].StartDate;
-
-                var model = _reportService.GenerateReport(criteria);
-
-
-                if (model.Report.EntityList.Count > 0)
+                for (int j = 0; j < Products.Count(); j++)
                 {
+                   
+
+                    criteria.ToDate = dateRangeList[i].EndDate;
+                    criteria.FromDate = dateRangeList[i].StartDate;
+                    criteria.Product =  Converter.To<int>( ProductID[j]);
+                    criteria.ProductName = Products[j];
+
+                    var model = _reportService.GenerateReport(criteria);
+
+                    model.LicenseeInfor.FromDate = criteria.FromDate;
+                    model.LicenseeInfor.ToDate = criteria.ToDate;
+                    if (model.Report.EntityList.Count > 0)
+                    {
 
 
-                    PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                    //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
-                    //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
+                        //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
 
-                    //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-                    //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                    //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                    //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+                        //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
 
-                    html = HtmlHelperExtensions.RenderViewToString(this, "_Sportsbook", model);
-                    htmlList.Add(html);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        htmlList.Add(html);
 
-                    invoice.HTMLReportList.Add(html);
+                        invoice.HTMLReportList.Add(html);
 
+                    }
                 }
-            }
 
+            }
 
             //List<string> htmlList = new List<string>();
             //string[] arrayView = new string[] { "Template//BCH/_BCH-DataFees" };
@@ -298,7 +314,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             //    imodel.HTMLReportList.Add(html);
             //}
-          
+
             //InvoiceModel invoiceModel = new InvoiceModel();
 
             //invoiceModel = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "InvoiceHTML");

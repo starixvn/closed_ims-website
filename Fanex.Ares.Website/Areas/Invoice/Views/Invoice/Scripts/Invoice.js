@@ -150,6 +150,7 @@ var CreatingInvoice = {
     InvoiceType: null,
     Currency: null,
     Products: '',
+    ProductsName: '',
     InvoiceNo: '',
     InvoiceName: '',
     InvoiceID: 0,
@@ -207,7 +208,7 @@ var CreatingInvoice = {
         $('#btnGenerate').button();
         $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
-//        $('#pdfID').click(function () { CreatingInvoice.ExportPDF(); });
+        //        $('#pdfID').click(function () { CreatingInvoice.ExportPDF(); });
 
         $("#ddlLicensee").change(function () {
             GetInvoiceType();
@@ -275,7 +276,8 @@ var CreatingInvoice = {
         CreatingInvoice.Currency = { CurrencyID: $('#CurrencyID').val(), CurrencyName: $('#CurrencyID option:selected').text() };
         CreatingInvoice.InvoiceNo = $('#invoiceNo').val();
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
-        CreatingInvoice.Products = '1,2,3,5';
+        CreatingInvoice.Products = '1,3';
+        CreatingInvoice.ProductsName = 'Sportsbook,BA';
     },
     GetNewInvoiceData: function () {
         NapAres.disableInput();
@@ -309,6 +311,7 @@ var CreatingInvoice = {
         invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
         invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
         invoiceInfoModel.Product = CreatingInvoice.Products;
+        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
         var message = '';
@@ -345,27 +348,39 @@ var CreatingInvoice = {
 
         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
     },
-//     ExportPDF: function () {
-//        var parameters = $.param({
-//        normallicensee: LiveCasinoWinLoss.normalLicensse.join(','),
-//            operator: LiveCasinoWinLoss.operator,
-//            fromDate: LiveCasinoWinLoss.fromDate,
-//            toDate: LiveCasinoWinLoss.toDate
-//        });
-//        AccReport.downloadFile(window.rootUrl + "Licensee/LiveCasinoWinLoss/ExportLiveCasinoWinLossReport", parameters);
+    //     ExportPDF: function () {
+    //        var parameters = $.param({
+    //        normallicensee: LiveCasinoWinLoss.normalLicensse.join(','),
+    //            operator: LiveCasinoWinLoss.operator,
+    //            fromDate: LiveCasinoWinLoss.fromDate,
+    //            toDate: LiveCasinoWinLoss.toDate
+    //        });
+    //        AccReport.downloadFile(window.rootUrl + "Licensee/LiveCasinoWinLoss/ExportLiveCasinoWinLossReport", parameters);
     //    }
 
-//        function Student() {
-//            this.CurrencyName = "USD";
-//        }
+    //        function Student() {
+    //            this.CurrencyName = "USD";
+    //        }
 
-//        var student = new Student();
-//        student.CurrencyName = "EUR";
+    //        var student = new Student();
+    //        student.CurrencyName = "EUR";
 
-         
+
 
     Review: function () {
-
+        CreatingInvoice.GetFilteringInfo();
+        invoiceInfoModel.Operator = CreatingInvoice.Operator;
+        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+        invoiceInfoModel.Product = CreatingInvoice.Products;
+        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
         var message = '';
         $.ajax({
             url: domain + "Invoice/Invoice/PrintScreen",
@@ -374,9 +389,9 @@ var CreatingInvoice = {
             success: function (data) {
                 if (data) {
                     if (data.ErrorCode == 0) {
-//                        $('#saveID').addClass('ui-state-disabled');
-//                        $('#btnGenerate').addClass('ui-state-disabled');
-//                        $('#pdfID').removeClass('ui-state-disabled');
+                        //                        $('#saveID').addClass('ui-state-disabled');
+                        //                        $('#btnGenerate').addClass('ui-state-disabled');
+                        //                        $('#pdfID').removeClass('ui-state-disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
                         NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });

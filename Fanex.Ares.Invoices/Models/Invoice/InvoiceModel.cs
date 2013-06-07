@@ -36,6 +36,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public InvoiceType InvoiceType { get; set; }
         public string Product { get; set; }
+        public string ProductsName { get; set; }
         public int InvoiceNo { get; set; }
         public string InvoiceName { get; set; }
         public List<Statement> StatementList { get; set; } // List statement
