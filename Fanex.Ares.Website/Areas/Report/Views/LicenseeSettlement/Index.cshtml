@@ -1,4 +1,5 @@
 ﻿﻿@using Fanex.Ares.Core.Resources;
+@using Fanex.Ares.Core.Resources
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
 @using Fanex.Ares.Report.Controllers
@@ -95,7 +96,7 @@
     <div class="grid-toolbox">
         @*<input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />*@
         <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
-        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument1", "LicenseeSettlement", new { documentType = new Student()})'" />
+        <input id="btnPDF1" class="btnPDF" type="button" name="btnPDF1" value="" title="PDF1"  onClick="ExportPdf()" />
         @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
         
       @*  <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />*@
@@ -107,6 +108,8 @@
 @section scripts
 {
     <script type="text/javascript">
+        
+
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var today = '@DateTime.Today.ToShortDateString()';
@@ -119,4 +122,20 @@
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=1"></script>
+    
+    <script type="text/javascript">
+
+        function Product() {
+            this.ProductName = "Soccer";
+        }
+
+        var product = new Product();
+        product.CurrencyName = "EUR";
+
+        function ExportPdf() {
+            var link = '@Url.Action("ExportDocument1", "LicenseeSettlement", new { documentType1 = "jsondata" })';
+            link = link.replace("jsondata", JSON.stringify(product));
+            location.href = link;
+        }
+    </script>
 }

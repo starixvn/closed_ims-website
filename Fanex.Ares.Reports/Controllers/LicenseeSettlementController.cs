@@ -17,16 +17,19 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Criteria;
 using Fanex.Ares.Core.Extensions;
+using Fanex.Ares.Core.Models;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Core.Web.Security;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+
 using Fanex.Ares.Report.Services.Interface;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Common.Extensions;
 using Fanex.Core.PdfHelper;
 using Fanex.NAP.Core.Web.Attribute;
 using Fanex.Workbooks;
+using Newtonsoft.Json;
 
 namespace Fanex.Ares.Report.Controllers
 {
@@ -125,17 +128,15 @@ namespace Fanex.Ares.Report.Controllers
         }
 
 
-        public ActionResult ExportDocument1(Student documentType)
+        public ActionResult ExportDocument1(string documentType1)
         {
-           
+            
+            var student = JsonConvert.DeserializeObject<Product>(documentType1);
             return new EmptyResult();
 
 
         }
     }
 
-    public class Student
-    {
-        public string Name { get; set; }
-    }
+    
 }
