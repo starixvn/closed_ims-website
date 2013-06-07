@@ -346,30 +346,36 @@ var CreatingInvoice = {
     },
     addNewItem: function () {
         var lastStatement = $('#invoiceTbl tr.total').prev();
-        var newStatementID = 0;
+        var newStatementNo = 0;
         if (lastStatement.prop('id') != undefined) {
-            var currentStatementID = parseInt(lastStatement.prop('id').split('_')[1]);
-            newStatementID = currentStatementID + 1;
+            var currentStatementNo = parseInt(lastStatement.prop('id').split('_')[1]);
+            newStatementNo = currentStatementNo + 1;
 
             var isHasBlankRow = false;
-            lastStatement.find(':text').each(function () {
-                var value = $(this).val();
-                if (value != undefined && value == "")
-                    isHasBlankRow = true;
-            });
-
-            alert(isHasBlankRow);
+            var objAmount = $('#' + lastStatement.prop('id') + '_2');
+            if (objAmount != undefined && objAmount.val() == '') {
+                isHasBlankRow = true;
+            };
         }
 
         if (!isHasBlankRow) {
-            $('#invoiceTbl tr.total').before(' <tr id="trStatement_' + newStatementID + '" style="width: 100%; text-align: center;">\
-                                    <td  style="width: 10%; "></td>\
+            var newStatementID = 'trStatement_' + newStatementNo;
+            $('#invoiceTbl tr.total').before(
+                        '<tr id="' + newStatementID + '" style="width: 100%; text-align: center;">\
+                                <td  style="width: 10%; ">\
+                                    <input type="button" id="btn' + newStatementID + '" value="X"/>\
+                                </td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
+                                    <textarea rows="2" cols="106" name="styled-textarea" id="' + newStatementID + '_0" ></textarea></td>\
+                                <td style="width: 20%; text-align: center;">\
+                                    <textarea rows="2" cols="33" name="styled-textarea" id="' + newStatementID + '_1"></textarea>\
+                                </td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                            <input type="text" style="font-weight: bold; "></input></div></td></tr>');
+                                        <input type="text" style="font-weight: bold; " id="' + newStatementID + '_2"></input>\
+                                    </div>\
+                                </td>\
+                        </tr>');
         }
     },
     deleteItem: function () {
