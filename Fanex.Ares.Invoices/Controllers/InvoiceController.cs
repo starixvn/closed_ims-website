@@ -168,8 +168,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
             InvoiceModel imodel = new InvoiceModel();
 
-            InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
-
+            //InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
+            InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModel");
             //criteria.LicenseeId = invoice.Licensee.LicenseeID;
             //criteria.BaseCurrency = invoice.Currency;
             //criteria.BaseCurrencyName = invoice.CurrencyName;
@@ -309,6 +309,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult SaveInvoice(InvoiceModel invoiceModel)
         {
             var insertResult = _invoiceService.SaveInvoice(invoiceModel);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModel", invoiceModel);
             return Json(insertResult);
         }
     }

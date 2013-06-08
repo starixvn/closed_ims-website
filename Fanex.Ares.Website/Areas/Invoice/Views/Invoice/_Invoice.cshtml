@@ -196,10 +196,10 @@
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
                                     <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="Review()"/>&nbsp;&nbsp;&nbsp;
-                                      <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT PDF"  onClick="ExportPDF()"/>
-                               @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { type= "Pdf" })'"/>*@
+                                    @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
+                                    type="button" value="EXPORT PDF"  onClick="ExportPDF()"/>*@
+                                 <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all" 
+                                    type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
                               
                               
                                @* <input id="pdfID" name="pdfID" type="button" value="pdfID" onclick="ExportPdf()" />
