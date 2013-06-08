@@ -18,6 +18,7 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
     public interface ILicenseeService
     {
         IEnumerable<LicenseeModel> GetAllLicensees(ICriteria criteria);
+        IEnumerable<LicenseeModel> GetAvailableLicensees(ICriteria criteria);
         Hashtable ExecuteCommand(ICriteria criteria);
         IEnumerable<SelectListItem> GetAvailableOrSelectedParties(ICriteria criteria);
     }

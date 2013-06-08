@@ -685,6 +685,7 @@
     <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\LDL\LDL.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

@@ -10,8 +10,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Web.Mvc;
 using Fanex.Ares.Admin.Criteria;
+using Fanex.Ares.Admin.Criteria.Setting;
 using Fanex.Ares.Admin.Services.Party.Implement;
 using Fanex.Ares.Admin.Services.Party.Interface;
+using Fanex.Ares.Core.Extensions;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Core.Web.Security;
 using Fanex.NAP.Core.Web.Attribute;
@@ -47,6 +49,7 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
+            ViewBag.lstLicensees = _licenseeService.GetAvailableLicensees(new IMS_ExistedLicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
             return PartialView();
         }
 

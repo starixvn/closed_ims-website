@@ -9,6 +9,7 @@ SettingManager = function () {
     var self = this;
     var _table = {
         btnAddNew: null,
+        btnSearch: null,
         settingsContainer: null,
         dlgAddNew: null,
         dlgLicenseeProductCharge: null,
@@ -20,15 +21,18 @@ SettingManager = function () {
     };
 
     var _mappingColumns = {
-        LicenseeID: 0,
-        ProductID: 1,
-        PartyID: 2,
-        FirstBillingDate: 3,
-        HeadOfTerms: 4,
-        MinimumFee: 5,
-        WaivedDate: 6,
-        WaivedMonth: 7,
-        Currency: 8
+        PartyID: 0,
+        LicenseeID: 1,
+        ProductID: 2,
+        PartyName: 3,
+        LicenseeName: 4,
+        ProductName: 5,
+        FirstBillingDate: 6,
+        HeadOfTerms: 7,
+        MinimumFee: 8,
+        WaivedDate: 9,
+        WaivedMonth: 10,
+        Currency: 11
     }
 
     var _dlgAddNew = {
@@ -47,6 +51,7 @@ SettingManager = function () {
 
     var cachedDOMElements = function () {
         _table.btnAddNew = $('#btnAddNew');
+        _table.btnSearch = $('#btnSearch');
         _table.settingsContainer = $('#SettingsContainer');
         _table.dlgAddNew = $('#AddNewDialog');
         _table.dlgLicenseeProductCharge = $('#LicenseeProductChargeDialog');
@@ -74,6 +79,10 @@ SettingManager = function () {
         _table.btnAddNew.click(function () {
             self.AddNewLicensee();
         });
+
+        _table.btnSearch.click(function () {
+            GenerateData();
+        });
     }
 
     self.initPage = function () {
@@ -98,9 +107,8 @@ SettingManager = function () {
         $.ajax({
             type: "POST",
             url: window.rootUrl + "Admin/Setting/GetAllSettings",
-            contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: null,
+            data: $('#formSearch').serialize(),
             beforeSend: function () {
                 NapAres.disableInput();
             },
@@ -125,9 +133,12 @@ SettingManager = function () {
                 var item = data[i];
                 var currentRow = {
                     Columns: [
-                                { Name: "PartyID", Value: item.PartyName },
-                                { Name: "LicenseeID", Value: item.LicenseeName },
-                                { Name: "ProductID", Value: item.ProductName },                                
+                                { Name: "PartyID", Value: item.PartyID },
+                                { Name: "LicenseeID", Value: item.LicenseeID },
+                                { Name: "ProductID", Value: item.ProductID },
+                                { Name: "PartyName", Value: item.PartyName },
+                                { Name: "LicenseeName", Value: item.LicenseeName },
+                                { Name: "ProductName", Value: item.ProductName },
                                 { Name: "FirstBillingDate", Value: item.FirstBillingDate },
                                 { Name: "HeadOfTerms", Value: item.HeadOfTerms },
                                 { Name: "MinimumFee", Value: item.MinimumFee },
@@ -158,9 +169,12 @@ SettingManager = function () {
 
         gridOptions = {
             columns: [
-                    { HeaderText: "Party", Width: 100, Name: "PartyID", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Licensee", Width: 100, Name: "LicenseeID", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Product", Width: 100, Name: "ProductID", HeaderAlign: "center", CellAlign: "left" },                    
+                    { HeaderText: "PartyID", Width: 100, Name: "PartyID", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "LicenseeID", Width: 100, Name: "LicenseeID", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "ProductID", Width: 100, Name: "ProductID", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Party", Width: 100, Name: "PartyName", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Licensee", Width: 100, Name: "LicenseeName", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Product", Width: 100, Name: "ProductName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "First Billing Date", Width: 100, Name: "FirstBillingDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM YYYY" },
                     { HeaderText: "Head Of Terms", Width: 100, Name: "HeadOfTerms", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM YYYY" },
                     { HeaderText: "Minimum Fee", Width: 100, Name: "MinimumFee", HeaderAlign: "center", CellAlign: "left" },
@@ -187,6 +201,9 @@ SettingManager = function () {
         };
 
         _table.settingsContainer.fanexGrid(gridOptions);
+        _table.settingsContainer.fanexGrid("hideColumns", gridOptions, [_mappingColumns.PartyID,
+                                                                        _mappingColumns.LicenseeID,
+                                                                        _mappingColumns.ProductID]);
     };
 
     self.AddNewLicensee = function () {
@@ -214,7 +231,9 @@ SettingManager = function () {
                 }
             },
             open: function () {
-
+                $('#FirstBillingDate').datepicker({ dateFormat: 'd MM yy' });
+                $('#HeadOfTerms').datepicker({ dateFormat: 'd MM yy' });
+                $('#WaivedDate').datepicker({ dateFormat: 'd MM yy' });
             },
             close: function () {
                 _table.dlgAddNew.html(originalDialog);
@@ -240,8 +259,10 @@ SettingManager = function () {
                 "Edit Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSetting.attr("Action", window.rootUrl + "/admin/Setting/UpdateSetting");
+                        _table.formSetting.attr("Action", location.protocol + '//' + location.host + "/admin/Setting/UpdateSetting");
+                        _table.dlgAddNew.find('.update').each(function () { $(this).show() });
                         _table.formSetting.submit();
+
                         $(this).dialog("close");
                     }
                     else {
@@ -253,6 +274,9 @@ SettingManager = function () {
                 }
             },
             open: function () {
+                $('#FirstBillingDate').datepicker({ dateFormat: 'd MM yy' });
+                $('#HeadOfTerms').datepicker({ dateFormat: 'd MM yy' });
+                $('#WaivedDate').datepicker({ dateFormat: 'd MM yy' });
 
             },
             close: function () {
@@ -323,14 +347,16 @@ SettingManager = function () {
                                 }
                             }
 
-                            $('.date').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
+
                         }
                     },
                     error: function (event, jqXHR, ajaxSettings) {
                         alert('fail');
                     },
                     complete: function () {
+                        $('.date').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
                         NapAres.enableInput();
+
                     }
                 });
 
@@ -450,14 +476,8 @@ SettingManager = function () {
 
 var addNewRow = function (formID) {
     var $lastRow = $('#' + formID + '>table>tbody>tr:last');
-    var isBlankRow = true;
-    $lastRow.find(':text').each(function () {
-        value = $(this).val();
-        if (isBlankRow && value != undefined && value != "")
-            isBlankRow = false;
-    });
 
-    if (!isBlankRow) {
+    if (!isBlankRow($lastRow)) {
         var $cloneRow = $lastRow.clone();
         var rowNum = parseInt($cloneRow.find('td.No').html()) + 1
         $cloneRow.find(":text").val('');
@@ -465,56 +485,73 @@ var addNewRow = function (formID) {
         $cloneRow.find('input[name="StartDate"]:eq(0)').attr('id', 'StartDate' + rowNum.toString());
         $cloneRow.find('input[name="EndDate"]:eq(0)').attr('id', 'EndDate' + rowNum.toString());
         $lastRow.after($cloneRow);
-
+        $('.date').removeClass('hasDatepicker').datepicker({ dateFormat: 'd MM yy' });
     }
 
     return $cloneRow;
 }
 
 var deleteRow = function (e, element, formID) {
-    if (e.keyCode == 46)
-        if (confirm('Do you want to delete this row?'))
+    if (e.keyCode == 46) {
+        if (confirm('Do you want to delete this row?')) {
             if ($('#' + formID + '>table>tbody>tr').length > 1) {
                 $(element).remove();
             }
             else {
                 $(element).find(':text').val('');
             }
+        }
+    }
+}
+
+function isBlankRow(row) {
+    var result = true;
+    row.find(':text').each(function () {
+        value = $(this).val();
+        if (result && value != undefined && value != "") {
+            result = false;
+            return false;
+        }
+    });
+
+    return result;
 }
 
 var tableToXML = function (formID) {
     var $rowCollection = $('#' + formID + '>table>tbody>tr');
     var xmlData = "<Settings>";
     $('#' + formID + '>table>tbody>tr').each(function () {
-        xmlData += "<Setting>";
-        var licenseeID = $('#' + formID + '>#LicenseeID').val();
-        var productID = $('#' + formID + '>#ProductID').val();
-        var partyID = $('#' + formID + '>#PartyID').val();
-        xmlData += "<LicenseeID>";
-        xmlData += licenseeID.toString();
-        xmlData += "</LicenseeID>";
-        xmlData += "<ProductID>";
-        xmlData += productID.toString();
-        xmlData += "</ProductID>";
-        xmlData += "<PartyID>";
-        xmlData += partyID.toString();
-        xmlData += "</PartyID>";
-        $(this).find('td').each(function () {
-            $(this).find('input, select').each(function () {
-                var name = $(this).attr('name');
-                var value = $(this).val();
-                xmlData += "<" + name + ">";
-                if (name.toLowerCase().contains('date')) {
-                    xmlData += moment(value).format('MM/DD/YYYY');
-                } else {
-                    xmlData += value.toString();
-                }
-                xmlData += "</" + name + ">";
+        if (!isBlankRow($(this))) {
+            xmlData += "<Setting>";
+            var licenseeID = $('#' + formID + '>#LicenseeID').val();
+            var productID = $('#' + formID + '>#ProductID').val();
+            var partyID = $('#' + formID + '>#PartyID').val();
+            xmlData += "<LicenseeID>";
+            xmlData += licenseeID.toString();
+            xmlData += "</LicenseeID>";
+            xmlData += "<ProductID>";
+            xmlData += productID.toString();
+            xmlData += "</ProductID>";
+            xmlData += "<PartyID>";
+            xmlData += partyID.toString();
+            xmlData += "</PartyID>";
+            $(this).find('td').each(function () {
+                $(this).find('input, select').each(function () {
+                    var name = $(this).attr('name');
+                    var value = $(this).val();
+                    xmlData += "<" + name + ">";
+                    if (name.toLowerCase().contains('date')) {
+                        xmlData += moment(value).format('MM/DD/YYYY');
+                    } else {
+                        xmlData += value.toString();
+                    }
+                    xmlData += "</" + name + ">";
 
+                });
             });
-        });
 
-        xmlData += "</Setting>";
+            xmlData += "</Setting>";
+        }
     });
 
     xmlData += "</Settings>";

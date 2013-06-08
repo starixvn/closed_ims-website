@@ -13,7 +13,10 @@ namespace Fanex.Ares.Admin.Criteria
 
     public class IMS_LicenseeInfoUpd : IMS_LicenseeIns
     {
-        public int LicenseeID { get; set; }
+        public string LicenseeName { get; set; }
+        public string BrandName { get; set; }
+        public string CompanyName { get; set; }
+        public bool IsDeposit { get; set; }
 
         public override string GetSettingKey()
         {

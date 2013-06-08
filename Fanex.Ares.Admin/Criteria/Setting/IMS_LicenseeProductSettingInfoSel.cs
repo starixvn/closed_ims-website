@@ -13,9 +13,9 @@ namespace Fanex.Ares.Admin.Criteria.Setting
 
     public class IMS_LicenseeProductSettingInfoSel : CriteriaBase
     {
-        public bool PartyID { get; set; }
+        public int PartyID { get; set; }
         public int LicenseeID { get; set; }
-        public bool ProductID { get; set; }
+        public int ProductID { get; set; }
 
         public override string GetSettingKey()
         {
