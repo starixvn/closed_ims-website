@@ -48,7 +48,7 @@ using System.Text;
                         SwiftCode = Convert.ToString(r["SwiftCode"]),
                         CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
                         AttnName = Convert.ToString(r["AttnName"]),
-                        To1 = Convert.ToString(r["To1"]),
+                        //To1 = Convert.ToString(r["To1"]).Replace("&", "").Replace("'", ""),
                         To2 = Convert.ToString(r["To2"]),
                         Logo = Convert.ToString(r["Logo"])
                     };
