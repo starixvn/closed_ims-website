@@ -10,9 +10,6 @@
 namespace Fanex.Ares.Admin.Models.Setting
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -20,10 +17,13 @@ namespace Fanex.Ares.Admin.Models.Setting
     public class SettingModel
     {
         public int PartyID { get; set; }
+        public string PartyName { get; set; }
 
         public int LicenseeID { get; set; }
+        public string LicenseeName { get; set; }
 
         public int ProductID { get; set; }
+        public string ProductName { get; set; }
 
         public DateTime FirstBillingDate { get; set; }
 

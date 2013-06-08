@@ -102,7 +102,7 @@ SettingManager = function () {
             dataType: "json",
             data: null,
             beforeSend: function () {
-                NapTicketControl.disableInput();
+                NapAres.disableInput();
             },
             success: function (rs) {
                 renderSettings(rs);
@@ -111,7 +111,7 @@ SettingManager = function () {
                 renderSettings([]);
             },
             complete: function () {
-                NapTicketControl.enableInput();
+                NapAres.enableInput();
             }
         });
 
@@ -125,9 +125,9 @@ SettingManager = function () {
                 var item = data[i];
                 var currentRow = {
                     Columns: [
-                                { Name: "LicenseeID", Value: item.LicenseeID },
-                                { Name: "ProductID", Value: item.ProductID },
-                                { Name: "PartyID", Value: item.PartyID },
+                                { Name: "PartyID", Value: item.PartyName },
+                                { Name: "LicenseeID", Value: item.LicenseeName },
+                                { Name: "ProductID", Value: item.ProductName },                                
                                 { Name: "FirstBillingDate", Value: item.FirstBillingDate },
                                 { Name: "HeadOfTerms", Value: item.HeadOfTerms },
                                 { Name: "MinimumFee", Value: item.MinimumFee },
@@ -158,9 +158,9 @@ SettingManager = function () {
 
         gridOptions = {
             columns: [
-                    { HeaderText: "LicenseeID", Width: 100, Name: "LicenseeID", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "ProductID", Width: 100, Name: "ProductID", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "PartyID", Width: 100, Name: "PartyID", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Party", Width: 100, Name: "PartyID", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Licensee", Width: 100, Name: "LicenseeID", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Product", Width: 100, Name: "ProductID", HeaderAlign: "center", CellAlign: "left" },                    
                     { HeaderText: "First Billing Date", Width: 100, Name: "FirstBillingDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM YYYY" },
                     { HeaderText: "Head Of Terms", Width: 100, Name: "HeadOfTerms", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM YYYY" },
                     { HeaderText: "Minimum Fee", Width: 100, Name: "MinimumFee", HeaderAlign: "center", CellAlign: "left" },
@@ -240,7 +240,7 @@ SettingManager = function () {
                 "Edit Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSetting.attr("Action", "/admin/Setting/UpdateSetting");
+                        _table.formSetting.attr("Action", window.rootUrl + "/admin/Setting/UpdateSetting");
                         _table.formSetting.submit();
                         $(this).dialog("close");
                     }
@@ -295,7 +295,7 @@ SettingManager = function () {
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID + "&PartyID=" + PartyID + "&ProductID=" + ProductID,
                     beforeSend: function () {
-                        NapTicketControl.disableInput();
+                        NapAres.disableInput();
                     },
                     success: function (rs) {
                         var data = eval(rs);
@@ -330,7 +330,7 @@ SettingManager = function () {
                         alert('fail');
                     },
                     complete: function () {
-                        NapTicketControl.enableInput();
+                        NapAres.enableInput();
                     }
                 });
 
@@ -378,7 +378,7 @@ SettingManager = function () {
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID + "&PartyID=" + PartyID + "&ProductID=" + ProductID,
                     beforeSend: function () {
-                        NapTicketControl.disableInput();
+                        NapAres.disableInput();
                     },
                     success: function (rs) {
                         var data = eval(rs);
@@ -405,7 +405,7 @@ SettingManager = function () {
                         alert('fail');
                     },
                     complete: function () {
-                        NapTicketControl.enableInput();
+                        NapAres.enableInput();
                     }
                 });
 

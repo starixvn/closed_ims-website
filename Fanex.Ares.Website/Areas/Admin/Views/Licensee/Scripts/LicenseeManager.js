@@ -22,7 +22,7 @@ LicenseeManager = function () {
         LicenseeName: 1,
         BrandName: 2,
         CompanyName: 3,
-        IsLabel: 4,
+        IsDeposit: 4,
         IsActive: 5,
         IsOneWorkActive: 6,
         AttnName: 7,
@@ -36,7 +36,7 @@ LicenseeManager = function () {
         txtLicenseeName: null,
         txtBrandName: null,
         txtCompanyName: null,
-        chkIsLabel: null,
+        chkIsDeposit: null,
         chkIsActive: null,
         chkIsOneWorkActive: null,
         txtAttnName: null,
@@ -60,7 +60,7 @@ LicenseeManager = function () {
         _dlgAddNew.txtLicenseeName = $('#LicenseeName');
         _dlgAddNew.txtBrandName = $('#BrandName');
         _dlgAddNew.txtCompanyName = $('#CompanyName');
-        _dlgAddNew.chkIsLabel = $('#IsLabel');
+        _dlgAddNew.chkIsDeposit = $('#IsDeposit');
         _dlgAddNew.chkIsActive = $('#IsActive');
         _dlgAddNew.chkIsOneWorkActive = $('#IsOneWorkActive');
         _dlgAddNew.txtAttnName = $('#AttnName');
@@ -124,14 +124,14 @@ LicenseeManager = function () {
                                 { Name: "LicenseeName", Value: item.LicenseeName },
                                 { Name: "BrandName", Value: item.BrandName },
                                 { Name: "CompanyName", Value: item.CompanyName },
-                                { Name: "IsLabel", Value: item.IsLabel },
+                                { Name: "IsDeposit", Value: item.IsDeposit },
                                 { Name: "IsActive", Value: item.IsActive },
                                 { Name: "IsOneWorkActive", Value: item.IsOneWorkActive },
                                 { Name: "AttnName", Value: item.AttnName },
                                 { Name: "To1", Value: item.To1 },
                                 { Name: "To2", Value: item.To2 },
                                 { Name: "Edit", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateEditButton(cell, cellFormated); } },
-                                { Name: "AddLicensee", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateAddLicenseeButton(cell, cellFormated); } }
+                                { Name: "AddParty", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateAddLicenseeButton(cell, cellFormated); } }
                             ]
                 };
 
@@ -144,7 +144,7 @@ LicenseeManager = function () {
         }
 
         var GenerateAddLicenseeButton = function (cell, cellFormated) {
-            return "<input value='Add Licensee' type='button' onclick='licenseeManager.AddParty(" + cell.Value + ")' />";
+            return "<input value='Add Party' type='button' onclick='licenseeManager.AddParty(" + cell.Value + ")' />";
         }
 
         gridOptions = {
@@ -153,14 +153,14 @@ LicenseeManager = function () {
                     { HeaderText: "Licensee Name", Width: 100, Name: "LicenseeName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Brand Name", Width: 100, Name: "BrandName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Company Name", Width: 200, Name: "CompanyName", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Is Label", Width: 100, Name: "IsLabel", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Is Label", Width: 100, Name: "IsDeposit", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Is Active", Width: 100, Name: "IsActive", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Is One Work Active", Width: 100, Name: "IsOneWorkActive", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Attn Name", Width: 100, Name: "AttnName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "To1", Width: 100, Name: "To1", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "To2", Width: 100, Name: "To2", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Add Licensee", Width: 100, Name: "AddLicensee", HeaderAlign: "center", CellAlign: "left"}],
+                    { HeaderText: "Add Party", Width: 100, Name: "AddParty", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
             //showFooter: true,
             titleInfo:
@@ -337,7 +337,7 @@ LicenseeManager = function () {
         _dlgAddNew.txtLicenseeName.val(row[_mappingColumns.LicenseeName].Value);
         _dlgAddNew.txtBrandName.val(row[_mappingColumns.BrandName].Value);
         _dlgAddNew.txtCompanyName.val(row[_mappingColumns.CompanyName].Value);
-        _dlgAddNew.chkIsLabel.attr('checked', row[_mappingColumns.IsLabel].Value);
+        _dlgAddNew.chkIsDeposit.attr('checked', row[_mappingColumns.IsDeposit].Value);
         _dlgAddNew.chkIsActive.attr('checked', row[_mappingColumns.IsActive].Value);
         _dlgAddNew.chkIsOneWorkActive.attr('checked', row[_mappingColumns.IsOneWorkActive].Value);
         _dlgAddNew.txtAttnName.val(row[_mappingColumns.AttnName].Value);

@@ -14,16 +14,12 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
-    using System.Web.Mvc;
-    using Fanex.Ares.Admin.Models.Licensee;
-    using Fanex.Ares.Admin.Models.Party;
+    using Fanex.Ares.Admin.Models.Setting;
     using Fanex.Ares.Admin.Repositories.Impl;
     using Fanex.Ares.Admin.Repositories.Interface;
     using Fanex.Ares.Admin.Services.Party.Interface;
-    using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
-    using Fanex.Ares.Admin.Models.Setting;
 
     public class SettingService : ServiceBase, ISettingService
     {
@@ -48,8 +44,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         HeadOfTerms = Convert.ToDateTime(r["HeadOfTerms"] == System.DBNull.Value ? DateTime.MinValue : r["HeadOfTerms"]),
                         MinimumFee = Convert.ToInt32(r["MinimumFee"] == System.DBNull.Value ? 0 : r["MinimumFee"]),
                         LicenseeID = Convert.ToInt32(r["LicenseeID"]),
+                        LicenseeName = Convert.ToString(r["LicenseeName"]),
                         PartyID = Convert.ToInt32(r["PartyID"]),
+                        PartyName = Convert.ToString(r["PartyName"]),
                         ProductID = Convert.ToInt32(r["ProductID"]),
+                        ProductName = Convert.ToString(r["ProductName"]),
                         WaivedDate = Convert.ToDateTime(r["WaivedDate"] == System.DBNull.Value ? DateTime.MinValue : r["WaivedDate"]),
                         WaivedMonth = Convert.ToInt32(r["WaivedMonth"] == System.DBNull.Value ? 0 : r["WaivedMonth"])
                     };

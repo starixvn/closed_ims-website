@@ -6,10 +6,6 @@
 
 namespace Fanex.Ares.Admin.Models.Licensee
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.
@@ -24,7 +20,7 @@ namespace Fanex.Ares.Admin.Models.Licensee
 
         public string CompanyName { get; set; }
 
-        public bool IsLabel { get; set; }
+        public bool IsDeposit { get; set; }
 
         public bool IsActive { get; set; }
 
