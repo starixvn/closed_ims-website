@@ -31,8 +31,7 @@ LicenseeManager = function () {
     }
 
     var _dlgAddNew = {
-        hidLicenseeID: null,
-        txtLicenseeID: null,
+        selLicenseeID: null,
         txtLicenseeName: null,
         txtBrandName: null,
         txtCompanyName: null,
@@ -55,8 +54,7 @@ LicenseeManager = function () {
         _table.errCode = $('#ErrCode');
         _table.errMsg = $('#ErrMsg');
 
-        _dlgAddNew.hidLicenseeID = $('#LicenseeID');
-        _dlgAddNew.txtLicenseeID = $('#txtLicenseeID');
+        _dlgAddNew.selLicenseeID = $('#LicenseeID');
         _dlgAddNew.txtLicenseeName = $('#LicenseeName');
         _dlgAddNew.txtBrandName = $('#BrandName');
         _dlgAddNew.txtCompanyName = $('#CompanyName');
@@ -177,16 +175,6 @@ LicenseeManager = function () {
         };
 
         _table.licenseesContainer.fanexGrid(gridOptions);
-//        _table.licenseesContainer.fanexGrid("hideColumns", gridOptions, [_mappingColumns.PartyID,
-//                                                                        _mappingColumns.PartyType,
-//                                                                        _mappingColumns.Description,
-//                                                                        _mappingColumns.AccountNumber,
-//                                                                        _mappingColumns.AccountName,
-//                                                                        _mappingColumns.BankName,
-//                                                                        _mappingColumns.Benificiary,
-//                                                                        _mappingColumns.IBAN,
-//                                                                        _mappingColumns.SwiftCode,
-//                                                                        _mappingColumns.CorrespondentBank]);
     };
 
     self.AddNewLicensee = function () {
@@ -228,7 +216,10 @@ LicenseeManager = function () {
     self.EditLicensee = function (rowNum) {
         _table.dlgAddNew.attr('title', 'Edit Licensee');
         var originalDialog = _table.dlgAddNew.html();
+        var row = gridOptions.bodyRows[rowNum].Columns;
+        var LicenseeID = row[_mappingColumns.LicenseeID].Value;
         cachedDOMElements();
+        _dlgAddNew.selLicenseeID.hide();
         FillDataToEditForm(rowNum);
         _table.dlgAddNew.dialog({
             autoOpen: false,
@@ -240,6 +231,11 @@ LicenseeManager = function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
                         _table.frmLicensee.attr("Action", "/admin/Licensee/UpdateLicensee");
+                        $('<input />').attr('type', 'hidden')
+                            .attr('name', "LicenseeID")
+                            .attr('value', LicenseeID)
+                            .appendTo(_table.frmLicensee);
+                        _dlgAddNew.selLicenseeID.remove();
                         _table.frmLicensee.submit();
                         $(this).dialog("close");
                     }
@@ -332,8 +328,7 @@ LicenseeManager = function () {
 
     var FillDataToEditForm = function (rowNum) {
         var row = gridOptions.bodyRows[rowNum].Columns;
-        _dlgAddNew.hidLicenseeID.val(row[_mappingColumns.LicenseeID].Value);
-        _dlgAddNew.txtLicenseeID.val(row[_mappingColumns.LicenseeID].Value);
+        _dlgAddNew.selLicenseeID.val(row[_mappingColumns.LicenseeID].Value);
         _dlgAddNew.txtLicenseeName.val(row[_mappingColumns.LicenseeName].Value);
         _dlgAddNew.txtBrandName.val(row[_mappingColumns.BrandName].Value);
         _dlgAddNew.txtCompanyName.val(row[_mappingColumns.CompanyName].Value);
@@ -348,7 +343,7 @@ LicenseeManager = function () {
     var ValidateForm = function () {
         var result = true;
         _dlgAddNew.txtValidateTips.html("");
-        if (_dlgAddNew.txtLicenseeName.val().length <= 0) {
+        if (_dlgAddNew.txtLicenseeName.is(":visible") && _dlgAddNew.txtLicenseeName.val().length <= 0) {
             _dlgAddNew.txtLicenseeName.addClass("input-validation-error");
             _dlgAddNew.txtValidateTips.html(_dlgAddNew.txtValidateTips.html() + "Licensee Name must be enter.");
             result = false;

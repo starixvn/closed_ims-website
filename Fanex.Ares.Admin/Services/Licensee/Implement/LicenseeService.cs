@@ -66,6 +66,40 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listLicensees;
         }
 
+        public IEnumerable<LicenseeModel> GetAvailableLicensees(ICriteria criteria)
+        {
+            var listLicensees = new List<LicenseeModel>();
+            try
+            {
+                Func<IDataReader, LicenseeModel> mappingFunc = r =>
+                {
+                    var res = new LicenseeModel
+                    {
+                        LicenseeID = Convert.ToInt32(r["LicenseeID"]),
+                        LicenseeName = r["LicenseeName"].ToString1(),
+                        BrandName = r["BrandName"].ToString1(),
+                        CompanyName = r["CompanyName"].ToString1(),
+                        IsDeposit = Convert.ToBoolean(r["IsDeposit"]),
+                        IsActive = false,
+                        IsOneWorkActive = false,
+                        AttnName = string.Empty,
+                        To1 = string.Empty,
+                        To2 = string.Empty
+                    };
+
+                    return res;
+                };
+
+                listLicensees = _repository.Fetch<LicenseeModel>(criteria, mappingFunc).ToList();
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listLicensees;
+        }
+
         public IEnumerable<SelectListItem> GetAvailableOrSelectedParties(ICriteria criteria)
         {
             var listAvailableLicensees = new List<SelectListItem>();

@@ -13,10 +13,7 @@ namespace Fanex.Ares.Admin.Criteria
 
     public class IMS_LicenseeIns : CriteriaBase
     {
-        public string LicenseeName { get; set; }
-        public string BrandName { get; set; }
-        public string CompanyName { get; set; }
-        public bool IsDeposit { get; set; }
+        public int LicenseeID { get; set; }
         public bool IsActive { get; set; }
         public bool IsOneWorkActive { get; set; }
         public string AttnName { get; set; }

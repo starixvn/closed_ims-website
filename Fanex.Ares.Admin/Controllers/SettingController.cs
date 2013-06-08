@@ -43,14 +43,17 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
+            ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
+            ViewBag.lstParties = _partyService.GetAllParties(new IMS_PartyInfoSel()).ToSelectListItem("PartyID", "PartyName");
             return View();
         }
 
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
-        public JsonResult GetAllSettings()
+        public JsonResult GetAllSettings(IMS_LicenseeProductSettingInfoSel criteria)
         {
-            return Json(_settingService.GetAllSettings(new IMS_LicenseeProductSettingInfoSel()));
+            var rs = Json(_settingService.GetAllSettings(criteria));
+            return rs;
         }
 
         [HttpPost]
@@ -70,7 +73,7 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
-            ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID","LicenseeName", "BrandName");
+            ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
             ViewBag.lstProducts = _productService.GetAllProducts(new IMS_ProductInfoSel()).ToSelectListItem("ProductID", "ProductName");
             ViewBag.lstParties = _partyService.GetAllParties(new IMS_PartyInfoSel()).ToSelectListItem("PartyID", "PartyName");
             ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
