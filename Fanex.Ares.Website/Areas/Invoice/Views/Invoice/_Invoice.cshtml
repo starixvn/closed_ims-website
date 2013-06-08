@@ -135,11 +135,11 @@
                         }
                         <tr class="total" style="width: 100%;">
                             <td style="text-align: center; border-right: 0px solid black !important;">
-                                <a onclick="AddItem('newItem_')" style="text-decoration: underline; cursor: pointer;
+                                <a onclick="CreatingInvoice.AddItem('')" style="text-decoration: underline; cursor: pointer;
                                     font-style: italic;">+New Item</a>
                             </td>
                             <td style="width: 55%; height: 30px; text-align: left; border-left: 0px solid black!important;">
-                                <a onclick="AddItem()" style="text-decoration: underline; cursor: pointer; font-style: italic;">
+                                <a onclick="CreatingInvoice.AddItem()" style="text-decoration: underline; cursor: pointer; font-style: italic;">
                                     +New Discount</a>
                             </td>
                             <td style="width: 20%; text-align: center;">
@@ -250,7 +250,7 @@
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
                                     <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="Review()"/>&nbsp;&nbsp;&nbsp;
-                                      <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all" 
+                                      <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
                                     type="button" value="EXPORT PDF"  onClick="ExportPDF()"/>
                                @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
                                     type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { type= "Pdf" })'"/>*@
@@ -299,6 +299,7 @@
     }
 
     $('#saveID').button();
+   
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
     var invoiceInfo = '@Json.Encode(Model)';
     invoiceInfo = invoiceInfo.replace(/&quot;/g, '"');
@@ -353,4 +354,7 @@
         link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
         location.href = link;
     }
+
+
+   
 </script>

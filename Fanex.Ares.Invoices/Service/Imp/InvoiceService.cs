@@ -248,6 +248,7 @@ using System.Text;
                 invoiceXmlFormat.Append("   <FromDate>" + invoiceModel.FromDate + "</FromDate>");
                 invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
                 invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
+                invoiceXmlFormat.Append("   <Note>" + invoiceModel.Note + "</Note>");
                 invoiceXmlFormat.Append("   <InvoiceItems>");
                 foreach (Statement statement in invoiceModel.StatementList)
                 {

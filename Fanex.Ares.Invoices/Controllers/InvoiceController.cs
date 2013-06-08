@@ -239,7 +239,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public ActionResult PrintScreen(string invoiceModel)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
-            IMS_Rpt_LicenseeSettlementCriteria criteria = new IMS_Rpt_LicenseeSettlementCriteria();
+            var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             criteria.LicenseeId = 1;
             criteria.BaseCurrency = 6;

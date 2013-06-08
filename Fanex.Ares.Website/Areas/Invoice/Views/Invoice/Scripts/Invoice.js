@@ -101,16 +101,6 @@ function GetInvoiceNo() {
     });
 }
 
-function AddItem(idItem) {
-    $('#invoiceTbl tr.total').before(' <tr id="' + idItem + '" style="width: 100%; text-align: center;">\
-                                    <td  style="width: 10%; "></td>\
-                                <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
-                                <td style="width: 15%; text-align: center;">\
-                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                        <input type="text" style="font-weight: bold; "></input></div></td></tr>');
-}
 
 var CreatingInvoice = {
     Licensees: [],
@@ -126,8 +116,18 @@ var CreatingInvoice = {
     InvoiceNo: '',
     InvoiceName: '',
     InvoiceID: 0,
+    IdNewItem: 0,
     messageTimeOut: 4000,
     invoiceInfoModel: [],
+    StatementDetail: {
+        Description: '',
+        Reference: '',
+        Amount: 0,
+        AdjustItem: false
+    },
+    StatementDetailList: [],
+
+    IdNewItemList: [],
     init: function () {
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "quickchoose",
@@ -285,6 +285,8 @@ var CreatingInvoice = {
                 '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
             success: function (data, textStatus, jqXHR) {
                 $('#parentContainer').html(data);
+                CreatingInvoice.IdNewItemList = [];
+                CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
@@ -296,6 +298,7 @@ var CreatingInvoice = {
         });
     },
     SaveInvoice: function () {
+        CreatingInvoice.UpdateItem();
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
         invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
@@ -322,6 +325,7 @@ var CreatingInvoice = {
                         $('#pdfID').removeClass('ui-state-disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
+                        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceID;
                         NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
                     }
                     else {
@@ -356,6 +360,57 @@ var CreatingInvoice = {
         }
         var result = { 'normal': normalLicensees, 'operator': operator }
         return result;
+    },
+    AddItem: function () {
+        //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
+        $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
+                                    <td  style="width: 10%; ">' + CreatingInvoice.IdNewItem + ' </br></br> <a onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')">Delete</a></td>\
+                                <td style="width: 55%; text-align: center; height: 60px;">\
+                                    <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
+                                <td style="width: 15%; text-align: center;">\
+                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
+                                        <input id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold; "></input></div></td></tr>');
+        CreatingInvoice.IdNewItemList.push(CreatingInvoice.IdNewItem);
+        CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
+        $('#saveID').removeClass('ui-state-disabled')
+    },
+    DeleteItem: function (trId) {
+        //        $(document.getElementById(trId)).remove();
+        $("#newItem_" + trId).remove();
+        CreatingInvoice.IdNewItemList = jQuery.grep(CreatingInvoice.IdNewItemList, function (value) {
+            return value != trId;
+        });
+        if (CreatingInvoice.IdNewItemList.length == 0) {
+            $('#saveID').addClass('ui-state-disabled')
+        }
+    },
+    UpdateItemDisplay: function () {
+
+    },
+    UpdateItem: function () {
+        var statement = {
+            StatementID: 1000,
+            StatementDetailList: []
+        };
+        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
+            var id = CreatingInvoice.IdNewItemList[i];
+            var statementDetail = {
+                Description: '',
+                Reference: '',
+                Amount: 0,
+                AdjustItem: true
+            };
+
+            statementDetail.Description = $('textarea#newItem_des_' + id).val();
+            statementDetail.Reference = $('textarea#newItem_ref_' + id).val();
+            statementDetail.Amount = $('#newItem_text_' + id).val();
+            statement.StatementDetailList.push(statementDetail);
+            //            CreatingInvoice.StatementDetailList.push(statementDetail);
+        }
+
+        invoiceInfoModel.StatementList.push(statement);
+        return invoiceInfoModel.StatementList;
     }
 }
 

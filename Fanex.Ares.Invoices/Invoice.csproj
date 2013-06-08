@@ -67,17 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\InvoiceController.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceInsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceNoSelCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceTypeCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoieTypesSelCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceLicenseeBillingInfoSelCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_LicenseeSelByPartyCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsSelCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_OperatorSelCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceRpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Models\Invoice\InvoiceModel.cs" />
     <Compile Include="Models\Invoice\InvoiceType.cs" />
     <Compile Include="Models\Invoice\Product.cs" />

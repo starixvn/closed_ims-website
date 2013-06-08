@@ -13,7 +13,7 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
 
     [Serializable]
     public class IMS_Rpt_LicenseeSettlementCriteria : CriteriaBase
-    {
+    {        
         public int LicenseeId { get; set; }
         public string LicenseeName { get; set; }
         public DateTime FromDate { get; set; }
@@ -31,6 +31,10 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         [SpParam(Ignored = true)]
         public int Year { get; set; }
 
+
+        [SpParam(Ignored = true)]
+        public bool InvoiceReport { get; set; }
+
         public IMS_Rpt_LicenseeSettlementCriteria()
             : base()
         {
@@ -42,6 +46,9 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         {
             return "IMS_Rpt_LicenseeSettlement";
         }
+
+
+
 
         public override bool IsValid() { return true; }
     }
