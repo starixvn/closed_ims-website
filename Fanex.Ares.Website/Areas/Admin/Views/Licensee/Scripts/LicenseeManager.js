@@ -219,7 +219,7 @@ LicenseeManager = function () {
         var row = gridOptions.bodyRows[rowNum].Columns;
         var LicenseeID = row[_mappingColumns.LicenseeID].Value;
         cachedDOMElements();
-        _dlgAddNew.selLicenseeID.hide();
+        $('.insert').hide();
         FillDataToEditForm(rowNum);
         _table.dlgAddNew.dialog({
             autoOpen: false,

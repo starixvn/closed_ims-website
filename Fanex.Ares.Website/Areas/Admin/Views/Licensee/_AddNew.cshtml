@@ -5,10 +5,11 @@
     @using (Html.BeginForm("CreateNewLicensee", "Licensee", FormMethod.Post, new { enctype = "multipart/form-data", id = "formLicensee" }))
     {
         <fieldset>
-            <label for="LicenseeID">
-                Licensee ID</label>
-            @Html.DropDownList("LicenseeID", (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
-            <span class="update">
+            <span class="insert">
+                <label for="LicenseeID">
+                    Licensee ID</label>
+                @Html.DropDownList("LicenseeID", (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
+            </span><span class="update">
                 <label for="LicenseeName">
                     Licensee Name</label>
                 <input type="text" name="LicenseeName" id="LicenseeName" maxlength="30" class="text ui-widget-content ui-corner-all" />
