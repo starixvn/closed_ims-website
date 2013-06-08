@@ -245,8 +245,10 @@
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\BHC_Boping\BHC_Boping.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\close.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Lupine\Lupine.css" />

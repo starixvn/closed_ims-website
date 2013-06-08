@@ -324,6 +324,15 @@ var CreatingInvoice = {
                         $('#btnGenerate').addClass('ui-state-disabled');
                         $('#pdfID').removeClass('ui-state-disabled');
 
+                        $('#ddlOperator').addClass('ui-state-disabled');
+                        $('#ddlLicensee').addClass('ui-state-disabled');
+                        $('#dropDownListId1').addClass('ui-state-disabled');
+                        $('#FromDatePicker').addClass('ui-state-disabled');
+                        $('#ToDatePicker').addClass('ui-state-disabled');
+                        $('#divInvoiceType').addClass('ui-state-disabled');
+                        $('#CurrencyID').addClass('ui-state-disabled');
+                        $('#invoiceNo').addClass('ui-state-disabled');
+
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
                         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceID;
                         NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
@@ -364,7 +373,7 @@ var CreatingInvoice = {
     AddItem: function () {
         //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
         $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
-                                    <td  style="width: 10%; ">' + CreatingInvoice.IdNewItem + ' </br></br> <a onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')">Delete</a></td>\
+                                    <td  style="width: 10%; ">' + CreatingInvoice.IdNewItem + ' </br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
                                     <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
