@@ -132,7 +132,8 @@ namespace Fanex.Ares.Report.Services.Interface
             var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
             var listBaseCurrency = this.GetBaseCurrency(new IMS_BaseCurrencySel());
             var model = new LicenseeSettlementModel();
-            var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
+            IMS_LicenseeBillingInfoSelCriteria licenseeInfoCriteria = criteria.InvoiceReport ? new IMS_Invoice_LicenseeBillingInfoSelCriteria() : new IMS_LicenseeBillingInfoSelCriteria()  ;
+            IMS_ExchangeRateBillingSelCriteria exchangeRateCriteria = criteria.InvoiceReport ? new IMS_Invoice_ExchangeRateBillingSel() :  new IMS_ExchangeRateBillingSelCriteria();
 
             try
             {
@@ -149,7 +150,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 model.Report = this.GetLicenseeReport(criteria);
 
                 // Exchange Rate
-                var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
+                
                 model.ExchangeList = new List<ViewModels.ExchangeRate>();
 
                 var exchangeRatecurrencies = string.Empty;

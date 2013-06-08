@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DNAide">
+      <HintPath>..\_Dependency\FanexLibs\DNAide.dll</HintPath>
+    </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
@@ -45,6 +48,9 @@
     </Reference>
     <Reference Include="Fanex.NAP.Framework">
       <HintPath>..\_Dependency\FanexLibs\Fanex.NAP.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -102,6 +108,9 @@
       <Project>{C0D5A32D-72BC-4737-949D-FDF9342B243F}</Project>
       <Name>Fanex.Workbooks</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

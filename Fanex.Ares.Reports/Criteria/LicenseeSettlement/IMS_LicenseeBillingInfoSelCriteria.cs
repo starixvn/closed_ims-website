@@ -15,10 +15,10 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     {
         public int LicenseeId { get; set; }
         public int ProductId { get; set; }
-
+        public int PartyId { get; set; }
         public override string GetSettingKey()
         {
-            return "IMS_LicenseeBillingInfoSel";
+            return "IMS_Invoice_LicenseeBillingInfoSel";
         }
 
         public override bool IsValid() { return true; }

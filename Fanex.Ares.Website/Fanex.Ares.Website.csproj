@@ -85,9 +85,6 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\_Dependency\Entlib\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\_Dependency\FanexLibs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NPOI, Version=1.2.4.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Excel\NPOI.dll</HintPath>
@@ -250,6 +247,8 @@
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\BHC_Boping\BHC_Boping.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Lupine\Lupine.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\COZNI LIMITED\COZNILIMITED.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LDL\LDL.css" />

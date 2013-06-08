@@ -78,6 +78,9 @@
   <ItemGroup>
     <Compile Include="Controllers\LicenseeSettlementController.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_ExchangeRateBillingSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_LicenseeBillingInfoSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_Rpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />

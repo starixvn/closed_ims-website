@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // <copyright file="InvoiceController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -28,6 +28,10 @@ using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Core.PdfHelper;
 using Fanex.NAP.Core.Web.Attribute;
 using Fanex.Workbooks;
+using Newtonsoft.Json;
+using DNAide.Core;
+using Fanex.Common;
+using Fanex.Common.Extensions;
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -60,8 +64,8 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorSelCriteria() { PartyID = 0});           
-            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());            
+            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorSelCriteria() { PartyID = 0 });
+            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
             return View();
         }
 
@@ -88,10 +92,12 @@ namespace Fanex.Ares.Invoice.Controllers
             return Json(invoiceNo);
         }
 
-        
+
         public PartialViewResult GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
         {
             var model = _invoiceService.GetInvoice(criteria);
+            model.FromDate = Converter.To<string>(criteria.FromDate);
+            model.ToDate = Converter.To<string>(criteria.ToDate);
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
@@ -102,53 +108,119 @@ namespace Fanex.Ares.Invoice.Controllers
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
             SettlementView = "_" + criteria.ProductName;
-           
+
             return PartialView(SettlementView, model);
         }
 
-        public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
+        public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)
         {
-            InvoiceModel invoiceModel = new InvoiceModel();
+            List<DateRange> dateRangeList = new List<DateRange>();
 
+            int numericMonth = ToDate.Month - FromDate.Month + 1;
 
-            IMS_Rpt_LicenseeSettlementCriteria criteria = new IMS_Rpt_LicenseeSettlementCriteria();
-            criteria.LicenseeId = 1;
+            for (int i = 0; i < numericMonth; i++)
+            {
+                DateRange dateRange = new DateRange();
+                DateTime StartDateTmp = new DateTime();
+                DateTime EndDateTmp = new DateTime();
+                if (i == 0)
+                {
+                    StartDateTmp = FromDate;
+                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month, 1).AddMonths(1);
+                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                    EndDateTmp = firstOfNextMonth.AddDays(-1);
+                }
+                else if (i == numericMonth)
+                {
+                    StartDateTmp = new DateTime(FromDate.Year, ToDate.Month, 1);
+                    //DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
+                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                    EndDateTmp = ToDate;
+                }
+                else
+                {
+                    StartDateTmp = new DateTime(FromDate.Year, FromDate.Month + i, 1);
+                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
+                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                    EndDateTmp = firstOfNextMonth.AddDays(-1);
+                }
+
+                dateRange.StartDate = StartDateTmp;
+                dateRange.EndDate = EndDateTmp;
+                dateRangeList.Add(dateRange);
+            }
+
+            return dateRangeList;
+        }
+        public ActionResult ExportDocument(string invoiceModel)
+        {
+            List<DateRange> dateRangeList = new List<DateRange>();
+            IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
+
+            criteria.LicenseeId = 4;
             criteria.BaseCurrency = 6;
             criteria.BaseCurrencyName = "EUR";
             criteria.Currency = 0;
-            criteria.FromDate = new DateTime(2013, 5, 01);
-            criteria.ToDate = new DateTime(2013, 5, 31);
-            criteria.Product = 0;
-            criteria.ProductName = "Sportsbook";
+            //criteria.FromDate = new DateTime(2013, 5, 01);
+            //criteria.ToDate = new DateTime(2013, 5, 31);
+            //criteria.Product = 0;
+            //criteria.ProductName = "Sportsbook";
 
-            var model = _reportService.GenerateReport(criteria);
+            InvoiceModel imodel = new InvoiceModel();
 
+            InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
+
+            //criteria.LicenseeId = invoice.Licensee.LicenseeID;
+            //criteria.BaseCurrency = invoice.Currency;
+            //criteria.BaseCurrencyName = invoice.CurrencyName;
+            //criteria.Currency = 0;
+
+            DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
+            DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
+
+            dateRangeList = GetDateRange(FromDate, ToDate);
+            var excelCssFilePath = new List<string>();
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/LDL/LDL" };
+            string[] arrayView = new string[] { "Template//BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
-
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
-            //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+            string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
+            htmlList.Add(html);
 
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            foreach (string view in arrayView)
+            invoice.HTMLReportList.Add(html);
+
+            string[] Products = invoice.ProductsName.Split(',');
+            string[] ProductID = invoice.Product.Split(',');
+            for (int i = 0; i < dateRangeList.Count; i++)
             {
-                string html = HtmlHelperExtensions.RenderViewToString(this, view, model);
-                htmlList.Add(html);
+                for (int j = 0; j < Products.Count(); j++)
+                {
 
-                invoiceModel.HTMLReportList.Add(html);
+
+                    criteria.ToDate = dateRangeList[i].EndDate;
+                    criteria.FromDate = dateRangeList[i].StartDate;
+                    criteria.Product = Converter.To<int>(ProductID[j]);
+                    criteria.ProductName = Products[j];
+
+                    var model = _reportService.GenerateReport(criteria);
+
+                    model.LicenseeInfor.FromDate = criteria.FromDate;
+                    model.LicenseeInfor.ToDate = criteria.ToDate;
+                    if (model.Report.EntityList.Count > 0)
+                    {
+                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        htmlList.Add(html);
+                        invoice.HTMLReportList.Add(html);
+                        excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
+                    }
+                }
+
             }
 
-            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session,"InvoiceHTML", invoiceModel);
-
-            var excelCssFilePath = new List<string>();
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LDL\LDL.css"));
-
             var workbook = new WorkbookManager();
+            WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
             var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
             if (ms != null)
             {
@@ -164,47 +236,73 @@ namespace Fanex.Ares.Invoice.Controllers
             return new EmptyResult();
         }
 
-        public ActionResult PrintScreen()
+        public ActionResult PrintScreen(string invoiceModel)
         {
-            InvoiceModel invoiceModel = new InvoiceModel();
+            List<DateRange> dateRangeList = new List<DateRange>();
+            var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
-
-            IMS_Rpt_LicenseeSettlementCriteria criteria = new IMS_Rpt_LicenseeSettlementCriteria();
             criteria.LicenseeId = 1;
             criteria.BaseCurrency = 6;
             criteria.BaseCurrencyName = "EUR";
             criteria.Currency = 0;
-            criteria.FromDate = new DateTime(2013, 5, 01);
-            criteria.ToDate = new DateTime(2013, 5, 31);
-            criteria.Product = 0;
-            criteria.ProductName = "Sportsbook";
+            //criteria.FromDate = new DateTime(2013, 5, 01);
+            //criteria.ToDate = new DateTime(2013, 5, 31);
+            //criteria.Product = 0;
+            //criteria.ProductName = "Sportsbook";
 
-            var model = _reportService.GenerateReport(criteria);
+            InvoiceModel imodel = new InvoiceModel();
+
+            InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
+
+            //criteria.LicenseeId = invoice.Licensee.LicenseeID;
+            //criteria.BaseCurrency = invoice.Currency;
+            //criteria.BaseCurrencyName = invoice.CurrencyName;
+            //criteria.Currency = 0;
+
+            DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
+            DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
+
+            dateRangeList = GetDateRange(FromDate, ToDate);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/LDL/LDL" };
+            string[] arrayView = new string[] { "Template//BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
-
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            //string[] arrayView = new string[] { "_InvoiceSportsBook", "_Number Game", "_Sportsbook", "_BA" };
-            //List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+            string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
+            htmlList.Add(html);
 
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            //PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            foreach (string view in arrayView)
+            invoice.HTMLReportList.Add(html);
+
+            string[] Products = invoice.ProductsName.Split(',');
+            string[] ProductID = invoice.Product.Split(',');
+            for (int i = 0; i < dateRangeList.Count; i++)
             {
-                string html = HtmlHelperExtensions.RenderViewToString(this, view, model);
-                htmlList.Add(html);
+                for (int j = 0; j < Products.Count(); j++)
+                {
+                   
 
-                invoiceModel.HTMLReportList.Add(html);
+                    criteria.ToDate = dateRangeList[i].EndDate;
+                    criteria.FromDate = dateRangeList[i].StartDate;
+                    criteria.Product =  Converter.To<int>( ProductID[j]);
+                    criteria.ProductName = Products[j];
+
+                    var model = _reportService.GenerateReport(criteria);
+
+                    model.LicenseeInfor.FromDate = criteria.FromDate;
+                    model.LicenseeInfor.ToDate = criteria.ToDate;
+                    if (model.Report.EntityList.Count > 0)
+                    {
+                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        htmlList.Add(html);
+                        invoice.HTMLReportList.Add(html);
+
+                    }
+                }
+
             }
 
-            //InvoiceModel invoiceModel = new InvoiceModel();
-
-            //invoiceModel = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "InvoiceHTML");
-            return View("_Review", invoiceModel);
+            return View("_Review", invoice);
         }
 
         [HttpPost]

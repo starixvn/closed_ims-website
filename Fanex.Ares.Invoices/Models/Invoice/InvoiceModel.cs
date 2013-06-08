@@ -25,17 +25,18 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public Operator Operator { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public string FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public string ToDate { get; set; }
 
-        public DateTime DueDate { get; set; }
+        public string DueDate { get; set; }
 
         public int Currency { get; set; }
         public string CurrencyName { get; set; }
 
         public InvoiceType InvoiceType { get; set; }
         public string Product { get; set; }
+        public string ProductsName { get; set; }
         public int InvoiceNo { get; set; }
         public string InvoiceName { get; set; }
         public List<Statement> StatementList { get; set; } // List statement
@@ -162,4 +163,13 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
     }
 
+     [Serializable]
+    public class DateRange
+    {
+        public DateTime StartDate { get; set; }
+
+        public DateTime EndDate { get; set; }
+    }
 }
+
+

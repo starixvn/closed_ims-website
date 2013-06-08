@@ -1,4 +1,4 @@
-﻿$(document).ready(function () {
+$(document).ready(function () {
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     //------binding events
     CreatingInvoice.init();
@@ -24,16 +24,16 @@ function GetInvoiceType() {
                         Id: "#ddlProduct" + result[i].ProductList[j].ProductID,
                         Value: result[i].ProductList[j].ProductID,
                         Text: result[i].ProductList[j].ProductName,
-                        Checked: true,
+                        Checked: (i == 0 ? true : false),
                         Enable: true,
                         CssClass: ""
                     });
                 }
                 invoiceTypeList.push({
-                    Id: "#ddInvoice" + result[i].InvoiceTypeID,
+                    Id: "#ddlInvoiceType" + result[i].InvoiceTypeID,
                     Value: result[i].InvoiceTypeID,
                     Text: result[i].InvoiceTypeName,
-                    Checked: true,
+                    Checked: (i==0 ? true: false) ,
                     Enable: true,
                     CssClass: "",
                     Items: productList
@@ -47,57 +47,29 @@ function GetInvoiceType() {
                 showCheckAll: false,
                 maxHeight: 705,
                 minWidth: 170,
+                showFooter:false,
                 listData: invoiceTypeList,
                 hasOptGroup: true,
                 onLeave: function () {
-                    //alert($("#demoMultiselect").multiSelect("getCheckedItems").length);
-                    //                    var strTemp = "";
-                    //                    for (var i = 0; i < $("#demoMultiselect").multiSelect("getCheckedItems").length; i++) {
-                    //                        var temp = $("#demoMultiselect").multiSelect("getCheckedItems")[i];
-                    //                        if (temp != null) {
-                    //                            strTemp += "<br/>+" + temp;
-                    //                        }
-                    //                    }
-                    //                    $("#showDataOnLeave").html('[Multiselect <b>demoMultiselect</b>] List value checked is:' + strTemp);
+                
                 }, // when all selected is made and datalist collapsed
                 onCheck: function () {
-                    // $("#showDataOnCheck").html('[Multiselect <b>demoMultiselect</b>:]' + this.value + ' is ' + (this.checked ? 'checked' : 'unchecked'));
+                  
                 }, // when an individual checkbox is clicked 
                 onOpen: function () { }, // when the select menu is opened 
                 onCheckAll: function () {
-                    //                    $("#showDataOnCheckAll").html('[Multiselect <b>demoMultiselect</b>] is checked all');
-                    //                    $("#showDataOnUnCheckAll").html("");
+                  
                 }, // when the check all link is clicked 
                 onUncheckAll: function () {
-                    //                    $("#showDataOnCheckAll").html("");
-                    //                    $("#showDataOnUnCheckAll").html('[Multiselect <b>demoMultiselect</b>] is unchecked all');
+                  
                 }, // when the uncheck all link is clicked 
                 selectedList: 0,
                 isCheckAll: false,
-//                onUpdateResult: function () {
-//                    //$("#demoMultiselect").multiSelect('hideMe');
-//                },
                 isRetrieveDataAfterClose: false,
                 showParentSelectedText: true,
                 multiple: false
                 //selectedList: 4
             });
-
-//            $("#ddlInvoiceType").multiSelect(
-//        {
-//            header: false,
-//            minWidth: 170,
-//            maxHeight: 200,
-//            shadow: true,
-//            showHeader: false,
-//            isCheckAll: false,
-//            showFooter: false,
-//            selectedList: 4,
-//            checkAllText: 'All',
-//            isUsedCustomCheckAllText: false,
-//            customCheckAllText: 'All',
-//            listData: invoiceTypeList
-//        });
         },
         error: function () {
             try { parent.jQuery.unblockUI(); } catch (e) { }
@@ -129,17 +101,6 @@ function GetInvoiceNo() {
     });
 }
 
-function AddItem(idItem) {
-//    $('#invoiceTbl tr.total').before(' <tr id="' + idItem + '" style="width: 100%; text-align: center;">\
-//                                    <td  style="width: 10%; "></td>\
-//                                <td style="width: 55%; text-align: center; height: 60px;">\
-//                                    <textarea rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
-//                                <td style="width: 20%; text-align: center;"><textarea rows="2" cols="33" name="styled-textarea" ></textarea></td>\
-//                                <td style="width: 15%; text-align: center;">\
-//                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-    //                                        <input type="text" style="font-weight: bold; "></input></div></td></tr>');
-    CreatingInvoice.addNewItem();
-}
 
 var CreatingInvoice = {
     Licensees: [],
@@ -151,10 +112,22 @@ var CreatingInvoice = {
     InvoiceType: null,
     Currency: null,
     Products: '',
+    ProductsName: '',
     InvoiceNo: '',
     InvoiceName: '',
     InvoiceID: 0,
+    IdNewItem: 0,
     messageTimeOut: 4000,
+    invoiceInfoModel: [],
+    StatementDetail: {
+        Description: '',
+        Reference: '',
+        Amount: 0,
+        AdjustItem: false
+    },
+    StatementDetailList: [],
+
+    IdNewItemList: [],
     init: function () {
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "quickchoose",
@@ -206,6 +179,8 @@ var CreatingInvoice = {
 
         $('#btnGenerate').button();
         $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+
+        //        $('#pdfID').click(function () { CreatingInvoice.ExportPDF(); });
 
         $("#ddlLicensee").change(function () {
             GetInvoiceType();
@@ -261,6 +236,28 @@ var CreatingInvoice = {
 
     },
     GetFilteringInfo: function () {
+        var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
+
+        var productName = '';
+        var produtID = '';
+        var index = 0;
+        for (var i = 0; i < listChecked.length; i++) {
+            if (index < listChecked.length - 1) {
+                productName += listChecked[i].title + ',';
+                produtID += listChecked[i].value + ',';
+            }
+            else {
+                productName += listChecked[i].title;
+                produtID += listChecked[i].value;
+            }
+            index++;
+        }
+
+        var radioCheck = $("#divInvoiceType input[type='radio']:checked");
+
+        var InvoiceTypeIdTmp = radioCheck[0].value;
+        var InvoiceTypeNameTmp = radioCheck[0].title;
+
         var Operator = operatorListModel[$("#ddlOperator").prop("selectedIndex")];
         var Licensee = CreatingInvoice.Licensees[$("#ddlLicensee").prop("selectedIndex")];
 
@@ -269,11 +266,12 @@ var CreatingInvoice = {
         CreatingInvoice.FromDate = $('#FromDatePicker').val();
         CreatingInvoice.ToDate = $('#ToDatePicker').val();
         CreatingInvoice.DueDate = $('#DueDatePicker').val();
-        CreatingInvoice.InvoiceType = { InvoiceTypeID: 1, InvoiceTypeName: 'Software-Data Fees' };
+        CreatingInvoice.InvoiceType = { InvoiceTypeID: InvoiceTypeIdTmp, InvoiceTypeName: InvoiceTypeNameTmp };
         CreatingInvoice.Currency = { CurrencyID: $('#CurrencyID').val(), CurrencyName: $('#CurrencyID option:selected').text() };
         CreatingInvoice.InvoiceNo = $('#invoiceNo').val();
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
-        CreatingInvoice.Products = '1,2,3,5';
+        CreatingInvoice.Products = produtID;
+        CreatingInvoice.ProductsName = productName;
     },
     GetNewInvoiceData: function () {
         NapAres.disableInput();
@@ -287,6 +285,8 @@ var CreatingInvoice = {
                 '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
             success: function (data, textStatus, jqXHR) {
                 $('#parentContainer').html(data);
+                CreatingInvoice.IdNewItemList = [];
+                CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
@@ -298,7 +298,7 @@ var CreatingInvoice = {
         });
     },
     SaveInvoice: function () {
-
+        CreatingInvoice.UpdateItem();
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
         invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
@@ -308,6 +308,7 @@ var CreatingInvoice = {
         invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
         invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
         invoiceInfoModel.Product = CreatingInvoice.Products;
+        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
         var message = '';
@@ -324,6 +325,7 @@ var CreatingInvoice = {
                         $('#pdfID').removeClass('ui-state-disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
+                        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceID;
                         NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
                     }
                     else {
@@ -344,40 +346,71 @@ var CreatingInvoice = {
 
         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
     },
-    addNewItem: function () {
-        var lastStatement = $('#invoiceTbl tr.total').prev();
-        var newStatementNo = 0;
-        if (lastStatement.prop('id') != undefined) {
-            var currentStatementNo = parseInt(lastStatement.prop('id').split('_')[1]);
-            newStatementNo = currentStatementNo + 1;
-
-            var isHasBlankRow = false;
-            var objAmount = $('#' + lastStatement.prop('id') + '_2');
-            if (objAmount != undefined && objAmount.val() == '') {
-                isHasBlankRow = true;
-            };
+    getProductId: function () {
+        var listChecked = $('#ddlProduct').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlLicenseese').attr('id') + "HeaderCheckBox)").filter('[checked]');
+        var normalLicensees = [];
+        var operator = [];
+        for (var i = 0; i < listChecked.length; i++) {
+            if (listChecked[i].id.indexOf('Detail') != -1) {
+                normalLicensees.push(listChecked[i].value);
+            }
+            else {
+                operator.push(listChecked[i].value);
+            }
         }
-
-        if (!isHasBlankRow) {
-            var newStatementID = 'trStatement_' + newStatementNo;
-            $('#invoiceTbl tr.total').before(
-                        '<tr id="' + newStatementID + '" style="width: 100%; text-align: center;">\
-                                <td  style="width: 10%; ">\
-                                    <input type="button" id="btn' + newStatementID + '" value="X"/>\
-                                </td>\
+        var result = { 'normal': normalLicensees, 'operator': operator }
+        return result;
+    },
+    AddItem: function () {
+        //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
+        $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
+                                    <td  style="width: 10%; ">' + CreatingInvoice.IdNewItem + ' </br></br> <a onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')">Delete</a></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="' + newStatementID + '_0" ></textarea></td>\
-                                <td style="width: 20%; text-align: center;">\
-                                    <textarea rows="2" cols="33" name="styled-textarea" id="' + newStatementID + '_1"></textarea>\
-                                </td>\
+                                    <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                        <input type="text" style="font-weight: bold; " id="' + newStatementID + '_2"></input>\
-                                    </div>\
-                                </td>\
-                        </tr>');
+                                        <input id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold; "></input></div></td></tr>');
+        CreatingInvoice.IdNewItemList.push(CreatingInvoice.IdNewItem);
+        CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
+        $('#saveID').removeClass('ui-state-disabled')
+    },
+    DeleteItem: function (trId) {
+        //        $(document.getElementById(trId)).remove();
+        $("#newItem_" + trId).remove();
+        CreatingInvoice.IdNewItemList = jQuery.grep(CreatingInvoice.IdNewItemList, function (value) {
+            return value != trId;
+        });
+        if (CreatingInvoice.IdNewItemList.length == 0) {
+            $('#saveID').addClass('ui-state-disabled')
         }
     },
-    deleteItem: function () {
+    UpdateItemDisplay: function () {
+
+    },
+    UpdateItem: function () {
+        var statement = {
+            StatementID: 1000,
+            StatementDetailList: []
+        };
+        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
+            var id = CreatingInvoice.IdNewItemList[i];
+            var statementDetail = {
+                Description: '',
+                Reference: '',
+                Amount: 0,
+                AdjustItem: true
+            };
+
+            statementDetail.Description = $('textarea#newItem_des_' + id).val();
+            statementDetail.Reference = $('textarea#newItem_ref_' + id).val();
+            statementDetail.Amount = $('#newItem_text_' + id).val();
+            statement.StatementDetailList.push(statementDetail);
+            //            CreatingInvoice.StatementDetailList.push(statementDetail);
+        }
+
+        invoiceInfoModel.StatementList.push(statement);
+        return invoiceInfoModel.StatementList;
     }
 }
+
