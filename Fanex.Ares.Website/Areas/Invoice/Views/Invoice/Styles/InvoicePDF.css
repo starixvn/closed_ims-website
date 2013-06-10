@@ -120,7 +120,23 @@ html {
     border-top: 1pt solid black;
     border-bottom: 1pt solid black;
 }
+.border-RLT
+{
+    border-left: 1pt solid black;
+    border-top: 1pt solid black;
+    border-right: 1pt solid black;
+}
 
+.border-LB
+{
+    border-left: 1pt solid black;
+    border-bottom: 1pt solid black;
+}
+.border-RB
+{
+    border-right: 1pt solid black;
+    border-bottom: 1pt solid black;
+}
 .bold-red
 {
     color: Red; 

@@ -4,8 +4,11 @@
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
     string domain = HtmlHelperExtensions.GetFullDomainURL();
-    //var invoiceModel = new invoiceModel();
-    //invoiceModel = Model;
+    var invoiceModel = new InvoiceModel();
+    invoiceModel = Model;
+      int index = 0;
+    double totalAmount = 0;
+    string descript = "Software & Data Licensing & Data transmission fees for ";
 }
 
 <div class="div-content" style="overflow: auto; width: 90%;margin-left:30px;">
@@ -34,11 +37,12 @@
             <td colspan="9" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 2500;'>
                 <br />
-                <span style="font-weight: bold;">ARIAS, FEBREGA & FABREGA TRUST CO.,</span>
+                <span style="font-weight: bold;">@invoiceModel.Operator.To1</span>
+               @* <span style="font-weight: bold;">ARIAS, FEBREGA & FABREGA TRUST CO.,</span>
                 <br />
                 LIMITED, 325 Waterfront Dive, Omar Hodge Building,
                 <br />
-                2nd Floor, Wickam's, Road Town, Tortola,
+                2nd Floor, Wickam's, Road Town, Tortola,*@
             </td>
         </tr>
         <tr>
@@ -65,15 +69,16 @@
         <tr>
             <td class="border-TRBL" colspan="10" rowspan="5" style='height: 30pt; border-left: 2pt solid black !important;padding-left:5px; white-space:normal;'>
             <br />
-                <span class="bold-red" style="mso-spacerun: yes;">TO: Kastraki Limited Company "Macaubet"
+                <span class="bold-red" style="mso-spacerun: yes;">TO: @invoiceModel.Licensee.CompanyName
                 </span>
                 <br />
-                <span style="mso-spacerun: yes">Inchalla, Le Val, Aldernet, </span>
+                <span >@invoiceModel.Licensee.To1</span>
+               @* <span style="mso-spacerun: yes">Inchalla, Le Val, Aldernet, </span>
                 <br />
-                <span style="mso-spacerun: yes">Channel Island, GY9 3ULE </span>
+                <span style="mso-spacerun: yes">Channel Island, GY9 3ULE </span>*@
                 <br />
                 <br />
-                <span style="mso-spacerun: yes;">ATTN: Paul Cantwell</span>
+                <span style="mso-spacerun: yes;">ATTN: @invoiceModel.Licensee.AttnName</span>
                 <br />
             </td>
             <td colspan="3" style='height: 20pt; margin-left: 50pt; font-weight: bold;padding-left:100px;'>
@@ -84,7 +89,7 @@
             </td>
             <td class="border-B" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
                 mso-height-alt: 700; color: Red; font-weight: bold;'>
-                061
+               @invoiceModel.InvoiceNo
             </td>
         </tr>
         <tr>
@@ -97,7 +102,7 @@
             <td class="fontSize12" colspan="2" style='height: 20pt; border-bottom: 1pt solid black;
                 text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
                 font-weight: bold;'>
-                31-Mar-2013
+               @invoiceModel.ToDate
             </td>
         </tr>
         <tr>
@@ -110,7 +115,7 @@
             <td class="fontSize12" colspan="2" style='border-bottom: 1pt solid black; height: 20pt;
                 text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
                 font-weight: bold;'>
-                30-Apr-2013
+                @invoiceModel.DueDate
             </td>
         </tr>
         <tr>
@@ -122,7 +127,7 @@
             </td>
             <td class="border-B" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
                 mso-height-alt: 700; color: Red; font-weight: bold;'>
-                UER
+                @invoiceModel.CurrencyName
             </td>
         </tr>
         <tr>
@@ -162,20 +167,47 @@
                 1
             </td>
             <td class="border-TRBL" colspan="7" style='vertical-align: top; text-align: left;padding-left:5px;'>
-                <br />
-                Software & Data licensing & Data transmission fees for Mar 2013
-                <br />
-                <br />
-                less: Discount/Rebate
+                 @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+                        {
+                            Statement state = invoiceModel.StatementList[i];
+
+                            for (int j = 0; j < state.StatementDetailList.Count; j++)
+                            {
+                                StatementDetail detail = state.StatementDetailList[j];
+                                 <br />
+                                if (j == 0)
+                                {
+                                       @descript @detail.Description
+                                }
+                                else
+                                {
+                                         @detail.Description
+                                }
+                             <br />
+                            }
+                }
             </td>
             <td class="border-TRBL" colspan="3" style='vertical-align: top;'>
             </td>
             <td class="border-TRBL" colspan="4" style='vertical-align: top; text-align: right;'>
-                <br />
+             @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+                        {
+                            Statement state = invoiceModel.StatementList[i];
+
+                            for (int j = 0; j < state.StatementDetailList.Count; j++)
+                            {
+                                StatementDetail detail = state.StatementDetailList[j];
+                                totalAmount += detail.Amount;
+                                 <br />
+                              @detail.Amount
+                             <br />
+                            }
+                }
+              @*  <br />
                 26,787.66
                 <br />
                 <br />
-                32,164.57
+                32,164.57*@
             </td>
         </tr>
         <tr>
@@ -192,7 +224,7 @@
             </td>
             <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                162,455.56
+                 @totalAmount
             </td>
         </tr>
         <tr>
@@ -226,25 +258,44 @@
             </td>
         </tr>
         <tr>
-            <td class="border-TRBL" colspan="10" rowspan="3" style='vertical-align: top;border-left: 2pt solid black !important; padding-left:5px;'>
-                <br />
-                <span class="bold">For Telegraphic Transfer payment</span><br />
-                <br />
-                Beneficiary<br />
+            <td class="border-RLT" colspan="10" style='vertical-align: top;border-left: 2pt solid black !important; padding-left:5px;'>
+             <br />
+                <span class="bold">For Telegraphic Transfer payments</span><br />
+            </td>
+             <td class="border-RLT" colspan="6" style='height: 40pt; vertical-align: top; mso-height-source: userset;
+                mso-height-alt: 2584;padding-left:5px;'>
+              <br />
+                Prepared By:
+            </td>
+        </tr>
+        <tr>
+            <td class="border-LB" colspan="3" rowspan="3" style='vertical-align: top;border-left: 2pt solid black !important; padding-left:5px;'>
+                 Beneficiary<br />
                 Beneficiary Bank<br />
                 Account Number<br />
-                IBAN:<br />
+                IBAN<br />
                 Swiftcode
                 <br />
                 <br />
                 Correspondent<br />
                 Swiftcode<br />
-                Account Number
+                Account Number<br />
+            </td>
+            <td class="border-B" colspan="7" rowspan="3" style='vertical-align: top; padding-left:5px;'>
+                 :<br />
+                :<br />
+                :<br />
+                :<br />
+                :
+                <br />
+                <br />
+               :<br />
+               :<br />
+                :<br />
             </td>
             <td class="border-TRBL" colspan="6" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 2584;padding-left:5px;'>
-                <br />
-                Prepared By:
+
             </td>
         </tr>
         <tr>
