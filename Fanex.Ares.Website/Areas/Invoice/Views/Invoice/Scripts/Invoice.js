@@ -375,6 +375,16 @@ var CreatingInvoice = {
         return result;
     },
     AddItem: function () {
+
+        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
+            var id = CreatingInvoice.IdNewItemList[i];
+            var amount = $('#newItem_text_' + id).val();
+            if (amount == '') {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
+                return false;
+            }
+        }
+
         //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
         $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
                                     <td  style="width: 10%; ">' + CreatingInvoice.IdNewItem + ' </br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
@@ -399,12 +409,14 @@ var CreatingInvoice = {
         }
     },
     RecalculatorTotal: function () {
+        NapAres.Helper.hideMsgBox();
         var totalAmountTmp = _totalAmount;
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
-            var amount = $('#newItem_text_' + id).val();
-
-            totalAmountTmp += parseFloat(amount);
+                var amount = $('#newItem_text_' + id).val();
+                if (amount != '') {
+                totalAmountTmp += parseFloat(amount);
+            }
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
         }
         $("#totalAmount").empty().html(NegativeFormat(totalAmountTmp));
