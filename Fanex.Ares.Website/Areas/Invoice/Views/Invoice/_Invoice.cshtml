@@ -2,12 +2,24 @@
 @using Fanex.Ares.Core.Extensions;
 @using DNAide.Core;
 @using Fanex.Ares.Invoice.Models.Invoice;
+@using Fanex.Common;
 @{
     InvoiceModel model = new InvoiceModel();
     model = Model;
     int index = 0;
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
+}
+
+@functions {
+    public string NegativeFormat(double input)
+    {
+        string output = string.Empty;
+
+        output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
+
+        return output;
+    }
 }
 <style type="text/css">
 
@@ -74,8 +86,8 @@
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
                                         text-align: right;">
-                                        <label style="font-weight: bold;">@detail.Amount.Format(2)
-                                        </label>
+                                       @MvcHtmlString.Create(NegativeFormat(detail.Amount))
+
                                     </div>
                                 </td>
                             </tr>
@@ -97,7 +109,7 @@
                             <td style="width: 15%; text-align: center; font-weight: bold;">
                              <div style="width: 90%; height: 20px;  margin: 0px 5px 0px 10px;
                                         text-align: right;">
-                                        <label style="font-weight: bold;"> EUR @totalAmount.Format(2)
+                                        <label style="font-weight: bold;"> EUR @MvcHtmlString.Create(NegativeFormat(totalAmount))
                                         </label>
                                     </div>
                                
