@@ -133,7 +133,7 @@ td
     text-align:right;
     vertical-align:middle;
     border:0.5pt solid gray;
-    font-size: 8pt !important;;
+    font-size: 8pt !important;
 }
 
 .colInteger
@@ -145,7 +145,7 @@ td
     text-align:right;
     vertical-align:middle;
     border:0.5pt solid gray;
-    font-size: 8pt !important;;
+    font-size: 8pt !important;
 }
 
 .colText
@@ -156,7 +156,7 @@ td
     text-align:center;
     vertical-align:middle;
     border:0.5pt solid gray;
-    font-size: 8pt !important;;
+    font-size: 8pt !important;
 }
 
 .colDateTime
@@ -167,7 +167,7 @@ td
     text-align:center;
     vertical-align:middle;
     border:0.5pt solid gray;
-    font-size: 8pt !important;;
+    font-size: 8pt !important;
 }
 
 .grandtotal
