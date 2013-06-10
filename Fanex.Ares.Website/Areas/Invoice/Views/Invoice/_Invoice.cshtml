@@ -109,7 +109,7 @@
                             <td style="width: 15%; text-align: center; font-weight: bold;">
                              <div style="width: 90%; height: 20px;  margin: 0px 5px 0px 10px;
                                         text-align: right;">
-                                        <label style="font-weight: bold;"> EUR @MvcHtmlString.Create(NegativeFormat(totalAmount))
+                                        <label id="totalAmount" style="font-weight: bold;"> EUR @MvcHtmlString.Create(NegativeFormat(totalAmount))
                                         </label>
                                     </div>
                                
@@ -215,9 +215,9 @@
                                 @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
                                     <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="REVIEW"  onClick="Review()"/>&nbsp;&nbsp;&nbsp;
+                                    type="button" value="PREVIEW"  onClick="Review()"/>&nbsp;&nbsp;&nbsp;
                                     @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT PDF"  onClick="ExportPDF()"/>*@
+                                    type="button" value="EXPORT TO PDF"  onClick="ExportPDF()"/>*@
                                  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
                                     type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
                               
@@ -264,6 +264,7 @@
         document.getElementById("styled_" + id).style.background = color
     }
 
+    var _totalAmount = @totalAmount; 
     $('#saveID').button();
    
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
