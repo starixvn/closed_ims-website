@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />    
     <link href="~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css" rel="stylesheet"type="text/css" />
+    <link href="~/Areas/Invoice/Views/Invoice/Styles/Invoice.css" rel="stylesheet" type="text/css" />
         }
 @section Headline {
     <div class="title" style="width: width:98%;">
@@ -34,16 +35,12 @@
                     Operator/Distributor
                 </div>
                 <div class="edit-field col_6">
-                 @*@Html.DropDownList("dllSite", ViewBag.ListOperator as SelectList, new { id = "dllSite" })*@
-                     @* @Html.DropDownListFor(m => m.OperatorID, ((List<Operator>)ViewBag.ListOperator), new { @class = "alpha auto-width" })*@
-
                       <select id="ddlOperator" style="width: 170px; "></select>
                 </div>
                 <div class="lbl-field col_3 align-right">
                     @Labels.Licensee
                 </div>
                 <div class="edit-field col_4">
-                    @*@Html.DropDownListFor(m => m.LicenseeID, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })*@
                     <select id="ddlLicensee" style="width: 100px; "></select>
                 </div>
                 <div id="fromTopickerplugin">

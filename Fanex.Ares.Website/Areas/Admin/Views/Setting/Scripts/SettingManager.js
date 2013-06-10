@@ -333,7 +333,7 @@ SettingManager = function () {
                 "Edit Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSearch.attr("Action", location.protocol + '//' + location.host + "/admin/Setting/UpdateSetting");
+                        _table.formSearch.attr("Action", domain + "/admin/Setting/UpdateSetting");
                         _table.dlgAddNew.find('.update').each(function () { $(this).show() });
                         _table.formSearch.submit();
 

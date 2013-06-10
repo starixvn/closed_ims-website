@@ -120,7 +120,28 @@ html {
     border-top: 1pt solid black;
     border-bottom: 1pt solid black;
 }
+.border-RLT
+{
+    border-left: 1pt solid black;
+    border-top: 1pt solid black;
+    border-right: 1pt solid black;
+}
 
+.border-LB
+{
+    border-left: 1pt solid black;
+    border-bottom: 1pt solid black;
+}
+.border-RB
+{
+    border-right: 1pt solid black;
+    border-bottom: 1pt solid black;
+}
+.border-RL
+{
+    border-right: 1pt solid black;
+    border-left: 1pt solid black;
+}
 .bold-red
 {
     color: Red; 
@@ -132,3 +153,4 @@ html {
     color: #4f81bd; 
     font-weight: bold ;
 }
+ 

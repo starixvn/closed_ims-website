@@ -268,7 +268,7 @@ PartyManager = function () {
                 "Edit Party": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.frmParty.attr("Action", location.protocol + '//' + location.host + "/admin/Party/UpdateParty");
+                        _table.frmParty.attr("Action", domain + "/admin/Party/UpdateParty");
                         _table.frmParty.submit();
                         $(this).dialog("close");
                     }

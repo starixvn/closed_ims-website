@@ -1,0 +1,74 @@
+﻿    table, th, td
+    {
+        background: #EDECEA;
+        border: 1px solid #CECCCD;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    
+    th
+    {
+        background-color: #E9E480;
+        color: black;
+        font-weight: bold;
+    }
+    table
+    {
+        border-collapse: collapse;
+    }
+    textarea
+{
+   resize: none !important;
+}
+
+    textarea#styled
+    {
+        width: 95%;
+        height: 40px;
+        border: 1px solid #cccccc;
+        padding: 5px;
+        font-family: Tahoma, sans-serif;
+        background-image: url(bg.gif);
+        background-position: bottom right;
+        background-repeat: no-repeat;
+    }
+    
+    .div-content
+    {
+        clear: both;
+        width: 1260px;
+        margin: 40px 0 0 10px;
+        padding: 2px;
+    }
+    .noneBorder
+    {
+        border: 0px !important;
+    }
+    
+    .paddingLeft
+    {
+        text-align: left;
+        padding-left: 5px;
+    }
+    
+    .height20
+    {
+        height: 20px;
+    }
+    
+    .label
+    {
+        width: 75%;
+        font-weight: bold;
+        background-color: #c3c2c2 !important;
+        display: inline-block;
+    }
+    .delete {
+    background: url(Images/close.png) repeat scroll 0 0 transparent;
+    display: block;
+      height: 16px;
+    width: 16px;
+    cursor:pointer;
+    margin-left: 51px;
+}

@@ -1,4 +1,4 @@
-﻿﻿@using Fanex.Ares.Core.Resources;
+﻿@using Fanex.Ares.Core.Resources;
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
 @using Fanex.Ares.Report.Criteria.LicenseeSettlement;
@@ -47,6 +47,7 @@
                     <div class="edit-field col_6 align-left">
                         @Html.DropDownListFor(model => model.LicenseeID, (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new SelectListItem() { Selected = true, Value = "0", Text = "All" }, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
                     </div>
+
                     <div class="submit col_4">
                         <input id="btnSearch" name="btnSearch" type="button" class="ui-button" value="Search" />
                     </div>

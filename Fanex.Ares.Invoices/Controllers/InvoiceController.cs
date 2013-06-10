@@ -1,4 +1,4 @@
-// --------------------------------------------------------------------------
+﻿// --------------------------------------------------------------------------
 // <copyright file="InvoiceController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -168,8 +168,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
             InvoiceModel imodel = new InvoiceModel();
 
-            InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
-
+            //InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
+            InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModel");
             //criteria.LicenseeId = invoice.Licensee.LicenseeID;
             //criteria.BaseCurrency = invoice.Currency;
             //criteria.BaseCurrencyName = invoice.CurrencyName;
@@ -181,7 +181,7 @@ namespace Fanex.Ares.Invoice.Controllers
             dateRangeList = GetDateRange(FromDate, ToDate);
             var excelCssFilePath = new List<string>();
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template//BCH/_BCH-DataFees" };
+            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
@@ -265,7 +265,7 @@ namespace Fanex.Ares.Invoice.Controllers
             dateRangeList = GetDateRange(FromDate, ToDate);
 
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template//BCH/_BCH-DataFees" };
+            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
@@ -309,6 +309,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult SaveInvoice(InvoiceModel invoiceModel)
         {
             var insertResult = _invoiceService.SaveInvoice(invoiceModel);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModel", invoiceModel);
             return Json(insertResult);
         }
     }
