@@ -399,14 +399,15 @@ var CreatingInvoice = {
         }
     },
     RecalculatorTotal: function () {
+        var totalAmountTmp = _totalAmount;
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
             var amount = $('#newItem_text_' + id).val();
 
-            _totalAmount += parseFloat(amount);
+            totalAmountTmp += parseFloat(amount);
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
         }
-        $("#totalAmount").empty().html(NegativeFormat(_totalAmount));
+        $("#totalAmount").empty().html(NegativeFormat(totalAmountTmp));
     },
     UpdateItemDisplay: function () {
 
