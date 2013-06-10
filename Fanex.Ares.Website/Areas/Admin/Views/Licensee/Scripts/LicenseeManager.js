@@ -2,6 +2,7 @@
 $(document).ready(function () {
     licenseeManager = new LicenseeManager();
     licenseeManager.initPage();
+    
 });
 
 LicenseeManager = function () {
@@ -78,6 +79,9 @@ LicenseeManager = function () {
         bindingEvent();
         GenerateData();
         checkError();
+        if ($('#CreateNewLicensee>#LicenseeID').find('option').length == 0) {
+            _table.btnAddNew.attr('disabled', true).addClass('ui-state-disabled');
+        }
     }
 
     var checkError = function () {
@@ -90,7 +94,7 @@ LicenseeManager = function () {
 
         $.ajax({
             type: "POST",
-            url: window.rootUrl + "Admin/Licensee/GetAllLicensees",
+            url: location.protocol + '//' + location.host + "/Admin/Licensee/GetAllLicensees",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: null,
@@ -230,7 +234,7 @@ LicenseeManager = function () {
                 "Edit Licensee": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.frmLicensee.attr("Action", "/admin/Licensee/UpdateLicensee");
+                        _table.frmLicensee.attr("Action", location.protocol + '//' + location.host + "/admin/Licensee/UpdateLicensee");
                         $('<input />').attr('type', 'hidden')
                             .attr('name', "LicenseeID")
                             .attr('value', LicenseeID)
@@ -296,7 +300,7 @@ LicenseeManager = function () {
             open: function () {
                 $.ajax({
                     type: "POST",
-                    url: window.rootUrl + "Admin/Licensee/_PartyLicensee",
+                    url: location.protocol + '//' + location.host + "Admin/Licensee/_PartyLicensee",
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID,
                     beforeSend: function () {

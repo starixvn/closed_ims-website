@@ -1,5 +1,5 @@
 ﻿/* File Created: January 28, 2013 */
-
+var domain;
 var FormatConstant = {
     INT_NUMBER: '0,0',
     TWO_DECIMAL_NUMBER: '0,0.00',
@@ -26,6 +26,7 @@ var NapAres = (function ($) {
         miniMenu: null,
 
         init: function () {
+            domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
             NapAres.miniMenu = $('header .mini-menu').change(function () {
                 window.location.replace($(this).val());
             });

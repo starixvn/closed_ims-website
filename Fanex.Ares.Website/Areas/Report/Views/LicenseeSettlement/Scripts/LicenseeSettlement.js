@@ -1,7 +1,5 @@
-﻿/// <reference path="../../../../../Scripts/NapTicketControl.js" />
-var domain;
+﻿/// <reference path="../../../../../Scripts/NapAres.js" />
 $(document).ready(function () {
-    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {

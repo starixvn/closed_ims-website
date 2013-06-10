@@ -295,7 +295,7 @@ namespace Fanex.Ares.Core.Extensions
                     {
                         foreach (SelectListItem item in selectList)
                         {
-                            item.Selected = (metaData == null || metaData.Model == null || firstItem.Value == metaData.Model.ToString());
+                            item.Selected = (metaData != null && metaData.Model != null && firstItem.Value == metaData.Model.ToString());
                             list.Add(item);
                         }
                     }

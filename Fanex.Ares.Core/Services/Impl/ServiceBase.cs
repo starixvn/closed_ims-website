@@ -170,6 +170,29 @@ namespace Fanex.Ares.Core.Services.Impl
             return listProducts;
         }
 
+        public IEnumerable<SelectListItem> GetProductsByLicenseeParty(ICriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["productid"]),
+                        Text = Convert.ToString(r["productname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return listProducts;
+        }
+
         public IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
@@ -217,7 +240,30 @@ namespace Fanex.Ares.Core.Services.Impl
 
             return listProducts;
         }
-                
+
+        public IEnumerable<SelectListItem> GetLicenseesByPartyID(ICriteria criteria)
+        {
+            IList<SelectListItem> listLicensees = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = r["LicenseeID"].ToString1(),
+                        Text = r["BrandName"].ToString1() != string.Empty ? r["BrandName"].ToString1() : r["LicenseeName"].ToString1()
+                    };
+                };
+
+                listLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return listLicensees;
+        }
+
         #endregion
     }
 }

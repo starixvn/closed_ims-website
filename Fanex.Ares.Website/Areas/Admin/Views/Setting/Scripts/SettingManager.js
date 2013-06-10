@@ -1,4 +1,6 @@
-﻿var settingManager;
+﻿/// <reference path="../../../../../Scripts/NapAres.js" />
+
+var settingManager;
 $(document).ready(function () {
     settingManager = new SettingManager();
     settingManager.initPage();
@@ -8,13 +10,15 @@ $(document).ready(function () {
 SettingManager = function () {
     var self = this;
     var _table = {
+        selLicenseeID: null,
+        selPartyID: null,
         btnAddNew: null,
         btnSearch: null,
         settingsContainer: null,
         dlgAddNew: null,
         dlgLicenseeProductCharge: null,
         dlgLicenseeProductDiscount: null,
-        formSetting: null,
+        formSearch: null,
         frmPartyLicensee: null,
         errCode: null,
         errMsg: null
@@ -57,20 +61,22 @@ SettingManager = function () {
         _table.dlgLicenseeProductCharge = $('#LicenseeProductChargeDialog');
         _table.dlgLicenseeProductDiscount = $('#LicenseeProductDiscountDialog');
 
-        _table.formSetting = $('#formSetting');
+        _table.formSearch = $('#formSearch');
+        _table.selLicenseeID = $('#LicenseeID', '#formSearch');
+        _table.selPartyID = $('#PartyID', '#formSearch');
         _table.frmPartyLicensee = $('#formPartyLicensee');
         _table.errCode = $('#ErrCode');
         _table.errMsg = $('#ErrMsg');
 
-        _dlgAddNew.selLicenseeID = $('#LicenseeID');
-        _dlgAddNew.selProductID = $('#ProductID');
-        _dlgAddNew.selPartyID = $('#PartyID');
-        _dlgAddNew.dateFirstBillingDate = $('#FirstBillingDate');
-        _dlgAddNew.dateHeadOfTerms = $('#HeadOfTerms');
-        _dlgAddNew.intMinimumFee = $('#MinimumFee');
-        _dlgAddNew.dateWaivedDate = $('#WaivedDate');
-        _dlgAddNew.dateWaivedMonth = $('#WaivedMonth');
-        _dlgAddNew.intCurrency = $('#Currency');
+        _dlgAddNew.selLicenseeID = $('#LicenseeID', '#formAddNew');
+        _dlgAddNew.selProductID = $('#ProductID', '#formAddNew');
+        _dlgAddNew.selPartyID = $('#PartyID', '#formAddNew');
+        _dlgAddNew.dateFirstBillingDate = $('#FirstBillingDate', '#formAddNew');
+        _dlgAddNew.dateHeadOfTerms = $('#HeadOfTerms', '#formAddNew');
+        _dlgAddNew.intMinimumFee = $('#MinimumFee', '#formAddNew');
+        _dlgAddNew.dateWaivedDate = $('#WaivedDate', '#formAddNew');
+        _dlgAddNew.dateWaivedMonth = $('#WaivedMonth', '#formAddNew');
+        _dlgAddNew.intCurrency = $('#Currency', '#formAddNew');
 
         _dlgAddNew.txtValidateTips = $('#validateTips');
     }
@@ -83,6 +89,72 @@ SettingManager = function () {
         _table.btnSearch.click(function () {
             GenerateData();
         });
+
+        _table.selPartyID.change(function () {
+            self.GetLicenseesByPartyID($(this).val(), _table.selLicenseeID, true);
+        });
+
+        _dlgAddNew.selPartyID.change(function () {
+            self.GetLicenseesByPartyID($(this).val(), _dlgAddNew.selLicenseeID, false, function () { _dlgAddNew.selLicenseeID.change(); });
+
+        });
+
+        _dlgAddNew.selLicenseeID.change(function () {
+            self.GetProductsByLicenseePartyID($(this).val(), _dlgAddNew.selPartyID.val(), _dlgAddNew.selProductID, false);
+        });
+    }
+
+    self.GetLicenseesByPartyID = function (partyID, targetElement, hasAllRow, func) {
+        $.ajax({
+            url: domain + "Admin/Setting/GetLicenseesByPartyID",
+            type: "POST",
+            data: "&partyID=" + partyID,
+            success: function (data, textStatus, jqXHR) {
+                var html = "";
+                if (hasAllRow) {
+                    html = "<option value='0' selected='selected'>All</option>";
+                }
+
+                for (var i = 0; i < data.length; i++) {
+                    html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+                }
+
+                targetElement.html(html);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("fail");
+            },
+            complete: function (jqXHR, textStatus) {
+                if ($.isFunction(func)) {
+                    func();
+                }
+            }
+        });
+    }
+
+    self.GetProductsByLicenseePartyID = function (licenseeID, partyID, targetElement, hasAllRow) {
+        $.ajax({
+            url: domain + "Admin/Setting/GetProductsByLicenseeIDPartyID",
+            type: "POST",
+            data: "&partyID=" + partyID + "&licenseeID=" + licenseeID,
+            success: function (data, textStatus, jqXHR) {
+                var html = "";
+                if (hasAllRow) {
+                    html = "<option value='0' selected='selected'>All</option>";
+                }
+
+                for (var i = 0; i < data.length; i++) {
+                    html += "<option value='" + data[i].Value + "'>" + data[i].Text + "</option>";
+                }
+
+                targetElement.html(html);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("fail");
+            },
+            complete: function (jqXHR, textStatus) {
+            }
+        });
     }
 
     self.initPage = function () {
@@ -91,6 +163,8 @@ SettingManager = function () {
 
         });
         cachedDOMElements();
+        _table.selLicenseeID.val(0);
+        _table.selPartyID.val(0);
         bindingEvent();
         GenerateData();
         checkError();
@@ -108,7 +182,7 @@ SettingManager = function () {
             type: "POST",
             url: window.rootUrl + "Admin/Setting/GetAllSettings",
             dataType: "json",
-            data: $('#formSearch').serialize(),
+            data: _table.formSearch.serialize(),
             beforeSend: function () {
                 NapAres.disableInput();
             },
@@ -219,7 +293,7 @@ SettingManager = function () {
                 "Create a Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSetting.submit();
+                        _table.formSearch.submit();
                         $(this).dialog("close");
                     }
                     else {
@@ -259,9 +333,9 @@ SettingManager = function () {
                 "Edit Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSetting.attr("Action", window.rootUrl + "/admin/Setting/UpdateSetting");
+                        _table.formSearch.attr("Action", domain + "/admin/Setting/UpdateSetting");
                         _table.dlgAddNew.find('.update').each(function () { $(this).show() });
-                        _table.formSetting.submit();
+                        _table.formSearch.submit();
 
                         $(this).dialog("close");
                     }
@@ -315,7 +389,7 @@ SettingManager = function () {
             open: function () {
                 $.ajax({
                     type: "POST",
-                    url: window.rootUrl + "Admin/Setting/GetAllLicenseeProductCharge",
+                    url: domain + "Admin/Setting/GetAllLicenseeProductCharge",
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID + "&PartyID=" + PartyID + "&ProductID=" + ProductID,
                     beforeSend: function () {
@@ -328,21 +402,21 @@ SettingManager = function () {
                             // FillData
                             for (var i = 0; i < data.length; i++) {
                                 if (i == 0) {
-                                    $('#DistributorRate', $row).val(data[i].DistributorRate);
-                                    $('#PartnerRate', $row).val(data[i].PartnerRate);
+                                    $('#DistributorRate', $row).val(data[i].DistributorRate * 100);
+                                    $('#PartnerRate', $row).val(data[i].PartnerRate * 100);
                                     $('#BillingCurrency', $row).val(data[i].BillingCurrency);
                                     $('#ChargeType', $row).val(data[i].ChargeType);
                                     $('#EndDate', $row).val(moment(data[i].EndDate).format('DD MMM YYYY'));
-                                    $('#ONEWorksRate', $row).val(data[i].ONEWorksRate);
+                                    $('#ONEWorksRate', $row).val(data[i].ONEWorksRate * 100);
                                     $('#StartDate', $row).val(moment(data[i].StartDate).format('DD MMM YYYY'));
                                 } else {
                                     var $newRow = addNewRow('formLicenseeProductCharge');
-                                    $('#DistributorRate', $newRow).val(data[i].DistributorRate);
-                                    $('#PartnerRate', $newRow).val(data[i].PartnerRate);
+                                    $('#DistributorRate', $newRow).val(data[i].DistributorRate * 100);
+                                    $('#PartnerRate', $newRow).val(data[i].PartnerRate * 100);
                                     $('#BillingCurrency', $newRow).val(data[i].BillingCurrency);
                                     $('#ChargeType', $newRow).val(data[i].ChargeType);
                                     $('#EndDate' + (i + 1), $newRow).val(moment(data[i].EndDate).format('DD MMM YYYY'));
-                                    $('#ONEWorksRate', $newRow).val(data[i].ONEWorksRate);
+                                    $('#ONEWorksRate', $newRow).val(data[i].ONEWorksRate * 100);
                                     $('#StartDate' + (i + 1), $newRow).val(moment(data[i].StartDate).format('DD MMM YYYY'));
                                 }
                             }
@@ -400,7 +474,7 @@ SettingManager = function () {
             open: function () {
                 $.ajax({
                     type: "POST",
-                    url: window.rootUrl + "Admin/Setting/GetAllLicenseeProductDiscount",
+                    url: domain + "Admin/Setting/GetAllLicenseeProductDiscount",
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID + "&PartyID=" + PartyID + "&ProductID=" + ProductID,
                     beforeSend: function () {
@@ -416,13 +490,13 @@ SettingManager = function () {
                                     $('#Currency', $row).val(data[i].Currency);
                                     $('#FromTotalAmount', $row).val(data[i].FromTotalAmount);
                                     $('#ToTotalAmount', $row).val(data[i].ToTotalAmount);
-                                    $('#DiscountRate', $row).val(data[i].DiscountRate);
+                                    $('#DiscountRate', $row).val(data[i].DiscountRate * 100);
                                 } else {
                                     var $newRow = addNewRow('formLicenseeProductDiscount');
                                     $('#Currency', $newRow).val(data[i].Currency);
                                     $('#FromTotalAmount', $newRow).val(data[i].FromTotalAmount);
                                     $('#ToTotalAmount', $newRow).val(data[i].ToTotalAmount);
-                                    $('#DiscountRate', $newRow).val(data[i].DiscountRate);
+                                    $('#DiscountRate', $newRow).val(data[i].DiscountRate * 100);
                                 }
                             }
                         }
@@ -542,6 +616,8 @@ var tableToXML = function (formID) {
                     xmlData += "<" + name + ">";
                     if (name.toLowerCase().contains('date')) {
                         xmlData += moment(value).format('MM/DD/YYYY');
+                    } else if (name.toLowerCase().contains('rate')) {
+                        xmlData += (value / 100).toString();
                     } else {
                         xmlData += value.toString();
                     }

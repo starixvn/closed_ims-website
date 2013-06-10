@@ -17,12 +17,15 @@ namespace Fanex.Ares.Admin.Models.Setting
     public class SettingModel
     {
         public int PartyID { get; set; }
+
         public string PartyName { get; set; }
 
         public int LicenseeID { get; set; }
+
         public string LicenseeName { get; set; }
 
         public int ProductID { get; set; }
+
         public string ProductName { get; set; }
 
         public DateTime FirstBillingDate { get; set; }
@@ -36,5 +39,7 @@ namespace Fanex.Ares.Admin.Models.Setting
         public int WaivedMonth { get; set; }
 
         public int Currency { get; set; }
+
+        public string CurrencyName { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿﻿@using Fanex.Ares.Core.Resources;
+﻿@using Fanex.Ares.Core.Resources;
 @using Fanex.Ares.Core.Web;
 @using Fanex.Ares.Core.Services.Impl;
 @using Fanex.Ares.Report.Criteria.LicenseeSettlement;
@@ -33,25 +33,27 @@
             <div class="filter-cell">
                 @using (Html.BeginForm("GetAllSettings", "Setting", FormMethod.Post, new { id = "formSearch" }))
                 {
-                <div class="lbl-field col_2 align-right">
-                    <label for="PartyID">Party</label>
-                </div>
-                <div class="edit-field col_6 align-left">
-                    @Html.DropDownListFor(model => model.PartyID, (IEnumerable<SelectListItem>)ViewBag.lstParties, new SelectListItem() { Selected = true, Value = "0", Text = "All" }, new { id = "PartyID", @class = "select ui-widget-content ui-corner-all" })
-                </div>
-                <div class="lbl-field col_2 align-right">
-                    <label for="LicenseeID">Licensee</label>
-                </div>
-                <div class="edit-field col_6 align-left">
-                    @Html.DropDownListFor(model => model.LicenseeID, (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new SelectListItem() { Selected = true, Value = "0", Text = "All" }, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
-                </div>
+                    <div class="lbl-field col_2 align-right">
+                        <label for="PartyID">
+                            Party</label>
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListFor(model => model.PartyID, (IEnumerable<SelectListItem>)ViewBag.lstParties, new SelectListItem() { Selected = true, Value = "0", Text = "All" }, new { id = "PartyID", @class = "select ui-widget-content ui-corner-all" })
+                    </div>
+                    <div class="lbl-field col_2 align-right">
+                        <label for="LicenseeID">
+                            Licensee</label>
+                    </div>
+                    <div class="edit-field col_6 align-left">
+                        @Html.DropDownListFor(model => model.LicenseeID, (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new SelectListItem() { Selected = true, Value = "0", Text = "All" }, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
+                    </div>
 
-                <div class="submit col_4">
-                    <input id="btnSearch" name="btnSearch" type="button" class="ui-button" value="Search" />
-                </div>
-                <div class="submit col_3">
-                    <input id="btnAddNew" name="btnAddNew" type="button" class="ui-button" value="Add New" />
-                </div>
+                    <div class="submit col_4">
+                        <input id="btnSearch" name="btnSearch" type="button" class="ui-button" value="Search" />
+                    </div>
+                    <div class="submit col_3">
+                        <input id="btnAddNew" name="btnAddNew" type="button" class="ui-button" value="Add New" />
+                    </div>
                 }
             </div>
         </div>

@@ -78,6 +78,7 @@
     <Compile Include="Criteria\IMS_ProductInfoSel.cs" />
     <Compile Include="Criteria\IMS_ProductIns.cs" />
     <Compile Include="Criteria\IMS_ProductnfoUpd.cs" />
+    <Compile Include="Criteria\IMS_ProductSelByPartyLicensee.cs" />
     <Compile Include="Criteria\Setting\IMS_ExistedLicenseeInfoSel.cs" />
     <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeInfoSel.cs" />
     <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeIns.cs" />
