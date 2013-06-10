@@ -174,6 +174,9 @@ var CreatingInvoice = {
             },
             onSelectDatePicker: function () {
                 CreatingInvoice.DueDate = $('#DueDatePicker').val();
+                $('#saveID').removeClass('ui-state-disabled');
+                //            $('#btnGenerate').addClass('ui-state-disabled');
+                $('#pdfID').addClass('ui-state-disabled');
             }
         });
 
@@ -198,6 +201,7 @@ var CreatingInvoice = {
                                  + item.PartyFullName
                                  + '</option>');
         });
+
 
         CreatingInvoice.GetLicensees();
 
