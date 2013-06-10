@@ -70,6 +70,20 @@ namespace Fanex.Ares.Admin.Controllers
             return Json(_settingService.GetAllLicenseeProductDiscount(criteria));
         }
 
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public JsonResult GetLicenseesByPartyID(IMS_LicenseeSelByParty criteria)
+        {
+            return Json(_licenseeService.GetLicenseesByPartyID(criteria));
+        }
+
+        [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        public JsonResult GetProductsByLicenseeIDPartyID(IMS_ProductSelByPartyLicensee criteria)
+        {
+            return Json(_settingService.GetProductsByLicenseeParty(criteria));
+        }
+
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {

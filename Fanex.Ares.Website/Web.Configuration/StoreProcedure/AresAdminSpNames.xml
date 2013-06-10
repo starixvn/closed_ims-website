@@ -34,6 +34,7 @@
     <Setting Key="IMS_LicenseeProductChargeInfoSel" SpName="IMS_LicenseeProductChargeInfoSel" DbName="invoice" />
     <Setting Key="IMS_LicenseeProductDiscountInfoSel" SpName="IMS_LicenseeProductDiscountInfoSel" DbName="invoice" />
     <Setting Key="IMS_ExistedLicenseeInfoSel" SpName="IMS_ExistedLicenseeInfoSel" DbName="invoice" />
+    <Setting Key="IMS_ProductSelByPartyLicensee" SpName="IMS_ProductSelByPartyLicensee" DbName="invoice" />
     
   </Function>
 </Functions>

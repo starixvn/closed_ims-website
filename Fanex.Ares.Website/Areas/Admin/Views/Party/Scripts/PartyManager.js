@@ -111,7 +111,7 @@ PartyManager = function () {
 
         $.ajax({
             type: "POST",
-            url: window.rootUrl + "Admin/Party/GetAllParties",
+            url: location.protocol + '//' + location.host +"Admin/Party/GetAllParties",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: null,
@@ -268,7 +268,7 @@ PartyManager = function () {
                 "Edit Party": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.frmParty.attr("Action", "/admin/Party/UpdateParty");
+                        _table.frmParty.attr("Action", location.protocol + '//' + location.host + "/admin/Party/UpdateParty");
                         _table.frmParty.submit();
                         $(this).dialog("close");
                     }
@@ -329,7 +329,7 @@ PartyManager = function () {
             open: function () {
                 $.ajax({
                     type: "POST",
-                    url: window.rootUrl + "Admin/Party/_PartyLicensee",
+                    url: location.protocol + '//' + location.host + "Admin/Party/_PartyLicensee",
                     dataType: "html",
                     data: "PartyID=" + partyID,
                     beforeSend: function () {
