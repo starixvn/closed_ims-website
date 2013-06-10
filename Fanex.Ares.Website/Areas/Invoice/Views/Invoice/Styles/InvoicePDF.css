@@ -137,6 +137,11 @@ html {
     border-right: 1pt solid black;
     border-bottom: 1pt solid black;
 }
+.border-RL
+{
+    border-right: 1pt solid black;
+    border-left: 1pt solid black;
+}
 .bold-red
 {
     color: Red; 
