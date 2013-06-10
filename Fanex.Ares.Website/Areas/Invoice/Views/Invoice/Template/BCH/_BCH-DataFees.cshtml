@@ -1,6 +1,7 @@
 ﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
+@using DNAide.Core;
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
     string domain = HtmlHelperExtensions.GetFullDomainURL();
@@ -100,7 +101,7 @@
             <td class="fontSize12" colspan="2" style='height: 20pt; border-bottom: 1pt solid black;
                 text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
                 font-weight: bold;'>
-                @invoiceModel.ToDate
+                @CastAide.AsDateTime(invoiceModel.ToDate).ToAresDayMonthYear()
             </td>
         </tr>
         <tr>
@@ -113,7 +114,7 @@
             <td class="fontSize12" colspan="2" style='border-bottom: 1pt solid black; height: 20pt;
                 text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
                 font-weight: bold;'>
-                @invoiceModel.DueDate
+                @CastAide.AsDateTime(invoiceModel.DueDate).ToAresDayMonthYear()
             </td>
         </tr>
         <tr>
