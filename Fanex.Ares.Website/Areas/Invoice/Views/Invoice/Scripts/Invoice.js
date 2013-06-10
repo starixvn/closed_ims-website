@@ -407,14 +407,19 @@ var CreatingInvoice = {
         if (CreatingInvoice.IdNewItemList.length == 0) {
             $('#saveID').addClass('ui-state-disabled')
         }
+        CreatingInvoice.RecalculatorTotal();
     },
     RecalculatorTotal: function () {
         NapAres.Helper.hideMsgBox();
         var totalAmountTmp = _totalAmount;
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
-                var amount = $('#newItem_text_' + id).val();
-                if (amount != '') {
+            var amount = $('#newItem_text_' + id).val();
+            if ($.isNumeric(amount) == false) {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
+                return false;
+            }
+            if (amount != '') {
                 totalAmountTmp += parseFloat(amount);
             }
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
