@@ -157,10 +157,10 @@ namespace Fanex.Ares.Invoice.Controllers
             List<DateRange> dateRangeList = new List<DateRange>();
             IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
-            criteria.LicenseeId = 4;
-            criteria.BaseCurrency = 6;
-            criteria.BaseCurrencyName = "EUR";
-            criteria.Currency = 0;
+            //criteria.LicenseeId = 4;
+            //criteria.BaseCurrency = 6;
+            //criteria.BaseCurrencyName = "EUR";
+            //criteria.Currency = 0;
             //criteria.FromDate = new DateTime(2013, 5, 01);
             //criteria.ToDate = new DateTime(2013, 5, 31);
             //criteria.Product = 0;
@@ -170,11 +170,11 @@ namespace Fanex.Ares.Invoice.Controllers
 
             //InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
             InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModel");
-            //criteria.LicenseeId = invoice.Licensee.LicenseeID;
-            //criteria.BaseCurrency = invoice.Currency;
-            //criteria.BaseCurrencyName = invoice.CurrencyName;
-            //criteria.Currency = 0;
 
+            criteria.LicenseeId = invoice.Licensee.LicenseeID;
+            criteria.BaseCurrency = invoice.Currency;
+            criteria.BaseCurrencyName = invoice.CurrencyName;
+            criteria.Currency = 0;
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
 
@@ -241,10 +241,10 @@ namespace Fanex.Ares.Invoice.Controllers
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
-            criteria.LicenseeId = 1;
-            criteria.BaseCurrency = 6;
-            criteria.BaseCurrencyName = "EUR";
-            criteria.Currency = 0;
+            //criteria.LicenseeId = 1;
+            //criteria.BaseCurrency = 6;
+            //criteria.BaseCurrencyName = "EUR";
+            //criteria.Currency = 0;
             //criteria.FromDate = new DateTime(2013, 5, 01);
             //criteria.ToDate = new DateTime(2013, 5, 31);
             //criteria.Product = 0;
@@ -254,10 +254,10 @@ namespace Fanex.Ares.Invoice.Controllers
 
             InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
 
-            //criteria.LicenseeId = invoice.Licensee.LicenseeID;
-            //criteria.BaseCurrency = invoice.Currency;
-            //criteria.BaseCurrencyName = invoice.CurrencyName;
-            //criteria.Currency = 0;
+            criteria.LicenseeId = invoice.Licensee.LicenseeID;
+            criteria.BaseCurrency = invoice.Currency;
+            criteria.BaseCurrencyName = invoice.CurrencyName;
+            criteria.Currency = 0;
 
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);

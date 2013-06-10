@@ -47,12 +47,10 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public List<string> HTMLReportList { get; set; }
 
-        public List<InvoiceReport> InvoiceReportList { get; set; }
 
         public InvoiceModel()
         {
             this.StatementList = new List<Statement>();
-            this.InvoiceReportList = new List<InvoiceReport>();
             this.HTMLReportList = new List<string>();
         }
     }
@@ -155,13 +153,6 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string To2 { get; set; }
     }
 
-    [Serializable]
-    public class InvoiceReport {
-        public string Name { get; set; }
-
-        public LicenseeSettlementModel LicenseeModel { get; set; }
-
-    }
 
      [Serializable]
     public class DateRange

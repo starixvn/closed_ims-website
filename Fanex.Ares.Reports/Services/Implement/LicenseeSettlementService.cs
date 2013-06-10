@@ -144,7 +144,8 @@ namespace Fanex.Ares.Report.Services.Interface
                 var licenseeItem = listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
                 criteria.LicenseeName = Convert.ToString(licenseeItem.extension["LicenseeName"]);
                 model.LicenseeInfor.LicenseeName = licenseeItem.item.Text;
-                model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
+                //model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
+                model.LicenseeInfor.ProductName = criteria.ProductName;
                 model.LicenseeInfor.SettlementDate = criteria.ToDate;
 
                 model.Report = this.GetLicenseeReport(criteria);

@@ -10,8 +10,19 @@
     int index = 0;
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
+    
+    
 }
-<div class="div-content" style="overflow: auto; width: 90%; margin-left: 30px;">
+@functions {
+    public string BreakToNewLine(string input)
+    {
+        string output = string.Empty;
+
+
+        return output;
+    }
+}
+<div class="div-content" style="overflow: auto; width: 95%; margin-left: 30px;">
     <table border="0" cellpadding="0" cellspacing="0" style='border-collapse: collapse;
         overflow: auto;'>
         <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
@@ -34,21 +45,23 @@
             <td colspan="7" rowspan="2" style='height: 60pt; vertical-align: top; margin-left: 30pt;'>
                 <img style="display:inline-block;" width="300" height="200" v:shapes="Graphics_x0020_1" src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/BCH.png")"/>
             </td>
-            <td colspan="9" style='height: 60pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 2500;'>
+            <td colspan="6" style='height: 60pt; vertical-align: top; mso-height-source: userset;
+                mso-height-alt: 2500; white-space:normal;'>
                 <br />
-                <span style="font-weight: bold;">@invoiceModel.Operator.To1</span> @* <span style="font-weight: bold;">ARIAS, FEBREGA & FABREGA TRUST CO.,</span>
+               @invoiceModel.Operator.To1 @* <span style="font-weight: bold;">ARIAS, FEBREGA & FABREGA TRUST CO.,</span>
                 <br />
                 LIMITED, 325 Waterfront Dive, Omar Hodge Building,
                 <br />
                 2nd Floor, Wickam's, Road Town, Tortola,*@
             </td>
+            <td colspan="3"></td>
         </tr>
         <tr>
-            <td class="fontSize12" colspan="9" style='height: 10pt; vertical-align: bottom; mso-height-source: userset;
+            <td class="fontSize12" colspan="6" style='height: 10pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 400;'>
-                Correspondance: -
+                Correspondance: 
             </td>
+            <td colspan="3"></td>
         </tr>
         <tr>
             <td colspan="7" class="invoiceFont">
@@ -56,8 +69,9 @@
             </td>
             <td class="fontSize12" colspan="9" style='height: 25pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 800;'>
-                31st Floor,<br />
-                Makadi city
+               @* 31st Floor,<br />
+                Makadi city*@
+                @invoiceModel.Operator.To2
             </td>
         </tr>
         <tr>

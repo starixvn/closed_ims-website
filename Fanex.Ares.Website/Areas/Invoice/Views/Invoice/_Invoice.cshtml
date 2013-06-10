@@ -273,6 +273,7 @@
     }
 
     function Review() {
+        CreatingInvoice.UpdateItem();
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
         invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
@@ -285,6 +286,7 @@
         invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+//        invoiceInfoModel.StatementList = [];
         var link = '@Url.Action("PrintScreen", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
         link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
         //             location.href = link;
