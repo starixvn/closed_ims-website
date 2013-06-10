@@ -393,7 +393,7 @@ var CreatingInvoice = {
                                 <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                        <input onblur="CreatingInvoice.RecalculatorTotal();" id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold; "></input></div></td></tr>');
+                                        <input onblur="CreatingInvoice.RecalculatorTotal();" id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold;text-align:right; "></input></div></td></tr>');
         CreatingInvoice.IdNewItemList.push(CreatingInvoice.IdNewItem);
         CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
         $('#saveID').removeClass('ui-state-disabled')
@@ -415,11 +415,14 @@ var CreatingInvoice = {
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
             var amount = $('#newItem_text_' + id).val();
+
             if ($.isNumeric(amount) == false) {
+                $('#saveID').addClass('ui-state-disabled')
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
                 return false;
             }
             if (amount != '') {
+                $('#newItem_text_' + id).empty().val(numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER));
                 totalAmountTmp += parseFloat(amount);
             }
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
@@ -459,7 +462,7 @@ var CreatingInvoice = {
 function NegativeFormat(input) {
      var output = '';
 
-        output = input >= 0 ? "<span style=\"font-weight: bold;\">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER)  + ")</span>";
+     output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
 
         return output;
 }
