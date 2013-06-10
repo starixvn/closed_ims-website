@@ -197,7 +197,7 @@
                         StatementDetail detail = state.StatementDetailList[j];
                         totalAmount += detail.Amount;
                     <br />
-                    @detail.Amount
+                    @detail.Amount.Format(2)
                     <br />
                     }
                 }
@@ -222,7 +222,7 @@
             </td>
             <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @totalAmount
+                @totalAmount.Format(2)
             </td>
         </tr>
         <tr>
