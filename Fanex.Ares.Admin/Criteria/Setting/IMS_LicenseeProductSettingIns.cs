@@ -23,6 +23,7 @@ namespace Fanex.Ares.Admin.Criteria.Setting
         public DateTime WaivedDate { get; set; }
         public int WaivedMonth { get; set; }
         public int Currency { get; set; }
+        public string BasicOfBilling { get; set; }
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
 

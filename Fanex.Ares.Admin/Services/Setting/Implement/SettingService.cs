@@ -50,7 +50,8 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         ProductID = Convert.ToInt32(r["ProductID"]),
                         ProductName = Convert.ToString(r["ProductName"]),
                         WaivedDate = Convert.ToDateTime(r["WaivedDate"] == System.DBNull.Value ? DateTime.MinValue : r["WaivedDate"]),
-                        WaivedMonth = Convert.ToInt32(r["WaivedMonth"] == System.DBNull.Value ? 0 : r["WaivedMonth"])
+                        WaivedMonth = Convert.ToInt32(r["WaivedMonth"] == System.DBNull.Value ? 0 : r["WaivedMonth"]),
+                        BasicOfBilling = Convert.ToString(r["BasicOfBilling"] == System.DBNull.Value ? string.Empty : r["BasicOfBilling"])
                     };
 
                     return res;

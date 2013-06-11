@@ -1,8 +1,9 @@
 ﻿var licenseeManager;
 $(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     licenseeManager = new LicenseeManager();
     licenseeManager.initPage();
-    
+
 });
 
 LicenseeManager = function () {
@@ -94,7 +95,7 @@ LicenseeManager = function () {
 
         $.ajax({
             type: "POST",
-            url: location.protocol + '//' + location.host + "/Admin/Licensee/GetAllLicensees",
+            url: domain + "Admin/Licensee/GetAllLicensees",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: null,
@@ -234,7 +235,7 @@ LicenseeManager = function () {
                 "Edit Licensee": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.frmLicensee.attr("Action", location.protocol + '//' + location.host + "/admin/Licensee/UpdateLicensee");
+                        _table.frmLicensee.attr("Action", location.protocol + '//' + location.host + "admin/Licensee/UpdateLicensee");
                         $('<input />').attr('type', 'hidden')
                             .attr('name', "LicenseeID")
                             .attr('value', LicenseeID)
@@ -300,7 +301,7 @@ LicenseeManager = function () {
             open: function () {
                 $.ajax({
                     type: "POST",
-                    url: location.protocol + '//' + location.host + "Admin/Licensee/_PartyLicensee",
+                    url: domain + "Admin/Licensee/_PartyLicensee",
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID,
                     beforeSend: function () {

@@ -39,6 +39,9 @@
             <label for="Currency">
                 Currency</label>
             @Html.DropDownListFor(m => m.Currency, (IEnumerable<SelectListItem>)ViewBag.lstCurrencies, new { id = "Currency", @class = "select ui-widget-content ui-corner-all" })
+
+            <label for="BasicOfBilling">Basic of Billing</label>
+            <textarea name="BasicOfBilling" rows="5" cols="0" id="BasicOfBilling" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>            
         </fieldset>
     }
 </div>
