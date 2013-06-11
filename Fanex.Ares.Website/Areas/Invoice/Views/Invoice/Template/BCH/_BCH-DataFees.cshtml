@@ -11,16 +11,15 @@
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
     int count = invoiceModel.StatementList.Count;
-   //while(count < 5)
-   //{
-   //    invoiceModel.StatementList.Add(new Statement
-   //    {
-   //     StatementID = 100000,
-   //    });
-   //    count++;
-   //}
+                    //while(count < 5)
+                    //{
+                    //    invoiceModel.StatementList.Add(new Statement
+                    //    {
+                    //     StatementID = 100000,
+                    //    });
+                    //    count++;
+                    //}
 }
-
 <div class="div-content InvoiceTable" style="overflow: auto; width: 95%; margin-left: 30px;">
     <table border="0" cellpadding="0" cellspacing="0" style='border-collapse: collapse;
         overflow: auto;'>
@@ -45,22 +44,24 @@
                 <img style="display:inline-block;" width="300" height="200" v:shapes="Graphics_x0020_1" src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/BCH.png")"/>
             </td>
             <td colspan="6" style='height: 60pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 2500; white-space:normal;'>
+                mso-height-alt: 2500; white-space: normal;'>
                 <br />
-               @invoiceModel.Operator.To1 @* <span style="font-weight: bold;">ARIAS, FEBREGA & FABREGA TRUST CO.,</span>
+                @invoiceModel.Operator.To1 @* <span style="font-weight: bold;">ARIAS, FEBREGA & FABREGA TRUST CO.,</span>
                 <br />
                 LIMITED, 325 Waterfront Dive, Omar Hodge Building,
                 <br />
                 2nd Floor, Wickam's, Road Town, Tortola,*@
             </td>
-            <td colspan="3"></td>
+            <td colspan="3">
+            </td>
         </tr>
         <tr>
             <td class="fontSize12" colspan="6" style='height: 10pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 400;'>
-                Correspondance: 
+                Correspondance:
             </td>
-            <td colspan="3"></td>
+            <td colspan="3">
+            </td>
         </tr>
         <tr>
             <td colspan="7" class="invoiceFont" style="font-size: 25pt !important;">
@@ -68,7 +69,7 @@
             </td>
             <td class="fontSize12" colspan="9" style='height: 25pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 800;'>
-               @* 31st Floor,<br />
+                @* 31st Floor,<br />
                 Makadi city*@
                 @invoiceModel.Operator.To2
             </td>
@@ -79,8 +80,8 @@
             </td>
         </tr>
         <tr>
-            <td class="border-TRBL" colspan="10" rowspan="5" style='height: 30pt; 
-                padding-left: 5px; white-space: normal; vertical-align:middle;'>
+            <td class="border-TRBL" colspan="10" rowspan="5" style='height: 30pt; padding-left: 5px;
+                white-space: normal; vertical-align: middle;'>
                 <span class="bold-red" style="mso-spacerun: yes;">TO: @invoiceModel.Licensee.CompanyName
                 </span>
                 <br />
@@ -156,7 +157,7 @@
         </tr>
         <tr>
             <td class="border-TRBL" colspan="2" style='height: 50pt; mso-height-source: userset;
-                mso-height-alt: 884; vertical-align: middle; text-align: center; '>
+                mso-height-alt: 884; vertical-align: middle; text-align: center;'>
                 ITEM
             </td>
             <td class="border-TRBL" colspan="7" style='vertical-align: middle; text-align: center;'>
@@ -186,65 +187,60 @@
                 boderclass = "border-RL";
             }
          
-        <tr>
-             <td class="@boderclass" colspan="2" style='height: 70pt; mso-height-source: userset;
-                mso-height-alt: 2584; vertical-align: top; text-align: center; '> 
-                            @if (state.StatementID != 100000)
-                            {<br /> @i<br />
-                            }
-                                                                                 
-                 </td>
-                 
-                    <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
+            <tr>
+                <td class="@boderclass" colspan="2" style='height: 30pt; mso-height-source: userset;
+                mso-height-alt: 2084; vertical-align: top; text-align: center; '>
+                    @if (state.StatementID != 100000)
+                    {<br /> @i<br />
+                    }
+                </td>
+                <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
                         padding-left: 5pt;'>
-
-
                     @for (int j = 0; j < state.StatementDetailList.Count; j++)
                     {
                         StatementDetail detail = state.StatementDetailList[j];
-                    <br />
+                        <br />
                         if (j == 0)
                         {
                             if (!detail.AdjustItem)
                             {
-                                @descript @detail.Description
+                        @descript @detail.Description
                             }
                             else
                             {
-                                @detail.Description
+                        @detail.Description
                             }
                         }
                         else
                         {
-                    @detail.Description
+                        @detail.Description
                         }
-                    <br />
+                        <br />
                     
-                }
-            </td>
-            <td class="@boderclass" colspan="3" style='vertical-align: top;'>
-            </td>
-            <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
-
+                    }
+                </td>
+                <td class="@boderclass" colspan="3" style='vertical-align: top;'>
+                </td>
+                <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
                     @for (int j = 0; j < state.StatementDetailList.Count; j++)
                     {
                         StatementDetail detail = state.StatementDetailList[j];
                         totalAmount += detail.Amount;
-                    <br />
-                    @detail.Amount.Format(2)
-                    <br />
-                }
-                @*  <br />
+                        <br />
+                        @detail.Amount.Format(2)
+                        <br />
+                    }
+                    @*  <br />
                 26,787.66
                 <br />
                 <br />
                 32,164.57*@
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
         <tr>
             <td colspan="2" style='height: 30pt; border-left: 1pt solid black; mso-height-source: userset;
-                mso-height-alt: 684; '>
+                mso-height-alt: 684;'>
             </td>
             <td colspan="7">
             </td>
@@ -265,24 +261,36 @@
             <td colspan="2" style="text-align: right;">
                 USD&nbsp; &nbsp;
             </td>
-            <td class="border-TRBL">
+            <td class="border-TRBL" style="text-align: center; vertical-align: middle;">
+                @if (invoiceModel.CurrencyName == "USD")
+                {
+                    <span>X</span>
+                }
             </td>
             <td colspan="2" style="text-align: right;">
                 EUR&nbsp; &nbsp;
             </td>
-            <td class="border-TRBL">
+            <td class="border-TRBL" style="text-align: center; vertical-align: middle;">
+                @if (invoiceModel.CurrencyName == "EUR")
+                {
+                    <span>X</span>
+                }
             </td>
             <td colspan="2" style="text-align: right;">
                 GBP&nbsp; &nbsp;
             </td>
-            <td class="border-TRBL">
+            <td class="border-TRBL" style="text-align: center; vertical-align: middle;">
+                @if (invoiceModel.CurrencyName == "GBP")
+                {
+                    <span>X</span>
+                }
             </td>
             <td colspan="2">
             </td>
         </tr>
         <tr>
             <td class="border-L" colspan="2" style='height: 30pt; mso-height-source: userset;
-                mso-height-alt: 884; '>
+                mso-height-alt: 884;'>
             </td>
             <td colspan="7">
             </td>
@@ -290,8 +298,7 @@
             </td>
         </tr>
         <tr>
-            <td class="border-RLT" colspan="10" style='vertical-align: top; 
-                padding-left: 5px;'>
+            <td class="border-RLT" colspan="10" style='vertical-align: top; padding-left: 5px;'>
                 <br />
                 <span class="bold">For Telegraphic Transfer payments</span><br />
             </td>
@@ -302,8 +309,7 @@
             </td>
         </tr>
         <tr>
-            <td class="border-LB" colspan="4" rowspan="3" style='vertical-align: top; 
-                padding-left: 5px;'>
+            <td class="border-LB" colspan="4" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                 Beneficiary<br />
                 Beneficiary Bank<br />
                 Account Number<br />

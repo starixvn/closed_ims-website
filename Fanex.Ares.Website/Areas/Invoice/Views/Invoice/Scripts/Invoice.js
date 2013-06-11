@@ -382,7 +382,7 @@ var CreatingInvoice = {
         var result = { 'normal': normalLicensees, 'operator': operator }
         return result;
     },
-    AddItem: function () {
+    AddItem: function (isDiscount) {
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
             var amount = $('#newItem_text_' + id).val();
@@ -395,7 +395,7 @@ var CreatingInvoice = {
             var displayID = CreatingInvoice.IdNewItemList.length + invoiceInfoModel.StatementList.length + 1;
             //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
-                                    <td  style="width: 10%; "><span  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + displayID + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
+                                    <td  style="width: 10%; "><span  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
                                     <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
