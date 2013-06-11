@@ -9,7 +9,7 @@
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Invoice";
-
+    InvoiceModel invoiceModel = new InvoiceModel();
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
@@ -102,6 +102,9 @@
         operatorList = operatorList.replace(/&quot;/g, '"');
         var operatorListModel = jQuery.parseJSON(operatorList);
 
+         var invoiceModel = '@Json.Encode(invoiceModel)';
+        invoiceModel = invoiceModel.replace(/&quot;/g, '"');
+        var invoiceInfoModel = jQuery.parseJSON(invoiceModel);
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var _today = '@DateTime.Today.ToShortDateString()';

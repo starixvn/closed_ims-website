@@ -41,6 +41,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string InvoiceName { get; set; }
         public List<Statement> StatementList { get; set; } // List statement
 
+        public List<DateRange> DateRangeList { get; set; }
         public double TotalAmount { get; set; }
 
         public string Note { get; set; }
@@ -50,6 +51,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public InvoiceModel()
         {
+            this.DateRangeList = new List<DateRange>();
             this.StatementList = new List<Statement>();
             this.HTMLReportList = new List<string>();
         }
@@ -61,7 +63,9 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public int StatementID { get; set; }
 
-        
+        public string FromDate { get; set; }
+
+        public string ToDate { get; set; }
 
         public Statement()
         {
@@ -81,6 +85,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public double Amount { get; set; }
 
         public bool AdjustItem { get; set; }
+
+       
     }
 
     [Serializable]

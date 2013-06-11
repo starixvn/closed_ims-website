@@ -64,7 +64,7 @@
                                         <br />
                                         <br />
                                         <br />
-                                        <a style="text-decoration: underline; cursor: pointer; font-style: italic;">Detail</a>
+                                        <a onclick="Detail('@state.FromDate', '@state.ToDate')" style="text-decoration: underline; cursor: pointer; font-style: italic;">Detail</a>
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
@@ -270,7 +270,7 @@
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
     var invoiceInfo = '@Json.Encode(Model)';
     invoiceInfo = invoiceInfo.replace(/&quot;/g, '"');
-    var invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
+    invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
     if (invoiceInfoModel.StatementList.length == 0) {
         $('#saveID').addClass('ui-state-disabled');
 //        $('#reviewID').addClass('ui-state-disabled');
@@ -306,6 +306,9 @@
         var win = window.open(link, '_blank');
         win.focus();
     }
+
+  
+
     function ExportPDF() {
         CreatingInvoice.UpdateItem();
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
@@ -325,6 +328,29 @@
         location.href = link;
     }
 
+    
+function Detail(fromDate, toDate) {
+     CreatingInvoice.UpdateItem();
+        invoiceInfoModel.Operator = CreatingInvoice.Operator;
+        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+        invoiceInfoModel.FromDate = fromDate;
+        invoiceInfoModel.ToDate = toDate;
+        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+        invoiceInfoModel.Product = CreatingInvoice.Products;
+        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+//        invoiceInfoModel.StatementList = [];
+        var link = '@Url.Action("Detail", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
+        link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
+        //             location.href = link;
+        var win = window.open(link, '_blank');
+        win.focus();
+
+}
 
    
 </script>

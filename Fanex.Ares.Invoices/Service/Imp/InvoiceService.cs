@@ -19,6 +19,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
 using System.Text;
     using System.Collections;
     using Fanex.Ares.Core.Web;
+    using DNAide.Core;
 
     /// <summary>
     /// TODO: Update summary.
@@ -179,7 +180,11 @@ using System.Text;
         {
             var invoice = new InvoiceModel();
             try
-            {   
+            {
+                List<DateRange> dateRangeList = new List<DateRange>();
+
+                dateRangeList = GetDateRange(criteria.FromDate, criteria.ToDate);
+
                 #region mapping invoice items
                 invoice.StatementList = new List<Statement>();
                 var statementRawData = GetListData<dynamic>(criteria);
@@ -192,10 +197,12 @@ using System.Text;
                     foreach (var row in statementRawData)
                     {
                         string invoiceMonth = (string)row.InvoiceMonth;
+                        
                         if (!string.IsNullOrEmpty(oldMonth) && !oldMonth.Equals(invoiceMonth))
                         {
                             invoice.StatementList.Add(statement);
                             statement = new Statement();
+                            
                             statement.StatementDetailList = new List<StatementDetail>();
                         }                        
                         statement.StatementDetailList.Add(new StatementDetail()
@@ -207,6 +214,14 @@ using System.Text;
                             AdjustItem = false
                         });
                         oldMonth = invoiceMonth;
+                        foreach (DateRange range in dateRangeList)
+                        {
+                            if (CastAide.AsDateTime("1 " + oldMonth).Month == range.StartDate.Month)
+                            {
+                                statement.FromDate = Converter.To<string>(range.StartDate);
+                                statement.ToDate = Converter.To<string>(range.EndDate);
+                            }
+                        }
                     }
 
                     if (statement != null && statement.StatementDetailList.Count > 0)
@@ -290,6 +305,47 @@ using System.Text;
                 result.ErrorMessage = ex.Message;
             }
             return result;
+        }
+
+        public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)
+        {
+            List<DateRange> dateRangeList = new List<DateRange>();
+
+            int numericMonth = ToDate.Month - FromDate.Month + 1;
+
+            for (int i = 0; i < numericMonth; i++)
+            {
+                DateRange dateRange = new DateRange();
+                DateTime StartDateTmp = new DateTime();
+                DateTime EndDateTmp = new DateTime();
+                if (i == 0)
+                {
+                    StartDateTmp = FromDate;
+                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month, 1).AddMonths(1);
+                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                    EndDateTmp = firstOfNextMonth.AddDays(-1);
+                }
+                else if (i == numericMonth-1)
+                {
+                    StartDateTmp = new DateTime(FromDate.Year, ToDate.Month, 1);
+                    //DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
+                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                    EndDateTmp = ToDate;
+                }
+                else
+                {
+                    StartDateTmp = new DateTime(FromDate.Year, FromDate.Month + i, 1);
+                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
+                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                    EndDateTmp = firstOfNextMonth.AddDays(-1);
+                }
+
+                dateRange.StartDate = StartDateTmp;
+                dateRange.EndDate = EndDateTmp;
+                dateRangeList.Add(dateRange);
+            }
+
+            return dateRangeList;
         }
     }
 }

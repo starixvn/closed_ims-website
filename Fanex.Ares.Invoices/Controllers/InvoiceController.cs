@@ -98,9 +98,34 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
+            //DateTime FromDate = CastAide.AsDateTime(criteria.FromDate);
+            //DateTime ToDate = CastAide.AsDateTime(criteria.ToDate);
+
+            //model.DateRangeList = GetDateRange(FromDate, ToDate);
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelBeforSave", model);
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
+        //public PartialViewResult GetInvoice(InvoiceModel invoiceModel)
+        //{
+        //    IMS_NewInvoiceItemsSelCriteria criteria = new IMS_NewInvoiceItemsSelCriteria();
+        //    criteria.PartyID = invoiceModel.Operator.PartyID;
+        //    criteria.LicenseeID = invoiceModel.Licensee.LicenseeID;
+        //    criteria.Products = invoiceModel.ProductsName;
+        //    criteria.FromDate = CastAide.AsDateTime( invoiceModel.FromDate);
+        //    criteria.ToDate = CastAide.AsDateTime(invoiceModel.ToDate);
+        //    criteria.BillingCurrency = invoiceModel.Currency;
+
+        //    var model = _invoiceService.GetInvoice(criteria);
+        //    model.FromDate = Converter.To<string>(criteria.FromDate);
+        //    model.ToDate = Converter.To<string>(criteria.ToDate);
+        //    //DateTime FromDate = CastAide.AsDateTime(criteria.FromDate);
+        //    //DateTime ToDate = CastAide.AsDateTime(criteria.ToDate);
+
+        //    //model.DateRangeList = GetDateRange(FromDate, ToDate);
+        //    SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelBeforSave", model);
+        //    return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
+        //}
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
@@ -112,46 +137,7 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView(SettlementView, model);
         }
 
-        public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)
-        {
-            List<DateRange> dateRangeList = new List<DateRange>();
-
-            int numericMonth = ToDate.Month - FromDate.Month + 1;
-
-            for (int i = 0; i < numericMonth; i++)
-            {
-                DateRange dateRange = new DateRange();
-                DateTime StartDateTmp = new DateTime();
-                DateTime EndDateTmp = new DateTime();
-                if (i == 0)
-                {
-                    StartDateTmp = FromDate;
-                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month, 1).AddMonths(1);
-                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                    EndDateTmp = firstOfNextMonth.AddDays(-1);
-                }
-                else if (i == numericMonth)
-                {
-                    StartDateTmp = new DateTime(FromDate.Year, ToDate.Month, 1);
-                    //DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
-                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                    EndDateTmp = ToDate;
-                }
-                else
-                {
-                    StartDateTmp = new DateTime(FromDate.Year, FromDate.Month + i, 1);
-                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
-                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                    EndDateTmp = firstOfNextMonth.AddDays(-1);
-                }
-
-                dateRange.StartDate = StartDateTmp;
-                dateRange.EndDate = EndDateTmp;
-                dateRangeList.Add(dateRange);
-            }
-
-            return dateRangeList;
-        }
+       
         public ActionResult ExportDocument(string invoiceModel)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
@@ -160,7 +146,7 @@ namespace Fanex.Ares.Invoice.Controllers
             InvoiceModel imodel = new InvoiceModel();
 
             //InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
-            InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModel");
+            InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
@@ -168,8 +154,8 @@ namespace Fanex.Ares.Invoice.Controllers
             criteria.Currency = 0;
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
-
-            dateRangeList = GetDateRange(FromDate, ToDate);
+            dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
+            //dateRangeList = invoice.DateRangeList;
             var excelCssFilePath = new List<string>();
             List<string> htmlList = new List<string>();
             string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
@@ -244,8 +230,9 @@ namespace Fanex.Ares.Invoice.Controllers
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
 
-            dateRangeList = GetDateRange(FromDate, ToDate);
+            dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
 
+            //dateRangeList = invoice.DateRangeList;
             List<string> htmlList = new List<string>();
             string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
@@ -287,11 +274,72 @@ namespace Fanex.Ares.Invoice.Controllers
             return View("_Review", invoice);
         }
 
+        public ActionResult Detail(string invoiceModel)
+        {
+            List<DateRange> dateRangeList = new List<DateRange>();
+            var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
+
+            InvoiceModel imodel = new InvoiceModel();
+
+            InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
+
+            criteria.LicenseeId = invoice.Licensee.LicenseeID;
+            criteria.BaseCurrency = invoice.Currency;
+            criteria.BaseCurrencyName = invoice.CurrencyName;
+            criteria.Currency = 0;
+
+            DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
+            DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
+
+            dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
+
+            //dateRangeList = invoice.DateRangeList;
+            List<string> htmlList = new List<string>();
+            //string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
+            List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+            PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+            //string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
+            //htmlList.Add(html);
+            string html = string.Empty;
+            
+
+            string[] Products = invoice.ProductsName.Split(',');
+            string[] ProductID = invoice.Product.Split(',');
+            for (int i = 0; i < dateRangeList.Count; i++)
+            {
+                for (int j = 0; j < Products.Count(); j++)
+                {
+
+
+                    criteria.ToDate = dateRangeList[i].EndDate;
+                    criteria.FromDate = dateRangeList[i].StartDate;
+                    criteria.Product = Converter.To<int>(ProductID[j]);
+                    criteria.ProductName = Products[j];
+
+                    var model = _reportService.GenerateReport(criteria);
+
+                    model.LicenseeInfor.FromDate = criteria.FromDate;
+                    model.LicenseeInfor.ToDate = criteria.ToDate;
+                    if (model.Report.EntityList.Count > 0)
+                    {
+                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        htmlList.Add(html);
+                        invoice.HTMLReportList.Add(html);
+
+                    }
+                }
+
+            }
+
+            return View("_Review", invoice);
+        }
+
         [HttpPost]
         public JsonResult SaveInvoice(InvoiceModel invoiceModel)
         {
             var insertResult = _invoiceService.SaveInvoice(invoiceModel);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModel", invoiceModel);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave", invoiceModel);
             return Json(insertResult);
         }
     }
