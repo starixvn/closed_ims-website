@@ -10,7 +10,15 @@
     int index = 0;
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
-
+    int count = invoiceModel.StatementList.Count;
+   //while(count < 5)
+   //{
+   //    invoiceModel.StatementList.Add(new Statement
+   //    {
+   //     StatementID = 100000,
+   //    });
+   //    count++;
+   //}
 }
 
 <div class="div-content InvoiceTable" style="overflow: auto; width: 95%; margin-left: 30px;">
@@ -161,21 +169,37 @@
                 AMOUNT
             </td>
         </tr>
+        @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+        {
+            Statement state = invoiceModel.StatementList[i];
+            string boderclass = string.Empty;
+            if (i == 0)
+            {
+                boderclass = "border-RLT";
+            }
+            else if (i == invoiceModel.StatementList.Count - 1)
+            {
+                boderclass = "border-RLB";
+            }
+            else
+            {
+                boderclass = "border-RL";
+            }
+         
         <tr>
-            <td class="border-TRBL" colspan="2" style='height: 250pt; mso-height-source: userset;
-                mso-height-alt: 7584; vertical-align: top; text-align: center; '>
-                  @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
-                  {
-                       <br /> @i<br />
-                  }
-            </td>
-            <td class="border-TRBL" colspan="7" style='vertical-align: top; text-align: left;
-                padding-left: 5pt;'>
-                @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
-                {
-                    Statement state = invoiceModel.StatementList[i];
+             <td class="@boderclass" colspan="2" style='height: 70pt; mso-height-source: userset;
+                mso-height-alt: 2584; vertical-align: top; text-align: center; '> 
+                            @if (state.StatementID != 100000)
+                            {<br /> @i<br />
+                            }
+                                                                                 
+                 </td>
+                 
+                    <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
+                        padding-left: 5pt;'>
 
-                    for (int j = 0; j < state.StatementDetailList.Count; j++)
+
+                    @for (int j = 0; j < state.StatementDetailList.Count; j++)
                     {
                         StatementDetail detail = state.StatementDetailList[j];
                     <br />
@@ -195,24 +219,20 @@
                     @detail.Description
                         }
                     <br />
-                    }
+                    
                 }
             </td>
-            <td class="border-TRBL" colspan="3" style='vertical-align: top;'>
+            <td class="@boderclass" colspan="3" style='vertical-align: top;'>
             </td>
-            <td class="border-TRBL" colspan="4" style='vertical-align: top; text-align: right;'>
-                @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
-                {
-                    Statement state = invoiceModel.StatementList[i];
+            <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
 
-                    for (int j = 0; j < state.StatementDetailList.Count; j++)
+                    @for (int j = 0; j < state.StatementDetailList.Count; j++)
                     {
                         StatementDetail detail = state.StatementDetailList[j];
                         totalAmount += detail.Amount;
                     <br />
                     @detail.Amount.Format(2)
                     <br />
-                    }
                 }
                 @*  <br />
                 26,787.66
@@ -221,6 +241,7 @@
                 32,164.57*@
             </td>
         </tr>
+        }
         <tr>
             <td colspan="2" style='height: 30pt; border-left: 1pt solid black; mso-height-source: userset;
                 mso-height-alt: 684; '>

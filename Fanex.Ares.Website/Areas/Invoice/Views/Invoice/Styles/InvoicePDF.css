@@ -127,6 +127,13 @@ html {
     border-right: 1pt solid black;
 }
 
+.border-RLB
+{
+    border-left: 1pt solid black;
+    border-bottom: 1pt solid black;
+    border-right: 1pt solid black;
+}
+
 .border-LB
 {
     border-left: 1pt solid black;

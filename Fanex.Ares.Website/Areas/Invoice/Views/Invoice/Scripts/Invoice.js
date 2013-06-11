@@ -185,20 +185,10 @@ var CreatingInvoice = {
         $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
         $('#btnNewInvoice').button();
-        $('#btnNewInvoice').click(function () {
+//        $('#btnNewInvoice').click(function () {
+//           
 
-            $('#ddlOperator').removeClass('ui-state-disabled');
-            $('#ddlLicensee').removeClass('ui-state-disabled');
-            $('#dropDownListId1').removeClass('ui-state-disabled');
-            $('#FromDatePicker').removeClass('ui-state-disabled');
-            $('#ToDatePicker').removeClass('ui-state-disabled');
-            $('#divInvoiceType').removeClass('ui-state-disabled');
-            $('#CurrencyID').removeClass('ui-state-disabled');
-            $('#invoiceNo').removeClass('ui-state-disabled');
-            $('#btnGenerate').removeClass('ui-state-disabled');
-            $('#parentContainer').empty();
-
-        });
+//        });
 
         $("#ddlLicensee").change(function () {
             GetInvoiceType();
@@ -209,6 +199,8 @@ var CreatingInvoice = {
         });
 
         //------binding data
+
+        $('#ddlOperator').append('<option value="0">Please Select One !</option>');
         $.each(operatorListModel, function (i, item) {
             $('#ddlOperator').append('<option value="'
                                  + item.PartyID
@@ -231,6 +223,7 @@ var CreatingInvoice = {
             data: 'PartyId=' + $('#ddlOperator').val(),
             success: function (data, textStatus, jqXHR) {
                 if (data && data.length > 0) {
+//                    $('#ddlLicensee').append('<option value="0">Please Select a Licensee</option>');
                     $.each(data, function (i, item) {
                         $('#ddlLicensee').append('<option value="'
                                  + item.LicenseeID
@@ -353,7 +346,7 @@ var CreatingInvoice = {
                         $('#invoiceNo').addClass('ui-state-disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
-                        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceID;
+                        invoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
                         NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
                     }
                     else {
