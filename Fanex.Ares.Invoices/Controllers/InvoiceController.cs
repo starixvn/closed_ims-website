@@ -92,6 +92,19 @@ namespace Fanex.Ares.Invoice.Controllers
             return Json(invoiceNo);
         }
 
+        [HttpPost]
+        public JsonResult SaveInvoice(InvoiceModel invoiceModel)
+        {
+            var insertResult = _invoiceService.SaveInvoice(invoiceModel);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave", invoiceModel);
+            return Json(insertResult);
+        }
+
+         [HttpPost]
+        public JsonResult IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
+        {
+            return Json(_invoiceService.IsExistInvoiceNo(criteria));
+        }
 
         public PartialViewResult GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
         {
@@ -106,26 +119,7 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
-        //public PartialViewResult GetInvoice(InvoiceModel invoiceModel)
-        //{
-        //    IMS_NewInvoiceItemsSelCriteria criteria = new IMS_NewInvoiceItemsSelCriteria();
-        //    criteria.PartyID = invoiceModel.Operator.PartyID;
-        //    criteria.LicenseeID = invoiceModel.Licensee.LicenseeID;
-        //    criteria.Products = invoiceModel.ProductsName;
-        //    criteria.FromDate = CastAide.AsDateTime( invoiceModel.FromDate);
-        //    criteria.ToDate = CastAide.AsDateTime(invoiceModel.ToDate);
-        //    criteria.BillingCurrency = invoiceModel.Currency;
-
-        //    var model = _invoiceService.GetInvoice(criteria);
-        //    model.FromDate = Converter.To<string>(criteria.FromDate);
-        //    model.ToDate = Converter.To<string>(criteria.ToDate);
-        //    //DateTime FromDate = CastAide.AsDateTime(criteria.FromDate);
-        //    //DateTime ToDate = CastAide.AsDateTime(criteria.ToDate);
-
-        //    //model.DateRangeList = GetDateRange(FromDate, ToDate);
-        //    SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelBeforSave", model);
-        //    return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
-        //}
+    
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
@@ -335,12 +329,6 @@ namespace Fanex.Ares.Invoice.Controllers
             return View("_Review", invoice);
         }
 
-        [HttpPost]
-        public JsonResult SaveInvoice(InvoiceModel invoiceModel)
-        {
-            var insertResult = _invoiceService.SaveInvoice(invoiceModel);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave", invoiceModel);
-            return Json(insertResult);
-        }
+       
     }
 }

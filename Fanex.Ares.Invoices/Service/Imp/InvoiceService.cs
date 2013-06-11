@@ -212,7 +212,9 @@ using System.Text;
                             Reference = row.Reference,
                             Amount = (double)row.TotalAmount,
                             AdjustItem = false,
-                            InvoiceMonth = row.InvoiceMonth
+                            InvoiceMonth = row.InvoiceMonth,
+                            DiscountItem = row.DiscountItem
+                            
                         });
                         oldMonth = invoiceMonth;
                         foreach (DateRange range in dateRangeList)
@@ -309,6 +311,11 @@ using System.Text;
             return result;
         }
 
+        public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
+        {
+            var hashResult = _repository.ExecuteCommand(criteria);
+            return Converter.To<bool>(hashResult["IsExisted"]);
+        }
         public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)
         {
             List<DateRange> dateRangeList = new List<DateRange>();

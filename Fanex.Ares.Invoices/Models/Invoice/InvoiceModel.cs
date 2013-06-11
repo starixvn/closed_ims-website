@@ -87,6 +87,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public bool AdjustItem { get; set; }
 
         public string InvoiceMonth { get; set; }
+
+        public bool DiscountItem { get; set; }
     }
 
     [Serializable]
