@@ -6,10 +6,6 @@
 
 namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
@@ -21,6 +17,8 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
         public int LicenseeID { get; set; }
         public int InvoiceNo { get; set; }
         public int InvoiceType { get; set; }
+
+        public bool IsExisted { get; set; }
         public override string GetSettingKey()
         {
             return "IMS_CheckExistedInvoiceNo";

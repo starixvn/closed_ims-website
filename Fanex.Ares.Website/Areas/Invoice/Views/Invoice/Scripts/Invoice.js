@@ -101,7 +101,6 @@ function GetInvoiceNo() {
     });
 }
 
-
 var CreatingInvoice = {
     Licensees: [],
     FromDate: '',
@@ -183,16 +182,26 @@ var CreatingInvoice = {
         //        });
 
         $("#ddlLicensee").change(function () {
-            GetInvoiceType();
+            if ($("#ddlLicensee").prop("selectedIndex") != 0) {
+                GetInvoiceType();
+            }
+            else {
+                $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                $('#invoiceNo').val('');
+            }
         });
 
         $("#ddlOperator").change(function () {
-            CreatingInvoice.GetLicensees();
+            $('#ddlLicensee').html('');
+            $('#ddlLicensee').append('<option value="0">Please Select One!</option>');
+            if ($("#ddlOperator").prop("selectedIndex") != 0) {
+                CreatingInvoice.GetLicensees();
+            }
         });
 
         //------binding data
 
-        $('#ddlOperator').append('<option value="0">Please Select One !</option>');
+        $('#ddlOperator').append('<option value="0">Please Select One!</option>');
         $.each(operatorListModel, function (i, item) {
             $('#ddlOperator').append('<option value="'
                                  + item.PartyID
@@ -200,15 +209,12 @@ var CreatingInvoice = {
                                  + item.PartyFullName
                                  + '</option>');
         });
-
-
-        CreatingInvoice.GetLicensees();
-
+        $('#ddlLicensee').append('<option value="0">Please Select One!</option>');
+        $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
         NapAres.NapAresPopUp = $('#dialog-popup');
     },
     GetLicensees: function () {
         NapAres.disableInput();
-        $('#ddlLicensee').html('');
         $.ajax({
             url: domain + "Invoice/Invoice/GetLicenseesByParty",
             type: "POST",
@@ -224,7 +230,6 @@ var CreatingInvoice = {
                                  + '</option>');
                     });
                 }
-                GetInvoiceType();
                 CreatingInvoice.Licensees = data;
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -235,10 +240,9 @@ var CreatingInvoice = {
                 NapAres.enableInput();
             }
         });
-
-
     },
     GetFilteringInfo: function () {
+
         var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
         var productName = '';
         var produtID = '';
@@ -260,8 +264,8 @@ var CreatingInvoice = {
         var InvoiceTypeIdTmp = radioCheck[0].value;
         var InvoiceTypeNameTmp = radioCheck[0].title;
 
-        var Operator = operatorListModel[$("#ddlOperator").prop("selectedIndex")];
-        var Licensee = CreatingInvoice.Licensees[$("#ddlLicensee").prop("selectedIndex")];
+        var Operator = operatorListModel[$("#ddlOperator").prop("selectedIndex") - 1];
+        var Licensee = CreatingInvoice.Licensees[$("#ddlLicensee").prop("selectedIndex") - 1];
 
         CreatingInvoice.Operator = Operator;
         CreatingInvoice.Licensee = Licensee;
@@ -277,52 +281,56 @@ var CreatingInvoice = {
     },
     CheckIsExistInvoiceNo: function () {
         CreatingInvoice.GetFilteringInfo();
+
         $.ajax({
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
             type: "POST",
             data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
                         '&InvoiceNo=' + CreatingInvoice.InvoiceNo + '&InvoiceType=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
             success: function (data, textStatus, jqXHR) {
-                return data;
+                if (data == false) {
+                    $.ajax({
+                        url: domain + "Invoice/Invoice/GetInvoice",
+                        type: "POST",
+                        data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
+                        '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
+                        '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
+                        success: function (data, textStatus, jqXHR) {
+                            $('#parentContainer').html(data);
+                            CreatingInvoice.IdNewItemList = [];
+                            CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
+                            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            NapAres.enableInput();
+                        }
+                    });
+                }
+                else {
+                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Invoice No is existed!' });
+                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
                 setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                return false;
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
             }
         });
+
     },
     GetNewInvoiceData: function () {
+        if ($("#ddlOperator").prop("selectedIndex") == 0 || $("#ddlLicensee").prop("selectedIndex") == 0)
+            return false;
+
         NapAres.disableInput();
-        var isExistInvoiceNo = CreatingInvoice.CheckIsExistInvoiceNo();
-        if (isExistInvoiceNo) {
-            $.ajax({
-                url: domain + "Invoice/Invoice/GetInvoice",
-                type: "POST",
-                data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
-                        '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
-                        '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
-                success: function (data, textStatus, jqXHR) {
-                    $('#parentContainer').html(data);
-                    CreatingInvoice.IdNewItemList = [];
-                    CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
-                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                },
-                complete: function (jqXHR, textStatus) {
-                    NapAres.enableInput();
-                }
-            });
-        }
-        else {
-            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Invoice No is existed!' });
-            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-        }
+        CreatingInvoice.CheckIsExistInvoiceNo();
+
     },
     SaveInvoice: function () {
         CreatingInvoice.UpdateItem();

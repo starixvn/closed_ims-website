@@ -314,7 +314,7 @@ using System.Text;
         public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
         {
             var hashResult = _repository.ExecuteCommand(criteria);
-            return Converter.To<bool>(hashResult["IsExisted"]);
+            return Converter.ToBool(hashResult["isexisted"]);
         }
         public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)
         {
