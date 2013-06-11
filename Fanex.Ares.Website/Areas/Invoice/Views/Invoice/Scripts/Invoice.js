@@ -411,8 +411,8 @@ var CreatingInvoice = {
                                         <input name="" onblur="CreatingInvoice.RecalculatorTotal();" id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold;text-align:right;"></input></div></td></tr>');
             CreatingInvoice.IdNewItemList.push(CreatingInvoice.IdNewItem);
             CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
-            $('#saveID').removeClass('ui-state-disabled');
         }
+        $('#saveID').removeClass('ui-state-disabled');
     },
     DeleteItem: function (trId) {
         //        $(document.getElementById(trId)).remove();

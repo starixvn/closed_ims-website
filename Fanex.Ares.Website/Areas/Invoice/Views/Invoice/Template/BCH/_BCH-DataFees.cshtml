@@ -164,8 +164,10 @@
         <tr>
             <td class="border-TRBL" colspan="2" style='height: 250pt; mso-height-source: userset;
                 mso-height-alt: 7584; vertical-align: top; text-align: center; '>
-                <br />
-                1
+                  @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+                  {
+                       <br /> @i<br />
+                  }
             </td>
             <td class="border-TRBL" colspan="7" style='vertical-align: top; text-align: left;
                 padding-left: 5pt;'>
@@ -179,7 +181,14 @@
                     <br />
                         if (j == 0)
                         {
-                    @descript @detail.Description
+                            if (!detail.AdjustItem)
+                            {
+                                @descript @detail.Description
+                            }
+                            else
+                            {
+                                @detail.Description
+                            }
                         }
                         else
                         {
@@ -226,7 +235,7 @@
             </td>
             <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @totalAmount.Format(2)
+                @totalAmount.Format(2)&nbsp;
             </td>
         </tr>
         <tr>
