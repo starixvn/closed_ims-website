@@ -10,7 +10,6 @@
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
 }
-
 @functions {
     public string NegativeFormat(double input)
     {
@@ -22,9 +21,10 @@
     }
 }
 <style type="text/css">
-
+    
 </style>
-<div class="div-content" style="overflow: auto; width: 100%; padding-top: 20px; margin: 0px !important;">
+<div class="div-content" style="overflow: auto; width: 100%; padding-top: 20px; margin: 0px !important;
+    height: 700px;">
     <table id="invoiceTbl" border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;'>
         <tr>
             <td>
@@ -64,18 +64,20 @@
                                         <br />
                                         <br />
                                         <br />
-                                        <a onclick="Detail('@state.FromDate', '@state.ToDate')" style="text-decoration: underline; cursor: pointer; font-style: italic;">Detail</a>
+                                        <a onclick="Detail('@state.FromDate', '@state.ToDate')" style="text-decoration: underline; cursor: pointer; font-style: italic;">
+                                            Detail</a>
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
                                     <textarea  rows="2" cols="106" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)">
-                                    @if(j==0)
+                                    @if (j == 0)
                                     {
                                        @descript @detail.Description
                                     }
-                                    else{
+                                    else
+                                    {
                                     @detail.Description
-                                        }</textarea>
+                                    }</textarea>
                                 </td>
                                 @{
                                     index++;
@@ -86,8 +88,7 @@
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
                                         text-align: right;">
-                                       @MvcHtmlString.Create(NegativeFormat(detail.Amount))
-
+                                        @MvcHtmlString.Create(NegativeFormat(detail.Amount))
                                     </div>
                                 </td>
                             </tr>
@@ -100,19 +101,18 @@
                                     font-style: italic;">+New Item</a>
                             </td>
                             <td style="width: 55%; height: 30px; text-align: left; border-left: 0px solid black!important;">
-                                <a onclick="CreatingInvoice.AddItem()" style="text-decoration: underline; cursor: pointer; font-style: italic;">
-                                    +New Discount</a>
+                                <a onclick="CreatingInvoice.AddItem()" style="text-decoration: underline; cursor: pointer;
+                                    font-style: italic;">+New Discount</a>
                             </td>
                             <td style="width: 20%; text-align: center;">
                                 TOTAL AMOUNT
                             </td>
                             <td style="width: 15%; text-align: center; font-weight: bold;">
-                             <div style="width: 90%; height: 20px;  margin: 0px 5px 0px 10px;
-                                        text-align: right;">
-                                        <label id="totalAmount" style="font-weight: bold;"> EUR @MvcHtmlString.Create(NegativeFormat(totalAmount))
-                                        </label>
-                                    </div>
-                               
+                                <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
+                                    <label id="totalAmount" style="font-weight: bold;">
+                                        EUR @MvcHtmlString.Create(NegativeFormat(totalAmount))
+                                    </label>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -211,18 +211,14 @@
                         <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                             <div>
                                 <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
-                                @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp; @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
-                                    <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="PREVIEW"  onClick="Review()"/>&nbsp;&nbsp;&nbsp;
-                                    @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
+                                <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                    type="button" value="PREVIEW" onclick="Review()" />&nbsp;&nbsp;&nbsp; @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
                                     type="button" value="EXPORT TO PDF"  onClick="ExportPDF()"/>*@
-                                 <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
+                                <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
                                     type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
-                              
-                              
-                               @* <input id="pdfID" name="pdfID" type="button" value="pdfID" onclick="ExportPdf()" />
+                                @* <input id="pdfID" name="pdfID" type="button" value="pdfID" onclick="ExportPdf()" />
                                 <input id="pdfexcel" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="EXPORT ECXEL" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Xlsx })'"/>*@
                             </div>

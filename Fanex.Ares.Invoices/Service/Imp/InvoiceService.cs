@@ -211,7 +211,8 @@ using System.Text;
                             Description = row.Description,
                             Reference = row.Reference,
                             Amount = (double)row.TotalAmount,
-                            AdjustItem = false
+                            AdjustItem = false,
+                            InvoiceMonth = row.InvoiceMonth
                         });
                         oldMonth = invoiceMonth;
                         foreach (DateRange range in dateRangeList)
@@ -276,6 +277,7 @@ using System.Text;
                         invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
                         invoiceXmlFormat.Append("   <AdjustItem>" + statementDetail.AdjustItem + "</AdjustItem>");
+                        invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");
                         invoiceXmlFormat.Append("</InvoiceItem>");
                         totalAmount += statementDetail.Amount;
                     }
