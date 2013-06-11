@@ -281,7 +281,7 @@ var CreatingInvoice = {
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
             type: "POST",
             data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
-                        '&InvoiceNo=' + CreatingInvoice.InvoiceNo + '&InvoiceType=' + CreatingInvoice.InvoiceType,
+                        '&InvoiceNo=' + CreatingInvoice.InvoiceNo + '&InvoiceType=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
             success: function (data, textStatus, jqXHR) {
                 return data;
             },
