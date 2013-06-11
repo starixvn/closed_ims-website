@@ -2,6 +2,7 @@
 
 var settingManager;
 $(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     settingManager = new SettingManager();
     settingManager.initPage();
 
@@ -36,7 +37,8 @@ SettingManager = function () {
         MinimumFee: 8,
         WaivedDate: 9,
         WaivedMonth: 10,
-        Currency: 11
+        Currency: 11,
+        BasicOfBilling: 12
     }
 
     var _dlgAddNew = {
@@ -48,7 +50,8 @@ SettingManager = function () {
         intMinimumFee: null,
         dateWaivedDate: null,
         dateWaivedMonth: null,
-        intCurrency: null
+        intCurrency: null,
+        stringBasicOfBilling: null
     };
 
     var gridOptions = {};
@@ -77,6 +80,7 @@ SettingManager = function () {
         _dlgAddNew.dateWaivedDate = $('#WaivedDate', '#formAddNew');
         _dlgAddNew.dateWaivedMonth = $('#WaivedMonth', '#formAddNew');
         _dlgAddNew.intCurrency = $('#Currency', '#formAddNew');
+        _dlgAddNew.stringBasicOfBilling = $('#BasicOfBilling', '#formAddNew');
 
         _dlgAddNew.txtValidateTips = $('#validateTips');
     }
@@ -177,10 +181,9 @@ SettingManager = function () {
     }
 
     var GenerateData = function () {
-
         $.ajax({
             type: "POST",
-            url: window.rootUrl + "Admin/Setting/GetAllSettings",
+            url: domain + "Admin/Setting/GetAllSettings",
             dataType: "json",
             data: _table.formSearch.serialize(),
             beforeSend: function () {
@@ -219,6 +222,7 @@ SettingManager = function () {
                                 { Name: "WaivedDate", Value: item.WaivedDate },
                                 { Name: "WaivedMonth", Value: item.WaivedMonth },
                                 { Name: "Currency", Value: item.Currency },
+                                { Name: "BasicOfBilling", Value: item.BasicOfBilling },
                                 { Name: "Edit", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateEditButton(cell, cellFormated); } },
                                 { Name: "LicenseeProductCharge", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductChargeButton(cell, cellFormated); } },
                                 { Name: "LicenseeProductDiscount", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductDiscountButton(cell, cellFormated); } }
@@ -254,7 +258,8 @@ SettingManager = function () {
                     { HeaderText: "Minimum Fee", Width: 100, Name: "MinimumFee", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Waived Date", Width: 100, Name: "WaivedDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM YYYY" },
                     { HeaderText: "Waived Month", Width: 100, Name: "WaivedMonth", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Currency", Width: 100, Name: "Currency", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Currency", Width: 60, Name: "Currency", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "BasicOfBilling", Width: 150, Name: "BasicOfBilling", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Charge", Width: 100, Name: "LicenseeProductCharge", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Discount", Width: 100, Name: "LicenseeProductDiscount", HeaderAlign: "center", CellAlign: "left"}],
@@ -333,7 +338,7 @@ SettingManager = function () {
                 "Edit Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSearch.attr("Action", domain + "/admin/Setting/UpdateSetting");
+                        _table.formSearch.attr("Action", domain + "admin/Setting/UpdateSetting");
                         _table.dlgAddNew.find('.update').each(function () { $(this).show() });
                         _table.formSearch.submit();
 
@@ -406,18 +411,18 @@ SettingManager = function () {
                                     $('#PartnerRate', $row).val(data[i].PartnerRate * 100);
                                     $('#BillingCurrency', $row).val(data[i].BillingCurrency);
                                     $('#ChargeType', $row).val(data[i].ChargeType);
-                                    $('#EndDate', $row).val(moment(data[i].EndDate).format('DD MMM YYYY'));
+                                    $('#EndDate', $row).val(moment(data[i].EndDate).format('DD M YYYY'));
                                     $('#ONEWorksRate', $row).val(data[i].ONEWorksRate * 100);
-                                    $('#StartDate', $row).val(moment(data[i].StartDate).format('DD MMM YYYY'));
+                                    $('#StartDate', $row).val(moment(data[i].StartDate).format('DD M YYYY'));
                                 } else {
                                     var $newRow = addNewRow('formLicenseeProductCharge');
                                     $('#DistributorRate', $newRow).val(data[i].DistributorRate * 100);
                                     $('#PartnerRate', $newRow).val(data[i].PartnerRate * 100);
                                     $('#BillingCurrency', $newRow).val(data[i].BillingCurrency);
                                     $('#ChargeType', $newRow).val(data[i].ChargeType);
-                                    $('#EndDate' + (i + 1), $newRow).val(moment(data[i].EndDate).format('DD MMM YYYY'));
+                                    $('#EndDate' + (i + 1), $newRow).val(moment(data[i].EndDate).format('DD M YYYY'));
                                     $('#ONEWorksRate', $newRow).val(data[i].ONEWorksRate * 100);
-                                    $('#StartDate' + (i + 1), $newRow).val(moment(data[i].StartDate).format('DD MMM YYYY'));
+                                    $('#StartDate' + (i + 1), $newRow).val(moment(data[i].StartDate).format('DD M YYYY'));
                                 }
                             }
 
@@ -533,6 +538,8 @@ SettingManager = function () {
         _dlgAddNew.dateWaivedDate.val(moment(row[_mappingColumns.WaivedDate].Value).format('DD MMM YYYY'));
         _dlgAddNew.dateWaivedMonth.val(row[_mappingColumns.WaivedMonth].Value);
         _dlgAddNew.intCurrency.val(row[_mappingColumns.Currency].Value);
+        _dlgAddNew.stringBasicOfBilling.val(row[_mappingColumns.BasicOfBilling].Value);
+
     }
 
     var ValidateForm = function () {
