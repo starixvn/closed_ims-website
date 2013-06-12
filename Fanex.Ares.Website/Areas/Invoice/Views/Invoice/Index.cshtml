@@ -102,7 +102,7 @@
 {
     <script type="text/javascript">
         var operatorList = '@Json.Encode(ViewBag.ListOperator)';
-        operatorList = operatorList.replace(/&quot;/g, '"');
+        operatorList = operatorList.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
         var operatorListModel = jQuery.parseJSON(operatorList);
 
          var invoiceModel = '@Json.Encode(invoiceModel)';
