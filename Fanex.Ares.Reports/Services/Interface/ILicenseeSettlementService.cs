@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Criteria;
-using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-using Fanex.Ares.Report.ViewModels;
-using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Ares.Core.Extensions;
+using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 
 namespace Fanex.Ares.Report.Services.Interface
 {

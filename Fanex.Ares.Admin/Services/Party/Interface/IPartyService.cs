@@ -11,11 +11,11 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
 {
     using System.Collections;
     using System.Collections.Generic;
+    using System.Web;
     using System.Web.Mvc;
+    using Fanex.Ares.Admin.Criteria;
     using Fanex.Ares.Admin.Models.Party;
     using Fanex.NAP.Framework.Data;
-    using Fanex.Ares.Admin.Criteria;
-    using System.Web;
 
     public interface IPartyService
     {

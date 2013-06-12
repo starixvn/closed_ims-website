@@ -20,14 +20,13 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using Fanex.Ares.Admin.Services.Party.Interface;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
+    using System.Web.Mvc;
 
     public class SettingService : ServiceBase, ISettingService
     {
-        IAdminRepository _adminRepository;
 
         public SettingService()
         {
-            _adminRepository = new AdminRepository();
         }
 
         public IEnumerable<SettingModel> GetAllSettings(ICriteria criteria)
@@ -151,6 +150,54 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             }
 
             return rs;
+        }
+
+
+        public IEnumerable<System.Web.Mvc.SelectListItem> GetAllCurrenciesByLicensee(ICriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
+        }
+        
+        public IEnumerable<SelectListItem> GetProductsByLicenseeParty(ICriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["productid"]),
+                        Text = Convert.ToString(r["productname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return listProducts;
         }
     }
 }

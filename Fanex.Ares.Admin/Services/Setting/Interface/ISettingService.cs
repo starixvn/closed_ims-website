@@ -20,9 +20,9 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
     {
         IEnumerable<SettingModel> GetAllSettings(ICriteria criteria);
         Hashtable ExecuteCommand(ICriteria criteria);
-        IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria);
         IEnumerable<SelectListItem> GetProductsByLicenseeParty(ICriteria criteria);
         IEnumerable<LicenseeProductChargeModel> GetAllLicenseeProductCharge(ICriteria criteria);
         IEnumerable<LicenseeProductDiscountModel> GetAllLicenseeProductDiscount(ICriteria criteria);
+        IEnumerable<SelectListItem> GetAllCurrenciesByLicensee(ICriteria criteria);
     }
 }

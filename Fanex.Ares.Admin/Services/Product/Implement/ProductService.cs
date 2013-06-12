@@ -50,32 +50,6 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listproducts;
         }
 
-        //public IEnumerable<SelectListItem> GetAvailableOrSelectedParties(ICriteria criteria)
-        //{
-        //    var listAvailableLicensees = new List<SelectListItem>();
-        //    try
-        //    {
-        //        Func<IDataReader, SelectListItem> mappingFunc = r =>
-        //        {
-        //            var res = new SelectListItem
-        //            {
-        //                Value = r["PartyID"].ToString1(),
-        //                Text = r["PartyName"].ToString1()
-        //            };
-
-        //            return res;
-        //        };
-
-        //        listAvailableLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-
-        //    return listAvailableLicensees;
-        //}
-
         /// <summary>
         /// Using for Insert, Update, Delete
         /// </summary>

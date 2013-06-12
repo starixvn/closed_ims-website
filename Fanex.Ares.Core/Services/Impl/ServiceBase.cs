@@ -94,128 +94,9 @@ namespace Fanex.Ares.Core.Services.Impl
         }
 
         #region Get data for combobox
-        public IEnumerable<SelectListItem> GetAllLicensees()
-        {
-            IList<SelectListItem> listLicensees = new List<SelectListItem>();
-            try
-            {
-                Func<IDataReader, SelectListItem> mappingFunc = r =>
-                {
-                    return new SelectListItem
-                    {
-                        Value = Convert.ToString(r["LicenseeID"]),
-                        Text = Convert.ToString(r["BrandName"])
-                    };
-                };
+        
 
-                listLicensees = _repository.Fetch<SelectListItem>(new IMS_LicenseeSelCriteria(), mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-            return listLicensees;
-        }
-
-        public IEnumerable<SelectListItemEx> GetAllLicenseesEx()
-        {
-            IList<SelectListItemEx> listLicensees = new List<SelectListItemEx>();
-            try
-            {
-                Func<IDataReader, SelectListItemEx> mappingFunc = r =>
-                {
-                    return new SelectListItemEx
-                    {
-                        item = new SelectListItem()
-                        {
-                            Value = Convert.ToString(r["LicenseeID"]),
-                            Text = Convert.ToString(r["BrandName"])
-                        },
-                        extension = new Dictionary<string, object>() 
-                        { 
-                            { "LicenseeName", Convert.ToString(r["LicenseeName"]) } 
-                        }
-                    };
-                };
-
-                listLicensees = _repository.Fetch<SelectListItemEx>(new IMS_LicenseeSelCriteria(), mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-            return listLicensees;
-        }
-
-        public IEnumerable<SelectListItem> GetProductsByLicensee(IMS_LicenseeProductSelCriteria criteria)
-        {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
-            try
-            {
-                Func<IDataReader, SelectListItem> mappingFunc = r =>
-                {
-                    return new SelectListItem
-                    {
-                        Value = Convert.ToString(r["productid"]),
-                        Text = Convert.ToString(r["productname"])
-                    };
-                };
-
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-            return listProducts;
-        }
-
-        public IEnumerable<SelectListItem> GetProductsByLicenseeParty(ICriteria criteria)
-        {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
-            try
-            {
-                Func<IDataReader, SelectListItem> mappingFunc = r =>
-                {
-                    return new SelectListItem
-                    {
-                        Value = Convert.ToString(r["productid"]),
-                        Text = Convert.ToString(r["productname"])
-                    };
-                };
-
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-            return listProducts;
-        }
-
-        public IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria)
-        {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
-            try
-            {
-                Func<IDataReader, SelectListItem> mappingFunc = r =>
-                {
-                    return new SelectListItem
-                    {
-                        Value = Convert.ToString(r["currency"]),
-                        Text = Convert.ToString(r["currencyname"])
-                    };
-                };
-
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-
-            return listProducts;
-        }
+        
 
         public IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria)
         {
@@ -241,28 +122,6 @@ namespace Fanex.Ares.Core.Services.Impl
             return listProducts;
         }
 
-        public IEnumerable<SelectListItem> GetLicenseesByPartyID(ICriteria criteria)
-        {
-            IList<SelectListItem> listLicensees = new List<SelectListItem>();
-            try
-            {
-                Func<IDataReader, SelectListItem> mappingFunc = r =>
-                {
-                    return new SelectListItem
-                    {
-                        Value = r["LicenseeID"].ToString1(),
-                        Text = r["BrandName"].ToString1() != string.Empty ? r["BrandName"].ToString1() : r["LicenseeName"].ToString1()
-                    };
-                };
-
-                listLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-            }
-            return listLicensees;
-        }
 
         #endregion
     }

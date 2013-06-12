@@ -61,6 +61,7 @@
     <Compile Include="Controllers\LicenseeController.cs" />
     <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Criteria\AccountingUserCheckOnlineStatusCriteria.cs" />
+    <Compile Include="Criteria\IMS_LicenseeCurrencySelCriteria.cs" />
     <Compile Include="Criteria\IMS_AvailablePartySelByLicensee.cs" />
     <Compile Include="Criteria\IMS_LicenseeInfoSel.cs" />
     <Compile Include="Criteria\IMS_LicenseeInfoUpd.cs" />

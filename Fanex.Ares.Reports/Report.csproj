@@ -82,8 +82,14 @@
     <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_LicenseeBillingInfoSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_Rpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeCurrencySelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeProductSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
+    <Compile Include="Models\Licensee.cs" />
+    <Compile Include="Models\Operator.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implement\LicenseeSettlementService.cs" />
     <Compile Include="Services\Interface\ILicenseeSettlementService.cs" />

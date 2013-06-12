@@ -7,20 +7,21 @@
 //   <change who="Phillip.Truong" date="2013.06.03">Created</change>
 // </history>
 
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
-using System.Web.Mvc;
-using Fanex.Ares.Admin.Criteria;
-using Fanex.Ares.Admin.Criteria.Setting;
-using Fanex.Ares.Admin.Services.Party.Implement;
-using Fanex.Ares.Admin.Services.Party.Interface;
-using Fanex.Ares.Core.Extensions;
-using Fanex.Ares.Core.Web.Controllers;
-using Fanex.Ares.Core.Web.Security;
-using Fanex.NAP.Core.Web.Attribute;
+
 
 namespace Fanex.Ares.Admin.Controllers
 {
+    using System.Collections;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
+    using Fanex.Ares.Admin.Criteria;
+    using Fanex.Ares.Admin.Criteria.Setting;
+    using Fanex.Ares.Admin.Services.Party.Implement;
+    using Fanex.Ares.Admin.Services.Party.Interface;
+    using Fanex.Ares.Core.Extensions;
+    using Fanex.Ares.Core.Web.Controllers;
+    using Fanex.Ares.Core.Web.Security;
+    using Fanex.NAP.Core.Web.Attribute;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     [NapSuperAuth]
@@ -90,7 +91,7 @@ namespace Fanex.Ares.Admin.Controllers
             ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
             ViewBag.lstProducts = _productService.GetAllProducts(new IMS_ProductInfoSel()).ToSelectListItem("ProductID", "ProductName");
             ViewBag.lstParties = _partyService.GetAllParties(new IMS_PartyInfoSel()).ToSelectListItem("PartyID", "PartyName");
-            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
+            ViewBag.lstCurrencies = _settingService.GetAllCurrenciesByLicensee(new IMS_LicenseeCurrencySelCriteria());
 
             return PartialView();
         }
@@ -98,14 +99,14 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _LicenseeProductCharge()
         {
-            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
+            ViewBag.lstCurrencies = _settingService.GetAllCurrenciesByLicensee(new IMS_LicenseeCurrencySelCriteria());
             return PartialView();
         }
 
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _LicenseeProductDiscount()
         {
-            ViewBag.lstCurrencies = _settingService.GetCurrencyByLicensee(new Core.Criteria.IMS_LicenseeCurrencySelCriteria());
+            ViewBag.lstCurrencies = _settingService.GetAllCurrenciesByLicensee(new IMS_LicenseeCurrencySelCriteria());
             return PartialView();
         }
 

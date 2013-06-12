@@ -6,12 +6,8 @@
 // <history>
 //   <change who="Phillip.Truong" date="2013.4.23">Created</change>
 // </history>
-namespace Fanex.Ares.Core.Criteria
+namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.NAP.Framework.Data;
 
     public class IMS_LicenseeProductSelCriteria : CriteriaBase

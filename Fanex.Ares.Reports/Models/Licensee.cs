@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Fanex.Ares.Core.Models
+namespace Fanex.Ares.Report.Models
 {
     /// <summary>
     /// TODO: Update summary.

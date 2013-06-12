@@ -145,5 +145,29 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
 
             return rs;
         }
+
+
+        public IEnumerable<SelectListItem> GetLicenseesByPartyID(ICriteria criteria)
+        {
+            IList<SelectListItem> listLicensees = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["LicenseeID"]),
+                        Text = !string.IsNullOrEmpty(Convert.ToString(r["BrandName"])) ? Convert.ToString(r["BrandName"]) : Convert.ToString(r["LicenseeName"])
+                    };
+                };
+
+                listLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+            return listLicensees;
+        }
     }
 }

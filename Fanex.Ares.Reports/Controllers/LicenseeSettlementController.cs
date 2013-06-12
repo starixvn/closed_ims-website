@@ -17,12 +17,11 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using Fanex.Ares.Core.Criteria;
 using Fanex.Ares.Core.Extensions;
-using Fanex.Ares.Core.Models;
 using Fanex.Ares.Core.Utils;
 using Fanex.Ares.Core.Web.Controllers;
 using Fanex.Ares.Core.Web.Security;
 using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-
+using Fanex.Ares.Report.Models;
 using Fanex.Ares.Report.Services.Interface;
 using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 using Fanex.Common.Extensions;
