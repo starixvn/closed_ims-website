@@ -121,6 +121,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string SwiftCode { get; set; }
 
         public string CorrespondentBank { get; set; }
+        public string CorrespondentAccNo { get; set; }
+        public string CorrespondentSwiftCode { get; set; }
 
         public string AttnName { get; set; }
 

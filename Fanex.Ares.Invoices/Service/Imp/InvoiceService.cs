@@ -48,6 +48,8 @@ using System.Text;
                         IBAN = Convert.ToString(r["IBAN"]),
                         SwiftCode = Convert.ToString(r["SwiftCode"]),
                         CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
+                        CorrespondentAccNo = Convert.ToString(r["CorrespondentAccNo"]),
+                        CorrespondentSwiftCode = Convert.ToString(r["CorrespondentSwiftCode"]),
                         AttnName = Convert.ToString(r["AttnName"]),
                         To1 = Convert.ToString(r["To1"]),
                         To2 = Convert.ToString(r["To2"]),

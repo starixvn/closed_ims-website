@@ -30,11 +30,17 @@ namespace Fanex.Ares.Admin.Models.Party
 
         public string Benificiary { get; set; }
 
+        public string BenificiaryBank { get; set; }
+
         public string IBAN { get; set; }
 
         public string SwiftCode { get; set; }
 
         public string CorrespondentBank { get; set; }
+
+        public string CorrespondentAccNo { get; set; }
+
+        public string CorrespondentSwiftCode { get; set; }
 
         public string AttnName { get; set; }
 

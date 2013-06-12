@@ -230,7 +230,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divCorrespondentSwiftCode">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -240,7 +240,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divCorrespondentAccNo">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -281,6 +281,8 @@
         $('#divIBAN').html(CreatingInvoice.Operator.IBAN + "&nbsp;&nbsp;&nbsp;");
         $('#divSwiftCode').html(CreatingInvoice.Operator.SwiftCode + "&nbsp;&nbsp;&nbsp;");
         $('#divCorrespondent').html(CreatingInvoice.Operator.CorrespondentBank + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondentSwiftCode').html(CreatingInvoice.Operator.CorrespondentSwiftCode + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondentAccNo').html(CreatingInvoice.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
 
     function Review() {
