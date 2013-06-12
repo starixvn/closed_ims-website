@@ -22,12 +22,12 @@
 
     int limitRows = 0;
     for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+    {
+        Statement state = invoiceModel.StatementList[i];
+        for (int j = 0; j < state.StatementDetailList.Count; j++)
         {
-            Statement state = invoiceModel.StatementList[i];
-          for (int j = 0; j < state.StatementDetailList.Count; j++)
-          {
-              limitRows++;
-          }
+            limitRows++;
+        }
     }
     while (limitRows < 8)
     {
@@ -35,7 +35,7 @@
         {
             StatementID = 100000,
             StatementDetailList = emptyStatementList
-           
+
         });
         limitRows++;
     }
@@ -204,13 +204,13 @@
         {
             Statement state = invoiceModel.StatementList[i];
             string boderclass = string.Empty;
-        
-            
-          int lastStatementCount = invoiceModel.StatementList[invoiceModel.StatementList.Count-1].StatementDetailList.Count - 1;
+
+
+            int lastStatementCount = invoiceModel.StatementList[invoiceModel.StatementList.Count - 1].StatementDetailList.Count - 1;
             for (int j = 0; j < state.StatementDetailList.Count; j++)
             {
                 StatementDetail detail = state.StatementDetailList[j];
-                if (i == 0 && j==0)
+                if (i == 0 && j == 0)
                 {
                     boderclass = "border-RLT";
                 }
@@ -222,21 +222,21 @@
                 {
                     boderclass = "border-RL";
                 }
-                
-                int heightTmp = detail.DiscountItem == true ? 884:1284;
+
+                int heightTmp = detail.DiscountItem == true ? 884 : 1284;
                 
             <tr>
                 <td class="@boderclass" colspan="2" style='height: 30pt; mso-height-source: userset;
                 mso-height-alt: @heightTmp; vertical-align: top; text-align: center; '>
                     @if (state.StatementID != 100000)
                     {
-                        if (!detail.DiscountItem )
+                        if (!detail.DiscountItem)
                         {
                         <br /> @idDisplay<br />
-                        idDisplay++;
+                            idDisplay++;
                         }
-                      
-                            
+
+
                     }
                 </td>
                 <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
@@ -262,13 +262,13 @@
                 <td class="@boderclass" colspan="3" style='vertical-align: top;'>
                 </td>
                 <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
+                    <br />
                     @{totalAmount += detail.Amount;}
-                     @if (state.StatementID != 100000)
+                    @if (state.StatementID != 100000)
                     {
-                    <br />
-                    @MvcHtmlString.Create(NegativeFormat(detail.Amount))
-                    <br />
-                         }
+                        @MvcHtmlString.Create(NegativeFormat(detail.Amount))
+                    }
+                    &nbsp;<br />
                 </td>
             </tr>
             }
@@ -287,7 +287,7 @@
             </td>
             <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                 @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
+                @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
         <tr>
@@ -389,9 +389,9 @@
             </td>
         </tr>
         <tr>
-          <td class="fontSize12" colspan="12" style='height: 50pt; mso-height-source: userset;
+            <td class="fontSize12" colspan="12" style='height: 50pt; mso-height-source: userset;
                 mso-height-alt: 2084; vertical-align: middle;'>
-               @invoiceModel.Note
+                @invoiceModel.Note
             </td>
             @*<td class="fontSize12" colspan="3" style='height: 50pt; mso-height-source: userset;
                 mso-height-alt: 2084; vertical-align: middle;'>
