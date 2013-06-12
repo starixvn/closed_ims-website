@@ -267,6 +267,8 @@
     var invoiceInfo = '@Json.Encode(Model)';
     invoiceInfo = invoiceInfo.replace(/&quot;/g, '"');
     invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
+    var OrgInvoiceInfoModel =[];
+     OrgInvoiceInfoModel = $.extend(true, {}, invoiceInfoModel);
     if (invoiceInfoModel.StatementList.length == 0) {
         $('#saveID').addClass('ui-state-disabled');
 //        $('#reviewID').addClass('ui-state-disabled');
@@ -298,6 +300,8 @@
 //        invoiceInfoModel.StatementList = [];
         var link = '@Url.Action("PrintScreen", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
         link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
+         invoiceInfoModel = [];
+                        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
         //             location.href = link;
         var win = window.open(link, '_blank');
         win.focus();

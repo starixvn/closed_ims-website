@@ -174,69 +174,68 @@
         {
             Statement state = invoiceModel.StatementList[i];
             string boderclass = string.Empty;
-            if (i == 0)
+            int idDisplay = 1;
+          int lastStatementCount = invoiceModel.StatementList[invoiceModel.StatementList.Count-1].StatementDetailList.Count - 1;
+            for (int j = 0; j < state.StatementDetailList.Count; j++)
             {
-                boderclass = "border-RLT";
-            }
-            else if (i == invoiceModel.StatementList.Count - 1)
-            {
-                boderclass = "border-RLB";
-            }
-            else
-            {
-                boderclass = "border-RL";
-            }
-         
+                StatementDetail detail = state.StatementDetailList[j];
+                if (i == 0 && j==0)
+                {
+                    boderclass = "border-RLT";
+                }
+                else if ((i == invoiceModel.StatementList.Count - 1) && (j == lastStatementCount))
+                {
+                    boderclass = "border-RLB";
+                }
+                else
+                {
+                    boderclass = "border-RL";
+                }
             <tr>
                 <td class="@boderclass" colspan="2" style='height: 30pt; mso-height-source: userset;
                 mso-height-alt: 2084; vertical-align: top; text-align: center; '>
                     @if (state.StatementID != 100000)
-                    {<br /> @i<br />
+                    {
+                        <br /> @idDisplay<br />
+                        idDisplay++;
                     }
                 </td>
                 <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
                         padding-left: 5pt;'>
-                    @for (int j = 0; j < state.StatementDetailList.Count; j++)
+                    <br />
+                    @if (j == 0)
                     {
-                        StatementDetail detail = state.StatementDetailList[j];
-                        <br />
-                        if (j == 0)
+                        if (!detail.AdjustItem)
                         {
-                            if (!detail.AdjustItem)
-                            {
                         @descript @detail.Description
-                            }
-                            else
-                            {
-                        @detail.Description
-                            }
                         }
                         else
                         {
                         @detail.Description
                         }
-                        <br />
-                    
                     }
+                    else
+                    {
+                        @detail.Description
+                    }
+                    <br />
                 </td>
                 <td class="@boderclass" colspan="3" style='vertical-align: top;'>
                 </td>
                 <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
-                    @for (int j = 0; j < state.StatementDetailList.Count; j++)
-                    {
-                        StatementDetail detail = state.StatementDetailList[j];
-                        totalAmount += detail.Amount;
-                        <br />
-                        @detail.Amount.Format(2)
-                        <br />
-                    }
-                    @*  <br />
+                    @{totalAmount += detail.Amount;}
+                    <br />
+                    @detail.Amount.Format(2)
+                    <br />
+                </td>
+            </tr>
+            }
+@*  <br />
                 26,787.66
                 <br />
                 <br />
                 32,164.57*@
-                </td>
-            </tr>
+            
         }
         <tr>
             <td colspan="2" style='height: 30pt; border-left: 1pt solid black; mso-height-source: userset;
