@@ -265,7 +265,7 @@
    
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
     var invoiceInfo = '@Json.Encode(Model)';
-    invoiceInfo = invoiceInfo.replace(/&quot;/g, '"');
+    invoiceInfo = invoiceInfo.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
     invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
     var OrgInvoiceInfoModel =[];
      OrgInvoiceInfoModel = $.extend(true, {}, invoiceInfoModel);
