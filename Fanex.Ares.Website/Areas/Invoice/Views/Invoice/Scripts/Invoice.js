@@ -283,6 +283,7 @@ var CreatingInvoice = {
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
         CreatingInvoice.Products = produtID;
         CreatingInvoice.ProductsName = productName;
+    
     },
     GetNewInvoiceData: function () {
         if ($("#ddlOperator").prop("selectedIndex") == 0 || $("#ddlLicensee").prop("selectedIndex") == 0)
@@ -519,6 +520,7 @@ var CreatingInvoice = {
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
         }
         invoiceInfoModel.StatementList.push(statement);
+        invoiceInfoModel.Note = $('#noteId').val();
         return invoiceInfoModel.StatementList;
     }
 }
