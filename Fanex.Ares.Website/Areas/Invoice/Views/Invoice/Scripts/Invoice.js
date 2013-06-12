@@ -279,7 +279,11 @@ var CreatingInvoice = {
         CreatingInvoice.Products = produtID;
         CreatingInvoice.ProductsName = productName;
     },
-    CheckIsExistInvoiceNo: function () {
+    GetNewInvoiceData: function () {
+        if ($("#ddlOperator").prop("selectedIndex") == 0 || $("#ddlLicensee").prop("selectedIndex") == 0)
+            return false;
+
+        NapAres.disableInput();
         CreatingInvoice.GetFilteringInfo();
 
         $.ajax({
@@ -301,6 +305,7 @@ var CreatingInvoice = {
                             CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
+                            $('#parentContainer').html('');
                             NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
                             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                         },
@@ -310,11 +315,13 @@ var CreatingInvoice = {
                     });
                 }
                 else {
+                    $('#parentContainer').html('');
                     NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Invoice No is existed!' });
                     setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
+                $('#parentContainer').html('');
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
                 setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
@@ -322,15 +329,6 @@ var CreatingInvoice = {
                 NapAres.enableInput();
             }
         });
-
-    },
-    GetNewInvoiceData: function () {
-        if ($("#ddlOperator").prop("selectedIndex") == 0 || $("#ddlLicensee").prop("selectedIndex") == 0)
-            return false;
-
-        NapAres.disableInput();
-        CreatingInvoice.CheckIsExistInvoiceNo();
-
     },
     SaveInvoice: function () {
         CreatingInvoice.UpdateItem();
@@ -406,19 +404,22 @@ var CreatingInvoice = {
         return result;
     },
     AddItem: function (isDiscount) {
+        var displayID = invoiceInfoModel.StatementList.length + 1;
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
             var amount = $('#newItem_text_' + id).val();
+            if ($('#newItem_display_' + id).attr('discountItem') == "0") {
+                displayID++;
+            }
             if (amount == '') {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
                 return false;
             }
         }
         if (CreatingInvoice.isInsert) {
-            var displayID = CreatingInvoice.IdNewItemList.length + invoiceInfoModel.StatementList.length + 1;
             //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
-                                    <td  style="width: 10%; "><span  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
+                                    <td   style="width: 10%; "><span discountItem="' + (isDiscount == true ? 1 : 0) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
                                     <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
@@ -453,9 +454,10 @@ var CreatingInvoice = {
             var id = CreatingInvoice.IdNewItemList[i];
 
             var amount = $('#newItem_text_' + id).val();
-
-            $('#newItem_display_' + id).empty().html(index);
-            index++;
+            if ($('#newItem_display_' + id).attr('discountItem') == "0") {
+                $('#newItem_display_' + id).empty().html(index);
+                index++;
+            }
             if ($.isNumeric(amount) == false) {
                 $('#saveID').addClass('ui-state-disabled');
                 if (amount == '') {
@@ -495,6 +497,7 @@ var CreatingInvoice = {
             statementDetail.Description = $('textarea#newItem_des_' + id).val();
             statementDetail.Reference = $('textarea#newItem_ref_' + id).val();
             statementDetail.Amount = $('#newItem_text_' + id).val();
+            statementDetail.DiscountItem = $('#newItem_display_' + id).attr('discountItem');
             statement.StatementDetailList.push(statementDetail);
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
         }
