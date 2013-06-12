@@ -50,8 +50,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         ProductID = Convert.ToInt32(r["ProductID"]),
                         ProductName = Convert.ToString(r["ProductName"]),
                         WaivedDate = Convert.ToDateTime(r["WaivedDate"] == System.DBNull.Value ? DateTime.MinValue : r["WaivedDate"]),
-                        WaivedMonth = Convert.ToInt32(r["WaivedMonth"] == System.DBNull.Value ? 0 : r["WaivedMonth"]),
-                        BasicOfBilling = Convert.ToString(r["BasicOfBilling"] == System.DBNull.Value ? string.Empty : r["BasicOfBilling"])
+                        WaivedMonth = Convert.ToInt32(r["WaivedMonth"] == System.DBNull.Value ? 0 : r["WaivedMonth"])
                     };
 
                     return res;
@@ -85,7 +84,8 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         EndDate = Convert.ToDateTime(r["EndDate"] == System.DBNull.Value ? DateTime.MinValue : r["EndDate"]),
                         LicenseeID = Convert.ToInt32(r["LicenseeID"]),
                         PartyID = Convert.ToInt32(r["PartyID"]),
-                        ProductID = Convert.ToInt32(r["ProductID"])
+                        ProductID = Convert.ToInt32(r["ProductID"]),
+                        Description = Convert.ToString(r["Description"] == System.DBNull.Value ? string.Empty : r["Description"])
                     };
 
                     return res;
