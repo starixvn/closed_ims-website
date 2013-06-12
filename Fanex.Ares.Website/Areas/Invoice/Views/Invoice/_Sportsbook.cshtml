@@ -67,11 +67,11 @@
         <tr>
             <td colspan="5" style='height: 12.75pt;'>
             </td>
-            <td colspan="2">
+            <td colspan="2" style="vertical-align:top;">
                 Basis of Billing:
             </td>
             <td class="boldInfor" colspan="8">
-                15% of Net Win
+                 @MvcHtmlString.Create(licensee.LicenseeInfor.BasisOfBilling.Replace(";", "<br/>"))
             </td>
         </tr>
         <tr>

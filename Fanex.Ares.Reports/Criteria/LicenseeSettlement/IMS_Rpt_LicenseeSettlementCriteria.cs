@@ -25,7 +25,8 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         public int Currency { get; set; }
         public int BaseCurrency { get; set; }
         public string BaseCurrencyName { get; set; }
-
+        [SpParam(Ignored = true)]
+        public int PartyId { get; set; }
         [SpParam(Ignored = true)]
         public int Month { get; set; }
         [SpParam(Ignored = true)]

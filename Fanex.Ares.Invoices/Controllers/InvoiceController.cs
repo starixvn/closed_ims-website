@@ -220,7 +220,7 @@ namespace Fanex.Ares.Invoice.Controllers
             criteria.BaseCurrency = invoice.Currency;
             criteria.BaseCurrencyName = invoice.CurrencyName;
             criteria.Currency = 0;
-
+            criteria.PartyId = invoice.Operator.PartyID;
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
 
@@ -248,7 +248,6 @@ namespace Fanex.Ares.Invoice.Controllers
                     criteria.FromDate = dateRangeList[i].StartDate;
                     criteria.Product =  Converter.To<int>( ProductID[j]);
                     criteria.ProductName = Products[j];
-
                     var model = _reportService.GenerateReport(criteria);
 
                     model.LicenseeInfor.FromDate = criteria.FromDate;

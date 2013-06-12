@@ -139,6 +139,7 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
                 licenseeInfoCriteria.ProductId = criteria.Product;
+                licenseeInfoCriteria.PartyId = criteria.PartyId;
                 model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
                 model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
                 var licenseeItem = listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
