@@ -139,11 +139,24 @@ html {
     border-left: 1pt solid black;
     border-bottom: 1pt solid black;
 }
+
+.border-LT
+{
+    border-left: 1pt solid black;
+    border-top: 1pt solid black;
+}
 .border-RB
 {
     border-right: 1pt solid black;
     border-bottom: 1pt solid black;
 }
+
+.border-RT
+{
+    border-right: 1pt solid black;
+    border-top: 1pt solid black;
+}
+
 .border-RL
 {
     border-right: 1pt solid black;

@@ -73,24 +73,21 @@
             <td colspan="7" rowspan="2" style='height: 60pt; vertical-align: top; margin-left: 30pt;'>
                 <img style="display:inline-block;" width="300" height="200" v:shapes="Graphics_x0020_1" src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/BCH.png")"/>
             </td>
-            <td colspan="6" style='height: 60pt; vertical-align: top; mso-height-source: userset;
+            <td colspan="8" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 2500; white-space: normal;'>
                 <br />
-                @invoiceModel.Operator.To1 @* <span style="font-weight: bold;">ARIAS, FEBREGA & FABREGA TRUST CO.,</span>
+                @invoiceModel.Operator.To1 
                 <br />
-                LIMITED, 325 Waterfront Dive, Omar Hodge Building,
-                <br />
-                2nd Floor, Wickam's, Road Town, Tortola,*@
             </td>
-            <td colspan="3">
+            <td colspan="1">
             </td>
         </tr>
         <tr>
-            <td class="fontSize12" colspan="6" style='height: 10pt; vertical-align: bottom; mso-height-source: userset;
+            <td class="fontSize12" colspan="8" style='height: 10pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 400;'>
                 Correspondance:
             </td>
-            <td colspan="3">
+            <td colspan="1">
             </td>
         </tr>
         <tr>
@@ -99,8 +96,6 @@
             </td>
             <td class="fontSize12" colspan="9" style='height: 25pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 800;'>
-                @* 31st Floor,<br />
-                Makadi city*@
                 @invoiceModel.Operator.To2
             </td>
         </tr>
@@ -110,17 +105,25 @@
             </td>
         </tr>
         <tr>
-            <td class="border-TRBL" colspan="10" rowspan="5" style='height: 30pt; padding-left: 5px;
-                white-space: normal; vertical-align: middle;'>
-                <span class="bold-red" style="mso-spacerun: yes;">TO: @invoiceModel.Licensee.CompanyName
+            <td class="border-LT" colspan="2" rowspan="3" style='height: 30pt; padding-left: 5px;
+                white-space: normal; vertical-align: top;'>
+                 <br />
+                <span class="bold-red" style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;TO: 
                 </span>
                 <br />
-                <span>@invoiceModel.Licensee.To1</span> @* <span style="mso-spacerun: yes">Inchalla, Le Val, Aldernet, </span>
-                <br />
-                <span style="mso-spacerun: yes">Channel Island, GY9 3ULE </span>*@
+                <span></span>
                 <br />
                 <br />
-                <span style="mso-spacerun: yes;">ATTN: @invoiceModel.Licensee.AttnName</span>
+            </td>
+             <td class="border-RT" colspan="8" rowspan="3" style='height: 30pt; padding-left: 5px;
+                white-space: normal; vertical-align: top;'>
+                 <br />
+                <span class="bold-red" style="mso-spacerun: yes;">
+                @invoiceModel.Licensee.CompanyName
+                </span>
+                <br />
+                <span> @invoiceModel.Licensee.To1</span>
+                <br />
                 <br />
             </td>
             <td colspan="3" style='height: 20pt; margin-left: 50pt; font-weight: bold; padding-left: 100px;'>
@@ -134,6 +137,7 @@
                 @invoiceModel.InvoiceNo
             </td>
         </tr>
+              
         <tr>
             <td colspan="3" style='margin-left: 50pt; padding-left: 100px;'>
                 DATE
@@ -161,13 +165,25 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3" style='margin-left: 50pt; padding-left: 100px;'>
+            <td class="border-LB" colspan="2" rowspan="2" style='height: 30pt; padding-left: 5px;
+                white-space: normal; vertical-align: top;'>
+                
+                <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;ATTN: </span>
+                <br />
+            </td>
+             <td class="border-RB" colspan="8" rowspan="2" style='height: 30pt; padding-left: 5px;
+                white-space: normal; vertical-align: top;'>
+                
+                <span style="mso-spacerun: yes;"> @invoiceModel.Licensee.AttnName</span>
+                <br />
+            </td>
+          <td colspan="3" style='margin-left: 50pt; padding-left: 100px; '>
                 CURRENCY
             </td>
             <td>
                 :
             </td>
-            <td class="border-B" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
+            <td class="border-B" colspan="2" style='height: 24pt; text-align: center; mso-height-source: userset;
                 mso-height-alt: 700; color: Red; font-weight: bold;'>
                 @invoiceModel.CurrencyName
             </td>
