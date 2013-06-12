@@ -433,6 +433,7 @@ var CreatingInvoice = {
             CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
         }
         $('#saveID').removeClass('ui-state-disabled');
+        $('#pdfID').addClass('ui-state-disabled');
     },
     DeleteItem: function (trId) {
         //        $(document.getElementById(trId)).remove();
@@ -441,10 +442,12 @@ var CreatingInvoice = {
             return value != trId;
         });
         if (CreatingInvoice.IdNewItemList.length == 0) {
-            $('#saveID').addClass('ui-state-disabled')
+            $('#saveID').addClass('ui-state-disabled');
+            $('#pdfID').removeClass('ui-state-disabled');
         }
         else {
-            $('#saveID').removeClass('ui-state-disabled')
+            $('#saveID').removeClass('ui-state-disabled');
+            $('#pdfID').addClass('ui-state-disabled');
         }
 
         CreatingInvoice.RecalculatorTotal();

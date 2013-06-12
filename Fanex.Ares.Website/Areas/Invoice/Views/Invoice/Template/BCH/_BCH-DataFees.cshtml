@@ -18,7 +18,17 @@
         DiscountItem = false,
         AdjustItem = true
     });
-    while (count < 5)
+
+    int limitRows = 0;
+    for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+        {
+            Statement state = invoiceModel.StatementList[i];
+          for (int j = 0; j < state.StatementDetailList.Count; j++)
+          {
+              limitRows++;
+          }
+    }
+    while (limitRows < 8)
     {
         invoiceModel.StatementList.Add(new Statement
         {
@@ -26,7 +36,7 @@
             StatementDetailList = emptyStatementList
            
         });
-        count++;
+        limitRows++;
     }
 }
 <div class="div-content InvoiceTable" style="overflow: auto; width: 95%; margin-left: 30px;">
