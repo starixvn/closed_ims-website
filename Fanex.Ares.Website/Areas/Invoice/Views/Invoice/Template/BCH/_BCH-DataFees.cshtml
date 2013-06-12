@@ -7,18 +7,37 @@
     string domain = HtmlHelperExtensions.GetFullDomainURL();
     var invoiceModel = new InvoiceModel();
     invoiceModel = Model;
-    int index = 0;
     double totalAmount = 0;
+    int idDisplay = 1;
     string descript = "Software & Data Licensing & Data transmission fees for ";
     int count = invoiceModel.StatementList.Count;
-                    //while(count < 5)
-                    //{
-                    //    invoiceModel.StatementList.Add(new Statement
-                    //    {
-                    //     StatementID = 100000,
-                    //    });
-                    //    count++;
-                    //}
+
+    List<StatementDetail> emptyStatementList = new List<StatementDetail>();
+    emptyStatementList.Add(new StatementDetail
+    {
+        DiscountItem = false,
+        AdjustItem = true
+    });
+
+    int limitRows = 0;
+    for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+        {
+            Statement state = invoiceModel.StatementList[i];
+          for (int j = 0; j < state.StatementDetailList.Count; j++)
+          {
+              limitRows++;
+          }
+    }
+    while (limitRows < 8)
+    {
+        invoiceModel.StatementList.Add(new Statement
+        {
+            StatementID = 100000,
+            StatementDetailList = emptyStatementList
+           
+        });
+        limitRows++;
+    }
 }
 <div class="div-content InvoiceTable" style="overflow: auto; width: 95%; margin-left: 30px;">
     <table border="0" cellpadding="0" cellspacing="0" style='border-collapse: collapse;
@@ -33,7 +52,7 @@
         <col style='mso-width-source: userset; mso-width-alt: 4500; width: 70pt'>
         <col style='mso-width-source: userset; mso-width-alt: 1200; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 1200; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 1200; width: 50pt'>
+        <col style='mso-width-source: userset; mso-width-alt: 1600; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 1200; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 100; width: 100pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 100; width: 10pt'>
@@ -174,69 +193,74 @@
         {
             Statement state = invoiceModel.StatementList[i];
             string boderclass = string.Empty;
-            if (i == 0)
+        
+            
+          int lastStatementCount = invoiceModel.StatementList[invoiceModel.StatementList.Count-1].StatementDetailList.Count - 1;
+            for (int j = 0; j < state.StatementDetailList.Count; j++)
             {
-                boderclass = "border-RLT";
-            }
-            else if (i == invoiceModel.StatementList.Count - 1)
-            {
-                boderclass = "border-RLB";
-            }
-            else
-            {
-                boderclass = "border-RL";
-            }
-         
+                StatementDetail detail = state.StatementDetailList[j];
+                if (i == 0 && j==0)
+                {
+                    boderclass = "border-RLT";
+                }
+                else if ((i == invoiceModel.StatementList.Count - 1) && (j == lastStatementCount))
+                {
+                    boderclass = "border-RLB";
+                }
+                else
+                {
+                    boderclass = "border-RL";
+                }
+                
+                int heightTmp = detail.DiscountItem == true ? 884:1284;
+                
             <tr>
                 <td class="@boderclass" colspan="2" style='height: 30pt; mso-height-source: userset;
-                mso-height-alt: 2084; vertical-align: top; text-align: center; '>
+                mso-height-alt: @heightTmp; vertical-align: top; text-align: center; '>
                     @if (state.StatementID != 100000)
-                    {<br /> @i<br />
+                    {
+                        if (!detail.DiscountItem )
+                        {
+                        <br /> @idDisplay<br />
+                        idDisplay++;
+                        }
+                      
+                            
                     }
                 </td>
                 <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
                         padding-left: 5pt;'>
-                    @for (int j = 0; j < state.StatementDetailList.Count; j++)
+                    <br />
+                    @if (j == 0)
                     {
-                        StatementDetail detail = state.StatementDetailList[j];
-                        <br />
-                        if (j == 0)
+                        if (!detail.AdjustItem)
                         {
-                            if (!detail.AdjustItem)
-                            {
                         @descript @detail.Description
-                            }
-                            else
-                            {
-                        @detail.Description
-                            }
                         }
                         else
                         {
                         @detail.Description
                         }
-                        <br />
-                    
                     }
+                    else
+                    {
+                        @detail.Description
+                    }
+                    <br />
                 </td>
                 <td class="@boderclass" colspan="3" style='vertical-align: top;'>
                 </td>
                 <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
-                    @for (int j = 0; j < state.StatementDetailList.Count; j++)
+                    @{totalAmount += detail.Amount;}
+                     @if (state.StatementID != 100000)
                     {
-                        StatementDetail detail = state.StatementDetailList[j];
-                        totalAmount += detail.Amount;
-                        <br />
-                        @detail.Amount.Format(2)
-                        <br />
-                    }
-                    @*  <br />
-                26,787.66
-                <br />
-                <br />
-                32,164.57*@
+                    <br />
+                    @detail.Amount.Format(2)
+                    <br />
+                         }
                 </td>
             </tr>
+            }
         }
         <tr>
             <td colspan="2" style='height: 30pt; border-left: 1pt solid black; mso-height-source: userset;

@@ -117,7 +117,6 @@ var CreatingInvoice = {
     InvoiceID: 0,
     IdNewItem: 0,
     messageTimeOut: 4000,
-    invoiceInfoModel: [],
     isInsert: true,
     IdNewItemList: [],
     init: function () {
@@ -335,6 +334,7 @@ var CreatingInvoice = {
         });
     },
     SaveInvoice: function () {
+
         CreatingInvoice.UpdateItem();
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
@@ -372,10 +372,13 @@ var CreatingInvoice = {
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
                         invoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
+                        OrgInvoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
                         NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
+                        invoiceInfoModel = [];
+                        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
                     }
                     else {
-                        NapAres.Helper.showMsgBox(data);
+                        NapAres.Helper.showMsgBox({ ErrorCode: ErrorCode.ErrCode, ErrorMsg: data.ErrorMessage });
                     }
                 }
                 else {
@@ -412,7 +415,7 @@ var CreatingInvoice = {
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
             var amount = $('#newItem_text_' + id).val();
-            if ($('#newItem_display_' + id).attr('discountItem') == "0") {
+            if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 displayID++;
             }
             if (amount == '') {
@@ -423,7 +426,7 @@ var CreatingInvoice = {
         if (CreatingInvoice.isInsert) {
             //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
-                                    <td   style="width: 10%; "><span discountItem="' + (isDiscount == true ? 1 : 0) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
+                                    <td   style="width: 10%; "><span discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
                                     <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
@@ -434,6 +437,7 @@ var CreatingInvoice = {
             CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
         }
         $('#saveID').removeClass('ui-state-disabled');
+        $('#pdfID').addClass('ui-state-disabled');
     },
     DeleteItem: function (trId) {
         //        $(document.getElementById(trId)).remove();
@@ -442,10 +446,12 @@ var CreatingInvoice = {
             return value != trId;
         });
         if (CreatingInvoice.IdNewItemList.length == 0) {
-            $('#saveID').addClass('ui-state-disabled')
+            $('#saveID').addClass('ui-state-disabled');
+            $('#pdfID').removeClass('ui-state-disabled');
         }
         else {
-            $('#saveID').removeClass('ui-state-disabled')
+            $('#saveID').removeClass('ui-state-disabled');
+            $('#pdfID').addClass('ui-state-disabled');
         }
 
         CreatingInvoice.RecalculatorTotal();
@@ -458,7 +464,7 @@ var CreatingInvoice = {
             var id = CreatingInvoice.IdNewItemList[i];
 
             var amount = $('#newItem_text_' + id).val();
-            if ($('#newItem_display_' + id).attr('discountItem') == "0") {
+            if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 $('#newItem_display_' + id).empty().html(index);
                 index++;
             }
