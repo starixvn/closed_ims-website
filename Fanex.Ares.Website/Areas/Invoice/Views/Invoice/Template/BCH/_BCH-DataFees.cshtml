@@ -2,6 +2,7 @@
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @using DNAide.Core;
+@using Fanex.Common;
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
     string domain = HtmlHelperExtensions.GetFullDomainURL();
@@ -37,6 +38,16 @@
            
         });
         limitRows++;
+    }
+}
+@functions {
+    public string NegativeFormat(double input)
+    {
+        string output = string.Empty;
+
+        output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
+
+        return output;
     }
 }
 <div class="div-content InvoiceTable" style="overflow: auto; width: 95%; margin-left: 30px;">
@@ -255,7 +266,7 @@
                      @if (state.StatementID != 100000)
                     {
                     <br />
-                    @detail.Amount.Format(2)
+                    @MvcHtmlString.Create(NegativeFormat(detail.Amount))
                     <br />
                          }
                 </td>
@@ -276,7 +287,7 @@
             </td>
             <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @totalAmount.Format(2)&nbsp;
+                 @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
         <tr>
