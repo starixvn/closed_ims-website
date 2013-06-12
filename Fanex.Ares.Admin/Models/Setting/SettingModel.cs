@@ -41,7 +41,5 @@ namespace Fanex.Ares.Admin.Models.Setting
         public int Currency { get; set; }
 
         public string CurrencyName { get; set; }
-
-        public string BasicOfBilling { get; set; }
     }
 }

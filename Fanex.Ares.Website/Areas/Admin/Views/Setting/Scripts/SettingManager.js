@@ -50,8 +50,7 @@ SettingManager = function () {
         intMinimumFee: null,
         dateWaivedDate: null,
         dateWaivedMonth: null,
-        intCurrency: null,
-        stringBasicOfBilling: null
+        intCurrency: null
     };
 
     var gridOptions = {};
@@ -80,8 +79,6 @@ SettingManager = function () {
         _dlgAddNew.dateWaivedDate = $('#WaivedDate', '#formAddNew');
         _dlgAddNew.dateWaivedMonth = $('#WaivedMonth', '#formAddNew');
         _dlgAddNew.intCurrency = $('#Currency', '#formAddNew');
-        _dlgAddNew.stringBasicOfBilling = $('#BasicOfBilling', '#formAddNew');
-
         _dlgAddNew.txtValidateTips = $('#validateTips');
     }
 
@@ -222,7 +219,6 @@ SettingManager = function () {
                                 { Name: "WaivedDate", Value: item.WaivedDate },
                                 { Name: "WaivedMonth", Value: item.WaivedMonth },
                                 { Name: "Currency", Value: item.Currency },
-                                { Name: "BasicOfBilling", Value: item.BasicOfBilling },
                                 { Name: "Edit", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateEditButton(cell, cellFormated); } },
                                 { Name: "LicenseeProductCharge", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductChargeButton(cell, cellFormated); } },
                                 { Name: "LicenseeProductDiscount", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductDiscountButton(cell, cellFormated); } }
@@ -259,7 +255,6 @@ SettingManager = function () {
                     { HeaderText: "Waived Date", Width: 100, Name: "WaivedDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM YYYY" },
                     { HeaderText: "Waived Month", Width: 100, Name: "WaivedMonth", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Currency", Width: 60, Name: "Currency", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "BasicOfBilling", Width: 150, Name: "BasicOfBilling", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Charge", Width: 100, Name: "LicenseeProductCharge", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Discount", Width: 100, Name: "LicenseeProductDiscount", HeaderAlign: "center", CellAlign: "left"}],
@@ -331,7 +326,7 @@ SettingManager = function () {
         _table.dlgAddNew.find('.update').each(function () { $(this).hide() });
         _table.dlgAddNew.dialog({
             autoOpen: false,
-            height: 600,
+            height: 500,
             width: 500,
             modal: true,
             buttons: {
@@ -411,18 +406,20 @@ SettingManager = function () {
                                     $('#PartnerRate', $row).val(data[i].PartnerRate * 100);
                                     $('#BillingCurrency', $row).val(data[i].BillingCurrency);
                                     $('#ChargeType', $row).val(data[i].ChargeType);
-                                    $('#EndDate', $row).val(moment(data[i].EndDate).format('DD M YYYY'));
+                                    $('#EndDate', $row).val(moment(data[i].EndDate).format('DD MMM YYYY'));
                                     $('#ONEWorksRate', $row).val(data[i].ONEWorksRate * 100);
-                                    $('#StartDate', $row).val(moment(data[i].StartDate).format('DD M YYYY'));
+                                    $('#StartDate', $row).val(moment(data[i].StartDate).format('DD MMM YYYY'));
+                                    $('#Description', $row).val(data[i].Description);
                                 } else {
                                     var $newRow = addNewRow('formLicenseeProductCharge');
                                     $('#DistributorRate', $newRow).val(data[i].DistributorRate * 100);
                                     $('#PartnerRate', $newRow).val(data[i].PartnerRate * 100);
                                     $('#BillingCurrency', $newRow).val(data[i].BillingCurrency);
                                     $('#ChargeType', $newRow).val(data[i].ChargeType);
-                                    $('#EndDate' + (i + 1), $newRow).val(moment(data[i].EndDate).format('DD M YYYY'));
+                                    $('#EndDate' + (i + 1), $newRow).val(moment(data[i].EndDate).format('DD MMM YYYY'));
                                     $('#ONEWorksRate', $newRow).val(data[i].ONEWorksRate * 100);
-                                    $('#StartDate' + (i + 1), $newRow).val(moment(data[i].StartDate).format('DD M YYYY'));
+                                    $('#StartDate' + (i + 1), $newRow).val(moment(data[i].StartDate).format('DD MMM YYYY'));
+                                    $('#Description', $newRow).val(data[i].Description);
                                 }
                             }
 
@@ -433,7 +430,7 @@ SettingManager = function () {
                         alert('fail');
                     },
                     complete: function () {
-                        $('.date').each(function () { $(this).datepicker({ dateFormat: 'd MM yy' }) });
+                        $('.date').each(function () { $(this).datepicker({ dateFormat: 'd M yy' }) });
                         NapAres.enableInput();
 
                     }
@@ -538,7 +535,6 @@ SettingManager = function () {
         _dlgAddNew.dateWaivedDate.val(moment(row[_mappingColumns.WaivedDate].Value).format('DD MMM YYYY'));
         _dlgAddNew.dateWaivedMonth.val(row[_mappingColumns.WaivedMonth].Value);
         _dlgAddNew.intCurrency.val(row[_mappingColumns.Currency].Value);
-        _dlgAddNew.stringBasicOfBilling.val(row[_mappingColumns.BasicOfBilling].Value);
 
     }
 
@@ -566,7 +562,7 @@ var addNewRow = function (formID) {
         $cloneRow.find('input[name="StartDate"]:eq(0)').attr('id', 'StartDate' + rowNum.toString());
         $cloneRow.find('input[name="EndDate"]:eq(0)').attr('id', 'EndDate' + rowNum.toString());
         $lastRow.after($cloneRow);
-        $('.date').removeClass('hasDatepicker').datepicker({ dateFormat: 'd MM yy' });
+        $('.date').removeClass('hasDatepicker').datepicker({ dateFormat: 'd M yy' });
     }
 
     return $cloneRow;
@@ -617,7 +613,7 @@ var tableToXML = function (formID) {
             xmlData += partyID.toString();
             xmlData += "</PartyID>";
             $(this).find('td').each(function () {
-                $(this).find('input, select').each(function () {
+                $(this).find('input, select, textarea').each(function () {
                     var name = $(this).attr('name');
                     var value = $(this).val();
                     xmlData += "<" + name + ">";

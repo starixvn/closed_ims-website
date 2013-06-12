@@ -35,5 +35,7 @@ namespace Fanex.Ares.Admin.Models.Setting
         public int ChargeType { get; set; }
 
         public int BillingCurrency { get; set; }
+
+        public string Description { get; set; }
     }
 }
