@@ -146,6 +146,7 @@ namespace Fanex.Ares.Invoice.Controllers
             criteria.BaseCurrency = invoice.Currency;
             criteria.BaseCurrencyName = invoice.CurrencyName;
             criteria.Currency = 0;
+            criteria.PartyId = invoice.Operator.PartyID;
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
             dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
@@ -280,7 +281,7 @@ namespace Fanex.Ares.Invoice.Controllers
             criteria.BaseCurrency = invoice.Currency;
             criteria.BaseCurrencyName = invoice.CurrencyName;
             criteria.Currency = 0;
-
+            criteria.PartyId = invoice.Operator.PartyID;
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
 
