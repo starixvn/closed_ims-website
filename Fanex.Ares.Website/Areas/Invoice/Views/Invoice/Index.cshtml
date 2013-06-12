@@ -106,7 +106,7 @@
         var operatorListModel = jQuery.parseJSON(operatorList);
 
          var invoiceModel = '@Json.Encode(invoiceModel)';
-        invoiceModel = invoiceModel.replace(/&quot;/g, '"');
+         invoiceModel = invoiceModel.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
         var invoiceInfoModel = jQuery.parseJSON(invoiceModel);
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';

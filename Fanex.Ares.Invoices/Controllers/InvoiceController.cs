@@ -215,6 +215,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             InvoiceModel imodel = new InvoiceModel();
 
+            invoiceModel = System.Net.WebUtility.HtmlDecode(invoiceModel);
             InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
