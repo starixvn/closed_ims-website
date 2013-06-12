@@ -71,7 +71,7 @@
                 Basis of Billing:
             </td>
             <td class="boldInfor" colspan="8">
-                  @MvcHtmlString.Create(licensee.LicenseeInfor.BasisOfBilling.Replace(";", "<br/>"))
+                  @MvcHtmlString.Create((string.Format("{0}", string.IsNullOrEmpty(licensee.LicenseeInfor.BasisOfBilling) ? string.Empty : licensee.LicenseeInfor.BasisOfBilling.Replace(";", "<br/>"))))
             </td>
         </tr>
         <tr>

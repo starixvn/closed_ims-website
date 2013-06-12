@@ -299,7 +299,7 @@
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
 //        invoiceInfoModel.StatementList = [];
         var link = '@Url.Action("PrintScreen", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
-        link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
+        link = link.replace("invoiceInfoModel", $.URLEncode(JSON.stringify(invoiceInfoModel)));
          invoiceInfoModel = [];
                         invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
         //             location.href = link;
@@ -352,5 +352,4 @@ function Detail(fromDate, toDate) {
 
 }
 
-   
 </script>
