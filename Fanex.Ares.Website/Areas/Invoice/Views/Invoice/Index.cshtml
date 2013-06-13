@@ -31,17 +31,17 @@
     <div class="filter-form">
         <div class="filter-row">
             <div class="filter-cell">
-                <div class="lbl-field col_6  align-right">
+                <div class="lbl-field col_5  align-right">
                     Operator/Distributor
                 </div>
                 <div class="edit-field col_6">
                       <select id="ddlOperator" style="width: 170px; "></select>
                 </div>
-                <div class="lbl-field col_3 align-right">
+                <div class="lbl-field col_4 align-right">
                     @Labels.Licensee
                 </div>
-                <div class="edit-field col_4">
-                    <select id="ddlLicensee" style="width: 100px; "></select>
+                <div class="edit-field col_6">
+                    <select id="ddlLicensee" style="width: 140px; "></select>
                 </div>
                 <div id="fromTopickerplugin">
                 </div>
@@ -49,12 +49,18 @@
         </div>
         <div class="filter-row">
             <div class="filter-cell">
-                <div class="lbl-field col_6 align-right">
+                <div class="lbl-field col_5 align-right">
                     Invoice Type
                 </div>
                 <div id="divInvoiceType" class="edit-field col_6">
                     <select id="ddlInvoiceType">
                     </select>
+                </div>
+                <div class="lbl-field col_4 align-right">
+                    Invoice No.
+                </div>
+                <div class="edit-field col_6 align-left">
+                    <input style="width: 140px; " type="text" name="invoiceNo" id="invoiceNo" />
                 </div>
                 <div class="lbl-field col_3 align-right">
                     Currency
@@ -63,12 +69,7 @@
                 @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListExchangeRate), new { @class = "alpha auto-width" })
                    
                 </div>
-                <div class="lbl-field col_3 align-right">
-                    Invoice No.
-                </div>
-                <div class="edit-field col_5 align-left">
-                    <input type="text" name="invoiceNo" id="invoiceNo" />
-                </div>
+                
                 <div id="duteDatepickerplugin">
                 </div>
                 <div class="submit col_4">

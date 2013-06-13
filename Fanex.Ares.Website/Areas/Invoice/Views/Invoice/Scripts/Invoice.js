@@ -488,10 +488,12 @@ var CreatingInvoice = {
                 $('#saveID').addClass('ui-state-disabled');
                 if (amount == '') {
                     NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
+                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                     CreatingInvoice.isInsert = false;
                     return false;
                 }
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 CreatingInvoice.isInsert = false;
                 return false;
             }
