@@ -24,7 +24,7 @@ namespace Fanex.Workbooks
             Landscape, Portrait
         }
 
-        public MemoryStream CreateDocument(List<string> htmlContent, List<string> listCssFilePath, DocumentType format, List<PageOrientation> pageOrientation)
+        public MemoryStream CreateDocument(List<string> htmlContent, List<string> listCssFilePath, DocumentType format, List<PageOrientation> pageOrientation, List<bool> IsAutoFitList)
         {
 
             //var css = LoadCss(listCssFilePath);
@@ -51,6 +51,7 @@ namespace Fanex.Workbooks
                 sheet.DocumentType = format.Equals(DocumentType.Pdf)
                                                ? WorkBookManagerDocumentType.Pdf
                                                : WorkBookManagerDocumentType.Xlsx;
+                sheet.IsAutoFit = IsAutoFitList[i];
                 sheetList.Add(sheet);
             }
 
