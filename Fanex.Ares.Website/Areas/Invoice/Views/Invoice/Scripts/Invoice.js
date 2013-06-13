@@ -382,14 +382,17 @@ var CreatingInvoice = {
                     }
                     else {
                         NapAres.Helper.showMsgBox({ ErrorCode: ErrorCode.ErrCode, ErrorMsg: data.ErrorMessage });
+                        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                     }
                 }
                 else {
                     NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
+                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
