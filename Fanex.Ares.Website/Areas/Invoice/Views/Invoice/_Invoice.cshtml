@@ -307,10 +307,21 @@
             type: "POST",
             success: function (data, textStatus, jqXHR) {
                 if (data) {
-                    var reviewInvoice = window.open("", "window");
-                    reviewInvoice.document.write(data);
-                    reviewInvoice.document.title = CreatingInvoice.InvoiceName;
-                    reviewInvoice.focus();                   
+                    var win = open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
+	                win.focus();
+
+                    if($.browser.msie){
+                        win.load = new function(){
+                            win.document.write(data);
+                            win.document.title = CreatingInvoice.InvoiceName;
+                        }
+                    }
+                    else{
+                        $(win).load(function(){ 
+                            win.document.write(data);
+                            win.document.title = CreatingInvoice.InvoiceName;
+                        });
+                    }
                 }
             },
             error: function(){
