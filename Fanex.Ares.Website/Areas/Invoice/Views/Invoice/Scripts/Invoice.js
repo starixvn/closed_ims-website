@@ -364,7 +364,15 @@ var CreatingInvoice = {
                         $('#btnGenerate').addClass('ui-state-disabled');
                         $('#pdfID').removeClass('ui-state-disabled');
 
-                        $('#ddlOperator').addClass('ui-state-disabled');
+//                        $('#ddlOperator').addClass('ui-state-disabled');
+//                        $('#ddlLicensee').addClass('ui-state-disabled');
+//                        $('#dropDownListId1').addClass('ui-state-disabled');
+//                        $('#FromDatePicker').addClass('ui-state-disabled');
+//                        $('#ToDatePicker').addClass('ui-state-disabled');
+//                        $('#divInvoiceType').addClass('ui-state-disabled');
+//                        $('#CurrencyID').addClass('ui-state-disabled');
+                        //                        $('#invoiceNo').addClass('ui-state-disabled');
+//                        $('#ddlOperator').attr('disabled','disabled');
                         $('#ddlLicensee').addClass('ui-state-disabled');
                         $('#dropDownListId1').addClass('ui-state-disabled');
                         $('#FromDatePicker').addClass('ui-state-disabled');

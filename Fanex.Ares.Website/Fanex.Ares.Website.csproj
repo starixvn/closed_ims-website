@@ -674,7 +674,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-DataFees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\BHC_Boping.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\COZNI LIMITED\COZNI LIMITED.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\Lupine\Lupine.cshtml" />
