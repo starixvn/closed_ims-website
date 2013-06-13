@@ -515,6 +515,7 @@ var CreatingInvoice = {
                     formatNumber = "(" + numeral(parseInt(amount) * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
                 }
                 else {
+                    $('#newItem_text_' + id).removeClass("red");
                     formatNumber = numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
                 }
 
