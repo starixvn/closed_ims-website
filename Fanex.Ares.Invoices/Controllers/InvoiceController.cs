@@ -261,14 +261,14 @@ namespace Fanex.Ares.Invoice.Controllers
             return View("_Review", invoice);
         }
 
-        public ActionResult Detail(string invoiceModel)
+        public ActionResult Detail(InvoiceModel invoice)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             InvoiceModel imodel = new InvoiceModel();
 
-            InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
+            //InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
