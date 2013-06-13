@@ -221,7 +221,6 @@
             Statement state = invoiceModel.StatementList[i];
             string boderclass = string.Empty;
 
-
             int lastStatementCount = invoiceModel.StatementList[invoiceModel.StatementList.Count - 1].StatementDetailList.Count - 1;
             for (int j = 0; j < state.StatementDetailList.Count; j++)
             {
@@ -252,6 +251,7 @@
                             idDisplay++;
                         }
 
+                        
 
                     }
                 </td>
@@ -295,39 +295,26 @@
             </td>
             <td colspan="7">
             </td>
-            <td colspan="3" class="border-TRBL" rowspan="3" style="text-align: center; vertical-align: middle;
-                font-weight: bold">
+            <td colspan="3" class="border-TRBL" style="text-align: center; vertical-align: middle;
+                font-weight: bold mso-height-source: userset; mso-height-alt: 1084;height: 50pt;">
            TOTAL
             </td>
             <td colspan="1"  >
                 
             </td>
-            <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
+            <td class="border-RTB" colspan="3"  style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
+                @invoiceModel.CurrencyName &nbsp; @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
-        <tr>
-            <td colspan="12"  class="border-L" style=''>
-            </td>
-          
-        </tr>
-        <tr>
-            <td class="border-L" colspan="2" style='height: 30pt; mso-height-source: userset;
-                mso-height-alt: 884;'>
-            </td>
-            <td colspan="7">
-            </td>
-            <td colspan="3">
-            </td>
-        </tr>
+      
         <tr>
             <td class="border-RLT" colspan="9" style='vertical-align: top; padding-left: 5px;'>
                 <br />
                 <span style="font-weight: bold;">For Telegraphic Transfer payments</span><br />
             </td>
             <td class="border-RLT" colspan="7" style='height: 40pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 1084; padding-left: 5px;'>
+                mso-height-alt: 1584; padding-left: 5px;'>
                 <br />
                 Prepared By:
             </td>
