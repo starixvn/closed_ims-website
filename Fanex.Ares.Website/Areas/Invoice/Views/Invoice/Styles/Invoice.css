@@ -72,12 +72,3 @@
     cursor:pointer;
     margin-left: 51px;
 }
-
-.red
-{
-    color: Red;
-}
-
-#filter-bar .filter-form {
-    padding: 10px 0 !important;
-}

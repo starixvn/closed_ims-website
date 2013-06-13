@@ -322,6 +322,9 @@ namespace Fanex.Ares.Invoice.Controllers
             return View("_Review", invoice);
         }
 
-       
+        public ActionResult ReviewInvoice()
+        {
+            return new EmptyResult();
+        }
     }
 }
