@@ -286,43 +286,43 @@
         $('#divCorrespondentAccNo').html(CreatingInvoice.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
 
-    function Review() {
-        CreatingInvoice.UpdateItem();
-        invoiceInfoModel.Operator = CreatingInvoice.Operator;
-        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-        invoiceInfoModel.Product = CreatingInvoice.Products;
-        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-        $.ajax({
-            url: domain + "Invoice/Invoice/PrintScreen",
-            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
-            contentType: 'application/json',
-            type: "POST",
-            success: function (data, textStatus, jqXHR) {
-                if (data) {
-                    var reviewInvoice = window.open("", "window");
-                    reviewInvoice.document.write(data);
-                    reviewInvoice.document.title = CreatingInvoice.InvoiceName;
-                    reviewInvoice.focus();                   
-                }
-            },
-            error: function(){
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+  
+  function Review() {
+    CreatingInvoice.UpdateItem();
+    invoiceInfoModel.Operator = CreatingInvoice.Operator;
+    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+    invoiceInfoModel.Product = CreatingInvoice.Products;
+    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    $.ajax({
+        url: domain + "Invoice/Invoice/PrintScreen",
+        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+        contentType: 'application/json',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            if (data) {
+                var reviewInvoice = window.open("", ("window" + new Date().getMilliseconds()));
+                reviewInvoice.document.write(data);
+                reviewInvoice.document.title = CreatingInvoice.InvoiceName;
+                reviewInvoice.focus();
             }
-        });
+        },
+        error: function () {
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        }
+    });
 
-        invoiceInfoModel = [];
-        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
-    }
-
+    invoiceInfoModel = [];
+    invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
+}
   
 
     function ExportPDF() {
