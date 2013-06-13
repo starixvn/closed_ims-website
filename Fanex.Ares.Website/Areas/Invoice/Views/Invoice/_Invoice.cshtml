@@ -307,9 +307,8 @@
             type: "POST",
             success: function (data, textStatus, jqXHR) {
                 if (data) {
-                    var win = open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
-	                win.focus();
-
+                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
+	               
                     if($.browser.msie){
                         win.load = new function(){
                             win.document.write(data);
@@ -377,9 +376,8 @@ function Detail(fromDate, toDate) {
             type: "POST",
             success: function (data, textStatus, jqXHR) {
                 if (data) {
-                    var win = open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
-	                win.focus();
-
+                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
+	              
                     if($.browser.msie){
                         win.load = new function(){
                             win.document.write(data);
