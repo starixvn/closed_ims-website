@@ -534,7 +534,7 @@ var CreatingInvoice = {
             };
             statementDetail.Description = $('textarea#newItem_des_' + id).val();
             statementDetail.Reference = $('textarea#newItem_ref_' + id).val();
-            statementDetail.Amount = $('#newItem_text_' + id).val();
+            statementDetail.Amount = $('#newItem_display_' + id).attr('amount') ;
             statementDetail.DiscountItem = $('#newItem_display_' + id).attr('discountItem');
             statement.StatementDetailList.push(statementDetail);
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
