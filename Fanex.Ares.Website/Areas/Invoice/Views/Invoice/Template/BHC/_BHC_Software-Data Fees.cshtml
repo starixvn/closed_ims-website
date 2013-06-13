@@ -73,8 +73,8 @@
             <td colspan="7" rowspan="2" style='height: 60pt; vertical-align: top; margin-left: 30pt;'>
                 <img style="display:inline-block;" width="600" height="96 v:shapes="Graphics_x0020_1"  src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Boping-logo.png")"/>
             </td>
-            <td colspan="8" class="invoiceFont" style='height: 60pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 2500; white-space: normal;font-size:30pt !important; text-align: right;'>
+            <td colspan="8" style='height: 60pt; vertical-align: top; mso-height-source: userset;
+                mso-height-alt: 2500; white-space: normal;font-size:40pt !important; text-align: right;'>
                 INVOICE
                
             </td>
@@ -295,11 +295,11 @@
             </td>
             <td colspan="7">
             </td>
-            <td colspan="3" class="border-LTB" rowspan="3" style="text-align: center; vertical-align: middle;
+            <td colspan="3" class="border-TRBL" rowspan="3" style="text-align: center; vertical-align: middle;
                 font-weight: bold">
            TOTAL
             </td>
-            <td colspan="1" >
+            <td colspan="1"  >
                 
             </td>
             <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
@@ -324,7 +324,7 @@
         <tr>
             <td class="border-RLT" colspan="9" style='vertical-align: top; padding-left: 5px;'>
                 <br />
-                <span class="bold">For Telegraphic Transfer payments</span><br />
+                <span style="font-weight: bold;">For Telegraphic Transfer payments</span><br />
             </td>
             <td class="border-RLT" colspan="7" style='height: 40pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 1084; padding-left: 5px;'>
@@ -335,26 +335,26 @@
         <tr>
             <td class="border-LB" colspan="4" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                 Beneficiary<br />
-                Beneficiary Bank<br />
                 Account Number<br />
                 IBAN<br />
-                Swiftcode
-                <br />
                 <br />
                 Correspondent<br />
-                Swiftcode<br />
+                Swiftcode
+                <br />
                 Account Number<br />
+                Beneficiary Bank<br />
+                Swiftcode<br />
             </td>
             <td class="border-B" colspan="5" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                 :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
                 <br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
             </td>
             <td class="border-RL" colspan="7" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 1584; padding-left: 5px;'>
