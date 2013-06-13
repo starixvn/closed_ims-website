@@ -150,7 +150,7 @@ namespace Fanex.Ares.Invoice.Controllers
             //dateRangeList = invoice.DateRangeList;
             var excelCssFilePath = new List<string>();
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
+            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "-" + invoice.InvoiceType.InvoiceTypeName };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
@@ -222,7 +222,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             //dateRangeList = invoice.DateRangeList;
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
+            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "-" + invoice.InvoiceType.InvoiceTypeName};
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
