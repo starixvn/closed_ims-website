@@ -92,10 +92,11 @@ namespace Fanex.Ares.Report.Controllers
             PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
             var excelCssFilePath = new List<string>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
-
+            List<bool> isAutoFitList = new List<bool>();
+            isAutoFitList.Add(true);
             var workbook = new WorkbookManager();
 
-            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
+            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList, isAutoFitList);
             if (ms != null)
             {
                 // return the filestream

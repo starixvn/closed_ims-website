@@ -32,6 +32,9 @@ namespace Fanex.Workbooks.FanexWorkbook {
         private string HtmlContentField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsAutoFitField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private Fanex.Workbooks.FanexWorkbook.WorkBookManagerPageOrientation PageOrientationField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
@@ -79,6 +82,19 @@ namespace Fanex.Workbooks.FanexWorkbook {
                 if ((object.ReferenceEquals(this.HtmlContentField, value) != true)) {
                     this.HtmlContentField = value;
                     this.RaisePropertyChanged("HtmlContent");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsAutoFit {
+            get {
+                return this.IsAutoFitField;
+            }
+            set {
+                if ((this.IsAutoFitField.Equals(value) != true)) {
+                    this.IsAutoFitField = value;
+                    this.RaisePropertyChanged("IsAutoFit");
                 }
             }
         }

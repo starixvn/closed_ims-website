@@ -12,6 +12,7 @@
       <xs:element minOccurs="0" name="CssContent" nillable="true" type="xs:string" />
       <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Business" minOccurs="0" name="DocumentType" type="q1:WorkBookManager.DocumentType" />
       <xs:element minOccurs="0" name="HtmlContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsAutoFit" type="xs:boolean" />
       <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Business" minOccurs="0" name="PageOrientation" type="q2:WorkBookManager.PageOrientation" />
     </xs:sequence>
   </xs:complexType>

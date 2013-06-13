@@ -150,12 +150,15 @@ namespace Fanex.Ares.Invoice.Controllers
             //dateRangeList = invoice.DateRangeList;
             var excelCssFilePath = new List<string>();
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "-" + invoice.InvoiceType.InvoiceTypeName };
+            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
             htmlList.Add(html);
+
+            List<bool> isAutoFitList = new List<bool>();
+            isAutoFitList.Add(true);
 
             invoice.HTMLReportList.Add(html);
 
@@ -183,6 +186,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         htmlList.Add(html);
                         invoice.HTMLReportList.Add(html);
                         excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
+                        isAutoFitList.Add(true);
                     }
                 }
 
@@ -190,7 +194,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             var workbook = new WorkbookManager();
             WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
-            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
+            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList, isAutoFitList);
             if (ms != null)
             {
                 // return the filestream
