@@ -255,6 +255,7 @@
         </tr>
     </table>
 </div>
+<div id="333"></div>
 <script type="text/javascript">
     function setbg(color, id) {
         document.getElementById("styled_" + id).style.background = color
@@ -299,14 +300,27 @@
         invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-//        invoiceInfoModel.StatementList = [];
-        var link = '@Url.Action("PrintScreen", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
-        link = link.replace("invoiceInfoModel", $.URLEncode(JSON.stringify(invoiceInfoModel)));
-         invoiceInfoModel = [];
-                        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
-        //             location.href = link;
-        var win = window.open(link, '_blank');
-        win.focus();
+        $.ajax({
+            url: domain + "Invoice/Invoice/PrintScreen",
+            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    var reviewInvoice = window.open("", "window");
+                    reviewInvoice.document.write(data);
+                    reviewInvoice.document.title = CreatingInvoice.InvoiceName;
+                    reviewInvoice.focus();                   
+                }
+            },
+            error: function(){
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+            }
+        });
+
+        invoiceInfoModel = [];
+        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
     }
 
   

@@ -137,9 +137,6 @@ namespace Fanex.Ares.Invoice.Controllers
             List<DateRange> dateRangeList = new List<DateRange>();
             IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
-            InvoiceModel imodel = new InvoiceModel();
-
-            //InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
             InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
@@ -208,15 +205,10 @@ namespace Fanex.Ares.Invoice.Controllers
             return new EmptyResult();
         }
 
-        public ActionResult PrintScreen(string invoiceModel)
+        public ActionResult PrintScreen(InvoiceModel invoice)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
-
-            InvoiceModel imodel = new InvoiceModel();
-
-            invoiceModel = System.Net.WebUtility.HtmlDecode(invoiceModel);
-            InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
