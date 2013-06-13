@@ -346,25 +346,36 @@
 
     
 function Detail(fromDate, toDate) {
-     CreatingInvoice.UpdateItem();
-        invoiceInfoModel.Operator = CreatingInvoice.Operator;
-        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = fromDate;
-        invoiceInfoModel.ToDate = toDate;
-        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-        invoiceInfoModel.Product = CreatingInvoice.Products;
-        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-//        invoiceInfoModel.StatementList = [];
-        var link = '@Url.Action("Detail", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
-        link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
-        //             location.href = link;
-        var win = window.open(link, '_blank');
-        win.focus();
+    invoiceInfoModel.Operator = CreatingInvoice.Operator;
+    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+    invoiceInfoModel.Product = CreatingInvoice.Products;
+    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    $.ajax({
+        url: domain + "Invoice/Invoice/Detail",
+        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+        contentType: 'application/json',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            if (data) {
+                var reviewInvoice = window.open("", ("window" + new Date().getMilliseconds()));
+                reviewInvoice.document.write(data);
+                reviewInvoice.document.title = CreatingInvoice.InvoiceName;
+                reviewInvoice.focus();
+            }
+        },
+        error: function () {
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        }
+    });
 
 }
 

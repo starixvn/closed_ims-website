@@ -283,7 +283,7 @@ var CreatingInvoice = {
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
         CreatingInvoice.Products = produtID;
         CreatingInvoice.ProductsName = productName;
-    
+
     },
     GetNewInvoiceData: function () {
         if ($("#ddlOperator").prop("selectedIndex") == 0 || $("#ddlLicensee").prop("selectedIndex") == 0)
@@ -414,7 +414,7 @@ var CreatingInvoice = {
         return result;
     },
     AddItem: function (isDiscount) {
-      
+
         var displayID = invoiceInfoModel.StatementList.length + 1;
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
@@ -430,7 +430,7 @@ var CreatingInvoice = {
         if (CreatingInvoice.isInsert) {
             //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
-                                    <td   style="width: 10%; "><span discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
+                                    <td   style="width: 10%; "><span amount="" discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
                                     <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
@@ -443,7 +443,7 @@ var CreatingInvoice = {
             $('#reviewID').addClass('ui-state-disabled');
             $('#pdfID').addClass('ui-state-disabled');
         }
-       
+
     },
     DeleteItem: function (trId) {
         //        $(document.getElementById(trId)).remove();
@@ -466,10 +466,20 @@ var CreatingInvoice = {
         NapAres.Helper.hideMsgBox();
         var totalAmountTmp = _totalAmount;
         var index = invoiceInfoModel.StatementList.length + 1;
+
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
 
             var amount = $('#newItem_text_' + id).val();
+            if ($.isNumeric(amount) == true) {
+                $('#newItem_display_' + id).attr('amount', amount);
+            }
+        }
+
+        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
+            var id = CreatingInvoice.IdNewItemList[i];
+
+            var amount = $('#newItem_display_' + id).attr('amount');
             if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 $('#newItem_display_' + id).empty().html(index);
                 index++;
@@ -486,7 +496,17 @@ var CreatingInvoice = {
                 return false;
             }
             if (amount != '') {
-                //                $('#newItem_text_' + id).empty().val(numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER));
+            var formatNumber = '';
+                if (parseInt(amount) < 0) {
+                    $('#newItem_text_' + id).addClass("red");
+                    formatNumber ="("+ numeral(parseInt(amount)*-1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
+                }
+                else {
+                    formatNumber = numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
+                }
+                
+                $('#newItem_text_' + id).empty().val(formatNumber);
+                //                $('#newItem_text_' + id).empty().val(NegativeFormat(amount));
                 totalAmountTmp += parseFloat(amount);
             }
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
