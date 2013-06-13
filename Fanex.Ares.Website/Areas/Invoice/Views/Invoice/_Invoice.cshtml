@@ -357,11 +357,11 @@
 
     
 function Detail(fromDate, toDate) {
-     CreatingInvoice.UpdateItem();
+ CreatingInvoice.UpdateItem();
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = fromDate;
-        invoiceInfoModel.ToDate = toDate;
+        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
         invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
         invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
         invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
@@ -370,12 +370,35 @@ function Detail(fromDate, toDate) {
         invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-//        invoiceInfoModel.StatementList = [];
-        var link = '@Url.Action("Detail", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
-        link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
-        //             location.href = link;
-        var win = window.open(link, '_blank');
-        win.focus();
+        $.ajax({
+            url: domain + "Invoice/Invoice/Detail",
+            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    var win = open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
+	                win.focus();
+
+                    if($.browser.msie){
+                        win.load = new function(){
+                            win.document.write(data);
+                            win.document.title = CreatingInvoice.InvoiceName;
+                        }
+                    }
+                    else{
+                        $(win).load(function(){ 
+                            win.document.write(data);
+                            win.document.title = CreatingInvoice.InvoiceName;
+                        });
+                    }
+                }
+            },
+            error: function(){
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+            }
+        });
 
 }
 
