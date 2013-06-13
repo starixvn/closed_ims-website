@@ -14,7 +14,7 @@ function GetInvoiceType() {
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceType",
         type: "POST",
-        data: 'licenseeID=' + $("#ddlLicensee").val(),
+        data: 'licenseeID=' + CreatingInvoice.FilterControls.ddlLicensee.val(),
         success: function (result) {
             var invoiceTypeList = [];
             var productList = [];
@@ -33,7 +33,7 @@ function GetInvoiceType() {
                     Id: "#ddlInvoiceType" + result[i].InvoiceTypeID,
                     Value: result[i].InvoiceTypeID,
                     Text: result[i].InvoiceTypeName,
-                    Checked: (i==0 ? true: false) ,
+                    Checked: (i == 0 ? true : false),
                     Enable: true,
                     CssClass: "",
                     Items: productList
@@ -47,21 +47,21 @@ function GetInvoiceType() {
                 showCheckAll: false,
                 maxHeight: 705,
                 minWidth: 170,
-                showFooter:false,
+                showFooter: false,
                 listData: invoiceTypeList,
                 hasOptGroup: true,
                 onLeave: function () {
-                
+
                 }, // when all selected is made and datalist collapsed
                 onCheck: function () {
-                  
+                    
                 }, // when an individual checkbox is clicked 
                 onOpen: function () { }, // when the select menu is opened 
                 onCheckAll: function () {
-                  
+
                 }, // when the check all link is clicked 
                 onUncheckAll: function () {
-                  
+
                 }, // when the uncheck all link is clicked 
                 selectedList: 0,
                 isCheckAll: false,
@@ -70,6 +70,15 @@ function GetInvoiceType() {
                 multiple: false
                 //selectedList: 4
             });
+
+            $("#divInvoiceType input[type='radio']").change(function () {
+                GetInvoiceNo();
+                CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            });
+
+            
+            GetInvoiceNo();
         },
         error: function () {
             try { parent.jQuery.unblockUI(); } catch (e) { }
@@ -79,17 +88,20 @@ function GetInvoiceType() {
         }
     });
 
-    this.GetInvoiceNo();
+
 }
 
 function GetInvoiceNo() {
+
     NapAres.disableInput();
+    CreatingInvoice.GetSelectedInvoiceType();
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceNo",
         type: "POST",
-        data: 'PartyId=' + $('#ddlOperator').val() + '&LicenseeId=' + $('#ddlLicensee').val() + '&InvoiceTypeID=1',
+        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val() + '&LicenseeId=' + 
+            CreatingInvoice.FilterControls.ddlLicensee.val() + '&InvoiceTypeID=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
         success: function (data, textStatus, jqXHR) {
-            $('#invoiceNo').val(data);
+            CreatingInvoice.FilterControls.txtInvoiceNo.val(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading InvoiceNo fail.' });
@@ -119,6 +131,19 @@ var CreatingInvoice = {
     messageTimeOut: 4000,
     isInsert: true,
     IdNewItemList: [],
+    FilterControls: {
+        ddlOperator: $('#ddlOperator'),
+        ddlLicensee: $('#ddlLicensee'),
+        ddlSpecialDate: null,
+        cldFromDate: null,
+        cldToDate: null,
+        divInvoiceType: $('#divInvoiceType'),
+        ddlCurrency: $('#CurrencyID'),
+        txtInvoiceNo: $('#invoiceNo'),
+        cldDueDate: null,
+        btnGenerate: $('#btnGenerate'),
+        btnNewInvoice: $('#btnNewInvoice')
+    },
     init: function () {
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "quickchoose",
@@ -141,6 +166,8 @@ var CreatingInvoice = {
                 TextboxCss: "edit-field col_6"
             },
             onSelectDatePicker: function () {
+                CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             },
             dropDownList:
         {
@@ -164,71 +191,83 @@ var CreatingInvoice = {
                 TextboxCss: "edit-field col_6"
             },
             onSelectDatePicker: function () {
-                CreatingInvoice.DueDate = $('#DueDatePicker').val();
-                $('#saveID').removeClass('ui-state-disabled');
-                //            $('#btnGenerate').addClass('ui-state-disabled');
-                $('#pdfID').addClass('ui-state-disabled');
+                CreatingInvoice.DueDate = CreatingInvoice.FilterControls.cldDueDate.val();
+                $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             }
         });
 
-        $('#btnGenerate').button();
-        $('#btnGenerate').addClass('ui-state-disabled');
-        $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+        CreatingInvoice.FilterControls.cldFromDate = $('#FromDatePicker');
+        CreatingInvoice.FilterControls.cldToDate = $('#ToDatePicker');
+        CreatingInvoice.FilterControls.cldDueDate = $('#DueDatePicker');
+        CreatingInvoice.FilterControls.ddlSpecialDate = $('#dropDownListId1');
 
-        $('#btnNewInvoice').button();
-        //        $('#btnNewInvoice').click(function () {
-        //           
+        CreatingInvoice.FilterControls.btnGenerate.button();
+        CreatingInvoice.FilterControls.btnGenerate.click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
 
-        //        });
+        CreatingInvoice.FilterControls.btnNewInvoice.button();
 
-        $("#ddlLicensee").change(function () {
-            if ($("#ddlLicensee").prop("selectedIndex") != 0) {
+        CreatingInvoice.FilterControls.ddlLicensee.change(function () {
+            if (CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") != 0) {
                 GetInvoiceType();
-                $('#btnGenerate').removeClass('ui-state-disabled');
+                CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             }
             else {
                 $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                $('#invoiceNo').val('');
+                CreatingInvoice.FilterControls.txtInvoiceNo.val('');
             }
         });
 
-        $("#ddlOperator").change(function () {
-            $('#ddlLicensee').html('');
-            $('#ddlLicensee').append('<option value="0">Please Select One!</option>');
-            if ($("#ddlOperator").prop("selectedIndex") != 0) {
+        CreatingInvoice.FilterControls.ddlOperator.change(function () {
+            CreatingInvoice.FilterControls.ddlLicensee.html('');
+            CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+            if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") != 0) {
                 CreatingInvoice.GetLicensees();
             }
             else {
                 $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                $('#invoiceNo').val('');
+                CreatingInvoice.FilterControls.txtInvoiceNo.val('');
             }
+        });
+
+        CreatingInvoice.FilterControls.txtInvoiceNo.change(function () {
+            CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        });
+
+        CreatingInvoice.FilterControls.ddlCurrency.change(function () {
+            CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
         //------binding data
 
-        $('#ddlOperator').append('<option value="0">Please Select One!</option>');
+        CreatingInvoice.FilterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
         $.each(operatorListModel, function (i, item) {
-            $('#ddlOperator').append('<option value="'
+            CreatingInvoice.FilterControls.ddlOperator.append('<option value="'
                                  + item.PartyID
                                  + '">'
                                  + item.PartyFullName
                                  + '</option>');
         });
-        $('#ddlLicensee').append('<option value="0">Please Select One!</option>');
+        CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
         NapAres.NapAresPopUp = $('#dialog-popup');
+
+
     },
     GetLicensees: function () {
         NapAres.disableInput();
         $.ajax({
             url: domain + "Invoice/Invoice/GetLicenseesByParty",
             type: "POST",
-            data: 'PartyId=' + $('#ddlOperator').val(),
+            data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val(),
             success: function (data, textStatus, jqXHR) {
                 if (data && data.length > 0) {
-                    //                    $('#ddlLicensee').append('<option value="0">Please Select a Licensee</option>');
+                    //                    CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select a Licensee</option>');
                     $.each(data, function (i, item) {
-                        $('#ddlLicensee').append('<option value="'
+                        CreatingInvoice.FilterControls.ddlLicensee.append('<option value="'
                                  + item.LicenseeID
                                  + '">'
                                  + item.BrandName
@@ -247,46 +286,24 @@ var CreatingInvoice = {
         });
     },
     GetFilteringInfo: function () {
+        var Operator = operatorListModel[CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") - 1];
+        var Licensee = CreatingInvoice.Licensees[CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") - 1];
 
-        var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
-        var productName = '';
-        var produtID = '';
-        var index = 0;
-        for (var i = 0; i < listChecked.length; i++) {
-            if (index < listChecked.length - 1) {
-                productName += listChecked[i].title + ',';
-                produtID += listChecked[i].value + ',';
-            }
-            else {
-                productName += listChecked[i].title;
-                produtID += listChecked[i].value;
-            }
-            index++;
-        }
-
-        var radioCheck = $("#divInvoiceType input[type='radio']:checked");
-
-        var InvoiceTypeIdTmp = radioCheck[0].value;
-        var InvoiceTypeNameTmp = radioCheck[0].title;
-
-        var Operator = operatorListModel[$("#ddlOperator").prop("selectedIndex") - 1];
-        var Licensee = CreatingInvoice.Licensees[$("#ddlLicensee").prop("selectedIndex") - 1];
+        CreatingInvoice.GetSelectedInvoiceType();
 
         CreatingInvoice.Operator = Operator;
         CreatingInvoice.Licensee = Licensee;
-        CreatingInvoice.FromDate = $('#FromDatePicker').val();
-        CreatingInvoice.ToDate = $('#ToDatePicker').val();
-        CreatingInvoice.DueDate = $('#DueDatePicker').val();
-        CreatingInvoice.InvoiceType = { InvoiceTypeID: InvoiceTypeIdTmp, InvoiceTypeName: InvoiceTypeNameTmp };
-        CreatingInvoice.Currency = { CurrencyID: $('#CurrencyID').val(), CurrencyName: $('#CurrencyID option:selected').text() };
-        CreatingInvoice.InvoiceNo = $('#invoiceNo').val();
+        CreatingInvoice.FromDate = CreatingInvoice.FilterControls.cldFromDate.val();
+        CreatingInvoice.ToDate = CreatingInvoice.FilterControls.cldToDate.val();
+        CreatingInvoice.DueDate = CreatingInvoice.FilterControls.cldDueDate.val();
+        CreatingInvoice.Currency = { CurrencyID: CreatingInvoice.FilterControls.ddlCurrency.val(), CurrencyName: $('#CurrencyID option:selected').text() };
+        CreatingInvoice.InvoiceNo = CreatingInvoice.FilterControls.txtInvoiceNo.val();
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
-        CreatingInvoice.Products = produtID;
-        CreatingInvoice.ProductsName = productName;
-    
+
+
     },
     GetNewInvoiceData: function () {
-        if ($("#ddlOperator").prop("selectedIndex") == 0 || $("#ddlLicensee").prop("selectedIndex") == 0)
+        if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 || CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") == 0)
             return false;
 
         NapAres.disableInput();
@@ -309,6 +326,10 @@ var CreatingInvoice = {
                             $('#parentContainer').html(data);
                             CreatingInvoice.IdNewItemList = [];
                             CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
+
+                            //disable Generate button
+                            CreatingInvoice.FilterControls.btnGenerate.addClass('ui-state-disabled');
+
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#parentContainer').html('');
@@ -360,26 +381,18 @@ var CreatingInvoice = {
             success: function (data, textStatus, jqXHR) {
                 if (data) {
                     if (data.ErrorCode == 0) {
-                        $('#saveID').addClass('ui-state-disabled');
-                        $('#btnGenerate').addClass('ui-state-disabled');
-                        $('#pdfID').removeClass('ui-state-disabled');
+                        $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                        CreatingInvoice.FilterControls.btnGenerate.addClass('ui-state-disabled');
+                        $('#pdfID').removeClass('ui-state-disabled').removeAttr('disabled');
 
-//                        $('#ddlOperator').addClass('ui-state-disabled');
-//                        $('#ddlLicensee').addClass('ui-state-disabled');
-//                        $('#dropDownListId1').addClass('ui-state-disabled');
-//                        $('#FromDatePicker').addClass('ui-state-disabled');
-//                        $('#ToDatePicker').addClass('ui-state-disabled');
-//                        $('#divInvoiceType').addClass('ui-state-disabled');
-//                        $('#CurrencyID').addClass('ui-state-disabled');
-                        //                        $('#invoiceNo').addClass('ui-state-disabled');
-                        $('#ddlOperator').attr('disabled','disabled');
-                        $('#ddlLicensee').addClass('ui-state-disabled');
-                        $('#dropDownListId1').addClass('ui-state-disabled');
-                        $('#FromDatePicker').addClass('ui-state-disabled');
-                        $('#ToDatePicker').addClass('ui-state-disabled');
-                        $('#divInvoiceType').addClass('ui-state-disabled');
-                        $('#CurrencyID').addClass('ui-state-disabled');
-                        $('#invoiceNo').addClass('ui-state-disabled');
+                        CreatingInvoice.FilterControls.ddlOperator.attr('disabled', 'disabled');
+                        CreatingInvoice.FilterControls.ddlLicensee.attr('disabled', 'disabled');
+                        CreatingInvoice.FilterControls.ddlSpecialDate.attr('disabled', 'disabled');
+                        CreatingInvoice.FilterControls.cldFromDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        CreatingInvoice.FilterControls.cldToDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        CreatingInvoice.FilterControls.divInvoiceType.find('input').attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        CreatingInvoice.FilterControls.ddlCurrency.attr('disabled', 'disabled');
+                        CreatingInvoice.FilterControls.txtInvoiceNo.attr('disabled', 'disabled');
 
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
                         invoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
@@ -425,7 +438,7 @@ var CreatingInvoice = {
         return result;
     },
     AddItem: function (isDiscount) {
-      
+
         var displayID = invoiceInfoModel.StatementList.length + 1;
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
@@ -437,24 +450,28 @@ var CreatingInvoice = {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
                 return false;
             }
+            else if (amount == '0.00') {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Amount is invalid!' });
+                return false;
+            }
         }
         if (CreatingInvoice.isInsert) {
             //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
                                     <td   style="width: 10%; "><span discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300" ></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea" ></textarea></td>\
+                                    <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
                                         <input name="" onblur="CreatingInvoice.RecalculatorTotal();" id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold;text-align:right;"></input></div></td></tr>');
             CreatingInvoice.IdNewItemList.push(CreatingInvoice.IdNewItem);
             CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
-            $('#saveID').addClass('ui-state-disabled');
-            $('#reviewID').addClass('ui-state-disabled');
-            $('#pdfID').addClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         }
-       
+
     },
     DeleteItem: function (trId) {
         //        $(document.getElementById(trId)).remove();
@@ -463,12 +480,12 @@ var CreatingInvoice = {
             return value != trId;
         });
         if (CreatingInvoice.IdNewItemList.length == 0) {
-            $('#saveID').addClass('ui-state-disabled');
-            $('#pdfID').removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#pdfID').removeClass('ui-state-disabled').removeAttr('disabled');
         }
         else {
-            $('#saveID').removeClass('ui-state-disabled');
-            $('#pdfID').addClass('ui-state-disabled');
+            $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         }
 
         CreatingInvoice.RecalculatorTotal();
@@ -496,7 +513,7 @@ var CreatingInvoice = {
                 index++;
             }
             if ($.isNumeric(amount) == false) {
-                $('#saveID').addClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 if (amount == '') {
                     NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
                     setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
@@ -520,14 +537,14 @@ var CreatingInvoice = {
                 }
 
                 $('#newItem_text_' + id).empty().val(formatNumber);
-                //                $('#newItem_text_' + id).empty().val(NegativeFormat(amount));
                 totalAmountTmp += parseFloat(amount);
             }
-            //            CreatingInvoice.StatementDetailList.push(statementDetail);
         }
-        $("#totalAmount").empty().html(NegativeFormat(totalAmountTmp));
-        $('#reviewID').removeClass('ui-state-disabled');
-        $('#saveID').removeClass('ui-state-disabled');
+        
+        $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
+        $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+        $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+
         CreatingInvoice.isInsert = true;
     },
     UpdateItemDisplay: function () {
@@ -556,6 +573,51 @@ var CreatingInvoice = {
         invoiceInfoModel.StatementList.push(statement);
         invoiceInfoModel.Note = $('#noteId').val();
         return invoiceInfoModel.StatementList;
+    },
+    GetSelectedInvoiceType: function () {
+        var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
+        var productName = '';
+        var produtID = '';
+        var index = 0;
+        for (var i = 0; i < listChecked.length; i++) {
+            if (listChecked[i].value == 'on')
+                continue;
+            if (index < listChecked.length - 1) {
+                productName += listChecked[i].title + ',';
+                produtID += listChecked[i].value + ',';
+            }
+            else {
+                productName += listChecked[i].title;
+                produtID += listChecked[i].value;
+            }
+            index++;
+        }
+
+        var radioCheck = $("#divInvoiceType input[type='radio']:checked");
+        var InvoiceTypeIdTmp = radioCheck[0].value;
+        var InvoiceTypeNameTmp = radioCheck[0].title;
+
+
+        CreatingInvoice.Products = produtID;
+        CreatingInvoice.ProductsName = productName;
+        CreatingInvoice.InvoiceType = { InvoiceTypeID: InvoiceTypeIdTmp, InvoiceTypeName: InvoiceTypeNameTmp };
+
+    },
+    AllowUpdateNewInfo: function (item) {
+        if (item != undefined) {
+            var amountID = 'newItem_text_' + $(item).prop('id').split('_')[2];
+            if ($('#' + amountID).val() != '') {
+                $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled');
+            }
+        } else {
+            $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+            $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled');
+        }
+
+
     }
 }
 
@@ -565,9 +627,6 @@ function NegativeFormat(input) {
      output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
      return output;
 }
-
-
-
 
 $.extend({
     URLEncode: function (s) {

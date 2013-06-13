@@ -69,7 +69,7 @@
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
-                                    <textarea  rows="2" cols="106" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)">
+                                    <textarea  rows="2" cols="106" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index);" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
                                     @if (j == 0)
                                     {
                                        @descript @detail.Description
@@ -83,7 +83,7 @@
                                     index++;
                                 }
                                 <td style="width: 20%; text-align: center;">
-                                    <textarea  rows="2" cols="33" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)">@detail.Reference</textarea>
+                                    <textarea  rows="2" cols="33" name="styled-textarea" id="styled_@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                 </td>
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
@@ -110,7 +110,7 @@
                             <td style="width: 15%; text-align: center; font-weight: bold;">
                                 <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
                                     <label id="totalAmount" style="font-weight: bold;">
-                                        EUR @MvcHtmlString.Create(NegativeFormat(totalAmount))
+                                        
                                     </label>
                                 </div>
                             </td>
@@ -124,7 +124,7 @@
                 <table style="width: 100%; border-collapse: collapse; border: 0px !important;">
                     <tr>
                         <td colspan="3" class="noneBorder ">
-                            <div style="width: 95%; height: 5px; background-color: White !important; margin: 5px;">
+                            <div style="width: 99%; height: 5px; background-color: White !important; margin: 5px;">
                             </div>
                         </td>
                     </tr>
@@ -262,6 +262,7 @@
     }
 
     var _totalAmount = @totalAmount; 
+    $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' +  NegativeFormat(_totalAmount));
     $('#saveID').button();
    
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
@@ -271,7 +272,7 @@
     var OrgInvoiceInfoModel =[];
      OrgInvoiceInfoModel = $.extend(true, {}, invoiceInfoModel);
     if (invoiceInfoModel.StatementList.length == 0) {
-        $('#saveID').addClass('ui-state-disabled');
+        $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
 //        $('#reviewID').addClass('ui-state-disabled');
     }
     else {
@@ -286,117 +287,114 @@
         $('#divCorrespondentAccNo').html(CreatingInvoice.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
 
-    function Review() {
-        CreatingInvoice.UpdateItem();
-        invoiceInfoModel.Operator = CreatingInvoice.Operator;
-        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-        invoiceInfoModel.Product = CreatingInvoice.Products;
-        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-        $.ajax({
-            url: domain + "Invoice/Invoice/PrintScreen",
-            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
-            contentType: 'application/json',
-            type: "POST",
-            success: function (data, textStatus, jqXHR) {
-                if (data) {
-                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
-	               
-                    if($.browser.msie){
-                        win.load = new function(){
-                            win.document.write(data);
-                            win.document.title = CreatingInvoice.InvoiceName;
-                        }
-                    }
-                    else{
-                        $(win).load(function(){ 
-                            win.document.write(data);
-                            win.document.title = CreatingInvoice.InvoiceName;
-                        });
+function Review() {
+    CreatingInvoice.UpdateItem();
+    invoiceInfoModel.Operator = CreatingInvoice.Operator;
+    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+    invoiceInfoModel.Product = CreatingInvoice.Products;
+    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    $.ajax({
+        url: domain + "Invoice/Invoice/PrintScreen",
+        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+        contentType: 'application/json',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            if (data) {
+                var win =  window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ("window" + new Date().getMilliseconds()));
+                if($.browser.msie){
+                    win.load = new function(){
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
                     }
                 }
-            },
-            error: function(){
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                else{
+                    $(win).load(function(){ 
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
+                    });
+                }
             }
-        });
+        },
+        error: function(){
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        }
+    });
 
-        invoiceInfoModel = [];
-        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
-    }
+    invoiceInfoModel = [];
+    invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
+}
 
-  
-
-    function ExportPDF() {
-        CreatingInvoice.UpdateItem();
-        invoiceInfoModel.Operator = CreatingInvoice.Operator;
-        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-        invoiceInfoModel.Product = CreatingInvoice.Products;
-        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-        var link = '@Url.Action("ExportDocument", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
-        link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
-        location.href = link;
-    }
+function ExportPDF() {
+    CreatingInvoice.UpdateItem();
+    invoiceInfoModel.Operator = CreatingInvoice.Operator;
+    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+    invoiceInfoModel.Product = CreatingInvoice.Products;
+    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    var link = '@Url.Action("ExportDocument", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
+    link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
+    location.href = link;
+}
 
     
 function Detail(fromDate, toDate) {
- CreatingInvoice.UpdateItem();
-        invoiceInfoModel.Operator = CreatingInvoice.Operator;
-        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-        invoiceInfoModel.Product = CreatingInvoice.Products;
-        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-        $.ajax({
-            url: domain + "Invoice/Invoice/Detail",
-            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
-            contentType: 'application/json',
-            type: "POST",
-            success: function (data, textStatus, jqXHR) {
-                if (data) {
-                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'),  ("InvoiceWindow" + new Date().getMilliseconds()));
+    CreatingInvoice.UpdateItem();
+    invoiceInfoModel.Operator = CreatingInvoice.Operator;
+    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+    invoiceInfoModel.Product = CreatingInvoice.Products;
+    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    $.ajax({
+        url: domain + "Invoice/Invoice/Detail",
+        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+        contentType: 'application/json',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            if (data) {
+                var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ("window" + new Date().getMilliseconds()));
 	              
-                    if($.browser.msie){
-                        win.load = new function(){
-                            win.document.write(data);
-                            win.document.title = CreatingInvoice.InvoiceName;
-                        }
-                    }
-                    else{
-                        $(win).load(function(){ 
-                            win.document.write(data);
-                            win.document.title = CreatingInvoice.InvoiceName;
-                        });
+                if($.browser.msie){
+                    win.load = new function(){
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
                     }
                 }
-            },
-            error: function(){
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                else{
+                    $(win).load(function(){ 
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
+                    });
+                }
             }
-        });
+        },
+        error: function(){
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        }
+    });
 
 }
 
