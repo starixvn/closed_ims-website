@@ -372,7 +372,7 @@ var CreatingInvoice = {
 //                        $('#divInvoiceType').addClass('ui-state-disabled');
 //                        $('#CurrencyID').addClass('ui-state-disabled');
                         //                        $('#invoiceNo').addClass('ui-state-disabled');
-//                        $('#ddlOperator').attr('disabled','disabled');
+                        $('#ddlOperator').attr('disabled','disabled');
                         $('#ddlLicensee').addClass('ui-state-disabled');
                         $('#dropDownListId1').addClass('ui-state-disabled');
                         $('#FromDatePicker').addClass('ui-state-disabled');
@@ -477,10 +477,20 @@ var CreatingInvoice = {
         NapAres.Helper.hideMsgBox();
         var totalAmountTmp = _totalAmount;
         var index = invoiceInfoModel.StatementList.length + 1;
+
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
 
             var amount = $('#newItem_text_' + id).val();
+            if ($.isNumeric(amount) == true) {
+                $('#newItem_display_' + id).attr('amount', amount);
+            }
+        }
+
+        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
+            var id = CreatingInvoice.IdNewItemList[i];
+
+            var amount = $('#newItem_display_' + id).attr('amount');
             if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 $('#newItem_display_' + id).empty().html(index);
                 index++;
@@ -489,15 +499,27 @@ var CreatingInvoice = {
                 $('#saveID').addClass('ui-state-disabled');
                 if (amount == '') {
                     NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
+                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                     CreatingInvoice.isInsert = false;
                     return false;
                 }
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 CreatingInvoice.isInsert = false;
                 return false;
             }
             if (amount != '') {
-                //                $('#newItem_text_' + id).empty().val(numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER));
+                var formatNumber = '';
+                if (parseInt(amount) < 0) {
+                    $('#newItem_text_' + id).addClass("red");
+                    formatNumber = "(" + numeral(parseInt(amount) * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
+                }
+                else {
+                    formatNumber = numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
+                }
+
+                $('#newItem_text_' + id).empty().val(formatNumber);
+                //                $('#newItem_text_' + id).empty().val(NegativeFormat(amount));
                 totalAmountTmp += parseFloat(amount);
             }
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
@@ -525,7 +547,7 @@ var CreatingInvoice = {
             };
             statementDetail.Description = $('textarea#newItem_des_' + id).val();
             statementDetail.Reference = $('textarea#newItem_ref_' + id).val();
-            statementDetail.Amount = $('#newItem_text_' + id).val();
+            statementDetail.Amount = $('#newItem_display_' + id).attr('amount');
             statementDetail.DiscountItem = $('#newItem_display_' + id).attr('discountItem');
             statement.StatementDetailList.push(statementDetail);
             //            CreatingInvoice.StatementDetailList.push(statementDetail);

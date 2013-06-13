@@ -222,7 +222,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             //dateRangeList = invoice.DateRangeList;
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "-" + invoice.InvoiceType.InvoiceTypeName};
+            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName};
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
