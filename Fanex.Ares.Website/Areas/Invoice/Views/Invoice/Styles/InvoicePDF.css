@@ -108,6 +108,10 @@ html {
     border-bottom: 1pt solid black;
 }
 
+.border-T
+{
+    border-top: 1pt solid black;
+}
 .border-RTB
 {
     border-right: 1pt solid black;
