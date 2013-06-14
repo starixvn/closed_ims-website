@@ -375,7 +375,7 @@ function Detail(fromDate, toDate) {
         type: "POST",
         success: function (data, textStatus, jqXHR) {
             if (data) {
-                var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ("window" + new Date().getMilliseconds()));
+                var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), '_blank');
 	              
                 if($.browser.msie){
                     win.load = new function(){

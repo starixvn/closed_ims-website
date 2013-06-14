@@ -27,7 +27,7 @@
     </div>
 }
 <div id="filter-bar">
-    <span id="notemessage" class="note-info-message" title=''></span>
+    <span id="notemessage" class="note-info-message" title='For data accuracy, the system allows you to generate the billing report 5 days after month-end'></span>
     <div class="filter-form">
         <div class="filter-row">
             <div class="filter-cell">
@@ -40,10 +40,12 @@
                 <div class="lbl-field col_3 align-right">
                     @Labels.Licensee
                 </div>
-                <div class="edit-field col_4">
-                    <select id="ddlLicensee" style="width: 100px; "></select>
+                <div class="edit-field col_5">
+                    <select id="ddlLicensee" style="width: 150px; "></select>
                 </div>
                 <div id="fromTopickerplugin">
+                </div>
+                <div id="duteDatepickerplugin">
                 </div>
             </div>
         </div>
@@ -60,21 +62,20 @@
                     Currency
                 </div>
                <div class="edit-field col_4">
-                @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListExchangeRate), new { @class = "alpha auto-width" })
+                @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListExchangeRate), new { @class = "alpha", style = "width: 150px" })
                    
                 </div>
-                <div class="lbl-field col_3 align-right">
+                <div class="lbl-field col_5 align-right">
                     Invoice No.
                 </div>
-                <div class="edit-field col_5 align-left">
-                    <input type="text" name="invoiceNo" id="invoiceNo" />
+                <div class="edit-field col_6 align-left">
+                    <input type="text" name="invoiceNo" id="invoiceNo" style="width:124px"/>
                 </div>
-                <div id="duteDatepickerplugin">
-                </div>
+                
                 <div class="submit col_4">
                     <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
                 </div>
-                <div class="submit col_6  align-right">
+                <div class="submit col_6  align-left">
                     <input onClick="location.href='@Url.Action("Index", "Invoice")'" id="btnNewInvoice" class="ui-button ui-widget ui-state-default ui-corner-all"  name="btnNewInvoice" type="button" value="NEW INVOICE" />
                 </div>
             </div>
@@ -113,9 +114,10 @@
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var _today = '@DateTime.Today.ToShortDateString()';
-        var _yesterday = '@DateTime.Today.AddDays(-1).ToShortDateString()';
-        var minDate = '@(new DateTime(2007, 1, 1).ToShortDateString())';
-        var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
+        
+        var minDate = '@(new DateTime(2013, 1, 1).ToShortDateString())';
+        var maxDate = '@(DateTime.Today.AddDays(-5).ToShortDateString())';
+        var selectDueDate = '@string.Format("{0}/{1}/{2}", DateTime.Today.Year, DateTime.Today.Month, DateTime.DaysInMonth(DateTime.Today.Year, DateTime.Today.Month))';
         var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
     </script>
 }

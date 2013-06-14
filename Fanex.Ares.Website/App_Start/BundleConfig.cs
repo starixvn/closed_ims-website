@@ -84,6 +84,13 @@ namespace Fanex.Ares.Website.App_Start
             bundles.Add(new ScriptBundle("~/scripts-bundle/knockout").Include(
                         "~/Scripts/_Libs/knockout*"));
             #endregion
+
+            bundles.Add(new StyleBundle("~/scripts/_lib/Tooltip/style").Include(
+                "~/scripts/_lib/Tooltip/tipsy.css"
+                ));
+            bundles.Add(new ScriptBundle("~/scripts-bundle/jquery").Include(
+                       "~/scripts/_lib/Tooltip/jquery.tipsy.js"
+                ));
         }
     }
 }

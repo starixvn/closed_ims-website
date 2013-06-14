@@ -134,7 +134,6 @@ var CreatingInvoice = {
     FilterControls: {
         ddlOperator: $('#ddlOperator'),
         ddlLicensee: $('#ddlLicensee'),
-        ddlSpecialDate: null,
         cldFromDate: null,
         cldToDate: null,
         divInvoiceType: $('#divInvoiceType'),
@@ -145,8 +144,15 @@ var CreatingInvoice = {
         btnNewInvoice: $('#btnNewInvoice')
     },
     init: function () {
+        $("#notemessage").tipsy({
+            html: true,
+            opacity: 0.9,
+            gravity: 'ne'
+        });
+
+        var rangeDate = CreatingInvoice.getDateRangeOfLastMonth(_today);
         $('#fromTopickerplugin').nexDatePicker({
-            nexDatePickerType: "quickchoose",
+            nexDatePickerType: "daterange",
             datePickerFormat: {
                 changeMonth: true,
                 dateFormat: "M dd, yy"
@@ -154,29 +160,26 @@ var CreatingInvoice = {
             firstDatePicker: {
                 Id: "FromDatePicker",
                 Label: labelFrom,
-                InitDate: _today,
-                LabelCss: "lbl-field col_3",
-                TextboxCss: "edit-field col_6"
+                InitDate: rangeDate[0],
+                LabelCss: "lbl-field col_4",
+                TextboxCss: "edit-field col_5"
             },
             secondDatePicker: {
                 Id: "ToDatePicker",
                 Label: labelTo,
-                InitDate: _today,
                 LabelCss: "lbl-field col_1",
-                TextboxCss: "edit-field col_6"
+                TextboxCss: "edit-field col_5"
             },
             onSelectDatePicker: function () {
                 CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             },
-            dropDownList:
-        {
-            Id: "dropDownListId1",
-            Label: "Date ",
-            LabelCss: "lbl-field col_3",
-            OptionCss: "edit-field col_5"
-        }
+            minDate: new Date(minDate),
+            maxDate: new Date(maxDate)
         });
+      
+        $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
+
         $('#duteDatepickerplugin').nexDatePicker({
             nexDatePickerType: "single",
             datePickerFormat: {
@@ -188,19 +191,20 @@ var CreatingInvoice = {
                 Label: "Due Date",
                 InitDate: "",
                 LabelCss: "lbl-field col_3",
-                TextboxCss: "edit-field col_6"
+                TextboxCss: "edit-field col_6",
+                InitDate: new Date(selectDueDate)
             },
             onSelectDatePicker: function () {
                 CreatingInvoice.DueDate = CreatingInvoice.FilterControls.cldDueDate.val();
                 $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
                 $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            }
+            },
+            minDate: new Date(minDate)
         });
 
         CreatingInvoice.FilterControls.cldFromDate = $('#FromDatePicker');
         CreatingInvoice.FilterControls.cldToDate = $('#ToDatePicker');
         CreatingInvoice.FilterControls.cldDueDate = $('#DueDatePicker');
-        CreatingInvoice.FilterControls.ddlSpecialDate = $('#dropDownListId1');
 
         CreatingInvoice.FilterControls.btnGenerate.button();
         CreatingInvoice.FilterControls.btnGenerate.click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
@@ -242,10 +246,6 @@ var CreatingInvoice = {
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
-        CreatingInvoice.FilterControls.ddlSpecialDate.change(function () {
-            CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
-            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        });
         //------binding data
 
         CreatingInvoice.FilterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
@@ -392,7 +392,6 @@ var CreatingInvoice = {
 
                         CreatingInvoice.FilterControls.ddlOperator.attr('disabled', 'disabled');
                         CreatingInvoice.FilterControls.ddlLicensee.attr('disabled', 'disabled');
-                        CreatingInvoice.FilterControls.ddlSpecialDate.attr('disabled', 'disabled');
                         CreatingInvoice.FilterControls.cldFromDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
                         CreatingInvoice.FilterControls.cldToDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
                         CreatingInvoice.FilterControls.divInvoiceType.find('input').attr('disabled', 'disabled').addClass('ui-state-disabled');
@@ -623,6 +622,34 @@ var CreatingInvoice = {
         }
 
 
+    },
+    getDateRangeOfLastMonth: function (today) {
+        var currentDate = new Date(today);
+        var currentMonth = currentDate.getMonth();
+        var currentYear = currentDate.getFullYear();
+        var lastYear = currentDate.getFullYear() - 1;
+        var startDate = new Date();
+        var endDate = new Date();
+
+        //// If Current month is Jan, so switch to Last year
+        if (currentMonth == 0) {
+            startDate = new Date(lastYear, 11, 1);
+            endDate = new Date(lastYear, 11, 31);
+        }
+        else {
+            var month = currentMonth - 1;
+            startDate = new Date(currentYear, month, 1);
+            endDate = new Date(currentYear, month, CreatingInvoice.getTotalDayOfMonth(month + 1, currentYear));
+        }
+        return [startDate, endDate];
+    },
+    getTotalDayOfMonth: function (month, year) {
+        //// Note Month fomr 1 > 12
+        var m = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        if (month != 2) return m[month - 1];
+        if (year % 4 != 0) return m[1];
+        if (year % 100 == 0 && year % 400 != 0) return m[1];
+        return m[1] + 1;
     }
 }
 
