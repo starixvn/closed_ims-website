@@ -34,14 +34,14 @@
                 <div class="lbl-field col_6  align-right">
                     Operator/Distributor
                 </div>
-                <div class="edit-field col_6">
+                <div class="edit-field col_7">
                       <select id="ddlOperator" style="width: 170px; "></select>
                 </div>
                 <div class="lbl-field col_3 align-right">
                     @Labels.Licensee
                 </div>
                 <div class="edit-field col_5">
-                    <select id="ddlLicensee" style="width: 150px; "></select>
+                    <select id="ddlLicensee" style="width: 135px; "></select>
                 </div>
                 <div id="fromTopickerplugin">
                 </div>
@@ -54,28 +54,29 @@
                 <div class="lbl-field col_6 align-right">
                     Invoice Type
                 </div>
-                <div id="divInvoiceType" class="edit-field col_6">
+                <div id="divInvoiceType" class="edit-field col_7">
                     <select id="ddlInvoiceType">
                     </select>
                 </div>
                 <div class="lbl-field col_3 align-right">
-                    Currency
-                </div>
-               <div class="edit-field col_4">
-                @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListExchangeRate), new { @class = "alpha", style = "width: 150px" })
-                   
-                </div>
-                <div class="lbl-field col_5 align-right">
                     Invoice No.
                 </div>
-                <div class="edit-field col_6 align-left">
-                    <input type="text" name="invoiceNo" id="invoiceNo" style="width:124px"/>
+                <div class="edit-field col_5 align-left">
+                    <input type="text" name="invoiceNo" id="invoiceNo" style="width:133px"/>
                 </div>
+                <div class="lbl-field col_3 align-right">
+                    Currency
+                </div>
+               <div class="edit-field col_6">
+                @Html.DropDownListFor(m => m.CurrencyID, ((List<SelectListItem>)ViewBag.ListExchangeRate), new { @class = "alpha", style = "width: 126px" })
+                   
+                </div>
+                
                 
                 <div class="submit col_4">
                     <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
                 </div>
-                <div class="submit col_6  align-right">
+                <div class="submit col_4  align-right">
                     <input onClick="location.href='@Url.Action("Index", "Invoice")'" id="btnNewInvoice" class="ui-button ui-widget ui-state-default ui-corner-all"  name="btnNewInvoice" type="button" value="NEW INVOICE" />
                 </div>
             </div>

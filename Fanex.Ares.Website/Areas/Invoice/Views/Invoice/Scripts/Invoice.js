@@ -162,7 +162,7 @@ var CreatingInvoice = {
                 Id: "FromDatePicker",
                 Label: labelFrom,
                 InitDate: rangeDate[0],
-                LabelCss: "lbl-field col_4",
+                LabelCss: "lbl-field col_3",
                 TextboxCss: "edit-field col_5"
             },
             secondDatePicker: {
@@ -178,7 +178,7 @@ var CreatingInvoice = {
             minDate: new Date(minDate)
             //,maxDate: new Date(maxDate)
         });
-      
+
         $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
 
         $('#duteDatepickerplugin').nexDatePicker({
@@ -309,12 +309,27 @@ var CreatingInvoice = {
 
     },
     GetNewInvoiceData: function () {
-        if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 || CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") == 0)
+        if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 ||
+            CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") == 0 ||
+            $.isNumeric(CreatingInvoice.FilterControls.txtInvoiceNo.val()) == false)
             return false;
 
-        NapAres.disableInput();
+        if (CreatingInvoice.FilterControls.txtInvoiceNo.val().length == 0) {
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input Invoice No.!' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+            return false;
+        }
+        
         CreatingInvoice.GetFilteringInfo();
 
+        if (CreatingInvoice.Products.length == 0) {
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please select product!' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+
+            return false;
+        }
+
+        NapAres.disableInput();
         $.ajax({
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
             type: "POST",
@@ -599,9 +614,12 @@ var CreatingInvoice = {
         }
 
         var radioCheck = $("#divInvoiceType input[type='radio']:checked");
-        var InvoiceTypeIdTmp = radioCheck[0].value;
-        var InvoiceTypeNameTmp = radioCheck[0].title;
-
+        var InvoiceTypeIdTmp = '';
+        var InvoiceTypeNameTmp = '';
+        if (radioCheck && radioCheck.length > 0) {
+            InvoiceTypeIdTmp = radioCheck[0].value;
+            InvoiceTypeNameTmp = radioCheck[0].title;
+        }
 
         CreatingInvoice.Products = produtID;
         CreatingInvoice.ProductsName = productName;
