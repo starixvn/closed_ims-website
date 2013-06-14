@@ -76,17 +76,17 @@
             <td colspan="8" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 2500; white-space: normal;'>
                 <br />
-                @invoiceModel.Operator.To1 
+                @invoiceModel.Operator.To1
                 <br />
                 <br />
-                 Correspondance: @invoiceModel.Operator.To2
+                Correspondance: @invoiceModel.Operator.To2
             </td>
             <td colspan="1">
             </td>
         </tr>
         <tr>
             <td class="fontSize12" colspan="8" style='height: 10pt; vertical-align: bottom;'>
-                          </td>
+            </td>
             <td colspan="1">
             </td>
         </tr>
@@ -96,7 +96,6 @@
             </td>
             <td class="fontSize12" colspan="9" style='height: 25pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 800;'>
-               
             </td>
         </tr>
         <tr>
@@ -107,22 +106,21 @@
         <tr>
             <td class="border-LT" colspan="2" rowspan="3" style='height: 30pt; padding-left: 5px;
                 white-space: normal; vertical-align: top;'>
-                 <br />
-                <span class="bold-red" style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;TO: 
-                </span>
+                <br />
+                <span class="bold-red" style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;TO: </span>
                 <br />
                 <span></span>
                 <br />
                 <br />
             </td>
-             <td class="border-RT" colspan="8" rowspan="3" style='height: 30pt; padding-left: 5px;
+            <td class="border-RT" colspan="8" rowspan="3" style='height: 30pt; padding-left: 5px;
                 white-space: normal; vertical-align: top;'>
-                 <br />
+                <br />
                 <span class="bold-red" style="mso-spacerun: yes;">
-                @invoiceModel.Licensee.CompanyName
+                    @invoiceModel.Licensee.CompanyName
                 </span>
                 <br />
-                <span> @invoiceModel.Licensee.To1</span>
+                <span>@invoiceModel.Licensee.To1</span>
                 <br />
                 <br />
             </td>
@@ -137,7 +135,6 @@
                 @invoiceModel.InvoiceNo
             </td>
         </tr>
-              
         <tr>
             <td colspan="3" style='margin-left: 50pt; padding-left: 100px;'>
                 DATE
@@ -167,17 +164,15 @@
         <tr>
             <td class="border-LB" colspan="2" rowspan="2" style='height: 30pt; padding-left: 5px;
                 white-space: normal; vertical-align: top;'>
-                
                 <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;ATTN: </span>
                 <br />
             </td>
-             <td class="border-RB" colspan="8" rowspan="2" style='height: 30pt; padding-left: 5px;
+            <td class="border-RB" colspan="8" rowspan="2" style='height: 30pt; padding-left: 5px;
                 white-space: normal; vertical-align: top;'>
-                
-                <span style="mso-spacerun: yes;"> @invoiceModel.Licensee.AttnName</span>
+                <span style="mso-spacerun: yes;">@invoiceModel.Licensee.AttnName</span>
                 <br />
             </td>
-          <td colspan="3" style='margin-left: 50pt; padding-left: 100px; '>
+            <td colspan="3" style='margin-left: 50pt; padding-left: 100px;'>
                 CURRENCY
             </td>
             <td>
@@ -351,7 +346,7 @@
         <tr>
             <td class="border-RLT" colspan="10" style='vertical-align: top; padding-left: 5px;'>
                 <br />
-                <span style="font-weight: bold"style="font-weight: bold">For Telegraphic Transfer payments</span><br />
+                <span style="font-weight: bold" style="font-weight: bold">For Telegraphic Transfer payments</span><br />
             </td>
             <td class="border-RLT" colspan="6" style='height: 40pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 1084; padding-left: 5px;'>
@@ -368,17 +363,18 @@
                 Swiftcode
                 <br />
                 <br />
+                <br />
                 Correspondent<br />
                 Swiftcode<br />
                 Account Number<br />
             </td>
             <td class="border-B" colspan="6" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                 :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
-               
                 :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
+                <br />
                 <br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
