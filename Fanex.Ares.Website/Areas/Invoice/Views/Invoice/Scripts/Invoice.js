@@ -214,7 +214,7 @@ var CreatingInvoice = {
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             }
             else {
-                $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                CreatingInvoice.FilterControls.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
                 CreatingInvoice.FilterControls.txtInvoiceNo.val('');
             }
         });
@@ -222,13 +222,14 @@ var CreatingInvoice = {
         CreatingInvoice.FilterControls.ddlOperator.change(function () {
             CreatingInvoice.FilterControls.ddlLicensee.html('');
             CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+
+            $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+            CreatingInvoice.FilterControls.txtInvoiceNo.val('');
+
             if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") != 0) {
                 CreatingInvoice.GetLicensees();
             }
-            else {
-                $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                CreatingInvoice.FilterControls.txtInvoiceNo.val('');
-            }
+
         });
 
         CreatingInvoice.FilterControls.txtInvoiceNo.change(function () {
@@ -241,6 +242,10 @@ var CreatingInvoice = {
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
+        CreatingInvoice.FilterControls.ddlSpecialDate.change(function () {
+            CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        });
         //------binding data
 
         CreatingInvoice.FilterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
@@ -540,7 +545,7 @@ var CreatingInvoice = {
                 totalAmountTmp += parseFloat(amount);
             }
         }
-        
+
         $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
