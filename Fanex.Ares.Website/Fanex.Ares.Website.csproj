@@ -682,7 +682,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\_BHC_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\Cozni\_Cozni_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\Lupine\_Lupine_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\LUP\_LUP_Software-Data Fees.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />

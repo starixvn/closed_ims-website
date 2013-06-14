@@ -70,29 +70,19 @@
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <tr>
-            <td colspan="7" rowspan="2" style='height: 60pt; vertical-align: top; margin-left: 30pt;'>
-                <img style="display:inline-block;" width="600" height="96 v:shapes="Graphics_x0020_1"  src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Boping-logo.png")"/>
-            </td>
-            <td colspan="8" style='height: 60pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 2500; white-space: normal;font-size:40pt !important; text-align: right;'>
-                INVOICE
-               
-            </td>
-            <td colspan="1">
+            <td colspan="16" style='vertical-align: top;'>
+                <img style="display:inline-block;" width="1100" height="96" v:shapes="Graphics_x0020_1"  src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Lupine.png")"/>
             </td>
         </tr>
         <tr>
-            <td class="fontSize12" colspan="8" style='height: 10pt; vertical-align: bottom; mso-height-source: userset;
-                mso-height-alt: 400;'>
-               
-            </td>
-            <td colspan="1">
+            <td colspan="16" style='border-top: 1pt solid white; mso-height-source: userset;
+                mso-height-alt: 1000;'>
             </td>
         </tr>
         <tr>
-            <td colspan="7" >
-                 <br />
-                @*@invoiceModel.Operator.To1 *@
+            <td colspan="7">
+                <br />
+                @invoiceModel.Operator.To1
                 <br />
             </td>
             <td class="fontSize12" colspan="9" style='height: 25pt; vertical-align: bottom; mso-height-source: userset;
@@ -101,40 +91,25 @@
             </td>
         </tr>
         <tr>
-            <td colspan="16" style='height: 30pt; border-top: 1pt solid white; mso-height-source: userset;
-                mso-height-alt: 600;'>
-            </td>
-        </tr>
-        <tr>
-            <td class="border-LT" colspan="2" rowspan="3" style='height: 30pt; padding-left: 5px;
-                white-space: normal; vertical-align: top;'>
-                 <br />
-                <span class="bold-red" style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;TO: 
-                </span>
+            <td colspan="8" rowspan="3" style='height: 30pt; padding-left: 5px; white-space: normal;
+                vertical-align: top;'>
                 <br />
-                <span></span>
-                <br />
-                <br />
-            </td>
-             <td class="border-RT" colspan="6" rowspan="3" style='height: 30pt; padding-left: 5px;
-                white-space: normal; vertical-align: top;'>
-                 <br />
                 <span class="bold-red" style="mso-spacerun: yes;">
-                @invoiceModel.Licensee.CompanyName
+                    @invoiceModel.Licensee.CompanyName
                 </span>
                 <br />
-                <span> @invoiceModel.Licensee.To1</span>
+                <span>@invoiceModel.Licensee.To1</span>
                 <br />
                 <br />
             </td>
             <td colspan="5" style='height: 20pt; margin-left: 50pt; font-weight: bold; padding-left: 100px;'>
-                INVOICE NUMBER
+                INVOICE #
             </td>
             <td>
                 :
             </td>
-            <td class="border-B" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
-                mso-height-alt: 700; color: Red; font-weight: bold;'>
+            <td colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
+                mso-height-alt: 700; font-weight: bold;'>
                 @invoiceModel.InvoiceNo
             </td>
         </tr>
@@ -145,74 +120,47 @@
             <td>
                 :
             </td>
-            <td class="fontSize12" colspan="2" style='height: 20pt; border-bottom: 1pt solid black;
-                text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
-                font-weight: bold;'>
+            <td class="fontSize12" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
+                mso-height-alt: 700; font-weight: bold;'>
                 @CastAide.AsDateTime(invoiceModel.ToDate).ToAresDayMonthYear() &nbsp;
             </td>
         </tr>
         <tr>
             <td colspan="5" style='margin-left: 50pt; padding-left: 100px;'>
-                DUE DATE
-            </td>
-            <td>
-                :
-            </td>
-            <td class="fontSize12" colspan="2" style='border-bottom: 1pt solid black; height: 20pt;
-                text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
-                font-weight: bold;'>
-                @CastAide.AsDateTime(invoiceModel.DueDate).ToAresDayMonthYear() &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td class="border-LB" colspan="2" rowspan="2" style='height: 30pt; padding-left: 5px;
-                white-space: normal; vertical-align: top;'>
-                
-                <span style="mso-spacerun: yes;">&nbsp;&nbsp;&nbsp;ATTN: </span>
-                <br />
-            </td>
-             <td class="border-RB" colspan="6" rowspan="2" style='height: 30pt; padding-left: 5px;
-                white-space: normal; vertical-align: top;'>
-                
-                <span style="mso-spacerun: yes;"> @invoiceModel.Licensee.AttnName</span>
-                <br />
-            </td>
-          <td colspan="5" style='margin-left: 50pt; padding-left: 100px; '>
                 CURRENCY
             </td>
             <td>
                 :
             </td>
-            <td class="border-B" colspan="2" style='height: 24pt; text-align: center; mso-height-source: userset;
+            <td class="fontSize12" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
                 mso-height-alt: 700; color: Red; font-weight: bold;'>
-                @invoiceModel.CurrencyName
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" style='margin-left: 50pt; padding-left: 100px; height: 20pt;'>
-            </td>
-            <td>
-            </td>
-            <td>
+                @invoiceModel.CurrencyName &nbsp;
             </td>
         </tr>
         <tr>
             <td colspan="16" style='height: 30pt; border-top: 1pt solid white; mso-height-source: userset;
-                mso-height-alt: 1000;'>
+                mso-height-alt: 500;'>
             </td>
         </tr>
         <tr>
-            <td class="border-TRBL" colspan="2" style='height: 50pt; mso-height-source: userset;
+            <td colspan="8" style='height: 30pt; padding-left: 5px; white-space: normal; vertical-align: top;'>
+                <span style="mso-spacerun: yes; font-weight: bold;">Bill To: @invoiceModel.Licensee.AttnName</span>
+                <br />
+            </td>
+            <td colspan="8">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="16" style='height: 60pt; border-top: 1pt solid white; mso-height-source: userset;
+                mso-height-alt: 2000;'>
+            </td>
+        </tr>
+        <tr>
+            <td class="border-TRBL" colspan="11" style='height: 50pt; mso-height-source: userset;
                 mso-height-alt: 884; vertical-align: middle; text-align: center;'>
-                ITEM
+                DESCRIPTION
             </td>
-            <td class="border-TRBL" colspan="7" style='vertical-align: middle; text-align: center;'>
-                PARTICULARS
-            </td>
-            <td class="border-TRBL" colspan="3" style='vertical-align: middle; text-align: center;'>
-                REF NO
-            </td>
-            <td class="border-TRBL" colspan="4" style='vertical-align: middle; text-align: center;'>
+            <td class="border-TRBL" colspan="5" style='vertical-align: middle; text-align: center;'>
                 AMOUNT
             </td>
         </tr>
@@ -241,21 +189,8 @@
                 int heightTmp = detail.DiscountItem == true ? 884 : 1284;
                 
             <tr>
-                <td class="@boderclass" colspan="2" style='height: 30pt; mso-height-source: userset;
-                mso-height-alt: @heightTmp; vertical-align: top; text-align: center; '>
-                    @if (state.StatementID != 100000)
-                    {
-                        if (!detail.DiscountItem)
-                        {
-                        <br /> @idDisplay<br />
-                            idDisplay++;
-                        }
-
-                        
-
-                    }
-                </td>
-                <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
+                <td class="@boderclass" colspan="11" style='height: 30pt; mso-height-source: userset;
+                mso-height-alt: @heightTmp;vertical-align: top; text-align: left;
                         padding-left: 5pt;'>
                     <br />
                     @if (j == 0)
@@ -275,9 +210,7 @@
                     }
                     <br />
                 </td>
-                <td class="@boderclass" colspan="3" style='vertical-align: top;'>
-                </td>
-                <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
+                <td class="@boderclass" colspan="5" style='vertical-align: top; text-align: right;'>
                     <br />
                     @{totalAmount += detail.Amount;}
                     @if (state.StatementID != 100000)
@@ -290,37 +223,30 @@
             }
         }
         <tr>
-            <td colspan="2" style='height: 30pt; border-left: 1pt solid black; mso-height-source: userset;
-                mso-height-alt: 684;'>
+            <td colspan="9" style='height: 30pt; mso-height-source: userset; mso-height-alt: 684;'>
             </td>
-            <td colspan="7">
+            <td colspan="2" class="border-R" style="text-align: center; vertical-align: middle;
+                font-weight: bold mso-height-source: userset; mso-height-alt: 1084; height: 30pt;">
+                TOTAL
             </td>
-            <td colspan="3" class="border-TRBL" style="text-align: center; vertical-align: middle;
-                font-weight: bold mso-height-source: userset; mso-height-alt: 1084;height: 50pt;">
-           TOTAL
-            </td>
-            <td colspan="1"  >
-                
-            </td>
-            <td class="border-RTB" colspan="3"  style='vertical-align: middle; text-align: right;
+            <td class="border-RTB" colspan="5" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
                 @invoiceModel.CurrencyName &nbsp; @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
-      
         <tr>
-            <td class="border-RLT" colspan="9" style='vertical-align: top; padding-left: 5px;'>
+            <td colspan="11" style='vertical-align: top; padding-left: 5px;'>
                 <br />
                 <span style="font-weight: bold;">For Telegraphic Transfer payments</span><br />
             </td>
-            <td class="border-RLT" colspan="7" style='height: 40pt; vertical-align: top; mso-height-source: userset;
+            <td colspan="5" style='height: 40pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 1584; padding-left: 5px;'>
                 <br />
                 Prepared By:
             </td>
         </tr>
         <tr>
-            <td class="border-LB" colspan="4" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
+            <td colspan="4" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                 Beneficiary<br />
                 Account Number<br />
                 IBAN<br />
@@ -332,7 +258,7 @@
                 Beneficiary Bank<br />
                 Swiftcode<br />
             </td>
-            <td class="border-B" colspan="5" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
+            <td colspan="7" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                 :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
@@ -343,12 +269,12 @@
                 :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
             </td>
-            <td class="border-RL" colspan="7" style='height: 60pt; vertical-align: top; mso-height-source: userset;
+            <td colspan="5" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 1584; padding-left: 5px;'>
             </td>
         </tr>
         <tr>
-            <td class="border-TRBL" colspan="7" style='height: 100pt; vertical-align: top; mso-height-source: userset;
+            <td class="border-T" colspan="5" style='height: 100pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 3084; padding-left: 5px;'>
                 <span style="font-weight: bold;">Accounting Department:</span>
                 <br />
@@ -357,7 +283,7 @@
             </td>
         </tr>
         <tr>
-            <td class="border-TRBL" colspan="7" style='height: 20pt; vertical-align: top; mso-height-source: userset;
+            <td class="border-T" colspan="5" style='height: 20pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 684; padding-left: 5px;'>
                 <span style="font-weight: bold">Authorized Signatory</span>
             </td>
