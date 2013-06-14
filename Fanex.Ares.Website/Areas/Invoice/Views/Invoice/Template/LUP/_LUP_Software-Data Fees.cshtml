@@ -64,9 +64,9 @@
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 1600; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 100; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 10pt'>
+        <col style='mso-width-source: userset; mso-width-alt: 100; width: 10pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <tr>
@@ -80,7 +80,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="7">
+            <td colspan="7" style="white-space:normal;">
                 <br />
                 @invoiceModel.Operator.To1
                 <br />
@@ -102,37 +102,37 @@
                 <br />
                 <br />
             </td>
-            <td colspan="5" style='height: 20pt; margin-left: 50pt; font-weight: bold; padding-left: 100px;'>
+            <td colspan="4" style='height: 20pt; margin-left: 50pt; font-weight: bold; padding-left: 100px;'>
                 INVOICE #
             </td>
             <td>
                 :
             </td>
-            <td colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
+            <td colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
                 mso-height-alt: 700; font-weight: bold;'>
                 @invoiceModel.InvoiceNo
             </td>
         </tr>
         <tr>
-            <td colspan="5" style='margin-left: 50pt; padding-left: 100px;'>
+            <td colspan="4" style='margin-left: 50pt; padding-left: 100px;'>
                 DATE
             </td>
             <td>
                 :
             </td>
-            <td class="fontSize12" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
+            <td class="fontSize12" colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
                 mso-height-alt: 700; font-weight: bold;'>
                 @CastAide.AsDateTime(invoiceModel.ToDate).ToAresDayMonthYear() &nbsp;
             </td>
         </tr>
         <tr>
-            <td colspan="5" style='margin-left: 50pt; padding-left: 100px;'>
+            <td colspan="4" style='margin-left: 50pt; padding-left: 100px;'>
                 CURRENCY
             </td>
             <td>
                 :
             </td>
-            <td class="fontSize12" colspan="2" style='height: 20pt; text-align: center; mso-height-source: userset;
+            <td class="fontSize12" colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
                 mso-height-alt: 700; color: Red; font-weight: bold;'>
                 @invoiceModel.CurrencyName &nbsp;
             </td>
@@ -156,11 +156,11 @@
             </td>
         </tr>
         <tr>
-            <td class="border-TRBL" colspan="11" style='height: 50pt; mso-height-source: userset;
-                mso-height-alt: 884; vertical-align: middle; text-align: center;'>
+            <td class="border-TRBL" colspan="11" style='height: 40pt; mso-height-source: userset;
+                mso-height-alt: 884; vertical-align: middle; text-align: center; font-weight:bold;'>
                 DESCRIPTION
             </td>
-            <td class="border-TRBL" colspan="5" style='vertical-align: middle; text-align: center;'>
+            <td class="border-TRBL" colspan="5" style='vertical-align: middle; text-align: center;font-weight:bold;'>
                 AMOUNT
             </td>
         </tr>
@@ -226,7 +226,7 @@
             <td colspan="9" style='height: 30pt; mso-height-source: userset; mso-height-alt: 684;'>
             </td>
             <td colspan="2" class="border-R" style="text-align: center; vertical-align: middle;
-                font-weight: bold mso-height-source: userset; mso-height-alt: 1084; height: 30pt;">
+                font-weight: bold; mso-height-source: userset; mso-height-alt: 1084; height: 30pt;">
                 TOTAL
             </td>
             <td class="border-RTB" colspan="5" style='vertical-align: middle; text-align: right;
