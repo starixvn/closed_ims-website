@@ -155,7 +155,8 @@ var CreatingInvoice = {
             nexDatePickerType: "daterange",
             datePickerFormat: {
                 changeMonth: true,
-                dateFormat: "M dd, yy"
+                dateFormat: "M dd, yy",
+                maxDate: new Date(maxDate)
             },
             firstDatePicker: {
                 Id: "FromDatePicker",
@@ -174,8 +175,8 @@ var CreatingInvoice = {
                 CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             },
-            minDate: new Date(minDate),
-            maxDate: new Date(maxDate)
+            minDate: new Date(minDate)
+            //,maxDate: new Date(maxDate)
         });
       
         $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
