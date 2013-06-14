@@ -17,8 +17,10 @@
             @Html.DropDownList("PartyType", (IEnumerable<SelectListItem>)ViewBag.lstPartyTypes, new { @class = "select ui-widget-content ui-corner-all" })
             <label for="Description">
                 Description</label>
-            <textarea name="Description" rows="5" cols="0" id="Description" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>
-            <label for="PartyFullName">
+            <textarea name="Description" rows="5" cols="0" id="Description" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>            
+            <label for="Company">Comany</label>
+            <input type="text" name="Company" id="Company" maxlength="300" class="text ui-widget-content ui-corner-all" />
+             <label for="PartyFullName">
                 Party Full Name</label>
             <input type="text" name="PartyFullName" id="PartyFullName" maxlength="200" class="text ui-widget-content ui-corner-all" />
             <label for="AttnName">
