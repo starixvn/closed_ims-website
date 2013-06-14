@@ -80,28 +80,29 @@
             </td>
         </tr>
         <tr>
-            <td colspan="7" style="white-space:normal;">
+            <td colspan="8" rowspan="3" style="white-space: normal;">
                 <br />
                 @invoiceModel.Operator.To1
                 <br />
+                <br />
+                @invoiceModel.Licensee.CompanyName
+                <br />
+                @invoiceModel.Licensee.To1
+                <br />
+                <br />
             </td>
-            <td class="fontSize12" colspan="9" style='height: 25pt; vertical-align: bottom; mso-height-source: userset;
-                mso-height-alt: 800;'>
-                @invoiceModel.Operator.To2
+            <td colspan="4" style='margin-left: 50pt; padding-left: 100px; font-weight: bold;'>
+                DATE
+            </td>
+            <td>
+                :
+            </td>
+            <td class="fontSize12" colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
+                mso-height-alt: 700;'>
+                @CastAide.AsDateTime(invoiceModel.ToDate).ToAresDayMonthYear() &nbsp;
             </td>
         </tr>
         <tr>
-            <td colspan="8" rowspan="3" style='height: 30pt; padding-left: 5px; white-space: normal;
-                vertical-align: top;'>
-                <br />
-                <span class="bold-red" style="mso-spacerun: yes;">
-                    @invoiceModel.Licensee.CompanyName
-                </span>
-                <br />
-                <span>@invoiceModel.Licensee.To1</span>
-                <br />
-                <br />
-            </td>
             <td colspan="4" style='height: 20pt; margin-left: 50pt; font-weight: bold; padding-left: 100px;'>
                 INVOICE #
             </td>
@@ -109,24 +110,12 @@
                 :
             </td>
             <td colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
-                mso-height-alt: 700; font-weight: bold;'>
+                mso-height-alt: 700;'>
                 @invoiceModel.InvoiceNo
             </td>
         </tr>
         <tr>
-            <td colspan="4" style='margin-left: 50pt; padding-left: 100px;'>
-                DATE
-            </td>
-            <td>
-                :
-            </td>
-            <td class="fontSize12" colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
-                mso-height-alt: 700; font-weight: bold;'>
-                @CastAide.AsDateTime(invoiceModel.ToDate).ToAresDayMonthYear() &nbsp;
-            </td>
-        </tr>
-        <tr>
-            <td colspan="4" style='margin-left: 50pt; padding-left: 100px;'>
+            <td colspan="4" style='margin-left: 50pt; padding-left: 100px; font-weight: bold;'>
                 CURRENCY
             </td>
             <td>
@@ -139,7 +128,7 @@
         </tr>
         <tr>
             <td colspan="16" style='height: 30pt; border-top: 1pt solid white; mso-height-source: userset;
-                mso-height-alt: 500;'>
+                mso-height-alt: 1000;'>
             </td>
         </tr>
         <tr>
@@ -157,10 +146,11 @@
         </tr>
         <tr>
             <td class="border-TRBL" colspan="11" style='height: 40pt; mso-height-source: userset;
-                mso-height-alt: 884; vertical-align: middle; text-align: center; font-weight:bold;'>
+                mso-height-alt: 884; vertical-align: middle; text-align: center; font-weight: bold;'>
                 DESCRIPTION
             </td>
-            <td class="border-TRBL" colspan="5" style='vertical-align: middle; text-align: center;font-weight:bold;'>
+            <td class="border-TRBL" colspan="5" style='vertical-align: middle; text-align: center;
+                font-weight: bold;'>
                 AMOUNT
             </td>
         </tr>
