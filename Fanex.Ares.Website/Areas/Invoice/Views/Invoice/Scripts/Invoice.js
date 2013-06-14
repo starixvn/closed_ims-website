@@ -326,7 +326,7 @@ var CreatingInvoice = {
                             $('#parentContainer').html(data);
                             CreatingInvoice.IdNewItemList = [];
                             CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
-
+                            $("#parentContainer").css("margin-top", "90px !important;");
                             //disable Generate button
                             CreatingInvoice.FilterControls.btnGenerate.addClass('ui-state-disabled');
 
