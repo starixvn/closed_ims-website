@@ -148,7 +148,7 @@
             <td class="fontSize12" colspan="2" style='height: 20pt; border-bottom: 1pt solid black;
                 text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
                 font-weight: bold;'>
-                @CastAide.AsDateTime(invoiceModel.ToDate).ToAresDayMonthYear() &nbsp;
+                @CastAide.AsDateTime(invoiceModel.ToDate).ToString("dd/MMM/yy") &nbsp;
             </td>
         </tr>
         <tr>
@@ -161,7 +161,7 @@
             <td class="fontSize12" colspan="2" style='border-bottom: 1pt solid black; height: 20pt;
                 text-align: center; mso-height-source: userset; mso-height-alt: 700; color: Red;
                 font-weight: bold;'>
-                @CastAide.AsDateTime(invoiceModel.DueDate).ToAresDayMonthYear() &nbsp;
+                @CastAide.AsDateTime(invoiceModel.DueDate).ToString("dd/MMM/yy") &nbsp;
             </td>
         </tr>
         <tr>
@@ -408,16 +408,6 @@
                 mso-height-alt: 2084; vertical-align: middle;'>
                 @invoiceModel.Note
             </td>
-            @*<td class="fontSize12" colspan="3" style='height: 50pt; mso-height-source: userset;
-                mso-height-alt: 2084; vertical-align: middle;'>
-                Prepared/Revised<br />
-                Superceded FPP
-            </td>
-            <td class="fontSize12" colspan="13" style='mso-height-source: userset; mso-height-alt: 2084;
-                vertical-align: middle; text-align: left;'>
-                : Mar 2007<br />
-                : N/A
-            </td>*@
         </tr>
     </table>
 </div>
