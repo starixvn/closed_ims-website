@@ -67,8 +67,8 @@
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 100; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 10pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
+        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 100pt'>
+        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 100pt'>
         <tr>
             <td colspan="7" rowspan="2" style='height: 60pt; vertical-align: top; margin-left: 30pt;'>
                 <img style="display:inline-block;" width="600" height="96 v:shapes="Graphics_x0020_1"  src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Boping-logo.png")"/>
@@ -90,11 +90,12 @@
             </td>
         </tr>
         <tr>
-            <td colspan="7" >
+            <td colspan="4" style="white-space:normal;">
                  <br />
-                @*@invoiceModel.Operator.To1 *@
+                @invoiceModel.Operator.To1 
                 <br />
             </td>
+            <td colspan="3"></td>
             <td class="fontSize12" colspan="9" style='height: 25pt; vertical-align: bottom; mso-height-source: userset;
                 mso-height-alt: 800;'>
                 @invoiceModel.Operator.To2
