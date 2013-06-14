@@ -54,7 +54,8 @@ function GetInvoiceType() {
 
                 }, // when all selected is made and datalist collapsed
                 onCheck: function () {
-                    
+                    CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+                    $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 }, // when an individual checkbox is clicked 
                 onOpen: function () { }, // when the select menu is opened 
                 onCheckAll: function () {
@@ -73,11 +74,10 @@ function GetInvoiceType() {
 
             $("#divInvoiceType input[type='radio']").change(function () {
                 GetInvoiceNo();
-                CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
-                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                
             });
 
-            
+
             GetInvoiceNo();
         },
         error: function () {
