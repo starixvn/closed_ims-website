@@ -50,5 +50,7 @@ namespace Fanex.Ares.Admin.Models.Party
 
         public string Logo { get; set; }
 
+        public string Company { get; set; }
+
     }
 }

@@ -17,6 +17,7 @@ namespace Fanex.Ares.Admin.Criteria
         public int PartyType { get; set; }
         public string Description { get; set; }
         public string PartyFullName { get; set; }
+        public string Company { get; set; }
         public string AccountNumber { get; set; }
         public string AccountName { get; set; }
         public string BankName { get; set; }

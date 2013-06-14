@@ -62,7 +62,8 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         AttnName = Convert.ToString(r["AttnName"]),
                         To1 = Convert.ToString(r["To1"]),
                         To2 = Convert.ToString(r["To2"]),
-                        Logo = Convert.ToString(r["Logo"])
+                        Logo = Convert.ToString(r["Logo"]),
+                        Company = Convert.ToString(r["Company"])
                     };
 
                     return res;

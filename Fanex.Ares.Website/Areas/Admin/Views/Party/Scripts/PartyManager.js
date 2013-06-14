@@ -24,19 +24,20 @@ PartyManager = function () {
         PartyType: 2,
         Description: 3,
         PartyFullName: 4,
-        AccountNumber: 5,
-        AccountName: 6,
-        BankName: 7,
-        Benificiary: 8,
-        BenificiaryBank: 9,
-        IBAN: 10,
-        SwiftCode: 11,
-        CorrespondentBank: 12,
-        CorrespondentAccNo: 13,
-        CorrespondentSwiftCode: 14,
-        AttnName: 15,
-        To1: 16,
-        To2: 17
+        Company: 5,
+        AccountNumber: 6,
+        AccountName: 7,
+        BankName: 8,
+        Benificiary: 9,
+        BenificiaryBank: 10,
+        IBAN: 11,
+        SwiftCode: 12,
+        CorrespondentBank: 13,
+        CorrespondentAccNo: 14,
+        CorrespondentSwiftCode: 15,
+        AttnName: 16,
+        To1: 17,
+        To2: 18
     }
 
     var _dlgAddNew = {
@@ -46,6 +47,7 @@ PartyManager = function () {
         selPartyType: null,
         txtDescription: null,
         txtPartyFullName: null,
+        txtCompany: null,
         txtAccountNumber: null,
         txtAccountName: null,
         txtBankName: null,
@@ -80,6 +82,7 @@ PartyManager = function () {
         _dlgAddNew.selPartyType = $('#PartyType');
         _dlgAddNew.txtDescription = $('#Description');
         _dlgAddNew.txtPartyFullName = $('#PartyFullName');
+        _dlgAddNew.txtCompany = $('#company');
         _dlgAddNew.txtAccountNumber = $('#AccountNumber');
         _dlgAddNew.txtAccountName = $('#AccountName');
         _dlgAddNew.txtBankName = $('#BankName');
@@ -154,6 +157,7 @@ PartyManager = function () {
                                 { Name: "PartyType", Value: item.PartyType },
                                 { Name: "Description", Value: item.Description },
                                 { Name: "PartyFullName", Value: item.PartyFullName },
+                                { Name: "Company", Value: item.Company },
                                 { Name: "AccountNumber", Value: item.AccountNumber },
                                 { Name: "AccountName", Value: item.AccountName },
                                 { Name: "BankName", Value: item.BankName },
@@ -191,6 +195,7 @@ PartyManager = function () {
                     { HeaderText: "PartyType", Width: 100, Name: "PartyType", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Description", Width: 100, Name: "Description", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Party Full Name", Width: 200, Name: "PartyFullName", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Company", Width: 200, Name: "Company", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Account Number", Width: 100, Name: "AccountNumber", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Account Name", Width: 100, Name: "AccountName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Bank Name", Width: 100, Name: "BankName", HeaderAlign: "center", CellAlign: "left" },
@@ -234,7 +239,8 @@ PartyManager = function () {
                                                                         _mappingColumns.SwiftCode,
                                                                         _mappingColumns.CorrespondentBank,
                                                                         _mappingColumns.CorrespondentAccNo,
-                                                                        _mappingColumns.CorrespondentSwiftCode]);
+                                                                        _mappingColumns.CorrespondentSwiftCode,
+                                                                        _mappingColumns.To2]);
     };
 
     self.AddNewParty = function () {
@@ -386,6 +392,7 @@ PartyManager = function () {
         _dlgAddNew.selPartyType.val(row[_mappingColumns.PartyType].Value);
         _dlgAddNew.txtDescription.val(row[_mappingColumns.Description].Value);
         _dlgAddNew.txtPartyFullName.val(row[_mappingColumns.PartyFullName].Value);
+        _dlgAddNew.txtCompany.val(row[_mappingColumns.Company].Value);
         _dlgAddNew.txtAccountNumber.val(row[_mappingColumns.AccountNumber].Value);
         _dlgAddNew.txtAccountName.val(row[_mappingColumns.AccountName].Value);
         _dlgAddNew.txtBankName.val(row[_mappingColumns.BankName].Value);
