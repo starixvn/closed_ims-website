@@ -84,7 +84,7 @@
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
                                         text-align: right;font-weight: bold;">
-                                        @MvcHtmlString.Create(detail.Amount == 0 ? "(nil)" : NegativeFormat(detail.Amount))
+                                        @MvcHtmlString.Create(detail.Amount == 0 && detail.DiscountItem ? "(nil)" : NegativeFormat(detail.Amount))
                                     </div>
                                 </td>
                             </tr>
