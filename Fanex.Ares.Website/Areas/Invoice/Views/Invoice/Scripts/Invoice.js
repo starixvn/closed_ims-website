@@ -319,7 +319,7 @@ var CreatingInvoice = {
             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             return false;
         }
-        
+
         CreatingInvoice.GetFilteringInfo();
 
         if (CreatingInvoice.Products.length == 0) {
@@ -590,7 +590,9 @@ var CreatingInvoice = {
             statement.StatementDetailList.push(statementDetail);
             //            CreatingInvoice.StatementDetailList.push(statementDetail);
         }
-        invoiceInfoModel.StatementList.push(statement);
+        if (statement.StatementDetailList.length > 0) {
+            invoiceInfoModel.StatementList.push(statement);
+        }
         invoiceInfoModel.Note = $('#noteId').val();
         return invoiceInfoModel.StatementList;
     },
