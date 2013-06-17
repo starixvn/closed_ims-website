@@ -77,8 +77,8 @@
             <td colspan="8" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 2500; white-space: normal;'>
                 <br />
-                  <span  style="mso-spacerun: yes; font-weight: bold;">@invoiceModel.Operator.Company.ToUpper()</span>
-                 <br />
+                <span style="mso-spacerun: yes; font-weight: bold;">@invoiceModel.Operator.Company.ToUpper()</span>
+                <br />
                 @invoiceModel.Operator.To1
                 <br />
             </td>
@@ -103,8 +103,9 @@
             </td>
         </tr>
         <tr>
-            <td colspan="16" style='height: 30pt; border-top: 1pt solid white; mso-height-source: userset;
-                mso-height-alt: 600;'>
+              <td colspan="10" style='height: 30pt;'>
+            </td>
+              <td colspan="6" >
             </td>
         </tr>
         <tr>
@@ -188,11 +189,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="3" style='margin-left: 50pt; padding-left: 100px; height: 20pt;'>
-            </td>
-            <td>
-            </td>
-            <td>
+            <td colspan="6" style='margin-left: 50pt; padding-left: 100px; height: 20pt;'>
             </td>
         </tr>
         <tr>
@@ -294,13 +291,15 @@
             </td>
             <td colspan="7">
             </td>
-            <td colspan="3">
+            <td >
             </td>
-            <td colspan="1" class="border-LTB" rowspan="3" style="text-align: left; vertical-align: middle;
+             <td colspan="2" >
+            </td>
+            <td colspan="1" class="border-LT" rowspan="3" style="text-align: left; vertical-align: middle;
                 font-weight: bold">
                 Total Amount:
             </td>
-            <td class="border-RTB" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
+            <td class="border-RT" colspan="3" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
                 @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
             </td>
@@ -335,7 +334,7 @@
                     <span>X</span>
                 }
             </td>
-            <td colspan="2">
+            <td colspan="2" style="">
             </td>
         </tr>
         <tr>
@@ -344,7 +343,9 @@
             </td>
             <td colspan="7">
             </td>
-            <td colspan="3">
+           <td >
+            </td>
+             <td colspan="2" >
             </td>
         </tr>
         <tr>
@@ -372,23 +373,23 @@
                 Account Number<br />
             </td>
             <td class="border-B" colspan="6" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
-                :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
+                : @invoiceModel.Operator.Benificiary<br />
+                : @invoiceModel.Operator.BenificiaryBank<br />
+                : @invoiceModel.Operator.AccountNumber<br />
+                : @invoiceModel.Operator.IBAN<br />
+                : @invoiceModel.Operator.SwiftCode<br />
                 <br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
+                : @invoiceModel.Operator.CorrespondentBank<br />
+                : @invoiceModel.Operator.SwiftCode<br />
+                : @invoiceModel.Operator.AccountNumber<br />
             </td>
             <td class="border-RL" colspan="6" style='height: 60pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 1584; padding-left: 5px;'>
+                mso-height-alt: 1584;'>
             </td>
         </tr>
         <tr>
             <td class="border-TRBL" colspan="6" style='height: 100pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 3084; padding-left: 5px;'>
+                mso-height-alt: 3084;'>
                 <span style="font-weight: bold;">Accounting Department:</span>
                 <br />
                 <br />
@@ -397,7 +398,7 @@
         </tr>
         <tr>
             <td class="border-TRBL" colspan="6" style='height: 20pt; vertical-align: top; mso-height-source: userset;
-                mso-height-alt: 684; padding-left: 5px;'>
+                mso-height-alt: 684;'>
                 <span style="font-weight: bold">Authorized Signatory</span>
             </td>
         </tr>
@@ -406,16 +407,6 @@
                 mso-height-alt: 2084; vertical-align: middle;'>
                 @invoiceModel.Note
             </td>
-            @*<td class="fontSize12" colspan="3" style='height: 50pt; mso-height-source: userset;
-                mso-height-alt: 2084; vertical-align: middle;'>
-                Prepared/Revised<br />
-                Superceded FPP
-            </td>
-            <td class="fontSize12" colspan="13" style='mso-height-source: userset; mso-height-alt: 2084;
-                vertical-align: middle; text-align: left;'>
-                : Mar 2007<br />
-                : N/A
-            </td>*@
         </tr>
     </table>
 </div>
