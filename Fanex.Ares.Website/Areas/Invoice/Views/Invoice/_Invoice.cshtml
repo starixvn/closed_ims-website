@@ -359,8 +359,8 @@ function Detail(fromDate, toDate) {
     invoiceInfoModel.Operator = CreatingInvoice.Operator;
     invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
     invoiceInfoModel.FromDate = fromDate;
-    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-    invoiceInfoModel.DueDate = toDate;
+    invoiceInfoModel.ToDate = toDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
     invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
     invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
     invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
