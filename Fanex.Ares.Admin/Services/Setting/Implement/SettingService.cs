@@ -43,7 +43,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         HeadOfTerms = Convert.ToDateTime(r["HeadOfTerms"] == System.DBNull.Value ? DateTime.MinValue : r["HeadOfTerms"]),
                         MinimumFee = Convert.ToInt32(r["MinimumFee"] == System.DBNull.Value ? 0 : r["MinimumFee"]),
                         LicenseeID = Convert.ToInt32(r["LicenseeID"]),
-                        LicenseeName = Convert.ToString(r["LicenseeName"]),
+                        LicenseeName = Convert.ToString(r["BrandName"] != System.DBNull.Value ? r["BrandName"] : r["LicenseeName"]),
                         PartyID = Convert.ToInt32(r["PartyID"]),
                         PartyName = Convert.ToString(r["PartyName"]),
                         ProductID = Convert.ToInt32(r["ProductID"]),
