@@ -29,6 +29,9 @@
             <label for="MinimumFee">
                 Minimum Fee</label>
             @Html.TextBoxFor(m => m.MinimumFee, new { id = "MinimumFee", @class = "text ui-widget-content ui-corner-all", onkeypress = "return isNumberKey(event)" })
+            <label for="MinimumFeeTerm">
+                Minimum Fee Term</label>
+            @Html.TextBoxFor(m => m.MinimumFeeTerm, new { id = "MinimumFeeTerm", @class = "text ui-widget-content ui-corner-all" })
             <label for="WaivedDate">
                 Waived Date</label>
             @*<div id="WaivedDate" class="datepicker"></div>*@

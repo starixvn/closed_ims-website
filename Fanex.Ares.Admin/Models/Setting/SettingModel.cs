@@ -34,6 +34,8 @@ namespace Fanex.Ares.Admin.Models.Setting
 
         public double MinimumFee{ get; set; }
 
+        public string MinimumFeeTerm { get; set; }
+
         public DateTime WaivedDate { get; set; }
 
         public int WaivedMonth { get; set; }

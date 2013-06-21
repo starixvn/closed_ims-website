@@ -229,11 +229,6 @@
     <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
     <Content Include="Areas\Admin\Views\Setting\Scripts\SettingManager.js" />
     <Content Include="Areas\Admin\Views\Setting\Styles\Setting.css" />
-    <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessage.js" />
-    <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageHelper.js" />
-    <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
-    <Content Include="Areas\Invoice\Scripts\TicketListing.js" />
-    <Content Include="Areas\Invoice\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Invoice\Styles\Images\Acqua-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />

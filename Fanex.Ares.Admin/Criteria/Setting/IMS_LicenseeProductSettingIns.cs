@@ -20,6 +20,7 @@ namespace Fanex.Ares.Admin.Criteria.Setting
         public DateTime FirstBillingDate { get; set; }
         public DateTime HeadOfTerms { get; set; }
         public double MinimumFee { get; set; }
+        public string MinimumFeeTerm { get; set; }
         public DateTime WaivedDate
         {
             get;
