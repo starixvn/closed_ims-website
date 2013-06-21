@@ -480,7 +480,7 @@ var CreatingInvoice = {
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
                                     <td   style="width: 10%; "><span discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
+                                    <textarea  id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
