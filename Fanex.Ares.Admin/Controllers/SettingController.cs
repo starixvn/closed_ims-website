@@ -22,6 +22,7 @@ namespace Fanex.Ares.Admin.Controllers
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
     using Fanex.NAP.Core.Web.Attribute;
+    using System;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     [NapSuperAuth]
@@ -114,6 +115,9 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewSetting(IMS_LicenseeProductSettingIns criteria)
         {
+            criteria.WaivedDate = criteria.WaivedDate == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.WaivedDate;
+            criteria.FirstBillingDate = criteria.FirstBillingDate == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.FirstBillingDate;
+            criteria.HeadOfTerms = criteria.HeadOfTerms == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.HeadOfTerms;
             TempData["Result"] = _settingService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }
@@ -122,6 +126,9 @@ namespace Fanex.Ares.Admin.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateSetting(IMS_LicenseeProductSettingUpd criteria)
         {
+            criteria.WaivedDate = criteria.WaivedDate == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.WaivedDate;
+            criteria.FirstBillingDate = criteria.FirstBillingDate == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.FirstBillingDate;
+            criteria.HeadOfTerms = criteria.HeadOfTerms == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.HeadOfTerms;
             TempData["Result"] = _settingService.ExecuteCommand(criteria);
             return RedirectToAction("Index");
         }

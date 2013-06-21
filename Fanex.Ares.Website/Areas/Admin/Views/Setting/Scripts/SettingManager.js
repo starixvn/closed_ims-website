@@ -64,21 +64,22 @@ SettingManager = function () {
         _table.dlgLicenseeProductDiscount = $('#LicenseeProductDiscountDialog');
 
         _table.formSearch = $('#formSearch');
+        _table.formAddNew = $('#formAddNew');
         _table.selLicenseeID = $('#LicenseeID', '#formSearch');
         _table.selPartyID = $('#PartyID', '#formSearch');
         _table.frmPartyLicensee = $('#formPartyLicensee');
         _table.errCode = $('#ErrCode');
         _table.errMsg = $('#ErrMsg');
 
-        _dlgAddNew.selLicenseeID = $('#LicenseeID', '#formAddNew');
-        _dlgAddNew.selProductID = $('#ProductID', '#formAddNew');
-        _dlgAddNew.selPartyID = $('#PartyID', '#formAddNew');
-        _dlgAddNew.dateFirstBillingDate = $('#FirstBillingDate', '#formAddNew');
-        _dlgAddNew.dateHeadOfTerms = $('#HeadOfTerms', '#formAddNew');
-        _dlgAddNew.intMinimumFee = $('#MinimumFee', '#formAddNew');
-        _dlgAddNew.dateWaivedDate = $('#WaivedDate', '#formAddNew');
-        _dlgAddNew.dateWaivedMonth = $('#WaivedMonth', '#formAddNew');
-        _dlgAddNew.intCurrency = $('#Currency', '#formAddNew');
+        _dlgAddNew.selLicenseeID = $('#LicenseeID');
+        _dlgAddNew.selProductID = $('#ProductID');
+        _dlgAddNew.selPartyID = $('#PartyID');
+        _dlgAddNew.dateFirstBillingDate = $('#FirstBillingDate');
+        _dlgAddNew.dateHeadOfTerms = $('#HeadOfTerms');
+        _dlgAddNew.intMinimumFee = $('#MinimumFee');
+        _dlgAddNew.dateWaivedDate = $('#WaivedDate');
+        _dlgAddNew.dateWaivedMonth = $('#WaivedMonth');
+        _dlgAddNew.intCurrency = $('#Currency');
         _dlgAddNew.txtValidateTips = $('#validateTips');
     }
 
@@ -89,10 +90,6 @@ SettingManager = function () {
 
         _table.btnSearch.click(function () {
             GenerateData();
-        });
-
-        _table.selPartyID.change(function () {
-            self.GetLicenseesByPartyID($(this).val(), _table.selLicenseeID, true);
         });
 
         _dlgAddNew.selPartyID.change(function () {
@@ -284,6 +281,7 @@ SettingManager = function () {
         var originalDialog = _table.dlgAddNew.html();
         cachedDOMElements();
         _table.dlgAddNew.find('.update').each(function () { $(this).show() });
+
         _table.dlgAddNew.dialog({
             autoOpen: false,
             height: 600,
@@ -293,7 +291,10 @@ SettingManager = function () {
                 "Create a Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSearch.submit();
+                        _table.formAddNew.attr("Action", domain + "admin/Setting/CreateNewSetting");
+                        _table.dlgAddNew.find('.update').each(function () { $(this).show() });
+                        _table.formAddNew.submit();
+
                         $(this).dialog("close");
                     }
                     else {
@@ -305,6 +306,23 @@ SettingManager = function () {
                 }
             },
             open: function () {
+
+                $('#formAddNew #PartyID').change(function () {
+                    self.GetLicenseesByPartyID($(this).val(),
+                                        $('#formAddNew #LicenseeID'),
+                                        false,
+                                        function () {
+                                        }
+                    )
+                });
+
+                self.GetLicenseesByPartyID($('#formAddNew #PartyID').val(),
+                                        $('#formAddNew #LicenseeID'),
+                                        false,
+                                        function () {
+                                        }
+                    )
+                
                 $('#FirstBillingDate').datepicker({ dateFormat: 'd MM yy' });
                 $('#HeadOfTerms').datepicker({ dateFormat: 'd MM yy' });
                 $('#WaivedDate').datepicker({ dateFormat: 'd MM yy' });
@@ -322,8 +340,8 @@ SettingManager = function () {
         _table.dlgAddNew.attr('title', 'Edit Setting');
         var originalDialog = _table.dlgAddNew.html();
         cachedDOMElements();
+        _table.dlgAddNew.find('.update').hide();
         FillDataToEditForm(rowNum);
-        _table.dlgAddNew.find('.update').each(function () { $(this).hide() });
         _table.dlgAddNew.dialog({
             autoOpen: false,
             height: 500,
@@ -333,9 +351,9 @@ SettingManager = function () {
                 "Edit Setting": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.formSearch.attr("Action", domain + "admin/Setting/UpdateSetting");
+                        _table.formAddNew.attr("Action", domain + "admin/Setting/UpdateSetting");
                         _table.dlgAddNew.find('.update').each(function () { $(this).show() });
-                        _table.formSearch.submit();
+                        _table.formAddNew.submit();
 
                         $(this).dialog("close");
                     }
