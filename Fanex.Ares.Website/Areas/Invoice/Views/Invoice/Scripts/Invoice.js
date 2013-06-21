@@ -466,14 +466,7 @@ var CreatingInvoice = {
             if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 displayID++;
             }
-            if (amount == '') {
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
-                return false;
-            }
-            else if (amount == '0.00') {
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Amount is invalid!' });
-                return false;
-            }
+          
         }
         if (CreatingInvoice.isInsert) {
             //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
@@ -559,6 +552,10 @@ var CreatingInvoice = {
                 $('#newItem_text_' + id).empty().val(formatNumber);
                 totalAmountTmp += parseFloat(amount);
             }
+            if (numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER) == '0.00') {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Amount is invalid!' });
+                return false;
+            }
         }
 
         $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
@@ -566,9 +563,6 @@ var CreatingInvoice = {
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
 
         CreatingInvoice.isInsert = true;
-    },
-    UpdateItemDisplay: function () {
-
     },
     UpdateItem: function () {
         var statement = {
