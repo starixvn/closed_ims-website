@@ -309,7 +309,7 @@ function Review() {
         success: function (data, textStatus, jqXHR) {
             if (data) {
                 var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
-                win.focus();
+              
                 if($.browser.msie){
                     win.load = new function(){
                         win.document.write(data);
