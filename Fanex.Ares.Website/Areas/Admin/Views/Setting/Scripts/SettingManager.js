@@ -38,7 +38,7 @@ SettingManager = function () {
         WaivedDate: 9,
         WaivedMonth: 10,
         Currency: 11,
-        BasicOfBilling: 12
+        MinimumFeeTerm: 12
     }
 
     var _dlgAddNew = {
@@ -50,7 +50,8 @@ SettingManager = function () {
         intMinimumFee: null,
         dateWaivedDate: null,
         dateWaivedMonth: null,
-        intCurrency: null
+        intCurrency: null,
+        txtMinimumFeeTerm: null,
     };
 
     var gridOptions = {};
@@ -77,6 +78,7 @@ SettingManager = function () {
         _dlgAddNew.dateFirstBillingDate = $('#FirstBillingDate');
         _dlgAddNew.dateHeadOfTerms = $('#HeadOfTerms');
         _dlgAddNew.intMinimumFee = $('#MinimumFee');
+        _dlgAddNew.txtMinimumFeeTerm = $('#MinimumFeeTerm');
         _dlgAddNew.dateWaivedDate = $('#WaivedDate');
         _dlgAddNew.dateWaivedMonth = $('#WaivedMonth');
         _dlgAddNew.intCurrency = $('#Currency');
@@ -216,6 +218,7 @@ SettingManager = function () {
                                 { Name: "WaivedDate", Value: item.WaivedDate },
                                 { Name: "WaivedMonth", Value: item.WaivedMonth },
                                 { Name: "Currency", Value: item.Currency },
+                                { Name: "MinimumFeeTerm", Value: item.MinimumFeeTerm },
                                 { Name: "Edit", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateEditButton(cell, cellFormated); } },
                                 { Name: "LicenseeProductCharge", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductChargeButton(cell, cellFormated); } },
                                 { Name: "LicenseeProductDiscount", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateLicenseeProductDiscountButton(cell, cellFormated); } }
@@ -252,6 +255,7 @@ SettingManager = function () {
                     { HeaderText: "Waived Date", Width: 100, Name: "WaivedDate", HeaderAlign: "center", CellAlign: "center", FormatDateTime: "DD MMM YYYY" },
                     { HeaderText: "Waived Month", Width: 100, Name: "WaivedMonth", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Currency", Width: 60, Name: "Currency", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "MinimumFeeTerm", Width: 60, Name: "MinimumFeeTerm", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Charge", Width: 100, Name: "LicenseeProductCharge", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Discount", Width: 100, Name: "LicenseeProductDiscount", HeaderAlign: "center", CellAlign: "left"}],
@@ -274,7 +278,8 @@ SettingManager = function () {
         _table.settingsContainer.fanexGrid(gridOptions);
         _table.settingsContainer.fanexGrid("hideColumns", gridOptions, [_mappingColumns.PartyID,
                                                                         _mappingColumns.LicenseeID,
-                                                                        _mappingColumns.ProductID]);
+                                                                        _mappingColumns.ProductID,
+                                                                        _mappingColumns.MinimumFeeTerm]);
     };
 
     self.AddNewLicensee = function () {
@@ -553,6 +558,7 @@ SettingManager = function () {
         _dlgAddNew.dateWaivedDate.val(moment(row[_mappingColumns.WaivedDate].Value).format('DD MMM YYYY'));
         _dlgAddNew.dateWaivedMonth.val(row[_mappingColumns.WaivedMonth].Value);
         _dlgAddNew.intCurrency.val(row[_mappingColumns.Currency].Value);
+        _dlgAddNew.txtMinimumFeeTerm.val(row[_mappingColumns.MinimumFeeTerm].Value);
 
     }
 
