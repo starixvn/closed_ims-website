@@ -42,8 +42,7 @@ function GetInvoiceType() {
                 productList = [];
             }
 
-            $("#ddlInvoiceType").multiRadioSelect(
-            { //multiple: false,
+            $("#ddlInvoiceType").multiRadioSelect({ //multiple: false,
                 showCheckAll: false,
                 maxHeight: 705,
                 minWidth: 170,
@@ -81,7 +80,9 @@ function GetInvoiceType() {
             GetInvoiceNo();
         },
         error: function () {
-            try { parent.jQuery.unblockUI(); } catch (e) { }
+            try {
+                parent.jQuery.unblockUI();
+            } catch (e) { }
         },
         complete: function (jqXHR, textStatus) {
             NapAres.enableInput();
@@ -98,13 +99,15 @@ function GetInvoiceNo() {
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceNo",
         type: "POST",
-        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val() + '&LicenseeId=' +
-            CreatingInvoice.FilterControls.ddlLicensee.val() + '&InvoiceTypeID=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
+        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val() + '&LicenseeId=' + CreatingInvoice.FilterControls.ddlLicensee.val() + '&InvoiceTypeID=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
         success: function (data, textStatus, jqXHR) {
             CreatingInvoice.FilterControls.txtInvoiceNo.val(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading InvoiceNo fail.' });
+            NapAres.Helper.showMsgBox({
+                ErrorCode: 1,
+                ErrorMsg: 'Loading InvoiceNo fail.'
+            });
             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
         },
         complete: function (jqXHR, textStatus) {
@@ -208,7 +211,9 @@ var CreatingInvoice = {
         CreatingInvoice.FilterControls.cldDueDate = $('#DueDatePicker');
 
         CreatingInvoice.FilterControls.btnGenerate.button();
-        CreatingInvoice.FilterControls.btnGenerate.click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+        CreatingInvoice.FilterControls.btnGenerate.click(function () {
+            if (!$(this).hasClass('ui-state-disabled')) Submit();
+        });
 
         CreatingInvoice.FilterControls.btnNewInvoice.button();
 
@@ -217,8 +222,7 @@ var CreatingInvoice = {
                 GetInvoiceType();
                 CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            }
-            else {
+            } else {
                 CreatingInvoice.FilterControls.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
                 CreatingInvoice.FilterControls.txtInvoiceNo.val('');
             }
@@ -251,11 +255,7 @@ var CreatingInvoice = {
 
         CreatingInvoice.FilterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
         $.each(operatorListModel, function (i, item) {
-            CreatingInvoice.FilterControls.ddlOperator.append('<option value="'
-                                 + item.PartyID
-                                 + '">'
-                                 + item.PartyFullName
-                                 + '</option>');
+            CreatingInvoice.FilterControls.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
         });
         CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
@@ -273,17 +273,16 @@ var CreatingInvoice = {
                 if (data && data.length > 0) {
                     //                    CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select a Licensee</option>');
                     $.each(data, function (i, item) {
-                        CreatingInvoice.FilterControls.ddlLicensee.append('<option value="'
-                                 + item.LicenseeID
-                                 + '">'
-                                 + item.BrandName
-                                 + '</option>');
+                        CreatingInvoice.FilterControls.ddlLicensee.append('<option value="' + item.LicenseeID + '">' + item.BrandName + '</option>');
                     });
                 }
                 CreatingInvoice.Licensees = data;
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading Licensee data fail.' });
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Loading Licensee data fail.'
+                });
                 setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
@@ -302,9 +301,12 @@ var CreatingInvoice = {
         CreatingInvoice.FromDate = CreatingInvoice.FilterControls.cldFromDate.val();
         CreatingInvoice.ToDate = CreatingInvoice.FilterControls.cldToDate.val();
         CreatingInvoice.DueDate = CreatingInvoice.FilterControls.cldDueDate.val();
-        CreatingInvoice.Currency = { CurrencyID: CreatingInvoice.FilterControls.ddlCurrency.val(), CurrencyName: $('#CurrencyID option:selected').text() };
+        CreatingInvoice.Currency = {
+            CurrencyID: CreatingInvoice.FilterControls.ddlCurrency.val(),
+            CurrencyName: $('#CurrencyID option:selected').text()
+        };
         CreatingInvoice.InvoiceNo = CreatingInvoice.FilterControls.txtInvoiceNo.val();
-        CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
+        CreatingInvoice.InvoiceName = Operator.PartyName + '-INV-' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
 
 
     },
@@ -315,7 +317,10 @@ var CreatingInvoice = {
             return false;
 
         if (CreatingInvoice.FilterControls.txtInvoiceNo.val().length == 0) {
-            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input Invoice No.!' });
+            NapAres.Helper.showMsgBox({
+                ErrorCode: 1,
+                ErrorMsg: 'Please input Invoice No.!'
+            });
             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             return false;
         }
@@ -323,7 +328,10 @@ var CreatingInvoice = {
         CreatingInvoice.GetFilteringInfo();
 
         if (CreatingInvoice.Products.length == 0) {
-            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please select product!' });
+            NapAres.Helper.showMsgBox({
+                ErrorCode: 1,
+                ErrorMsg: 'Please select product!'
+            });
             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
 
             return false;
@@ -333,16 +341,13 @@ var CreatingInvoice = {
         $.ajax({
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
             type: "POST",
-            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
-                        '&InvoiceNo=' + CreatingInvoice.InvoiceNo + '&InvoiceType=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
+            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID + '&InvoiceNo=' + CreatingInvoice.InvoiceNo + '&InvoiceType=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
             success: function (data, textStatus, jqXHR) {
                 if (data == false) {
                     $.ajax({
                         url: domain + "Invoice/Invoice/GetInvoice",
                         type: "POST",
-                        data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID +
-                        '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate +
-                        '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
+                        data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID + '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate + '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
                         success: function (data, textStatus, jqXHR) {
                             $('#parentContainer').html(data);
                             CreatingInvoice.IdNewItemList = [];
@@ -354,23 +359,31 @@ var CreatingInvoice = {
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#parentContainer').html('');
-                            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
+                            NapAres.Helper.showMsgBox({
+                                ErrorCode: 1,
+                                ErrorMsg: 'Loading data fail.'
+                            });
                             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                         },
                         complete: function (jqXHR, textStatus) {
                             NapAres.enableInput();
                         }
                     });
-                }
-                else {
+                } else {
                     $('#parentContainer').html('');
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Invoice No is existed!' });
+                    NapAres.Helper.showMsgBox({
+                        ErrorCode: 1,
+                        ErrorMsg: 'Invoice No is existed!'
+                    });
                     setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 $('#parentContainer').html('');
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Loading data fail.' });
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Loading data fail.'
+                });
                 setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
@@ -417,22 +430,32 @@ var CreatingInvoice = {
                         CreatingInvoice.InvoiceID = data.ErrorMessage;
                         invoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
                         OrgInvoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
-                        NapAres.Helper.showMsgBox({ ErrorCode: 0, ErrorMsg: 'Saving invoice succesffully.' });
+                        NapAres.Helper.showMsgBox({
+                            ErrorCode: 0,
+                            ErrorMsg: 'Saving invoice succesffully.'
+                        });
                         invoiceInfoModel = [];
                         invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
-                    }
-                    else {
-                        NapAres.Helper.showMsgBox({ ErrorCode: ErrorCode.ErrCode, ErrorMsg: data.ErrorMessage });
+                    } else {
+                        NapAres.Helper.showMsgBox({
+                            ErrorCode: ErrorCode.ErrCode,
+                            ErrorMsg: data.ErrorMessage
+                        });
                         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                     }
-                }
-                else {
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
+                } else {
+                    NapAres.Helper.showMsgBox({
+                        ErrorCode: 1,
+                        ErrorMsg: 'Saving invoice unsuccesffully.'
+                    });
                     setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Saving invoice unsuccesffully.' });
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Saving invoice unsuccesffully.'
+                });
                 setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
@@ -449,12 +472,14 @@ var CreatingInvoice = {
         for (var i = 0; i < listChecked.length; i++) {
             if (listChecked[i].id.indexOf('Detail') != -1) {
                 normalLicensees.push(listChecked[i].value);
-            }
-            else {
+            } else {
                 operator.push(listChecked[i].value);
             }
         }
-        var result = { 'normal': normalLicensees, 'operator': operator }
+        var result = {
+            'normal': normalLicensees,
+            'operator': operator
+        }
         return result;
     },
     AddItem: function (isDiscount) {
@@ -495,8 +520,7 @@ var CreatingInvoice = {
         if (CreatingInvoice.IdNewItemList.length == 0) {
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#pdfID').removeClass('ui-state-disabled').removeAttr('disabled');
-        }
-        else {
+        } else {
             $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
             $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         }
@@ -513,7 +537,12 @@ var CreatingInvoice = {
 
             var amount = $('#newItem_text_' + id).val();
             if ($.isNumeric(amount) == true) {
-                $('#newItem_display_' + id).attr('amount', amount);
+                if ($('#newItem_display_' + id).attr('discountItem') == "true") {
+                    $('#newItem_display_' + id).attr('amount', parseInt(amount) > 0 ? (parseInt(amount) * -1) : parseInt(amount));
+                }
+                else {
+                    $('#newItem_display_' + id).attr('amount', amount);
+                }
             }
         }
 
@@ -528,44 +557,58 @@ var CreatingInvoice = {
             if ($.isNumeric(amount) == false) {
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 if (amount == '') {
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
+                    NapAres.Helper.showMsgBox({
+                        ErrorCode: 1,
+                        ErrorMsg: 'Please input value !'
+                    });
                     setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                     CreatingInvoice.isInsert = false;
                     $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        
+                    $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                    $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+
                     return false;
                 }
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Please just input numberic !'
+                });
                 setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 CreatingInvoice.isInsert = false;
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+
                 return false;
             }
             if (amount != '') {
                 var formatNumber = '';
-                if (parseInt(amount) < 0) {
+                if ($('#newItem_display_' + id).attr('discountItem') == "true") {
                     $('#newItem_text_' + id).addClass("red");
-                    formatNumber = "(" + numeral(parseInt(amount) * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
+                    formatNumber = "(" + numeral(parseInt(amount) > 0 ? parseInt(amount) : (parseInt(amount) * -1)).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
                 }
                 else {
-                    $('#newItem_text_' + id).removeClass("red");
-                    formatNumber = numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
-                }
+                    if (parseInt(amount) < 0) {
+                        $('#newItem_text_' + id).addClass("red");
+                        formatNumber = "(" + numeral(parseInt(amount) * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
+                    } else {
+                        $('#newItem_text_' + id).removeClass("red");
+                        formatNumber = numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
+                    }
 
+                }
                 $('#newItem_text_' + id).empty().val(formatNumber);
                 totalAmountTmp += parseFloat(amount);
             }
             if (numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER) == '0.00') {
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Amount is invalid!' });
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Amount is invalid!'
+                });
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+
                 return false;
             }
         }
@@ -613,8 +656,7 @@ var CreatingInvoice = {
             if (index < listChecked.length - 1) {
                 productName += listChecked[i].title + ',';
                 produtID += listChecked[i].value + ',';
-            }
-            else {
+            } else {
                 productName += listChecked[i].title;
                 produtID += listChecked[i].value;
             }
@@ -631,7 +673,10 @@ var CreatingInvoice = {
 
         CreatingInvoice.Products = produtID;
         CreatingInvoice.ProductsName = productName;
-        CreatingInvoice.InvoiceType = { InvoiceTypeID: InvoiceTypeIdTmp, InvoiceTypeName: InvoiceTypeNameTmp };
+        CreatingInvoice.InvoiceType = {
+            InvoiceTypeID: InvoiceTypeIdTmp,
+            InvoiceTypeName: InvoiceTypeNameTmp
+        };
 
     },
     AllowUpdateNewInfo: function (item) {
@@ -662,8 +707,7 @@ var CreatingInvoice = {
         if (currentMonth == 0) {
             startDate = new Date(lastYear, 11, 1);
             endDate = new Date(lastYear, 11, 31);
-        }
-        else {
+        } else {
             var month = currentMonth - 1;
             startDate = new Date(currentYear, month, 1);
             endDate = new Date(currentYear, month, CreatingInvoice.getTotalDayOfMonth(month + 1, currentYear));

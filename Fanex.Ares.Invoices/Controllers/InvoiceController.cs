@@ -201,7 +201,7 @@ namespace Fanex.Ares.Invoice.Controllers
                 // Rewind the memory stream to the beginning
                 ms.Seek(0, SeekOrigin.Begin);
 
-                string fileName = "invoice" + "." + documentType.ToString().ToLower();
+                string fileName = invoice.InvoiceName + "." + documentType.ToString().ToLower();
 
                 return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
             }
