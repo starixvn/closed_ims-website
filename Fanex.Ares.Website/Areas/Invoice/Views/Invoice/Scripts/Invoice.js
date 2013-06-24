@@ -523,20 +523,8 @@ var CreatingInvoice = {
                 $('#newItem_display_' + id).empty().html(index);
                 index++;
             }
-            if ($.isNumeric(amount) == false) {
-                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                if (amount == '') {
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
-                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                    CreatingInvoice.isInsert = false;
-                    return false;
-                }
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                CreatingInvoice.isInsert = false;
-                return false;
-            }
-            if (amount != '') {
+
+            if ($.isNumeric() == true) {
                 var formatNumber = '';
                 if (parseInt(amount) < 0) {
                     $('#newItem_text_' + id).addClass("red");
@@ -550,8 +538,32 @@ var CreatingInvoice = {
                 $('#newItem_text_' + id).empty().val(formatNumber);
                 totalAmountTmp += parseFloat(amount);
             }
+
+            if ($.isNumeric(amount) == false) {
+//                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                if (amount == '') {
+                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
+                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                    CreatingInvoice.isInsert = false;
+                    $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                    $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                    $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                    return false;
+                }
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                CreatingInvoice.isInsert = false;
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                return false;
+            }
+           
             if (numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER) == '0.00') {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Amount is invalid!' });
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 return false;
             }
         }
