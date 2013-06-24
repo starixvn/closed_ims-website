@@ -438,7 +438,7 @@ var CreatingInvoice = {
                         invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
                     } else {
                         NapAres.Helper.showMsgBox({
-                            ErrorCode: ErrorCode.ErrCode,
+                            ErrorCode: data.ErrCode,
                             ErrorMsg: data.ErrorMessage
                         });
                         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
