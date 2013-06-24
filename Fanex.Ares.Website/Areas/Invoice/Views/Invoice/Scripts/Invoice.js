@@ -534,7 +534,7 @@ var CreatingInvoice = {
                     $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        }
+        
                     return false;
                 }
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
@@ -543,7 +543,7 @@ var CreatingInvoice = {
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        }
+        
                 return false;
             }
             if (amount != '') {
@@ -565,7 +565,7 @@ var CreatingInvoice = {
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        }
+        
                 return false;
             }
         }
