@@ -599,7 +599,7 @@ var CreatingInvoice = {
         if (statement.StatementDetailList.length > 0) {
             invoiceInfoModel.StatementList.push(statement);
         }
-        invoiceInfoModel.Note = $('#noteId').val();
+        invoiceInfoModel.Note = $('#noteId').val().replace(/\n/g, '<br/>');
         return invoiceInfoModel.StatementList;
     },
     GetSelectedInvoiceType: function () {
