@@ -288,6 +288,7 @@
     }
 
 function Review() {
+  NapAres.disableInput();
     CreatingInvoice.UpdateItem();
     invoiceInfoModel.Operator = CreatingInvoice.Operator;
     invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
@@ -327,14 +328,16 @@ function Review() {
         error: function(){
             NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+             NapAres.enableInput();
         }
     });
-
+     NapAres.enableInput();
     invoiceInfoModel = [];
     invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
 }
 
 function ExportPDF() {
+    NapAres.disableInput();
     CreatingInvoice.UpdateItem();
     invoiceInfoModel.Operator = CreatingInvoice.Operator;
     invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
@@ -351,10 +354,12 @@ function ExportPDF() {
     var link = '@Url.Action("ExportDocument", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
     link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
     location.href = link;
+     NapAres.enableInput();
 }
 
     
 function Detail(fromDate, toDate) {
+ NapAres.disableInput();
     CreatingInvoice.UpdateItem();
     invoiceInfoModel.Operator = CreatingInvoice.Operator;
     invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
@@ -394,9 +399,10 @@ function Detail(fromDate, toDate) {
         error: function(){
             NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
             setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+             NapAres.enableInput();
         }
     });
-
+     NapAres.enableInput();
 }
 
 </script>
