@@ -283,6 +283,7 @@ using System.Text;
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
                         invoiceXmlFormat.Append("   <AdjustItem>" + statementDetail.AdjustItem + "</AdjustItem>");
                         invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");
+                        invoiceXmlFormat.Append("   <DiscountItem>" + statementDetail.DiscountItem + "</DiscountItem>");
                         invoiceXmlFormat.Append("</InvoiceItem>");
                         totalAmount += statementDetail.Amount;
                     }
