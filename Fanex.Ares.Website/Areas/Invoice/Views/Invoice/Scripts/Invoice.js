@@ -305,8 +305,6 @@ var CreatingInvoice = {
         CreatingInvoice.Currency = { CurrencyID: CreatingInvoice.FilterControls.ddlCurrency.val(), CurrencyName: $('#CurrencyID option:selected').text() };
         CreatingInvoice.InvoiceNo = CreatingInvoice.FilterControls.txtInvoiceNo.val();
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
-
-
     },
     GetNewInvoiceData: function () {
         if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 ||

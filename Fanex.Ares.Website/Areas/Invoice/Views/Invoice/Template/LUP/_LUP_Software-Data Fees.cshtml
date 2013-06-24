@@ -55,8 +55,8 @@
     <table border="0" cellpadding="0" cellspacing="0" style='border-collapse: collapse;
         overflow: auto;table-layout: fixed;width: 1150px;'>
         <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1200; width: 20pt'>
-        <col style='mso-width-source: userset; mso-width-alt: 1200; width: 50pt'>
+        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 20pt'>
+        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt'>
         <col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 4500; width: 50pt'>
@@ -81,16 +81,14 @@
             </td>
         </tr>
         <tr>
-            <td colspan="8" rowspan="3" style="white-space: normal;">
-                <br />
+            <td colspan="4" rowspan="3" style="white-space: normal; vertical-align:top;">
+             <br />
                 @invoiceModel.Operator.To1
                 <br />
                 <br />
-                @invoiceModel.Licensee.CompanyName
-                <br />
-                @invoiceModel.Licensee.To1
-                <br />
-                <br />
+            </td>
+             <td colspan="4" rowspan="3">
+               
             </td>
             <td colspan="4" style='margin-left: 50pt; padding-left: 100px; font-weight: bold;'>
                 DATE
@@ -134,7 +132,7 @@
         </tr>
         <tr>
             <td colspan="8" style='height: 30pt; padding-left: 5px; white-space: normal; vertical-align: top;'>
-                <span style="mso-spacerun: yes; font-weight: bold;">Bill To: @invoiceModel.Licensee.AttnName</span>
+                <span style="mso-spacerun: yes; font-weight: bold;">Bill To:  @invoiceModel.Licensee.CompanyName</span>
                 <br />
             </td>
             <td colspan="8">
@@ -222,7 +220,7 @@
             </td>
             <td class="border-RTB" colspan="5" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @invoiceModel.CurrencyName &nbsp; @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
+                 @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
         <tr>
@@ -257,8 +255,8 @@
                 <br />
                 <br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
-                :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentSwiftCode<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentAccNo<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
                 :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
             </td>
