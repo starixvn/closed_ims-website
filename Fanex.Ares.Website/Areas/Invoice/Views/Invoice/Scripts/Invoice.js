@@ -49,26 +49,15 @@ function GetInvoiceType() {
                 showFooter: false,
                 listData: invoiceTypeList,
                 hasOptGroup: true,
-                onLeave: function () {
-
-                }, // when all selected is made and datalist collapsed
                 onCheck: function () {
                     CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
                     $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 }, // when an individual checkbox is clicked 
-                onOpen: function () { }, // when the select menu is opened 
-                onCheckAll: function () {
-
-                }, // when the check all link is clicked 
-                onUncheckAll: function () {
-
-                }, // when the uncheck all link is clicked 
                 selectedList: 0,
                 isCheckAll: false,
                 isRetrieveDataAfterClose: false,
                 showParentSelectedText: true,
                 multiple: false
-                //selectedList: 4
             });
 
             $("#divInvoiceType input[type='radio']").change(function () {
@@ -539,8 +528,7 @@ var CreatingInvoice = {
             if ($.isNumeric(amount) == true) {
                 if ($('#newItem_display_' + id).attr('discountItem') == "true") {
                     $('#newItem_display_' + id).attr('amount', parseInt(amount) > 0 ? (parseInt(amount) * -1) : parseInt(amount));
-                }
-                else {
+                } else {
                     $('#newItem_display_' + id).attr('amount', amount);
                 }
             }
@@ -586,8 +574,7 @@ var CreatingInvoice = {
                 if ($('#newItem_display_' + id).attr('discountItem') == "true") {
                     $('#newItem_text_' + id).addClass("red");
                     formatNumber = "(" + numeral(parseInt(amount) > 0 ? parseInt(amount) : (parseInt(amount) * -1)).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
-                }
-                else {
+                } else {
                     if (parseInt(amount) < 0) {
                         $('#newItem_text_' + id).addClass("red");
                         formatNumber = "(" + numeral(parseInt(amount) * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
