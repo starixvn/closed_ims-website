@@ -544,6 +544,7 @@
     <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.min.js" />
     <Content Include="Scripts\_Libs\Tooltip\tipsy.css" />
     <Content Include="Scripts\_Libs\Utils\jquery.fixBugsBrowser.js" />
+    <Content Include="Scripts\_Libs\Utils\jquery.numeric.js" />
     <Content Include="Scripts\_Libs\Utils\Namespace.js" />
     <Content Include="Content\base\img\1350530947_page_excel.png" />
     <Content Include="Content\base\img\arrow-down.png" />

@@ -74,7 +74,7 @@ function GetInvoiceType() {
 
             $("#divInvoiceType input[type='radio']").change(function () {
                 GetInvoiceNo();
-                
+
             });
 
 
@@ -98,7 +98,7 @@ function GetInvoiceNo() {
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceNo",
         type: "POST",
-        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val() + '&LicenseeId=' + 
+        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val() + '&LicenseeId=' +
             CreatingInvoice.FilterControls.ddlLicensee.val() + '&InvoiceTypeID=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
         success: function (data, textStatus, jqXHR) {
             CreatingInvoice.FilterControls.txtInvoiceNo.val(data);
@@ -305,6 +305,8 @@ var CreatingInvoice = {
         CreatingInvoice.Currency = { CurrencyID: CreatingInvoice.FilterControls.ddlCurrency.val(), CurrencyName: $('#CurrencyID option:selected').text() };
         CreatingInvoice.InvoiceNo = CreatingInvoice.FilterControls.txtInvoiceNo.val();
         CreatingInvoice.InvoiceName = Operator.PartyName + ' INV ' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
+
+
     },
     GetNewInvoiceData: function () {
         if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 ||
@@ -464,7 +466,7 @@ var CreatingInvoice = {
             if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 displayID++;
             }
-          
+
         }
         if (CreatingInvoice.isInsert) {
             //        var trId = "newItem_" + CreatingInvoice.IdNewItem;
@@ -523,8 +525,28 @@ var CreatingInvoice = {
                 $('#newItem_display_' + id).empty().html(index);
                 index++;
             }
-
-            if ($.isNumeric() == true) {
+            if ($.isNumeric(amount) == false) {
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                if (amount == '') {
+                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
+                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                    CreatingInvoice.isInsert = false;
+                    $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        }
+                    return false;
+                }
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
+                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                CreatingInvoice.isInsert = false;
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        }
+                return false;
+            }
+            if (amount != '') {
                 var formatNumber = '';
                 if (parseInt(amount) < 0) {
                     $('#newItem_text_' + id).addClass("red");
@@ -538,32 +560,12 @@ var CreatingInvoice = {
                 $('#newItem_text_' + id).empty().val(formatNumber);
                 totalAmountTmp += parseFloat(amount);
             }
-
-            if ($.isNumeric(amount) == false) {
-//                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                if (amount == '') {
-                    NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please input value !' });
-                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                    CreatingInvoice.isInsert = false;
-                    $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                    $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                    $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                    return false;
-                }
-                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Please just input numberic !' });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                CreatingInvoice.isInsert = false;
-                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                return false;
-            }
-           
             if (numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER) == '0.00') {
                 NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Amount is invalid!' });
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        }
                 return false;
             }
         }
@@ -680,9 +682,9 @@ var CreatingInvoice = {
 
 
 function NegativeFormat(input) {
-     var output = '';
-     output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
-     return output;
+    var output = '';
+    output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
+    return output;
 }
 
 $.extend({
