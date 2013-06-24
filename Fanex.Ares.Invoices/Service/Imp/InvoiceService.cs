@@ -54,13 +54,14 @@ using System.Text;
                         AttnName = Convert.ToString(r["AttnName"]),
                         To1 = Convert.ToString(r["To1"]),
                         To2 = Convert.ToString(r["To2"]),
-                        Logo = Convert.ToString(r["Logo"])
+                        Logo = Convert.ToString(r["Logo"]),
+                        IsHide = Convert.ToBoolean(r["IsHide"])
                     };
 
                     return res;
                 };
 
-                operators = _repository.Fetch<Operator>(criteria, mappingFunc).ToList();             
+                operators = _repository.Fetch<Operator>(criteria, mappingFunc).Where(p=> p.IsHide== false).ToList();             
             }
             catch (Exception ex)
             {

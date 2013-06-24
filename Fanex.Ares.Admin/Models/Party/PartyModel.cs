@@ -52,5 +52,6 @@ namespace Fanex.Ares.Admin.Models.Party
 
         public string Company { get; set; }
 
+        public bool IsHide { get; set; }
     }
 }

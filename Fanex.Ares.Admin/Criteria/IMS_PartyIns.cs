@@ -32,6 +32,7 @@ namespace Fanex.Ares.Admin.Criteria
         public string To1 { get; set; }
         public string To2 { get; set; }
         public string Logo { get; set; }
+        public bool IsHide { get; set; }
         public int ErrCode { get; set; }
         public string ErrMsg { get; set; }
 

@@ -37,7 +37,8 @@ PartyManager = function () {
         CorrespondentSwiftCode: 15,
         AttnName: 16,
         To1: 17,
-        To2: 18
+        To2: 18,
+        IsHide: 19
     }
 
     var _dlgAddNew = {
@@ -62,6 +63,7 @@ PartyManager = function () {
         txtTo1: null,
         txtTo2: null,
         txtLogo: null,
+        chkIsHide: null,
         txtValidateTips: null
     };
     var gridOptions = {};
@@ -97,6 +99,7 @@ PartyManager = function () {
         _dlgAddNew.txtTo1 = $('#To1');
         _dlgAddNew.txtTo2 = $('#To2');
         _dlgAddNew.txtLogo = $('#Logo');
+        _dlgAddNew.chkIsHide = $('#IsHide');
         _dlgAddNew.txtValidateTips = $('#validateTips');
     }
 
@@ -171,6 +174,7 @@ PartyManager = function () {
                                 { Name: "AttnName", Value: item.AttnName },
                                 { Name: "To1", Value: item.To1 },
                                 { Name: "To2", Value: item.To2 },
+                                { Name: "IsHide", Value: item.IsHide },
                                 { Name: "Edit", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateEditButton(cell, cellFormated); } },
                                 { Name: "AddLicensee", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateAddLicenseeButton(cell, cellFormated); } }
                             ]
@@ -209,6 +213,7 @@ PartyManager = function () {
                     { HeaderText: "Attn Name", Width: 100, Name: "AttnName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "To1", Width: 270, Name: "To1", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "To2", Width: 270, Name: "To2", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "IsHide", Width: 100, Name: "IsHide", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Add Licensee", Width: 100, Name: "AddLicensee", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
@@ -240,7 +245,8 @@ PartyManager = function () {
                                                                         _mappingColumns.CorrespondentBank,
                                                                         _mappingColumns.CorrespondentAccNo,
                                                                         _mappingColumns.CorrespondentSwiftCode,
-                                                                        _mappingColumns.To2]);
+                                                                        _mappingColumns.To2,
+                                                                        _mappingColumns.IsHide]);
     };
 
     self.AddNewParty = function () {
@@ -405,7 +411,8 @@ PartyManager = function () {
         _dlgAddNew.txtCorrespondentSwiftCode.val(row[_mappingColumns.CorrespondentSwiftCode].Value);
         _dlgAddNew.txtAttnName.val(row[_mappingColumns.AttnName].Value);
         _dlgAddNew.txtTo1.val(row[_mappingColumns.To1].Value);
-        _dlgAddNew.txtTo2.val(row[_mappingColumns.To2].Value);
+        _dlgAddNew.txtTo2.val(row[_mappingColumns.To2].Value);        
+        _dlgAddNew.chkIsHide.attr('checked', row[_mappingColumns.IsHide].Value);
     }
 
     var ValidateForm = function () {

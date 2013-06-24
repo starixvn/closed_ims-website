@@ -139,6 +139,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string Fax { get; set; }
 
         public string Email { get; set; }
+
+        public bool IsHide { get; set; }
     }
 
     [Serializable]

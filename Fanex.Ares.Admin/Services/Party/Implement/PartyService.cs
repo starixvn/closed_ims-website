@@ -63,7 +63,8 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         To1 = Convert.ToString(r["To1"]),
                         To2 = Convert.ToString(r["To2"]),
                         Logo = Convert.ToString(r["Logo"]),
-                        Company = Convert.ToString(r["Company"])
+                        Company = Convert.ToString(r["Company"]),
+                        IsHide = Convert.ToBoolean(r["IsHide"])
                     };
 
                     return res;
