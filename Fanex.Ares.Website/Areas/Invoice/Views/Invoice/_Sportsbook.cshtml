@@ -70,8 +70,8 @@
             <td colspan="2" style="vertical-align:top;">
                 Basis of Billing:
             </td>
-            <td class="boldInfor" colspan="8">
-                 @MvcHtmlString.Create((string.Format("{0}", string.IsNullOrEmpty(licensee.LicenseeInfor.BasisOfBilling) ? string.Empty : licensee.LicenseeInfor.BasisOfBilling.Replace(";", "<br/>"))))
+            <td class="boldInfor" colspan="8" style="white-space: normal;">
+                 @MvcHtmlString.Create((string.Format("{0}", string.IsNullOrEmpty(licensee.LicenseeInfor.BasisOfBilling) ? string.Empty : licensee.LicenseeInfor.BasisOfBilling.Replace(";", "<br />"))))
             </td>
         </tr>
         <tr>
