@@ -480,7 +480,6 @@ var CreatingInvoice = {
             if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 displayID++;
             }
-
         }
         if (CreatingInvoice.isInsert) {
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
@@ -498,7 +497,6 @@ var CreatingInvoice = {
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         }
-
     },
     DeleteItem: function (trId) {
         //        $(document.getElementById(trId)).remove();
