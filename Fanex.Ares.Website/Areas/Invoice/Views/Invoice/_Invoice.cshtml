@@ -20,7 +20,7 @@
         return output;
     }
 }
-<div id="divContent" class="div-content" style="overflow: auto; width: 100%;  margin: 0px !important;">
+<div id="divContent" class="div-content" style="overflow: auto; width: 100%; margin: 0px !important;">
     <table id="invoiceTbl" border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;'>
         <tr>
             <td>
@@ -80,7 +80,7 @@
                                 </td>
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
-                                        text-align: right;font-weight: bold;">
+                                        text-align: right; font-weight: bold;">
                                         @MvcHtmlString.Create(detail.Amount == 0 && detail.DiscountItem ? "(nil)" : NegativeFormat(detail.Amount))
                                     </div>
                                 </td>
@@ -103,7 +103,6 @@
                             <td style="width: 15%; text-align: center; font-weight: bold;">
                                 <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
                                     <label id="totalAmount" style="font-weight: bold;">
-                                        
                                     </label>
                                 </div>
                             </td>
@@ -132,7 +131,8 @@
                         </td>
                         <td rowspan="7" style="border: 0px !important; vertical-align: top">
                             <div>
-                                <textarea maxlength="300" rows="5" cols="90" name="styled-textarea" id="noteId" onfocus="onFocusInput(this)" onblur="onBlurInput(this)"></textarea>
+                                <textarea maxlength="300" rows="5" cols="90" name="styled-textarea" id="noteId" onfocus="onFocusInput(this)"
+                                    onblur="onBlurInput(this)"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -204,16 +204,10 @@
                         <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                             <div>
                                 <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp; @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
-                                <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="PREVIEW" onclick="Review()" />&nbsp;&nbsp;&nbsp; @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT TO PDF"  onClick="ExportPDF()"/>*@
+                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp; type="button" value="PREVIEW"
+                                onclick="Review()" />&nbsp;&nbsp;&nbsp;
                                 <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
                                     type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
-                                @* <input id="pdfID" name="pdfID" type="button" value="pdfID" onclick="ExportPdf()" />
-                                <input id="pdfexcel" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="EXPORT ECXEL" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Xlsx })'"/>*@
                             </div>
                         </td>
                     </tr>
@@ -248,10 +242,9 @@
         </tr>
     </table>
 </div>
-<div id="333"></div>
+<div id="333">
+</div>
 <script type="text/javascript">
-
-
     var _totalAmount = @totalAmount; 
     $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' +  NegativeFormat(_totalAmount));
     $('#saveID').button();
@@ -271,7 +264,6 @@
 //        $('#reviewID').addClass('ui-state-disabled');
     }
     else {
-
         $('#divBeneficiary').html(CreatingInvoice.Operator.Benificiary + "&nbsp;&nbsp;&nbsp;");
         $('#divBeneficiaryBank').html(CreatingInvoice.Operator.BenificiaryBank + "&nbsp;&nbsp;&nbsp;");
         $('#divAccountNo').html(CreatingInvoice.Operator.AccountNumber + "&nbsp;&nbsp;&nbsp;");

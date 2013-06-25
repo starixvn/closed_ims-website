@@ -1,80 +1,72 @@
-﻿    table, th, td
-    {
-        background: #EDECEA;
-        border: 1px solid #CECCCD;
-        text-align: center;
-        vertical-align: middle;
-    }
-    
-    
-    th
-    {
-        background-color: #E9E480;
-        color: black;
-        font-weight: bold;
-    }
-    table
-    {
-        border-collapse: collapse;
-    }
-    textarea
+﻿table, th, td
 {
-   resize: none !important;
-   overflow:auto;
+	background: #EDECEA;
+	border: 1px solid #CECCCD;
+	text-align: center;
+	vertical-align: middle;
 }
-
-    textarea#styled
-    {
-        width: 95%;
-        height: 40px;
-        border: 1px solid #cccccc;
-        padding: 5px;
-        font-family: Tahoma, sans-serif;
-        background-image: url(bg.gif);
-        background-position: bottom right;
-        background-repeat: no-repeat;
-    }
-    
-    .div-content
-    {
-        clear: both;
-        width: 1260px;
-        margin: 40px 0 0 10px;
-        padding: 2px;
-    }
-    .noneBorder
-    {
-        border: 0px !important;
-    }
-    
-    .paddingLeft
-    {
-        text-align: left;
-        padding-left: 5px;
-    }
-    
-    .height20
-    {
-        height: 20px;
-    }
-    
-    .label
-    {
-        width: 75%;
-        font-weight: bold;
-        background-color: #c3c2c2 !important;
-        display: inline-block;
-    }
-    .delete {
-    background: url(Images/close.png) repeat scroll 0 0 transparent;
-    display: block;
-      height: 16px;
-    width: 16px;
-    cursor:pointer;
-    margin-left: 51px;
+th
+{
+	background-color: #E9E480;
+	color: black;
+	font-weight: bold;
 }
-
+table
+{
+	border-collapse: collapse;
+}
+textarea
+{
+	overflow: auto;
+	resize: none !important;
+}
+textarea#styled
+{
+	background-position: bottom right;
+	background-repeat: no-repeat;
+	border: 1px solid #cccccc;
+	font-family: Tahoma, sans-serif;
+	height: 40px;
+	padding: 5px;
+	width: 95%;
+}
+.div-content
+{
+	clear: both;
+	margin: 40px 0 0 10px;
+	padding: 2px;
+	width: 1260px;
+}
+.noneBorder
+{
+	border: 0px !important;
+}
+.paddingLeft
+{
+	padding-left: 5px;
+	text-align: left;
+}
+.height20
+{
+	height: 20px;
+}
+.label
+{
+	background-color: #c3c2c2 !important;
+	display: inline-block;
+	font-weight: bold;
+	width: 75%;
+}
+.delete
+{
+	background: url(Images/close.png) repeat scroll 0 0 transparent;
+	cursor: pointer;
+	display: block;
+	height: 16px;
+	margin-left: 51px;
+	width: 16px;
+}
 .red
 {
-    color: Red;
+	color: Red;
 }
