@@ -100,7 +100,7 @@ namespace Fanex.Ares.Invoice.Controllers
             return Json(insertResult);
         }
 
-         [HttpPost]
+        [HttpPost]
         public JsonResult IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
         {
             return Json(_invoiceService.IsExistInvoiceNo(criteria));
@@ -111,15 +111,10 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
-            //DateTime FromDate = CastAide.AsDateTime(criteria.FromDate);
-            //DateTime ToDate = CastAide.AsDateTime(criteria.ToDate);
-
-            //model.DateRangeList = GetDateRange(FromDate, ToDate);
-            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelBeforSave", model);
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
-    
+
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
@@ -131,7 +126,7 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView(SettlementView, model);
         }
 
-       
+
         public ActionResult ExportDocument(string invoiceModel)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
@@ -147,7 +142,6 @@ namespace Fanex.Ares.Invoice.Controllers
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
             dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
-            //dateRangeList = invoice.DateRangeList;
             var excelCssFilePath = new List<string>();
             List<string> htmlList = new List<string>();
             string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName };
@@ -168,15 +162,12 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-
-
                     criteria.ToDate = dateRangeList[i].EndDate;
                     criteria.FromDate = dateRangeList[i].StartDate;
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
 
                     var model = _reportService.GenerateReport(criteria);
-
                     model.LicenseeInfor.FromDate = criteria.FromDate;
                     model.LicenseeInfor.ToDate = criteria.ToDate;
                     if (model.Report.EntityList.Count > 0)
@@ -189,7 +180,6 @@ namespace Fanex.Ares.Invoice.Controllers
                         isAutoFitList.Add(true);
                     }
                 }
-
             }
 
             var workbook = new WorkbookManager();
@@ -224,9 +214,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
             dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
 
-            //dateRangeList = invoice.DateRangeList;
             List<string> htmlList = new List<string>();
-            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName};
+            string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
@@ -240,11 +229,9 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-                   
-
                     criteria.ToDate = dateRangeList[i].EndDate;
                     criteria.FromDate = dateRangeList[i].StartDate;
-                    criteria.Product =  Converter.To<int>( ProductID[j]);
+                    criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
                     var model = _reportService.GenerateReport(criteria);
 
@@ -256,12 +243,9 @@ namespace Fanex.Ares.Invoice.Controllers
                         html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
                         htmlList.Add(html);
                         invoice.HTMLReportList.Add(html);
-
                     }
                 }
-
             }
-
             return View("_Review", invoice);
         }
 
@@ -271,8 +255,6 @@ namespace Fanex.Ares.Invoice.Controllers
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             InvoiceModel imodel = new InvoiceModel();
-
-            //InvoiceModel invoice = JsonConvert.DeserializeObject<InvoiceModel>(invoiceModel);
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
@@ -284,15 +266,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
             dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
 
-            //dateRangeList = invoice.DateRangeList;
             List<string> htmlList = new List<string>();
-            //string[] arrayView = new string[] { "Template/BCH/_BCH-DataFees" };
-            List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            //string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
-            //htmlList.Add(html);
             string html = string.Empty;
-            
 
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductID = invoice.Product.Split(',');
@@ -300,29 +275,21 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-
-
                     criteria.ToDate = dateRangeList[i].EndDate;
                     criteria.FromDate = dateRangeList[i].StartDate;
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-
                     var model = _reportService.GenerateReport(criteria);
-
                     model.LicenseeInfor.FromDate = criteria.FromDate;
                     model.LicenseeInfor.ToDate = criteria.ToDate;
                     if (model.Report.EntityList.Count > 0)
                     {
-                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
                         html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
                         htmlList.Add(html);
                         invoice.HTMLReportList.Add(html);
-
                     }
                 }
-
             }
-
             return View("_Review", invoice);
         }
 
