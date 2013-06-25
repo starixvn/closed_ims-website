@@ -258,8 +258,10 @@
                 <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
                         padding-left: 5pt;'>
                     <br />
-                    @if (j == 0)
+                    @detail.Description
+                   @* @if (j == 0)
                     {
+
                         if (!detail.AdjustItem)
                         {
                         @descript @detail.Description
@@ -272,10 +274,13 @@
                     else
                     {
                         @detail.Description
-                    }
+                    }*@
                     <br />
                 </td>
-                <td class="@boderclass" colspan="3" style='vertical-align: top;'>
+                <td class="@boderclass" colspan="3" style='vertical-align: top;padding-left: 5pt;'>
+                <br />
+                 @detail.Reference
+                 <br />
                 </td>
                 <td class="@boderclass" colspan="4" style='vertical-align: top; text-align: right;'>
                     <br />

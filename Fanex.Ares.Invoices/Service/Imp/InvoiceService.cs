@@ -16,7 +16,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using Fanex.Common;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using System.Linq;
-using System.Text;
+    using System.Text;
     using System.Collections;
     using Fanex.Ares.Core.Web;
     using DNAide.Core;
@@ -360,5 +360,6 @@ using System.Text;
 
             return dateRangeList;
         }
+
     }
 }

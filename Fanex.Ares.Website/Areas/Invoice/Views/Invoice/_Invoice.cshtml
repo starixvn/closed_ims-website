@@ -65,7 +65,7 @@
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
-                                    <textarea  rows="2" cols="106" name="styled-textarea" id="@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index);" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
+                                    <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index" onfocus="setbg('#e5fff3','orgItem_des_@index');" onblur="setbg('white','orgItem_des_@index');" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
                                     @if (j == 0)
                                     {
                                        @descript @detail.Description
@@ -75,11 +75,8 @@
                                     @detail.Description
                                     }</textarea>
                                 </td>
-                                @{
-                                    index++;
-                                }
                                 <td style="width: 20%; text-align: center;">
-                                    <textarea  rows="2" cols="33" name="styled-textarea" id="@index" onfocus="setbg('#e5fff3',@index);" onblur="setbg('white',@index)"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
+                                    <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index" onfocus="setbg('#e5fff3','orgItem_ref_@index');" onblur="setbg('white','orgItem_ref_@index')"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                 </td>
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
@@ -336,28 +333,7 @@ function Review() {
     invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
 }
 
-function ExportPDF() {
-    NapAres.disableInput();
-    CreatingInvoice.UpdateItem();
-    invoiceInfoModel.Operator = CreatingInvoice.Operator;
-    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-    invoiceInfoModel.Product = CreatingInvoice.Products;
-    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-    var link = '@Url.Action("ExportDocument", "Invoice", new { invoiceModel = "invoiceInfoModel" })';
-    link = link.replace("invoiceInfoModel", JSON.stringify(invoiceInfoModel));
-    location.href = link;
-     NapAres.enableInput();
-}
 
-    
 function Detail(fromDate, toDate) {
  NapAres.disableInput();
     CreatingInvoice.UpdateItem();

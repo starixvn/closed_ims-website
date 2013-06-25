@@ -601,7 +601,7 @@ var CreatingInvoice = {
             }
         }
 
-       
+
         $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
@@ -613,6 +613,20 @@ var CreatingInvoice = {
             StatementID: 1000,
             StatementDetailList: []
         };
+
+        var index = 0;
+        for (var i = 0; i < invoiceInfoModel.StatementList.length; i++) {
+
+            for (var j = 0; j < invoiceInfoModel.StatementList[i].StatementDetailList.length; j++) {
+                invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = '';
+                invoiceInfoModel.StatementList[i].StatementDetailList[j].Reference = '';
+
+                invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = $('textarea#orgItem_des_' + index).val();
+                invoiceInfoModel.StatementList[i].StatementDetailList[j].Reference = $('textarea#orgItem_ref_' + index).val();
+                index++;
+            }
+        }
+
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
             var statementDetail = {
