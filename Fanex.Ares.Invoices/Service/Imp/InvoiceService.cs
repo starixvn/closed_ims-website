@@ -278,8 +278,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     {
                         invoiceXmlFormat.Append("<InvoiceItem>");
                         invoiceXmlFormat.Append("<InvoiceItemID>" + statementDetail.ID + "</InvoiceItemID>");
-                        invoiceXmlFormat.Append("<Description>" + statementDetail.Description + "</Description>");
-                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
+                        invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? statementDetail.Description.Replace("&","amp"): string.Empty)  + "</Description>");
+                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference+ "</Reference>");
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
                         invoiceXmlFormat.Append("   <AdjustItem>" + statementDetail.AdjustItem + "</AdjustItem>");
                         invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");

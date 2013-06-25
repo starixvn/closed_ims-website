@@ -621,7 +621,7 @@ var CreatingInvoice = {
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = '';
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Reference = '';
 
-                invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = $('textarea#orgItem_des_' + index).val();
+                invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = $('textarea#orgItem_des_' + index).val(); 
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Reference = $('textarea#orgItem_ref_' + index).val();
                 index++;
             }
