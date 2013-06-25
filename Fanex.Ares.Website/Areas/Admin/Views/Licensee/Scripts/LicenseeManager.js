@@ -235,7 +235,7 @@ LicenseeManager = function () {
                 "Edit Licensee": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.frmLicensee.attr("Action", location.protocol + '//' + location.host + "admin/Licensee/UpdateLicensee");
+                        _table.frmLicensee.attr("Action", domain + "admin/Licensee/UpdateLicensee");
                         $('<input />').attr('type', 'hidden')
                             .attr('name', "LicenseeID")
                             .attr('value', LicenseeID)
