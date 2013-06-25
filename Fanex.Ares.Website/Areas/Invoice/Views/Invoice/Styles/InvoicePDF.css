@@ -178,3 +178,6 @@ html {
     font-weight: bold ;
 }
  
+.InvoiceTable table td {
+white-space: normal;
+}
