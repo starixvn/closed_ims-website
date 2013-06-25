@@ -65,7 +65,7 @@
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
-                                    <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index" onfocus="setbg('#e5fff3','orgItem_des_@index');" onblur="setbg('white','orgItem_des_@index');" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
+                                    <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
                                     @if (j == 0)
                                     {
                                        @descript @detail.Description
@@ -76,7 +76,7 @@
                                     }</textarea>
                                 </td>
                                 <td style="width: 20%; text-align: center;">
-                                    <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index" onfocus="setbg('#e5fff3','orgItem_ref_@index');" onblur="setbg('white','orgItem_ref_@index')"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
+                                    <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                 </td>
                                 <td style="width: 15%; text-align: center;">
                                     <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
@@ -132,7 +132,7 @@
                         </td>
                         <td rowspan="7" style="border: 0px !important; vertical-align: top">
                             <div>
-                                <textarea maxlength="300" rows="5" cols="90" name="styled-textarea" id="noteId" onfocus="setbg('#e5fff3','noteId');" onblur="setbg('white','noteId')"></textarea>
+                                <textarea maxlength="300" rows="5" cols="90" name="styled-textarea" id="noteId" onfocus="onFocusInput(this)" onblur="onBlurInput(this)"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -250,9 +250,7 @@
 </div>
 <div id="333"></div>
 <script type="text/javascript">
-    function setbg(color, id) {
-        document.getElementById(id).style.background = color
-    }
+
 
     var _totalAmount = @totalAmount; 
     $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' +  NegativeFormat(_totalAmount));
