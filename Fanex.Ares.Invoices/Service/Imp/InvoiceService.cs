@@ -325,37 +325,47 @@ namespace Fanex.Ares.Invoice.Service.Imp
             List<DateRange> dateRangeList = new List<DateRange>();
 
             int numericMonth = ToDate.Month - FromDate.Month + 1;
-
-            for (int i = 0; i < numericMonth; i++)
+            if (numericMonth == 1)
             {
-                DateRange dateRange = new DateRange();
-                DateTime StartDateTmp = new DateTime();
-                DateTime EndDateTmp = new DateTime();
-                if (i == 0)
+                dateRangeList.Add(new DateRange
                 {
-                    StartDateTmp = FromDate;
-                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month, 1).AddMonths(1);
-                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                    EndDateTmp = firstOfNextMonth.AddDays(-1);
-                }
-                else if (i == numericMonth-1)
+                    StartDate = FromDate,
+                    EndDate = ToDate
+                });
+            }
+            else
+            {
+                for (int i = 0; i < numericMonth; i++)
                 {
-                    StartDateTmp = new DateTime(FromDate.Year, ToDate.Month, 1);
-                    //DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
-                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                    EndDateTmp = ToDate;
-                }
-                else
-                {
-                    StartDateTmp = new DateTime(FromDate.Year, FromDate.Month + i, 1);
-                    DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
-                    //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                    EndDateTmp = firstOfNextMonth.AddDays(-1);
-                }
+                    DateRange dateRange = new DateRange();
+                    DateTime StartDateTmp = new DateTime();
+                    DateTime EndDateTmp = new DateTime();
+                    if (i == 0)
+                    {
+                        StartDateTmp = FromDate;
+                        DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month, 1).AddMonths(1);
+                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                        EndDateTmp = firstOfNextMonth.AddDays(-1);
+                    }
+                    else if (i == numericMonth - 1)
+                    {
+                        StartDateTmp = new DateTime(FromDate.Year, ToDate.Month, 1);
+                        //DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
+                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                        EndDateTmp = ToDate;
+                    }
+                    else
+                    {
+                        StartDateTmp = new DateTime(FromDate.Year, FromDate.Month + i, 1);
+                        DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
+                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                        EndDateTmp = firstOfNextMonth.AddDays(-1);
+                    }
 
-                dateRange.StartDate = StartDateTmp;
-                dateRange.EndDate = EndDateTmp;
-                dateRangeList.Add(dateRange);
+                    dateRange.StartDate = StartDateTmp;
+                    dateRange.EndDate = EndDateTmp;
+                    dateRangeList.Add(dateRange);
+                }
             }
 
             return dateRangeList;
