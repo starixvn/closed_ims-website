@@ -17,7 +17,8 @@ namespace Fanex.Ares.Admin.Criteria
         public string BrandName { get; set; }
         public string CompanyName { get; set; }
         public bool IsDeposit { get; set; }
-
+        public bool IsActive { get; set; }
+        
         public override string GetSettingKey()
         {
             return "IMS_LicenseeInfoUpd";
