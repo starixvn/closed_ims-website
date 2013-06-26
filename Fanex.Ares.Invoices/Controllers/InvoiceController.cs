@@ -170,16 +170,16 @@ namespace Fanex.Ares.Invoice.Controllers
                         partyID = invoice.Operator.PartyID,
                         licenseeID = invoice.Licensee.LicenseeID,
                         Products = invoice.Product,
-                        FromDate = dateRangeList[i].EndDate,
-                        ToDate = dateRangeList[i].StartDate
+                        FromDate = dateRangeList[i].StartDate,
+                        ToDate = dateRangeList[i].EndDate
                     });
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
                     for (int g = 0; g < chargeRateList.Count; g++)
                     {
-                        criteria.ToDate = chargeRateList[g].StartDate;
-                        criteria.FromDate = chargeRateList[g].EndDate;
+                        criteria.ToDate = chargeRateList[g].EndDate;
+                        criteria.FromDate = chargeRateList[g].StartDate;
                       
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
@@ -251,8 +251,8 @@ namespace Fanex.Ares.Invoice.Controllers
                         partyID = invoice.Operator.PartyID,
                         licenseeID = invoice.Licensee.LicenseeID,
                         Products = invoice.Product,
-                        FromDate = dateRangeList[i].EndDate,
-                        ToDate = dateRangeList[i].StartDate
+                        FromDate = dateRangeList[i].StartDate,
+                        ToDate = dateRangeList[i].EndDate
                     });
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
@@ -260,8 +260,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
                     for (int g = 0; g < chargeRateList.Count; g++)
                     {
-                        criteria.ToDate = chargeRateList[g].StartDate;
-                        criteria.FromDate = chargeRateList[g].EndDate;
+                        criteria.ToDate = chargeRateList[g].EndDate;
+                        criteria.FromDate = chargeRateList[g].StartDate;
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
@@ -312,8 +312,8 @@ namespace Fanex.Ares.Invoice.Controllers
                         partyID = invoice.Operator.PartyID,
                         licenseeID = invoice.Licensee.LicenseeID,
                         Products = invoice.Product,
-                        FromDate = dateRangeList[i].EndDate,
-                        ToDate = dateRangeList[i].StartDate
+                        FromDate = dateRangeList[i].StartDate,
+                        ToDate = dateRangeList[i].EndDate
                     });
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
@@ -321,8 +321,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
                     for (int g = 0; g < chargeRateList.Count; g++)
                     {
-                        criteria.ToDate = chargeRateList[g].StartDate;
-                        criteria.FromDate = chargeRateList[g].EndDate;
+                        criteria.ToDate = chargeRateList[g].EndDate;
+                        criteria.FromDate = chargeRateList[g].StartDate;
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
