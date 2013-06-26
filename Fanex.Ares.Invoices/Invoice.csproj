@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Criteria\Invoice\IMS_CheckExistedInvoiceNo.cs" />
+    <Compile Include="Criteria\Invoice\IMS_GetChargeRateCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceInsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceNoSelCriteria.cs" />
@@ -76,6 +77,7 @@
     <Compile Include="Criteria\Invoice\IMS_LicenseeSelByPartyCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsSelCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_OperatorSelCriteria.cs" />
+    <Compile Include="Models\Invoice\ChargeRate.cs" />
     <Compile Include="Models\Invoice\InvoiceModel.cs" />
     <Compile Include="Models\Invoice\InvoiceType.cs" />
     <Compile Include="Models\Invoice\Product.cs" />

@@ -111,6 +111,8 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
+           
+            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "chargeRateList", chargeRateList);
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
@@ -129,6 +131,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
         public ActionResult ExportDocument(string invoiceModel)
         {
+            List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
             IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
@@ -162,22 +165,34 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-                    criteria.ToDate = dateRangeList[i].EndDate;
-                    criteria.FromDate = dateRangeList[i].StartDate;
+                    chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
+                    {
+                        partyID = invoice.Operator.PartyID,
+                        licenseeID = invoice.Licensee.LicenseeID,
+                        Products = invoice.Product,
+                        FromDate = dateRangeList[i].EndDate,
+                        ToDate = dateRangeList[i].StartDate
+                    });
+
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-
-                    var model = _reportService.GenerateReport(criteria);
-                    model.LicenseeInfor.FromDate = criteria.FromDate;
-                    model.LicenseeInfor.ToDate = criteria.ToDate;
-                    if (model.Report.EntityList.Count > 0)
+                    for (int g = 0; g < chargeRateList.Count; g++)
                     {
-                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                        htmlList.Add(html);
-                        invoice.HTMLReportList.Add(html);
-                        excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
-                        isAutoFitList.Add(true);
+                        criteria.ToDate = chargeRateList[g].StartDate;
+                        criteria.FromDate = chargeRateList[g].EndDate;
+                      
+                        var model = _reportService.GenerateReport(criteria);
+                        model.LicenseeInfor.FromDate = criteria.FromDate;
+                        model.LicenseeInfor.ToDate = criteria.ToDate;
+                        if (model.Report.EntityList.Count > 0)
+                        {
+                            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            htmlList.Add(html);
+                            invoice.HTMLReportList.Add(html);
+                            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
+                            isAutoFitList.Add(true);
+                        }
                     }
                 }
             }
@@ -201,6 +216,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
         public ActionResult PrintScreen(InvoiceModel invoice)
         {
+            
+             List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
@@ -229,21 +246,35 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-                    criteria.ToDate = dateRangeList[i].EndDate;
-                    criteria.FromDate = dateRangeList[i].StartDate;
+                    chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
+                    {
+                        partyID = invoice.Operator.PartyID,
+                        licenseeID = invoice.Licensee.LicenseeID,
+                        Products = invoice.Product,
+                        FromDate = dateRangeList[i].EndDate,
+                        ToDate = dateRangeList[i].StartDate
+                    });
+
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-                    var model = _reportService.GenerateReport(criteria);
 
-                    model.LicenseeInfor.FromDate = criteria.FromDate;
-                    model.LicenseeInfor.ToDate = criteria.ToDate;
-                    if (model.Report.EntityList.Count > 0)
+                    for (int g = 0; g < chargeRateList.Count; g++)
                     {
-                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                        htmlList.Add(html);
-                        invoice.HTMLReportList.Add(html);
+                        criteria.ToDate = chargeRateList[g].StartDate;
+                        criteria.FromDate = chargeRateList[g].EndDate;
+                        var model = _reportService.GenerateReport(criteria);
+                        model.LicenseeInfor.FromDate = criteria.FromDate;
+                        model.LicenseeInfor.ToDate = criteria.ToDate;
+                        if (model.Report.EntityList.Count > 0)
+                        {
+                            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            htmlList.Add(html);
+                            invoice.HTMLReportList.Add(html);
+                        }
                     }
+                 
+                   
                 }
             }
             return View("_Review", invoice);
@@ -251,6 +282,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
         public ActionResult Detail(InvoiceModel invoice)
         {
+            List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
@@ -275,18 +307,31 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-                    criteria.ToDate = dateRangeList[i].EndDate;
-                    criteria.FromDate = dateRangeList[i].StartDate;
+                    chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
+                    {
+                        partyID = invoice.Operator.PartyID,
+                        licenseeID = invoice.Licensee.LicenseeID,
+                        Products = invoice.Product,
+                        FromDate = dateRangeList[i].EndDate,
+                        ToDate = dateRangeList[i].StartDate
+                    });
+
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-                    var model = _reportService.GenerateReport(criteria);
-                    model.LicenseeInfor.FromDate = criteria.FromDate;
-                    model.LicenseeInfor.ToDate = criteria.ToDate;
-                    if (model.Report.EntityList.Count > 0)
+
+                    for (int g = 0; g < chargeRateList.Count; g++)
                     {
-                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                        htmlList.Add(html);
-                        invoice.HTMLReportList.Add(html);
+                        criteria.ToDate = chargeRateList[g].StartDate;
+                        criteria.FromDate = chargeRateList[g].EndDate;
+                        var model = _reportService.GenerateReport(criteria);
+                        model.LicenseeInfor.FromDate = criteria.FromDate;
+                        model.LicenseeInfor.ToDate = criteria.ToDate;
+                        if (model.Report.EntityList.Count > 0)
+                        {
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            htmlList.Add(html);
+                            invoice.HTMLReportList.Add(html);
+                        }
                     }
                 }
             }
