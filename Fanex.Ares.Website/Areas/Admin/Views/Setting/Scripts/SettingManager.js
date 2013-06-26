@@ -641,9 +641,9 @@ var tableToXML = function (formID) {
                     var name = $(this).attr('name');
                     var value = $(this).val();
                     xmlData += "<" + name + ">";
-                    if (name.toLowerCase().contains('date')) {
+                    if (name.toLowerCase().indexOf('date') != -1) {
                         xmlData += moment(value).format('MM/DD/YYYY');
-                    } else if (name.toLowerCase().contains('rate')) {
+                    } else if (name.toLowerCase().indexOf('rate') != -1) {
                         xmlData += (value / 100).toString();
                     } else {
                         xmlData += value.toString();
