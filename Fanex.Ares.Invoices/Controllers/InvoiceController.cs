@@ -112,7 +112,7 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = _invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
-           
+
             //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "chargeRateList", chargeRateList);
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
@@ -162,7 +162,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductID = invoice.Product.Split(',');
-            for (int i = dateRangeList.Count -1; i >= 0; i--)
+            for (int i = dateRangeList.Count - 1; i >= 0; i--)
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
@@ -184,15 +184,14 @@ namespace Fanex.Ares.Invoice.Controllers
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
-                        if (model.Report.EntityList.Count > 0)
-                        {
-                            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                            htmlList.Add(html);
-                            invoice.HTMLReportList.Add(html);
-                            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
-                            isAutoFitList.Add(true);
-                        }
+
+                        PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        htmlList.Add(html);
+                        invoice.HTMLReportList.Add(html);
+                        excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
+                        isAutoFitList.Add(true);
+
                     }
                     else
                     {
@@ -237,8 +236,8 @@ namespace Fanex.Ares.Invoice.Controllers
 
         public ActionResult PrintScreen(InvoiceModel invoice)
         {
-            
-             List<ChargeRate> chargeRateList = new List<ChargeRate>();
+
+            List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
@@ -286,12 +285,11 @@ namespace Fanex.Ares.Invoice.Controllers
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
-                        if (model.Report.EntityList.Count > 0)
-                        {
-                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                            htmlList.Add(html);
-                            invoice.HTMLReportList.Add(html);
-                        }
+
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        htmlList.Add(html);
+                        invoice.HTMLReportList.Add(html);
+
                     }
                     else
                     {
@@ -302,13 +300,12 @@ namespace Fanex.Ares.Invoice.Controllers
                             var model = _reportService.GenerateReport(criteria);
                             model.LicenseeInfor.FromDate = criteria.FromDate;
                             model.LicenseeInfor.ToDate = criteria.ToDate;
-                            if (model.Report.EntityList.Count > 0)
-                            {
-                                PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                                html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                                htmlList.Add(html);
-                                invoice.HTMLReportList.Add(html);
-                            }
+
+                            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            htmlList.Add(html);
+                            invoice.HTMLReportList.Add(html);
+
                         }
 
 
@@ -380,12 +377,11 @@ namespace Fanex.Ares.Invoice.Controllers
                             var model = _reportService.GenerateReport(criteria);
                             model.LicenseeInfor.FromDate = criteria.FromDate;
                             model.LicenseeInfor.ToDate = criteria.ToDate;
-                            if (model.Report.EntityList.Count > 0)
-                            {
-                                html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                                htmlList.Add(html);
-                                invoice.HTMLReportList.Add(html);
-                            }
+
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            htmlList.Add(html);
+                            invoice.HTMLReportList.Add(html);
+
                         }
                     }
                 }
