@@ -66,15 +66,15 @@ SettingManager = function () {
 
         _table.formSearch = $('#formSearch');
         _table.formAddNew = $('#formAddNew');
-        _table.selLicenseeID = $('#LicenseeID', '#formSearch');
-        _table.selPartyID = $('#PartyID', '#formSearch');
+        _table.selLicenseeID = $('#LicenseeID');
+        _table.selPartyID = $('#PartyID');
         _table.frmPartyLicensee = $('#formPartyLicensee');
         _table.errCode = $('#ErrCode');
         _table.errMsg = $('#ErrMsg');
 
-        _dlgAddNew.selLicenseeID = $('#LicenseeID');
-        _dlgAddNew.selProductID = $('#ProductID');
-        _dlgAddNew.selPartyID = $('#PartyID');
+        _dlgAddNew.selLicenseeID = $('#formAddNew #LicenseeID');
+        _dlgAddNew.selProductID = $('#formAddNew #ProductID');
+        _dlgAddNew.selPartyID = $('#formAddNew #PartyID');
         _dlgAddNew.dateFirstBillingDate = $('#FirstBillingDate');
         _dlgAddNew.dateHeadOfTerms = $('#HeadOfTerms');
         _dlgAddNew.intMinimumFee = $('#MinimumFee');
@@ -548,7 +548,7 @@ SettingManager = function () {
     }
 
     var FillDataToEditForm = function (rowNum) {
-        var row = gridOptions.bodyRows[rowNum].Columns;
+        var row = gridOptions.bodyRows[rowNum].Columns;        
         _dlgAddNew.selLicenseeID.val(row[_mappingColumns.LicenseeID].Value);
         _dlgAddNew.selProductID.val(row[_mappingColumns.ProductID].Value);
         _dlgAddNew.selPartyID.val(row[_mappingColumns.PartyID].Value);
