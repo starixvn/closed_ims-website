@@ -388,9 +388,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
                         chargeRateList.Add(new ChargeRate
                         {
                             ProductID = (int)row.ProductID,
-                            DistributorRate = (decimal)row.DistributorRate,
-                            PartnerRate = (decimal)row.PartnerRate,
-                            ONEworksRate = (decimal)row.ONEworksRate,
+                            DistributorRate = Converter.To<decimal>(row.DistributorRate),
+                            PartnerRate = Converter.To<decimal>(row.PartnerRate),
+                            ONEworksRate = Converter.To<decimal>(row.ONEworksRate),
                             StartDate = (DateTime)row.StartDate,
                             EndDate = (DateTime)row.EndDate
                         });
