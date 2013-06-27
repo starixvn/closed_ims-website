@@ -161,7 +161,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductID = invoice.Product.Split(',');
-            for (int i = 0; i < dateRangeList.Count; i++)
+            for (int i = dateRangeList.Count -1; i >= 0; i--)
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
@@ -176,7 +176,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-                    for (int g = 0; g < chargeRateList.Count; g++)
+                    for (int g = chargeRateList.Count - 1; g >= 0 ; g--)
                     {
                         criteria.ToDate = chargeRateList[g].EndDate;
                         criteria.FromDate = chargeRateList[g].StartDate;
