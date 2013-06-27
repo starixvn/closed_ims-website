@@ -10,13 +10,14 @@
             <span class="update">
                 <label for="PartyID">
                     Party ID</label>
-                @Html.DropDownListFor(model => model.PartyID, (IEnumerable<SelectListItem>)ViewBag.lstParties, new { id = "PartyID", @class = "select ui-widget-content ui-corner-all" })
+                @Html.DropDownList("PartyID", (IEnumerable<SelectListItem>)ViewBag.lstParties, new { id = "PartyID", @class = "select ui-widget-content ui-corner-all" })
                 <label for="LicenseeID">
                     Licensee ID</label>
-                @Html.DropDownListFor(model => model.LicenseeID, (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })                
+                
+                @Html.DropDownList("LicenseeID", (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
                 <label for="ProductID">
                     Product ID</label>
-                @Html.DropDownListFor(model => model.ProductID, (IEnumerable<SelectListItem>)ViewBag.lstProducts, new { id = "ProductID", @class = "select ui-widget-content ui-corner-all" })
+                @Html.DropDownList("ProductID", (IEnumerable<SelectListItem>)ViewBag.lstProducts, new { id = "ProductID", @class = "select ui-widget-content ui-corner-all" })
             </span>
             <label for="FirstBillingDate">
                 First Billing Date</label>
