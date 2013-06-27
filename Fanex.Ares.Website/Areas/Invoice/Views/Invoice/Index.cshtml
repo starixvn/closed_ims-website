@@ -7,8 +7,7 @@
 @using Fanex.Ares.Invoice.Models.Invoice;
 @model IMS_InvoiceCriteria
 @{
-    ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
-    ViewBag.Title = "Invoice";
+    ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : "Create Invoice";    
     InvoiceModel invoiceModel = new InvoiceModel();
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
