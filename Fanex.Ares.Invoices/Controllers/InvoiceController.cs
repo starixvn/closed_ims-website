@@ -177,11 +177,10 @@ namespace Fanex.Ares.Invoice.Controllers
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-                    for (int g = chargeRateList.Count - 1; g >= 0 ; g--)
+                    if (chargeRateList.Count == 0)
                     {
-                        criteria.ToDate = chargeRateList[g].EndDate;
-                        criteria.FromDate = chargeRateList[g].StartDate;
-                      
+                        criteria.ToDate = dateRangeList[i].EndDate;
+                        criteria.FromDate = dateRangeList[i].StartDate;
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
@@ -193,6 +192,27 @@ namespace Fanex.Ares.Invoice.Controllers
                             invoice.HTMLReportList.Add(html);
                             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
                             isAutoFitList.Add(true);
+                        }
+                    }
+                    else
+                    {
+                        for (int g = chargeRateList.Count - 1; g >= 0; g--)
+                        {
+                            criteria.ToDate = chargeRateList[g].EndDate;
+                            criteria.FromDate = chargeRateList[g].StartDate;
+
+                            var model = _reportService.GenerateReport(criteria);
+                            model.LicenseeInfor.FromDate = criteria.FromDate;
+                            model.LicenseeInfor.ToDate = criteria.ToDate;
+                            if (model.Report.EntityList.Count > 0)
+                            {
+                                PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                                html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                                htmlList.Add(html);
+                                invoice.HTMLReportList.Add(html);
+                                excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
+                                isAutoFitList.Add(true);
+                            }
                         }
                     }
                 }
@@ -259,23 +279,40 @@ namespace Fanex.Ares.Invoice.Controllers
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
 
-                    for (int g = 0; g < chargeRateList.Count; g++)
+                    if (chargeRateList.Count == 0)
                     {
-                        criteria.ToDate = chargeRateList[g].EndDate;
-                        criteria.FromDate = chargeRateList[g].StartDate;
+                        criteria.ToDate = dateRangeList[i].EndDate;
+                        criteria.FromDate = dateRangeList[i].StartDate;
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
                         if (model.Report.EntityList.Count > 0)
                         {
-                            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
                             html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
                             htmlList.Add(html);
                             invoice.HTMLReportList.Add(html);
                         }
                     }
-                 
-                   
+                    else
+                    {
+                        for (int g = 0; g < chargeRateList.Count; g++)
+                        {
+                            criteria.ToDate = chargeRateList[g].EndDate;
+                            criteria.FromDate = chargeRateList[g].StartDate;
+                            var model = _reportService.GenerateReport(criteria);
+                            model.LicenseeInfor.FromDate = criteria.FromDate;
+                            model.LicenseeInfor.ToDate = criteria.ToDate;
+                            if (model.Report.EntityList.Count > 0)
+                            {
+                                PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                                html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                                htmlList.Add(html);
+                                invoice.HTMLReportList.Add(html);
+                            }
+                        }
+
+
+                    }
                 }
             }
             return View("_Review", invoice);
@@ -320,10 +357,10 @@ namespace Fanex.Ares.Invoice.Controllers
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
 
-                    for (int g = 0; g < chargeRateList.Count; g++)
+                    if (chargeRateList.Count == 0)
                     {
-                        criteria.ToDate = chargeRateList[g].EndDate;
-                        criteria.FromDate = chargeRateList[g].StartDate;
+                        criteria.ToDate = dateRangeList[i].EndDate;
+                        criteria.FromDate = dateRangeList[i].StartDate;
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
@@ -332,6 +369,23 @@ namespace Fanex.Ares.Invoice.Controllers
                             html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
                             htmlList.Add(html);
                             invoice.HTMLReportList.Add(html);
+                        }
+                    }
+                    else
+                    {
+                        for (int g = 0; g < chargeRateList.Count; g++)
+                        {
+                            criteria.ToDate = chargeRateList[g].EndDate;
+                            criteria.FromDate = chargeRateList[g].StartDate;
+                            var model = _reportService.GenerateReport(criteria);
+                            model.LicenseeInfor.FromDate = criteria.FromDate;
+                            model.LicenseeInfor.ToDate = criteria.ToDate;
+                            if (model.Report.EntityList.Count > 0)
+                            {
+                                html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                                htmlList.Add(html);
+                                invoice.HTMLReportList.Add(html);
+                            }
                         }
                     }
                 }
