@@ -93,6 +93,7 @@ namespace Fanex.Ares.Invoice.Controllers
         }
 
         [HttpPost]
+        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public JsonResult SaveInvoice(InvoiceModel invoiceModel)
         {
             var insertResult = _invoiceService.SaveInvoice(invoiceModel);
