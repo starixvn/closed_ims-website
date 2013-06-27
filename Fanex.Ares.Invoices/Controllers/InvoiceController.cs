@@ -203,15 +203,14 @@ namespace Fanex.Ares.Invoice.Controllers
                             var model = _reportService.GenerateReport(criteria);
                             model.LicenseeInfor.FromDate = criteria.FromDate;
                             model.LicenseeInfor.ToDate = criteria.ToDate;
-                            if (model.Report.EntityList.Count > 0)
-                            {
-                                PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                                html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                                htmlList.Add(html);
-                                invoice.HTMLReportList.Add(html);
-                                excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
-                                isAutoFitList.Add(true);
-                            }
+
+                            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            htmlList.Add(html);
+                            invoice.HTMLReportList.Add(html);
+                            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
+                            isAutoFitList.Add(true);
+
                         }
                     }
                 }
@@ -361,12 +360,11 @@ namespace Fanex.Ares.Invoice.Controllers
                         var model = _reportService.GenerateReport(criteria);
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
-                        if (model.Report.EntityList.Count > 0)
-                        {
-                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
-                            htmlList.Add(html);
-                            invoice.HTMLReportList.Add(html);
-                        }
+
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        htmlList.Add(html);
+                        invoice.HTMLReportList.Add(html);
+
                     }
                     else
                     {
