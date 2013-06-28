@@ -295,8 +295,7 @@ var CreatingInvoice = {
             CurrencyName: $('#CurrencyID option:selected').text()
         };
         CreatingInvoice.InvoiceNo = CreatingInvoice.FilterControls.txtInvoiceNo.val();
-        CreatingInvoice.InvoiceName = Operator.PartyName + '-INV-' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
-
+        CreatingInvoice.InvoiceName = this.mappingSpecialPartyName(Operator.PartyName) + ' INV-' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
 
     },
     GetNewInvoiceData: function () {
@@ -618,7 +617,7 @@ var CreatingInvoice = {
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = '';
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Reference = '';
 
-                invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = $('textarea#orgItem_des_' + index).val(); 
+                invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = $('textarea#orgItem_des_' + index).val();
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Reference = $('textarea#orgItem_ref_' + index).val();
                 index++;
             }
@@ -721,6 +720,12 @@ var CreatingInvoice = {
         if (year % 4 != 0) return m[1];
         if (year % 100 == 0 && year % 400 != 0) return m[1];
         return m[1] + 1;
+    },
+    mappingSpecialPartyName: function (partyName) {
+        if (partyName.toLowerCase() == 'cozni') {
+            partyName = 'CL';
+        }
+        return partyName
     }
 }
 

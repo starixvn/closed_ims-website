@@ -152,7 +152,7 @@ namespace Fanex.Ares.Invoice.Controllers
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
+            string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice, true);
             htmlList.Add(html);
 
             List<bool> isAutoFitList = new List<bool>();
@@ -177,6 +177,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
+                    criteria.InvoiceReport = true;
                     if (chargeRateList.Count == 0)
                     {
                         criteria.ToDate = dateRangeList[i].EndDate;
@@ -186,7 +187,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         model.LicenseeInfor.ToDate = criteria.ToDate;
 
                         PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                         htmlList.Add(html);
                         invoice.HTMLReportList.Add(html);
                         excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
@@ -205,7 +206,7 @@ namespace Fanex.Ares.Invoice.Controllers
                             model.LicenseeInfor.ToDate = criteria.ToDate;
 
                             PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                             htmlList.Add(html);
                             invoice.HTMLReportList.Add(html);
                             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
@@ -254,7 +255,7 @@ namespace Fanex.Ares.Invoice.Controllers
             string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice);
+            string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice, false);
             htmlList.Add(html);
 
             invoice.HTMLReportList.Add(html);
@@ -276,7 +277,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-
+                    criteria.InvoiceReport = true;
                     if (chargeRateList.Count == 0)
                     {
                         criteria.ToDate = dateRangeList[i].EndDate;
@@ -285,7 +286,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
 
-                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                         htmlList.Add(html);
                         invoice.HTMLReportList.Add(html);
 
@@ -301,7 +302,7 @@ namespace Fanex.Ares.Invoice.Controllers
                             model.LicenseeInfor.ToDate = criteria.ToDate;
 
                             PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                             htmlList.Add(html);
                             invoice.HTMLReportList.Add(html);
 
@@ -352,7 +353,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
                     criteria.Product = Converter.To<int>(ProductID[j]);
                     criteria.ProductName = Products[j];
-
+                    criteria.InvoiceReport = true;
                     if (chargeRateList.Count == 0)
                     {
                         criteria.ToDate = dateRangeList[i].EndDate;
@@ -361,7 +362,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         model.LicenseeInfor.FromDate = criteria.FromDate;
                         model.LicenseeInfor.ToDate = criteria.ToDate;
 
-                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                        html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                         htmlList.Add(html);
                         invoice.HTMLReportList.Add(html);
 
@@ -376,7 +377,7 @@ namespace Fanex.Ares.Invoice.Controllers
                             model.LicenseeInfor.FromDate = criteria.FromDate;
                             model.LicenseeInfor.ToDate = criteria.ToDate;
 
-                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model);
+                            html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                             htmlList.Add(html);
                             invoice.HTMLReportList.Add(html);
 

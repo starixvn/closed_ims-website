@@ -18,6 +18,7 @@ using System.Web.Mvc.Html;
 using System.Globalization;
 using System.Web;
 using System.Collections.Specialized;
+using Fanex.Ares.Core.Configurations;
 
 namespace Fanex.Ares.Core.Extensions
 {
@@ -355,13 +356,32 @@ namespace Fanex.Ares.Core.Extensions
             return new MvcHtmlString(htmlString.Replace("\n", "<br />"));
         }
 
-        public static string GetFullDomainURL()
+        public static string GetFullDomainURL(bool isCheckMappingDomail = false)
         {
             NameValueCollection variables = HttpContext.Current.Request.ServerVariables;
             string protocol = (variables["SERVER_PORT_SECURE"] == "1") ? "https://" : "http://";
             string domain = variables["SERVER_NAME"];
             string port = variables["SERVER_PORT"];
-            return protocol + domain + ":" + port + (HttpRuntime.AppDomainAppVirtualPath == "/" ? string.Empty : HttpRuntime.AppDomainAppVirtualPath);
+            
+            var fullDomainInfo = protocol + domain + ":" + port + (HttpRuntime.AppDomainAppVirtualPath == "/" ? string.Empty : HttpRuntime.AppDomainAppVirtualPath);
+
+            if (isCheckMappingDomail)
+            {
+                var domainMapping = DomainMapping.Instance.Domain;
+                if (domainMapping != null && domainMapping.Count > 0)
+                {
+                    foreach (DomainElement domainElement in domainMapping)
+                    {
+                        if (fullDomainInfo.ToLower().Equals(domainElement.CurrentDomain.ToLower()))
+                        {
+                            fullDomainInfo = domainElement.ConvertToDomain;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return fullDomainInfo;
         }
 
         public static IEnumerable<SelectListItem> ToListSelectListItem(this List<SelectListItemEx> listEx)
@@ -375,7 +395,7 @@ namespace Fanex.Ares.Core.Extensions
         #endregion Dropdownlist
 
 
-        public static string RenderViewToString(Controller controller, string viewName, object viewData)
+        public static string RenderViewToString(Controller controller, string viewName, object viewData, bool isCheckMappingDomail)
         {
             var renderedView = new StringBuilder();
             using (var responseWriter = new StringWriter(renderedView))
@@ -390,6 +410,7 @@ namespace Fanex.Ares.Core.Extensions
                 using (var viewPage = new ViewPage())
                 {
                     var html = new HtmlHelper(CreateViewContext(responseWriter, fakeControllerContext), viewPage);
+                    html.ViewBag.isCheckMappingDomail = isCheckMappingDomail;
                     html.RenderPartial(viewName, viewData);
                     HttpContext.Current = oldContext;
                 }

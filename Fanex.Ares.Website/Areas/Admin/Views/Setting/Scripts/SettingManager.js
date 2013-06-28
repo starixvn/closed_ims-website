@@ -66,8 +66,8 @@ SettingManager = function () {
 
         _table.formSearch = $('#formSearch');
         _table.formAddNew = $('#formAddNew');
-        _table.selLicenseeID = $('#LicenseeID');
-        _table.selPartyID = $('#PartyID');
+        _table.selLicenseeID = $('#formSearch #LicenseeID');
+        _table.selPartyID = $('#formSearch #PartyID');
         _table.frmPartyLicensee = $('#formPartyLicensee');
         _table.errCode = $('#ErrCode');
         _table.errMsg = $('#ErrMsg');
@@ -102,6 +102,12 @@ SettingManager = function () {
         _dlgAddNew.selLicenseeID.change(function () {
             self.GetProductsByLicenseePartyID($(this).val(), _dlgAddNew.selPartyID.val(), _dlgAddNew.selProductID, false);
         });
+
+        _table.selPartyID.change(function () {
+            self.GetLicenseesByPartyID($(this).val(), _table.selLicenseeID, false, function () { _table.selLicenseeID.change(); });
+
+        });
+
     }
 
     self.GetLicenseesByPartyID = function (partyID, targetElement, hasAllRow, func) {

@@ -5,7 +5,8 @@
 @using Fanex.Common;
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
-    string domain = HtmlHelperExtensions.GetFullDomainURL();
+    var isCheckMappingDomail = ViewBag.isCheckMappingDomail;
+    string domain = HtmlHelperExtensions.GetFullDomainURL(isCheckMappingDomail);
     var invoiceModel = new InvoiceModel();
     invoiceModel = Model;
     double totalAmount = 0;

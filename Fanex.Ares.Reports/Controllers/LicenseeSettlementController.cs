@@ -87,7 +87,7 @@ namespace Fanex.Ares.Report.Controllers
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
-            string html = HtmlHelperExtensions.RenderViewToString(this, SettlementView, model);
+            string html = HtmlHelperExtensions.RenderViewToString(this, SettlementView, model, false);
             htmlList.Add(html);
             PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
             var excelCssFilePath = new List<string>();
