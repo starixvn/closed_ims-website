@@ -136,6 +136,8 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\Repositories\Impl\" />
+    <Folder Include="Controllers\Repositories\Interface\" />
     <Folder Include="Repositories\Impl\" />
     <Folder Include="Repositories\Interface\" />
   </ItemGroup>
