@@ -64,16 +64,28 @@
                 @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
             </td>
         </tr>
-        <tr>
-            <td colspan="5" style='height: 12.75pt;'>
-            </td>
-            <td colspan="2">
-                Basis of Billing:
-            </td>
-            <td class="boldInfor" colspan="8">
-                  @MvcHtmlString.Create((string.Format("{0}", string.IsNullOrEmpty(licensee.LicenseeInfor.BasisOfBilling) ? string.Empty : licensee.LicenseeInfor.BasisOfBilling.Replace(";", "<br/>"))))
-            </td>
-        </tr>
+          @{
+            string[] basicBillingList = licensee.LicenseeInfor.BasisOfBilling.Split(';');
+            int index = 0;
+        }
+        @foreach (string basicBilling in basicBillingList)
+        {
+            <tr>
+                <td colspan="5" style='height: 12.75pt;'>
+                </td>
+                <td colspan="2" style="vertical-align: top;">
+                    @if (index == 0)
+                    {
+                        <span>Basis of Billing:</span>
+                    }
+                </td>
+                <td class="boldInfor" colspan="8" style='height: 12.75pt; mso-height-source: userset;
+                    mso-height-alt: 884; vertical-align: top; text-align: left; white-space: normal;'>
+                    @basicBilling
+                </td>
+            </tr>
+                    index++;
+        }
         <tr>
             <td colspan="15" style='height: 12.75pt;'>
             </td>
