@@ -420,7 +420,7 @@ var CreatingInvoice = {
                         OrgInvoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
                         NapAres.Helper.showMsgBox({
                             ErrorCode: 0,
-                            ErrorMsg: 'Saving invoice succesffully.'
+                            ErrorMsg: 'Saving invoice successfully.'
                         });
                         invoiceInfoModel = [];
                         invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
@@ -434,7 +434,7 @@ var CreatingInvoice = {
                 } else {
                     NapAres.Helper.showMsgBox({
                         ErrorCode: 1,
-                        ErrorMsg: 'Saving invoice unsuccesffully.'
+                        ErrorMsg: 'Saving invoice unsuccessfully.'
                     });
                     setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 }
@@ -442,7 +442,7 @@ var CreatingInvoice = {
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({
                     ErrorCode: 1,
-                    ErrorMsg: 'Saving invoice unsuccesffully.'
+                    ErrorMsg: 'Saving invoice unsuccessfully.'
                 });
                 setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
             },
