@@ -65,8 +65,9 @@
             </td>
         </tr>
           @{
-            string[] basicBillingList = licensee.LicenseeInfor.BasisOfBilling.Split(';');
-            int index = 0;
+              var billingTmp = licensee.LicenseeInfor.BasisOfBilling == null ? string.Empty : licensee.LicenseeInfor.BasisOfBilling;
+              string[] basicBillingList = billingTmp.Split(';');
+              int index = 0;
         }
         @foreach (string basicBilling in basicBillingList)
         {
