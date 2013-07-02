@@ -578,11 +578,11 @@ var CreatingInvoice = {
                 var formatNumber = '';
                 if ($('#newItem_display_' + id).attr('discountItem') == "true") {
                     $('#newItem_text_' + id).addClass("red");
-                    formatNumber = "(" + numeral(parseInt(amount) > 0 ? parseInt(amount) : (parseInt(amount) * -1)).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
+                    formatNumber = "(" + numeral(parseFloat(amount) > 0 ? parseFloat(amount) : (parseFloat(amount) * -1)).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
                 } else {
                     if (parseInt(amount) < 0) {
                         $('#newItem_text_' + id).addClass("red");
-                        formatNumber = "(" + numeral(parseInt(amount) * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
+                        formatNumber = "(" + numeral(parseFloat(amount) * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")";
                     } else {
                         $('#newItem_text_' + id).removeClass("red");
                         formatNumber = numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
