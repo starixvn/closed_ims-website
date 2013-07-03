@@ -9,7 +9,7 @@
 /*
 important
 */
-.ui-multiselect-helper-reset { margin: 0; padding: 0; border: 0; list-style: none; }
+.ui-multiselect-helper-reset { margin: 0; padding: 0; border: 0; list-style: none; border: 1px solid #CECCCD; }
 .ui-multiselect-helper-clearfix:before, .ui-multiselect-helper-clearfix:after { content: ""; display: table; }
 .ui-multiselect-helper-clearfix:after { clear: both; }
 
@@ -71,7 +71,7 @@ label.ui-multiselect-group-mark { font-weight: bold !important;}
 
 .ui-multiselect-options { display:none; padding:2px; position:relative; z-index:10000 }
 .ui-multiselect-checkboxes { position:relative /* fixes bug in IE6/7 */; overflow-y:auto; }
-ul.ui-multiselect-checkboxes { margin-top:4px !important; padding-bottom:4px !important; }
+ul.ui-multiselect-checkboxes { margin-top:-3px !important; padding-bottom:4px !important; }
 /*
 .ui-multiselect-checkboxes label { cursor:default; display:block; border:1px solid transparent;padding: 2px;color: #000;font-weight: normal; font-size: 11px }
 .ui-multiselect-checkboxes label input { position:relative; top:1px }
