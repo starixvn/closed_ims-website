@@ -77,8 +77,8 @@
             </td>
             <td colspan="8" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 1500; white-space: normal;'>
-                <br />
-                @invoiceModel.Operator.To1
+                <br />                
+                 @(!string.IsNullOrEmpty(invoiceModel.Operator.Company) ? invoiceModel.Operator.Company.ToUpper() + ", " : "")  @invoiceModel.Operator.To1
                 <br />
             </td>
             <td colspan="1">

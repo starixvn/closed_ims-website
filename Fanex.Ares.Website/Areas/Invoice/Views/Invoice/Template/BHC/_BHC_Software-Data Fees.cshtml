@@ -190,7 +190,7 @@
                 :
             </td>
             <td class="border-B" colspan="2" style='height: 24pt; text-align: center; mso-height-source: userset;
-                mso-height-alt: 700; font-weight: bold;'>
+                mso-height-alt: 700; font-weight: bold;color: Red;'>
                 @invoiceModel.CurrencyName
             </td>
         </tr>
@@ -285,7 +285,7 @@
                     @{totalAmount += detail.Amount;}
                     @if (state.StatementID != 100000)
                     {
-                        @MvcHtmlString.Create(NegativeFormat(detail.Amount))
+                         @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : NegativeFormat(detail.Amount))
                     }
                     &nbsp;<br />
                 </td>
