@@ -9,14 +9,14 @@
 /*
 important
 */
-.ui-multiselect-helper-reset { margin: 0; padding: 0; border: 0; list-style: none; border: 1px solid #CECCCD; }
+.ui-multiselect-helper-reset { margin: 0; padding: 0; list-style: none; border: 0;}
 .ui-multiselect-helper-clearfix:before, .ui-multiselect-helper-clearfix:after { content: ""; display: table; }
 .ui-multiselect-helper-clearfix:after { clear: both; }
 
 .custom-multi-select-rtUL {	
 }
 
-.ui-multiselect-widget-content { border: 0px solid #dddddd; background: #FFFFFF ;  }
+.ui-multiselect-widget-content { border: 0px solid #000; background: #FFFFFF ;  }
 .ui-multiselect-widget-header { border: 0px solid #e78f08; font-weight: bold; }
 .ui-multiselect-state-default, .ui-multiselect-widget-content .ui-multiselect-state-default, .ui-multiselect-widget-header .ui-multiselect-state-default { border: 1px solid #BDC7D8; background: #FFFFFF; font-weight: normal; border-radius: 2px 2px 2px 2px; }
 .ui-multiselect-state-default { padding-left: 3px;}

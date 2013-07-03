@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Fanex.Ares.Admin.Criteria;
 using Fanex.Ares.Admin.Services.Implement;
 using Fanex.Ares.Admin.Services.Interface;
+using Fanex.Ares.Core.Configurations;
 using Fanex.Ares.Core.Services.Impl;
 using Fanex.Ares.Core.Web;
 using Fanex.Ares.Core.Web.Controllers;
@@ -17,7 +20,6 @@ using Fanex.NAP.Core.Service.Impl;
 using Fanex.NAP.Core.Service.Interface;
 using Fanex.NAP.Core.Web.Auth;
 using Fanex.NAP.Core.Web.Session;
-using Fanex.Ares.Admin.Criteria;
 
 namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 {
@@ -115,6 +117,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 
                     CreateAuthInfo(user);
 
+                    AppSession.IsShowMenu = true;
                     #endregion saves user session & auth info
                     return Redirect(FormsAuthentication.DefaultUrl);
                 }
@@ -124,14 +127,13 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult AccountingLogin(string username, string onuserId, string time)
+        public ActionResult AccountingLogin(string username, string onuserId, string redirectToUrl)
         {
             try
             {
                 Session.Clear();
                 username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
                 onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
-                time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
                 string currentTime = _userService.UserSSOGetTime();
 
                 
@@ -179,7 +181,27 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                             #endregion saves user session & auth info
                         }
 
-                        return Redirect(FormsAuthentication.DefaultUrl);
+                        AppSession.IsShowMenu = false;
+                        var controllerMapping = ControllerMapping.Instance.ControllerSetting;
+                        if (controllerMapping != null)
+                        {
+                            var getMappingConfig = (from m in
+                                                        controllerMapping.Cast<ControllerSettingElement>().Where(
+                                                            m => m.ControllerName.ToLower().Equals(redirectToUrl.ToLower()) && m.Active)
+                                                    select m);
+                            if (getMappingConfig != null && getMappingConfig.Count() > 0)
+                            {
+                                return Redirect(getMappingConfig.First().Url);
+                            }
+                            else
+                            {
+                                return Redirect(FormsAuthentication.DefaultUrl);
+                            }
+                        }
+                        else
+                        {
+                            return Redirect(FormsAuthentication.DefaultUrl);
+                        }
                     }
                 
                 return Redirect(FormsAuthentication.LoginUrl);

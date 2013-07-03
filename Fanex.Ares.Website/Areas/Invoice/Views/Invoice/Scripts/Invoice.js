@@ -61,7 +61,8 @@ function GetInvoiceType() {
                 isCheckAll: false,
                 isRetrieveDataAfterClose: false,
                 showParentSelectedText: true,
-                multiple: false
+                multiple: false,
+                shadow: true
             });
 
             $("#divInvoiceType input[type='radio']").change(function () {

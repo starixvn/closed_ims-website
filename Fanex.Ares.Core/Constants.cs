@@ -31,6 +31,7 @@ namespace Fanex.Ares.Core
         public const string VIEW_IP_VN = "ViewIPVN";
         public const string ARES_DATE_FORMAT = "dd-MMM-yy";
         public const string ARES_MONTH_YEAR_FORMAT = "MMM-yy";
+        public const string IS_SHOW_MENU = "Fanex.Ares.Core.Contants.AppSession.IsShowMenu";
     }
 
 }

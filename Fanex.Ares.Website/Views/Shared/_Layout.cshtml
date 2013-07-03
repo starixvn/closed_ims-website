@@ -30,6 +30,8 @@
     }
 </head>
 <body>
+@if (AppSession.IsShowMenu)
+{ 
     <header>
         <div class="logo">
             <a href="~/?ref=logo">&nbsp;</a>
@@ -49,6 +51,8 @@
               
         </div>
     </header>
+}
+    
     <section id="headline">
         @RenderSection("Headline", false)
     </section>

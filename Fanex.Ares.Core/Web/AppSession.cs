@@ -115,5 +115,17 @@ namespace Fanex.Ares.Core.Web
                 SessionManager.Set<bool>(Constants.VIEW_IP_VN, value);
             }
         }
+
+        public static bool IsShowMenu
+        {
+            get
+            {
+                return SessionManager.Get<bool>(Constants.IS_SHOW_MENU);
+            }
+            set
+            {
+                SessionManager.Set<bool>(Constants.IS_SHOW_MENU, value);
+            }
+        }
     }
 }

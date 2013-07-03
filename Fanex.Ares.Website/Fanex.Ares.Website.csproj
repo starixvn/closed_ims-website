@@ -760,6 +760,7 @@
     <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
     <Content Include="Views\Common\AccessDenied.cshtml" />
     <Content Include="Web.Configuration\DomainMapping.config" />
+    <Content Include="Web.Configuration\ControllerMapping.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />

@@ -195,6 +195,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                 AppSession.RoleAccess = PermissionService.GetRoleAccess(_functionService.GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
 
                                 #endregion saves user session
+                                AppSession.IsShowMenu = true;
 
                                 if (AppSession.CurrentUserMenu != null &&
                                     AppSession.CurrentUserMenu.Where(m => m.Parent == null).ToList().Count > 0)

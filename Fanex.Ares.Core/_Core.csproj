@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AppSettings.cs" />
+    <Compile Include="Configurations\ControllerMapping.cs" />
     <Compile Include="Configurations\DomainMapping.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />

@@ -65,8 +65,8 @@
             </td>
         </tr>
         @{
-           var billingTmp =  licensee.LicenseeInfor.BasisOfBilling == null ? string.Empty : licensee.LicenseeInfor.BasisOfBilling;
-           string[] basicBillingList = billingTmp.Split(';');
+            var billingTmp =  licensee.LicenseeInfor.BasisOfBilling == null ? string.Empty : licensee.LicenseeInfor.BasisOfBilling;
+            string[] basicBillingList = billingTmp.Split(';');
             int index = 0;
         }
         @foreach (string basicBilling in basicBillingList)
@@ -91,16 +91,30 @@
             <td colspan="15" style='height: 12.75pt;'>
             </td>
         </tr>
-        <tr>
-            <td colspan="5" style='height: 12.75pt;'>
-            </td>
-            <td colspan="2">
-                Minimum Fees:
-            </td>
-            <td class="boldInfor" colspan="8">
-                @licensee.LicenseeInfor.MinimumFees
-            </td>
-        </tr>
+        @{
+            var minimumfees = licensee.LicenseeInfor.MinimumFees == null ? string.Empty : licensee.LicenseeInfor.MinimumFees;
+            string[] minimumfeesList = minimumfees.Split(';');
+            int minimumfeeIndex = 0;
+        }
+        @foreach (string minimumfeeInfo in minimumfeesList)
+        {
+            <tr>
+                <td colspan="5" style='height: 12.75pt;'>
+                </td>
+                <td colspan="2" style="vertical-align: top;">
+                    @if (minimumfeeIndex == 0)
+                    {
+                        <span>Minimum Fees:</span>
+                    }
+                </td>
+                <td class="boldInfor" colspan="8" style='height: 12.75pt; mso-height-source: userset;
+                    mso-height-alt: 884; vertical-align: top; text-align: left; white-space: normal;'>
+                    @minimumfeeInfo
+                </td>
+            </tr>
+            minimumfeeIndex++;
+        }
+        
         <tr>
             <td colspan="5" style='height: 12.75pt;'>
             </td>
