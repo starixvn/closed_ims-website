@@ -134,52 +134,47 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                 Session.Clear();
                 username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
                 onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
-                string currentTime = _userService.UserSSOGetTime();
+                #region do SSO check-in
 
-                
-                    #region do SSO check-in
+                var criteria = new AccountingUserCheckOnlineStatusCriteria
+                {
+                    IsKickedOut = false,
+                    On_UserID = Convert.ToInt32(onuserId)
+                };
 
-                    var criteria = new AccountingUserCheckOnlineStatusCriteria
+                var onlineStatus = _iAdminService.CheckUserOnlineStatus(criteria);
+
+                #endregion do SSO check-in
+
+                if (onlineStatus)
+                {
+                    var user = _userService.GetByUsername(username) as User;
+                    if (user != null)
                     {
-                        IsKickedOut = false,
-                        On_UserID = Convert.ToInt32(onuserId)
-                    };
+                        #region saves user session & auth info
 
-                    var onlineStatus = _iAdminService.CheckUserOnlineStatus(criteria);
+                        _currentSession.UserId = user.Id;
+                        _currentSession.Username = user.Username;
+                        _currentSession.OnUserId = criteria.On_UserID;
+                        _currentSession.SessionId = Session.SessionID.ToString();
+                        _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
 
-                    #endregion do SSO check-in
-
-                    if (onlineStatus)
-                    {
-                        var user = _userService.GetByUsername(username) as User;
-                        if (user != null)
+                        AppSession.CurrentUser = user;
+                        AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
+                        
+                        if (this.SiteId != 0)
                         {
-                            #region saves user session & auth info
-
-                            _currentSession.UserId = user.Id;
-                            _currentSession.Username = user.Username;
-                            _currentSession.OnUserId = criteria.On_UserID;
-                            _currentSession.SessionId = Session.SessionID.ToString();
-                            _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
-
-                            AppSession.CurrentUser = user;
-                            AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
-                            //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
-
-                            if (this.SiteId != 0)
-                            {
-                                _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
-                                                                                        user.Id,
-                                                                                        SiteId,
-                                                                                        Environment,
-                                                                                        true) as IList<MenuItem>;
-                                AppSession.CurrentUserMenu = _currentSession.MenuItemList;
-                            }
-
-                            CreateAuthInfo(user);
-
-                            #endregion saves user session & auth info
+                            _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
+                                                                                    user.Id,
+                                                                                    SiteId,
+                                                                                    Environment,
+                                                                                    true) as IList<MenuItem>;
+                            AppSession.CurrentUserMenu = _currentSession.MenuItemList;
                         }
+
+                        CreateAuthInfo(user);
+
+                        #endregion saves user session & auth info
 
                         AppSession.IsShowMenu = false;
                         var controllerMapping = ControllerMapping.Instance.ControllerSetting;
@@ -193,16 +188,11 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                             {
                                 return Redirect(getMappingConfig.First().Url);
                             }
-                            else
-                            {
-                                return Redirect(FormsAuthentication.DefaultUrl);
-                            }
-                        }
-                        else
-                        {
-                            return Redirect(FormsAuthentication.DefaultUrl);
-                        }
-                    }
+                            
+                        }                        
+                        return Redirect(FormsAuthentication.DefaultUrl);
+                    }                    
+                }
                 
                 return Redirect(FormsAuthentication.LoginUrl);
             }

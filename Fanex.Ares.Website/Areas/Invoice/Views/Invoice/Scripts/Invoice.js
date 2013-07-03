@@ -6,7 +6,57 @@ $(document).ready(function () {
 });
 
 function Submit() {
-    CreatingInvoice.GetNewInvoiceData();
+    if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 ||
+            CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") == 0 ||
+            $.isNumeric(CreatingInvoice.FilterControls.txtInvoiceNo.val()) == false)
+        return false;
+
+    if (CreatingInvoice.FilterControls.txtInvoiceNo.val().length == 0) {
+        NapAres.Helper.showMsgBox({
+            ErrorCode: 1,
+            ErrorMsg: 'Please input Invoice No.!'
+        });
+        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        return false;
+    }
+
+    CreatingInvoice.GetFilteringInfo();
+
+    if (CreatingInvoice.Products.length == 0) {
+        NapAres.Helper.showMsgBox({
+            ErrorCode: 1,
+            ErrorMsg: 'Please select product!'
+        });
+        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+
+        return false;
+    }
+
+    var toDateSelected = new Date(CreatingInvoice.FilterControls.cldToDate.val());
+    var endDateOfMonth = CreatingInvoice.getDateRangeOfLastMonth(toDateSelected)[1];
+    if (toDateSelected != endDateOfMonth) {
+        $("#dialog:ui-dialog").dialog("destroy");
+        $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
+        $("#ims-dialog-message").dialog({
+            modal: true,
+            resizable: false,
+            width: 310,
+            position: ['middle', 100],
+            buttons: {
+                Ok: function () {
+                    $(this).dialog("close");
+                    CreatingInvoice.GetNewInvoiceData();
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+        $(".ui-dialog-titlebar").hide();
+    }
+    else {
+        CreatingInvoice.GetNewInvoiceData();
+    }
 }
 
 function GetInvoiceType() {
@@ -81,8 +131,6 @@ function GetInvoiceType() {
             NapAres.enableInput();
         }
     });
-
-
 }
 
 function GetInvoiceNo() {
@@ -258,8 +306,6 @@ var CreatingInvoice = {
         CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
         NapAres.NapAresPopUp = $('#dialog-popup');
-
-
     },
     GetLicensees: function () {
         NapAres.disableInput();
@@ -308,32 +354,6 @@ var CreatingInvoice = {
 
     },
     GetNewInvoiceData: function () {
-        if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 ||
-            CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") == 0 ||
-            $.isNumeric(CreatingInvoice.FilterControls.txtInvoiceNo.val()) == false)
-            return false;
-
-        if (CreatingInvoice.FilterControls.txtInvoiceNo.val().length == 0) {
-            NapAres.Helper.showMsgBox({
-                ErrorCode: 1,
-                ErrorMsg: 'Please input Invoice No.!'
-            });
-            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-            return false;
-        }
-
-        CreatingInvoice.GetFilteringInfo();
-
-        if (CreatingInvoice.Products.length == 0) {
-            NapAres.Helper.showMsgBox({
-                ErrorCode: 1,
-                ErrorMsg: 'Please select product!'
-            });
-            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-
-            return false;
-        }
-
         NapAres.disableInput();
         $.ajax({
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
