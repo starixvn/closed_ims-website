@@ -32,9 +32,10 @@ function Submit() {
         return false;
     }
 
-    var toDateSelected = new Date(CreatingInvoice.FilterControls.cldToDate.val());
-    var endDateOfMonth = CreatingInvoice.getDateRangeOfLastMonth(toDateSelected)[1];
-    if (toDateSelected != endDateOfMonth) {
+    var toDateSelected = new Date(CreatingInvoice.FilterControls.cldToDate.val());       
+    var totalDays = CreatingInvoice.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
+    
+    if (toDateSelected.getDate() != totalDays) {
         $("#dialog:ui-dialog").dialog("destroy");
         $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
         $("#ims-dialog-message").dialog({
