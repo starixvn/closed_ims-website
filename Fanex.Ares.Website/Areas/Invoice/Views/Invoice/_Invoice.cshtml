@@ -210,7 +210,7 @@
                                     type="button" value="PREVIEW" onclick="Review()" />&nbsp;&nbsp;&nbsp; @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
                                     type="button" value="EXPORT TO PDF"  onClick="ExportPDF()"/>*@
                                 <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
+                                    type="button" value="EXPORT PDF" disabled="disabled" onclick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
                             </div>
                         </td>
                     </tr>

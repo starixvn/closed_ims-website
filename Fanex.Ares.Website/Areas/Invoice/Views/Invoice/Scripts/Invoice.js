@@ -116,12 +116,6 @@ function GetInvoiceType() {
                 shadow: true
             });
 
-            $("#divInvoiceType input[type='radio']").change(function () {
-                GetInvoiceNo();
-
-            });
-
-            GetInvoiceNo();
         },
         error: function () {
             try {
@@ -141,7 +135,7 @@ function GetInvoiceNo() {
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceNo",
         type: "POST",
-        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val() + '&LicenseeId=' + CreatingInvoice.FilterControls.ddlLicensee.val() + '&InvoiceTypeID=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
+        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val(),
         success: function (data, textStatus, jqXHR) {
             CreatingInvoice.FilterControls.txtInvoiceNo.val(data);
         },
@@ -222,7 +216,6 @@ var CreatingInvoice = {
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             },
             minDate: new Date(minDate)
-            //,maxDate: new Date(maxDate)
         });
 
         $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
@@ -284,6 +277,7 @@ var CreatingInvoice = {
                 CreatingInvoice.GetLicensees();
             }
 
+            GetInvoiceNo();
         });
 
         CreatingInvoice.FilterControls.txtInvoiceNo.change(function () {
@@ -316,7 +310,6 @@ var CreatingInvoice = {
             data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val(),
             success: function (data, textStatus, jqXHR) {
                 if (data && data.length > 0) {
-                    //                    CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select a Licensee</option>');
                     $.each(data, function (i, item) {
                         CreatingInvoice.FilterControls.ddlLicensee.append('<option value="' + item.LicenseeID + '">' + item.BrandName + '</option>');
                     });
@@ -359,7 +352,7 @@ var CreatingInvoice = {
         $.ajax({
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
             type: "POST",
-            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID + '&InvoiceNo=' + CreatingInvoice.InvoiceNo + '&InvoiceType=' + CreatingInvoice.InvoiceType.InvoiceTypeID,
+            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&InvoiceNo=' + CreatingInvoice.InvoiceNo,
             success: function (data, textStatus, jqXHR) {
                 if (data == false) {
                     $.ajax({
@@ -391,7 +384,7 @@ var CreatingInvoice = {
                     $('#parentContainer').html('');
                     NapAres.Helper.showMsgBox({
                         ErrorCode: 1,
-                        ErrorMsg: 'Invoice No is existed!'
+                        ErrorMsg: 'The Invoice No. is existed, please enter a new number!'
                     });
                     setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
                 }
@@ -518,7 +511,7 @@ var CreatingInvoice = {
                                 <td style="width: 20%; text-align: center;"><textarea  onfocus="onFocusInput(this)" onblur="onBlurInput(this)" id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                        <input class="numeric"  name=""  onblur="CreatingInvoice.RecalculatorTotal();" id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold;text-align:right;"></input></div></td></tr>');
+                                        <input class="numeric"  name=""  onblur="CreatingInvoice.RecalculatorTotal();" id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
             CreatingInvoice.IdNewItemList.push(CreatingInvoice.IdNewItem);
             CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
             $(".numeric").numeric();
@@ -528,7 +521,6 @@ var CreatingInvoice = {
         }
     },
     DeleteItem: function (trId) {
-        //        $(document.getElementById(trId)).remove();
         $("#newItem_" + trId).remove();
         CreatingInvoice.IdNewItemList = jQuery.grep(CreatingInvoice.IdNewItemList, function (value) {
             return value != trId;
@@ -609,7 +601,6 @@ var CreatingInvoice = {
                         $('#newItem_text_' + id).removeClass("red");
                         formatNumber = numeral(amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
                     }
-
                 }
                 $('#newItem_text_' + id).empty().val(formatNumber);
                 totalAmountTmp += parseFloat(amount);
@@ -626,7 +617,6 @@ var CreatingInvoice = {
                 return false;
             }
         }
-
 
         $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
@@ -666,7 +656,6 @@ var CreatingInvoice = {
             statementDetail.Amount = $('#newItem_display_' + id).attr('amount');
             statementDetail.DiscountItem = $('#newItem_display_' + id).attr('discountItem');
             statement.StatementDetailList.push(statementDetail);
-            //            CreatingInvoice.StatementDetailList.push(statementDetail);
         }
         if (statement.StatementDetailList.length > 0) {
             invoiceInfoModel.StatementList.push(statement);
@@ -706,7 +695,6 @@ var CreatingInvoice = {
             InvoiceTypeID: InvoiceTypeIdTmp,
             InvoiceTypeName: InvoiceTypeNameTmp
         };
-
     },
     AllowUpdateNewInfo: function (item) {
         if (item != undefined) {
@@ -721,8 +709,6 @@ var CreatingInvoice = {
             $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
             $('#pdfID').addClass('ui-state-disabled').attr('disabled');
         }
-
-
     },
     getDateRangeOfLastMonth: function (today) {
         var currentDate = new Date(today);
@@ -759,26 +745,11 @@ var CreatingInvoice = {
     }
 }
 
-
 function NegativeFormat(input) {
     var output = '';
     output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
     return output;
 }
-
-$.extend({
-    URLEncode: function (s) {
-        s = encodeURIComponent(s);
-        s = s.replace(/\~/g, '%7E').replace(/\!/g, '%21').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\'/g, '%27');
-        s = s.replace(/%20/g, '+');
-        return s;
-    },
-    URLDecode: function (s) {
-        s = s.replace(/\+/g, '%20');
-        s = decodeURIComponent(s);
-        return s;
-    }
-});
 
 function onFocusInput(obj) {
     obj.style.background = '#e5fff3';

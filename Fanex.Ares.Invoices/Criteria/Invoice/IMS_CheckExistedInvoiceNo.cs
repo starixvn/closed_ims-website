@@ -14,9 +14,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     public class IMS_CheckExistedInvoiceNo : CriteriaBase
     {
         public int PartyID { get; set; }
-        public int LicenseeID { get; set; }
         public int InvoiceNo { get; set; }
-        public int InvoiceType { get; set; }
 
         public bool IsExisted { get; set; }
         public override string GetSettingKey()
