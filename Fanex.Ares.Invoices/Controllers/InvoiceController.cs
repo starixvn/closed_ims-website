@@ -156,7 +156,7 @@ namespace Fanex.Ares.Invoice.Controllers
             htmlList.Add(html);
 
             List<bool> isAutoFitList = new List<bool>();
-            isAutoFitList.Add(true);
+            isAutoFitList.Add(false);
 
             invoice.HTMLReportList.Add(html);
 
@@ -198,7 +198,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         }
                         else
                         {
-                            for (int g = chargeRateList.Count - 1; g >= 0; g--)
+                            for (int g = 0; g < chargeRateList.Count; g++)
                             {
                                 criteria.ToDate = chargeRateList[g].EndDate;
                                 criteria.FromDate = chargeRateList[g].StartDate;
