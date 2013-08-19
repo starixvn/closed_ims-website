@@ -54,41 +54,23 @@
 <div class="div-content InvoiceTable" style="overflow: auto; width: 95%; margin-left: 30px;
     min-height: 1600px;">
     <table border="0" cellpadding="0" cellspacing="0" style='border-collapse: collapse;
-        overflow: auto;table-layout: fixed;width: 1150px;'>
-        @*<col style='mso-width-source: userset; mso-width-alt: 2000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 2000; width: 20pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 4000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 70pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 4000; width: 70pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 6000; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 2000;  width: 100pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1000;  width: 10pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 70pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 3000; width: 70pt;'>*@
-
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 20pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 70pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 70pt;'>
+        overflow: auto; table-layout: fixed; width: 1150px;'>
         <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
         <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500;  width: 100pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500;  width: 10pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 70pt;'>
-        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 70pt;'>
-
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
         <tr>
             <td colspan="7" rowspan="2" style='height: 60pt; vertical-align: top; margin-left: 30pt;'>
                 <img style="display:inline-block;" width="150" height="100" v:shapes="Graphics_x0020_1" src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/BCH.png")"/>
@@ -97,10 +79,10 @@
                 mso-height-alt: 1500; white-space: normal;'>
                 <br />
                 <span style="mso-spacerun: yes; font-weight: bold;">
-                @if (invoiceModel.Operator.Company != null)
-                {
-                    @invoiceModel.Operator.Company.ToUpper()
-                }</span>
+                    @if (invoiceModel.Operator.Company != null)
+                    {
+                        @invoiceModel.Operator.Company.ToUpper()
+                    }</span>
                 <br />
                 @invoiceModel.Operator.To1
                 <br />
@@ -152,7 +134,8 @@
                 <br />
                 <br />
             </td>
-            <td colspan="3" style='height: 20pt; margin-left: 30pt; font-weight: bold; padding-left: 100px;white-space:nowrap;'>
+            <td colspan="3" style='height: 20pt; margin-left: 30pt; font-weight: bold; padding-left: 100px;
+                white-space: nowrap;'>
                 INVOICE NUMBER
             </td>
             <td>
@@ -212,7 +195,7 @@
             </td>
         </tr>
         <tr>
-            <td colspan="6" style='margin-left: 50pt; padding-left: 100px; height: 20pt;mso-height-source: userset;
+            <td colspan="6" style='margin-left: 50pt; padding-left: 100px; height: 20pt; mso-height-source: userset;
                 mso-height-alt: 50;'>
             </td>
         </tr>
@@ -241,7 +224,7 @@
             Statement state = invoiceModel.StatementList[i];
             string boderclass = string.Empty;
             int lastStatementCount = invoiceModel.StatementList[invoiceModel.StatementList.Count - 1].StatementDetailList.Count - 1;
-            
+
             for (int j = 0; j < state.StatementDetailList.Count; j++)
             {
                 StatementDetail detail = state.StatementDetailList[j];
@@ -266,7 +249,7 @@
                     {
                         if (!detail.DiscountItem)
                         {
-                            <br />
+                        <br />
                         @idDisplay
                             idDisplay++;
                         }
@@ -274,12 +257,12 @@
                 </td>
                 <td class="@boderclass" colspan="7" style='vertical-align: top; text-align: left;
                         padding-left: 5pt;white-space:normal;'>
-                         <br />
+                    <br />
                     @detail.Description
                 </td>
                 <td class="@boderclass" colspan="2" style='vertical-align: top;padding-left: 5pt;'>
-                 <br />
-                 @detail.Reference
+                    <br />
+                    @detail.Reference
                 </td>
                 <td class="@boderclass" colspan="5" style='vertical-align: top; text-align: right;'>
                     <br />
@@ -408,7 +391,7 @@
                 <span style="font-weight: bold">&nbsp;&nbsp;Authorized Signatory</span>
             </td>
         </tr>
-       @* <tr>
+        @* <tr>
             <td class="fontSize12" colspan="12" style='height: 50pt; mso-height-source: userset;
                 mso-height-alt: 400; vertical-align: middle;white-space: normal;'>
                 @MvcHtmlString.Create(invoiceModel.Note)
