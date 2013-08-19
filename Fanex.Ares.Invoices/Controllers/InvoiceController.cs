@@ -150,19 +150,21 @@ namespace Fanex.Ares.Invoice.Controllers
             List<string> htmlList = new List<string>();
             string[] arrayView = new string[] { "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName };
             List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+            List<bool> isAutoFitList = new List<bool>();
+            string html = string.Empty;
+
+
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice, true);
+            html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice, true);
             htmlList.Add(html);
-
-            List<bool> isAutoFitList = new List<bool>();
-            isAutoFitList.Add(false);
-
             invoice.HTMLReportList.Add(html);
+            isAutoFitList.Add(false);
 
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductID = invoice.Product.Split(',');
-            for (int i = dateRangeList.Count - 1; i >= 0; i--)
+            //for (int i = dateRangeList.Count - 1; i >= 0; i--)
+            for (int i = 0; i < dateRangeList.Count; i++)
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
@@ -220,7 +222,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     
                 }
             }
-
+            //Xlsx
             var workbook = new WorkbookManager();
             WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
             var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList, isAutoFitList);
