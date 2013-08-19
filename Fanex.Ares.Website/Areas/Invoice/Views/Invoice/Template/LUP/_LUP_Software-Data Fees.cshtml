@@ -73,7 +73,7 @@
         <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
         <tr>
             <td colspan="16" style='vertical-align: top;'>
-                <img style="display:inline-block;" width="700" height="96" v:shapes="Graphics_x0020_1"  src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Lupine.png")"/>
+                <img style="display:inline-block;" width="600" height="96" v:shapes="Graphics_x0020_1"  src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Lupine.png")"/>
             </td>
         </tr>
         <tr>
@@ -202,7 +202,7 @@
             <td colspan="9" style='height: 30pt; mso-height-source: userset; mso-height-alt: 100;'>
             </td>
             <td colspan="2" class="border-R" style="text-align: center; vertical-align: middle;
-                font-weight: bold; mso-height-source: userset; mso-height-alt: 400; height: 30pt;">
+                font-weight: bold; mso-height-source: userset; mso-height-alt: 600; height: 30pt;">
                 TOTAL
             </td>
             <td class="border-RTB" colspan="5" style='vertical-align: middle; text-align: right;
@@ -210,6 +210,48 @@
                  @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
+          @if (invoiceModel.IsSignature)
+          {
+               <tr>
+            <td colspan="16" style='vertical-align: top; padding-left: 5px;'>
+                <br />
+                <span style="font-weight: bold;">For Telegraphic Transfer payments</span><br />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style='vertical-align: top; padding-left: 5px;mso-height-source: userset;
+                mso-height-alt: 3000;'>
+                Beneficiary<br />
+                Account Number<br />
+                IBAN<br />
+                <br />
+                <br />
+                Correspondent<br />
+                Swift Code
+                <br />
+                Account Number<br />
+                Beneficiary Bank<br />
+                Swift Code<br />
+            </td>
+            <td colspan="12" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
+                :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
+                <br />
+                <br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentSwiftCode<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentAccNo<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
+                :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
+            </td>
+           
+        </tr>
+       
+       
+          }
+          else
+          {
         <tr>
             <td colspan="11" style='vertical-align: top; padding-left: 5px;'>
                 <br />
@@ -266,6 +308,7 @@
                 <span style="font-weight: bold">Authorized Signatory</span>
             </td>
         </tr>
+          }
         <tr>
             <td class="fontSize12" colspan="12" style='height: 50pt; mso-height-source: userset;
                 mso-height-alt: 400; vertical-align: middle; white-space: normal;'>
