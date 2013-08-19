@@ -294,6 +294,18 @@ function Review() {
     invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
     invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
     invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+
+     var answer = confirm("Do you want to export document with signature?")
+	var link  = '';
+    if (answer){
+            //task for yes
+             invoiceInfoModel.IsSignature = true;
+	}
+	else{
+        //task for no
+     invoiceInfoModel.IsSignature = false;
+	}
+
     $.ajax({
         url: domain + "Invoice/Invoice/PrintScreen",
         data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',

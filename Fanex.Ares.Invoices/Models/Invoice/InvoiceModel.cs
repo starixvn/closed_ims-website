@@ -42,6 +42,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public List<Statement> StatementList { get; set; } // List statement
 
         public List<DateRange> DateRangeList { get; set; }
+        public List<string> HTMLReportList { get; set; }
         public double TotalAmount { get; set; }
         public bool IsSignature { get; set; }
         public string Note { get; set; }
@@ -50,6 +51,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         {
             this.DateRangeList = new List<DateRange>();
             this.StatementList = new List<Statement>();
+            this.HTMLReportList = new List<string>();
             this.IsSignature = false;
         }
     }
