@@ -117,8 +117,6 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
-
-
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = new LicenseeSettlementModel();// _service.GenerateReport(criteria);
@@ -129,15 +127,14 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView(SettlementView, model);
         }
 
-
-        public ActionResult ExportDocument(string invoiceModel)
+        public ActionResult ExportDocument(bool isSignature)
         {
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
             IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
-
+            invoice.IsSignature = isSignature;
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
             criteria.BaseCurrencyName = invoice.CurrencyName;
@@ -153,12 +150,10 @@ namespace Fanex.Ares.Invoice.Controllers
             List<bool> isAutoFitList = new List<bool>();
             string html = string.Empty;
 
-
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice, true);
             htmlList.Add(html);
-            invoice.HTMLReportList.Add(html);
             isAutoFitList.Add(false);
 
             string[] Products = invoice.ProductsName.Split(',');
@@ -193,7 +188,6 @@ namespace Fanex.Ares.Invoice.Controllers
                             PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
                             html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                             htmlList.Add(html);
-                            invoice.HTMLReportList.Add(html);
                             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
                             isAutoFitList.Add(true);
 
@@ -212,7 +206,6 @@ namespace Fanex.Ares.Invoice.Controllers
                                 PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
                                 html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                                 htmlList.Add(html);
-                                invoice.HTMLReportList.Add(html);
                                 excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
                                 isAutoFitList.Add(true);
 
@@ -264,8 +257,6 @@ namespace Fanex.Ares.Invoice.Controllers
             string html = HtmlHelperExtensions.RenderViewToString(this, arrayView[0], invoice, false);
             htmlList.Add(html);
 
-            invoice.HTMLReportList.Add(html);
-
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductID = invoice.Product.Split(',');
             for (int i = 0; i < dateRangeList.Count; i++)
@@ -296,8 +287,6 @@ namespace Fanex.Ares.Invoice.Controllers
 
                             html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                             htmlList.Add(html);
-                            invoice.HTMLReportList.Add(html);
-
                         }
                         else
                         {
@@ -312,11 +301,7 @@ namespace Fanex.Ares.Invoice.Controllers
                                 PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
                                 html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                                 htmlList.Add(html);
-                                invoice.HTMLReportList.Add(html);
-
                             }
-
-
                         }
                     }
                     
@@ -375,8 +360,6 @@ namespace Fanex.Ares.Invoice.Controllers
 
                             html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                             htmlList.Add(html);
-                            invoice.HTMLReportList.Add(html);
-
                         }
                         else
                         {
@@ -390,8 +373,6 @@ namespace Fanex.Ares.Invoice.Controllers
 
                                 html = HtmlHelperExtensions.RenderViewToString(this, "_" + Products[j], model, false);
                                 htmlList.Add(html);
-                                invoice.HTMLReportList.Add(html);
-
                             }
                         }
                     }

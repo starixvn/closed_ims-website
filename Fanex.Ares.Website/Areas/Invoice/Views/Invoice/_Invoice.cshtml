@@ -207,10 +207,11 @@
                                     type="button" value="SAVE" />&nbsp;&nbsp;&nbsp; @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
                                 <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="PREVIEW" onclick="Review()" />&nbsp;&nbsp;&nbsp; @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT TO PDF"  onClick="ExportPDF()"/>*@
-                                <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT PDF" disabled="disabled" onclick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
+                                    type="button" value="PREVIEW" onclick="Review()" />&nbsp;&nbsp;&nbsp; 
+                                      <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
+                                    type="button" value="EXPORT TO PDF"  onClick="ExportPDF()"/>
+                              @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
+                                    type="button" value="EXPORT PDF" disabled="disabled" onclick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>*@
                             </div>
                         </td>
                     </tr>
@@ -247,7 +248,6 @@
 </div>
 <div id="333"></div>
 <script type="text/javascript">
-
 
     var _totalAmount = @totalAmount; 
     $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' +  NegativeFormat(_totalAmount));
@@ -374,6 +374,22 @@ function Detail(fromDate, toDate) {
         }
     });
      NapAres.enableInput();
+}
+
+function ExportPDF()
+{
+    var answer = confirm("Do you want to export document with signature?")
+	var link  = '';
+    if (answer){
+            //task for yes
+              link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true } )';
+	}
+	else{
+        //task for no
+    link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = false } )';
+	}
+
+    location.href = link;
 }
 
 $("#noteId").bind('input propertychange', function () {
