@@ -395,41 +395,6 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             StartDate = (DateTime)row.StartDate,
                             EndDate = (DateTime)row.EndDate
                         });
-
-                        //foreach (ChargeRate chargeRate in chargeRateList)
-                        //{
-                        //    if (id == chargeRate.ProductID)
-                        //    {
-                        //        chargeRate.ChargeRateDetailList.Add(new ChargeRateDetail
-                        //        {
-                        //            DistributorRate = (decimal)row.DistributorRate,
-                        //            PartnerRate = (decimal)row.PartnerRate,
-                        //            ONEworksRate = (decimal)row.ONEworksRate,
-                        //            StartDate = (DateTime)row.StartDate,
-                        //            EndDate = (DateTime)row.EndDate
-                        //        });
-                        //        isExist = true;
-                        //    }
-                        //}
-
-                        //if (!isExist)
-                        //{
-                        //    List<ChargeRateDetail> chargeRateDetailList = new List<ChargeRateDetail>();
-                        //    chargeRateDetailList.Add(new ChargeRateDetail
-                        //    {
-                        //        DistributorRate = (decimal)row.DistributorRate,
-                        //        PartnerRate = (decimal)row.PartnerRate,
-                        //        ONEworksRate = (decimal)row.ONEworksRate,
-                        //        StartDate = (DateTime)row.StartDate,
-                        //        EndDate = (DateTime)row.EndDate
-                        //    });
-                        //    chargeRateList.Add(new ChargeRate
-                        //    {
-                        //        ProductID = (int)row.ProductID,
-                        //        ChargeRateDetailList = chargeRateDetailList
-                        //    });
-                        //}
-
                     }
                 }
             }

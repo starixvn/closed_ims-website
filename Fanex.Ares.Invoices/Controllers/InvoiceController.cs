@@ -183,7 +183,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         criteria.Product = Converter.To<int>(ProductID[j]);
                         criteria.ProductName = Products[j];
                         criteria.InvoiceReport = true;
-                        if (chargeRateList.Count == 0)
+                        if (chargeRateList.Count == 0) // some case chargeRateList == 0 when don't have more than one basic billing
                         {
                             criteria.ToDate = dateRangeList[i].EndDate;
                             criteria.FromDate = dateRangeList[i].StartDate;
@@ -197,7 +197,6 @@ namespace Fanex.Ares.Invoice.Controllers
                             invoice.HTMLReportList.Add(html);
                             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
                             isAutoFitList.Add(true);
-
                         }
                         else
                         {
@@ -216,11 +215,9 @@ namespace Fanex.Ares.Invoice.Controllers
                                 invoice.HTMLReportList.Add(html);
                                 excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
                                 isAutoFitList.Add(true);
-
                             }
                         }
                     }
-
                 }
             }
             //Xlsx

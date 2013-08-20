@@ -21,7 +21,7 @@ br
 	mso-rotate:0;
 	mso-background-source:auto;
 	mso-pattern:auto;
-	color:black;
+	color:gray;
 	font-size:10.0pt;
 	font-weight:400;
 	font-style:normal;
@@ -78,93 +78,88 @@ html {
 }
 
 
-.fontSize16
+.font12
 {
-    font-size: 10pt;
-}
-
-.fontSize12
-{
-    font-size: 10pt;
+    font-size: 12pt;
 }
 
 
 .border-TRBL
 {
-    border: 1pt solid black !important;
+    border: .5pt solid gray !important;
 }
 
 .border-L
 {
-    border-left: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
 }
 
 .border-R
 {
-    border-right: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
 }
 .border-B
 {
-    border-bottom: 1pt solid black !important;
+    border-bottom: .5pt solid gray !important;
 }
 
 .border-T
 {
-    border-top: 1pt solid black !important;
+    border-top: .5pt solid gray !important;
 }
 .border-RTB
 {
-    border-right: 1pt solid black !important;
-    border-top: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 .border-LTB
 {
-    border-left: 1pt solid black !important;
-    border-top: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 .border-RLT
 {
-    border-left: 1pt solid black !important;
-    border-top: 1pt solid black !important;
-    border-right: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
+    border-right: .5pt solid gray !important;
 }
 
 .border-RLB
 {
-    border-left: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
-    border-right: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
+    border-right: .5pt solid gray !important;
 }
 
 .border-LB
 {
-    border-left: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 
 .border-LT
 {
-    border-left: 1pt solid black !important;
-    border-top: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
 }
 .border-RB
 {
-    border-right: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 
 .border-RT
 {
-    border-right: 1pt solid black !important;
-    border-top: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
 }
 
 .border-RL
 {
-    border-right: 1pt solid black !important;
-    border-left: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-left: .5pt solid gray !important;
 }
 .bold-red
 {
@@ -179,5 +174,5 @@ html {
 }
  
 .InvoiceTable table td {
-white-space: normal;
+    white-space: normal;
 }

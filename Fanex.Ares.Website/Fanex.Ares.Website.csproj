@@ -255,7 +255,6 @@
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
