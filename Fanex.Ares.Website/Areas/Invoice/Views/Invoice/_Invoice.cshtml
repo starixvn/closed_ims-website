@@ -246,7 +246,11 @@
         </tr>
     </table>
 </div>
-<div id="333"></div>
+ <div id="dialogConfirm" style="display: none;">
+        <table border="0px" id="tblconfirm">
+        </table>
+    </div>
+
 <script type="text/javascript">
 
     var _totalAmount = @totalAmount; 
@@ -391,18 +395,32 @@ function Detail(fromDate, toDate) {
 
 function ExportPDF()
 {
-    var answer = confirm("Do you want to export document with signature?")
-	var link  = '';
-    if (answer){
-            //task for yes
-              link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true } )';
-	}
-	else{
-        //task for no
-    link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = false } )';
-	}
-
-    location.href = link;
+    $('#tblconfirm').empty().append("<tr><td class='popupTd'>Do you want to export document with signature?</td></tr>");
+            $("#tblconfirm").dialog({
+                title: "Export PDF",
+                autoOpen: false,
+                height: 180,
+                width: 400,
+                resizable: false,
+                modal: true,
+                buttons: {
+                    Yes: function () {
+                        link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true } )';
+                        location.href = link;
+                         $(this).dialog("close");
+                    },
+                    No: 
+                     function () {
+                       link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = false } )';
+                        location.href = link;
+                         $(this).dialog("close");
+                    }
+                },
+                close: function (event, ui) {
+                }
+            });
+            $('a.ui-dialog-titlebar-close').show();
+            $("#tblconfirm").dialog("open");
 }
 
 $("#noteId").bind('input propertychange', function () {

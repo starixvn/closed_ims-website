@@ -70,3 +70,8 @@ textarea#styled
 {
 	color: Red;
 }
+.popupTd
+{
+    border: none !important;
+    background: none !important;
+}
