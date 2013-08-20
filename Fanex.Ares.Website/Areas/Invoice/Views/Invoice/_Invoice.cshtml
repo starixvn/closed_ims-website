@@ -251,6 +251,7 @@
 
     var _totalAmount = @totalAmount; 
     $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' +  NegativeFormat(_totalAmount));
+     CreatingInvoice.TotalAmount = _totalAmount;
     $('#saveID').button();
    
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });

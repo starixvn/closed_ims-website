@@ -32,9 +32,9 @@ function Submit() {
         return false;
     }
 
-    var toDateSelected = new Date(CreatingInvoice.FilterControls.cldToDate.val());       
+    var toDateSelected = new Date(CreatingInvoice.FilterControls.cldToDate.val());
     var totalDays = CreatingInvoice.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
-    
+
     if (toDateSelected.getDate() != totalDays) {
         $("#dialog:ui-dialog").dialog("destroy");
         $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
@@ -106,7 +106,7 @@ function GetInvoiceType() {
                         $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                         $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                     }
-                    
+
                 }, // when an individual checkbox is clicked 
                 selectedList: 0,
                 isCheckAll: false,
@@ -163,6 +163,7 @@ var CreatingInvoice = {
     Currency: null,
     Products: '',
     ProductsName: '',
+    TotalAmount: 0,
     InvoiceNo: '',
     InvoiceName: '',
     InvoiceID: 0,
@@ -417,6 +418,7 @@ var CreatingInvoice = {
         invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+        invoiceInfoModel.TotalAmount = CreatingInvoice.TotalAmount;
         var message = '';
         $.ajax({
             url: domain + "Invoice/Invoice/SaveInvoice",
@@ -619,6 +621,7 @@ var CreatingInvoice = {
         }
 
         $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
+        invoiceInfoModel.TotalAmount = CreatingInvoice.TotalAmount = totalAmountTmp;
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
 
