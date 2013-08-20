@@ -271,6 +271,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
                 invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
                 invoiceXmlFormat.Append("   <Note>" + invoiceModel.Note + "</Note>");
+                invoiceXmlFormat.Append("   <TotalAmount>" + Math.Round(invoiceModel.TotalAmount) + "</TotalAmount>");
                 invoiceXmlFormat.Append("   <InvoiceItems>");
                 foreach (Statement statement in invoiceModel.StatementList)
                 {

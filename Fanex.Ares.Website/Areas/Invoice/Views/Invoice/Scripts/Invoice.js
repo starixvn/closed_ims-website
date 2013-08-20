@@ -163,6 +163,7 @@ var CreatingInvoice = {
     Currency: null,
     Products: '',
     ProductsName: '',
+    TotalAmount: 0,
     InvoiceNo: '',
     InvoiceName: '',
     InvoiceID: 0,
@@ -417,6 +418,7 @@ var CreatingInvoice = {
         invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
         invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
         invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+        invoiceInfoModel.TotalAmount = CreatingInvoice.TotalAmount;
         var message = '';
         $.ajax({
             url: domain + "Invoice/Invoice/SaveInvoice",
@@ -619,6 +621,7 @@ var CreatingInvoice = {
         }
 
         $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
+        invoiceInfoModel.TotalAmount = CreatingInvoice.TotalAmount = totalAmountTmp;
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
 
