@@ -127,25 +127,6 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView(SettlementView, model);
         }
 
-        private void CreateDocumentPagePDF(IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria, 
-                                        string  cssPath,
-                                        ref  InvoiceModel invoice,
-                                        ref  List<string> excelCssFilePath, 
-                                        ref List<WorkbookManager.PageOrientation> PageOrientationList,
-                                        ref List<bool> isAutoFitList)
-        {
-            string html = string.Empty;
-            var model = _reportService.GenerateReport(criteria);
-            model.LicenseeInfor.FromDate = criteria.FromDate;
-            model.LicenseeInfor.ToDate = criteria.ToDate;
-
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            html = HtmlHelperExtensions.RenderViewToString(this, "_" + criteria.ProductName, model, false);
-            invoice.HTMLReportList.Add(html);
-            excelCssFilePath.Add(cssPath);
-            isAutoFitList.Add(true);
-        }
-
         public ActionResult ExportDocument(bool isSignature)
         {
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
@@ -177,7 +158,7 @@ namespace Fanex.Ares.Invoice.Controllers
             invoice.HTMLReportList.Add(mainInvoicePage);
             isAutoFitList.Add(false);
 
-            // Create invoice reports page
+            // Create invoice report pages
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductIDs = invoice.Product.Split(',');
 
@@ -237,18 +218,6 @@ namespace Fanex.Ares.Invoice.Controllers
             }
 
             return new EmptyResult();
-        }
-
-
-        private void CreateDocumentPageWeb(IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria,
-                                        ref  InvoiceModel invoice)
-        {
-            var model = _reportService.GenerateReport(criteria);
-            model.LicenseeInfor.FromDate = criteria.FromDate;
-            model.LicenseeInfor.ToDate = criteria.ToDate;
-
-            string html = HtmlHelperExtensions.RenderViewToString(this, "_" + criteria.ProductName, model, false);
-            invoice.HTMLReportList.Add(html);
         }
 
         public ActionResult PrintScreen(InvoiceModel invoice)
@@ -334,9 +303,6 @@ namespace Fanex.Ares.Invoice.Controllers
 
             dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
 
-            List<string> htmlList = new List<string>();
-            string html = string.Empty;
-
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductID = invoice.Product.Split(',');
             for (int i = 0; i < dateRangeList.Count; i++)
@@ -383,6 +349,36 @@ namespace Fanex.Ares.Invoice.Controllers
         public ActionResult ReviewInvoice()
         {
             return new EmptyResult();
+        }
+
+        private void CreateDocumentPagePDF(IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria,
+                                    string cssPath,
+                                    ref  InvoiceModel invoice,
+                                    ref  List<string> excelCssFilePath,
+                                    ref List<WorkbookManager.PageOrientation> PageOrientationList,
+                                    ref List<bool> isAutoFitList)
+        {
+            string html = string.Empty;
+            var model = _reportService.GenerateReport(criteria);
+            model.LicenseeInfor.FromDate = criteria.FromDate;
+            model.LicenseeInfor.ToDate = criteria.ToDate;
+
+            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            html = HtmlHelperExtensions.RenderViewToString(this, "_" + criteria.ProductName, model, false);
+            invoice.HTMLReportList.Add(html);
+            excelCssFilePath.Add(cssPath);
+            isAutoFitList.Add(true);
+        }
+
+        private void CreateDocumentPageWeb(IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria,
+                                        ref  InvoiceModel invoice)
+        {
+            var model = _reportService.GenerateReport(criteria);
+            model.LicenseeInfor.FromDate = criteria.FromDate;
+            model.LicenseeInfor.ToDate = criteria.ToDate;
+
+            string html = HtmlHelperExtensions.RenderViewToString(this, "_" + criteria.ProductName, model, false);
+            invoice.HTMLReportList.Add(html);
         }
     }
 }
