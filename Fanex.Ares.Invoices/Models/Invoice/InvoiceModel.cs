@@ -52,7 +52,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
             this.DateRangeList = new List<DateRange>();
             this.StatementList = new List<Statement>();
             this.HTMLReportList = new List<string>();
-            this.IsSignature = false;
+            this.IsSignature = true;
         }
     }
     [Serializable]
