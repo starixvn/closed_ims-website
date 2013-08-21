@@ -295,13 +295,13 @@ function Review() {
                 modal: true,
                 buttons: {
                     Yes: function () {
-                       invoiceInfoModel.IsSignature = false;
+                       invoiceInfoModel.IsSignature = true;
                        ReviewConfirmAfter();
                          $(this).dialog("close");
                     },
                     No: 
                      function () {
-                     invoiceInfoModel.IsSignature = true;
+                     invoiceInfoModel.IsSignature = false;
                      ReviewConfirmAfter();
                          $(this).dialog("close");
                     }
@@ -423,13 +423,13 @@ function ExportPDF()
                 modal: true,
                 buttons: {
                     Yes: function () {
-                        link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = false } )';
+                        link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true } )';
                         location.href = link;
                          $(this).dialog("close");
                     },
                     No: 
                      function () {
-                       link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true } )';
+                       link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = false } )';
                         location.href = link;
                          $(this).dialog("close");
                     }

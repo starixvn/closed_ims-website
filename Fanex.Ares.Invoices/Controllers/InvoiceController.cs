@@ -138,6 +138,7 @@ namespace Fanex.Ares.Invoice.Controllers
             IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
+            invoice.HTMLReportList = new List<string>(); // clear html when using ref
             invoice.IsSignature = isSignature;
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
