@@ -5,6 +5,7 @@
 // -----------------------------------------------------------------------
 
 using System;
+using System.Web;
 using Fanex.Logging;
 
 namespace Fanex.Ares.Core.Services.Impl
@@ -16,7 +17,15 @@ namespace Fanex.Ares.Core.Services.Impl
     {
         public static void Log(Exception ex)
         {
-           LogService.Error(ex.Message, ex);
+            string message = ex.Message +
+                             "<br>\r\nSOURCE: " + ex.Source +
+                             "<br>\r\nDOMAIN: " + HttpContext.Current.Request.Headers["Host"] +
+                             "<br>\r\nREFERRER: " + HttpContext.Current.Request.UrlReferrer +
+                             "<br>\r\nFORM: " + HttpContext.Current.Request.Form.ToString() +
+                             "<br>\r\nQUERYSTRING: " + HttpContext.Current.Request.QueryString.ToString() +
+                             "<br>\r\nTARGETSITE: " + ex.TargetSite +
+                             "<br>\r\nSTACKTRACE: " + ex.StackTrace;
+            Fanex.Logging.Logger.Log.Error(message);
         }
 
         public static void Log(string message = "", LogType logType = LogType.Error)
