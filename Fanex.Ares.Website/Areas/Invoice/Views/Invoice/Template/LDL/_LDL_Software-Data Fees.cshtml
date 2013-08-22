@@ -73,7 +73,7 @@
         <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
         <tr>
             <td colspan="7" rowspan="2" style='height: 60pt; vertical-align: top; margin-left: 30pt;'>
-                <img style="display:inline-block;" width="180" height="130" v:shapes="Graphics_x0020_1" src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/LDL.png")"/>
+                <img style="display:inline-block;width:200px;height:250px;" width="180" height="130" v:shapes="Graphics_x0020_1" src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/LDL.png")"/>
             </td>
             <td colspan="8" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                 mso-height-alt: 1500; white-space: normal;'>
@@ -146,7 +146,7 @@
             <td>
                 :
             </td>
-            <td class="fontSize12" colspan="2" style='height: 20pt; border-bottom: 1pt solid black;
+            <td class="border-B" colspan="2" style='height: 20pt; font-size: 10pt;
                 text-align: center; mso-height-source: userset; mso-height-alt: 400; color: Red;
                 font-weight: bold;'>
                 @CastAide.AsDateTime(invoiceModel.ToDate).ToString("dd/MMM/yy") &nbsp;
@@ -159,7 +159,7 @@
             <td>
                 :
             </td>
-            <td class="fontSize12" colspan="2" style='border-bottom: 1pt solid black; height: 20pt;
+            <td class="border-B" colspan="2" style='font-size: 10pt; height: 20pt;
                 text-align: center; mso-height-source: userset; mso-height-alt: 400; color: Red;
                 font-weight: bold;'>
                 @CastAide.AsDateTime(invoiceModel.DueDate).ToString("dd/MMM/yy") &nbsp;
@@ -188,12 +188,14 @@
             </td>
         </tr>
         <tr>
-            <td colspan="6" style='margin-left: 50pt; padding-left: 100px; height: 20pt; mso-height-source: userset;
+            <td colspan="6" style='margin-left: 50pt; padding-left: 100px; height: 10pt; mso-height-source: userset;
                 mso-height-alt: 50;'>
             </td>
         </tr>
         <tr>
-            <td colspan="16" style='height: 30pt; border-top: 1pt solid white; mso-height-source: userset;
+            <td colspan="10">
+            </td>
+            <td colspan="6" style='border: 0px solid white; height: 30pt; mso-height-source: userset;
                 mso-height-alt: 400;'>
             </td>
         </tr>
@@ -275,7 +277,7 @@
             }
         }
         <tr>
-            <td colspan="2" style='height: 30pt; border-left: 1pt solid black; mso-height-source: userset;
+            <td   class="border-L" colspan="2" style='height: 30pt; mso-height-source: userset;
                 mso-height-alt: 200;'>
             </td>
             <td colspan="8">
@@ -339,47 +341,7 @@
         </tr>
         @if (invoiceModel.IsSignature)
         {
-              
-            <tr>
-                <td class="border-RLT" colspan="16" style='vertical-align: top; padding-left: 5px;
-                    mso-height-source: userset; mso-height-alt: 600;'>
-                    <br />
-                    <span style="font-weight: bold" style="font-weight: bold">For Telegraphic Transfer payments</span><br />
-                </td>
-            </tr>
-            <tr>
-                <td class="border-LB" colspan="3" style='vertical-align: top; padding-left: 5px;
-                    mso-height-source: userset; mso-height-alt: 3000;'>
-                    Beneficiary<br />
-                    Beneficiary Bank<br />
-                    Account Number<br />
-                    IBAN<br />
-                    Swift Code
-                    <br />
-                    <br />
-                    <br />
-                    Correspondent<br />
-                    Swift Code<br />
-                </td>
-                <td class="border-RB" colspan="13" style='vertical-align: top; padding-left: 5px;'>
-                    :&nbsp;&nbsp; @invoiceModel.Operator.Benificiary<br />
-                    :&nbsp;&nbsp; @invoiceModel.Operator.BenificiaryBank<br />
-                    :&nbsp;&nbsp; @invoiceModel.Operator.AccountNumber<br />
-                    :&nbsp;&nbsp; @invoiceModel.Operator.IBAN<br />
-                    :&nbsp;&nbsp; @invoiceModel.Operator.SwiftCode<br />
-                    <br />
-                    <br />
-                    :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentBank<br />
-                    :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentSwiftCode<br />
-                    <br />
-                    <br />
-                    <span style="color: #01A9DB;">This is a computer generated invoice. No signature is
-                        required. </span>
-                </td>
-            </tr>
-        }
-        else
-        {
+        
             <tr>
                 <td class="border-LT" colspan="10" style='vertical-align: top; padding-left: 5px;'>
                     <br />
@@ -434,6 +396,48 @@
                     <span style="font-weight: bold">Authorized Signatory</span>
                 </td>
             </tr>
+
+        }
+        else
+        {
+        <tr>
+                <td class="border-RLT" colspan="16" style='vertical-align: top; padding-left: 5px;
+                    mso-height-source: userset; mso-height-alt: 600;'>
+                    <br />
+                    <span style="font-weight: bold" style="font-weight: bold">For Telegraphic Transfer payments</span><br />
+                </td>
+            </tr>
+            <tr>
+                <td class="border-LB" colspan="3" style='vertical-align: top; padding-left: 5px;
+                    mso-height-source: userset; mso-height-alt: 3000;'>
+                    Beneficiary<br />
+                    Beneficiary Bank<br />
+                    Account Number<br />
+                    IBAN<br />
+                    Swift Code
+                    <br />
+                    <br />
+                    <br />
+                    Correspondent<br />
+                    Swift Code<br />
+                </td>
+                <td class="border-RB" colspan="13" style='vertical-align: top; padding-left: 5px;'>
+                    :&nbsp;&nbsp; @invoiceModel.Operator.Benificiary<br />
+                    :&nbsp;&nbsp; @invoiceModel.Operator.BenificiaryBank<br />
+                    :&nbsp;&nbsp; @invoiceModel.Operator.AccountNumber<br />
+                    :&nbsp;&nbsp; @invoiceModel.Operator.IBAN<br />
+                    :&nbsp;&nbsp; @invoiceModel.Operator.SwiftCode<br />
+                    <br />
+                    <br />
+                    :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentBank<br />
+                    :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentSwiftCode<br />
+                    <br />
+                    <br />
+                    <span style="color: #01A9DB;">This is a computer generated invoice. No signature is
+                        required. </span>
+                </td>
+            </tr>
+            
         }
         <tr>
             <td class="fontSize12" colspan="12" style='height: 50pt; mso-height-source: userset;
