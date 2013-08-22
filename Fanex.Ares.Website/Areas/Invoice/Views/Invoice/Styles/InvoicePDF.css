@@ -73,11 +73,6 @@ td
 
 
 
-html {
-        overflow: auto;
-}
-
-
 .font10
 {
     font-size: 10pt;
@@ -88,7 +83,7 @@ html {
     font-size: 20pt;
 }
 
-
+/* T: Top; R: Right; B: bottom; L: left*/
 .border-TRBL
 {
     border: .5pt solid gray !important;
@@ -178,6 +173,3 @@ html {
     font-weight: bold ;
 }
  
-.InvoiceTable table td {
-    white-space: normal;
-}
