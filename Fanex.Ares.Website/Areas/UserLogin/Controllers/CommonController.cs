@@ -54,5 +54,10 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         {
             return View("~/Views/Common/PageNotFound.cshtml");
         }
+
+        public ActionResult Error()
+        {
+            return View("~/Views/Common/Error.cshtml");
+        }
     }
 }
