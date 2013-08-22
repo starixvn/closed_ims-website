@@ -318,6 +318,7 @@
     <Content Include="Content\base\jquery\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\base\jquery\jquery-ui-1.9.1.custom.min.css" />
     <Content Include="Content\BetList.css" />
+    <Content Include="Content\img\404.jpg" />
     <Content Include="Content\img\BetList.png" />
     <Content Include="Content\img\bgHeader.jpg" />
     <Content Include="Content\img\firstGoal.gif" />
@@ -761,6 +762,7 @@
     <Content Include="Views\Common\AccessDenied.cshtml" />
     <Content Include="Web.Configuration\DomainMapping.config" />
     <Content Include="Web.Configuration\ControllerMapping.config" />
+    <Content Include="Views\Common\PageNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
