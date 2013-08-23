@@ -32,7 +32,7 @@ textarea#styled
 	font-family: Tahoma, sans-serif;
 	height: 40px;
 	padding: 5px;
-	width: 95%;
+	width: 100%;
 }
 .div-content
 {
@@ -94,8 +94,8 @@ textarea#styled
 	background: url(Images/view_detail.png) repeat scroll 0 0 transparent;
 	cursor: pointer;
 	display: block;
-	height: 32px;
-	width: 32px;
+	height: 24px;
+	width: 24px;
 	float:right;
 	margin-right: 5px;
 }
@@ -124,7 +124,10 @@ textarea#styled
 }
 
 
-
+.fakeCssTd
+{
+    border-top: 2px solid #EDECEA;
+}
 .red
 {
 	color: Red;
@@ -186,3 +189,4 @@ div.wrapper{
 div.boundary{
 	margin-right:0px;
 }
+
