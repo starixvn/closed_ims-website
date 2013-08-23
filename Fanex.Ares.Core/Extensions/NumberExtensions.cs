@@ -8,7 +8,8 @@
 // </history>
 
 using System;
-
+using Fanex.Common;
+using Fanex.Ares.Core.Extensions;
 namespace Fanex.Ares.Core.Extensions
 {
     /// <summary>
@@ -136,6 +137,43 @@ namespace Fanex.Ares.Core.Extensions
             }
 
             return source.ToString();
+        }
+
+        /// <summary>
+        /// Format specified number value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decDigits"></param>
+        /// <returns>Value after rounding and formatting</returns>
+        public static string NegativeFormat(double input)
+        {
+            string output = string.Empty;
+
+            output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
+
+            return output;
+        }
+
+        /// <summary>
+        /// Format specified number value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decDigits"></param>
+        /// <returns>Value after rounding and formatting</returns>
+        public static string GetNegativeClass(double number)
+        {
+            return number < 0 ? "negative-number" : string.Empty;
+        }
+
+        /// <summary>
+        /// Format specified number value
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="decDigits"></param>
+        /// <returns>Value after rounding and formatting</returns>
+        public static string GetEvenClass(int number)
+        {
+            return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
         }
     }
 }

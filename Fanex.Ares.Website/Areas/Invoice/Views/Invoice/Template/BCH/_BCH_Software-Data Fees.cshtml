@@ -3,7 +3,6 @@
 @using Fanex.Ares.Core.Extensions;
 @using DNAide.Core;
 @using Fanex.Common;
-@using Fanex.Ares.Invoice.Helper;
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
     var isCheckMappingDomail = ViewBag.isCheckMappingDomail;
@@ -260,7 +259,7 @@
                     @{totalAmount += detail.Amount;}
                     @if (state.StatementID != 100000)
                     {
-                        @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : InvoiceHelper.NegativeFormat(detail.Amount))
+                        @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : NumberExtensions.NegativeFormat(detail.Amount))
                     }
                     &nbsp;
                 </td>
@@ -277,7 +276,7 @@
             </td>
             <td class="border-RT" colspan="2" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @MvcHtmlString.Create(InvoiceHelper.NegativeFormat(totalAmount))&nbsp;
+                @MvcHtmlString.Create(NumberExtensions.NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
         <tr>

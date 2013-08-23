@@ -2,7 +2,6 @@
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @using Fanex.Ares.Core.Resources;
-@using Fanex.Ares.Invoice.Helper;
 <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/LicenseeSettlement.css" />
 <link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/LicenseeSettlementWeb.css" />
 @{
@@ -208,7 +207,7 @@
                 ExchangeRate exchange = new ExchangeRate();
                 exchange = licensee.ExchangeList[i];
 
-                var evenClass = InvoiceHelper.GetEvenClass(i);
+                var evenClass = NumberExtensions.GetEvenClass(i);
             
             <tr>
                 <td height="17" class="colDateTime" style='@evenClass'>
@@ -218,18 +217,18 @@
                     @report.CurrencyName
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@InvoiceHelper.GetNegativeClass(report.Turnover)">@report.Turnover.Format(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(report.Turnover)">@report.Turnover.Format(2)</span>
                 </td>
                 <td class="colInteger" style="@evenClass">
                     @report.Betcount.Format(0)
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@InvoiceHelper.GetNegativeClass(report.MemberWinloss)">@report.MemberWinloss.FormatNegative(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(report.MemberWinloss)">@report.MemberWinloss.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
                     @if (report.MemberComm != 0)
                     {
-                        <span class="@InvoiceHelper.GetNegativeClass(report.MemberComm)">@report.MemberComm.FormatNegative(2)</span>
+                        <span class="@NumberExtensions.GetNegativeClass(report.MemberComm)">@report.MemberComm.FormatNegative(2)</span>
                     }
                     else
                     {
@@ -237,15 +236,15 @@
                     }
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@InvoiceHelper.GetNegativeClass(report.MemberTotal)">@report.MemberTotal.FormatNegative(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(report.MemberTotal)">@report.MemberTotal.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@InvoiceHelper.GetNegativeClass(report.LicenseeWL)">@report.LicenseeWL.FormatNegative(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(report.LicenseeWL)">@report.LicenseeWL.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
                     @if (report.LicenseeComm != 0)
                     {
-                        <span class="@InvoiceHelper.GetNegativeClass(report.LicenseeComm)">@report.LicenseeComm.FormatNegative(2)</span>
+                        <span class="@NumberExtensions.GetNegativeClass(report.LicenseeComm)">@report.LicenseeComm.FormatNegative(2)</span>
                     }
                     else
                     { 
@@ -253,13 +252,13 @@
                     }
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@InvoiceHelper.GetNegativeClass(report.LicenseeTotal)">@report.LicenseeTotal.FormatNegative(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(report.LicenseeTotal)">@report.LicenseeTotal.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@InvoiceHelper.GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
                 </td>
                 <td class="colNumber" style="@evenClass">
-                    <span class="@InvoiceHelper.GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
                 </td>
                 <td class="currency">
                     &nbsp;&nbsp;&nbsp;@exchange.CurrencyName
@@ -296,7 +295,7 @@
                 <td class="grandtotal">
                 </td>
                 <td align="right" class="grandtotal">
-                    <span class="@InvoiceHelper.GetNegativeClass(licensee.Report.GrandTotal.CompanyBaseCurrency)">@licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)</span>
+                    <span class="@NumberExtensions.GetNegativeClass(licensee.Report.GrandTotal.CompanyBaseCurrency)">@licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)</span>
                 </td>
                 <td class="emptyCell">
                 </td>
