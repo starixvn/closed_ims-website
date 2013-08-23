@@ -98,6 +98,13 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string InvoiceMonth { get; set; }
 
         public bool DiscountItem { get; set; }
+
+        public List<StatementDetail> StatementProductDetail { get; set; }
+
+        public StatementDetail()
+        {
+            this.StatementProductDetail = new List<StatementDetail>();
+        }
     }
 
     [Serializable]

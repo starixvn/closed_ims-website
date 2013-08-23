@@ -129,7 +129,6 @@ function GetInvoiceType() {
 }
 
 function GetInvoiceNo() {
-
     NapAres.disableInput();
     CreatingInvoice.GetSelectedInvoiceType();
     $.ajax({
@@ -183,6 +182,7 @@ var CreatingInvoice = {
         btnGenerate: $('#btnGenerate'),
         btnNewInvoice: $('#btnNewInvoice')
     },
+
     init: function () {
         $("#notemessage").tipsy({
             html: true,
@@ -303,6 +303,7 @@ var CreatingInvoice = {
         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
         NapAres.NapAresPopUp = $('#dialog-popup');
     },
+
     GetLicensees: function () {
         NapAres.disableInput();
         $.ajax({
@@ -329,6 +330,7 @@ var CreatingInvoice = {
             }
         });
     },
+
     GetFilteringInfo: function () {
         var Operator = operatorListModel[CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") - 1];
         var Licensee = CreatingInvoice.Licensees[CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") - 1];
@@ -348,6 +350,7 @@ var CreatingInvoice = {
         CreatingInvoice.InvoiceName = this.mappingSpecialPartyName(Operator.PartyName) + ' INV-' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
 
     },
+
     GetNewInvoiceData: function () {
         NapAres.disableInput();
         $.ajax({
@@ -403,8 +406,8 @@ var CreatingInvoice = {
             }
         });
     },
-    SaveInvoice: function () {
 
+    SaveInvoice: function () {
         CreatingInvoice.UpdateItem();
         invoiceInfoModel.Operator = CreatingInvoice.Operator;
         invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
@@ -478,6 +481,7 @@ var CreatingInvoice = {
 
         setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
     },
+
     getProductId: function () {
         var listChecked = $('#ddlProduct').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlLicenseese').attr('id') + "HeaderCheckBox)").filter('[checked]');
         var normalLicensees = [];
@@ -495,8 +499,8 @@ var CreatingInvoice = {
         }
         return result;
     },
-    AddItem: function (isDiscount) {
 
+    AddItem: function (isDiscount) {
         var displayID = invoiceInfoModel.StatementList.length + 1;
         for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
             var id = CreatingInvoice.IdNewItemList[i];
@@ -522,6 +526,7 @@ var CreatingInvoice = {
             $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         }
     },
+
     DeleteItem: function (trId) {
         $("#newItem_" + trId).remove();
         CreatingInvoice.IdNewItemList = jQuery.grep(CreatingInvoice.IdNewItemList, function (value) {
@@ -537,6 +542,7 @@ var CreatingInvoice = {
 
         CreatingInvoice.RecalculatorTotal();
     },
+
     RecalculatorTotal: function () {
         NapAres.Helper.hideMsgBox();
         var totalAmountTmp = _totalAmount;
@@ -627,6 +633,7 @@ var CreatingInvoice = {
 
         CreatingInvoice.isInsert = true;
     },
+
     UpdateItem: function () {
         var statement = {
             StatementID: 1000,
@@ -635,7 +642,6 @@ var CreatingInvoice = {
 
         var index = 0;
         for (var i = 0; i < invoiceInfoModel.StatementList.length; i++) {
-
             for (var j = 0; j < invoiceInfoModel.StatementList[i].StatementDetailList.length; j++) {
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Description = '';
                 invoiceInfoModel.StatementList[i].StatementDetailList[j].Reference = '';
@@ -666,6 +672,7 @@ var CreatingInvoice = {
         invoiceInfoModel.Note = $('#noteId').val().replace(/\n/g, '<br/>');
         return invoiceInfoModel.StatementList;
     },
+
     GetSelectedInvoiceType: function () {
         var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
         var productName = '';
@@ -699,6 +706,7 @@ var CreatingInvoice = {
             InvoiceTypeName: InvoiceTypeNameTmp
         };
     },
+
     AllowUpdateNewInfo: function (item) {
         if (item != undefined) {
             var amountID = 'newItem_text_' + $(item).prop('id').split('_')[2];
@@ -713,6 +721,7 @@ var CreatingInvoice = {
             $('#pdfID').addClass('ui-state-disabled').attr('disabled');
         }
     },
+
     getDateRangeOfLastMonth: function (today) {
         var currentDate = new Date(today);
         var currentMonth = currentDate.getMonth();
@@ -732,6 +741,7 @@ var CreatingInvoice = {
         }
         return [startDate, endDate];
     },
+
     getTotalDayOfMonth: function (month, year) {
         //// Note Month fomr 1 > 12
         var m = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -740,6 +750,7 @@ var CreatingInvoice = {
         if (year % 100 == 0 && year % 400 != 0) return m[1];
         return m[1] + 1;
     },
+
     mappingSpecialPartyName: function (partyName) {
         if (partyName.toLowerCase() == 'cozni') {
             partyName = 'CL';
