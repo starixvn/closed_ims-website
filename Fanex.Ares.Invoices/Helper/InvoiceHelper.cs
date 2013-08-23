@@ -25,5 +25,15 @@ namespace Fanex.Ares.Invoice.Helper
 
             return output;
         }
+
+        public static string GetNegativeClass(double number)
+        {
+            return number < 0 ? "negative-number" : string.Empty;
+        }
+
+        public static string GetEvenClass(int number)
+        {
+            return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
+        }
     }
 }
