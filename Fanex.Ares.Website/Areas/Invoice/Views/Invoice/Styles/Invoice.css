@@ -74,4 +74,5 @@ textarea#styled
 {
     border: none !important;
     background: none !important;
+    padding-left:10px;
 }

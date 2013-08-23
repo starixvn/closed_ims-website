@@ -32,19 +32,29 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string DueDate { get; set; }
 
         public int Currency { get; set; }
+
         public string CurrencyName { get; set; }
 
         public InvoiceType InvoiceType { get; set; }
+
         public string Product { get; set; }
+
         public string ProductsName { get; set; }
+
         public int InvoiceNo { get; set; }
+
         public string InvoiceName { get; set; }
+
         public List<Statement> StatementList { get; set; } // List statement
 
         public List<DateRange> DateRangeList { get; set; }
+
         public List<string> HTMLReportList { get; set; }
+
         public double TotalAmount { get; set; }
+
         public bool IsSignature { get; set; }
+
         public string Note { get; set; }
 
         public InvoiceModel()
@@ -120,7 +130,9 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string SwiftCode { get; set; }
 
         public string CorrespondentBank { get; set; }
+
         public string CorrespondentAccNo { get; set; }
+
         public string CorrespondentSwiftCode { get; set; }
 
         public string AttnName { get; set; }
@@ -163,7 +175,6 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public string To2 { get; set; }
     }
-
 
      [Serializable]
     public class DateRange
