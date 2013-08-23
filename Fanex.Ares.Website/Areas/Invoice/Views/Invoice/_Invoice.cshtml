@@ -52,12 +52,11 @@
             <table id="tbl-content">
                 <tr>
                     <td>
-                        <table style="width: 100%;">
+                        <table id="invoiceTbl"  style="width: 100%;">
                             <tbody>
                                 @for (int i = 0; i < model.StatementList.Count; i++)
                                 {
                                     Statement state = model.StatementList[i];
-                                    string evenCSS = (i % 2 == 1 ? "" : string.Empty);
                                     for (int j = 0; j < state.StatementDetailList.Count; j++)
                                     {
                                         StatementDetail detail = state.StatementDetailList[j];
@@ -66,14 +65,14 @@
                                     <tr  style="width: 100%; text-align: center;">
                                         @if (j == 0)
                                         {
-                                            <td class="@evenCSS" rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
+                                            <td  rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
 
                                              
                                                 <a onclick="Detail('@state.FromDate', '@state.ToDate')" style="cursor: pointer; font-style:italic;  font-size: 20px;">
                                                     @(i + 1)</a>
                                             </td>
                                         }
-                                        <td class="@evenCSS" style="width: 55%; text-align: center; height: 60px;">
+                                        <td style="width: 55%; text-align: center; height: 60px;">
                                             <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
                                     @if (j == 0)
                                     {
@@ -84,10 +83,10 @@
                                     @detail.Description
                                     }</textarea>
                                         </td>
-                                        <td class="@evenCSS" style="width: 20%; text-align: center;">
+                                        <td  style="width: 20%; text-align: center;">
                                             <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                         </td>
-                                        <td class="@evenCSS" style="width: 15%; text-align: right; vertical-align:middle;font-weight: bold; padding-right: 10px;">
+                                        <td  style="width: 15%; text-align: right; vertical-align:middle;font-weight: bold; padding-right: 10px;">
 
                                          @MvcHtmlString.Create(detail.Amount == 0 && detail.DiscountItem ? "(nil)" : NegativeFormat(detail.Amount))
 
@@ -128,8 +127,8 @@
                         </tr>
                             <tr style="width: 100%;">
                                 <td colspan="2" style="border: 0px !important; text-align: left; font-weight: bold;
-                                    padding-left: 5px;">
-                                    <div style="width: 70%; display: inline-block; text-align: left;">
+                                    padding-left: 10px;">
+                                    <div style="width: 70%; display: inline-block; text-align: left; ">
                                         For Telegraphic Transfer Payments:
                                         <br />
                                     </div>
@@ -138,7 +137,7 @@
                                 </td>
                                 <td rowspan="7" style="border: 0px !important; vertical-align: top">
                                     <div>
-                                        <textarea maxlength="300" rows="5" cols="90" name="styled-textarea" id="noteId" onfocus="onFocusInput(this)"
+                                        <textarea maxlength="300" rows="5" cols="85" name="styled-textarea" id="noteId" onfocus="onFocusInput(this)"
                                             onblur="onBlurInput(this)" onchange=" CreatingInvoice.AllowUpdateNewInfo();"></textarea>
                                     </div>
                                 </td>
