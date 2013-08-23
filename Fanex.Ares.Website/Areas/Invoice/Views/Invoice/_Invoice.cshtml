@@ -56,8 +56,10 @@
                                         @if (j == 0)
                                         {
                                             <td  rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
-                                                <a onclick="Detail('@state.FromDate', '@state.ToDate')" style="cursor: pointer; font-style:italic;  font-size: 20px;">
-                                                    @(i + 1)</a>
+                                                <div style="font-size: 20px;display: inline-block;">
+                                                    @(i + 1)</div>
+                                             <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="Detail('@state.FromDate', '@state.ToDate')"></div>
+                                            
                                             </td>
                                         }
                                         <td style="width: 55%; text-align: center; height: 60px;">
@@ -84,8 +86,8 @@
                                 }
                                 <tr class="total" style="width: 100%;">
                                     <td style="text-align: center; border-right: 0px solid black !important;padding-left: 25px;">
-                                     <div style="display: inline-block;"   class="newitem" onclick="CreatingInvoice.AddItem(false)"></div>&nbsp;&nbsp;
-                                      <div  style="display: inline-block;"  class="discount" onclick="CreatingInvoice.AddItem(true)"></div>
+                                     <div title="Add new item" style="display: inline-block;"   class="newitem" onclick="CreatingInvoice.AddItem(false)"></div>&nbsp;&nbsp;
+                                      <div  title="Add new discount" style="display: inline-block;"  class="discount" onclick="CreatingInvoice.AddItem(true)"></div>
                                        @* <a onclick="CreatingInvoice.AddItem(false)" style="text-decoration: underline; cursor: pointer;
                                             font-style: italic;">+New Item</a>*@
                                     </td>

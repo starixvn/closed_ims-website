@@ -511,7 +511,7 @@ var CreatingInvoice = {
         }
         if (CreatingInvoice.isInsert) {
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
-                                    <td   style="width: 10%; "><span discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '" style="font-style:italic;  font-size: 20px;">' + (isDiscount == true ? "" : displayID) + ' </span></br></br> <span  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></span></td>\
+                                    <td   style="width: 10%; "><div discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '" style="  font-size: 20px;display: inline-block;">' + (isDiscount == true ? "" : displayID) + ' </div> <div style="display: inline-block;"  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></div></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
                                     <textarea  onfocus="onFocusInput(this)" onblur="onBlurInput(this)"  id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea  onfocus="onFocusInput(this)" onblur="onBlurInput(this)" id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\

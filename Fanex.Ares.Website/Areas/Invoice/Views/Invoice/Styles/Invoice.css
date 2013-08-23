@@ -89,16 +89,41 @@ textarea#styled
 	background: url(Images/add-hover.png) repeat scroll 0 0 transparent;
 }
 
+.viewdetail
+{
+	background: url(Images/view_detail.png) repeat scroll 0 0 transparent;
+	cursor: pointer;
+	display: block;
+	height: 32px;
+	width: 32px;
+	float:right;
+	margin-right: 5px;
+}
+
+.viewdetail:hover
+{
+	background: url(Images/view_detail-hover.png) repeat scroll 0 0 transparent;
+}
+
+
 
 .delete
 {
-	background: url(Images/close.png) repeat scroll 0 0 transparent;
+	background: url(Images/delete.png) repeat scroll 0 0 transparent;
 	cursor: pointer;
 	display: block;
-	height: 16px;
-	margin-left: 51px;
-	width: 16px;
+	height: 24px;
+	width: 24px;
+	float:right;
+	margin-right: 5px;
 }
+
+.delete:hover
+{
+	background: url(Images/delete-hover.png) repeat scroll 0 0 transparent;
+}
+
+
 
 .red
 {
