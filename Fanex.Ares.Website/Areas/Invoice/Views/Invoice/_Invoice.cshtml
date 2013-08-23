@@ -56,10 +56,10 @@
                                         @if (j == 0)
                                         {
                                             <td  rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
-                                                <div style="font-size: 20px;display: inline-block;">
+                                                <div style="font-size: 20px; display: inline-block;">
                                                     @(i + 1)</div>
-                                             <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="Detail('@state.FromDate', '@state.ToDate')"></div>
-                                            
+                                                <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="Detail('@state.FromDate', '@state.ToDate')">
+                                                </div>
                                             </td>
                                         }
                                         <td style="width: 55%; text-align: center; height: 60px;">
@@ -85,16 +85,14 @@
                                     }
                                 }
                                 <tr class="total" style="width: 100%;">
-                                    <td style="text-align: center; border-right: 0px solid black !important;padding-left: 25px;">
-                                     <div title="Add new item" style="display: inline-block;"   class="newitem" onclick="CreatingInvoice.AddItem(false)"></div>&nbsp;&nbsp;
-                                      <div  title="Add new discount" style="display: inline-block;"  class="discount" onclick="CreatingInvoice.AddItem(true)"></div>
-                                       @* <a onclick="CreatingInvoice.AddItem(false)" style="text-decoration: underline; cursor: pointer;
-                                            font-style: italic;">+New Item</a>*@
+                                    <td style="text-align: center; border-right: 0px solid black !important; padding-left: 25px;">
+                                        <div title="Add new item" style="display: inline-block;" class="newitem" onclick="CreatingInvoice.AddItem(false)">
+                                        </div>
+                                        &nbsp;&nbsp;
+                                        <div title="Add new discount" style="display: inline-block;" class="discount" onclick="CreatingInvoice.AddItem(true)">
+                                        </div>
                                     </td>
-                                    <td style="width: 55%; height: 30px; text-align: left; border-left: 0px solid black!important;">
-                                   
-                                        @*<a onclick="CreatingInvoice.AddItem(true)" style="text-decoration: underline; cursor: pointer;
-                                            font-style: italic;">+New Discount</a>*@
+                                    <td style="width: 55%; height: 30px;">
                                     </td>
                                     <td style="width: 20%; text-align: center;">
                                         TOTAL AMOUNT
