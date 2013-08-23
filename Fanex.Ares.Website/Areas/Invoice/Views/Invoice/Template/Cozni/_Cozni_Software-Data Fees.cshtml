@@ -2,6 +2,7 @@
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @using DNAide.Core;
+@using Fanex.Ares.Invoice.Helper;
 @using Fanex.Common;
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
@@ -270,7 +271,7 @@
                     @{totalAmount += detail.Amount;}
                     @if (state.StatementID != 100000)
                     {
-                        @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : NegativeFormat(detail.Amount))
+                        @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : InvoiceHelper.NegativeFormat(detail.Amount))
                     }
                     &nbsp;<br />
                 </td>
@@ -293,7 +294,7 @@
             </td>
             <td class="border-RTB" colspan="2" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
+                @MvcHtmlString.Create(InvoiceHelper.NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
         <tr>

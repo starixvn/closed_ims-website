@@ -3,6 +3,7 @@
 @using Fanex.Ares.Core.Extensions;
 @using DNAide.Core;
 @using Fanex.Common;
+@using Fanex.Ares.Invoice.Helper;
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
     var isCheckMappingDomail = ViewBag.isCheckMappingDomail;
@@ -38,16 +39,6 @@
 
         });
         limitRows++;
-    }
-}
-@functions {
-    public string NegativeFormat(double input)
-    {
-        string output = string.Empty;
-
-        output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
-
-        return output;
     }
 }
 <div class="div-content InvoiceTable" style="overflow: auto; width: 95%; margin-left: 30px;
@@ -269,7 +260,7 @@
                     @{totalAmount += detail.Amount;}
                     @if (state.StatementID != 100000)
                     {
-                        @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : NegativeFormat(detail.Amount))
+                        @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : InvoiceHelper.NegativeFormat(detail.Amount))
                     }
                     &nbsp;
                 </td>
@@ -286,7 +277,7 @@
             </td>
             <td class="border-RT" colspan="2" rowspan="3" style='vertical-align: middle; text-align: right;
                 font-weight: bold; color: #4f81bd;'>
-                @MvcHtmlString.Create(NegativeFormat(totalAmount))&nbsp;
+                @MvcHtmlString.Create(InvoiceHelper.NegativeFormat(totalAmount))&nbsp;
             </td>
         </tr>
         <tr>
