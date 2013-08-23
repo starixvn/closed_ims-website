@@ -10,16 +10,6 @@
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
 }
-@functions {
-    public string NegativeFormat(double input)
-    {
-        string output = string.Empty;
-
-        output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
-
-        return output;
-    }
-}
 <div class="wrapper">
     <div class="content" style="width: 90%;">
         <div class="boundary">
@@ -52,7 +42,7 @@
             <table id="tbl-content">
                 <tr>
                     <td>
-                        <table id="invoiceTbl"  style="width: 100%;">
+                        <table id="invoiceTbl" style="width: 100%;">
                             <tbody>
                                 @for (int i = 0; i < model.StatementList.Count; i++)
                                 {
@@ -62,12 +52,10 @@
                                         StatementDetail detail = state.StatementDetailList[j];
                                         totalAmount += detail.Amount;
                                         
-                                    <tr  style="width: 100%; text-align: center;">
+                                    <tr style="width: 100%; text-align: center;">
                                         @if (j == 0)
                                         {
                                             <td  rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
-
-                                             
                                                 <a onclick="Detail('@state.FromDate', '@state.ToDate')" style="cursor: pointer; font-style:italic;  font-size: 20px;">
                                                     @(i + 1)</a>
                                             </td>
@@ -83,27 +71,28 @@
                                     @detail.Description
                                     }</textarea>
                                         </td>
-                                        <td  style="width: 20%; text-align: center;">
+                                        <td style="width: 20%; text-align: center;">
                                             <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                         </td>
-                                        <td  style="width: 15%; text-align: right; vertical-align:middle;font-weight: bold; padding-right: 10px;">
-
-                                         @MvcHtmlString.Create(detail.Amount == 0 && detail.DiscountItem ? "(nil)" : NegativeFormat(detail.Amount))
-
-                                           
+                                        <td style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
+                                            padding-right: 10px;">
+                                            @MvcHtmlString.Create(detail.Amount == 0 && detail.DiscountItem ? "(nil)" : NumberExtensions.NegativeFormat(detail.Amount))
                                         </td>
                                     </tr>
                                     index++;
                                     }
                                 }
                                 <tr class="total" style="width: 100%;">
-                                    <td style="text-align: center; border-right: 0px solid black !important;">
-                                        <a onclick="CreatingInvoice.AddItem(false)" style="text-decoration: underline; cursor: pointer;
-                                            font-style: italic;">+New Item</a>
+                                    <td style="text-align: center; border-right: 0px solid black !important;padding-left: 25px;">
+                                     <div style="display: inline-block;"   class="newitem" onclick="CreatingInvoice.AddItem(false)"></div>&nbsp;&nbsp;
+                                      <div  style="display: inline-block;"  class="discount" onclick="CreatingInvoice.AddItem(true)"></div>
+                                       @* <a onclick="CreatingInvoice.AddItem(false)" style="text-decoration: underline; cursor: pointer;
+                                            font-style: italic;">+New Item</a>*@
                                     </td>
                                     <td style="width: 55%; height: 30px; text-align: left; border-left: 0px solid black!important;">
-                                        <a onclick="CreatingInvoice.AddItem(true)" style="text-decoration: underline; cursor: pointer;
-                                            font-style: italic;">+New Discount</a>
+                                   
+                                        @*<a onclick="CreatingInvoice.AddItem(true)" style="text-decoration: underline; cursor: pointer;
+                                            font-style: italic;">+New Discount</a>*@
                                     </td>
                                     <td style="width: 20%; text-align: center;">
                                         TOTAL AMOUNT
@@ -122,13 +111,14 @@
                 <tr>
                     <td>
                         <table style="width: 100%; border-collapse: collapse; border: 0px !important;">
-                        <tr>
-                            <td colspan="4" style="height:15px;"></td>
-                        </tr>
+                            <tr>
+                                <td colspan="4" style="height: 15px;">
+                                </td>
+                            </tr>
                             <tr style="width: 100%;">
                                 <td colspan="2" style="border: 0px !important; text-align: left; font-weight: bold;
                                     padding-left: 10px;">
-                                    <div style="width: 70%; display: inline-block; text-align: left; ">
+                                    <div style="width: 70%; display: inline-block; text-align: left;">
                                         For Telegraphic Transfer Payments:
                                         <br />
                                     </div>
@@ -144,11 +134,11 @@
                             </tr>
                             <tr>
                                 <td class="noneBorder paddingLeft height20">
-                                <br />
+                                    <br />
                                     Beneficiary
                                 </td>
                                 <td class="noneBorder paddingLeft height20 ">
-                                 <br />
+                                    <br />
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divBeneficiary">
                                         &nbsp;</div>

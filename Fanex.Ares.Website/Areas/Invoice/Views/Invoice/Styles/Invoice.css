@@ -61,6 +61,35 @@ textarea#styled
 	font-weight: bold;
 	width: 75%;
 }
+.discount
+{
+	background: url(Images/discount.png) repeat scroll 0 0 transparent;
+	cursor: pointer;
+	display: block;
+	height: 42px;
+	width: 42px;
+}
+
+.discount:hover
+{
+	background: url(Images/discount-hover.png) repeat scroll 0 0 transparent;
+}
+
+.newitem
+{
+	background: url(Images/add.png) repeat scroll 0 0 transparent;
+	cursor: pointer;
+	display: block;
+	height: 32px;
+	width: 32px;
+}
+
+.newitem:hover
+{
+	background: url(Images/add-hover.png) repeat scroll 0 0 transparent;
+}
+
+
 .delete
 {
 	background: url(Images/close.png) repeat scroll 0 0 transparent;
@@ -70,6 +99,7 @@ textarea#styled
 	margin-left: 51px;
 	width: 16px;
 }
+
 .red
 {
 	color: Red;
