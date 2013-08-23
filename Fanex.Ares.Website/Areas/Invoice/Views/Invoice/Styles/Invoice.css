@@ -96,15 +96,14 @@ textarea#styled
 	display: block;
 	height: 24px;
 	width: 24px;
-	float:right;
-	margin-right: 5px;
+	float:left;
+	margin-left: 50px;
 }
 
 .viewdetail:hover
 {
 	background: url(Images/view_detail-hover.png) repeat scroll 0 0 transparent;
 }
-
 
 
 .delete
@@ -114,8 +113,8 @@ textarea#styled
 	display: block;
 	height: 24px;
 	width: 24px;
-	float:right;
-	margin-right: 5px;
+	float:left;
+	margin-left: 50px;
 }
 
 .delete:hover
