@@ -59,7 +59,7 @@
                                             <td  rowspan="@state.StatementDetailList.Count" style="width: 10%; vertical-align:top;padding-top: 20px; ">
                                                 <div style="font-size: 20px; display: inline-block;">
                                                     @(i + 1)</div>
-                                                <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="Detail('@state.FromDate', '@state.ToDate')">
+                                                <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="invoiceApp.viewDetail('@state.FromDate', '@state.ToDate')">
                                                 </div>
                                             </td>
                                         }
@@ -207,11 +207,9 @@
                                             type="button" value="SAVE" />&nbsp;&nbsp;&nbsp; @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                     type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
                                         <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                            type="button" value="PREVIEW" onclick="Review()" />&nbsp;&nbsp;&nbsp;
+                                            type="button" value="PREVIEW" onclick="invoiceApp.previewInvoice()" />&nbsp;&nbsp;&nbsp;
                                         <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled"
                                             type="button" value="EXPORT TO PDF" onclick="ExportPDF()" />
-                                        @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
-                                    type="button" value="EXPORT PDF" disabled="disabled" onclick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>*@
                                     </div>
                                 </td>
                             </tr>
@@ -290,132 +288,8 @@
         $('#divCorrespondentAccNo').html(invoiceApp.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
 
-function Review() {
-    $('#tblconfirm').empty().append("<tr><td class='popupTd'>Do you want to export document with signature?</td></tr>");
-            $("#tblconfirm").dialog({
-                title: "Export PDF",
-                autoOpen: false,
-                height: 130,
-                width: 360,
-                resizable: false,
-                modal: true,
-                buttons: {
-                    Yes: function () {
-                       invoiceInfoModel.IsSignature = true;
-                       ReviewConfirmAfter();
-                         $(this).dialog("close");
-                    },
-                    No: 
-                     function () {
-                     invoiceInfoModel.IsSignature = false;
-                     ReviewConfirmAfter();
-                         $(this).dialog("close");
-                    }
-                },
-                close: function (event, ui) {
-                }
-            });
-            $('a.ui-dialog-titlebar-close').show();
-            $("#tblconfirm").dialog("open");
-}
 
-function ReviewConfirmAfter ()
-{
-    NapAres.disableInput();
-    invoiceApp.updateItem();
-    invoiceInfoModel.Operator = invoiceApp.Operator;
-    invoiceInfoModel.Licensee = invoiceApp.Licensee;
-    invoiceInfoModel.FromDate = invoiceApp.FromDate;
-    invoiceInfoModel.ToDate = invoiceApp.ToDate;
-    invoiceInfoModel.DueDate = invoiceApp.DueDate;
-    invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
-    invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
-    invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
-    invoiceInfoModel.Product = invoiceApp.Products;
-    invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
-    invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
-    invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
 
-    $.ajax({
-        url: domain + "Invoice/Invoice/PrintScreen",
-        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
-        contentType: 'application/json',
-        type: "POST",
-        success: function (data, textStatus, jqXHR) {
-            if (data) {
-                var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
-              
-                if($.browser.msie){
-                    win.load = new function(){
-                        win.document.write(data);
-                        win.document.title = invoiceApp.InvoiceName;
-                    }
-                }
-                else{
-                    $(win).load(function(){ 
-                        win.document.write(data);
-                        win.document.title = invoiceApp.InvoiceName;
-                    });
-                }
-            }
-        },
-        error: function(){
-            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
-            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-             NapAres.enableInput();
-        }
-    });
-     NapAres.enableInput();
-    invoiceInfoModel = [];
-    invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
-}
-
-function Detail(fromDate, toDate) {
- NapAres.disableInput();
-    invoiceApp.updateItem();
-    invoiceInfoModel.Operator = invoiceApp.Operator;
-    invoiceInfoModel.Licensee = invoiceApp.Licensee;
-    invoiceInfoModel.FromDate = fromDate;
-    invoiceInfoModel.ToDate = toDate;
-    invoiceInfoModel.DueDate = invoiceApp.DueDate;
-    invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
-    invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
-    invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
-    invoiceInfoModel.Product = invoiceApp.Products;
-    invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
-    invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
-    invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
-    $.ajax({
-        url: domain + "Invoice/Invoice/Detail",
-        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
-        contentType: 'application/json',
-        type: "POST",
-        success: function (data, textStatus, jqXHR) {
-            if (data) {
-                var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
-	              
-                if($.browser.msie){
-                    win.load = new function(){
-                        win.document.write(data);
-                        win.document.title = invoiceApp.InvoiceName;
-                    }
-                }
-                else{
-                    $(win).load(function(){ 
-                        win.document.write(data);
-                        win.document.title = invoiceApp.InvoiceName;
-                    });
-                }
-            }
-        },
-        error: function(){
-            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
-            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-             NapAres.enableInput();
-        }
-    });
-     NapAres.enableInput();
-}
 
 function ExportPDF()
 {

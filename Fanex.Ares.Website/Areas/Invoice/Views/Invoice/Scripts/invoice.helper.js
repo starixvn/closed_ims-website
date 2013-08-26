@@ -1,5 +1,4 @@
-﻿
-var invoiceApp = invoiceApp || {};
+﻿var invoiceApp = invoiceApp || {};
 invoiceApp.helper = {};
 (function () {
     this.getDateRangeOfLastMonth = function (today) {

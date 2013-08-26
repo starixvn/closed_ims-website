@@ -483,8 +483,132 @@ var invoiceApp = {
             partyName = 'CL';
         }
         return partyName
+    },
+
+    viewDetail :function (fromDate, toDate) {
+        NapAres.disableInput();
+        invoiceApp.updateItem();
+        invoiceInfoModel.Operator = invoiceApp.Operator;
+        invoiceInfoModel.Licensee = invoiceApp.Licensee;
+        invoiceInfoModel.FromDate = fromDate;
+        invoiceInfoModel.ToDate = toDate;
+        invoiceInfoModel.DueDate = invoiceApp.DueDate;
+        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+        invoiceInfoModel.Product = invoiceApp.Products;
+        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
+        $.ajax({
+            url: domain + "Invoice/Invoice/Detail",
+            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
+	              
+                    if($.browser.msie){
+                        win.load = new function(){
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        }
+                    }
+                    else{
+                        $(win).load(function(){ 
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        });
+                    }
+                }
+            },
+            error: function(){
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                 NapAres.enableInput();
+            }
+        });
+         NapAres.enableInput();
+    },
+
+    previewInvoice: function () {
+        $('#tblconfirm').empty().append("<tr><td class='popupTd'>Do you want to export document with signature?</td></tr>");
+                $("#tblconfirm").dialog({
+                    title: "Export PDF",
+                    autoOpen: false,
+                    height: 130,
+                    width: 360,
+                    resizable: false,
+                    modal: true,
+                    buttons: {
+                        Yes: function () {
+                           invoiceInfoModel.IsSignature = true;
+                           invoiceApp.previewConfirm();
+                             $(this).dialog("close");
+                        },
+                        No: 
+                         function () {
+                         invoiceInfoModel.IsSignature = false;
+                         invoiceApp.previewConfirm();
+                             $(this).dialog("close");
+                        }
+                    },
+                    close: function (event, ui) {
+                    }
+                });
+                $('a.ui-dialog-titlebar-close').show();
+                $("#tblconfirm").dialog("open");
+    },
+
+    previewConfirm :function  ()
+    {
+        NapAres.disableInput();
+        invoiceApp.updateItem();
+        invoiceInfoModel.Operator = invoiceApp.Operator;
+        invoiceInfoModel.Licensee = invoiceApp.Licensee;
+        invoiceInfoModel.FromDate = invoiceApp.FromDate;
+        invoiceInfoModel.ToDate = invoiceApp.ToDate;
+        invoiceInfoModel.DueDate = invoiceApp.DueDate;
+        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+        invoiceInfoModel.Product = invoiceApp.Products;
+        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
+
+        $.ajax({
+            url: domain + "Invoice/Invoice/PrintScreen",
+            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
+              
+                    if($.browser.msie){
+                        win.load = new function(){
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        }
+                    }
+                    else{
+                        $(win).load(function(){ 
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        });
+                    }
+                }
+            },
+            error: function(){
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                 NapAres.enableInput();
+            }
+        });
+         NapAres.enableInput();
+        invoiceInfoModel = [];
+        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
     }
 }
-
-
-
