@@ -240,6 +240,8 @@
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.filter.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.helper.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Acqua-logo.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\BCH.png" />
@@ -258,7 +260,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\view_detail-hover.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\view_detail.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\close.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
