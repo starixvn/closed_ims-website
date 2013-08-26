@@ -1,7 +1,6 @@
 @using Fanex.Ares.Invoice.Models.Invoice;
 @using Fanex.Ares.Core.Extensions;
 @using DNAide.Core;
-@using Fanex.Ares.Invoice.Models.Invoice;
 @using Fanex.Common;
 @{
     InvoiceModel model = new InvoiceModel();
@@ -9,7 +8,6 @@
     int index = 0;
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
-    
 }
 <div class="wrapper">
     <div class="content" style="width: 90%;">
@@ -204,8 +202,7 @@
                                 <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                                     <div>
                                         <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                            type="button" value="SAVE" />&nbsp;&nbsp;&nbsp; @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
+                                            type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
                                         <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                             type="button" value="PREVIEW" onclick="invoiceApp.previewInvoice()" />&nbsp;&nbsp;&nbsp;
                                         <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled"
