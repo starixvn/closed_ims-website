@@ -39,6 +39,7 @@ var invoiceApp = {
     },
 
     init: function () {
+        var filterControl = invoiceApp.filterControls;
         $("#notemessage").tipsy({
             html: true,
             opacity: 0.9,
@@ -67,7 +68,7 @@ var invoiceApp = {
                 TextboxCss: "edit-field col_5"
             },
             onSelectDatePicker: function () {
-                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+                filterControl.btnGenerate.removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             },
@@ -91,7 +92,7 @@ var invoiceApp = {
                 InitDate: new Date(selectDueDate)
             },
             onSelectDatePicker: function () {
-                invoiceApp.DueDate = invoiceApp.filterControls.cldDueDate.val();
+                invoiceApp.DueDate = filterControl.cldDueDate.val();
                 $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
                 $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
                 $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
@@ -99,64 +100,64 @@ var invoiceApp = {
             minDate: new Date(minDate)
         });
 
-        invoiceApp.filterControls.cldFromDate = $('#FromDatePicker');
-        invoiceApp.filterControls.cldToDate = $('#ToDatePicker');
-        invoiceApp.filterControls.cldDueDate = $('#DueDatePicker');
+        filterControl.cldFromDate = $('#FromDatePicker');
+        filterControl.cldToDate = $('#ToDatePicker');
+        filterControl.cldDueDate = $('#DueDatePicker');
 
-        invoiceApp.filterControls.btnGenerate.button();
-        invoiceApp.filterControls.btnGenerate.click(function () {
+        filterControl.btnGenerate.button();
+        filterControl.btnGenerate.click(function () {
             if (!$(this).hasClass('ui-state-disabled')) {
                 invoiceApp.submit();
             }
         });
 
-        invoiceApp.filterControls.btnNewInvoice.button();
+        filterControl.btnNewInvoice.button();
 
-        invoiceApp.filterControls.ddlLicensee.change(function () {
-            if (invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") != 0) {
+        filterControl.ddlLicensee.change(function () {
+            if (filterControl.ddlLicensee.prop("selectedIndex") != 0) {
                 invoiceApp.filter.getInvoiceType();
-                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+                filterControl.btnGenerate.removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             } else {
-                invoiceApp.filterControls.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                invoiceApp.filterControls.txtInvoiceNo.val('');
+                filterControl.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                filterControl.txtInvoiceNo.val('');
             }
         });
 
-        invoiceApp.filterControls.ddlOperator.change(function () {
-            invoiceApp.filterControls.ddlLicensee.html('');
-            invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+        filterControl.ddlOperator.change(function () {
+            filterControl.ddlLicensee.html('');
+            filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
 
             $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-            invoiceApp.filterControls.txtInvoiceNo.val('');
+            filterControl.txtInvoiceNo.val('');
 
-            if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") != 0) {
+            if (filterControl.ddlOperator.prop("selectedIndex") != 0) {
                 invoiceApp.filter.getLicensees();
             }
 
             invoiceApp.filter.getInvoiceNo();
         });
 
-        invoiceApp.filterControls.txtInvoiceNo.change(function () {
-            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+        filterControl.txtInvoiceNo.change(function () {
+            filterControl.btnGenerate.removeClass('ui-state-disabled');
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
-        invoiceApp.filterControls.ddlCurrency.change(function () {
-            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+        filterControl.ddlCurrency.change(function () {
+            filterControl.btnGenerate.removeClass('ui-state-disabled');
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
         //------binding data
 
-        invoiceApp.filterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
+        filterControl.ddlOperator.append('<option value="0">Please Select One!</option>');
         $.each(operatorListModel, function (i, item) {
-            invoiceApp.filterControls.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
+            filterControl.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
         });
-        invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+        filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
         NapAres.NapAresPopUp = $('#dialog-popup');
     },
@@ -295,7 +296,7 @@ var invoiceApp = {
         for (var i = 0; i < invoiceApp.newItemIDsList.length; i++) {
             var id = invoiceApp.newItemIDsList[i];
             var amount = $('#newItem_text_' + id).val();
-            if (amount == '') { 
+            if (amount == '') {
                 NapAres.Helper.showMsgBox({
                     ErrorCode: 1,
                     ErrorMsg: 'Please input value !'
