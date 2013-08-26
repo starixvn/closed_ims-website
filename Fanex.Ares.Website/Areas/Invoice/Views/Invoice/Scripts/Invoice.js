@@ -25,6 +25,19 @@ var invoiceApp = {
     isInsert: true,
     newItemIDsList: [],
 
+    filterControls: {
+        ddlOperator: $('#ddlOperator'),
+        ddlLicensee: $('#ddlLicensee'),
+        cldFromDate: null,
+        cldToDate: null,
+        divInvoiceType: $('#divInvoiceType'),
+        ddlCurrency: $('#CurrencyID'),
+        txtInvoiceNo: $('#invoiceNo'),
+        cldDueDate: null,
+        btnGenerate: $('#btnGenerate'),
+        btnNewInvoice: $('#btnNewInvoice')
+    },
+
     init: function () {
         $("#notemessage").tipsy({
             html: true,
@@ -200,19 +213,6 @@ var invoiceApp = {
         } else {
             invoiceApp.filter.getNewInvoiceData();
         }
-    },
-
-    filterControls: {
-        ddlOperator: $('#ddlOperator'),
-        ddlLicensee: $('#ddlLicensee'),
-        cldFromDate: null,
-        cldToDate: null,
-        divInvoiceType: $('#divInvoiceType'),
-        ddlCurrency: $('#CurrencyID'),
-        txtInvoiceNo: $('#invoiceNo'),
-        cldDueDate: null,
-        btnGenerate: $('#btnGenerate'),
-        btnNewInvoice: $('#btnNewInvoice')
     },
 
     saveInvoice: function () {
