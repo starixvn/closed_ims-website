@@ -53,7 +53,7 @@ var invoiceApp = {
     }
 
     var toDateSelected = new Date(invoiceApp.filterControls.cldToDate.val());
-    var totalDays = invoiceHelper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
+    var totalDays = invoiceApp.helper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
 
     if (toDateSelected.getDate() != totalDays) {
         $("#dialog:ui-dialog").dialog("destroy");
@@ -191,7 +191,7 @@ var invoiceApp = {
             gravity: 'ne'
         });
 
-        var rangeDate = invoiceHelper.getDateRangeOfLastMonth(_today);
+        var rangeDate = invoiceApp.helper.getDateRangeOfLastMonth(_today);
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "daterange",
             datePickerFormat: {
@@ -516,8 +516,8 @@ var invoiceApp = {
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + invoiceApp.IdNewItem + '" style="width: 100%; text-align: center;">\
                                     <td   style="width: 10%; "><div discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + invoiceApp.IdNewItem + '" style="  font-size: 20px;display: inline-block;">' + (isDiscount == true ? "" : displayID) + ' </div> <div style="display: inline-block;" title="Delete"  class="delete" onclick="invoiceApp.deleteItem(' + invoiceApp.IdNewItem + ')"></div></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea  onfocus="invoiceHelper.onFocusInput(this)" onblur="invoiceHelper.onBlurInput(this)"  id="newItem_des_' + invoiceApp.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea  onfocus="invoiceHelper.onFocusInput(this)" onblur="invoiceHelper.onBlurInput(this)" id="newItem_ref_' + invoiceApp.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
+                                    <textarea  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  id="newItem_des_' + invoiceApp.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" id="newItem_ref_' + invoiceApp.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
                                         <input class="numeric"  name=""  onblur="invoiceApp.recalculateTotal();" id="newItem_text_' + invoiceApp.IdNewItem + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
@@ -629,7 +629,7 @@ var invoiceApp = {
             }
         }
 
-        $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' + invoiceHelper.negativeFormat(totalAmountTmp));
+        $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' + invoiceApp.helper.negativeFormat(totalAmountTmp));
         invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount = totalAmountTmp;
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
@@ -733,8 +733,11 @@ var invoiceApp = {
     }
 }
 
-var invoiceHelper = {
-    getDateRangeOfLastMonth: function (today) {
+
+var invoiceApp = invoiceApp || {};
+invoiceApp.helper = {};
+(function(){
+     this.getDateRangeOfLastMonth = function (today) {
         var currentDate = new Date(today);
         var currentMonth = currentDate.getMonth();
         var currentYear = currentDate.getFullYear();
@@ -749,31 +752,31 @@ var invoiceHelper = {
         } else {
             var month = currentMonth - 1;
             startDate = new Date(currentYear, month, 1);
-            endDate = new Date(currentYear, month, invoiceHelper.getTotalDayOfMonth(month + 1, currentYear));
+            endDate = new Date(currentYear, month, this.getTotalDayOfMonth(month + 1, currentYear));
         }
         return [startDate, endDate];
-    },
+    }
 
-    getTotalDayOfMonth: function (month, year) {
+    this.getTotalDayOfMonth = function (month, year) {
         //// Note Month fomr 1 > 12
         var m = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
         if (month != 2) return m[month - 1];
         if (year % 4 != 0) return m[1];
         if (year % 100 == 0 && year % 400 != 0) return m[1];
         return m[1] + 1;
-    },
+    }
 
-    negativeFormat: function (input) {
+    this.negativeFormat = function (input) {
         var output = '';
         output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
         return output;
-    },
+    }
 
-    onFocusInput: function (obj) {
+     this.onFocusInput =function (obj) {
         obj.style.background = '#e5fff3';
-    },
+    }
 
-    onBlurInput: function (obj) {
+    this.onBlurInput= function (obj) {
         obj.style.background = 'white';
     }
-}
+}).apply(invoiceApp.helper);
