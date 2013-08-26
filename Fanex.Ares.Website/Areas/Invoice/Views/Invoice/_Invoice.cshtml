@@ -255,7 +255,6 @@
 </div>
 
 <script type="text/javascript">
-
     var _totalAmount = @totalAmount; 
     
     $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' +  invoiceApp.helper.negativeFormat(_totalAmount));
@@ -277,7 +276,6 @@
         $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
     }
     else {
-
         $('#divBeneficiary').html(invoiceApp.Operator.Benificiary + "&nbsp;&nbsp;&nbsp;");
         $('#divBeneficiaryBank').html(invoiceApp.Operator.BenificiaryBank + "&nbsp;&nbsp;&nbsp;");
         $('#divAccountNo').html(invoiceApp.Operator.AccountNumber + "&nbsp;&nbsp;&nbsp;");
@@ -287,8 +285,6 @@
         $('#divCorrespondentSwiftCode').html(invoiceApp.Operator.CorrespondentSwiftCode + "&nbsp;&nbsp;&nbsp;");
         $('#divCorrespondentAccNo').html(invoiceApp.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
-
-
 
 
 function ExportPDF()
