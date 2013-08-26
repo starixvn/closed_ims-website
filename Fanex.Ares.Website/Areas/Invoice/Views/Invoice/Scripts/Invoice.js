@@ -25,286 +25,149 @@ var invoiceApp = {
     isInsert: true,
     IdNewItemList: [],
 
-    submit: function(){
-    if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") == 0 ||
+    submit: function () {
+        if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") == 0 ||
             invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") == 0 ||
             $.isNumeric(invoiceApp.filterControls.txtInvoiceNo.val()) == false)
-        return false;
+            return false;
 
-    if (invoiceApp.filterControls.txtInvoiceNo.val().length == 0) {
-        NapAres.Helper.showMsgBox({
-            ErrorCode: 1,
-            ErrorMsg: 'Please input Invoice No.!'
-        });
-        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-        return false;
-    }
-
-    invoiceApp.getFilteringInfo();
-
-    if (invoiceApp.Products.length == 0) {
-        NapAres.Helper.showMsgBox({
-            ErrorCode: 1,
-            ErrorMsg: 'Please select product!'
-        });
-        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-
-        return false;
-    }
-
-    var toDateSelected = new Date(invoiceApp.filterControls.cldToDate.val());
-    var totalDays = invoiceApp.helper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
-
-    if (toDateSelected.getDate() != totalDays) {
-        $("#dialog:ui-dialog").dialog("destroy");
-        $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
-        $("#ims-dialog-message").dialog({
-            modal: true,
-            resizable: false,
-            width: 310,
-            position: ['middle', 100],
-            buttons: {
-                Ok: function () {
-                    $(this).dialog("close");
-                    invoiceApp.getNewInvoiceData();
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            }
-        });
-        $(".ui-dialog-titlebar").hide();
-    }
-    else {
-        invoiceApp.getNewInvoiceData();
-    }
-    },
-
-    getInvoiceType: function(){
-     NapAres.disableInput();
-    $.ajax({
-        url: domain + "Invoice/Invoice/getInvoiceType",
-        type: "POST",
-        data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val(),
-        success: function (result) {
-            var invoiceTypeList = [];
-            var productList = [];
-            for (var i = 0; i < result.length; i++) {
-                for (var j = 0; j < result[i].ProductList.length; j++) {
-                    productList.push({
-                        Id: "#ddlProduct" + result[i].ProductList[j].ProductID,
-                        Value: result[i].ProductList[j].ProductID,
-                        Text: result[i].ProductList[j].ProductName,
-                        Checked: (i == 0 ? true : false),
-                        Enable: true,
-                        CssClass: ""
-                    });
-                }
-                invoiceTypeList.push({
-                    Id: "#ddlInvoiceType" + result[i].InvoiceTypeID,
-                    Value: result[i].InvoiceTypeID,
-                    Text: result[i].InvoiceTypeName,
-                    Checked: (i == 0 ? true : false),
-                    Enable: true,
-                    CssClass: "",
-                    Items: productList
-                });
-
-                productList = [];
-            }
-
-            $("#ddlInvoiceType").multiRadioSelect({ //multiple: false,
-                showCheckAll: false,
-                maxHeight: 705,
-                minWidth: 170,
-                showFooter: false,
-                listData: invoiceTypeList,
-                hasOptGroup: true,
-                onCheck: function () {
-                    if (!$(this).is(':checked')) {
-                        invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
-                        $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                        $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                    }
-
-                }, // when an individual checkbox is clicked 
-                selectedList: 0,
-                isCheckAll: false,
-                isRetrieveDataAfterClose: false,
-                showParentSelectedText: true,
-                multiple: false,
-                shadow: true
-            });
-
-        },
-        error: function () {
-            try {
-                parent.jQuery.unblockUI();
-            } catch (e) { }
-        },
-        complete: function (jqXHR, textStatus) {
-            NapAres.enableInput();
-        }
-    });
-    },
-
-    getInvoiceNo: function(){
-     NapAres.disableInput();
-    invoiceApp.getSelectedInvoiceType();
-    $.ajax({
-        url: domain + "Invoice/Invoice/GetInvoiceNo",
-        type: "POST",
-        data: 'PartyId=' + invoiceApp.filterControls.ddlOperator.val(),
-        success: function (data, textStatus, jqXHR) {
-            invoiceApp.filterControls.txtInvoiceNo.val(data);
-        },
-        error: function (xhr, ajaxOptions, thrownError) {
+        if (invoiceApp.filterControls.txtInvoiceNo.val().length == 0) {
             NapAres.Helper.showMsgBox({
                 ErrorCode: 1,
-                ErrorMsg: 'Loading InvoiceNo fail.'
+                ErrorMsg: 'Please input Invoice No.!'
             });
             setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-        },
-        complete: function (jqXHR, textStatus) {
-            NapAres.enableInput();
+            return false;
         }
-    });
+
+        invoiceApp.getFilteringInfo();
+
+        if (invoiceApp.Products.length == 0) {
+            NapAres.Helper.showMsgBox({
+                ErrorCode: 1,
+                ErrorMsg: 'Please select product!'
+            });
+            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+
+            return false;
+        }
+
+        var toDateSelected = new Date(invoiceApp.filterControls.cldToDate.val());
+        var totalDays = invoiceApp.helper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
+
+        if (toDateSelected.getDate() != totalDays) {
+            $("#dialog:ui-dialog").dialog("destroy");
+            $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
+            $("#ims-dialog-message").dialog({
+                modal: true,
+                resizable: false,
+                width: 310,
+                position: ['middle', 100],
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                        invoiceApp.getNewInvoiceData();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $(".ui-dialog-titlebar").hide();
+        } else {
+            invoiceApp.getNewInvoiceData();
+        }
     },
 
-    filterControls: {
-        ddlOperator: $('#ddlOperator'),
-        ddlLicensee: $('#ddlLicensee'),
-        cldFromDate: null,
-        cldToDate: null,
-        divInvoiceType: $('#divInvoiceType'),
-        ddlCurrency: $('#CurrencyID'),
-        txtInvoiceNo: $('#invoiceNo'),
-        cldDueDate: null,
-        btnGenerate: $('#btnGenerate'),
-        btnNewInvoice: $('#btnNewInvoice')
+    getInvoiceType: function () {
+        NapAres.disableInput();
+        $.ajax({
+            url: domain + "Invoice/Invoice/getInvoiceType",
+            type: "POST",
+            data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val(),
+            success: function (result) {
+                var invoiceTypeList = [];
+                var productList = [];
+                for (var i = 0; i < result.length; i++) {
+                    for (var j = 0; j < result[i].ProductList.length; j++) {
+                        productList.push({
+                            Id: "#ddlProduct" + result[i].ProductList[j].ProductID,
+                            Value: result[i].ProductList[j].ProductID,
+                            Text: result[i].ProductList[j].ProductName,
+                            Checked: (i == 0 ? true : false),
+                            Enable: true,
+                            CssClass: ""
+                        });
+                    }
+                    invoiceTypeList.push({
+                        Id: "#ddlInvoiceType" + result[i].InvoiceTypeID,
+                        Value: result[i].InvoiceTypeID,
+                        Text: result[i].InvoiceTypeName,
+                        Checked: (i == 0 ? true : false),
+                        Enable: true,
+                        CssClass: "",
+                        Items: productList
+                    });
+
+                    productList = [];
+                }
+
+                $("#ddlInvoiceType").multiRadioSelect({ //multiple: false,
+                    showCheckAll: false,
+                    maxHeight: 705,
+                    minWidth: 170,
+                    showFooter: false,
+                    listData: invoiceTypeList,
+                    hasOptGroup: true,
+                    onCheck: function () {
+                        if (!$(this).is(':checked')) {
+                            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+                            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                        }
+
+                    }, // when an individual checkbox is clicked 
+                    selectedList: 0,
+                    isCheckAll: false,
+                    isRetrieveDataAfterClose: false,
+                    showParentSelectedText: true,
+                    multiple: false,
+                    shadow: true
+                });
+
+            },
+            error: function () {
+                try {
+                    parent.jQuery.unblockUI();
+                } catch (e) { }
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
     },
 
-    init: function () {
-        $("#notemessage").tipsy({
-            html: true,
-            opacity: 0.9,
-            gravity: 'ne'
-        });
-
-        var rangeDate = invoiceApp.helper.getDateRangeOfLastMonth(_today);
-        $('#fromTopickerplugin').nexDatePicker({
-            nexDatePickerType: "daterange",
-            datePickerFormat: {
-                changeMonth: true,
-                dateFormat: "M dd, yy",
-                maxDate: new Date(maxDate)
+    getInvoiceNo: function () {
+        NapAres.disableInput();
+        invoiceApp.getSelectedInvoiceType();
+        $.ajax({
+            url: domain + "Invoice/Invoice/GetInvoiceNo",
+            type: "POST",
+            data: 'PartyId=' + invoiceApp.filterControls.ddlOperator.val(),
+            success: function (data, textStatus, jqXHR) {
+                invoiceApp.filterControls.txtInvoiceNo.val(data);
             },
-            firstDatePicker: {
-                Id: "FromDatePicker",
-                Label: labelFrom,
-                InitDate: rangeDate[0],
-                LabelCss: "lbl-field col_3",
-                TextboxCss: "edit-field col_5"
+            error: function (xhr, ajaxOptions, thrownError) {
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Loading InvoiceNo fail.'
+                });
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
             },
-            secondDatePicker: {
-                Id: "ToDatePicker",
-                Label: labelTo,
-                LabelCss: "lbl-field col_1",
-                TextboxCss: "edit-field col_5"
-            },
-            onSelectDatePicker: function () {
-                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
-                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            },
-            minDate: new Date(minDate)
-        });
-
-        $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
-
-        $('#duteDatepickerplugin').nexDatePicker({
-            nexDatePickerType: "single",
-            datePickerFormat: {
-                changeMonth: true,
-                dateFormat: "M dd, yy"
-            },
-            firstDatePicker: {
-                Id: "DueDatePicker",
-                Label: "Due Date",
-                InitDate: "",
-                LabelCss: "lbl-field col_3",
-                TextboxCss: "edit-field col_6",
-                InitDate: new Date(selectDueDate)
-            },
-            onSelectDatePicker: function () {
-                invoiceApp.DueDate = invoiceApp.filterControls.cldDueDate.val();
-                $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
-                $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
-                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            },
-            minDate: new Date(minDate)
-        });
-
-        invoiceApp.filterControls.cldFromDate = $('#FromDatePicker');
-        invoiceApp.filterControls.cldToDate = $('#ToDatePicker');
-        invoiceApp.filterControls.cldDueDate = $('#DueDatePicker');
-
-        invoiceApp.filterControls.btnGenerate.button();
-        invoiceApp.filterControls.btnGenerate.click(function () {
-            if (!$(this).hasClass('ui-state-disabled')){
-               invoiceApp.submit();
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
             }
         });
-
-        invoiceApp.filterControls.btnNewInvoice.button();
-
-        invoiceApp.filterControls.ddlLicensee.change(function () {
-            if (invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") != 0) {
-                invoiceApp.getInvoiceType();
-                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
-                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            } else {
-                invoiceApp.filterControls.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                invoiceApp.filterControls.txtInvoiceNo.val('');
-            }
-        });
-
-        invoiceApp.filterControls.ddlOperator.change(function () {
-            invoiceApp.filterControls.ddlLicensee.html('');
-            invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
-
-            $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-            invoiceApp.filterControls.txtInvoiceNo.val('');
-
-            if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") != 0) {
-                invoiceApp.getLicensees();
-            }
-
-            invoiceApp.getInvoiceNo();
-        });
-
-        invoiceApp.filterControls.txtInvoiceNo.change(function () {
-            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
-            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        });
-
-        invoiceApp.filterControls.ddlCurrency.change(function () {
-            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
-            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        });
-
-        //------binding data
-
-        invoiceApp.filterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
-        $.each(operatorListModel, function (i, item) {
-            invoiceApp.filterControls.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
-        });
-        invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
-        $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-        NapAres.NapAresPopUp = $('#dialog-popup');
     },
 
     getLicensees: function () {
@@ -410,6 +273,194 @@ var invoiceApp = {
         });
     },
 
+    getProductId: function () {
+        var listChecked = $('#ddlProduct').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlLicenseese').attr('id') + "HeaderCheckBox)").filter('[checked]');
+        var normalLicensees = [];
+        var operator = [];
+        for (var i = 0; i < listChecked.length; i++) {
+            if (listChecked[i].id.indexOf('Detail') != -1) {
+                normalLicensees.push(listChecked[i].value);
+            } else {
+                operator.push(listChecked[i].value);
+            }
+        }
+        var result = {
+            'normal': normalLicensees,
+            'operator': operator
+        }
+        return result;
+    },
+
+    getSelectedInvoiceType: function () {
+        var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
+        var productName = '';
+        var produtID = '';
+        var index = 0;
+        for (var i = 0; i < listChecked.length; i++) {
+            if (listChecked[i].value == 'on')
+                continue;
+            if (index < listChecked.length - 1) {
+                productName += listChecked[i].title + ',';
+                produtID += listChecked[i].value + ',';
+            } else {
+                productName += listChecked[i].title;
+                produtID += listChecked[i].value;
+            }
+            index++;
+        }
+
+        var radioCheck = $("#divInvoiceType input[type='radio']:checked");
+        var InvoiceTypeIdTmp = '';
+        var InvoiceTypeNameTmp = '';
+        if (radioCheck && radioCheck.length > 0) {
+            InvoiceTypeIdTmp = radioCheck[0].value;
+            InvoiceTypeNameTmp = radioCheck[0].title;
+        }
+
+        invoiceApp.Products = produtID;
+        invoiceApp.ProductsName = productName;
+        invoiceApp.InvoiceType = {
+            InvoiceTypeID: InvoiceTypeIdTmp,
+            InvoiceTypeName: InvoiceTypeNameTmp
+        };
+    },
+
+    filterControls: {
+        ddlOperator: $('#ddlOperator'),
+        ddlLicensee: $('#ddlLicensee'),
+        cldFromDate: null,
+        cldToDate: null,
+        divInvoiceType: $('#divInvoiceType'),
+        ddlCurrency: $('#CurrencyID'),
+        txtInvoiceNo: $('#invoiceNo'),
+        cldDueDate: null,
+        btnGenerate: $('#btnGenerate'),
+        btnNewInvoice: $('#btnNewInvoice')
+    },
+
+    init: function () {
+        $("#notemessage").tipsy({
+            html: true,
+            opacity: 0.9,
+            gravity: 'ne'
+        });
+
+        var rangeDate = invoiceApp.helper.getDateRangeOfLastMonth(_today);
+        $('#fromTopickerplugin').nexDatePicker({
+            nexDatePickerType: "daterange",
+            datePickerFormat: {
+                changeMonth: true,
+                dateFormat: "M dd, yy",
+                maxDate: new Date(maxDate)
+            },
+            firstDatePicker: {
+                Id: "FromDatePicker",
+                Label: labelFrom,
+                InitDate: rangeDate[0],
+                LabelCss: "lbl-field col_3",
+                TextboxCss: "edit-field col_5"
+            },
+            secondDatePicker: {
+                Id: "ToDatePicker",
+                Label: labelTo,
+                LabelCss: "lbl-field col_1",
+                TextboxCss: "edit-field col_5"
+            },
+            onSelectDatePicker: function () {
+                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            },
+            minDate: new Date(minDate)
+        });
+
+        $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
+
+        $('#duteDatepickerplugin').nexDatePicker({
+            nexDatePickerType: "single",
+            datePickerFormat: {
+                changeMonth: true,
+                dateFormat: "M dd, yy"
+            },
+            firstDatePicker: {
+                Id: "DueDatePicker",
+                Label: "Due Date",
+                InitDate: "",
+                LabelCss: "lbl-field col_3",
+                TextboxCss: "edit-field col_6",
+                InitDate: new Date(selectDueDate)
+            },
+            onSelectDatePicker: function () {
+                invoiceApp.DueDate = invoiceApp.filterControls.cldDueDate.val();
+                $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            },
+            minDate: new Date(minDate)
+        });
+
+        invoiceApp.filterControls.cldFromDate = $('#FromDatePicker');
+        invoiceApp.filterControls.cldToDate = $('#ToDatePicker');
+        invoiceApp.filterControls.cldDueDate = $('#DueDatePicker');
+
+        invoiceApp.filterControls.btnGenerate.button();
+        invoiceApp.filterControls.btnGenerate.click(function () {
+            if (!$(this).hasClass('ui-state-disabled')) {
+                invoiceApp.submit();
+            }
+        });
+
+        invoiceApp.filterControls.btnNewInvoice.button();
+
+        invoiceApp.filterControls.ddlLicensee.change(function () {
+            if (invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") != 0) {
+                invoiceApp.getInvoiceType();
+                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            } else {
+                invoiceApp.filterControls.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                invoiceApp.filterControls.txtInvoiceNo.val('');
+            }
+        });
+
+        invoiceApp.filterControls.ddlOperator.change(function () {
+            invoiceApp.filterControls.ddlLicensee.html('');
+            invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+
+            $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+            invoiceApp.filterControls.txtInvoiceNo.val('');
+
+            if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") != 0) {
+                invoiceApp.getLicensees();
+            }
+
+            invoiceApp.getInvoiceNo();
+        });
+
+        invoiceApp.filterControls.txtInvoiceNo.change(function () {
+            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        });
+
+        invoiceApp.filterControls.ddlCurrency.change(function () {
+            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        });
+
+        //------binding data
+
+        invoiceApp.filterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
+        $.each(operatorListModel, function (i, item) {
+            invoiceApp.filterControls.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
+        });
+        invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+        $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+        NapAres.NapAresPopUp = $('#dialog-popup');
+    },
+
     saveInvoice: function () {
         invoiceApp.updateItem();
         invoiceInfoModel.Operator = invoiceApp.Operator;
@@ -483,24 +534,6 @@ var invoiceApp = {
         });
 
         setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-    },
-
-    getProductId: function () {
-        var listChecked = $('#ddlProduct').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlLicenseese').attr('id') + "HeaderCheckBox)").filter('[checked]');
-        var normalLicensees = [];
-        var operator = [];
-        for (var i = 0; i < listChecked.length; i++) {
-            if (listChecked[i].id.indexOf('Detail') != -1) {
-                normalLicensees.push(listChecked[i].value);
-            } else {
-                operator.push(listChecked[i].value);
-            }
-        }
-        var result = {
-            'normal': normalLicensees,
-            'operator': operator
-        }
-        return result;
     },
 
     addItem: function (isDiscount) {
@@ -676,40 +709,6 @@ var invoiceApp = {
         return invoiceInfoModel.StatementList;
     },
 
-    getSelectedInvoiceType: function () {
-        var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
-        var productName = '';
-        var produtID = '';
-        var index = 0;
-        for (var i = 0; i < listChecked.length; i++) {
-            if (listChecked[i].value == 'on')
-                continue;
-            if (index < listChecked.length - 1) {
-                productName += listChecked[i].title + ',';
-                produtID += listChecked[i].value + ',';
-            } else {
-                productName += listChecked[i].title;
-                produtID += listChecked[i].value;
-            }
-            index++;
-        }
-
-        var radioCheck = $("#divInvoiceType input[type='radio']:checked");
-        var InvoiceTypeIdTmp = '';
-        var InvoiceTypeNameTmp = '';
-        if (radioCheck && radioCheck.length > 0) {
-            InvoiceTypeIdTmp = radioCheck[0].value;
-            InvoiceTypeNameTmp = radioCheck[0].title;
-        }
-
-        invoiceApp.Products = produtID;
-        invoiceApp.ProductsName = productName;
-        invoiceApp.InvoiceType = {
-            InvoiceTypeID: InvoiceTypeIdTmp,
-            InvoiceTypeName: InvoiceTypeNameTmp
-        };
-    },
-
     allowUpdateNewInfo: function (item) {
         if (item != undefined) {
             var amountID = 'newItem_text_' + $(item).prop('id').split('_')[2];
@@ -736,8 +735,8 @@ var invoiceApp = {
 
 var invoiceApp = invoiceApp || {};
 invoiceApp.helper = {};
-(function(){
-     this.getDateRangeOfLastMonth = function (today) {
+(function () {
+    this.getDateRangeOfLastMonth = function (today) {
         var currentDate = new Date(today);
         var currentMonth = currentDate.getMonth();
         var currentYear = currentDate.getFullYear();
@@ -772,11 +771,11 @@ invoiceApp.helper = {};
         return output;
     }
 
-     this.onFocusInput =function (obj) {
+    this.onFocusInput = function (obj) {
         obj.style.background = '#e5fff3';
     }
 
-    this.onBlurInput= function (obj) {
+    this.onBlurInput = function (obj) {
         obj.style.background = 'white';
     }
 }).apply(invoiceApp.helper);
