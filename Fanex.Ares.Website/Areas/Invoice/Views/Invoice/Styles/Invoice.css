@@ -97,7 +97,7 @@ textarea#styled
 	height: 24px;
 	width: 24px;
 	float:left;
-	margin-left: 50px;
+	margin-left: 15px;
 }
 
 .viewdetail:hover
@@ -114,7 +114,7 @@ textarea#styled
 	height: 24px;
 	width: 24px;
 	float:left;
-	margin-left: 50px;
+	margin-left: 15px;
 }
 
 .delete:hover
