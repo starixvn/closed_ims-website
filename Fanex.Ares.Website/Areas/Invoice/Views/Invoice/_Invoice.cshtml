@@ -63,7 +63,7 @@
                                             </td>
                                         }
                                         <td  class="@fakeCssTd"style="width: 55%; text-align: center; height: 60px; ">
-                                            <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
+                                            <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index"  onfocus="invoiceHelper.onFocusInput(this)" onblur="invoiceHelper.onBlurInput(this)" onchange=" invoiceApp.AllowUpdateNewInfo();">
                                     @if (j == 0)
                                     {
                                        @descript @detail.Description
@@ -75,7 +75,7 @@
                                     }</textarea>
                                         </td>
                                         <td class="@fakeCssTd" style="width: 20%; text-align: center;">
-                                            <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
+                                            <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="invoiceHelper.onFocusInput(this)" onblur="invoiceHelper.onBlurInput(this)"  onchange=" invoiceApp.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                         </td>
                                         <td class="@fakeCssTd" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
                                             padding-right: 10px;">
@@ -87,10 +87,10 @@
                                 }
                                 <tr class="total" style="width: 100%;">
                                     <td style="text-align: center; border-right: 0px solid black !important; padding-left: 25px;">
-                                        <div title="Add new item" style="display: inline-block;" class="newitem" onclick="CreatingInvoice.AddItem(false)">
+                                        <div title="Add new item" style="display: inline-block;" class="newitem" onclick="invoiceApp.addItem(false)">
                                         </div>
                                         &nbsp;&nbsp;
-                                        <div title="Add new discount" style="display: inline-block;" class="discount" onclick="CreatingInvoice.AddItem(true)">
+                                        <div title="Add new discount" style="display: inline-block;" class="discount" onclick="invoiceApp.addItem(true)">
                                         </div>
                                     </td>
                                     <td style="width: 55%; height: 30px;">
@@ -128,8 +128,8 @@
                                 </td>
                                 <td rowspan="7" style="border: 0px !important; vertical-align: top">
                                     <div>
-                                        <textarea maxlength="300" rows="5" cols="85" name="styled-textarea" id="noteId" onfocus="onFocusInput(this)"
-                                            onblur="onBlurInput(this)" onchange=" CreatingInvoice.AllowUpdateNewInfo();"></textarea>
+                                        <textarea maxlength="300" rows="5" cols="85" name="styled-textarea" id="noteId" onfocus="invoiceHelper.onFocusInput(this)"
+                                            onblur="invoiceHelper.onBlurInput(this)" onchange=" invoiceApp.allowUpdateNewInfo();"></textarea>
                                     </div>
                                 </td>
                             </tr>
@@ -254,14 +254,16 @@
     <table border="0px" id="tblconfirm">
     </table>
 </div>
+
 <script type="text/javascript">
 
     var _totalAmount = @totalAmount; 
-    $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' +  NegativeFormat(_totalAmount));
-     CreatingInvoice.TotalAmount = _totalAmount;
+    
+    $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' +  invoiceHelper.negativeFormat(_totalAmount));
+     invoiceApp.TotalAmount = _totalAmount;
     $('#saveID').button();
    
-    $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
+    $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) invoiceApp.saveInvoice(); });
     var invoiceInfo = '@Json.Encode(Model)';
     invoiceInfo = invoiceInfo.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
     invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
@@ -277,14 +279,14 @@
     }
     else {
 
-        $('#divBeneficiary').html(CreatingInvoice.Operator.Benificiary + "&nbsp;&nbsp;&nbsp;");
-        $('#divBeneficiaryBank').html(CreatingInvoice.Operator.BenificiaryBank + "&nbsp;&nbsp;&nbsp;");
-        $('#divAccountNo').html(CreatingInvoice.Operator.AccountNumber + "&nbsp;&nbsp;&nbsp;");
-        $('#divIBAN').html(CreatingInvoice.Operator.IBAN + "&nbsp;&nbsp;&nbsp;");
-        $('#divSwiftCode').html(CreatingInvoice.Operator.SwiftCode + "&nbsp;&nbsp;&nbsp;");
-        $('#divCorrespondent').html(CreatingInvoice.Operator.CorrespondentBank + "&nbsp;&nbsp;&nbsp;");
-        $('#divCorrespondentSwiftCode').html(CreatingInvoice.Operator.CorrespondentSwiftCode + "&nbsp;&nbsp;&nbsp;");
-        $('#divCorrespondentAccNo').html(CreatingInvoice.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
+        $('#divBeneficiary').html(invoiceApp.Operator.Benificiary + "&nbsp;&nbsp;&nbsp;");
+        $('#divBeneficiaryBank').html(invoiceApp.Operator.BenificiaryBank + "&nbsp;&nbsp;&nbsp;");
+        $('#divAccountNo').html(invoiceApp.Operator.AccountNumber + "&nbsp;&nbsp;&nbsp;");
+        $('#divIBAN').html(invoiceApp.Operator.IBAN + "&nbsp;&nbsp;&nbsp;");
+        $('#divSwiftCode').html(invoiceApp.Operator.SwiftCode + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondent').html(invoiceApp.Operator.CorrespondentBank + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondentSwiftCode').html(invoiceApp.Operator.CorrespondentSwiftCode + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondentAccNo').html(invoiceApp.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
 
 function Review() {
@@ -319,19 +321,19 @@ function Review() {
 function ReviewConfirmAfter ()
 {
     NapAres.disableInput();
-    CreatingInvoice.UpdateItem();
-    invoiceInfoModel.Operator = CreatingInvoice.Operator;
-    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-    invoiceInfoModel.Product = CreatingInvoice.Products;
-    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    invoiceApp.updateItem();
+    invoiceInfoModel.Operator = invoiceApp.Operator;
+    invoiceInfoModel.Licensee = invoiceApp.Licensee;
+    invoiceInfoModel.FromDate = invoiceApp.FromDate;
+    invoiceInfoModel.ToDate = invoiceApp.ToDate;
+    invoiceInfoModel.DueDate = invoiceApp.DueDate;
+    invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+    invoiceInfoModel.Product = invoiceApp.Products;
+    invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+    invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+    invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
 
     $.ajax({
         url: domain + "Invoice/Invoice/PrintScreen",
@@ -345,20 +347,20 @@ function ReviewConfirmAfter ()
                 if($.browser.msie){
                     win.load = new function(){
                         win.document.write(data);
-                        win.document.title = CreatingInvoice.InvoiceName;
+                        win.document.title = invoiceApp.InvoiceName;
                     }
                 }
                 else{
                     $(win).load(function(){ 
                         win.document.write(data);
-                        win.document.title = CreatingInvoice.InvoiceName;
+                        win.document.title = invoiceApp.InvoiceName;
                     });
                 }
             }
         },
         error: function(){
             NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
-            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
              NapAres.enableInput();
         }
     });
@@ -369,19 +371,19 @@ function ReviewConfirmAfter ()
 
 function Detail(fromDate, toDate) {
  NapAres.disableInput();
-    CreatingInvoice.UpdateItem();
-    invoiceInfoModel.Operator = CreatingInvoice.Operator;
-    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceApp.updateItem();
+    invoiceInfoModel.Operator = invoiceApp.Operator;
+    invoiceInfoModel.Licensee = invoiceApp.Licensee;
     invoiceInfoModel.FromDate = fromDate;
     invoiceInfoModel.ToDate = toDate;
-    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-    invoiceInfoModel.Product = CreatingInvoice.Products;
-    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    invoiceInfoModel.DueDate = invoiceApp.DueDate;
+    invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+    invoiceInfoModel.Product = invoiceApp.Products;
+    invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+    invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+    invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
     $.ajax({
         url: domain + "Invoice/Invoice/Detail",
         data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
@@ -394,20 +396,20 @@ function Detail(fromDate, toDate) {
                 if($.browser.msie){
                     win.load = new function(){
                         win.document.write(data);
-                        win.document.title = CreatingInvoice.InvoiceName;
+                        win.document.title = invoiceApp.InvoiceName;
                     }
                 }
                 else{
                     $(win).load(function(){ 
                         win.document.write(data);
-                        win.document.title = CreatingInvoice.InvoiceName;
+                        win.document.title = invoiceApp.InvoiceName;
                     });
                 }
             }
         },
         error: function(){
             NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
-            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
              NapAres.enableInput();
         }
     });

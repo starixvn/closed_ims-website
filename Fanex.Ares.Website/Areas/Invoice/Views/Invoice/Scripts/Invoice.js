@@ -1,39 +1,59 @@
 $(document).ready(function () {
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     //------binding events
-    CreatingInvoice.init();
+    invoiceApp.init();
 
 });
 
-function Submit() {
-    if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") == 0 ||
-            CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") == 0 ||
-            $.isNumeric(CreatingInvoice.FilterControls.txtInvoiceNo.val()) == false)
+var invoiceApp = {
+    Licensees: [],
+    FromDate: '',
+    ToDate: '',
+    DueDate: '',
+    Operator: null,
+    Licensee: null,
+    InvoiceType: null,
+    Currency: null,
+    Products: '',
+    ProductsName: '',
+    TotalAmount: 0,
+    InvoiceNo: '',
+    InvoiceName: '',
+    InvoiceID: 0,
+    IdNewItem: 0,
+    messageTimeOut: 4000,
+    isInsert: true,
+    IdNewItemList: [],
+
+    submit: function(){
+    if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") == 0 ||
+            invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") == 0 ||
+            $.isNumeric(invoiceApp.filterControls.txtInvoiceNo.val()) == false)
         return false;
 
-    if (CreatingInvoice.FilterControls.txtInvoiceNo.val().length == 0) {
+    if (invoiceApp.filterControls.txtInvoiceNo.val().length == 0) {
         NapAres.Helper.showMsgBox({
             ErrorCode: 1,
             ErrorMsg: 'Please input Invoice No.!'
         });
-        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
         return false;
     }
 
-    CreatingInvoice.GetFilteringInfo();
+    invoiceApp.getFilteringInfo();
 
-    if (CreatingInvoice.Products.length == 0) {
+    if (invoiceApp.Products.length == 0) {
         NapAres.Helper.showMsgBox({
             ErrorCode: 1,
             ErrorMsg: 'Please select product!'
         });
-        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
 
         return false;
     }
 
-    var toDateSelected = new Date(CreatingInvoice.FilterControls.cldToDate.val());
-    var totalDays = CreatingInvoice.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
+    var toDateSelected = new Date(invoiceApp.filterControls.cldToDate.val());
+    var totalDays = invoiceHelper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
 
     if (toDateSelected.getDate() != totalDays) {
         $("#dialog:ui-dialog").dialog("destroy");
@@ -46,7 +66,7 @@ function Submit() {
             buttons: {
                 Ok: function () {
                     $(this).dialog("close");
-                    CreatingInvoice.GetNewInvoiceData();
+                    invoiceApp.getNewInvoiceData();
                 },
                 Cancel: function () {
                     $(this).dialog("close");
@@ -56,16 +76,16 @@ function Submit() {
         $(".ui-dialog-titlebar").hide();
     }
     else {
-        CreatingInvoice.GetNewInvoiceData();
+        invoiceApp.getNewInvoiceData();
     }
-}
+    },
 
-function GetInvoiceType() {
-    NapAres.disableInput();
+    getInvoiceType: function(){
+     NapAres.disableInput();
     $.ajax({
-        url: domain + "Invoice/Invoice/GetInvoiceType",
+        url: domain + "Invoice/Invoice/getInvoiceType",
         type: "POST",
-        data: 'licenseeID=' + CreatingInvoice.FilterControls.ddlLicensee.val(),
+        data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val(),
         success: function (result) {
             var invoiceTypeList = [];
             var productList = [];
@@ -102,7 +122,7 @@ function GetInvoiceType() {
                 hasOptGroup: true,
                 onCheck: function () {
                     if (!$(this).is(':checked')) {
-                        CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+                        invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
                         $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                         $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                     }
@@ -126,51 +146,32 @@ function GetInvoiceType() {
             NapAres.enableInput();
         }
     });
-}
+    },
 
-function GetInvoiceNo() {
-    NapAres.disableInput();
-    CreatingInvoice.GetSelectedInvoiceType();
+    getInvoiceNo: function(){
+     NapAres.disableInput();
+    invoiceApp.getSelectedInvoiceType();
     $.ajax({
         url: domain + "Invoice/Invoice/GetInvoiceNo",
         type: "POST",
-        data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val(),
+        data: 'PartyId=' + invoiceApp.filterControls.ddlOperator.val(),
         success: function (data, textStatus, jqXHR) {
-            CreatingInvoice.FilterControls.txtInvoiceNo.val(data);
+            invoiceApp.filterControls.txtInvoiceNo.val(data);
         },
         error: function (xhr, ajaxOptions, thrownError) {
             NapAres.Helper.showMsgBox({
                 ErrorCode: 1,
                 ErrorMsg: 'Loading InvoiceNo fail.'
             });
-            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
         },
         complete: function (jqXHR, textStatus) {
             NapAres.enableInput();
         }
     });
-}
+    },
 
-var CreatingInvoice = {
-    Licensees: [],
-    FromDate: '',
-    ToDate: '',
-    DueDate: '',
-    Operator: null,
-    Licensee: null,
-    InvoiceType: null,
-    Currency: null,
-    Products: '',
-    ProductsName: '',
-    TotalAmount: 0,
-    InvoiceNo: '',
-    InvoiceName: '',
-    InvoiceID: 0,
-    IdNewItem: 0,
-    messageTimeOut: 4000,
-    isInsert: true,
-    IdNewItemList: [],
-    FilterControls: {
+    filterControls: {
         ddlOperator: $('#ddlOperator'),
         ddlLicensee: $('#ddlLicensee'),
         cldFromDate: null,
@@ -190,7 +191,7 @@ var CreatingInvoice = {
             gravity: 'ne'
         });
 
-        var rangeDate = CreatingInvoice.getDateRangeOfLastMonth(_today);
+        var rangeDate = invoiceHelper.getDateRangeOfLastMonth(_today);
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "daterange",
             datePickerFormat: {
@@ -212,7 +213,7 @@ var CreatingInvoice = {
                 TextboxCss: "edit-field col_5"
             },
             onSelectDatePicker: function () {
-                CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             },
@@ -236,7 +237,7 @@ var CreatingInvoice = {
                 InitDate: new Date(selectDueDate)
             },
             onSelectDatePicker: function () {
-                CreatingInvoice.DueDate = CreatingInvoice.FilterControls.cldDueDate.val();
+                invoiceApp.DueDate = invoiceApp.filterControls.cldDueDate.val();
                 $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
                 $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
                 $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
@@ -244,86 +245,88 @@ var CreatingInvoice = {
             minDate: new Date(minDate)
         });
 
-        CreatingInvoice.FilterControls.cldFromDate = $('#FromDatePicker');
-        CreatingInvoice.FilterControls.cldToDate = $('#ToDatePicker');
-        CreatingInvoice.FilterControls.cldDueDate = $('#DueDatePicker');
+        invoiceApp.filterControls.cldFromDate = $('#FromDatePicker');
+        invoiceApp.filterControls.cldToDate = $('#ToDatePicker');
+        invoiceApp.filterControls.cldDueDate = $('#DueDatePicker');
 
-        CreatingInvoice.FilterControls.btnGenerate.button();
-        CreatingInvoice.FilterControls.btnGenerate.click(function () {
-            if (!$(this).hasClass('ui-state-disabled')) Submit();
+        invoiceApp.filterControls.btnGenerate.button();
+        invoiceApp.filterControls.btnGenerate.click(function () {
+            if (!$(this).hasClass('ui-state-disabled')){
+               invoiceApp.submit();
+            }
         });
 
-        CreatingInvoice.FilterControls.btnNewInvoice.button();
+        invoiceApp.filterControls.btnNewInvoice.button();
 
-        CreatingInvoice.FilterControls.ddlLicensee.change(function () {
-            if (CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") != 0) {
-                GetInvoiceType();
-                CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+        invoiceApp.filterControls.ddlLicensee.change(function () {
+            if (invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") != 0) {
+                invoiceApp.getInvoiceType();
+                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             } else {
-                CreatingInvoice.FilterControls.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                CreatingInvoice.FilterControls.txtInvoiceNo.val('');
+                invoiceApp.filterControls.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                invoiceApp.filterControls.txtInvoiceNo.val('');
             }
         });
 
-        CreatingInvoice.FilterControls.ddlOperator.change(function () {
-            CreatingInvoice.FilterControls.ddlLicensee.html('');
-            CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+        invoiceApp.filterControls.ddlOperator.change(function () {
+            invoiceApp.filterControls.ddlLicensee.html('');
+            invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
 
             $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-            CreatingInvoice.FilterControls.txtInvoiceNo.val('');
+            invoiceApp.filterControls.txtInvoiceNo.val('');
 
-            if (CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") != 0) {
-                CreatingInvoice.GetLicensees();
+            if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") != 0) {
+                invoiceApp.getLicensees();
             }
 
-            GetInvoiceNo();
+            invoiceApp.getInvoiceNo();
         });
 
-        CreatingInvoice.FilterControls.txtInvoiceNo.change(function () {
-            CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+        invoiceApp.filterControls.txtInvoiceNo.change(function () {
+            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
-        CreatingInvoice.FilterControls.ddlCurrency.change(function () {
-            CreatingInvoice.FilterControls.btnGenerate.removeClass('ui-state-disabled');
+        invoiceApp.filterControls.ddlCurrency.change(function () {
+            invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
         //------binding data
 
-        CreatingInvoice.FilterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
+        invoiceApp.filterControls.ddlOperator.append('<option value="0">Please Select One!</option>');
         $.each(operatorListModel, function (i, item) {
-            CreatingInvoice.FilterControls.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
+            invoiceApp.filterControls.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
         });
-        CreatingInvoice.FilterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
+        invoiceApp.filterControls.ddlLicensee.append('<option value="0">Please Select One!</option>');
         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
         NapAres.NapAresPopUp = $('#dialog-popup');
     },
 
-    GetLicensees: function () {
+    getLicensees: function () {
         NapAres.disableInput();
         $.ajax({
-            url: domain + "Invoice/Invoice/GetLicenseesByParty",
+            url: domain + "Invoice/Invoice/getLicenseesByParty",
             type: "POST",
-            data: 'PartyId=' + CreatingInvoice.FilterControls.ddlOperator.val(),
+            data: 'PartyId=' + invoiceApp.filterControls.ddlOperator.val(),
             success: function (data, textStatus, jqXHR) {
                 if (data && data.length > 0) {
                     $.each(data, function (i, item) {
-                        CreatingInvoice.FilterControls.ddlLicensee.append('<option value="' + item.LicenseeID + '">' + item.BrandName + '</option>');
+                        invoiceApp.filterControls.ddlLicensee.append('<option value="' + item.LicenseeID + '">' + item.BrandName + '</option>');
                     });
                 }
-                CreatingInvoice.Licensees = data;
+                invoiceApp.Licensees = data;
             },
             error: function (xhr, ajaxOptions, thrownError) {
                 NapAres.Helper.showMsgBox({
                     ErrorCode: 1,
                     ErrorMsg: 'Loading Licensee data fail.'
                 });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
@@ -331,45 +334,45 @@ var CreatingInvoice = {
         });
     },
 
-    GetFilteringInfo: function () {
-        var Operator = operatorListModel[CreatingInvoice.FilterControls.ddlOperator.prop("selectedIndex") - 1];
-        var Licensee = CreatingInvoice.Licensees[CreatingInvoice.FilterControls.ddlLicensee.prop("selectedIndex") - 1];
+    getFilteringInfo: function () {
+        var Operator = operatorListModel[invoiceApp.filterControls.ddlOperator.prop("selectedIndex") - 1];
+        var Licensee = invoiceApp.Licensees[invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") - 1];
 
-        CreatingInvoice.GetSelectedInvoiceType();
+        invoiceApp.getSelectedInvoiceType();
 
-        CreatingInvoice.Operator = Operator;
-        CreatingInvoice.Licensee = Licensee;
-        CreatingInvoice.FromDate = CreatingInvoice.FilterControls.cldFromDate.val();
-        CreatingInvoice.ToDate = CreatingInvoice.FilterControls.cldToDate.val();
-        CreatingInvoice.DueDate = CreatingInvoice.FilterControls.cldDueDate.val();
-        CreatingInvoice.Currency = {
-            CurrencyID: CreatingInvoice.FilterControls.ddlCurrency.val(),
+        invoiceApp.Operator = Operator;
+        invoiceApp.Licensee = Licensee;
+        invoiceApp.FromDate = invoiceApp.filterControls.cldFromDate.val();
+        invoiceApp.ToDate = invoiceApp.filterControls.cldToDate.val();
+        invoiceApp.DueDate = invoiceApp.filterControls.cldDueDate.val();
+        invoiceApp.Currency = {
+            CurrencyID: invoiceApp.filterControls.ddlCurrency.val(),
             CurrencyName: $('#CurrencyID option:selected').text()
         };
-        CreatingInvoice.InvoiceNo = CreatingInvoice.FilterControls.txtInvoiceNo.val();
-        CreatingInvoice.InvoiceName = this.mappingSpecialPartyName(Operator.PartyName) + ' INV-' + (CreatingInvoice.InvoiceNo > 9 ? CreatingInvoice.InvoiceNo : '0' + CreatingInvoice.InvoiceNo);
+        invoiceApp.InvoiceNo = invoiceApp.filterControls.txtInvoiceNo.val();
+        invoiceApp.InvoiceName = this.mappingSpecialPartyName(Operator.PartyName) + ' INV-' + (invoiceApp.InvoiceNo > 9 ? invoiceApp.InvoiceNo : '0' + invoiceApp.InvoiceNo);
 
     },
 
-    GetNewInvoiceData: function () {
+    getNewInvoiceData: function () {
         NapAres.disableInput();
         $.ajax({
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
             type: "POST",
-            data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&InvoiceNo=' + CreatingInvoice.InvoiceNo,
+            data: 'PartyID=' + invoiceApp.Operator.PartyID + '&InvoiceNo=' + invoiceApp.InvoiceNo,
             success: function (data, textStatus, jqXHR) {
                 if (data == false) {
                     $.ajax({
                         url: domain + "Invoice/Invoice/GetInvoice",
                         type: "POST",
-                        data: 'PartyID=' + CreatingInvoice.Operator.PartyID + '&LicenseeID=' + CreatingInvoice.Licensee.LicenseeID + '&Products=' + CreatingInvoice.Products + '&FromDate=' + CreatingInvoice.FromDate + '&ToDate=' + CreatingInvoice.ToDate + '&BillingCurrency=' + CreatingInvoice.Currency.CurrencyID,
+                        data: 'PartyID=' + invoiceApp.Operator.PartyID + '&LicenseeID=' + invoiceApp.Licensee.LicenseeID + '&Products=' + invoiceApp.Products + '&FromDate=' + invoiceApp.FromDate + '&ToDate=' + invoiceApp.ToDate + '&BillingCurrency=' + invoiceApp.Currency.CurrencyID,
                         success: function (data, textStatus, jqXHR) {
                             $('#parentContainer').html(data);
-                            CreatingInvoice.IdNewItemList = [];
-                            CreatingInvoice.IdNewItem = invoiceInfoModel.StatementList.length + 1;
+                            invoiceApp.IdNewItemList = [];
+                            invoiceApp.IdNewItem = invoiceInfoModel.StatementList.length + 1;
                             $("#parentContainer").css("margin-top", "90px !important;");
                             //disable Generate button
-                            CreatingInvoice.FilterControls.btnGenerate.addClass('ui-state-disabled');
+                            invoiceApp.filterControls.btnGenerate.addClass('ui-state-disabled');
 
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
@@ -378,7 +381,7 @@ var CreatingInvoice = {
                                 ErrorCode: 1,
                                 ErrorMsg: 'Loading data fail.'
                             });
-                            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
                         },
                         complete: function (jqXHR, textStatus) {
                             NapAres.enableInput();
@@ -390,7 +393,7 @@ var CreatingInvoice = {
                         ErrorCode: 1,
                         ErrorMsg: 'The Invoice No. is existed, please enter a new number!'
                     });
-                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                    setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -399,7 +402,7 @@ var CreatingInvoice = {
                     ErrorCode: 1,
                     ErrorMsg: 'Loading data fail.'
                 });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
@@ -407,24 +410,24 @@ var CreatingInvoice = {
         });
     },
 
-    SaveInvoice: function () {
-        CreatingInvoice.UpdateItem();
-        invoiceInfoModel.Operator = CreatingInvoice.Operator;
-        invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
-        invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
-        invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
-        invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
-        invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
-        invoiceInfoModel.Product = CreatingInvoice.Products;
-        invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
-        invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
-        invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
-        invoiceInfoModel.TotalAmount = CreatingInvoice.TotalAmount;
+    saveInvoice: function () {
+        invoiceApp.updateItem();
+        invoiceInfoModel.Operator = invoiceApp.Operator;
+        invoiceInfoModel.Licensee = invoiceApp.Licensee;
+        invoiceInfoModel.FromDate = invoiceApp.FromDate;
+        invoiceInfoModel.ToDate = invoiceApp.ToDate;
+        invoiceInfoModel.DueDate = invoiceApp.DueDate;
+        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+        invoiceInfoModel.Product = invoiceApp.Products;
+        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
+        invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount;
         var message = '';
         $.ajax({
-            url: domain + "Invoice/Invoice/SaveInvoice",
+            url: domain + "Invoice/Invoice/saveInvoice",
             data: '{"invoiceModel":' + JSON.stringify(invoiceInfoModel) + '}',
             contentType: 'application/json',
             type: "POST",
@@ -432,20 +435,20 @@ var CreatingInvoice = {
                 if (data) {
                     if (data.ErrorCode == 0) {
                         $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                        CreatingInvoice.FilterControls.btnGenerate.addClass('ui-state-disabled');
+                        invoiceApp.filterControls.btnGenerate.addClass('ui-state-disabled');
                         $('#pdfID').removeClass('ui-state-disabled').removeAttr('disabled');
 
-                        CreatingInvoice.FilterControls.ddlOperator.attr('disabled', 'disabled');
-                        CreatingInvoice.FilterControls.ddlLicensee.attr('disabled', 'disabled');
-                        CreatingInvoice.FilterControls.cldFromDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
-                        CreatingInvoice.FilterControls.cldToDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
-                        CreatingInvoice.FilterControls.divInvoiceType.find('input').attr('disabled', 'disabled').addClass('ui-state-disabled');
-                        CreatingInvoice.FilterControls.ddlCurrency.attr('disabled', 'disabled');
-                        CreatingInvoice.FilterControls.txtInvoiceNo.attr('disabled', 'disabled');
+                        invoiceApp.filterControls.ddlOperator.attr('disabled', 'disabled');
+                        invoiceApp.filterControls.ddlLicensee.attr('disabled', 'disabled');
+                        invoiceApp.filterControls.cldFromDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        invoiceApp.filterControls.cldToDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        invoiceApp.filterControls.divInvoiceType.find('input').attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        invoiceApp.filterControls.ddlCurrency.attr('disabled', 'disabled');
+                        invoiceApp.filterControls.txtInvoiceNo.attr('disabled', 'disabled');
 
-                        CreatingInvoice.InvoiceID = data.ErrorMessage;
-                        invoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
-                        OrgInvoiceInfoModel.InvoiceID = CreatingInvoice.InvoiceID;
+                        invoiceApp.InvoiceID = data.ErrorMessage;
+                        invoiceInfoModel.InvoiceID = invoiceApp.InvoiceID;
+                        OrgInvoiceInfoModel.InvoiceID = invoiceApp.InvoiceID;
                         NapAres.Helper.showMsgBox({
                             ErrorCode: 0,
                             ErrorMsg: 'Saving invoice successfully.'
@@ -457,14 +460,14 @@ var CreatingInvoice = {
                             ErrorCode: data.ErrCode,
                             ErrorMsg: data.ErrorMessage
                         });
-                        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
                     }
                 } else {
                     NapAres.Helper.showMsgBox({
                         ErrorCode: 1,
                         ErrorMsg: 'Saving invoice unsuccessfully.'
                     });
-                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                    setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -472,14 +475,14 @@ var CreatingInvoice = {
                     ErrorCode: 1,
                     ErrorMsg: 'Saving invoice unsuccessfully.'
                 });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
             }
         });
 
-        setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
     },
 
     getProductId: function () {
@@ -500,26 +503,26 @@ var CreatingInvoice = {
         return result;
     },
 
-    AddItem: function (isDiscount) {
+    addItem: function (isDiscount) {
         var displayID = invoiceInfoModel.StatementList.length + 1;
-        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
-            var id = CreatingInvoice.IdNewItemList[i];
+        for (var i = 0; i < invoiceApp.IdNewItemList.length; i++) {
+            var id = invoiceApp.IdNewItemList[i];
             var amount = $('#newItem_text_' + id).val();
             if ($('#newItem_display_' + id).attr('discountItem') == "false") {
                 displayID++;
             }
         }
-        if (CreatingInvoice.isInsert) {
-            $('#invoiceTbl tr.total').before(' <tr id="newItem_' + CreatingInvoice.IdNewItem + '" style="width: 100%; text-align: center;">\
-                                    <td   style="width: 10%; "><div discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + CreatingInvoice.IdNewItem + '" style="  font-size: 20px;display: inline-block;">' + (isDiscount == true ? "" : displayID) + ' </div> <div style="display: inline-block;" title="Delete"  class="delete" onclick="CreatingInvoice.DeleteItem(' + CreatingInvoice.IdNewItem + ')"></div></td>\
+        if (invoiceApp.isInsert) {
+            $('#invoiceTbl tr.total').before(' <tr id="newItem_' + invoiceApp.IdNewItem + '" style="width: 100%; text-align: center;">\
+                                    <td   style="width: 10%; "><div discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + invoiceApp.IdNewItem + '" style="  font-size: 20px;display: inline-block;">' + (isDiscount == true ? "" : displayID) + ' </div> <div style="display: inline-block;" title="Delete"  class="delete" onclick="invoiceApp.deleteItem(' + invoiceApp.IdNewItem + ')"></div></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea  onfocus="onFocusInput(this)" onblur="onBlurInput(this)"  id="newItem_des_' + CreatingInvoice.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea  onfocus="onFocusInput(this)" onblur="onBlurInput(this)" id="newItem_ref_' + CreatingInvoice.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" CreatingInvoice.AllowUpdateNewInfo(this);"></textarea></td>\
+                                    <textarea  onfocus="invoiceHelper.onFocusInput(this)" onblur="invoiceHelper.onBlurInput(this)"  id="newItem_des_' + invoiceApp.IdNewItem + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea  onfocus="invoiceHelper.onFocusInput(this)" onblur="invoiceHelper.onBlurInput(this)" id="newItem_ref_' + invoiceApp.IdNewItem + '" rows="2" cols="33" name="styled-textarea"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
-                                        <input class="numeric"  name=""  onblur="CreatingInvoice.RecalculatorTotal();" id="newItem_text_' + CreatingInvoice.IdNewItem + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
-            CreatingInvoice.IdNewItemList.push(CreatingInvoice.IdNewItem);
-            CreatingInvoice.IdNewItem = CreatingInvoice.IdNewItem + 1;
+                                        <input class="numeric"  name=""  onblur="invoiceApp.recalculateTotal();" id="newItem_text_' + invoiceApp.IdNewItem + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
+            invoiceApp.IdNewItemList.push(invoiceApp.IdNewItem);
+            invoiceApp.IdNewItem = invoiceApp.IdNewItem + 1;
             $(".numeric").numeric();
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
@@ -527,12 +530,12 @@ var CreatingInvoice = {
         }
     },
 
-    DeleteItem: function (trId) {
+    deleteItem: function (trId) {
         $("#newItem_" + trId).remove();
-        CreatingInvoice.IdNewItemList = jQuery.grep(CreatingInvoice.IdNewItemList, function (value) {
+        invoiceApp.IdNewItemList = jQuery.grep(invoiceApp.IdNewItemList, function (value) {
             return value != trId;
         });
-        if (CreatingInvoice.IdNewItemList.length == 0) {
+        if (invoiceApp.IdNewItemList.length == 0) {
             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             $('#pdfID').removeClass('ui-state-disabled').removeAttr('disabled');
         } else {
@@ -540,16 +543,16 @@ var CreatingInvoice = {
             $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         }
 
-        CreatingInvoice.RecalculatorTotal();
+        invoiceApp.recalculateTotal();
     },
 
-    RecalculatorTotal: function () {
+    recalculateTotal: function () {
         NapAres.Helper.hideMsgBox();
         var totalAmountTmp = _totalAmount;
         var index = invoiceInfoModel.StatementList.length + 1;
 
-        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
-            var id = CreatingInvoice.IdNewItemList[i];
+        for (var i = 0; i < invoiceApp.IdNewItemList.length; i++) {
+            var id = invoiceApp.IdNewItemList[i];
 
             var amount = $('#newItem_text_' + id).val();
             if ($.isNumeric(amount) == true) {
@@ -561,8 +564,8 @@ var CreatingInvoice = {
             }
         }
 
-        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
-            var id = CreatingInvoice.IdNewItemList[i];
+        for (var i = 0; i < invoiceApp.IdNewItemList.length; i++) {
+            var id = invoiceApp.IdNewItemList[i];
 
             var amount = $('#newItem_display_' + id).attr('amount');
             if ($('#newItem_display_' + id).attr('discountItem') == "false") {
@@ -576,8 +579,8 @@ var CreatingInvoice = {
                         ErrorCode: 1,
                         ErrorMsg: 'Please input value !'
                     });
-                    setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                    CreatingInvoice.isInsert = false;
+                    setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                    invoiceApp.isInsert = false;
                     $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                     $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                     $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
@@ -588,8 +591,8 @@ var CreatingInvoice = {
                     ErrorCode: 1,
                     ErrorMsg: 'Please just input numberic !'
                 });
-                setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
-                CreatingInvoice.isInsert = false;
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                invoiceApp.isInsert = false;
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
@@ -626,15 +629,15 @@ var CreatingInvoice = {
             }
         }
 
-        $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' + NegativeFormat(totalAmountTmp));
-        invoiceInfoModel.TotalAmount = CreatingInvoice.TotalAmount = totalAmountTmp;
+        $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' + invoiceHelper.negativeFormat(totalAmountTmp));
+        invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount = totalAmountTmp;
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
 
-        CreatingInvoice.isInsert = true;
+        invoiceApp.isInsert = true;
     },
 
-    UpdateItem: function () {
+    updateItem: function () {
         var statement = {
             StatementID: 1000,
             StatementDetailList: []
@@ -652,8 +655,8 @@ var CreatingInvoice = {
             }
         }
 
-        for (var i = 0; i < CreatingInvoice.IdNewItemList.length; i++) {
-            var id = CreatingInvoice.IdNewItemList[i];
+        for (var i = 0; i < invoiceApp.IdNewItemList.length; i++) {
+            var id = invoiceApp.IdNewItemList[i];
             var statementDetail = {
                 Description: '',
                 Reference: '',
@@ -673,7 +676,7 @@ var CreatingInvoice = {
         return invoiceInfoModel.StatementList;
     },
 
-    GetSelectedInvoiceType: function () {
+    getSelectedInvoiceType: function () {
         var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
         var productName = '';
         var produtID = '';
@@ -699,15 +702,15 @@ var CreatingInvoice = {
             InvoiceTypeNameTmp = radioCheck[0].title;
         }
 
-        CreatingInvoice.Products = produtID;
-        CreatingInvoice.ProductsName = productName;
-        CreatingInvoice.InvoiceType = {
+        invoiceApp.Products = produtID;
+        invoiceApp.ProductsName = productName;
+        invoiceApp.InvoiceType = {
             InvoiceTypeID: InvoiceTypeIdTmp,
             InvoiceTypeName: InvoiceTypeNameTmp
         };
     },
 
-    AllowUpdateNewInfo: function (item) {
+    allowUpdateNewInfo: function (item) {
         if (item != undefined) {
             var amountID = 'newItem_text_' + $(item).prop('id').split('_')[2];
             if ($('#' + amountID).val() != '') {
@@ -722,6 +725,15 @@ var CreatingInvoice = {
         }
     },
 
+    mappingSpecialPartyName: function (partyName) {
+        if (partyName.toLowerCase() == 'cozni') {
+            partyName = 'CL';
+        }
+        return partyName
+    }
+}
+
+var invoiceHelper = {
     getDateRangeOfLastMonth: function (today) {
         var currentDate = new Date(today);
         var currentMonth = currentDate.getMonth();
@@ -737,7 +749,7 @@ var CreatingInvoice = {
         } else {
             var month = currentMonth - 1;
             startDate = new Date(currentYear, month, 1);
-            endDate = new Date(currentYear, month, CreatingInvoice.getTotalDayOfMonth(month + 1, currentYear));
+            endDate = new Date(currentYear, month, invoiceHelper.getTotalDayOfMonth(month + 1, currentYear));
         }
         return [startDate, endDate];
     },
@@ -751,24 +763,17 @@ var CreatingInvoice = {
         return m[1] + 1;
     },
 
-    mappingSpecialPartyName: function (partyName) {
-        if (partyName.toLowerCase() == 'cozni') {
-            partyName = 'CL';
-        }
-        return partyName
+    negativeFormat: function (input) {
+        var output = '';
+        output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
+        return output;
+    },
+
+    onFocusInput: function (obj) {
+        obj.style.background = '#e5fff3';
+    },
+
+    onBlurInput: function (obj) {
+        obj.style.background = 'white';
     }
-}
-
-function NegativeFormat(input) {
-    var output = '';
-    output = input >= 0 ? "<span style=\"font-weight: bold; \">" + numeral(input).format(FormatConstant.TWO_DECIMAL_NUMBER) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + numeral(input * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ")</span>";
-    return output;
-}
-
-function onFocusInput(obj) {
-    obj.style.background = '#e5fff3';
-}
-
-function onBlurInput(obj) {
-    obj.style.background = 'white';
 }
