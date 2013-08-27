@@ -293,6 +293,7 @@ var invoiceApp = {
 
     addItem: function (isDiscount) {
         var displayID = invoiceInfoModel.StatementList.length + 1;
+
         for (var i = 0; i < invoiceApp.newItemIDsList.length; i++) {
             var id = invoiceApp.newItemIDsList[i];
             var amount = $('#newItem_text_' + id).val();
@@ -307,6 +308,7 @@ var invoiceApp = {
                 displayID++;
             }
         }
+
         if (invoiceApp.isInsert) {
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + invoiceApp.newItemID + '" style="width: 100%; text-align: center;">\
                                     <td   style="width: 10%; "><div discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + invoiceApp.newItemID + '" style="  font-size: 20px;display: inline-block;">' + (isDiscount == true ? "" : displayID) + ' </div> <div style="display: inline-block;" title="Delete"  class="delete" onclick="invoiceApp.deleteItem(' + invoiceApp.newItemID + ')"></div></td>\
@@ -314,7 +316,7 @@ var invoiceApp = {
                                     <textarea  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  id="newItem_des_' + invoiceApp.newItemID + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 20%; text-align: center;"><textarea  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" id="newItem_ref_' + invoiceApp.newItemID + '" rows="2" cols="33" name="styled-textarea"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
-                                    <div style="width: 90%; height: 20px; margin: -20px 5px 0px 10px;text-align: right;">\
+                                    <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px;text-align: right;">\
                                         <input class="numeric"  name=""  onblur="invoiceApp.recalculateTotal();" id="newItem_text_' + invoiceApp.newItemID + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
             invoiceApp.newItemIDsList.push(invoiceApp.newItemID);
             invoiceApp.newItemID = invoiceApp.newItemID + 1;
@@ -464,6 +466,7 @@ var invoiceApp = {
             statementDetail.DiscountItem = $('#newItem_display_' + id).attr('discountItem');
             statement.StatementDetailList.push(statementDetail);
         }
+
         if (statement.StatementDetailList.length > 0) {
             invoiceInfoModel.StatementList.push(statement);
         }

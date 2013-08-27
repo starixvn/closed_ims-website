@@ -171,7 +171,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     {
                         partyID = invoice.Operator.PartyID,
                         licenseeID = invoice.Licensee.LicenseeID,
-                        Products = invoice.Product,
+                        Products = Products[j],
                         FromDate = dateRangeList[i].StartDate,
                         ToDate = dateRangeList[i].EndDate
                     });
@@ -252,7 +252,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     {
                         partyID = invoice.Operator.PartyID,
                         licenseeID = invoice.Licensee.LicenseeID,
-                        Products = invoice.Product,
+                        Products = ProductID[j],
                         FromDate = dateRangeList[i].StartDate,
                         ToDate = dateRangeList[i].EndDate
                     });
@@ -314,7 +314,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     {
                         partyID = invoice.Operator.PartyID,
                         licenseeID = invoice.Licensee.LicenseeID,
-                        Products = invoice.Product,
+                        Products = Products[j],
                         FromDate = dateRangeList[i].StartDate,
                         ToDate = dateRangeList[i].EndDate
                     });
