@@ -28,5 +28,4 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public DateTime EndDate { get; set; }
     }
-    
 }

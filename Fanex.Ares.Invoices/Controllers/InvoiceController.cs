@@ -64,7 +64,7 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorSelCriteria() { PartyID = 0 });
+            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorCriteria() { PartyID = 0 });
             ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
             return View();
         }
@@ -169,8 +169,8 @@ namespace Fanex.Ares.Invoice.Controllers
                 {
                     chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
                     {
-                        partyID = invoice.Operator.PartyID,
-                        licenseeID = invoice.Licensee.LicenseeID,
+                        PartyID = invoice.Operator.PartyID,
+                        LicenseeID = invoice.Licensee.LicenseeID,
                         Products = Products[j],
                         FromDate = dateRangeList[i].StartDate,
                         ToDate = dateRangeList[i].EndDate
@@ -250,8 +250,8 @@ namespace Fanex.Ares.Invoice.Controllers
                 {
                     chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
                     {
-                        partyID = invoice.Operator.PartyID,
-                        licenseeID = invoice.Licensee.LicenseeID,
+                        PartyID = invoice.Operator.PartyID,
+                        LicenseeID = invoice.Licensee.LicenseeID,
                         Products = ProductID[j],
                         FromDate = dateRangeList[i].StartDate,
                         ToDate = dateRangeList[i].EndDate
@@ -312,8 +312,8 @@ namespace Fanex.Ares.Invoice.Controllers
                 {
                     chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
                     {
-                        partyID = invoice.Operator.PartyID,
-                        licenseeID = invoice.Licensee.LicenseeID,
+                        PartyID = invoice.Operator.PartyID,
+                        LicenseeID = invoice.Licensee.LicenseeID,
                         Products = Products[j],
                         FromDate = dateRangeList[i].StartDate,
                         ToDate = dateRangeList[i].EndDate

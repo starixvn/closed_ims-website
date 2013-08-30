@@ -4,9 +4,9 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
 namespace Fanex.Ares.Invoice.Models.Invoice
 {
+    using System;
 
     /// <summary>
     /// TODO: Update summary.

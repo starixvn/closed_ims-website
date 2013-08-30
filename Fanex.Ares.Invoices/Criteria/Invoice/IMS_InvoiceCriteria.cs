@@ -39,11 +39,6 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
         public DateTime ToDate { get; set; }
 
         public DateTime DueDate { get; set; }
-
-        //public List<DateRangeCriteria> DateRangeList { get; set; }
-
-        //public List<ProductCriteria> ProductList { get; set; }
-
     }
 
     public class DateRangeCriteria

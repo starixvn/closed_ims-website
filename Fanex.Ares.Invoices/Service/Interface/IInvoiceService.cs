@@ -10,12 +10,13 @@ namespace Fanex.Ares.Invoice.Service.Interface
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public interface IInvoiceService
     {
-        List<Operator> GetOperatorList(IMS_OperatorSelCriteria criteria);
+        List<Operator> GetOperatorList(IMS_OperatorCriteria criteria);
 
         List<Licensee> GeLicenseesList(IMS_LicenseeSelByPartyCriteria criteria);
 

@@ -15,7 +15,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class IMS_OperatorSelCriteria : CriteriaBase
+    public class IMS_OperatorCriteria : CriteriaBase
     {
         public int PartyID { get; set; }
 

@@ -8,14 +8,14 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Ares.Invoice.Criteria.Invoice;
-    using Fanex.Ares.Core.Models;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+    
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     [Serializable]
     public class InvoiceModel
     {
@@ -65,6 +65,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
             this.IsSignature = true;
         }
     }
+
     [Serializable]
     public class Statement
     {
@@ -99,6 +100,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public bool DiscountItem { get; set; }
 
+        public int ProductType { get; set; }
+
         public List<StatementDetail> StatementProductDetail { get; set; }
 
         public StatementDetail()
@@ -116,7 +119,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public int PartyType { get; set; }
 
-        public string Company {get;set;}
+        public string Company { get; set; }
 
         public string Description { get; set; }
 
@@ -191,5 +194,3 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public DateTime EndDate { get; set; }
     }
 }
-
-

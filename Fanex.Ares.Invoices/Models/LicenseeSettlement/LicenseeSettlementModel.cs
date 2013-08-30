@@ -26,9 +26,9 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
 
         public LicenseeSettlementModel()
         {
-            ExchangeList = new List<ExchangeRate>();
-            Report = new Report();
-            LicenseeInfor = new LicenseeInformation();
+            this.ExchangeList = new List<ExchangeRate>();
+            this.Report = new Report();
+            this.LicenseeInfor = new LicenseeInformation();
         }
     }
 
@@ -41,8 +41,8 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
 
         public Report()
         {
-            EntityList = new List<ReportEntity>();
-            GrandTotal = new ReportEntity();
+            this.EntityList = new List<ReportEntity>();
+            this.GrandTotal = new ReportEntity();
         }
     }
 

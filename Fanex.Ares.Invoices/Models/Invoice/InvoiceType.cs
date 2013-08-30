@@ -10,10 +10,12 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     [Serializable]
     public class InvoiceType
     {
@@ -25,7 +27,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public InvoiceType()
         {
-            ProductList = new List<Product>();
+            this.ProductList = new List<Product>();
         }
     }
 }

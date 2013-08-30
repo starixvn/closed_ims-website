@@ -15,10 +15,15 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     public class IMS_NewInvoiceItemsSelCriteria : CriteriaBase
     {
         public int PartyID { get; set; }
+
         public int LicenseeID { get; set; }
+
         public string Products { get; set; }
+
         public DateTime FromDate { get; set; }
+
         public DateTime ToDate { get; set; }
+
         public int BillingCurrency { get; set; }
 
         public override string GetSettingKey()

@@ -14,6 +14,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     public class IMS_InvoiceNoSelCriteria : CriteriaBase
     {
         public int PartyId { get; set; }
+
         public override string GetSettingKey()
         {
             return "IMS_NewInvoiceNoSel";

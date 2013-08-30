@@ -240,6 +240,7 @@
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\inovice.angular.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.filter.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.helper.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Acqua-logo.png" />
@@ -256,6 +257,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Lupine.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\add.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\add-hover.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\StarExpress.jpg" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\view_detail-hover.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\view_detail.png" />
@@ -697,6 +699,7 @@
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\LDL\_LDL_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Live Casino.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Invoice_Angular.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

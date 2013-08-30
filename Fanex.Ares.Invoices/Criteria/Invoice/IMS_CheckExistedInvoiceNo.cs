@@ -7,16 +7,20 @@
 namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
     using Fanex.NAP.Framework.Data;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class IMS_CheckExistedInvoiceNo : CriteriaBase
     {
         public int PartyID { get; set; }
+
         public int InvoiceNo { get; set; }
 
         public bool IsExisted { get; set; }
+
         public override string GetSettingKey()
         {
             return "IMS_CheckExistedInvoiceNo";
