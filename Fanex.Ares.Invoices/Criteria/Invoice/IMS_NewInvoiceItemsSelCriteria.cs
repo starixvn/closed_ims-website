@@ -8,10 +8,12 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
     using System;
     using Fanex.NAP.Framework.Data;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class IMS_NewInvoiceItemsSelCriteria : CriteriaBase
     {
         public int PartyID { get; set; }

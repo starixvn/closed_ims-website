@@ -10,10 +10,13 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class IMS_InvoiceCriteria
     {
         public int OperatorID { get; set; }

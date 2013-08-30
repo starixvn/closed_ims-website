@@ -7,7 +7,9 @@
 namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
     using Fanex.NAP.Framework.Data;
+    using System.Diagnostics.CodeAnalysis;
 
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class IMS_LicenseeSelByPartyCriteria : CriteriaBase
     {
         public int PartyID { get; set; }

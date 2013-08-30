@@ -10,7 +10,9 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     using System.Collections.Generic;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.NAP.Framework.Data;
-        
+    using System.Diagnostics.CodeAnalysis;
+
+      [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]   
     public class IMS_InvoiceInsCriteria : CriteriaBase
     {                     
         public string XMLInvoice { get; set; }

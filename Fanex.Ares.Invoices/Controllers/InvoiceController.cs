@@ -1,5 +1,4 @@
-﻿﻿// --------------------------------------------------------------------------
-// <copyright file="InvoiceController.cs" company="Nexcel Solutions Vietnam">
+﻿// <copyright file="InvoiceController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -32,6 +31,7 @@ using Newtonsoft.Json;
 using DNAide.Core;
 using Fanex.Common;
 using Fanex.Common.Extensions;
+
 namespace Fanex.Ares.Invoice.Controllers
 {
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
@@ -54,9 +54,9 @@ namespace Fanex.Ares.Invoice.Controllers
 
         public InvoiceController()
         {
-            _service = new ServiceBase();
-            _invoiceService = new InvoiceService();
-            _reportService = new LicenseeSettlementService();
+            this._service = new ServiceBase();
+            this._invoiceService = new InvoiceService();
+            this._reportService = new LicenseeSettlementService();
             this.htmlViewRenderer = new HtmlViewRenderer();
             this.standardPdfRenderer = new StandardPdfRenderer();
         }
@@ -64,8 +64,8 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            ViewBag.ListOperator = _invoiceService.GetOperatorList(new IMS_OperatorCriteria() { PartyID = 0 });
-            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
+            ViewBag.ListOperator = this._invoiceService.GetOperatorList(new IMS_OperatorCriteria() { PartyID = 0 });
+            ViewBag.ListExchangeRate = this._service.GetBaseCurrency(new IMS_BaseCurrencySel());
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetLicenseesByParty(int partyID)
         {
             List<Licensee> licensees = new List<Licensee>();
-            licensees = _invoiceService.GeLicenseesList(new IMS_LicenseeSelByPartyCriteria() { PartyID = partyID });
+            licensees = this._invoiceService.GeLicenseesList(new IMS_LicenseeSelByPartyCriteria() { PartyID = partyID });
             return Json(licensees);
         }
 
@@ -81,14 +81,14 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetInvoiceType(int licenseeID)
         {
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
-            invoiceTypeList = _invoiceService.GetInvoieType(new IMS_InvoieTypesSelCriteria() { LicenseeId = licenseeID });
+            invoiceTypeList = this._invoiceService.GetInvoieType(new IMS_InvoieTypesSelCriteria() { LicenseeId = licenseeID });
             return Json(invoiceTypeList);
         }
 
         [HttpPost]
         public JsonResult GetInvoiceNo(IMS_InvoiceNoSelCriteria criteria)
         {
-            int invoiceNo = _invoiceService.GetInvoieNo(criteria);
+            int invoiceNo = this._invoiceService.GetInvoieNo(criteria);
             return Json(invoiceNo);
         }
 
@@ -96,7 +96,7 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public JsonResult SaveInvoice(InvoiceModel invoiceModel)
         {
-            var insertResult = _invoiceService.SaveInvoice(invoiceModel);
+            var insertResult = this._invoiceService.SaveInvoice(invoiceModel);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave", invoiceModel);
             return Json(insertResult);
         }
@@ -104,27 +104,26 @@ namespace Fanex.Ares.Invoice.Controllers
         [HttpPost]
         public JsonResult IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
         {
-            return Json(_invoiceService.IsExistInvoiceNo(criteria));
+            return Json(this._invoiceService.IsExistInvoiceNo(criteria));
         }
 
         public PartialViewResult GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
         {
-            var model = _invoiceService.GetInvoice(criteria);
+            var model = this._invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
 
-            //SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "chargeRateList", chargeRateList);
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
         }
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
-            var model = new LicenseeSettlementModel();// _service.GenerateReport(criteria);
+            var model = new LicenseeSettlementModel();
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
             SettlementView = "_" + criteria.ProductName;
 
-            return PartialView(SettlementView, model);
+            return PartialView(this.SettlementView, model);
         }
 
         public ActionResult ExportDocument(bool isSignature)
@@ -149,10 +148,10 @@ namespace Fanex.Ares.Invoice.Controllers
 
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
-            dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
+            dateRangeList = this._invoiceService.GetDateRange(FromDate, ToDate);
 
             // Crerate invoice main page
-            string mainInvoicePagePath ="Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
+            string mainInvoicePagePath = "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             PageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string mainInvoicePage = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, invoice, true);
@@ -167,7 +166,7 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-                    chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
+                    chargeRateList = this._invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
                     {
                         PartyID = invoice.Operator.PartyID,
                         LicenseeID = invoice.Licensee.LicenseeID,
@@ -181,13 +180,15 @@ namespace Fanex.Ares.Invoice.Controllers
                         criteria.Product = Converter.To<int>(ProductIDs[j]);
                         criteria.ProductName = Products[j];
                         criteria.InvoiceReport = true;
-                        if (chargeRateList.Count == 0) // some case chargeRateList == 0 when don't have more than one basic billing
+
+                        //// some case chargeRateList == 0 when don't have more than one basic billing
+                        if (chargeRateList.Count == 0) 
                         {
                             criteria.ToDate = dateRangeList[i].EndDate;
                             criteria.FromDate = dateRangeList[i].StartDate;
                             string cssPath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css");
 
-                            CreateDocumentPagePDF(criteria, cssPath, ref invoice, ref excelCssFilePath, ref PageOrientationList, ref isAutoFitList);
+                            this.CreateDocumentPagePDF(criteria, cssPath, ref invoice, ref excelCssFilePath, ref PageOrientationList, ref isAutoFitList);
                         }
                         else
                         {
@@ -197,13 +198,13 @@ namespace Fanex.Ares.Invoice.Controllers
                                 criteria.FromDate = chargeRateList[g].StartDate;
                                 string cssPath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css");
 
-                                CreateDocumentPagePDF(criteria, cssPath, ref invoice, ref excelCssFilePath, ref PageOrientationList, ref isAutoFitList);
+                                this.CreateDocumentPagePDF(criteria, cssPath, ref invoice, ref excelCssFilePath, ref PageOrientationList, ref isAutoFitList);
                             }
                         }
                     }
                 }
             }
-            //Xlsx
+           
             var workbook = new WorkbookManager();
             WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
             var ms = workbook.CreateDocument(invoice.HTMLReportList, excelCssFilePath, documentType, PageOrientationList, isAutoFitList);
@@ -235,10 +236,10 @@ namespace Fanex.Ares.Invoice.Controllers
 
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
-            dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
+            dateRangeList = this._invoiceService.GetDateRange(FromDate, ToDate);
 
             // Crerate invoice main page
-            string mainInvoicePage ="Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
+            string mainInvoicePage = "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
             string html = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePage, invoice, false);
             invoice.HTMLReportList.Add(html);
 
@@ -248,7 +249,7 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-                    chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
+                    chargeRateList = this._invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
                     {
                         PartyID = invoice.Operator.PartyID,
                         LicenseeID = invoice.Licensee.LicenseeID,
@@ -267,7 +268,7 @@ namespace Fanex.Ares.Invoice.Controllers
                             criteria.ToDate = dateRangeList[i].EndDate;
                             criteria.FromDate = dateRangeList[i].StartDate;
 
-                            CreateDocumentPageWeb(criteria,ref invoice);
+                            this.CreateDocumentPageWeb(criteria, ref invoice);
                         }
                         else
                         {
@@ -276,7 +277,7 @@ namespace Fanex.Ares.Invoice.Controllers
                                 criteria.ToDate = chargeRateList[g].EndDate;
                                 criteria.FromDate = chargeRateList[g].StartDate;
 
-                                CreateDocumentPageWeb(criteria, ref invoice);
+                                this.CreateDocumentPageWeb(criteria, ref invoice);
                             }
                         }
                     }
@@ -302,7 +303,7 @@ namespace Fanex.Ares.Invoice.Controllers
             DateTime FromDate = CastAide.AsDateTime(invoice.FromDate);
             DateTime ToDate = CastAide.AsDateTime(invoice.ToDate);
 
-            dateRangeList = _invoiceService.GetDateRange(FromDate, ToDate);
+            dateRangeList = this._invoiceService.GetDateRange(FromDate, ToDate);
 
             string[] Products = invoice.ProductsName.Split(',');
             string[] ProductID = invoice.Product.Split(',');
@@ -310,7 +311,7 @@ namespace Fanex.Ares.Invoice.Controllers
             {
                 for (int j = 0; j < Products.Count(); j++)
                 {
-                    chargeRateList = _invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
+                    chargeRateList = this._invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
                     {
                         PartyID = invoice.Operator.PartyID,
                         LicenseeID = invoice.Licensee.LicenseeID,
@@ -328,7 +329,7 @@ namespace Fanex.Ares.Invoice.Controllers
                             criteria.ToDate = dateRangeList[i].EndDate;
                             criteria.FromDate = dateRangeList[i].StartDate;
 
-                            CreateDocumentPageWeb(criteria, ref invoice);
+                            this.CreateDocumentPageWeb(criteria, ref invoice);
                         }
                         else
                         {
@@ -337,7 +338,7 @@ namespace Fanex.Ares.Invoice.Controllers
                                 criteria.ToDate = chargeRateList[g].EndDate;
                                 criteria.FromDate = chargeRateList[g].StartDate;
 
-                                CreateDocumentPageWeb(criteria, ref invoice);
+                                this.CreateDocumentPageWeb(criteria, ref invoice);
                             }
                         }
                     }
@@ -354,13 +355,13 @@ namespace Fanex.Ares.Invoice.Controllers
 
         private void CreateDocumentPagePDF(IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria,
                                     string cssPath,
-                                    ref  InvoiceModel invoice,
-                                    ref  List<string> excelCssFilePath,
+                                    ref InvoiceModel invoice,
+                                    ref List<string> excelCssFilePath,
                                     ref List<WorkbookManager.PageOrientation> PageOrientationList,
                                     ref List<bool> isAutoFitList)
         {
             string html = string.Empty;
-            var model = _reportService.GenerateReport(criteria);
+            var model = this._reportService.GenerateReport(criteria);
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
 
@@ -372,9 +373,9 @@ namespace Fanex.Ares.Invoice.Controllers
         }
 
         private void CreateDocumentPageWeb(IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria,
-                                        ref  InvoiceModel invoice)
+                                        ref InvoiceModel invoice)
         {
-            var model = _reportService.GenerateReport(criteria);
+            var model = this._reportService.GenerateReport(criteria);
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
 
