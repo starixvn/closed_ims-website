@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-// <copyright file="IMS_LicenseeSelByParty.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IMS_LicenseeSelByPartyCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
