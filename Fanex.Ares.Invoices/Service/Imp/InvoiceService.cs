@@ -75,6 +75,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return operators;
         }
 
+        /// <summary>
+        /// Select lisensee list.
+        /// </summary>
+        /// <param name="criteria">IMS_LicenseeSelByPartyCriteria criteria</param>
+        /// <returns>Licensee List</returns>
         public List<Licensee> GeLicenseesList(IMS_LicenseeSelByPartyCriteria criteria)
         {
             var licensees = new List<Licensee>();
@@ -106,6 +111,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return licensees;
         }
 
+        /// <summary>
+        /// Get invoice type.
+        /// </summary>
+        /// <param name="criteria">IMS_InvoieTypesSelCriteria criteria</param>
+        /// <returns>InvoiceType List.</returns>
         public List<InvoiceType> GetInvoieType(IMS_InvoieTypesSelCriteria criteria)
         {
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();

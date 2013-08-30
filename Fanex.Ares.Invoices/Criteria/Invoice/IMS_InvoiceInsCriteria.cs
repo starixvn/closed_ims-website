@@ -30,6 +30,8 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
             return "IMS_InvoiceIns";
         }
 
-        public override bool IsValid() { return true; }
+        public override bool IsValid() {
+            return true; 
+        }
     }
 }

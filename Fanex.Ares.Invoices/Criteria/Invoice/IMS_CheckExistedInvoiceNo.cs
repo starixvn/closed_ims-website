@@ -23,6 +23,8 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
             return "IMS_CheckExistedInvoiceNo";
         }
 
-        public override bool IsValid() { return true; }
+        public override bool IsValid() { 
+            return true; 
+        }
     }
 }
