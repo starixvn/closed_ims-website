@@ -8,8 +8,6 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
@@ -19,15 +17,15 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     [Serializable]
     public class InvoiceType
     {
+        public InvoiceType()
+        {
+            this.ProductList = new List<Product>();
+        }
+
         public int InvoiceTypeID { get; set; }
 
         public string InvoiceTypeName { get; set; }
 
         public List<Product> ProductList { get; set; }
-
-        public InvoiceType()
-        {
-            this.ProductList = new List<Product>();
-        }
     }
 }

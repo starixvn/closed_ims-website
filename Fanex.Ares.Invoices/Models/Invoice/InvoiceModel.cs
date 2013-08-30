@@ -19,6 +19,14 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     [Serializable]
     public class InvoiceModel
     {
+        public InvoiceModel()
+        {
+            this.DateRangeList = new List<DateRange>();
+            this.StatementList = new List<Statement>();
+            this.HTMLReportList = new List<string>();
+            this.IsSignature = true;
+        }
+
         public int InvoiceID { get; set; }
 
         public Licensee Licensee { get; set; }
@@ -56,19 +64,16 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public bool IsSignature { get; set; }
 
         public string Note { get; set; }
-
-        public InvoiceModel()
-        {
-            this.DateRangeList = new List<DateRange>();
-            this.StatementList = new List<Statement>();
-            this.HTMLReportList = new List<string>();
-            this.IsSignature = true;
-        }
     }
 
     [Serializable]
     public class Statement
     {
+        public Statement()
+        {
+            this.StatementDetailList = new List<StatementDetail>();
+        }
+
         public List<StatementDetail> StatementDetailList { get; set; }
 
         public int StatementID { get; set; }
@@ -76,16 +81,16 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string FromDate { get; set; }
 
         public string ToDate { get; set; }
-
-        public Statement()
-        {
-            this.StatementDetailList = new List<StatementDetail>();
-        }
     }
 
     [Serializable]
     public class StatementDetail
     {
+        public StatementDetail()
+        {
+            this.StatementProductDetail = new List<StatementDetail>();
+        }
+
         public int ID { get; set; }
 
         public string Description { get; set; }
@@ -103,11 +108,6 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public int ProductType { get; set; }
 
         public List<StatementDetail> StatementProductDetail { get; set; }
-
-        public StatementDetail()
-        {
-            this.StatementProductDetail = new List<StatementDetail>();
-        }
     }
 
     [Serializable]

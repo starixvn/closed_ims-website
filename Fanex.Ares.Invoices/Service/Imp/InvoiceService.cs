@@ -10,16 +10,15 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Text;
+    using DNAide.Core;
+    using Fanex.Ares.Core.Models;
     using Fanex.Ares.Core.Services.Impl;
+    using Fanex.Ares.Core.Web;
+    using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Interface;
     using Fanex.Common;
-    using Fanex.Ares.Invoice.Criteria.Invoice;
-    using System.Collections;
-    using Fanex.Ares.Core.Web;
-    using DNAide.Core;
-    using Fanex.Ares.Core.Models;
-    using System.Text;
 
     /// <summary>
     /// TODO: Update summary.

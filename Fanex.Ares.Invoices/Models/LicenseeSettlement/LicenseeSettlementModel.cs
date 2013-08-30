@@ -18,32 +18,32 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     [Serializable]
     public class LicenseeSettlementModel
     {
-        public LicenseeInformation LicenseeInfor { get; set; }
-
-        public Report Report { get; set; }
-
-        public List<ExchangeRate> ExchangeList { get; set; }
-
         public LicenseeSettlementModel()
         {
             this.ExchangeList = new List<ExchangeRate>();
             this.Report = new Report();
             this.LicenseeInfor = new LicenseeInformation();
         }
+
+        public LicenseeInformation LicenseeInfor { get; set; }
+
+        public Report Report { get; set; }
+
+        public List<ExchangeRate> ExchangeList { get; set; }
     }
 
     [Serializable]
     public class Report
     {
-        public List<ReportEntity> EntityList { get; set; }
-
-        public ReportEntity GrandTotal { get; set; }
-
         public Report()
         {
             this.EntityList = new List<ReportEntity>();
             this.GrandTotal = new ReportEntity();
         }
+
+        public List<ReportEntity> EntityList { get; set; }
+
+        public ReportEntity GrandTotal { get; set; }
     }
 
     [Serializable]
