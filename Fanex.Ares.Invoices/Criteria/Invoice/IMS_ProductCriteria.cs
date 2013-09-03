@@ -12,7 +12,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// Product criteria
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
-    public class ProductCriteria
+    public class IMS_ProductCriteria
     {
         public string ProductName { get; set; }
 
