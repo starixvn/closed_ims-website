@@ -33,7 +33,7 @@ namespace Fanex.Ares.Invoice.Controllers
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.Workbooks;
 
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     [NapSuperAuth]
     public class InvoiceController : BaseController
     {

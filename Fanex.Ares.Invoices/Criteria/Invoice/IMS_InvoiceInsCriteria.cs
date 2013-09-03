@@ -12,7 +12,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.NAP.Framework.Data;
 
-      [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]   
+      [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]   
     public class IMS_InvoiceInsCriteria : CriteriaBase
     {                     
         public string XMLInvoice { get; set; }

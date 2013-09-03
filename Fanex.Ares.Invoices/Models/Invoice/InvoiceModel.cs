@@ -15,7 +15,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     [Serializable]
     public class InvoiceModel
     {
@@ -67,7 +67,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class Statement
     {
         public Statement()
@@ -85,7 +85,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class StatementDetail
     {
         public StatementDetail()
@@ -113,7 +113,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class Operator
     {
         public string PartyName { get; set; }
@@ -171,7 +171,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// Licensee model.
     /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class Licensee
     {
         public string LicenseeName { get; set; }
@@ -194,7 +194,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
      [Serializable]
-     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class DateRange
     {
         public DateTime StartDate { get; set; }

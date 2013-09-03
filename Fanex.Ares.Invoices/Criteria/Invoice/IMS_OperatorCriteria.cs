@@ -12,7 +12,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class IMS_OperatorCriteria : CriteriaBase
     {
         public int PartyID { get; set; }

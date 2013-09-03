@@ -15,7 +15,7 @@ namespace Fanex.Ares.Invoice.Service.Interface
     /// <summary>
     /// Invoice service
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public interface IInvoiceService
     {
         List<Operator> GetOperatorList(IMS_OperatorCriteria criteria);

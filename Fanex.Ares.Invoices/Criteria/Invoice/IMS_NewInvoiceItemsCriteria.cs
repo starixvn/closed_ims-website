@@ -11,7 +11,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class IMS_NewInvoiceItemsCriteria : CriteriaBase
     {
         public int PartyID { get; set; }

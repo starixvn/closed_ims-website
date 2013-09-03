@@ -17,7 +17,7 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     /// TODO: Update summary.
     /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class LicenseeSettlementModel
     {
         public LicenseeSettlementModel()
@@ -38,7 +38,7 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     /// Initializes static members of the Report class.
     /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class Report
     {
         public Report()
@@ -56,7 +56,7 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     /// Report entity.
     /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class ReportEntity
     {
         public DateTime WinlostDate { get; set; }

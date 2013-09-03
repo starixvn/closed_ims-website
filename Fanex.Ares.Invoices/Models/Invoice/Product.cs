@@ -13,7 +13,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// TODO: Update summary.
     /// </summary>
      [Serializable]
-     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class Product
     {
         public int ProductID { get; set; }
