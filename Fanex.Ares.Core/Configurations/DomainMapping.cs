@@ -1,4 +1,10 @@
-﻿namespace Fanex.Ares.Core.Configurations
+﻿// --------------------------------------------------------------------------
+// <copyright file="DomainMapping.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
+namespace Fanex.Ares.Core.Configurations
 {
     using System;
     using System.Configuration;
@@ -6,9 +12,18 @@
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    /// 
     public class DomainMapping : ConfigurationSection
     {
+        public static DomainMapping Instance
+        {
+            get
+            {
+                var section =
+                 ConfigurationManager.GetSection("DomainMapping") as DomainMapping;
+                return section;
+            }
+        }
+
         [ConfigurationProperty("Domain", IsDefaultCollection = true)]
         [ConfigurationCollection(typeof(DomainCollection),
             AddItemName = "add",
@@ -23,18 +38,11 @@
                 return sportsCollection;
             }
         }
-
-        public static DomainMapping Instance
-        {
-            get
-            {
-                var spSection =
-                 ConfigurationManager.GetSection("DomainMapping") as DomainMapping;
-                return spSection;
-            }
-        }
     }
 
+    /// <summary>
+    /// Domain collection.
+    /// </summary>
     public class DomainCollection : ConfigurationElementCollection
     {
         public override ConfigurationElementCollectionType CollectionType
@@ -45,53 +53,34 @@
             }
         }
 
-        public void Add(DomainElement DomainElement)
-        {
-            BaseAdd(DomainElement);
-        }
-
-        protected override void BaseAdd(ConfigurationElement element)
-        {
-            BaseAdd(element, false);
-        }
-
-        public void Remove(DomainElement DomainElement)
-        {
-            if (BaseIndexOf(DomainElement) >= 0)
-                BaseRemove(DomainElement.Name);
-        }
-
-        public void RemoveAt(int index)
-        {
-            BaseRemoveAt(index);
-        }
-
-        public void Remove(string alias)
-        {
-            BaseRemove(alias);
-        }
-
-        public void Clear()
-        {
-            BaseClear();
-        }
-
+        /// <summary>
+        /// Domain element.
+        /// </summary>
+        /// <param name="index">Element index.</param>
+        /// <returns>Return value.</returns>
         public DomainElement this[int index]
         {
             get
             {
                 return (DomainElement)BaseGet(index);
             }
+
             set
             {
                 if (BaseGet(index) != null)
                 {
                     BaseRemoveAt(index);
                 }
+
                 BaseAdd(index, value);
             }
         }
 
+        /// <summary>
+        /// Domain element.
+        /// </summary>
+        /// <param name="name">Element name.</param>
+        /// <returns>Return value.</returns>
         public new DomainElement this[string name]
         {
             get
@@ -100,22 +89,95 @@
             }
         }
 
-        public int IndexOf(DomainElement DomainElement)
+        /// <summary>
+        /// Adding element.
+        /// </summary>
+        /// <param name="domainElement">Domain element.</param>
+        public void Add(DomainElement domainElement)
         {
-            return BaseIndexOf(DomainElement);
+            BaseAdd(domainElement);
         }
 
+        /// <summary>
+        /// Removing element.
+        /// </summary>
+        /// <param name="domainElement">Domain element.</param>
+        public void Remove(DomainElement domainElement)
+        {
+            if (BaseIndexOf(domainElement) >= 0)
+            {
+                BaseRemove(domainElement.Name);
+            }   
+        }
+
+        /// <summary>
+        /// Remove element.
+        /// </summary>
+        /// <param name="index">Element index.</param>
+        public void RemoveAt(int index)
+        {
+            BaseRemoveAt(index);
+        }
+
+        /// <summary>
+        /// Remove element.
+        /// </summary>
+        /// <param name="alias">Element alias.</param>
+        public void Remove(string alias)
+        {
+            BaseRemove(alias);
+        }
+
+        /// <summary>
+        /// Clear element.
+        /// </summary>
+        public void Clear()
+        {
+            BaseClear();
+        }
+        
+        /// <summary>
+        /// Index of element.
+        /// </summary>
+        /// <param name="domainElement">Domain element.</param>
+        /// <returns>Return value.</returns>
+        public int IndexOf(DomainElement domainElement)
+        {
+            return BaseIndexOf(domainElement);
+        }
+
+        /// <summary>
+        /// Create new element.
+        /// </summary>
+        /// <returns>Return value.</returns>
         protected override sealed ConfigurationElement CreateNewElement()
         {
             return new DomainElement();
         }
 
+        /// <summary>
+        /// Get element key.
+        /// </summary>
+        /// <param name="element">Configuration element.</param>
+        /// <returns>Return value.</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
             return ((DomainElement)element).Name;
         }
+
+        /// <summary>
+        /// Base adding.
+        /// </summary>
+        /// <param name="element">Configuration element.</param>
+        protected override void BaseAdd(ConfigurationElement element)
+        {
+            BaseAdd(element, false);
+        }
     }
 
+    /// <summary>
+    /// Domain element.
+    /// </summary>
     public class DomainElement : ConfigurationElement
     {        
         [ConfigurationProperty("name", DefaultValue = "NA", IsRequired = true, IsKey = false)]
@@ -132,6 +194,7 @@
             {
                 return (string)this["currentdomain"];
             }
+
             set
             {
                 this["currentdomain"] = value;
@@ -145,6 +208,7 @@
             {
                 return (string)this["converttodomain"];
             }
+
             set
             {
                 this["converttodomain"] = value;
