@@ -78,7 +78,7 @@
     <Compile Include="Criteria\Invoice\IMS_LicenseeByPartyCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_OperatorCriteria.cs" />
-    <Compile Include="Criteria\Invoice\ProductCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_ProductCriteria.cs" />
     <Compile Include="Models\Invoice\ChargeRate.cs" />
     <Compile Include="Models\Invoice\DateRange.cs" />
     <Compile Include="Models\Invoice\InvoiceModel.cs" />
