@@ -52,7 +52,7 @@ namespace Fanex.Ares.Core.Web
             {
                 return _cacheManager.Get<T>(key);
             }
-            catch (Exception ex)
+            catch 
             {
                 return default(T);
             }
