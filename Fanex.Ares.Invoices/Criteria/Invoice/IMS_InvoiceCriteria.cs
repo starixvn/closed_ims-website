@@ -41,17 +41,6 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     }
 
     /// <summary>
-    /// Date range for period time.
-    /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
-    public class DateRangeCriteria
-    {
-        public DateTime FromDate { get; set; }
-
-        public DateTime ToDate { get; set; }
-    }
-
-    /// <summary>
     /// Product criteria
     /// </summary>
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]

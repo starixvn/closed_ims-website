@@ -1,0 +1,33 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="Statement.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Ares.Invoice.Models.Invoice
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
+    public class Statement
+    {
+        public Statement()
+        {
+            this.StatementDetailList = new List<StatementDetail>();
+        }
+
+        public List<StatementDetail> StatementDetailList { get; set; }
+
+        public int StatementID { get; set; }
+
+        public string FromDate { get; set; }
+
+        public string ToDate { get; set; }
+    }
+}
