@@ -7,33 +7,33 @@
 //   <change who="" date="">Created</change>
 // </history>
 
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Web.Hosting;
-using System.Web.Mvc;
-using Fanex.Ares.Core.Criteria;
-using Fanex.Ares.Core.Extensions;
-using Fanex.Ares.Core.Services.Impl;
-using Fanex.Ares.Core.Web.Controllers;
-using Fanex.Ares.Core.Web.Security;
-using Fanex.Ares.Invoice.Criteria.Invoice;
-using Fanex.Ares.Invoice.Models.Invoice;
-using Fanex.Ares.Invoice.Service.Imp;
-using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-using Fanex.Ares.Report.Services.Interface;
-using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-using Fanex.Core.PdfHelper;
-using Fanex.NAP.Core.Web.Attribute;
-using Fanex.Workbooks;
-using Newtonsoft.Json;
-using DNAide.Core;
-using Fanex.Common;
-using Fanex.Common.Extensions;
 namespace Fanex.Ares.Invoice.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Linq;
+    using System.Web.Hosting;
+    using System.Web.Mvc;
+    using DNAide.Core;
+    using Fanex.Ares.Core.Criteria;
+    using Fanex.Ares.Core.Extensions;
+    using Fanex.Ares.Core.Services.Impl;
+    using Fanex.Ares.Core.Web.Controllers;
+    using Fanex.Ares.Core.Web.Security;
+    using Fanex.Ares.Invoice.Criteria.Invoice;
+    using Fanex.Ares.Invoice.Models.Invoice;
+    using Fanex.Ares.Invoice.Service.Imp;
+    using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+    using Fanex.Ares.Report.Services.Interface;
+    using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+    using Fanex.Common;
+    using Fanex.Common.Extensions;
+    using Fanex.Core.PdfHelper;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.Workbooks;
+
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     [NapSuperAuth]
     public class InvoiceController : BaseController
@@ -41,8 +41,8 @@ namespace Fanex.Ares.Invoice.Controllers
         ServiceBase _service;
         InvoiceService _invoiceService;
         ILicenseeSettlementService _reportService;
-        private readonly HtmlViewRenderer htmlViewRenderer;
-        private readonly StandardPdfRenderer standardPdfRenderer;
+        private readonly HtmlViewRenderer _htmlViewRenderer;
+        private readonly StandardPdfRenderer _standardPdfRenderer;
 
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css");
 
@@ -57,8 +57,8 @@ namespace Fanex.Ares.Invoice.Controllers
             _service = new ServiceBase();
             _invoiceService = new InvoiceService();
             _reportService = new LicenseeSettlementService();
-            this.htmlViewRenderer = new HtmlViewRenderer();
-            this.standardPdfRenderer = new StandardPdfRenderer();
+            this._htmlViewRenderer = new HtmlViewRenderer();
+            this._standardPdfRenderer = new StandardPdfRenderer();
         }
 
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]

@@ -688,6 +688,8 @@
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Template\LDL\_LDL_Software-Data Fees.cshtml" />
+    <Content Include="App_Browsers\firefox.browser" />
+    <Content Include="App_Browsers\ie.browser" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

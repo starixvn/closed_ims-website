@@ -168,11 +168,8 @@ namespace Fanex.Ares.Website.Controllers
             var app = new Microsoft.Office.Interop.Excel.Application();
             // the reference to the workbook,
             // which is the xls document to read from.
-            Workbook book = null;
             // the reference to the worksheet,
             // we'll assume the first sheet in the book.
-            Worksheet sheet = null;
-            Range range = null;
             // the range object is used to hold the data
             // we'll be reading from and to find the range of data.
             //var workbooks = new Workbooks();

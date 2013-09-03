@@ -7,11 +7,14 @@
 //   <change who="Ricky.Nguyen" date="2012.11.12">Created</change>
 // </history>
 
-using System.Diagnostics.CodeAnalysis;
-
 namespace Fanex.Ares.Core
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// The constants.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Constants")]
     public static class Constants
     {
         public const string SHORT_DATE_FORMAT = "MMM dd, yyyy";
@@ -33,5 +36,4 @@ namespace Fanex.Ares.Core
         public const string ARES_MONTH_YEAR_FORMAT = "MMM-yy";
         public const string IS_SHOW_MENU = "Fanex.Ares.Core.Contants.AppSession.IsShowMenu";
     }
-
 }

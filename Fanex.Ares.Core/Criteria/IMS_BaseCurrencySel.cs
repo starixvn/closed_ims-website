@@ -11,13 +11,27 @@ namespace Fanex.Ares.Core.Criteria
 {
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Select base currency.
+    /// </summary>
     public class IMS_BaseCurrencySel : CriteriaBase
     {
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return value.</returns>
         public override string GetSettingKey()
         {
             return "IMS_BaseCurrencySel";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Checking is valid.
+        /// </summary>
+        /// <returns>Return value.</returns>
+        public override bool IsValid() 
+        { 
+            return true; 
+        }
     }
 }
