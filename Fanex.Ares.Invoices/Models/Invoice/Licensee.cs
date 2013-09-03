@@ -9,6 +9,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     using System;
     using System.Diagnostics.CodeAnalysis;
 
+    /// <summary>
     /// Licensee model.
     /// </summary>
     [Serializable]
