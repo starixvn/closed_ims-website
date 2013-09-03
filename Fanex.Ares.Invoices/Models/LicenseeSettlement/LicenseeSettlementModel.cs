@@ -8,10 +8,8 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using Fanex.Ares.Report.ViewModels;
     using System.Diagnostics.CodeAnalysis;
+    using Fanex.Ares.Report.ViewModels;
 
     /// <summary>
     /// TODO: Update summary.

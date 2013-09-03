@@ -34,20 +34,21 @@ namespace Fanex.Ares.Invoice.Controllers
     using Fanex.Workbooks;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
+    [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1126:PrefixCallsCorrectly", Justification = "Reviewed.")]
     [NapSuperAuth]
     public class InvoiceController : BaseController
     {
+        private readonly HtmlViewRenderer htmlViewRenderer;
+        private readonly StandardPdfRenderer standardPdfRenderer;
+        private readonly string pdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css");
+
         private ServiceBase service;
         private InvoiceService invoiceService;
         private ILicenseeSettlementService reportService;
 
         #region View path
-        protected string settlementView = string.Empty;
+        private string settlementView = string.Empty;
         #endregion
-
-        private readonly HtmlViewRenderer htmlViewRenderer;
-        private readonly StandardPdfRenderer standardPdfRenderer;
-        private readonly string pdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css");
 
         public InvoiceController()
         {

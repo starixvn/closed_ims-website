@@ -7,9 +7,6 @@
 namespace Fanex.Ares.Invoice.Models.Invoice
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Diagnostics.CodeAnalysis;
 
     /// <summary>

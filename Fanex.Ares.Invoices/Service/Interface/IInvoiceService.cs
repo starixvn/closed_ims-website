@@ -7,10 +7,10 @@
 namespace Fanex.Ares.Invoice.Service.Interface
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
-    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Invoice service
