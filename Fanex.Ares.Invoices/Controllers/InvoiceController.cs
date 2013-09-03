@@ -6,8 +6,6 @@
 //   <change who="" date="">Created</change>
 // </history>
 
-
-
 namespace Fanex.Ares.Invoice.Controllers
 {
     using System;
@@ -280,7 +278,6 @@ namespace Fanex.Ares.Invoice.Controllers
                             }
                         }
                     }
-
                 }
             }
             return View("_Review", invoice);
@@ -341,7 +338,6 @@ namespace Fanex.Ares.Invoice.Controllers
                             }
                         }
                     }
-
                 }
             }
             return View("_Review", invoice);

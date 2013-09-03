@@ -164,6 +164,9 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public bool IsHide { get; set; }
     }
 
+    /// <summary>
+    /// Licensee model.
+    /// </summary>
     [Serializable]
     public class Licensee
     {

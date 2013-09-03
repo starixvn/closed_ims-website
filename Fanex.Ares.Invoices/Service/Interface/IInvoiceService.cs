@@ -12,7 +12,7 @@ namespace Fanex.Ares.Invoice.Service.Interface
     using Fanex.Ares.Invoice.Service.Imp;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Invoice service
     /// </summary>
     public interface IInvoiceService
     {

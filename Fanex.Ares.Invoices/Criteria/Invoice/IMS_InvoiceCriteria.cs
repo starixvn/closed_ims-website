@@ -41,6 +41,9 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
         public DateTime DueDate { get; set; }
     }
 
+    /// <summary>
+    /// Date range for period time.
+    /// </summary>
     public class DateRangeCriteria
     {
         public DateTime FromDate { get; set; }
@@ -48,6 +51,9 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
         public DateTime ToDate { get; set; }
     }
 
+    /// <summary>
+    /// Product.
+    /// </summary>
     public class ProductCriteria
     {
         public string ProductName { get; set; }

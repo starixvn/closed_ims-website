@@ -377,21 +377,17 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     {
                         startDateTmp = fromDate;
                         DateTime firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month, 1).AddMonths(1);
-                        ////DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
                         endDateTmp = firstOfNextMonth.AddDays(-1);
                     }
                     else if (i == numericMonth - 1)
                     {
                         startDateTmp = new DateTime(fromDate.Year, toDate.Month, 1);
-                        ////DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
-                        ////DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
                         endDateTmp = toDate;
                     }
                     else
                     {
                         startDateTmp = new DateTime(fromDate.Year, fromDate.Month + i, 1);
                         DateTime firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month + i, 1).AddMonths(1);
-                        ////DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
                         endDateTmp = firstOfNextMonth.AddDays(-1);
                     }
 
@@ -415,8 +411,6 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 {
                     foreach (var row in rawData)
                     {
-                        ////int id = (int)row.ProductID;
-                        ////bool isExist = false;
                         chargeRateList.Add(new ChargeRate
                         {
                             ProductID = (int)row.ProductID,

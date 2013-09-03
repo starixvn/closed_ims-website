@@ -544,35 +544,6 @@ var invoiceApp = {
     },
 
     previewInvoice: function () {
-        $('#tblconfirm').empty().append("<tr><td class='popupTd'>Do you want to export document with signature?</td></tr>");
-        $("#tblconfirm").dialog({
-            title: "Export PDF",
-            autoOpen: false,
-            height: 130,
-            width: 360,
-            resizable: false,
-            modal: true,
-            buttons: {
-                Yes: function () {
-                    invoiceInfoModel.IsSignature = true;
-                    invoiceApp.previewConfirm();
-                    $(this).dialog("close");
-                },
-                No:
-                         function () {
-                             invoiceInfoModel.IsSignature = false;
-                             invoiceApp.previewConfirm();
-                             $(this).dialog("close");
-                         }
-            },
-            close: function (event, ui) {
-            }
-        });
-        $('a.ui-dialog-titlebar-close').show();
-        $("#tblconfirm").dialog("open");
-    },
-
-    previewConfirm: function () {
         NapAres.disableInput();
         invoiceApp.updateItem();
         invoiceInfoModel.Operator = invoiceApp.Operator;
@@ -587,7 +558,7 @@ var invoiceApp = {
         invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
         invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
         invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
-
+        invoiceInfoModel.IsSignature = true;
         $.ajax({
             url: domain + "Invoice/Invoice/PrintScreen",
             data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',

@@ -35,6 +35,9 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     [Serializable]
     public class Report
     {
+        /// <summary>
+        /// constructor
+        /// </summary>
         public Report()
         {
             this.EntityList = new List<ReportEntity>();
@@ -46,6 +49,9 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
         public ReportEntity GrandTotal { get; set; }
     }
 
+    /// <summary>
+    /// Report entity.
+    /// </summary>
     [Serializable]
     public class ReportEntity
     {
