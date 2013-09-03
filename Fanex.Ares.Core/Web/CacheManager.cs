@@ -7,27 +7,35 @@
 //   <change who="Ricky.Nguyen" date="2012.11.15">Created</change>
 // </history>
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.Caching;
-
 namespace Fanex.Ares.Core.Web
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.Caching;
+
+    /// <summary>
+    /// The caching manager.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "The caching manager.")]
     public static class CacheManager
     {
-        private static readonly ICache _cacheManager;
+        private static readonly ICache ICacheManager;
 
         static CacheManager()
         {
-            _cacheManager = CacheService.CreateInstance(CacheType.MemoryCache);
+            ICacheManager = CacheService.CreateInstance(CacheType.MemoryCache);
         }
 
+        /// <summary>
+        /// Getting cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <returns>Return value.</returns>
         public static object Get(string key)
         {
             try
             {
-                return _cacheManager.Get<object>(key);
+                return ICacheManager.Get<object>(key);
             }
             catch (Exception)
             {
@@ -35,57 +43,105 @@ namespace Fanex.Ares.Core.Web
             }
         }
 
+        /// <summary>
+        /// Setting cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Cache value.</param>
         public static void Set(string key, object value)
         {
             try
             {
-                _cacheManager.Set(key, value);
+                ICacheManager.Set(key, value);
             }
             catch (Exception)
             {
             }
         }
 
+        /// <summary>
+        /// Getting cache.
+        /// </summary>
+        /// <typeparam name="T">Type parameter.</typeparam>
+        /// <param name="key">Cache key.</param>
+        /// <returns>Return value.</returns>
         public static T Get<T>(string key)
         {
             try
             {
-                return _cacheManager.Get<T>(key);
+                return ICacheManager.Get<T>(key);
             }
             catch (Exception ex)
             {
+                Fanex.Ares.Core.Services.Impl.LoggingHandler.Log(ex);
                 return default(T);
             }
         }
 
+        /// <summary>
+        /// Setting cache.
+        /// </summary>
+        /// <typeparam name="T">Type parameter.</typeparam>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Cache value.</param>
         public static void Set<T>(string key, T value)
         {
-            _cacheManager.Set<T>(key, value);
+            ICacheManager.Set<T>(key, value);
         }
 
+        /// <summary>
+        /// Setting cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Cache value.</param>
+        /// <param name="timeSpanExpiration">Time span Expiration.</param>
         public static void Set(string key, object value, TimeSpan timeSpanExpiration)
         {
-            _cacheManager.Set(key, value, timeSpanExpiration);
+            ICacheManager.Set(key, value, timeSpanExpiration);
         }
 
+        /// <summary>
+        /// Setting cache.
+        /// </summary>
+        /// <typeparam name="T">Type parameter.</typeparam>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Cache value.</param>
+        /// <param name="timeSpanExpiration">Time span Expiration.</param>
         public static void Set<T>(string key, T value, TimeSpan timeSpanExpiration)
         {
-            _cacheManager.Set<T>(key, value, timeSpanExpiration);
+            ICacheManager.Set<T>(key, value, timeSpanExpiration);
         }
 
+        /// <summary>
+        /// Setting cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Cache value.</param>
+        /// <param name="absoluteExpiration">Absolute expiration.</param>
         public static void Set(string key, object value, DateTime absoluteExpiration)
         {
-            _cacheManager.Set(key, value, absoluteExpiration);
+            ICacheManager.Set(key, value, absoluteExpiration);
         }
 
+        /// <summary>
+        /// Setting cache.
+        /// </summary>
+        /// <typeparam name="T">Type parameter.</typeparam>
+        /// <param name="key">Cache key.</param>
+        /// <param name="value">Cache value.</param>
+        /// <param name="absoluteExpiration">Absolute expiration.</param>
         public static void Set<T>(string key, T value, DateTime absoluteExpiration)
         {
-            _cacheManager.Set<T>(key, value, absoluteExpiration);
+            ICacheManager.Set<T>(key, value, absoluteExpiration);
         }
 
+        /// <summary>
+        /// Removing cache.
+        /// </summary>
+        /// <param name="key">Cache key.</param>
         public static void Remove(string key)
         {
-            _cacheManager.Remove(key);
+            ICacheManager.Remove(key);
         }
     }
 }

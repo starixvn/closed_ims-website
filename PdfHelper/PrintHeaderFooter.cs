@@ -4,33 +4,43 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-
 namespace Fanex.Core.PdfHelper
 {
+    using System;
+    using iTextSharp.text;
+    using iTextSharp.text.pdf;
+
     /// <summary>
     /// This class represents the standard header and footer for a PDF print.
     /// application.
     /// </summary>
     public class PrintHeaderFooter : PdfPageEventHelper
     {
-        private PdfContentByte pdfContent;
-        private PdfTemplate pageNumberTemplate;
-        private BaseFont baseFont;
-        private DateTime printTime;
+        private PdfContentByte _pdfContent;
+        private PdfTemplate _pageNumberTemplate;
+        private BaseFont _baseFont;
+        private DateTime _printTime;
 
         public string Title { get; set; }
 
+        /// <summary>
+        /// Open document.
+        /// </summary>
+        /// <param name="writer">Writer parameter.</param>
+        /// <param name="document">Document parameter.</param>
         public override void OnOpenDocument(PdfWriter writer, Document document)
         {
-            printTime = DateTime.Now;
-            baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-            pdfContent = writer.DirectContent;
-            pageNumberTemplate = pdfContent.CreateTemplate(50, 50);
+            _printTime = DateTime.Now;
+            _baseFont = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+            _pdfContent = writer.DirectContent;
+            _pageNumberTemplate = _pdfContent.CreateTemplate(50, 50);
         }
 
+        /// <summary>
+        /// Start page.
+        /// </summary>
+        /// <param name="writer">Writer parameter.</param>
+        /// <param name="document">Document parameter.</param>
         public override void OnStartPage(PdfWriter writer, Document document)
         {
             base.OnStartPage(writer, document);
@@ -38,50 +48,47 @@ namespace Fanex.Core.PdfHelper
             Rectangle pageSize = document.PageSize;
             if (Title != string.Empty)
             {
-                pdfContent.BeginText();
-                pdfContent.SetFontAndSize(baseFont, 11);
-                pdfContent.SetRGBColorFill(0, 0, 0);
-                pdfContent.SetTextMatrix(pageSize.GetLeft(40), pageSize.GetTop(40));
-                pdfContent.ShowText(Title);
-                pdfContent.EndText();
+                _pdfContent.BeginText();
+                _pdfContent.SetFontAndSize(_baseFont, 11);
+                _pdfContent.SetRGBColorFill(0, 0, 0);
+                _pdfContent.SetTextMatrix(pageSize.GetLeft(40), pageSize.GetTop(40));
+                _pdfContent.ShowText(Title);
+                _pdfContent.EndText();
             }
         }
 
+        /// <summary>
+        /// On end page.
+        /// </summary>
+        /// <param name="writer">Writer parameter.</param>
+        /// <param name="document">Document parameter.</param>
         public override void OnEndPage(PdfWriter writer, Document document)
         {
             base.OnEndPage(writer, document);
 
             int pageN = writer.PageNumber;
             string text = pageN + " - ";
-            float len = baseFont.GetWidthPoint(text, 8);
+            float len = _baseFont.GetWidthPoint(text, 8);
 
             Rectangle pageSize = document.PageSize;
-            pdfContent = writer.DirectContent;
-            pdfContent.SetRGBColorFill(100, 100, 100);
-
-            //pdfContent.BeginText();
-            //pdfContent.SetFontAndSize(baseFont, 8);
-            //pdfContent.SetTextMatrix(pageSize.Width / 2, pageSize.GetBottom(30));
-            //pdfContent.ShowText(text);
-            //pdfContent.EndText();
-
-            //pdfContent.AddTemplate(pageNumberTemplate, (pageSize.Width / 2) + len, pageSize.GetBottom(30));
-
-            //pdfContent.BeginText();
-            //pdfContent.SetFontAndSize(baseFont, 8);
-            //pdfContent.ShowTextAligned(PdfContentByte.ALIGN_RIGHT, printTime.ToString(), pageSize.GetRight(40), pageSize.GetBottom(30), 0);
-            //pdfContent.EndText();
+            _pdfContent = writer.DirectContent;
+            _pdfContent.SetRGBColorFill(100, 100, 100);
         }
 
+        /// <summary>
+        /// Close document.
+        /// </summary>
+        /// <param name="writer">Writer parameter.</param>
+        /// <param name="document">Document parameter.</param>
         public override void OnCloseDocument(PdfWriter writer, Document document)
         {
             base.OnCloseDocument(writer, document);
 
-            pageNumberTemplate.BeginText();
-            pageNumberTemplate.SetFontAndSize(baseFont, 8);
-            pageNumberTemplate.SetTextMatrix(0, 0);
-            pageNumberTemplate.ShowText(string.Empty + (writer.PageNumber - 1));
-            pageNumberTemplate.EndText();
+            _pageNumberTemplate.BeginText();
+            _pageNumberTemplate.SetFontAndSize(_baseFont, 8);
+            _pageNumberTemplate.SetTextMatrix(0, 0);
+            _pageNumberTemplate.ShowText(string.Empty + (writer.PageNumber - 1));
+            _pageNumberTemplate.EndText();
         }
     }
 }
