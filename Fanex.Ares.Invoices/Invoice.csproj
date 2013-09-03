@@ -71,11 +71,11 @@
     <Compile Include="Criteria\Invoice\IMS_GetChargeRateCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceInsCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceNoSelCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_InvoiceNoCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceTypeCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoieTypesSelCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_LicenseeSelByPartyCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsSelCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_InvoiceTypesCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_LicenseeByPartyCriteria.cs" />
+    <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_OperatorCriteria.cs" />
     <Compile Include="Models\Invoice\ChargeRate.cs" />
     <Compile Include="Models\Invoice\InvoiceModel.cs" />

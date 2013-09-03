@@ -10,10 +10,12 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class ChargeRate
     {
         public int ProductID { get; set; }

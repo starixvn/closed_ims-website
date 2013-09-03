@@ -10,21 +10,23 @@ namespace Fanex.Ares.Invoice.Service.Interface
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Invoice service
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public interface IInvoiceService
     {
         List<Operator> GetOperatorList(IMS_OperatorCriteria criteria);
 
-        List<Licensee> GeLicenseesList(IMS_LicenseeSelByPartyCriteria criteria);
+        List<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria);
 
-        List<InvoiceType> GetInvoieType(IMS_InvoieTypesSelCriteria criteria);
+        List<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria);
 
-        int GetInvoieNo(IMS_InvoiceNoSelCriteria criteria);
+        int GetInvoiceNo(IMS_InvoiceNoCriteria criteria);
 
-        InvoiceModel GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria);
+        InvoiceModel GetInvoice(IMS_NewInvoiceItemsCriteria criteria);
 
         Core.Models.Result SaveInvoice(InvoiceModel invoiceModel);
 

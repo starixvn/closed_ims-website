@@ -28,7 +28,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         ///  Get operator list
         /// </summary>
-        /// <param name="criteria">IMS_OperatorSelCriteria criteria</param>
+        /// <param name="criteria">IMS_OperatorCriteria criteria</param>
         /// <returns> Operator list</returns>
         public List<Operator> GetOperatorList(IMS_OperatorCriteria criteria)
         {
@@ -76,11 +76,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
         }
 
         /// <summary>
-        /// Select lisensee list.
+        /// Select licensee list.
         /// </summary>
-        /// <param name="criteria">IMS_LicenseeSelByPartyCriteria criteria</param>
+        /// <param name="criteria">IMS_LicenseeByPartyCriteria criteria</param>
         /// <returns>Licensee List</returns>
-        public List<Licensee> GeLicenseesList(IMS_LicenseeSelByPartyCriteria criteria)
+        public List<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria)
         {
             var licensees = new List<Licensee>();
             try
@@ -114,9 +114,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Get invoice type.
         /// </summary>
-        /// <param name="criteria">IMS_InvoieTypesSelCriteria criteria</param>
+        /// <param name="criteria">IMS_InvoiceTypesCriteria criteria</param>
         /// <returns>InvoiceType List.</returns>
-        public List<InvoiceType> GetInvoieType(IMS_InvoieTypesSelCriteria criteria)
+        public List<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria)
         {
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
 
@@ -169,7 +169,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return invoiceTypeList;
         }
 
-        public int GetInvoieNo(IMS_InvoiceNoSelCriteria criteria)
+        /// <summary>
+        /// Get invoice no.
+        /// </summary>
+        /// <param name="criteria">IMS_InvoiceNoCriteria criteria</param>
+        /// <returns>invoice no.</returns>
+        public int GetInvoiceNo(IMS_InvoiceNoCriteria criteria)
         {
             int invoiceNo = 0;
 
@@ -192,7 +197,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return invoiceNo;
         }
 
-        public InvoiceModel GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
+        /// <summary>
+        /// Get invoice detail.
+        /// </summary>
+        /// <param name="criteria">IMS_NewInvoiceItemsCriteria criteria</param>
+        /// <returns>invoice model.</returns>
+        public InvoiceModel GetInvoice(IMS_NewInvoiceItemsCriteria criteria)
         {
             var invoice = new InvoiceModel();
             try
@@ -275,6 +285,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return invoice;
         }
 
+        /// <summary>
+        /// Save invoice.
+        /// </summary>
+        /// <param name="invoiceModel">Invoice model.</param>
+        /// <returns>Return result </returns>
         public Result SaveInvoice(InvoiceModel invoiceModel)
         {
             var result = new Core.Models.Result();
@@ -347,12 +362,23 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return result;
         }
 
+        /// <summary>
+        /// Check invoice no is exist.
+        /// </summary>
+        /// <param name="criteria">IMS_CheckExistedInvoiceNo criteria</param>
+        /// <returns>return is exist or not.</returns>
         public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
         {
             var hashResult = _repository.ExecuteCommand(criteria);
             return Converter.ToBool(hashResult["isexisted"]);
         }
 
+        /// <summary>
+        /// Divide range date to array of date period.
+        /// </summary>
+        /// <param name="fromDate">Date begin.</param>
+        /// <param name="toDate">Date end.</param>
+        /// <returns>Return list date period.</returns>
         public List<DateRange> GetDateRange(DateTime fromDate, DateTime toDate)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
@@ -400,6 +426,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return dateRangeList;
         }
 
+        /// <summary>
+        /// Get charge rate with every months.
+        /// </summary>
+        /// <param name="criteria">IMS_GetChargeRateCriteria criteria.</param>
+        /// <returns>Return charge rate list.</returns>
         public List<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria)
         {
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
@@ -431,6 +462,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return chargeRateList;
         }
 
+        /// <summary>
+        /// Insert statement to list.
+        /// </summary>
+        /// <param name="statementDetailList">List is exist.</param>
+        /// <param name="statementDetail">Statement detail to insert.</param>
         private void InsertToStatement(ref List<StatementDetail> statementDetailList, StatementDetail statementDetail)
         {
             if (statementDetailList != null && statementDetail != null)

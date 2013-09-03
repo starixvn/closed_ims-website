@@ -11,11 +11,13 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     using System.Linq;
     using System.Text;
     using Fanex.Ares.Report.ViewModels;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class LicenseeSettlementModel
     {
         public LicenseeSettlementModel()
@@ -32,12 +34,13 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
         public List<ExchangeRate> ExchangeList { get; set; }
     }
 
+    /// <summary>
+    /// Initializes static members of the Report class.
+    /// </summary>
     [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class Report
     {
-        /// <summary>
-        /// constructor
-        /// </summary>
         public Report()
         {
             this.EntityList = new List<ReportEntity>();
@@ -53,6 +56,7 @@ namespace Fanex.Ares.Invoice.ViewModels.LicenseeSettlement
     /// Report entity.
     /// </summary>
     [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class ReportEntity
     {
         public DateTime WinlostDate { get; set; }

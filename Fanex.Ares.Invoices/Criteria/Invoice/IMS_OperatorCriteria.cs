@@ -22,6 +22,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return "IMS_PartyInfoSel";
         }
 
-        public override bool IsValid() { return true; }
+        public override bool IsValid() 
+        { 
+            return true; 
+        }
     }
 }

@@ -12,7 +12,6 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    
      [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class IMS_InvoiceCriteria
     {
@@ -44,6 +43,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// <summary>
     /// Date range for period time.
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class DateRangeCriteria
     {
         public DateTime FromDate { get; set; }
@@ -52,8 +52,9 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     }
 
     /// <summary>
-    /// Product.
+    /// Product criteria
     /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class ProductCriteria
     {
         public string ProductName { get; set; }

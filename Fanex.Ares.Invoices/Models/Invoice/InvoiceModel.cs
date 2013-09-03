@@ -67,6 +67,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
     [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class Statement
     {
         public Statement()
@@ -84,6 +85,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
     [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class StatementDetail
     {
         public StatementDetail()
@@ -111,6 +113,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
     [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class Operator
     {
         public string PartyName { get; set; }
@@ -168,6 +171,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// Licensee model.
     /// </summary>
     [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class Licensee
     {
         public string LicenseeName { get; set; }
@@ -190,6 +194,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     }
 
      [Serializable]
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
     public class DateRange
     {
         public DateTime StartDate { get; set; }

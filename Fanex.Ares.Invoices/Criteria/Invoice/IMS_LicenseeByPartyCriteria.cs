@@ -1,8 +1,6 @@
-// --------------------------------------------------------------------------
-// <copyright file="IMS_LicenseeSelByPartyCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IMS_LicenseeByPartyCriteria.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
-// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
@@ -10,7 +8,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     using Fanex.NAP.Framework.Data;
 
      [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class IMS_LicenseeSelByPartyCriteria : CriteriaBase
+    public class IMS_LicenseeByPartyCriteria : CriteriaBase
     {
         public int PartyID { get; set; }
 
@@ -19,6 +17,9 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
             return "IMS_LicenseeSelByParty";
         }
 
-        public override bool IsValid() { return true; }
+        public override bool IsValid() 
+        { 
+            return true; 
+        }
     }
 }

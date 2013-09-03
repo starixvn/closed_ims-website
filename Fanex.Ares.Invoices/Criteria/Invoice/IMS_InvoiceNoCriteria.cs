@@ -1,12 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IMS_NewInvoiceItemsSelCriteria.cs" company="Microsoft">
+// <copyright file="IMS_InvoiceNoCriteria.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
-    using System;
     using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Framework.Data;
 
@@ -14,25 +13,18 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// TODO: Update summary.
     /// </summary>
      [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
-    public class IMS_NewInvoiceItemsSelCriteria : CriteriaBase
+    public class IMS_InvoiceNoCriteria : CriteriaBase
     {
-        public int PartyID { get; set; }
-
-        public int LicenseeID { get; set; }
-
-        public string Products { get; set; }
-
-        public DateTime FromDate { get; set; }
-
-        public DateTime ToDate { get; set; }
-
-        public int BillingCurrency { get; set; }
+        public int PartyId { get; set; }
 
         public override string GetSettingKey()
         {
-            return "IMS_NewInvoiceItemsSel";
+            return "IMS_NewInvoiceNoSel";
         }
 
-        public override bool IsValid() { return true; }
+        public override bool IsValid()
+        { 
+            return true; 
+        }
     }
 }

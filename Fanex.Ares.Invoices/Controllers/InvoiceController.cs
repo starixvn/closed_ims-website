@@ -70,7 +70,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetLicenseesByParty(int partyID)
         {
             List<Licensee> licensees = new List<Licensee>();
-            licensees = this.invoiceService.GeLicenseesList(new IMS_LicenseeSelByPartyCriteria() { PartyID = partyID });
+            licensees = this.invoiceService.GeLicenseesList(new IMS_LicenseeByPartyCriteria() { PartyID = partyID });
             return Json(licensees);
         }
 
@@ -78,14 +78,14 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetInvoiceType(int licenseeID)
         {
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
-            invoiceTypeList = this.invoiceService.GetInvoieType(new IMS_InvoieTypesSelCriteria() { LicenseeId = licenseeID });
+            invoiceTypeList = this.invoiceService.GetInvoieType(new IMS_InvoiceTypesCriteria() { LicenseeId = licenseeID });
             return Json(invoiceTypeList);
         }
 
         [HttpPost]
-        public JsonResult GetInvoiceNo(IMS_InvoiceNoSelCriteria criteria)
+        public JsonResult GetInvoiceNo(IMS_InvoiceNoCriteria criteria)
         {
-            int invoiceNo = this.invoiceService.GetInvoieNo(criteria);
+            int invoiceNo = this.invoiceService.GetInvoiceNo(criteria);
             return Json(invoiceNo);
         }
 
@@ -104,7 +104,7 @@ namespace Fanex.Ares.Invoice.Controllers
             return Json(this.invoiceService.IsExistInvoiceNo(criteria));
         }
 
-        public PartialViewResult GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
+        public PartialViewResult GetInvoice(IMS_NewInvoiceItemsCriteria criteria)
         {
             var model = this.invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
@@ -280,6 +280,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     }
                 }
             }
+
             return View("_Review", invoice);
         }
 
@@ -340,6 +341,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     }
                 }
             }
+
             return View("_Review", invoice);
         }
 
