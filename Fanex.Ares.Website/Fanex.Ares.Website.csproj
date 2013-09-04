@@ -708,6 +708,8 @@
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
+    <Content Include="Test\agular2.htm" />
+    <Content Include="Test\angular.htm" />
     <Content Include="Test\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

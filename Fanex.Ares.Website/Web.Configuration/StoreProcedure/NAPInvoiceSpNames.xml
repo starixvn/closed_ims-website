@@ -39,7 +39,7 @@
     <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="archive" />
     <Setting Key="IMS_InvoiceTypeSel" SpName="IMS_InvoiceTypeSel" DbName="invoice" />
     <Setting Key="IMS_NewInvoiceNoSel" SpName="IMS_NewInvoiceNoSel" DbName="invoice" />
-    <Setting Key="IMS_NewInvoiceItemsSel" SpName="IMS_NewInvoiceItemsSel" DbName="invoice" />
+    <Setting Key="IMS_NewInvoiceItemsSel" SpName="IMS_NewInvoiceItemsSel_xtest" DbName="invoice" />
     <Setting Key="IMS_InvoiceIns" SpName="IMS_InvoiceIns" DbName="invoice" />
     <Setting Key="IMS_InvoiceItemsIns" SpName="IMS_InvoiceItemsIns" DbName="invoice" />
     <Setting Key="IMS_Invoice_ExchangeRateBillingSel" SpName="IMS_Invoice_ExchangeRateBillingSel" DbName="invoice" />

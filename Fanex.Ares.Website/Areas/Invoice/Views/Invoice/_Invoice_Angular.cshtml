@@ -9,7 +9,7 @@
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
 }
-<div class="wrapper" ng-controller="InvoiceController">
+<div class="wrapper" >
     <div class="content" style="width: 90%;">
         <div class="boundary">
             <table id="header">
@@ -41,53 +41,28 @@
             <table id="tbl-content">
                 <tr>
                     <td>
-                        <table id="invoiceTbl" style="width: 100%;" >
-                            <tbody>
-
-                            <tr ng-repeat="item in OrgInvoiceInfoModel.">
-                            
-                            </tr>
-                                @for (int i = 0; i < model.StatementList.Count; i++)
-                                {
-                                    Statement state = model.StatementList[i];
-                                    for (int j = 0; j < state.StatementDetailList.Count; j++)
-                                    {
-                                        StatementDetail detail = state.StatementDetailList[j];
-                                        totalAmount += detail.Amount;
-                                        string fakeCssTd =  (j == 0 ? string.Empty :  "fakeCssTd");
-                                    <tr style="width: 100%; text-align: center;">
-                                        @if (j == 0)
-                                        {
-                                            <td  rowspan="@state.StatementDetailList.Count" style="width: 10%; vertical-align:top;padding-top: 20px; ">
+                        <table id="invoiceTbl" style="width: 100%;" ng-app='Invoice' ng-controller="InvoiceController" id="ng-app">
+                            <tbody ng-repeat="statement in invoiceItems.StatementList">
+                            <tr ng-repeat="statementDetail in statement.StatementDetailList">
+                                 <td  rowspan="1" style="width: 10%; vertical-align:top;padding-top: 20px; ">
                                                 <div style="font-size: 20px; display: inline-block;">
-                                                    @(i + 1)</div>
-                                                <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="invoiceApp.viewDetail('@state.FromDate', '@state.ToDate')">
+                                                   </div>
+                                                <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="">
                                                 </div>
                                             </td>
-                                        }
-                                        <td  class="@fakeCssTd"style="width: 55%; text-align: center; height: 60px; ">
-                                            <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" onchange=" invoiceApp.AllowUpdateNewInfo();">
-                                    @if (j == 0)
-                                    {
-                                       @descript @detail.Description
-                                    }
-                                    else
-                                    {
-                                        @detail.Description
-                                       
-                                    }</textarea>
+                                            <td  class="" style="width: 55%; text-align: center; height: 60px; ">
+                                            <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_$index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" onchange=" invoiceApp.AllowUpdateNewInfo();">
+                                                 {{statementDetail.Description}}
+                                    </textarea> </td>
+                                        <td class="" style="width: 20%; text-align: center;">
+                                            <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_$index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  onchange=" invoiceApp.AllowUpdateNewInfo();">
+                                            {{statementDetail.Reference}}</textarea>
                                         </td>
-                                        <td class="@fakeCssTd" style="width: 20%; text-align: center;">
-                                            <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  onchange=" invoiceApp.AllowUpdateNewInfo();">@detail.Reference</textarea>
+                                        <td class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
+                                            padding-right: 10px;"> {{statementDetail.Amount}}
                                         </td>
-                                        <td class="@fakeCssTd" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
-                                            padding-right: 10px;">
-                                            @MvcHtmlString.Create(detail.Amount == 0 && detail.DiscountItem ? "(nil)" : NumberExtensions.NegativeFormat(detail.Amount))
-                                        </td>
-                                    </tr>
-                                    index++;
-                                    }
-                                }
+                            </tr>
+
                                 <tr class="total" style="width: 100%;">
                                     <td style="text-align: center; border-right: 0px solid black !important; padding-left: 25px;">
                                         <div title="Add new item" style="display: inline-block;" class="newitem" onclick="invoiceApp.addItem(false)">
@@ -254,7 +229,7 @@
     <table border="0px" id="tblconfirm">
     </table>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.min.js"></script>
+
 <script type="text/javascript">
     var _totalAmount = @totalAmount; 
     
@@ -288,6 +263,7 @@
     }
 
 
+  
 function ExportPDF()
 {
     $('#tblconfirm').empty().append("<tr><td class='popupTd'>Do you want to export document with signature?</td></tr>");
