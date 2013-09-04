@@ -73,7 +73,7 @@
         function InvoiceController($scope) {
             //        $scope.invoiceItems = Items.query();
             $scope.total = 0;
-            $scope.invoiceItems = [[{ Amount: "2,500.56", Description: "dfaf", Reference: "dfasfdaad", isNew: false },
+            $scope.invoiceItems = [[{ Amount: "2500.56", Description: "dfaf", Reference: "dfasfdaad", isNew: false },
                                                         { Amount: 2600.45, Description: "dfaf", Reference: "dfasfdaad", isNew: false}],
                                                         [{ Amount: 3600.96, Description: "dfaf", Reference: "dfasfdaad", isNew: false },
                                                         { Amount: 4500.56, Description: "dfaf", Reference: "dfasfdaad", isNew: false}],
@@ -103,14 +103,17 @@
                 var total = 0;
                 for (var i = 0; i < $scope.invoiceItems.length; i++) {
                     for (var j = 0; j < $scope.invoiceItems[i].length; j++) {
-                        if (!$scope.invoiceItems[i][j].isNew) {
-                            $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
-                            total = total + $scope.invoiceItems[i][j].Amount * 1;
-                        }
-                        else {
-                           var temp = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
-                           total = total + temp;
-                        }
+//                        $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount);
+                        total = total + $scope.invoiceItems[i][j].Amount * 1;
+
+                        //                        if (!$scope.invoiceItems[i][j].isNew) {
+                        //                            $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
+                        //                            total = total + $scope.invoiceItems[i][j].Amount * 1;
+                        //                        }
+                        //                        else {
+                        //                           var temp = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
+                        //                           total = total + temp;
+                        //                        }
                     }
                 }
                 $scope.total = total;
