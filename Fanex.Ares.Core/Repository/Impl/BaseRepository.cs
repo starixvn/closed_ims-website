@@ -3,34 +3,28 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2012.11.22">Created</change>
-//   <change who="Ricky.Nguyen" date="2012.12.11">Update Get Data Function</change>
-// </history>
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using Fanex.Data;
-using Fanex.NAP.Framework.Data;
-using Fanex.Ares.Core.Models;
 
 namespace Fanex.Ares.Core.Repository.Impl
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data;
+    using Fanex.Data;
+    using Fanex.NAP.Framework.Data;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class BaseRepository : DynamicRepository
     {
         /// <summary>
-        /// Fetch Data from Criteria
+        /// Fetch Data from Criteria.
         /// </summary>
-        /// <typeparam name="S">Class</typeparam>
-        /// <param name="criteria">Criteria</param>
-        /// <param name="serverName">Server Name will be executed sp</param>
-        /// <param name="mapObjectFunction">Read data reader and pass object</param>
-        /// <returns>Collection of object</returns>
+        /// <typeparam name="S">Class data reader.</typeparam>
+        /// <param name="criteria">The Criteria.</param>
+        /// <param name="mapObjectFunction">Read data reader and pass object.</param>
+        /// <returns>Collection of object.</returns>
         public virtual IList<S> Fetch<S>(ICriteria criteria, Func<IDataReader, S> mapObjectFunction) where S : class
         {
             IList<S> listObject = new List<S>();
@@ -52,11 +46,10 @@ namespace Fanex.Ares.Core.Repository.Impl
         }
 
         /// <summary>
-        /// Execute command to Db
+        /// Execute command to Database.
         /// </summary>
-        /// <param name="criteria"></param>
-        /// <param name="serverIp"></param>
-        /// <returns></returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return value.</returns>
         public virtual Hashtable ExecuteCommand(ICriteria criteria)
         {
             using (var db = new ObjectDb(criteria.GetSettingKey()))
@@ -67,11 +60,11 @@ namespace Fanex.Ares.Core.Repository.Impl
         }
 
         /// <summary>
-        /// Get DataTable and Output params from Criteria
+        /// Get DataTable and Output parameters from Criteria.
         /// </summary>
-        /// <param name="criteria"></param>
-        /// <param name="outputParams"></param>
-        /// <returns></returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <param name="outputParams">Output parameter.</param>
+        /// <returns>Return value.</returns>
         public virtual DataTable Fetch(ICriteria criteria, ref Hashtable outputParams)
         {
             if (criteria.IsValid())
@@ -92,11 +85,10 @@ namespace Fanex.Ares.Core.Repository.Impl
         }
 
         /// <summary>
-        /// Get DataTable from Criteria
+        /// Get DataTable from Criteria.
         /// </summary>
-        /// <param name="criteria"></param>
-        /// <param name="outputParams"></param>
-        /// <returns></returns>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public virtual DataTable Fetch(ICriteria criteria)
         {
             if (criteria.IsValid())
@@ -116,11 +108,12 @@ namespace Fanex.Ares.Core.Repository.Impl
         }
 
         /// <summary>
-        /// Get DataTable and Output params from Criteria
+        /// Get DataTable and Output parameters from Criteria.
         /// </summary>
-        /// <param name="criteria"></param>
-        /// <param name="outputParams"></param>
-        /// <returns></returns>
+        /// <typeparam name="S">Class data reader.</typeparam>
+        /// <param name="criteria">The Criteria.</param>
+        /// <param name="mapObjectFunction">Mapping object function.</param>
+        /// <returns>Return value.</returns>
         public virtual IList<S> Fetch<S>(ICriteria criteria, Func<DataRow, S> mapObjectFunction) where S : class
         {
             IList<S> listData = new List<S>();
@@ -145,11 +138,13 @@ namespace Fanex.Ares.Core.Repository.Impl
         }
 
         /// <summary>
-        /// Get DataTable and Output params from Criteria
+        /// Get DataTable and Output parameters from Criteria.
         /// </summary>
-        /// <param name="criteria"></param>
-        /// <param name="outputParams"></param>
-        /// <returns></returns>
+        /// <typeparam name="S">Class data reader.</typeparam>
+        /// <param name="criteria">The Criteria.</param>
+        /// <param name="mapObjectFunction">Mapping object function.</param>
+        /// <param name="outputParams">Output parameter.</param>
+        /// <returns>Return value.</returns>
         public virtual IList<S> Fetch<S>(ICriteria criteria, Func<DataRow, S> mapObjectFunction, ref Hashtable outputParams) where S : class
         {
             IList<S> listData = new List<S>();

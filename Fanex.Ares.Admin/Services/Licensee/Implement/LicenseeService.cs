@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="PartyService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="LicenseeService.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -23,15 +23,23 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Licensee Service.
+    /// </summary>
     public class LicenseeService : ServiceBase, ILicenseeService
     {
-        IAdminRepository _adminRepository;
+        private IAdminRepository _adminRepository;
 
         public LicenseeService()
         {
             _adminRepository = new AdminRepository();
         }
 
+        /// <summary>
+        /// Get all licensees.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<LicenseeModel> GetAllLicensees(ICriteria criteria)
         {
             var listLicensees = new List<LicenseeModel>();
@@ -56,7 +64,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listLicensees = _repository.Fetch<LicenseeModel>(criteria, mappingFunc).ToList();
+                listLicensees = BaseRepository.Fetch<LicenseeModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -66,6 +74,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listLicensees;
         }
 
+        /// <summary>
+        /// Get Available Licensees.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<LicenseeModel> GetAvailableLicensees(ICriteria criteria)
         {
             var listLicensees = new List<LicenseeModel>();
@@ -90,7 +103,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listLicensees = _repository.Fetch<LicenseeModel>(criteria, mappingFunc).ToList();
+                listLicensees = BaseRepository.Fetch<LicenseeModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -100,6 +113,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listLicensees;
         }
 
+        /// <summary>
+        /// Get Available Or Selected Parties.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<SelectListItem> GetAvailableOrSelectedParties(ICriteria criteria)
         {
             var listAvailableLicensees = new List<SelectListItem>();
@@ -116,7 +134,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listAvailableLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
+                listAvailableLicensees = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -127,16 +145,16 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
         }
 
         /// <summary>
-        /// Using for Insert, Update, Delete
+        /// Using for Insert, Update, Delete.
         /// </summary>
-        /// <param name="criteria">Criteria</param>
-        /// <returns>ErrCode, ErrMsg</returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Error Code, Error Message.</returns>
         public Hashtable ExecuteCommand(ICriteria criteria)
         {
             Hashtable rs = new Hashtable();
             try
             {
-                rs = _repository.ExecuteCommand(criteria);
+                rs = BaseRepository.ExecuteCommand(criteria);
             }
             catch (Exception ex)
             {
@@ -146,7 +164,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return rs;
         }
 
-
+        /// <summary>
+        /// Get Licensees By Party ID.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<SelectListItem> GetLicenseesByPartyID(ICriteria criteria)
         {
             IList<SelectListItem> listLicensees = new List<SelectListItem>();
@@ -161,12 +183,13 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     };
                 };
 
-                listLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listLicensees = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
             catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
             }
+
             return listLicensees;
         }
     }

@@ -40,7 +40,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listproducts = _repository.Fetch<ProductModel>(criteria, mappingFunc).ToList();
+                listproducts = BaseRepository.Fetch<ProductModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             Hashtable rs = new Hashtable();
             try
             {
-                rs = _repository.ExecuteCommand(criteria);
+                rs = BaseRepository.ExecuteCommand(criteria);
             }
             catch (Exception ex)
             {

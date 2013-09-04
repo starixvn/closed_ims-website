@@ -61,7 +61,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     return res;
                 };
 
-                operators = _repository.Fetch<Operator>(criteria, mappingFunc).Where(p=> p.IsHide== false).ToList();             
+                operators = BaseRepository.Fetch<Operator>(criteria, mappingFunc).Where(p=> p.IsHide== false).ToList();             
             }
             catch (Exception ex)
             {
@@ -92,7 +92,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     return res;
                 };
 
-                licensees = _repository.Fetch<Licensee>(criteria, mappingFunc).ToList();
+                licensees = BaseRepository.Fetch<Licensee>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -296,7 +296,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 criteria.AdminID = AppSession.CurrentUser.Id;
                 criteria.XMLInvoice = invoiceXmlFormat.ToString();
 
-                var hashResult = _repository.ExecuteCommand(criteria);
+                var hashResult = BaseRepository.ExecuteCommand(criteria);
                 result.ErrorCode = Convert.ToInt32(hashResult["errcode"]);
                 if (result.ErrorCode == 0)
                 {
@@ -318,7 +318,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
         public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
         {
-            var hashResult = _repository.ExecuteCommand(criteria);
+            var hashResult = BaseRepository.ExecuteCommand(criteria);
             return Converter.ToBool(hashResult["isexisted"]);
         }
         public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)

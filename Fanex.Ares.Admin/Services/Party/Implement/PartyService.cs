@@ -70,7 +70,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listParties = _repository.Fetch<PartyModel>(criteria, mappingFunc).ToList();
+                listParties = BaseRepository.Fetch<PartyModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -96,7 +96,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listPartyTypes = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
+                listPartyTypes = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -124,7 +124,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listAvailableLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
+                listAvailableLicensees = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -179,7 +179,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             Hashtable rs = new Hashtable();
             try
             {
-                rs = _repository.ExecuteCommand(criteria);
+                rs = BaseRepository.ExecuteCommand(criteria);
             }
             catch (Exception ex)
             {

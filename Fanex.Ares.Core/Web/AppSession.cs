@@ -3,24 +3,24 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Bao" date="2012.10.18">Created</change>
-//   <change who="Ricky.Nguyen" date="2012.11.22">Update Session Manager</change>
-// </history>
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.NAP.Core.Model;
 
 namespace Fanex.Ares.Core.Web
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.NAP.Core.Model;
+
+    /// <summary>
+    /// App Session.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "App Session.")]
     public static class AppSession
     {
         /// <summary>
-        /// Gets or sets current login user
+        /// Gets or sets current login user.
         /// </summary>
+        /// <value>Current User.</value>
         public static User CurrentUser
         {
             get
@@ -35,8 +35,9 @@ namespace Fanex.Ares.Core.Web
         }
 
         /// <summary>
-        /// Gets or sets menu of current login user
+        /// Gets or sets menu of current login user.
         /// </summary>
+        /// <value>Current User Menu.</value>
         public static IList<MenuItem> CurrentUserMenu
         {
             get
@@ -71,8 +72,9 @@ namespace Fanex.Ares.Core.Web
         }
 
         /// <summary>
-        /// Gets or sets current working menu url
+        /// Gets or sets current working menu url.
         /// </summary>
+        /// <value>Current Working O nMenu.</value>
         public static MenuItem CurrentWorkingOnMenu
         {
             get
@@ -86,11 +88,11 @@ namespace Fanex.Ares.Core.Web
             }
         }
 
-
         /// <summary>
-        /// Gets or sets IsTrackedMenu: determine current working on menu is
-        /// tracked for page tracking or not
+        /// Gets or sets IsTrackedMenu: determine current working on menu is,
+        /// tracked for page tracking or not.
         /// </summary>
+        /// <value>Current Action Name.</value>
         public static string CurrentActionName
         {
             get
@@ -110,6 +112,7 @@ namespace Fanex.Ares.Core.Web
             {
                 return SessionManager.Get<bool>(Constants.VIEW_IP_VN);
             }
+
             set
             {
                 SessionManager.Set<bool>(Constants.VIEW_IP_VN, value);
@@ -122,6 +125,7 @@ namespace Fanex.Ares.Core.Web
             {
                 return SessionManager.Get<bool>(Constants.IS_SHOW_MENU);
             }
+
             set
             {
                 SessionManager.Set<bool>(Constants.IS_SHOW_MENU, value);

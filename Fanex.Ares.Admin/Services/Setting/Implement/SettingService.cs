@@ -56,7 +56,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listSettings = _repository.Fetch<SettingModel>(criteria, mappingFunc).ToList();
+                listSettings = BaseRepository.Fetch<SettingModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -91,7 +91,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listObjects = _repository.Fetch<LicenseeProductChargeModel>(criteria, mappingFunc).ToList();
+                listObjects = BaseRepository.Fetch<LicenseeProductChargeModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listObjects = _repository.Fetch<LicenseeProductDiscountModel>(criteria, mappingFunc).ToList();
+                listObjects = BaseRepository.Fetch<LicenseeProductDiscountModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -143,7 +143,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             Hashtable rs = new Hashtable();
             try
             {
-                rs = _repository.ExecuteCommand(criteria);
+                rs = BaseRepository.ExecuteCommand(criteria);
             }
             catch (Exception ex)
             {
@@ -168,7 +168,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     };
                 };
 
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
             catch (Exception ex)
             {
@@ -192,7 +192,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     };
                 };
 
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
             catch (Exception ex)
             {

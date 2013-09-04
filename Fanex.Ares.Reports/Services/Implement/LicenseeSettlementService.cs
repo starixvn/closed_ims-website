@@ -91,7 +91,7 @@ namespace Fanex.Ares.Report.Services.Interface
                 return res;
             };
 
-            report.EntityList = _repository.Fetch<ReportEntity>(criteria, mappingFunc).ToList();
+            report.EntityList = BaseRepository.Fetch<ReportEntity>(criteria, mappingFunc).ToList();
             return report;
         }
 
@@ -114,7 +114,7 @@ namespace Fanex.Ares.Report.Services.Interface
                     return res;
                 };
 
-                listExchangeRate = _repository.Fetch<ExchangeRate>(criteria, mappingFunc).ToList();
+                listExchangeRate = BaseRepository.Fetch<ExchangeRate>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -142,9 +142,9 @@ namespace Fanex.Ares.Report.Services.Interface
                 licenseeInfoCriteria.PartyId = criteria.PartyId;
                 model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
                 model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
-                var licenseeItem = listLicensee.Where(m => m.item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
-                criteria.LicenseeName = Convert.ToString(licenseeItem.extension["LicenseeName"]);
-                model.LicenseeInfor.LicenseeName = licenseeItem.item.Text;
+                var licenseeItem = listLicensee.Where(m => m.Item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
+                criteria.LicenseeName = Convert.ToString(licenseeItem.Extension["LicenseeName"]);
+                model.LicenseeInfor.LicenseeName = licenseeItem.Item.Text;
                 //model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
                 model.LicenseeInfor.ProductName = criteria.ProductName;
                 model.LicenseeInfor.SettlementDate = criteria.ToDate;
@@ -193,7 +193,7 @@ namespace Fanex.Ares.Report.Services.Interface
                     };
                 };
 
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
             catch (Exception ex)
             {
@@ -217,7 +217,7 @@ namespace Fanex.Ares.Report.Services.Interface
                     };
                 };
 
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
             catch (Exception ex)
             {
@@ -240,7 +240,7 @@ namespace Fanex.Ares.Report.Services.Interface
                     };
                 };
 
-                listLicensees = _repository.Fetch<SelectListItem>(new IMS_LicenseeSelCriteria(), mappingFunc);
+                listLicensees = BaseRepository.Fetch<SelectListItem>(new IMS_LicenseeSelCriteria(), mappingFunc);
             }
             catch (Exception ex)
             {
@@ -258,19 +258,19 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     return new SelectListItemEx
                     {
-                        item = new SelectListItem()
+                        Item = new SelectListItem()
                         {
                             Value = Convert.ToString(r["LicenseeID"]),
                             Text = Convert.ToString(r["BrandName"])
                         },
-                        extension = new Dictionary<string, object>() 
+                        Extension = new Dictionary<string, object>() 
                         { 
                             { "LicenseeName", Convert.ToString(r["LicenseeName"]) } 
                         }
                     };
                 };
 
-                listLicensees = _repository.Fetch<SelectListItemEx>(new IMS_LicenseeSelCriteria(), mappingFunc);
+                listLicensees = BaseRepository.Fetch<SelectListItemEx>(new IMS_LicenseeSelCriteria(), mappingFunc);
             }
             catch (Exception ex)
             {

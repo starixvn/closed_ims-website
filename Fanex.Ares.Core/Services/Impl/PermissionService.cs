@@ -3,35 +3,35 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Nguyen" date="2012.10.18">Created</change>
-//   <change who="Ricky.Nguyen" date="2012.11.20">Update Check Permission</change>
-// </history>
-
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.Ares.Core.Web;
-using Fanex.NAP.Core.Business;
-using Fanex.NAP.Core.Model.ValueObject;
-using Fanex.NAP.Core.Service.Impl;
-using Fanex.NAP.Core.Service.Interface;
 
 namespace Fanex.Ares.Core.Services.Impl
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.Ares.Core.Web;
+    using Fanex.NAP.Core.Business;
+    using Fanex.NAP.Core.Model.ValueObject;
+    using Fanex.NAP.Core.Service.Impl;
+    using Fanex.NAP.Core.Service.Interface;
+
+    /// <summary>
+    /// Permission Service.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Permission Service.")]
     public class PermissionService
     {
-        private static readonly IUserService _userService;
+        private static readonly IUserService UserService;
 
         static PermissionService()
         {
-            _userService = new UserService();
+            UserService = new UserService();
         }
 
         /// <summary>
-        /// GetRollAccess: get permission to access with each menu item of current user login
+        /// GetRollAccess: get permission to access with each menu item of current user login.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="currentFunctions">The function name.</param>
+        /// <returns>Return result.</returns>
         public static Dictionary<string, int> GetRoleAccess(IEnumerable<FunctionPolicy> currentFunctions)
         {
             Dictionary<string, int> roleAccess = new Dictionary<string, int>();
@@ -48,10 +48,10 @@ namespace Fanex.Ares.Core.Services.Impl
         }
 
         /// <summary>
-        /// HasPermission: check that user has permission to access one menu link
+        /// HasReadPermission: check that user has permission to access one menu link.
         /// </summary>
-        /// <param name="menuId"></param>
-        /// <returns></returns>
+        /// <param name="functionName">The function name.</param>
+        /// <returns>Return result.</returns>
         public static bool HasReadPermission(string functionName)
         {
             return AppSession.RoleAccess != null &&
@@ -59,6 +59,11 @@ namespace Fanex.Ares.Core.Services.Impl
                    AppSession.RoleAccess[functionName] == (int)Constant.Policy.Read;
         }
 
+        /// <summary>
+        /// Checking has hot permission.
+        /// </summary>
+        /// <param name="functionName">The function name.</param>
+        /// <returns>Return result.</returns>
         public static bool HasHostPermission(string functionName)
         {
             return AppSession.RoleAccess != null &&
@@ -66,6 +71,11 @@ namespace Fanex.Ares.Core.Services.Impl
                    AppSession.RoleAccess[functionName] == (int)Constant.Policy.Host;
         }
 
+        /// <summary>
+        /// Checking read permission.
+        /// </summary>
+        /// <param name="functionName">The function name.</param>
+        /// <returns>Return result.</returns>
         public static bool HasPermission(string functionName)
         {
             return AppSession.RoleAccess != null &&
