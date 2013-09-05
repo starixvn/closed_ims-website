@@ -32,12 +32,21 @@ function validateNumber(event) {
 function InvoiceController($scope) {
     //        $scope.invoiceItems = Items.query();
     $scope.total = 0;
-    $scope.invoiceItems = [[{ Amount: -2500.56, AmountFormated: '(2,500.56)', Description: "dfaf", Reference: "dfasfdaad", isNew: false },
-                                                        { Amount: 2600.45, AmountFormated: '2,500.56', Description: "dfaf", Reference: "dfasfdaad", isNew: false}]];
+    $scope.totalFormater = '0';
+    $scope.no = 0;
+    $scope.invoiceItems = [[{ Amount: 2500.56, AmountFormated: '2,500.56', Description: "dfaf", Reference: "dfasfdaad", isNew: false, isDiscount: false},
+                            { Amount: -3600.45, AmountFormated: '(3,500.56)', Description: "dfaf", Reference: "dfasfdaad", isNew: false, isDiscount: true}]];
 
-    $scope.insertItem = function () {
+    $scope.insertItem = function (isDiscount_temp) {
         //                        $scope.invoiceItems.splice(1, 0, [[{ Amount: 500, Description: "new", Reference: "new"}]]);
-        $scope.invoiceItems.push([{ Amount: 0.00, AmountFormated: '1,300.56', Description: "new", Reference: "new", isNew: true}]);
+        if (isDiscount_temp)
+        {
+            $scope.invoiceItems.push([{ Amount: -1300.56, AmountFormated: '(1,300.56)', Description: "new", Reference: "new", isNew: true, isDiscount: true}]);
+        }
+        else{
+            $scope.invoiceItems.push([{ Amount: 1300.56, AmountFormated: '1,300.56', Description: "new", Reference: "new", isNew: true, isDiscount: false}]);
+        }
+       
     };
 
     $scope.deleteItem = function ($index) {
@@ -46,17 +55,24 @@ function InvoiceController($scope) {
     };
 
     $scope.change = function ($index) {
-        $scope.invoiceItems[$index][0].Amount = numeral().unformat($scope.invoiceItems[$index][0].AmountFormated);
+//        $scope.invoiceItems[$index][0].Amount = numeral().unformat($scope.invoiceItems[$index][0].AmountFormated);
         //                $scope.invoiceItems[$index][0].AmountFormated = numeral($scope.invoiceItems[$index][0].AmountFormated).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER); 
     };
 
 
     $scope.negativeClass = function (input) {
-        if ((input.indexOf(")") != -1) || input < 0) {
-            return "red";
-        } else {
-            return "";
+        numeral().unformat(input) < 0 ? "red" : "";
+    }
+
+    $scope.increseIndex = function ($index) {
+        if (!$scope.invoiceItems[$index][0].isDiscount) {
+            $scope.no = $scope.no + 1;
+            return $scope.no;
         }
+        else {
+            return '';
+        }
+
     }
 
 
@@ -64,11 +80,15 @@ function InvoiceController($scope) {
         var total = 0;
         for (var i = 0; i < $scope.invoiceItems.length; i++) {
             for (var j = 0; j < $scope.invoiceItems[i].length; j++) {
+                if ($scope.invoiceItems[i][j].AmountFormated == '') {
+                    $scope.invoiceItems[i][j].AmountFormated = '0';
+                }
                 $scope.invoiceItems[i][j].Amount = numeral().unformat($scope.invoiceItems[i][j].AmountFormated);
-                total = total + $scope.invoiceItems[i][j].Amount * 1;
+                total = total + $scope.invoiceItems[i][j].Amount;
             }
         }
-        $scope.total = numeral(total).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER);
+        $scope.total = total;
+        $scope.totalFormater = numeral($scope.total).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER);
     });
 }
 
@@ -81,10 +101,6 @@ shoppingModule.directive('renderOnblur', function () {
         link: function (scope, elm, attrs, ctrl) {
             elm.bind('blur', function () {
                 var viewValue = ctrl.$modelValue;
-                for (var i in ctrl.$formatters) {
-                    viewValue = ctrl.$formatters[i](viewValue);
-                }
-
                 ctrl.$viewValue = numeral(viewValue).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER);
                 ctrl.$render();
             });
@@ -92,8 +108,3 @@ shoppingModule.directive('renderOnblur', function () {
     };
 });
 
-shoppingModule.filter('negativeformat', function () {
-    return function (input) {
-        return (input.indexOf(")") != -1) ? 'red' : '';
-    };
-});

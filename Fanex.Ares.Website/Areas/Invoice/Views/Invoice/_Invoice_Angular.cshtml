@@ -48,7 +48,7 @@
                                     <td ng-show="$first" rowspan="{{statement.length}}" style="width: 10%; vertical-align: top;
                                         padding-top: 20px;">
                                         <div style="font-size: 20px; display: inline-block;">
-                                            {{$parent.$index}}</div>
+                                            {{increseIndex($parent.$index)}}</div>
                                         <div ng-show="statementDetail.isNew" style="display: inline-block;" title="Delete"
                                             class="delete" ng-click="deleteItem($parent.$index)">
                                         </div>
@@ -75,10 +75,10 @@
                             <tbody>
                                 <tr class="total" style="width: 100%;">
                                     <td style="width: 10%; text-align: center; border-right: 0px solid black !important;">
-                                        <div title="Add new item" style="display: inline-block;" class="newitem" ng-click="insertItem()">
+                                        <div title="Add new item" style="display: inline-block;" class="newitem" ng-click="insertItem(false)">
                                         </div>
                                         &nbsp;&nbsp;
-                                        <div title="Add new discount" style="display: inline-block;" class="discount" ng-click="insertItem()">
+                                        <div title="Add new discount" style="display: inline-block;" class="discount" ng-click="insertItem(true)">
                                         </div>
                                     </td>
                                     <td style="width: 55%; height: 30px;">
@@ -88,8 +88,8 @@
                                     </td>
                                     <td style="width: 15%; text-align: center; font-weight: bold;">
                                         <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
-                                            <label ng-class="negativeClass(total)" id="totalAmount" style="font-weight: bold;">
-                                                {{total}}
+                                            <label ng-class="negativeClass(totalFormater)" id="totalAmount" style="font-weight: bold;">
+                                                {{totalFormater}}
                                             </label>
                                         </div>
                                     </td>
@@ -244,7 +244,7 @@
 <script type="text/javascript">
     var _totalAmount = @totalAmount; 
     
-    $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' +  invoiceApp.helper.negativeFormat(_totalAmount));
+//    $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' +  invoiceApp.helper.negativeFormat(_totalAmount));
      invoiceApp.TotalAmount = _totalAmount;
     $('#saveID').button();
    
