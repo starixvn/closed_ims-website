@@ -26,7 +26,7 @@
                 </td>
                 <td class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
                     padding-right: 10px;">
-                    <input  style="font-weight: bold;text-align:right;width:95%;" ng-show="statementDetail.isNew" type="text" ng-model="statementDetail.Amount" render-onblur>
+                    <input  onkeydown='validateNumber(event)' style="font-weight: bold;text-align:right;width:95%;" ng-show="statementDetail.isNew" type="text" ng-model="statementDetail.AmountFormated" >
                     <span ng-show="!statementDetail.isNew">{{statementDetail.Amount | number:2}} </span>
                 </td>
             </tr>
@@ -46,7 +46,7 @@
                 <td style="width: 15%; text-align: center; font-weight: bold;">
                     <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
                         <label id="totalAmount" style="font-weight: bold;">
-                            {{total | number:2}}
+                            {{total}}
                         </label>
                     </div>
                 </td>
@@ -69,22 +69,38 @@
             MMM_DD_YYYY_STRING_MOMENT: 'MMM D, YYYY'
         }
 
+        function validateNumber(event) {
+            // Prevent shift key since its not needed
+            if (event.shiftKey == true) {
+                event.preventDefault();
+            }
+            // Allow Only: keyboard 0-9, numpad 0-9, backspace, tab, left arrow, right arrow, delete
+            if ((event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 96 && event.keyCode <= 105) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 37 || event.keyCode == 39 || event.keyCode == 46) {
+                // Allow normal operation
+            } else {
+                // Prevent the rest
+                event.preventDefault();
+            }
+        }
+
+   
 
         function InvoiceController($scope) {
             //        $scope.invoiceItems = Items.query();
             $scope.total = 0;
-            $scope.invoiceItems = [[{ Amount: "2500.56", Description: "dfaf", Reference: "dfasfdaad", isNew: false },
-                                                        { Amount: 2600.45, Description: "dfaf", Reference: "dfasfdaad", isNew: false}],
-                                                        [{ Amount: 3600.96, Description: "dfaf", Reference: "dfasfdaad", isNew: false },
-                                                        { Amount: 4500.56, Description: "dfaf", Reference: "dfasfdaad", isNew: false}],
-                                                        [{ Amount: 5500, Description: "dfaf", Reference: "dfasfdaad", isNew: false },
-                                                        { Amount: 6500, Description: "dfaf", Reference: "dfasfdaad", isNew: false}]
-            ];
-
+//            $scope.invoiceItems = [[{ Amount: "2500.56", Description: "dfaf", Reference: "dfasfdaad", isNew: false },
+//                                                        { Amount: 2600.45, Description: "dfaf", Reference: "dfasfdaad", isNew: false}],
+//                                                        [{ Amount: 3600.96, Description: "dfaf", Reference: "dfasfdaad", isNew: false },
+//                                                        { Amount: 4500.56, Description: "dfaf", Reference: "dfasfdaad", isNew: false}],
+//                                                        [{ Amount: 5500, Description: "dfaf", Reference: "dfasfdaad", isNew: false },
+//                                                        { Amount: 6500, Description: "dfaf", Reference: "dfasfdaad", isNew: false}]
+//            ];
+            $scope.invoiceItems = [[{ Amount: 2500.56, AmountFormated: '2,500.56', Description: "dfaf", Reference: "dfasfdaad", isNew: false },
+                                                        { Amount: 2600.45, AmountFormated: '2,500.56', Description: "dfaf", Reference: "dfasfdaad", isNew: false}]];
 
             $scope.insertItem = function () {
                 //                        $scope.invoiceItems.splice(1, 0, [[{ Amount: 500, Description: "new", Reference: "new"}]]);
-                $scope.invoiceItems.push([{ Amount: 0.00, Description: "new", Reference: "new", isNew: true}]);
+                $scope.invoiceItems.push([{ Amount: 0.00, AmountFormated: '1,300.56', Description: "new", Reference: "new", isNew: true}]);
             };
 
             $scope.deleteItem = function ($index) {
@@ -93,7 +109,19 @@
             };
 
             $scope.change = function ($index) {
-                $scope.invoiceItems[$index][0].Amount = numeral($scope.invoiceItems[$index][0].Amount).format(FormatConstant.TWO_DECIMAL_NUMBER);
+                var temp = 0;
+                if ($scope.invoiceItems[$index][0].AmountFormated.toString().indexOf(')') !== -1) {
+                    temp = parseFloat($scope.invoiceItems[$index][0].AmountFormated.toString().replace(')', '').replace('(', '').replace(/\,/g, '').replace(',', '')) * -1;
+                }
+                else {
+                    temp = parseFloat($scope.invoiceItems[$index][0].AmountFormated.toString().replace(/\,/g, '').replace(',', ''));
+                }
+
+                $scope.invoiceItems[$index][0].Amount = temp;
+
+                $scope.invoiceItems[$index][0].AmountFormated = temp < 0 ? '(' + numeral(temp * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ')' : numeral(temp).format(FormatConstant.TWO_DECIMAL_NUMBER); 
+
+//                $scope.invoiceItems[$index][0].AmountFormated = numeral($scope.invoiceItems[$index][0].AmountFormated).format(FormatConstant.TWO_DECIMAL_NUMBER);
                 //                $scope.invoiceItems[$index][0].Amount = $scope.invoiceItems[$index][0].Amount.toString().replace(/\,/g, '').replace(',', '');
                 //                $scope.invoiceItems.splice($index, 1);
                 //            $scope.invoiceItems.pop($index);
@@ -103,20 +131,40 @@
                 var total = 0;
                 for (var i = 0; i < $scope.invoiceItems.length; i++) {
                     for (var j = 0; j < $scope.invoiceItems[i].length; j++) {
-//                        $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount);
+                        //                        $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount);
+
+
+                        var temp = 0;
+                        if ($scope.invoiceItems[i][j].AmountFormated.toString().indexOf(')') !== -1) {
+                            temp = parseFloat($scope.invoiceItems[i][j].AmountFormated.toString().replace(')', '').replace('(', '').replace(/\,/g, '').replace(',', '')) * -1;
+                        }
+                        else {
+                            temp = parseFloat($scope.invoiceItems[i][j].AmountFormated.toString().replace(/\,/g, '').replace(',', ''));
+                        }
+
+                        $scope.invoiceItems[i][j].Amount = temp;
+
+                        $scope.invoiceItems[i][j].AmountFormated = temp < 0 ? '(' + numeral(temp * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ')' : numeral(temp).format(FormatConstant.TWO_DECIMAL_NUMBER); 
+                       
+                       
                         total = total + $scope.invoiceItems[i][j].Amount * 1;
 
-                        //                        if (!$scope.invoiceItems[i][j].isNew) {
-                        //                            $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
-                        //                            total = total + $scope.invoiceItems[i][j].Amount * 1;
-                        //                        }
-                        //                        else {
-                        //                           var temp = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
-                        //                           total = total + temp;
-                        //                        }
+//                        if ($scope.invoiceItems[i][j].Amount.toString().indexOf(')') !== -1) {
+//                            $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(')', '').replace('(', '')) * -1;
+//                        }
+//                        //                        total = total + $scope.invoiceItems[i][j].Amount * 1;
+
+//                        if (!$scope.invoiceItems[i][j].isNew) {
+//                            $scope.invoiceItems[i][j].Amount = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
+//                            total = total + $scope.invoiceItems[i][j].Amount * 1;
+//                        }
+//                        else {
+//                            var temp = parseFloat($scope.invoiceItems[i][j].Amount.toString().replace(/\,/g, '').replace(',', ''));
+//                            total = total + temp;
+//                        }
                     }
                 }
-                $scope.total = total;
+                $scope.total = total < 0 ? '(' + numeral(total * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ')' : numeral(total).format(FormatConstant.TWO_DECIMAL_NUMBER); ;
             });
         }
 
@@ -128,11 +176,12 @@
                 restrict: 'A',
                 link: function (scope, elm, attrs, ctrl) {
                     elm.bind('blur', function () {
-                        var viewValue = ctrl.$modelValue;
+                        var viewValue = ctrl.$modelValue.toString().replace(/\,/g, '').replace(',', '');
                         for (var i in ctrl.$formatters) {
                             viewValue = ctrl.$formatters[i](viewValue);
                         }
-                        ctrl.$viewValue = numeral(viewValue).format(FormatConstant.TWO_DECIMAL_NUMBER); 
+
+                        ctrl.$viewValue = viewValue < 0 ? '(' + numeral(viewValue * -1).format(FormatConstant.TWO_DECIMAL_NUMBER) + ')' : numeral(viewValue).format(FormatConstant.TWO_DECIMAL_NUMBER); 
                         ctrl.$render();
                     });
                 }
