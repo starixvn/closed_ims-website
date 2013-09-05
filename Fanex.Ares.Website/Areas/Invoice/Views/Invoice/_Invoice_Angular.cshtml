@@ -9,7 +9,7 @@
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
 }
-<div class="wrapper" >
+<div class="wrapper">
     <div class="content" style="width: 90%;">
         <div class="boundary">
             <table id="header">
@@ -41,44 +41,55 @@
             <table id="tbl-content">
                 <tr>
                     <td>
-                        <table id="invoiceTbl" style="width: 100%;" ng-app='Invoice' ng-controller="InvoiceController" id="ng-app">
-                            <tbody ng-repeat="statement in invoiceItems.StatementList">
-                            <tr ng-repeat="statementDetail in statement.StatementDetailList">
-                                 <td  rowspan="1" style="width: 10%; vertical-align:top;padding-top: 20px; ">
-                                                <div style="font-size: 20px; display: inline-block;">
-                                                   </div>
-                                                <div  title="View detail" style="display: inline-block;"  class="viewdetail" onclick="">
-                                                </div>
-                                            </td>
-                                            <td  class="" style="width: 55%; text-align: center; height: 60px; ">
-                                            <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_$index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" onchange=" invoiceApp.AllowUpdateNewInfo();">
-                                                 {{statementDetail.Description}}
-                                    </textarea> </td>
-                                        <td class="" style="width: 20%; text-align: center;">
-                                            <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_$index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  onchange=" invoiceApp.AllowUpdateNewInfo();">
-                                            {{statementDetail.Reference}}</textarea>
-                                        </td>
-                                        <td class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
-                                            padding-right: 10px;"> {{statementDetail.Amount}}
-                                        </td>
-                            </tr>
-
+                        <table id="invoiceTbl" style="width: 100%;" ng-app='Invoice' ng-controller="InvoiceController"
+                            id="ng-app">
+                            <tbody ng-repeat="(what,statement) in invoiceItems">
+                                <tr ng-repeat="statementDetail in statement">
+                                    <td ng-show="$first" rowspan="{{statement.length}}" style="width: 10%; vertical-align: top;
+                                        padding-top: 20px;">
+                                        <div style="font-size: 20px; display: inline-block;">
+                                            {{$parent.$index}}</div>
+                                        <div ng-show="statementDetail.isNew" style="display: inline-block;" title="Delete"
+                                            class="delete" ng-click="deleteItem($parent.$index)">
+                                        </div>
+                                        <div ng-show="!statementDetail.isNew" title="View detail" style="display: inline-block;"
+                                            class="viewdetail" ng-click="deleteItem($parent.$index)">
+                                        </div>
+                                    </td>
+                                    <td class="" style="width: 35%; text-align: center; height: 60px;">
+                                        <textarea rows="2" cols="106" ng-model="statementDetail.Description"> </textarea>
+                                    </td>
+                                    <td class="" style="width: 20%; text-align: center;">
+                                        <textarea rows="2" cols="33" ng-model="statementDetail.Reference"> </textarea>
+                                    </td>
+                                    <td class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
+                                        padding-right: 10px;">
+                                        <input ng-class="negativeClass(statementDetail.AmountFormated)" onkeydown='validateNumber(event)'
+                                            style="font-weight: bold; text-align: right; width: 95%;" ng-show="statementDetail.isNew"
+                                            type="text" ng-model="statementDetail.AmountFormated" render-onblur>
+                                        <span ng-class="negativeClass(statementDetail.AmountFormated)" ng-show="!statementDetail.isNew">
+                                            {{statementDetail.AmountFormated }} </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tbody>
                                 <tr class="total" style="width: 100%;">
-                                    <td style="text-align: center; border-right: 0px solid black !important; padding-left: 25px;">
-                                        <div title="Add new item" style="display: inline-block;" class="newitem" onclick="invoiceApp.addItem(false)">
+                                    <td style="width: 10%; text-align: center; border-right: 0px solid black !important;">
+                                        <div title="Add new item" style="display: inline-block;" class="newitem" ng-click="insertItem()">
                                         </div>
                                         &nbsp;&nbsp;
-                                        <div title="Add new discount" style="display: inline-block;" class="discount" onclick="invoiceApp.addItem(true)">
+                                        <div title="Add new discount" style="display: inline-block;" class="discount" ng-click="insertItem()">
                                         </div>
                                     </td>
                                     <td style="width: 55%; height: 30px;">
                                     </td>
-                                    <td style="width: 20%; text-align: right; font-weight: bold; ">
+                                    <td style="width: 20%; text-align: right; font-weight: bold;">
                                         TOTAL AMOUNT
                                     </td>
                                     <td style="width: 15%; text-align: center; font-weight: bold;">
                                         <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
-                                            <label id="totalAmount" style="font-weight: bold;">
+                                            <label ng-class="negativeClass(total)" id="totalAmount" style="font-weight: bold;">
+                                                {{total}}
                                             </label>
                                         </div>
                                     </td>
@@ -229,7 +240,7 @@
     <table border="0px" id="tblconfirm">
     </table>
 </div>
-
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
 <script type="text/javascript">
     var _totalAmount = @totalAmount; 
     

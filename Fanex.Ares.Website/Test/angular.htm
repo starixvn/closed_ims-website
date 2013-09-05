@@ -20,8 +20,12 @@
                     padding-top: 20px;">
                     <div style="font-size: 20px; display: inline-block;">
                         {{$parent.$index}}</div>
-                    <button ng-click="deleteItem($parent.$index)">
+
+                    <button ng-show="statementDetail.isNew" ng-click="deleteItem($parent.$index)">
                         Delete
+                    </button>
+                    <button ng-show="!statementDetail.isNew" ng-click="deleteItem($parent.$index)">
+                        View Detail
                     </button>
                 </td>
                 <td class="" style="width: 35%; text-align: center; height: 60px;">
@@ -32,7 +36,7 @@
                 </td>
                 <td  class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
                     padding-right: 10px;">
-                    <input ng-class="negativeClass(statementDetail.AmountFormated)"  onkeydown='validateNumber(event)' style="font-weight: bold;text-align:right;width:95%;" ng-show="statementDetail.isNew" type="text" ng-model="statementDetail.AmountFormated" render-onblur>
+                    <input ng-class="negativeClass(statementDetail.AmountFormated)" ng-show="statementDetail.isNew"  onkeydown='validateNumber(event)' style="font-weight: bold;text-align:right;width:95%;"  type="text" ng-model="statementDetail.AmountFormated" render-onblur>
                     <span ng-class="negativeClass(statementDetail.AmountFormated)" ng-show="!statementDetail.isNew">{{statementDetail.AmountFormated }} </span>
                 </td>
             </tr>
