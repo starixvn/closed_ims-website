@@ -426,7 +426,7 @@ var invoiceApp = {
             }
         }
 
-//        $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' + invoiceApp.helper.negativeFormat(totalAmountTmp));
+        $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' + invoiceApp.helper.negativeFormat(totalAmountTmp));
         invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount = totalAmountTmp;
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');

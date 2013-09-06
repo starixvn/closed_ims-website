@@ -111,7 +111,8 @@ namespace Fanex.Ares.Invoice.Controllers
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
 
-            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
+            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
+            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
         }
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
@@ -149,7 +150,7 @@ namespace Fanex.Ares.Invoice.Controllers
             dateRangeList = this.invoiceService.GetDateRange(fromDate, toDate);
 
             // Crerate invoice main page
-            string mainInvoicePagePath = "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
+            string mainInvoicePagePath = "Templates/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             pageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string mainInvoicePage = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, invoice, true);
@@ -237,7 +238,7 @@ namespace Fanex.Ares.Invoice.Controllers
             dateRangeList = this.invoiceService.GetDateRange(fromDate, toDate);
 
             // Crerate invoice main page
-            string mainInvoicePage = "Template/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
+            string mainInvoicePage = "Templates/" + invoice.Operator.PartyName + "/_" + invoice.Operator.PartyName + "_" + invoice.InvoiceType.InvoiceTypeName;
             string html = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePage, invoice, false);
             invoice.HTMLReportList.Add(html);
 
@@ -365,7 +366,7 @@ namespace Fanex.Ares.Invoice.Controllers
             model.LicenseeInfor.ToDate = criteria.ToDate;
 
             pageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            html = HtmlHelperExtensions.RenderViewToString(this, "_" + criteria.ProductName, model, false);
+            html = HtmlHelperExtensions.RenderViewToString(this, "Products/_" + criteria.ProductName, model, false);
             invoice.HTMLReportList.Add(html);
             excelCssFilePath.Add(cssPath);
             isAutoFitList.Add(true);
@@ -379,7 +380,7 @@ namespace Fanex.Ares.Invoice.Controllers
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
 
-            string html = HtmlHelperExtensions.RenderViewToString(this, "_" + criteria.ProductName, model, false);
+            string html = HtmlHelperExtensions.RenderViewToString(this, "Products/_" + criteria.ProductName, model, false);
             invoice.HTMLReportList.Add(html);
         }
     }
