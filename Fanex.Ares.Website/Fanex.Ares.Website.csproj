@@ -682,7 +682,7 @@
     <Content Include="Areas\Admin\Views\Licensee\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\_PartyLicensee.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Preview.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Templates\BCH\_BCH_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Templates\BHC\_BHC_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Templates\Cozni\_Cozni_Software-Data Fees.cshtml" />

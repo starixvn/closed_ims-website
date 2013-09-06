@@ -283,7 +283,7 @@ namespace Fanex.Ares.Invoice.Controllers
                 }
             }
 
-            return View("_Review", invoice);
+            return View("_Preview", invoice);
         }
 
         public ActionResult Detail(InvoiceModel invoice)
