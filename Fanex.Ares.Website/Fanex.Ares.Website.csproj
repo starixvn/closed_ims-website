@@ -701,6 +701,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\Products\_Number Game.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Products\_Live Casino.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Products\_BA.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\STAREXPRESS\_STAREXPRESS_Software-Data Fees.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
