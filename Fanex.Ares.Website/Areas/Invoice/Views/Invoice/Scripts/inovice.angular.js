@@ -33,56 +33,62 @@ function InvoiceController($scope) {
     //        $scope.invoiceItems = Items.query();
     $scope.total = 0;
     $scope.totalFormater = '0';
-    $scope.invoiceItems = [{
-        index: '',
-        statementDetail: [{
-            Amount: 2500.56,
-            AmountFormated: '2,500.56',
-            Description: "dfaf",
-            Reference: "dfasfdaad",
-            isNew: false,
-            isDiscount: false
-        }, {
-            Amount: -3600.45,
-            AmountFormated: '(3,500.56)',
-            Description: "dfaf",
-            Reference: "dfasfdaad",
-            isNew: false,
-            isDiscount: true
-        }]
-    }];
+//    $scope.invoiceItems = [{
+//        index: '',
+//        statementDetail: [{
+//            Amount: 2500.56,
+//            AmountFormated: '2,500.56',
+//            Description: "dfaf",
+//            Reference: "dfasfdaad",
+//            isNew: false,
+//            isDiscount: false
+//        }, {
+//            Amount: -3600.45,
+//            AmountFormated: '(3,500.56)',
+//            Description: "dfaf",
+//            Reference: "dfasfdaad",
+//            isNew: false,
+//            isDiscount: true
+//        }]
+    //    }];
 
+
+    $scope.invoiceItems = OrgInvoiceInfoModel;
 
     $scope.insertItem = function (isDiscount_temp) {
         if (isDiscount_temp) {
-            $scope.invoiceItems.push({
-                index: '',
-                statementDetail: [{
+            $scope.invoiceItems.StatementList.push({
+                StatementDetailList: [{
+                    ID: 0,
+                    Reference: "new",
+                    Description: "new",
                     Amount: -1300.56,
                     AmountFormated: '(1,300.56)',
-                    Description: "new",
-                    Reference: "new",
-                    isNew: true,
-                    isDiscount: true
+                    InvoiceMonth: '',
+                    AdjustItem: true,
+                    DiscountItem: true,
+                    ProductType: -1
                 }]
             });
         } else {
-            $scope.invoiceItems.push({
-                index: '',
-                statementDetail: [{
-                    Amount: 1300.56,
-                    AmountFormated: '1,300.56',
-                    Description: "new",
+            $scope.invoiceItems.StatementList.push({
+                StatementDetailList: [{
+                    ID: 0,
                     Reference: "new",
-                    isNew: true,
-                    isDiscount: false
+                    Description: "new",
+                    Amount: -1300.56,
+                    AmountFormated: '(1,300.56)',
+                    InvoiceMonth: '',
+                    AdjustItem: true,
+                    DiscountItem: false,
+                    ProductType: -1
                 }]
            });
         }
     };
 
     $scope.deleteItem = function ($index) {
-        $scope.invoiceItems.splice($index, 1);
+        $scope.invoiceItems.StatementList.splice($index, 1);
         //            $scope.invoiceItems.pop($index);
     };
 
@@ -99,17 +105,17 @@ function InvoiceController($scope) {
     $scope.$watch( function () {
         var total = 0;
         var count = 1;
-        for (var i = 0; i < $scope.invoiceItems.length; i++) {
-            var statement = $scope.invoiceItems[i];
-            if (statement.statementDetail[0].isDiscount == true) {
+        for (var i = 0; i < $scope.invoiceItems.StatementList.length; i++) {
+            var statement = $scope.invoiceItems.StatementList[i];
+            if (statement.StatementDetailList[0].DiscountItem == true) {
                 statement.index = '';
             }
             else {
                 statement.index = count;
-                count += count + 1;
+                count +=  1;
             }
-            for (var j = 0; j < statement.length; j++) {
-                var statementDetail = statement[j];
+            for (var j = 0; j < statement.StatementDetailList.length; j++) {
+                var statementDetail = statement.StatementDetailList[j];
                 if (statementDetail.AmountFormated == '') {
                     statementDetail.AmountFormated = '0';
                 }

@@ -241,6 +241,7 @@
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\angular.min.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\inovice.angular.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.filter.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.helper.js" />

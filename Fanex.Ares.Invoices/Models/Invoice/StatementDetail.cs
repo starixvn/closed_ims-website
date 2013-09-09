@@ -30,6 +30,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public double Amount { get; set; }
 
+        public string AmountFormated { get; set; }
+
         public bool AdjustItem { get; set; }
 
         public string InvoiceMonth { get; set; }

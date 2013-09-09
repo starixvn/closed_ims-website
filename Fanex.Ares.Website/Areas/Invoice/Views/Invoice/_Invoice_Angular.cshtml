@@ -52,16 +52,17 @@
                     <td>
                         <table id="invoiceTbl" style="width: 100%;" ng-app='Invoice' ng-controller="InvoiceController"
                             id="ng-app">
-                            <tbody ng-repeat="(what,statement) in invoiceItems">
-                                <tr ng-repeat="statementDetail in statement.statementDetail">
-                                    <td ng-show="$first" rowspan="{{statement.statementDetail.length}}" style="width: 10%; vertical-align: top;
+                            <tbody ng-repeat="(what,statement) in invoiceItems.StatementList">
+                                <tr ng-repeat="statementDetail in statement.StatementDetailList">
+                                    <td ng-show="$first" rowspan="{{statement.StatementDetailList.length}}" style="width: 10%; vertical-align: top;
                                         padding-top: 20px;">
                                         <div style="font-size: 20px; display: inline-block;">
-                                            {{statement.index}}</div>
-                                        <div ng-show="statementDetail.isNew" style="display: inline-block;" title="Delete"
+                                           {{statement.index}} </div>
+                                           
+                                        <div ng-show="statementDetail.AdjustItem" style="display: inline-block;" title="Delete"
                                             class="delete" ng-click="deleteItem($parent.$index)">
                                         </div>
-                                        <div ng-show="!statementDetail.isNew" title="View detail" style="display: inline-block;"
+                                        <div ng-show="!statementDetail.AdjustItem" title="View detail" style="display: inline-block;"
                                             class="viewdetail" ng-click="deleteItem($parent.$index)">
                                         </div>
                                     </td>
@@ -77,7 +78,7 @@
                                             style="font-weight: bold; text-align: right; width: 95%;" ng-show="statementDetail.isNew"
                                             type="text" ng-model="statementDetail.AmountFormated" render-onblur>
                                         <span ng-class="negativeClass(statementDetail.AmountFormated)" ng-show="!statementDetail.isNew">
-                                            {{statementDetail.AmountFormated }} </span>
+                                            {{statementDetail.AmountFormated}} </span>
                                     </td>
                                 </tr>
                             </tbody>

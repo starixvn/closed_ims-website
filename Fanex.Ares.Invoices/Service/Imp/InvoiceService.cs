@@ -19,6 +19,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Interface;
     using Fanex.Common;
+    using Fanex.Ares.Core.Extensions;
 
     /// <summary>
     /// TODO: Update summary.
@@ -225,6 +226,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             Description = row.Description,
                             Reference = row.Reference,
                             Amount = (double)row.TotalAmount,
+                            AmountFormated = ((double)row.TotalAmount).Format(2),
                             AdjustItem = false,
                             InvoiceMonth = row.InvoiceMonth,
                             DiscountItem = row.DiscountItem,
@@ -254,6 +256,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             Description = row.Description,
                             Reference = row.Reference,
                             Amount = row.Amount,
+                            AmountFormated = row.AmountFormated,
                             AdjustItem = false,
                             InvoiceMonth = row.InvoiceMonth,
                             DiscountItem = row.DiscountItem,

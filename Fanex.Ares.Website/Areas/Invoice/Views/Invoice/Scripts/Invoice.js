@@ -470,6 +470,7 @@ var invoiceApp = {
             statementDetail.statementDetail[0].Reference = $('textarea#newItem_ref_' + id).val();
             statementDetail.statementDetail[0].Amount = $('#newItem_display_' + id).attr('amount');
             statementDetail.statementDetail[0].DiscountItem = $('#newItem_display_' + id).attr('discountItem');
+            statementDetail.statementDetail[0].ItemType = 0;
             statement.StatementDetailList.push(statementDetail);
         }
 
