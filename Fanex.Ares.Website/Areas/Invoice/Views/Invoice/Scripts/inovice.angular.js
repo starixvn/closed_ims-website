@@ -31,28 +31,6 @@ function validateNumber(event) {
 
 function InvoiceController($scope) {
     //        $scope.invoiceItems = Items.query();
-    $scope.total = 0;
-    $scope.totalFormater = '0';
-//    $scope.invoiceItems = [{
-//        index: '',
-//        statementDetail: [{
-//            Amount: 2500.56,
-//            AmountFormated: '2,500.56',
-//            Description: "dfaf",
-//            Reference: "dfasfdaad",
-//            isNew: false,
-//            isDiscount: false
-//        }, {
-//            Amount: -3600.45,
-//            AmountFormated: '(3,500.56)',
-//            Description: "dfaf",
-//            Reference: "dfasfdaad",
-//            isNew: false,
-//            isDiscount: true
-//        }]
-    //    }];
-
-
     $scope.invoiceItems = OrgInvoiceInfoModel;
 
     $scope.insertItem = function (isDiscount_temp) {
@@ -76,8 +54,8 @@ function InvoiceController($scope) {
                     ID: 0,
                     Reference: "new",
                     Description: "new",
-                    Amount: -1300.56,
-                    AmountFormated: '(1,300.56)',
+                    Amount: 1300.56,
+                    AmountFormated: '1,300.56',
                     InvoiceMonth: '',
                     AdjustItem: true,
                     DiscountItem: false,
@@ -123,8 +101,8 @@ function InvoiceController($scope) {
                 total = total + statementDetail.Amount;
             }
         }
-        $scope.total = total;
-        $scope.totalFormater = numeral($scope.total).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER);
+        $scope.invoiceItems.TotalAmount = total;
+        $scope.invoiceItems.TotalAmountFomarted = numeral($scope.invoiceItems.TotalAmount).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER);
     });
 }
 

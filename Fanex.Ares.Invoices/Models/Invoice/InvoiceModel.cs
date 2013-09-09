@@ -61,6 +61,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public double TotalAmount { get; set; }
 
+        public string TotalAmountFomarted { get; set; }
+
         public bool IsSignature { get; set; }
 
         public string Note { get; set; }
