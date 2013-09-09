@@ -95,6 +95,7 @@ invoiceApp.filter = {};
 
     this.getBaseCurrency = function(){
        NapAres.disableInput();
+       invoiceApp.filter.getSelectedInvoiceType();
                             $.ajax({
                                 url: domain + "Invoice/Invoice/GetBaseCurrency",
                                 type: "POST",
