@@ -6,7 +6,7 @@ invoiceApp.filter = {};
         $.ajax({
             url: domain + "Invoice/Invoice/getInvoiceType",
             type: "POST",
-            data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val() + '&partyId=' + invoiceApp.filterControls.ddlOperator.val(),
+            data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val() + '&partyId=' + invoiceApp.filterControls.ddlOperator.val() ,
             success: function (result) {
                 var invoiceTypeList = [];
                 var productList = [];
@@ -42,12 +42,12 @@ invoiceApp.filter = {};
                     listData: invoiceTypeList,
                     hasOptGroup: true,
                     onCheck: function () {
+                         invoiceApp.filter.getBaseCurrency();
                         if (!$(this).is(':checked')) {
                             invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
                             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                         }
-
                     }, // when an individual checkbox is clicked 
                     selectedList: 0,
                     isCheckAll: false,
@@ -57,6 +57,7 @@ invoiceApp.filter = {};
                     shadow: true
                 });
 
+                 invoiceApp.filter.getBaseCurrency();
             },
             error: function () {
                 try {
@@ -90,6 +91,31 @@ invoiceApp.filter = {};
                 NapAres.enableInput();
             }
         });
+    }
+
+    this.getBaseCurrency = function(){
+       NapAres.disableInput();
+                            $.ajax({
+                                url: domain + "Invoice/Invoice/GetBaseCurrency",
+                                type: "POST",
+                                data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val() + '&partyId=' + invoiceApp.filterControls.ddlOperator.val() + '&Products=' + invoiceApp.Products,
+                                success: function (data) {
+                                     if (data && data.length > 0) {
+                                         $(invoiceApp.filterControls.ddlCurrency).find('option').remove();
+                                        $.each(data, function (i, item) {
+                                            invoiceApp.filterControls.ddlCurrency.append('<option value="' + item.Value + '">' + item.Text + '</option>');
+                                        });
+                                    }
+                                },
+                                error: function () {
+                                    try {
+                                        parent.jQuery.unblockUI();
+                                    } catch (e) { }
+                                },
+                                complete: function (jqXHR, textStatus) {
+                                    NapAres.enableInput();
+                                }
+                            });
     }
 
     this.getLicensees = function () {

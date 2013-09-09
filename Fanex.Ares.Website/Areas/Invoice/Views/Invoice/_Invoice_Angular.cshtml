@@ -2,6 +2,13 @@
 @using Fanex.Ares.Core.Extensions;
 @using DNAide.Core;
 @using Fanex.Common;
+<style type="text/css">
+.red
+{
+    color: Red !important;
+}
+</style>
+
 @{
     InvoiceModel model = new InvoiceModel();
     model = Model;
@@ -9,12 +16,7 @@
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
 }
-<style type="text/css">
-.red
-{
-    color: Red !important;
-}
-</style>
+
 
 <div class="wrapper">
     <div class="content" style="width: 90%;">
@@ -51,11 +53,11 @@
                         <table id="invoiceTbl" style="width: 100%;" ng-app='Invoice' ng-controller="InvoiceController"
                             id="ng-app">
                             <tbody ng-repeat="(what,statement) in invoiceItems">
-                                <tr ng-repeat="statementDetail in statement">
-                                    <td ng-show="$first" rowspan="{{statement.length}}" style="width: 10%; vertical-align: top;
+                                <tr ng-repeat="statementDetail in statement.statementDetail">
+                                    <td ng-show="$first" rowspan="{{statement.statementDetail.length}}" style="width: 10%; vertical-align: top;
                                         padding-top: 20px;">
                                         <div style="font-size: 20px; display: inline-block;">
-                                            {{increseIndex($parent.$index)}}</div>
+                                            {{statement.index}}</div>
                                         <div ng-show="statementDetail.isNew" style="display: inline-block;" title="Delete"
                                             class="delete" ng-click="deleteItem($parent.$index)">
                                         </div>

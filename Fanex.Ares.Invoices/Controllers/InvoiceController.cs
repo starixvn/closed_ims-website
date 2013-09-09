@@ -63,7 +63,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public ActionResult Index()
         {
             ViewBag.ListOperator = this.invoiceService.GetOperatorList(new IMS_OperatorCriteria() { PartyID = 0 });
-            ViewBag.ListExchangeRate = this.service.GetBaseCurrency(new IMS_BaseCurrencySel());
+            
             return View();
         }
 
@@ -81,6 +81,13 @@ namespace Fanex.Ares.Invoice.Controllers
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
             invoiceTypeList = this.invoiceService.GetInvoieType(new IMS_InvoiceTypesCriteria() { LicenseeId = licenseeID, PartyId = partyID });
             return Json(invoiceTypeList);
+        }
+
+        [HttpPost]
+        public JsonResult GetBaseCurrency(int licenseeID, int partyID, string products)
+        {
+            var ListExchangeRate = this.service.GetBaseCurrency(new IMS_BaseCurrencySel { LicenseeID = licenseeID, PartyID = partyID, Products = products });
+            return Json(ListExchangeRate);
         }
 
         [HttpPost]

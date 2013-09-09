@@ -13,6 +13,12 @@ namespace Fanex.Ares.Core.Criteria
 
     public class IMS_BaseCurrencySel : CriteriaBase
     {
+        public int PartyID { get; set; }
+
+        public string Products { get; set; }
+
+        public int LicenseeID { get; set; }
+
         public override string GetSettingKey()
         {
             return "IMS_BaseCurrencySel";

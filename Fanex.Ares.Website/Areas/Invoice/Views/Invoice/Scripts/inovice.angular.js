@@ -33,20 +33,52 @@ function InvoiceController($scope) {
     //        $scope.invoiceItems = Items.query();
     $scope.total = 0;
     $scope.totalFormater = '0';
-    $scope.no = 0;
-    $scope.invoiceItems = [[{ Amount: 2500.56, AmountFormated: '2,500.56', Description: "dfaf", Reference: "dfasfdaad", isNew: false, isDiscount: false},
-                            { Amount: -3600.45, AmountFormated: '(3,500.56)', Description: "dfaf", Reference: "dfasfdaad", isNew: false, isDiscount: true}]];
+    $scope.invoiceItems = [{
+        index: '',
+        statementDetail: [{
+            Amount: 2500.56,
+            AmountFormated: '2,500.56',
+            Description: "dfaf",
+            Reference: "dfasfdaad",
+            isNew: false,
+            isDiscount: false
+        }, {
+            Amount: -3600.45,
+            AmountFormated: '(3,500.56)',
+            Description: "dfaf",
+            Reference: "dfasfdaad",
+            isNew: false,
+            isDiscount: true
+        }]
+    }];
+
 
     $scope.insertItem = function (isDiscount_temp) {
-        //                        $scope.invoiceItems.splice(1, 0, [[{ Amount: 500, Description: "new", Reference: "new"}]]);
-        if (isDiscount_temp)
-        {
-            $scope.invoiceItems.push([{ Amount: -1300.56, AmountFormated: '(1,300.56)', Description: "new", Reference: "new", isNew: true, isDiscount: true}]);
+        if (isDiscount_temp) {
+            $scope.invoiceItems.push({
+                index: '',
+                statementDetail: [{
+                    Amount: -1300.56,
+                    AmountFormated: '(1,300.56)',
+                    Description: "new",
+                    Reference: "new",
+                    isNew: true,
+                    isDiscount: true
+                }]
+            });
+        } else {
+            $scope.invoiceItems.push({
+                index: '',
+                statementDetail: [{
+                    Amount: 1300.56,
+                    AmountFormated: '1,300.56',
+                    Description: "new",
+                    Reference: "new",
+                    isNew: true,
+                    isDiscount: false
+                }]
+           });
         }
-        else{
-            $scope.invoiceItems.push([{ Amount: 1300.56, AmountFormated: '1,300.56', Description: "new", Reference: "new", isNew: true, isDiscount: false}]);
-        }
-       
     };
 
     $scope.deleteItem = function ($index) {
@@ -55,36 +87,34 @@ function InvoiceController($scope) {
     };
 
     $scope.change = function ($index) {
-//        $scope.invoiceItems[$index][0].Amount = numeral().unformat($scope.invoiceItems[$index][0].AmountFormated);
+        //        $scope.invoiceItems[$index][0].Amount = numeral().unformat($scope.invoiceItems[$index][0].AmountFormated);
         //                $scope.invoiceItems[$index][0].AmountFormated = numeral($scope.invoiceItems[$index][0].AmountFormated).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER); 
     };
 
 
     $scope.negativeClass = function (input) {
-        numeral().unformat(input) < 0 ? "red" : "";
+        return numeral().unformat(input) < 0 ? "red" : "";
     }
-
-    $scope.increseIndex = function ($index) {
-        if (!$scope.invoiceItems[$index][0].isDiscount) {
-            $scope.no = $scope.no + 1;
-            return $scope.no;
-        }
-        else {
-            return '';
-        }
-
-    }
-
-
-    $scope.$watch(function () {
+//    '[Description, Reference, AmountFormated]',
+    $scope.$watch( function () {
         var total = 0;
+        var count = 1;
         for (var i = 0; i < $scope.invoiceItems.length; i++) {
-            for (var j = 0; j < $scope.invoiceItems[i].length; j++) {
-                if ($scope.invoiceItems[i][j].AmountFormated == '') {
-                    $scope.invoiceItems[i][j].AmountFormated = '0';
+            var statement = $scope.invoiceItems[i];
+            if (statement.statementDetail[0].isDiscount == true) {
+                statement.index = '';
+            }
+            else {
+                statement.index = count;
+                count += count + 1;
+            }
+            for (var j = 0; j < statement.length; j++) {
+                var statementDetail = statement[j];
+                if (statementDetail.AmountFormated == '') {
+                    statementDetail.AmountFormated = '0';
                 }
-                $scope.invoiceItems[i][j].Amount = numeral().unformat($scope.invoiceItems[i][j].AmountFormated);
-                total = total + $scope.invoiceItems[i][j].Amount;
+                statementDetail.Amount = numeral().unformat(statementDetail.AmountFormated);
+                total = total + statementDetail.Amount;
             }
         }
         $scope.total = total;
@@ -107,4 +137,3 @@ shoppingModule.directive('renderOnblur', function () {
         }
     };
 });
-
