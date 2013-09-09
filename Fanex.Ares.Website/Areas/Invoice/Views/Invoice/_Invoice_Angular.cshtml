@@ -75,9 +75,9 @@
                                     <td class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
                                         padding-right: 10px;">
                                         <input ng-class="negativeClass(statementDetail.AmountFormated)" onkeydown='validateNumber(event)'
-                                            style="font-weight: bold; text-align: right; width: 95%;" ng-show="statementDetail.isNew"
+                                            style="font-weight: bold; text-align: right; width: 95%;" ng-show="statementDetail.AdjustItem"
                                             type="text" ng-model="statementDetail.AmountFormated" render-onblur>
-                                        <span ng-class="negativeClass(statementDetail.AmountFormated)" ng-show="!statementDetail.isNew">
+                                        <span ng-class="negativeClass(statementDetail.AmountFormated)" ng-show="!statementDetail.AdjustItem">
                                             {{statementDetail.AmountFormated}} </span>
                                     </td>
                                 </tr>
