@@ -6,7 +6,7 @@ invoiceApp.filter = {};
         $.ajax({
             url: domain + "Invoice/Invoice/getInvoiceType",
             type: "POST",
-            data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val(),
+            data: 'licenseeID=' + invoiceApp.filterControls.ddlLicensee.val() + '&partyId=' + invoiceApp.filterControls.ddlOperator.val(),
             success: function (result) {
                 var invoiceTypeList = [];
                 var productList = [];

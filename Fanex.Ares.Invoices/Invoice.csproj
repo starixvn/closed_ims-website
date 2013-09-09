@@ -73,7 +73,6 @@
     <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceInsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceNoCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceTypeCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceTypesCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_LicenseeByPartyCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsCriteria.cs" />

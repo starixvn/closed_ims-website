@@ -19,6 +19,8 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     {
         public int LicenseeId { get; set; }
 
+        public int PartyId { get; set; }
+
         public override string GetSettingKey()
         {
             return "IMS_InvoiceTypeSel";

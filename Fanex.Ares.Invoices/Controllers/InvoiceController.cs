@@ -76,10 +76,10 @@ namespace Fanex.Ares.Invoice.Controllers
         }
 
         [HttpPost]
-        public JsonResult GetInvoiceType(int licenseeID)
+        public JsonResult GetInvoiceType(int licenseeID, int partyID)
         {
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
-            invoiceTypeList = this.invoiceService.GetInvoieType(new IMS_InvoiceTypesCriteria() { LicenseeId = licenseeID });
+            invoiceTypeList = this.invoiceService.GetInvoieType(new IMS_InvoiceTypesCriteria() { LicenseeId = licenseeID, PartyId = partyID });
             return Json(invoiceTypeList);
         }
 
