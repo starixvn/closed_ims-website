@@ -229,7 +229,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             Reference = row.Reference,
                             Amount = (double)row.TotalAmount,
                             AmountFormated = ((double)row.TotalAmount).Format(2),
-                            AdjustItem = false,
+                            AdjustItem = (int)row.ItemType,
                             InvoiceMonth = row.InvoiceMonth,
                             DiscountItem = row.DiscountItem,
                             ProductType = row.ItemType
@@ -259,7 +259,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             Reference = row.Reference,
                             Amount = row.Amount,
                             AmountFormated = row.AmountFormated,
-                            AdjustItem = false,
+                            AdjustItem = row.AdjustItem,
                             InvoiceMonth = row.InvoiceMonth,
                             DiscountItem = row.DiscountItem,
                             ProductType = row.ProductType
@@ -310,12 +310,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 invoiceXmlFormat.Append("   <PartyID>" + invoiceModel.Operator.PartyID + "</PartyID>");
                 invoiceXmlFormat.Append("   <PartyName>" + invoiceModel.Operator.PartyFullName + "</PartyName>");
                 invoiceXmlFormat.Append("   <LicenseeID>" + invoiceModel.Licensee.LicenseeID + "</LicenseeID>");
-                invoiceXmlFormat.Append("   <LicenseeName>" + invoiceModel.Licensee.LicenseeName + "</LicenseeName>");
+                //invoiceXmlFormat.Append("   <LicenseeName>" + invoiceModel.Licensee.LicenseeName + "</LicenseeName>");
                 invoiceXmlFormat.Append("   <InvoiceType>" + invoiceModel.InvoiceType.InvoiceTypeID + "</InvoiceType>");
-                invoiceXmlFormat.Append("   <InvoiceTypeName>" + invoiceModel.InvoiceType.InvoiceTypeName + "</InvoiceTypeName>");
+                //invoiceXmlFormat.Append("   <InvoiceTypeName>" + invoiceModel.InvoiceType.InvoiceTypeName + "</InvoiceTypeName>");
                 invoiceXmlFormat.Append("   <Products>" + invoiceModel.Product + "</Products>");
                 invoiceXmlFormat.Append("   <Currency>" + invoiceModel.Currency + "</Currency>");
-                invoiceXmlFormat.Append("   <CurrencyName>" + invoiceModel.CurrencyName + "</CurrencyName>");
+                //invoiceXmlFormat.Append("   <CurrencyName>" + invoiceModel.CurrencyName + "</CurrencyName>");
                 invoiceXmlFormat.Append("   <FromDate>" + invoiceModel.FromDate + "</FromDate>");
                 invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
                 invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
@@ -331,7 +331,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                         invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? statementDetail.Description.Replace("&", "amp") : string.Empty)  + "</Description>");
                         invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
-                        invoiceXmlFormat.Append("   <AdjustItem>" + statementDetail.AdjustItem + "</AdjustItem>");
+                        invoiceXmlFormat.Append("   <ItemType>" + statementDetail.AdjustItem + "</ItemType>");
                         invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");
                         invoiceXmlFormat.Append("   <DiscountItem>" + statementDetail.DiscountItem + "</DiscountItem>");
                         invoiceXmlFormat.Append("</InvoiceItem>");
