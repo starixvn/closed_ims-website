@@ -168,20 +168,20 @@ div.boundary{
 }
 
 .uncheckedCls{
-    background: url(Images/sprite.png) -63px -40px;
+    background: url(Images/sprite.png) -63px -43px;
 	cursor: pointer;
 	display: block;
-	height: 24px;
+	height: 20px;
 	width: 24px;
 	float:left;
 }
 
 .checkedCls
 {
-     background: url(Images/sprite.png) -42px -40px;
+     background: url(Images/sprite.png) -42px -43px;
 	cursor: pointer;
 	display: block;
-	height: 24px;
+	height: 20px;
 	width: 24px;
 	float:left;
 }
