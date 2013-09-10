@@ -459,18 +459,24 @@ var invoiceApp = {
                 Description: '',
                 Reference: '',
                 Amount: 0,
-                AdjustItem: 0
+                AdjustItem: 0,
+                StatementDetailList: [{
+                    Description: '',
+                    Reference: '',
+                    Amount: 0,
+                    AdjustItem: 0,
+                }]
             };
             statementDetail.Description = $('textarea#newItem_des_' + id).val();
             statementDetail.Reference = $('textarea#newItem_ref_' + id).val();
             statementDetail.Amount = $('#newItem_display_' + id).attr('amount');
             statementDetail.DiscountItem = $('#newItem_display_' + id).attr('discountItem');
 
-            statementDetail.statementDetail[0].Description = $('textarea#newItem_des_' + id).val();
-            statementDetail.statementDetail[0].Reference = $('textarea#newItem_ref_' + id).val();
-            statementDetail.statementDetail[0].Amount = $('#newItem_display_' + id).attr('amount');
-            statementDetail.statementDetail[0].DiscountItem = $('#newItem_display_' + id).attr('discountItem');
-            statementDetail.statementDetail[0].AdjustItem = 0;
+            statementDetail.StatementDetailList[0].Description = $('textarea#newItem_des_' + id).val();
+            statementDetail.StatementDetailList[0].Reference = $('textarea#newItem_ref_' + id).val();
+            statementDetail.StatementDetailList[0].Amount = $('#newItem_display_' + id).attr('amount');
+            statementDetail.StatementDetailList[0].DiscountItem = $('#newItem_display_' + id).attr('discountItem');
+            statementDetail.StatementDetailList[0].AdjustItem = 0;
             statement.StatementDetailList.push(statementDetail);
         }
 
