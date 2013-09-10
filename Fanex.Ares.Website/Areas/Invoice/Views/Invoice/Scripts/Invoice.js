@@ -604,5 +604,12 @@ var invoiceApp = {
         NapAres.enableInput();
         invoiceInfoModel = [];
         invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
+    },
+
+    exportPDF: function ()
+    {       
+        var link = domain + "Invoice/Invoice/ExportDocument?isSignature= " + $('#chkSign').is(':checked');
+        location.href = link;
     }
+
 }

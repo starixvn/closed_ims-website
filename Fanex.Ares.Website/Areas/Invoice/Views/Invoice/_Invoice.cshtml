@@ -209,7 +209,7 @@
                                         <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                             type="button" value="PREVIEW" onclick="invoiceApp.previewInvoice()" />&nbsp;&nbsp;&nbsp;
                                         <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled"
-                                            type="button" value="EXPORT TO PDF" onclick="ExportPDF()" />
+                                            type="button" value="EXPORT TO PDF" onclick="invoiceApp.exportPDF()" />
                                     </div>
                                 </td>
                             </tr>
@@ -287,11 +287,6 @@
     }
 
 
-function ExportPDF()
-{       var signature = $("#chkSign").checked;
-        var link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true })';
-        location.href = link;
-}
 
 $("#noteId").bind('input propertychange', function () {
     var maxLength = $('#noteId').attr('maxlength');
