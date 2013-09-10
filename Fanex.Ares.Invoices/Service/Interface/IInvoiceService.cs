@@ -11,6 +11,7 @@ namespace Fanex.Ares.Invoice.Service.Interface
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
+    using System.Web.Mvc;
 
     /// <summary>
     /// Invoice service
@@ -31,5 +32,7 @@ namespace Fanex.Ares.Invoice.Service.Interface
         Core.Models.Result SaveInvoice(InvoiceModel invoiceModel);
 
         List<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria);
+
+        IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(IMS_GenInv_BaseCurrencySel criteria);
     }
 }

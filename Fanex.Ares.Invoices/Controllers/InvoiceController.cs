@@ -86,7 +86,7 @@ namespace Fanex.Ares.Invoice.Controllers
         [HttpPost]
         public JsonResult GetBaseCurrency(int licenseeID, int partyID, string products)
         {
-            var ListExchangeRate = this.service.GetBaseCurrency(new IMS_BaseCurrencySel { LicenseeID = licenseeID, PartyID = partyID, Products = products });
+            var ListExchangeRate = this.invoiceService.GetBaseCurrencyInvoiceFilter(new IMS_GenInv_BaseCurrencySel { LicenseeID = licenseeID, PartyID = partyID, Products = products });
             return Json(ListExchangeRate);
         }
 
@@ -118,8 +118,8 @@ namespace Fanex.Ares.Invoice.Controllers
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
 
-            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
-            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
+            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
+            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
         }
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)

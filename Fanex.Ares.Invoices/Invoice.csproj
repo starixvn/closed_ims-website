@@ -69,6 +69,7 @@
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Criteria\Invoice\IMS_DateRangeCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_CheckExistedInvoiceNo.cs" />
+    <Compile Include="Criteria\Invoice\IMS_GenInv_BaseCurrencySel.cs" />
     <Compile Include="Criteria\Invoice\IMS_GetChargeRateCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_InvoiceInsCriteria.cs" />

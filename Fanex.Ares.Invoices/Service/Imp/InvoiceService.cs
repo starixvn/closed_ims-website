@@ -20,6 +20,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using Fanex.Ares.Invoice.Service.Interface;
     using Fanex.Common;
     using Fanex.Ares.Core.Extensions;
+    using System.Web.Mvc;
+    using Fanex.Ares.Core.Repository.Impl;
 
     /// <summary>
     /// TODO: Update summary.
@@ -463,6 +465,34 @@ namespace Fanex.Ares.Invoice.Service.Imp
             }
 
             return chargeRateList;
+        }
+
+        /// <summary>
+        /// Get base currency invoice filter
+        /// </summary>
+        /// <param name="IMS_InvoiceTypesCriteria">criteria</param>
+        public IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(IMS_GenInv_BaseCurrencySel criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
         }
 
         /// <summary>

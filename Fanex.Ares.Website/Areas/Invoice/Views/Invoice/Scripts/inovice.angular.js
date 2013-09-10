@@ -34,35 +34,19 @@ function InvoiceController($scope) {
     $scope.invoiceItems = OrgInvoiceInfoModel;
 
     $scope.insertItem = function (isDiscount_temp) {
-        if (isDiscount_temp) {
             $scope.invoiceItems.StatementList.push({
                 StatementDetailList: [{
                     ID: 0,
-                    Reference: "new",
-                    Description: "new",
-                    Amount: -1300.56,
-                    AmountFormated: '(1,300.56)',
+                    Reference: "",
+                    Description: "",
+                    Amount: 0,
+                    AmountFormated: '0',
                     InvoiceMonth: '',
                     AdjustItem: true,
-                    DiscountItem: true,
+                    DiscountItem: isDiscount_temp,
                     ProductType: -1
                 }]
             });
-        } else {
-            $scope.invoiceItems.StatementList.push({
-                StatementDetailList: [{
-                    ID: 0,
-                    Reference: "new",
-                    Description: "new",
-                    Amount: 1300.56,
-                    AmountFormated: '1,300.56',
-                    InvoiceMonth: '',
-                    AdjustItem: true,
-                    DiscountItem: false,
-                    ProductType: -1
-                }]
-           });
-        }
     };
 
     $scope.deleteItem = function ($index) {
@@ -70,9 +54,9 @@ function InvoiceController($scope) {
         //            $scope.invoiceItems.pop($index);
     };
 
-    $scope.change = function ($index) {
-        //        $scope.invoiceItems[$index][0].Amount = numeral().unformat($scope.invoiceItems[$index][0].AmountFormated);
-        //                $scope.invoiceItems[$index][0].AmountFormated = numeral($scope.invoiceItems[$index][0].AmountFormated).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER); 
+    $scope.change = function (statementDetail) {
+        var amountTmp = numeral().unformat(statementDetail.AmountFormated);
+      return  statementDetail.Amount = statementDetail.DiscountItem == true ? Math.abs(amountTmp) * -1 : Math.abs(amountTmp);
     };
 
 
@@ -92,6 +76,7 @@ function InvoiceController($scope) {
                 statement.index = count;
                 count +=  1;
             }
+
             for (var j = 0; j < statement.StatementDetailList.length; j++) {
                 var statementDetail = statement.StatementDetailList[j];
                 if (statementDetail.AmountFormated == '') {
@@ -114,7 +99,11 @@ shoppingModule.directive('renderOnblur', function () {
         restrict: 'A',
         link: function (scope, elm, attrs, ctrl) {
             elm.bind('blur', function () {
+
                 var viewValue = ctrl.$modelValue;
+                if (attrs.discountItem !== undefined && attrs.discountItem == "true") {
+                    viewValue = Math.abs(viewValue) * -1;
+                }
                 ctrl.$viewValue = numeral(viewValue).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER);
                 ctrl.$render();
             });
