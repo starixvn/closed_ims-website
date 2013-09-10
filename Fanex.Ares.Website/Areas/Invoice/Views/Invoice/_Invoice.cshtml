@@ -201,7 +201,7 @@
                                 </td>
                                 <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                                 <div style="display:inline-block; float:left; font-weight: bold;">
-                                        <input type="checkbox" id="chkSign"> with signature
+                                        <input type="checkbox" id="chkSign"/> with signature
                                 </div>
                                     <div style="display:inline-block;">
                                         <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
@@ -288,33 +288,9 @@
 
 
 function ExportPDF()
-{
-    $('#tblconfirm').empty().append("<tr><td class='popupTd'>Do you want to export document with signature?</td></tr>");
-            $("#tblconfirm").dialog({
-                title: "Export PDF",
-                autoOpen: false,
-                height: 130,
-                width: 360,
-                resizable: false,
-                modal: true,
-                buttons: {
-                    Yes: function () {
-                        link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true })';
-                        location.href = link;
-                         $(this).dialog("close");
-                    },
-                    No: 
-                     function () {
-                       link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = false })';
-                        location.href = link;
-                         $(this).dialog("close");
-                    }
-                },
-                close: function (event, ui) {
-                }
-            });
-            $('a.ui-dialog-titlebar-close').show();
-            $("#tblconfirm").dialog("open");
+{       var signature = $("#chkSign").checked;
+        var link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true })';
+        location.href = link;
 }
 
 $("#noteId").bind('input propertychange', function () {

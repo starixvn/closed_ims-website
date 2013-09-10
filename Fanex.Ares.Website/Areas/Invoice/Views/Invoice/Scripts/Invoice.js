@@ -571,7 +571,7 @@ var invoiceApp = {
         invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
         invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
         invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
-        invoiceInfoModel.IsSignature = true;
+        invoiceInfoModel.IsSignature = $('#chkSign').is(':checked');
         $.ajax({
             url: domain + "Invoice/Invoice/PrintScreen",
             data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
