@@ -1,10 +1,23 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="IAdminRepository.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
 namespace Fanex.Ares.Admin.Repositories.Interface
 {
     using Fanex.Ares.Admin.Criteria;
 
+    /// <summary>
+    /// Admin Repository.
+    /// </summary>
     public interface IAdminRepository
     {
+        /// <summary>
+        /// Check User Online Status.
+        /// </summary>
+        /// <param name="criteria">User online status.</param>
+        /// <returns>Return result.</returns>
         bool CheckUserOnlineStatus(AccountingUserCheckOnlineStatusCriteria criteria);
     }
 }

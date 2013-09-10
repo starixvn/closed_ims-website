@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-// <copyright file="IMS_PartyInfoSelCriteria.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IMS_ProductIns.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,19 +11,37 @@ namespace Fanex.Ares.Admin.Criteria
 {
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Product Insert.
+    /// </summary>
     public class IMS_ProductIns : CriteriaBase
     {
         public string ProductName { get; set; }
+
         public string Description { get; set; }
+
         public string ProductPrefix { get; set; }
+
         public int ErrCode { get; set; }
+
         public string ErrMsg { get; set; }
 
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_ProductIns";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }

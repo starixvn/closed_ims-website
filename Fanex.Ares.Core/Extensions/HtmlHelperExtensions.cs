@@ -42,7 +42,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="formatDate">Format date parameter.</param>
         /// <param name="unavailDates">Unavailable date parameter.</param>
         /// <returns>Return value.</returns>
-        public static MvcHtmlString DatePicker(this HtmlHelper htmlHelper, string name, DateTime? date, DateTime? minDate = null, DateTime? maxDate = null, string formatDate = Constants.SHORT_DATE_FORMAT, IEnumerable<DateTime> unavailDates = null)
+        public static MvcHtmlString DatePicker(this HtmlHelper htmlHelper, string name, DateTime? date, DateTime? minDate = null, DateTime? maxDate = null, string formatDate = Constants._SHORT_DATE_FORMAT, IEnumerable<DateTime> unavailDates = null)
         {
             if (string.IsNullOrWhiteSpace(formatDate))
             {
@@ -50,7 +50,7 @@ namespace Fanex.Ares.Core.Extensions
             }
 
             string disabledDate = (unavailDates != null && unavailDates.Count() > 0)
-                ? string.Join(",", unavailDates.Select(d => d.ToString(Constants.SHORT_DATE_FORMAT)))
+                ? string.Join(",", unavailDates.Select(d => d.ToString(Constants._SHORT_DATE_FORMAT)))
                 : string.Empty;
             var textbox = htmlHelper.TextBox(name, date.HasValue ? date.Value.ToString(formatDate) : string.Empty, new { @class = "datepicker", mindate = minDate != null && minDate != DateTime.MinValue ? ((DateTime)minDate).ToString("yyyy/MM/dd") : "null", maxdate = maxDate != null && maxDate != DateTime.MinValue ? ((DateTime)maxDate).ToString("yyyy/MM/dd") : "null", disabledDate = disabledDate });
 
@@ -69,7 +69,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="formatDate">Format date parameter.</param>
         /// <param name="unavailDates">Unavailable date parameter.</param>
         /// <returns>Return value.</returns>
-        public static MvcHtmlString DatePickerFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, DateTime? minDate = null, DateTime? maxDate = null, string formatDate = Constants.SHORT_DATE_FORMAT, IEnumerable<DateTime> unavailDates = null)
+        public static MvcHtmlString DatePickerFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, DateTime? minDate = null, DateTime? maxDate = null, string formatDate = Constants._SHORT_DATE_FORMAT, IEnumerable<DateTime> unavailDates = null)
         {
             var metaData = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
             DateTime? value = DateTime.Now;
@@ -95,8 +95,8 @@ namespace Fanex.Ares.Core.Extensions
         /// </summary>
         /// <param name="htmlHelper">HTML helper.</param>
         /// <param name="name">Name parameter.</param>
-        /// <param name="fromYear">Default is 2000.</param>
-        /// <param name="currentYear">Default is 2000.</param>
+        /// <param name="fromYear">From year - Default is 2000.</param>
+        /// <param name="currentYear">Crrent year - Default is 2000.</param>
         /// <returns>Return value.</returns>
         public static MvcHtmlString YearPicker(this HtmlHelper htmlHelper, string name, int fromYear = 2000, int currentYear = 2000)
         {

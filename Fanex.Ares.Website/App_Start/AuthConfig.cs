@@ -3,22 +3,25 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2013.1.25">Created</change>
-// </history>
-
-
-using System.Web;
-using System.Web.Security;
-using Fanex.NAP.Core.Web.Auth;
-using Fanex.NAP.Core.Web.Session;
-using Fanex.NAP.Core.Service.Impl;
-using Fanex.NAP.Core.Criteria.User;
 
 namespace Fanex.Ares.Website.App_Start
 {
+    using System.Web;
+    using System.Web.Security;
+    using Fanex.NAP.Core.Criteria.User;
+    using Fanex.NAP.Core.Service.Impl;
+    using Fanex.NAP.Core.Web.Auth;
+    using Fanex.NAP.Core.Web.Session;
+
+    /// <summary>
+    /// Authentication Config.
+    /// </summary>
     public class AuthConfig
     {
+        /// <summary>
+        /// Register Authentication.
+        /// </summary>
+        /// <param name="context">Request context.</param>
         public static void RegisterAuth(HttpContext context)
         {
             var user = HttpContext.Current.User;
@@ -54,6 +57,9 @@ namespace Fanex.Ares.Website.App_Start
             }
         }
 
+        /// <summary>
+        /// Sign out method.
+        /// </summary>
         public static void SignOut()
         {
             var _currentSession = new CurrentSession();

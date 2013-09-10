@@ -1,9 +1,22 @@
-﻿using System.Web.Mvc;
+﻿// --------------------------------------------------------------------------
+// <copyright file="FilterConfig.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Website.App_Start
 {
+    using System.Web.Mvc;
+
+    /// <summary>
+    /// Filter Config.
+    /// </summary>
     public class FilterConfig
     {
+        /// <summary>
+        /// Register Global Filters.
+        /// </summary>
+        /// <param name="filters">Global Filters collection.</param>
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());

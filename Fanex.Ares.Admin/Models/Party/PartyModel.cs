@@ -6,7 +6,6 @@
 
 namespace Fanex.Ares.Admin.Models.Party
 {
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

@@ -55,7 +55,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>Return value.</returns>
         public static string ToShortFormatedDate(this DateTime date)
         {
-            return date.ToString(Constants.SHORT_DATE_FORMAT);
+            return date.ToString(Constants._SHORT_DATE_FORMAT);
         }
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>Return value.</returns>
         public static string ToLongFormatedDate(this DateTime date)
         {
-            return date.ToString(Constants.LONG_DATE_FORMAT);
+            return date.ToString(Constants._LONG_DATE_FORMAT);
         }
 
         /// <summary>
@@ -130,7 +130,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>String with format (MMM yyyy).</returns>
         public static string ToMonthYear(this DateTime date)
         {
-            return date.ToString(Constants.MONTH_YEAR_DATE_FORMAT);
+            return date.ToString(Constants._MONTH_YEAR_DATE_FORMAT);
         }
 
         /// <summary>
@@ -155,7 +155,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>Return value.</returns>
         public static string ToLongFormatedDateWithSlash(this DateTime date)
         {
-            return date.ToString(Constants.LONG_DATE_FORMAT_WITH_SLASH);
+            return date.ToString(Constants._LONG_DATE_FORMAT_WITH_SLASH);
         }
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>Return value.</returns>
         public static string ToShortFormatedDateWithSlash(this DateTime date)
         {
-            return date.ToString(Constants.SHORT_DATE_FORMAT_WITH_SLASH);
+            return date.ToString(Constants._SHORT_DATE_FORMAT_WITH_SLASH);
         }
 
         /// <summary>
@@ -190,7 +190,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>String with format (MM/yyyy).</returns>
         public static string ToMonthYearWithSlash(this DateTime date)
         {
-            return date.ToString(Constants.MONTH_YEAR_DATE_FORMAT_WITH_SLASH);
+            return date.ToString(Constants._MONTH_YEAR_DATE_FORMAT_WITH_SLASH);
         }
 
         /// <summary>
@@ -200,7 +200,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>Return value.</returns>
         public static string ToAresDayMonthYear(this DateTime date)
         {
-            return date.ToString(Constants.ARES_DATE_FORMAT);
+            return date.ToString(Constants._ARES_DATE_FORMAT);
         }
 
         /// <summary>
@@ -210,7 +210,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>Return value.</returns>
         public static string ToAresMonthYear(this DateTime date)
         {
-            return date.ToString(Constants.ARES_MONTH_YEAR_FORMAT);
+            return date.ToString(Constants._ARES_MONTH_YEAR_FORMAT);
         }
     }
 }

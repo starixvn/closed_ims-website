@@ -3,19 +3,19 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.10.12">Created</change>
-// </history>
-
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Web.Mvc;
-using ExcelUtil.Spreadsheet;
 
 namespace Fanex.Ares.Core.Web.CustomResults
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Web.Mvc;
+    using ExcelUtil.Spreadsheet;
+
+    /// <summary>
+    /// Spread Sheet Result.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "SpreadSheetResult")]
     public abstract class SpreadSheetResult : ActionResult
     {
         private readonly ExcelFile _file;
@@ -33,6 +33,10 @@ namespace Fanex.Ares.Core.Web.CustomResults
 
         protected abstract Action<ExcelFile, Stream> SaveAction { get; }
 
+        /// <summary>
+        /// Execute Result.
+        /// </summary>
+        /// <param name="context">Context request.</param>
         public override void ExecuteResult(ControllerContext context)
         {
             context.HttpContext.Response.Clear();

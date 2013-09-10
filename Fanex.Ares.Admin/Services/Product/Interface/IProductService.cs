@@ -14,10 +14,23 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
     using Fanex.Ares.Admin.Models.Product;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Product Service.
+    /// </summary>
     public interface IProductService
     {
+        /// <summary>
+        /// Get All Products.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return result.</returns>
         IEnumerable<ProductModel> GetAllProducts(ICriteria criteria);
+
+        /// <summary>
+        /// Execute Command.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return result.</returns>
         Hashtable ExecuteCommand(ICriteria criteria);
-        //IEnumerable<SelectListItem> GetAvailableOrSelectedParties(ICriteria criteria);
     }
 }

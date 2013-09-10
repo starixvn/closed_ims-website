@@ -154,7 +154,7 @@ function GetProductByLicenseeID(licenseeID) {
 
 function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
-        url: domain + "Report/LicenseeSettlement/GetCurencyByLicenseeID",
+        url: domain + "Report/LicenseeSettlement/GetCurrencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {

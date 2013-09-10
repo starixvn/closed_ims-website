@@ -14,21 +14,26 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Web.Mvc;
     using Fanex.Ares.Admin.Models.Setting;
-    using Fanex.Ares.Admin.Repositories.Impl;
-    using Fanex.Ares.Admin.Repositories.Interface;
     using Fanex.Ares.Admin.Services.Party.Interface;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
-    using System.Web.Mvc;
 
+    /// <summary>
+    /// Setting Service.
+    /// </summary>
     public class SettingService : ServiceBase, ISettingService
     {
-
         public SettingService()
         {
         }
 
+        /// <summary>
+        /// Get All Settings.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return result.</returns>
         public IEnumerable<SettingModel> GetAllSettings(ICriteria criteria)
         {
             var listSettings = new List<SettingModel>();
@@ -66,6 +71,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listSettings;
         }
 
+        /// <summary>
+        /// Get All Licensee Product Charge.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return result.</returns>
         public IEnumerable<LicenseeProductChargeModel> GetAllLicenseeProductCharge(ICriteria criteria)
         {
             var listObjects = new List<LicenseeProductChargeModel>();
@@ -101,6 +111,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listObjects;
         }
 
+        /// <summary>
+        /// Get All Licensee Product Discount.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return result.</returns>
         public IEnumerable<LicenseeProductDiscountModel> GetAllLicenseeProductDiscount(ICriteria criteria)
         {
             var listObjects = new List<LicenseeProductDiscountModel>();
@@ -134,10 +149,10 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
         }
 
         /// <summary>
-        /// Using for Insert, Update, Delete
+        /// Using for Insert, Update, Delete.
         /// </summary>
-        /// <param name="criteria">Criteria</param>
-        /// <returns>ErrCode, ErrMsg</returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Error Code, Error message.</returns>
         public Hashtable ExecuteCommand(ICriteria criteria)
         {
             Hashtable rs = new Hashtable();
@@ -153,7 +168,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return rs;
         }
 
-
+        /// <summary>
+        /// Get All Currencies By Licensee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<System.Web.Mvc.SelectListItem> GetAllCurrenciesByLicensee(ICriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
@@ -178,6 +197,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listProducts;
         }
         
+        /// <summary>
+        /// Get Products By Licensee Party.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<SelectListItem> GetProductsByLicenseeParty(ICriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
@@ -198,6 +222,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             {
                 LoggingHandler.Log(ex);
             }
+
             return listProducts;
         }
     }

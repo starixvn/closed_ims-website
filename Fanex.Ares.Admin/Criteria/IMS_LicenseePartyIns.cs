@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-// <copyright file="IMS_PartySelByLicensee.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IMS_LicenseePartyIns.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,18 +11,35 @@ namespace Fanex.Ares.Admin.Criteria
 {
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Licensee Party Insert.
+    /// </summary>
     public class IMS_LicenseePartyIns : CriteriaBase
     {
         public string LicenseeID { get; set; }
+
         public int PartyID { get; set; }
+
         public int ErrCode { get; set; }
+
         public string ErrMsg { get; set; }
 
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_LicenseePartyIns";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid() 
+        { 
+            return true; 
+        }
     }
 }

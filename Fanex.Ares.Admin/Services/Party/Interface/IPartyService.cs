@@ -17,12 +17,45 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
     using Fanex.Ares.Admin.Models.Party;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Party Service.
+    /// </summary>
     public interface IPartyService
     {
+        /// <summary>
+        /// Get All Parties.
+        /// </summary>
+        /// <param name="criteria">Party criteria.</param>
+        /// <returns>Return result.</returns>
         IEnumerable<PartyModel> GetAllParties(ICriteria criteria);
+        
+        /// <summary>
+        /// Get all party type.
+        /// </summary>
+        /// <param name="criteria">Party criteria.</param>
+        /// <returns>Return result.</returns>
         IEnumerable<SelectListItem> GetAllPartyTypes(ICriteria criteria);
+
+        /// <summary>
+        /// Execute Command.
+        /// </summary>
+        /// <param name="criteria">Execute criteria.</param>
+        /// <returns>Return result.</returns>
         Hashtable ExecuteCommand(ICriteria criteria);
+
+        /// <summary>
+        /// Get Available Or Selected Licensees.
+        /// </summary>
+        /// <param name="criteria">Party criteria.</param>
+        /// <returns>Return result.</returns>
         IEnumerable<SelectListItem> GetAvailableOrSelectedLicensees(ICriteria criteria);
-        Hashtable CreateUpdateParty(IMS_PartyIns criteria, HttpRequestBase Request);
+
+        /// <summary>
+        /// Create/Update Party.
+        /// </summary>
+        /// <param name="criteria">Party criteria.</param>
+        /// <param name="request">Request base.</param>
+        /// <returns>Return result.</returns>
+        Hashtable CreateUpdateParty(IMS_PartyIns criteria, HttpRequestBase request);
     }
 }

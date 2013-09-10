@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-// <copyright file="IMS_AvailableLicenseeSelByParty.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IMS_ExistedLicenseeInfoSel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,13 +11,27 @@ namespace Fanex.Ares.Admin.Criteria.Setting
 {
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Existed Licensee Info Select.
+    /// </summary>
     public class IMS_ExistedLicenseeInfoSel : CriteriaBase
-	{
+    {
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
-		{
-			return "IMS_ExistedLicenseeInfoSel";
-		}
+        {
+            return "IMS_ExistedLicenseeInfoSel";
+        }
 
-        public override bool IsValid() { return true; }
-	}
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid()
+        {
+            return true;
+        }
+    }
 }

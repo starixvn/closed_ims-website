@@ -1,39 +1,58 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using System.Web.Routing;
-using Fanex.NAP.Core.Model;
-using Fanex.Ares.Core.Models;
+﻿// -----------------------------------------------------------------------
+// <copyright file="AuthenticateAction.cs" company="Nexcel Solutions Vietnam">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Fanex.Ares.Core.Web.Security
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.Routing;
+    using Fanex.Ares.Core.Models;
+    using Fanex.NAP.Core.Model;
+
+    /// <summary>
+    /// Authenticate Action.
+    /// </summary>
     public class AuthenticateAction : ActionFilterAttribute
     {
         private readonly AuthenticationType _authenticationType;
 
         private readonly string _mainAction;
-
-        public enum AuthenticationType
-        {
-            Read,
-            Host
-        }
-
+        
         /// <summary>
-        /// 
+        /// Initializes a new instance of the <see cref="AuthenticateAction"/> class.
         /// </summary>
-        /// <param name="authenticationType">Read or Host</param>
-        /// <param name="mainAction">Main action of page ex: Index</param>
+        /// <param name="authenticationType">Read or Host.</param>
+        /// <param name="mainAction">Main action of page ex: Index.</param>
         public AuthenticateAction(AuthenticationType authenticationType, string mainAction)
         {
             _authenticationType = authenticationType;
             _mainAction = mainAction;
         }
 
+        public enum AuthenticationType
+        {
+            /// <summary>
+            /// Read permission.
+            /// </summary>
+            Read,
+
+            /// <summary>
+            /// Host permission.
+            /// </summary>
+            Host
+        }
+
+        /// <summary>
+        /// On Action Executing.
+        /// </summary>
+        /// <param name="filterContext">Filter Context.</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var controlName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;
-         
+            var controlName = filterContext.ActionDescriptor.ControllerDescriptor.ControllerName;         
 
             var pathActionName = controlName + "/" + _mainAction;
 
@@ -47,46 +66,52 @@ namespace Fanex.Ares.Core.Web.Security
                         ActionDenied(filterContext);
                         return;
                     }
+
                     break;
+
                 case AuthenticationType.Host:
                     if (actionPrivilege < 2)
                     {
                         var error = new Result();
                         error.ErrorCode = 500;
                         error.ErrorMessage = Resources.Errors._500;
-                        filterContext.Result = new JsonResult {Data = error};
+                        filterContext.Result = new JsonResult { Data = error };
                         return;
-
                     }
+
                     break;
             }
-
 
             base.OnActionExecuting(filterContext);
         }
 
+        /// <summary>
+        /// Action Denied.
+        /// </summary>
+        /// <param name="filterContext">Filter Context.</param>
         private static void ActionDenied(ActionExecutingContext filterContext)
-        {
-           
+        {           
             filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new
             {
-                area = "",
+                area = string.Empty,
                 controller = "Common",
                 action = "AccessDenied"
-                
             }));
         }
 
-        
-
-
-
+        /// <summary>
+        /// Check Privilege.
+        /// </summary>
+        /// <param name="fullActionPath">Full Action Path.</param>
+        /// <returns>Return result.</returns>
         private int CheckPrivilege(string fullActionPath)
         {
             var privilege = 0;
 
             if (string.IsNullOrEmpty(fullActionPath))
+            {
                 return 0;
+            }                
 
             var useMenu = AppSession.CurrentUserMenu;
 
@@ -96,19 +121,18 @@ namespace Fanex.Ares.Core.Web.Security
             }
 
             var result = useMenu.Where(menuItem => menuItem.Url.Trim().ToLower().Contains(fullActionPath.Trim().ToLower()));
-
-
+            
             var s = result as List<MenuItem> ?? result.ToList();
             if (s.Any())
             {
                 var firstOrDefault = s.FirstOrDefault();
-                if (firstOrDefault != null) privilege = firstOrDefault.Policy;
+                if (firstOrDefault != null)
+                {
+                    privilege = firstOrDefault.Policy;
+                }
             }
 
             return privilege;
         }
-
-        
-
     }
 }

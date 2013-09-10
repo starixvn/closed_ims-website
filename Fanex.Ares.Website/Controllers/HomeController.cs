@@ -3,35 +3,39 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2013.1.25">Created</change>
-// </history>
-
-
-using Fanex.Ares.Core.Web.Controllers;
-using System.Web.Mvc;
-using Fanex.NAP.Core.Web.Attribute;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Fanex.Ares.Website.Controllers
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
+    using Fanex.Ares.Core.Web.Controllers;
+    using Fanex.NAP.Core.Web.Attribute;
+
+    /// <summary>
+    /// Home Controller.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "HomeController")]
     [NapSuperAuth]
     public class HomeController : BaseController
     {
-        //
-        // GET: /Home/
-
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Return view.</returns>
         public ActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// User menu.
+        /// </summary>
+        /// <returns>Return result.</returns>
         [ChildActionOnly]
         public PartialViewResult _Menu()
         {
             ViewBag.MenuItemList = CurrentSession.MenuItemList;
-            return base.PartialView("~/Views/Shared/_Menu.cshtml");
+            return PartialView("~/Views/Shared/_Menu.cshtml");
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="LicenseeModel.cs" company="Microsoft">
+// <copyright file="LicenseeModel.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Ares.Admin.Models.Licensee
 {
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -24,7 +23,7 @@ namespace Fanex.Ares.Admin.Models.Licensee
 
         public bool IsActive { get; set; }
 
-        public bool IsOneWorkActive{ get; set; }
+        public bool IsOneWorkActive { get; set; }
 
         public string AttnName { get; set; }
 

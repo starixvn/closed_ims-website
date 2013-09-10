@@ -1,5 +1,5 @@
 // --------------------------------------------------------------------------
-// <copyright file="IMS_AvailableLicenseeSelByParty.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="IMS_LicenseeProductDiscountInfoSel.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -11,17 +11,33 @@ namespace Fanex.Ares.Admin.Criteria.Setting
 {
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Licensee Product Discount Info Select.
+    /// </summary>
     public class IMS_LicenseeProductDiscountInfoSel : CriteriaBase
     {
         public int PartyID { get; set; }
+
         public int LicenseeID { get; set; }
+
         public int ProductID { get; set; }
 
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_LicenseeProductDiscountInfoSel";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }

@@ -25,12 +25,12 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                return SessionManager.Get<User>(Constants.CURRENT_LOG_IN_USER);
+                return SessionManager.Get<User>(Constants._CURRENT_LOG_IN_USER);
             }
 
             set
             {
-                SessionManager.Set<User>(Constants.CURRENT_LOG_IN_USER, value);
+                SessionManager.Set<User>(Constants._CURRENT_LOG_IN_USER, value);
             }
         }
 
@@ -42,12 +42,12 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                return SessionManager.Get<IList<MenuItem>>(Constants.CURRENT_USER_MENU);
+                return SessionManager.Get<IList<MenuItem>>(Constants._CURRENT_USER_MENU);
             }
 
             set
             {
-                SessionManager.Set<IList<MenuItem>>(Constants.CURRENT_USER_MENU, value);
+                SessionManager.Set<IList<MenuItem>>(Constants._CURRENT_USER_MENU, value);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Fanex.Ares.Core.Web
             {
                 try
                 {
-                    return SessionManager.Get<Dictionary<string, int>>(Constants.CURRENT_USER_ROLE_ACCESS);
+                    return SessionManager.Get<Dictionary<string, int>>(Constants._CURRENT_USER_ROLE_ACCESS);
                 }
                 catch (Exception)
                 {
@@ -67,7 +67,7 @@ namespace Fanex.Ares.Core.Web
 
             set
             {
-                SessionManager.Set<Dictionary<string, int>>(Constants.CURRENT_USER_ROLE_ACCESS, value);
+                SessionManager.Set<Dictionary<string, int>>(Constants._CURRENT_USER_ROLE_ACCESS, value);
             }
         }
 
@@ -79,12 +79,12 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                return SessionManager.Get<MenuItem>(Constants.CURRENT_WORKING_ON_MENU);
+                return SessionManager.Get<MenuItem>(Constants._CURRENT_WORKING_ON_MENU);
             }
 
             set
             {
-                SessionManager.Set<MenuItem>(Constants.CURRENT_WORKING_ON_MENU, value);
+                SessionManager.Set<MenuItem>(Constants._CURRENT_WORKING_ON_MENU, value);
             }
         }
 
@@ -97,12 +97,12 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                return SessionManager.Get<string>(Constants.CURRENT_ACTION_NAME);
+                return SessionManager.Get<string>(Constants._CURRENT_ACTION_NAME);
             }
 
             set
             {
-                SessionManager.Set<string>(Constants.CURRENT_ACTION_NAME, value);
+                SessionManager.Set<string>(Constants._CURRENT_ACTION_NAME, value);
             }
         }
 
@@ -110,12 +110,12 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                return SessionManager.Get<bool>(Constants.VIEW_IP_VN);
+                return SessionManager.Get<bool>(Constants._VIEW_IP_VN);
             }
 
             set
             {
-                SessionManager.Set<bool>(Constants.VIEW_IP_VN, value);
+                SessionManager.Set<bool>(Constants._VIEW_IP_VN, value);
             }
         }
 
@@ -123,12 +123,12 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                return SessionManager.Get<bool>(Constants.IS_SHOW_MENU);
+                return SessionManager.Get<bool>(Constants._IS_SHOW_MENU);
             }
 
             set
             {
-                SessionManager.Set<bool>(Constants.IS_SHOW_MENU, value);
+                SessionManager.Set<bool>(Constants._IS_SHOW_MENU, value);
             }
         }
     }

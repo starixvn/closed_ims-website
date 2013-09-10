@@ -11,15 +11,29 @@ namespace Fanex.Ares.Admin.Criteria
 {
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Available Licensee Select By Party.
+    /// </summary>
     public class IMS_AvailableLicenseeSelByParty : CriteriaBase
     {
         public int PartyID { get; set; }
 
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_AvailableLicenseeSelByParty";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid() 
+        { 
+            return true; 
+        }
     }
 }

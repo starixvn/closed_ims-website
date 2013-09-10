@@ -9,7 +9,6 @@
 
 namespace Fanex.Ares.Admin.Models.Product
 {
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

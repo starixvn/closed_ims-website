@@ -7,10 +7,8 @@
 //   <change who="Phillip.Truong" date="2013.06.03">Created</change>
 // </history>
 
-
 namespace Fanex.Ares.Admin.Controllers
 {
-
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.Ares.Admin.Criteria;
@@ -20,7 +18,10 @@ namespace Fanex.Ares.Admin.Controllers
     using Fanex.Ares.Core.Web.Security;
     using Fanex.NAP.Core.Web.Attribute;
 
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    /// <summary>
+    /// Product Controller.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Product Controller.")]
     [NapSuperAuth]
     public class ProductController : BaseController
     {
@@ -31,6 +32,10 @@ namespace Fanex.Ares.Admin.Controllers
             _productService = new ProductService();
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Return view.</returns>
         [HttpGet]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
@@ -38,6 +43,10 @@ namespace Fanex.Ares.Admin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Get all products.
+        /// </summary>
+        /// <returns>Return products.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllProducts()
@@ -45,12 +54,21 @@ namespace Fanex.Ares.Admin.Controllers
             return Json(_productService.GetAllProducts(new IMS_ProductInfoSel()));
         }
 
+        /// <summary>
+        /// Add new product page.
+        /// </summary>
+        /// <returns>Return result.</returns>
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             return PartialView();
         }
 
+        /// <summary>
+        /// Create new product.
+        /// </summary>
+        /// <param name="criteria">Product info.</param>
+        /// <returns>Redirect to index page.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewProduct(IMS_ProductIns criteria)
@@ -59,6 +77,11 @@ namespace Fanex.Ares.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Update product.
+        /// </summary>
+        /// <param name="criteria">Product info.</param>
+        /// <returns>Redirect to index page.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateProduct(IMS_ProductnfoUpd criteria)

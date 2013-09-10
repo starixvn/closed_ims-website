@@ -1,14 +1,25 @@
-﻿using System.Web.Optimization;
+﻿// --------------------------------------------------------------------------
+// <copyright file="BundleConfig.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Website.App_Start
 {
+    using System.Web.Optimization;
+
+    /// <summary>
+    /// Bundle Config.
+    /// </summary>
     public class BundleConfig
     {
-        // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
+        /// <summary>
+        /// Register Bundles.
+        /// </summary>
+        /// <param name="bundles">Bundle Collection.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            #region Common Scripts
-
+            //// Common Scripts
             bundles.Add(new ScriptBundle("~/scripts/common").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery.form.js",
@@ -27,70 +38,55 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/NapAres.Validator.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
-                "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"
-            ));
+                "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"));
 
-            #endregion
-
-            #region NAP Recheckin
+            //// NAP Recheckin
             bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/JS").Include(
-                "~/Areas/UserLogin/scripts/ReCheckIn.js"
-                ));
-            #endregion
+                "~/Areas/UserLogin/scripts/ReCheckIn.js"));
 
-            #region NAP msgbox
+            //// NAP msgbox
+
             bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/lib/msgbox/JS").Include(
-                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.js"
-                ));
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.js"));
 
             bundles.Add(new StyleBundle("~/Areas/UserLogin/scripts/lib/msgbox/CSS").Include(
-                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"
-            ));
-            #endregion
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"));
 
-            #region Multiselect Plugin
+            //// Multiselect Plugin
+
             bundles.Add(new StyleBundle("~/Scripts/_Libs/MultipleSelect/style").Include(
-            "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"
-            ));
+            "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"));
             bundles.Add(new ScriptBundle("~/Scripts/_Libs/multiselect").Include(
                       "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js"));
 
-            #endregion
+            //// Nex Date Picker
 
-            #region Nex Date Picker
             bundles.Add(new StyleBundle("~/Scripts/_Libs/DatePicker/style").Include(
-             "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.css"
-             ));
+             "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.css"));
             bundles.Add(new ScriptBundle("~/Scripts/_Libs/nexDatePicker").Include(
                       "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.js"));
 
-            #endregion
+            //// Client Template Render
 
-            #region Client Template Render
             bundles.Add(new ScriptBundle("~/Scripts/_Libs/template").Include(
                      "~/Scripts/_Libs/TemplateRender/doT/doT.js"));
 
-            #endregion
+            //// Month Picker
 
-            #region Month Picker
             bundles.Add(new StyleBundle("~/Scripts/_Libs/MonthPicker/style").Include(
-            "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.css"
-            ));
+            "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.css"));
             bundles.Add(new ScriptBundle("~/Scripts/_Libs/monPickr").Include(
                       "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.js"));
-            #endregion
 
-            #region Knockout
+            //// Knockout
+
             bundles.Add(new ScriptBundle("~/scripts-bundle/knockout").Include(
                         "~/Scripts/_Libs/knockout*"));
-            #endregion
 
             bundles.Add(new StyleBundle("~/scripts/_lib/Tooltip/style").Include(
-                "~/scripts/_lib/Tooltip/tipsy.css"
-                ));
+                "~/scripts/_lib/Tooltip/tipsy.css"));
             bundles.Add(new ScriptBundle("~/scripts-bundle/jquery").Include(
-                       "~/scripts/_lib/Tooltip/jquery.tipsy.js"
-                ));
+                       "~/scripts/_lib/Tooltip/jquery.tipsy.js"));
         }
     }
 }

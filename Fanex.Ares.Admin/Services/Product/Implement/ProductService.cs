@@ -20,8 +20,16 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Product Service.
+    /// </summary>
     public class ProductService : ServiceBase, IProductService
     {
+        /// <summary>
+        /// Get All Products.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<ProductModel> GetAllProducts(ICriteria criteria)
         {
             var listproducts = new List<ProductModel>();
@@ -51,10 +59,10 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
         }
 
         /// <summary>
-        /// Using for Insert, Update, Delete
+        /// Using for Insert, Update, Delete.
         /// </summary>
-        /// <param name="criteria">Criteria</param>
-        /// <returns>ErrCode, ErrMsg</returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Error Code, Error Message.</returns>
         public Hashtable ExecuteCommand(ICriteria criteria)
         {
             Hashtable rs = new Hashtable();

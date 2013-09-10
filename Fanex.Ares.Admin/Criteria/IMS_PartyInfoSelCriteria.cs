@@ -7,22 +7,33 @@
 //   <change who="Phillip.Truong" date="2013.05.28">Created</change>
 // </history>
 
-using System;
-using Fanex.NAP.Framework.Data;
 namespace Fanex.Ares.Admin.Criteria
 {
+    using Fanex.NAP.Framework.Data;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class IMS_PartyInfoSel :  CriteriaBase
+    public class IMS_PartyInfoSelCriteria : CriteriaBase
     {
-        public int PartyID;
+        public int PartyID { get; set; }
 
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_PartyInfoSel";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }

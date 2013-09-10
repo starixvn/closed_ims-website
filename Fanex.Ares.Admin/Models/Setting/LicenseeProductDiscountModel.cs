@@ -9,7 +9,6 @@
 
 namespace Fanex.Ares.Admin.Models.Setting
 {
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>

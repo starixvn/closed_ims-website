@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------
-// <copyright file="ILicenseeService.cs" company="Nexcel Solutions Vietnam">
+// <copyright file="ISettingService.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
@@ -13,16 +13,53 @@ namespace Fanex.Ares.Admin.Services.Party.Interface
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Ares.Admin.Models.Setting;
-    using Fanex.Ares.Core.Criteria;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Setting Service.
+    /// </summary>
     public interface ISettingService
     {
+        /// <summary>
+        /// Get All Settings.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return value.</returns>
         IEnumerable<SettingModel> GetAllSettings(ICriteria criteria);
+
+        /// <summary>
+        /// Execute Command.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return value.</returns>
         Hashtable ExecuteCommand(ICriteria criteria);
+
+        /// <summary>
+        /// Get Products By Licensee Party.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return value.</returns>
         IEnumerable<SelectListItem> GetProductsByLicenseeParty(ICriteria criteria);
+
+        /// <summary>
+        /// Get All Licensee Product Charge.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return value.</returns>
         IEnumerable<LicenseeProductChargeModel> GetAllLicenseeProductCharge(ICriteria criteria);
+
+        /// <summary>
+        /// Get All Licensee Product Discount.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return value.</returns>
         IEnumerable<LicenseeProductDiscountModel> GetAllLicenseeProductDiscount(ICriteria criteria);
+
+        /// <summary>
+        /// Get All Currencies By Licensee.
+        /// </summary>
+        /// <param name="criteria">Criteria value.</param>
+        /// <returns>Return value.</returns>
         IEnumerable<SelectListItem> GetAllCurrenciesByLicensee(ICriteria criteria);
     }
 }

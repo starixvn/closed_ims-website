@@ -32,7 +32,7 @@ namespace Fanex.Ares.Admin.Models.Setting
 
         public DateTime HeadOfTerms { get; set; }
 
-        public double MinimumFee{ get; set; }
+        public double MinimumFee { get; set; }
 
         public string MinimumFeeTerm { get; set; }
 

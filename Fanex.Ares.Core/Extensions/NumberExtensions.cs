@@ -3,89 +3,86 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2012.11.6">Created</change>
-// </history>
-
-using System;
 
 namespace Fanex.Ares.Core.Extensions
 {
+    using System;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public static class NumberExtensions
     {
         /// <summary>
-        /// Format int
+        /// Format int.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">Value parameter.</param>
+        /// <returns>Return value.</returns>
         public static string Format(this int value)
         {
             return DoFormat(value, 0);
         }
 
         /// <summary>
-        /// Format Object
+        /// Format Object.
         /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
+        /// <param name="value">Value parameter.</param>
+        /// <returns>Return value.</returns>
         public static string Format(this object value)
         {
             return DoFormat(value, 0);
         }
 
         /// <summary>
-        /// Format Decimal Value
+        /// Format Decimal Value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="decDigits"></param>
-        /// <returns></returns>
+        /// <param name="value">Value parameter.</param>
+        /// <param name="decDigits">Decimal digits.</param>
+        /// <returns>Return value.</returns>
         public static string Format(this decimal value, byte decDigits)
         {
             return DoFormat(value, decDigits);
         }
 
         /// <summary>
-        /// Format Object value
+        /// Format Object value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="decDigits"></param>
-        /// <returns></returns>
+        /// <param name="value">Value parameter.</param>
+        /// <param name="decDigits">Decimal digits.</param>
+        /// <returns>Return value.</returns>
         public static string Format(this object value, byte decDigits)
         {
             return DoFormat(value, decDigits);
         }
 
         /// <summary>
-        /// Format Double Value
+        /// Format Double Value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="decDigits"></param>
-        /// <returns></returns>
+        /// <param name="value">Value parameter.</param>
+        /// <param name="decDigits">Decimal digits.</param>
+        /// <returns>Return value.</returns>
         public static string Format(this double value, byte decDigits)
         {
             return DoFormat(value, decDigits);
         }
 
         /// <summary>
-        /// Format Float Value
+        /// Format Float Value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="decDigits"></param>
-        /// <returns></returns>
+        /// <param name="value">Value parameter.</param>
+        /// <param name="decDigits">Decimal digits.</param>
+        /// <returns>Return value.</returns>
         public static string Format(this float value, byte decDigits)
         {
             return DoFormat(value, decDigits);
         }
 
         /// <summary>
-        /// Format Double Value Quotation mark
+        /// Format Double Value Quotation mark.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="decDigits"></param>
-        /// <returns></returns>
+        /// <param name="value">Value parameter.</param>
+        /// <param name="decDigits">Decimal digits.</param>
+        /// <returns>Return value.</returns>
         public static string FormatNegative(this double value, byte decDigits)
         {
             var res = string.Empty;
@@ -102,13 +99,28 @@ namespace Fanex.Ares.Core.Extensions
 
             return res;
         }
+        
+        /// <summary>
+        /// To String 1.
+        /// </summary>
+        /// <param name="source">Source parameter.</param>
+        /// <returns>Return value.</returns>
+        public static string ToString1(this object source)
+        {
+            if (source == null)
+            {
+                return string.Empty;
+            }
+
+            return source.ToString();
+        }
 
         /// <summary>
-        /// Format specified number value
+        /// Format specified number value.
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="decDigits"></param>
-        /// <returns>Value after rounding and formatting</returns>
+        /// <param name="value">Value parameter.</param>
+        /// <param name="decDigits">Decimal digits.</param>
+        /// <returns>Value after rounding and formatting.</returns>
         private static string DoFormat(object value, byte decDigits)
         {
             if (value != null)
@@ -126,16 +138,6 @@ namespace Fanex.Ares.Core.Extensions
             {
                 throw new NullReferenceException();
             }
-        }
-
-        public static string ToString1(this object source)
-        {
-            if (source == null)
-            {
-                return string.Empty;
-            }
-
-            return source.ToString();
         }
     }
 }
