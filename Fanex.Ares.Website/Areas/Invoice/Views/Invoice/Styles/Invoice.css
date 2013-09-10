@@ -63,65 +63,43 @@ textarea#styled
 }
 .discount
 {
-	background: url(Images/discount.png) repeat scroll 0 0 transparent;
+    background: url(Images/sprite.png) -26px -81px;
 	cursor: pointer;
 	display: block;
-	height: 42px;
-	width: 42px;
-}
-
-.discount:hover
-{
-	background: url(Images/discount-hover.png) repeat scroll 0 0 transparent;
+	height: 30px;
+	width: 30px;
 }
 
 .newitem
 {
-	background: url(Images/add.png) repeat scroll 0 0 transparent;
+	background: url(Images/sprite.png) 0px -81px;
 	cursor: pointer;
 	display: block;
-	height: 32px;
-	width: 32px;
-}
-
-.newitem:hover
-{
-	background: url(Images/add-hover.png) repeat scroll 0 0 transparent;
+	height: 30px;
+	width: 30px;
 }
 
 .viewdetail
 {
-	background: url(Images/view_detail.png) repeat scroll 0 0 transparent;
+	background: url(Images/sprite.png) 0px -61px;
 	cursor: pointer;
 	display: block;
 	height: 24px;
 	width: 24px;
 	float:left;
-	margin-left: 15px;
+	margin-left: 45px;
 }
-
-.viewdetail:hover
-{
-	background: url(Images/view_detail-hover.png) repeat scroll 0 0 transparent;
-}
-
 
 .delete
 {
-	background: url(Images/delete.png) repeat scroll 0 0 transparent;
+	background: url(Images/sprite.png) -40px -61px;
 	cursor: pointer;
 	display: block;
 	height: 24px;
 	width: 24px;
 	float:left;
-	margin-left: 15px;
+	margin-left: 45px;
 }
-
-.delete:hover
-{
-	background: url(Images/delete-hover.png) repeat scroll 0 0 transparent;
-}
-
 
 .fakeCssTd
 {
@@ -189,3 +167,21 @@ div.boundary{
 	margin-right:0px;
 }
 
+.uncheckedCls{
+    background: url(Images/sprite.png) -63px -40px;
+	cursor: pointer;
+	display: block;
+	height: 24px;
+	width: 24px;
+	float:left;
+}
+
+.checkedCls
+{
+     background: url(Images/sprite.png) -42px -40px;
+	cursor: pointer;
+	display: block;
+	height: 24px;
+	width: 24px;
+	float:left;
+}

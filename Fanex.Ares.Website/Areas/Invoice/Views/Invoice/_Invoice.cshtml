@@ -200,10 +200,12 @@
                                         &nbsp;</div>
                                 </td>
                                 <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
-                                <div style="display:inline-block; float:left; font-weight: bold;">
-                                        <input type="checkbox" id="chkSign"/> with signature
+                                <div style="display:inline-block; float:left; font-weight: bold; height:15px;">
+                                        <div id="chkSign"  style="display: inline-block; "  class="uncheckedCls" onclick="invoiceApp.checkSignature()"></div>
+                                        @*<input type="checkbox" id="chkSign"/>*@
+                                         with signature
                                 </div>
-                                    <div style="display:inline-block;">
+                                    <div style="display:inline-block;height:15px;">
                                         <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
                                             type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
                                         <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"

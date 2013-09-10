@@ -571,7 +571,7 @@ var invoiceApp = {
         invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
         invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
         invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
-        invoiceInfoModel.IsSignature = $('#chkSign').is(':checked');
+        invoiceInfoModel.IsSignature = ($('#chkSign').hasClass("checkedCls") == true ? true : false);
         $.ajax({
             url: domain + "Invoice/Invoice/PrintScreen",
             data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
@@ -608,8 +608,12 @@ var invoiceApp = {
 
     exportPDF: function ()
     {       
-        var link = domain + "Invoice/Invoice/ExportDocument?isSignature= " + $('#chkSign').is(':checked');
+        var link = domain + "Invoice/Invoice/ExportDocument?isSignature= " + ($('#chkSign').hasClass("checkedCls") == true ? true : false);
         location.href = link;
-    }
+    },
 
+    checkSignature: function()
+    {
+        $('#chkSign').hasClass("checkedCls") == true ? $('#chkSign').removeClass('checkedCls').addClass('uncheckedCls') : $('#chkSign').removeClass('uncheckedCls').addClass('checkedCls');
+    }
 }
