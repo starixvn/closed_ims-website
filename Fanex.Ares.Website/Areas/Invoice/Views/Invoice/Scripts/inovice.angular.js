@@ -67,10 +67,10 @@ function InvoiceController($scope) {
         for (var i = 0; i < $scope.invoiceItems.StatementList.length; i++) {
             var statement = $scope.invoiceItems.StatementList[i];
             if (statement.StatementDetailList[0].DiscountItem == true) {
-                statement.index = '';
+                statement.No = '';
             }
             else {
-                statement.index = count;
+                statement.No = count;
                 count += 1;
             }
 

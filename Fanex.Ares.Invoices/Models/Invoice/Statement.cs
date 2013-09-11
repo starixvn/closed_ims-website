@@ -29,5 +29,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string FromDate { get; set; }
 
         public string ToDate { get; set; }
+
+        public int No { get; set; }
     }
 }

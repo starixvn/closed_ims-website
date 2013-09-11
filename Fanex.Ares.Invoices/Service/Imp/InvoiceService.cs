@@ -241,6 +241,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     var statement = new Statement();
                     statement.StatementDetailList = new List<StatementDetail>();
                     var oldMonth = string.Empty;
+                    int no = 1;
                     foreach (var row in statementDetailList)
                     {
                         string invoiceMonth = (string)row.InvoiceMonth;
@@ -250,8 +251,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             invoice.StatementList.Add(statement);
                             statement = new Statement();
                             statement.StatementDetailList = new List<StatementDetail>();
+                            statement.No = no;
                         }
-
+                        no++;
                         statement.StatementDetailList.Add(new StatementDetail()
                         {
                             ID = 0,
