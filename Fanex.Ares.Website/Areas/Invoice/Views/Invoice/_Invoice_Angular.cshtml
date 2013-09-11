@@ -63,7 +63,7 @@
                                             class="delete" ng-click="deleteItem($parent.$index)">
                                         </div>
                                         <div ng-switch-when = "1" title="View detail" style="display: inline-block;"
-                                            class="viewdetail" ng-click="deleteItem($parent.$index)">
+                                            class="viewdetail" ng-click="">
                                         </div>
                                     </td>
                                     <td class="" style="width: 35%; text-align: center; height: 60px;">
@@ -72,7 +72,7 @@
                                     <td class="" style="width: 20%; text-align: center;">
                                         <textarea rows="2" cols="33" ng-model="statementDetail.Reference"> </textarea>
                                     </td>
-                                    <td ng-switch on="statementDetail.AdjustItem" class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
+                                    <td ng-switch on="statementDetail.AdjustItem"  style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
                                         padding-right: 10px;" >
                                        
                                        @* ng-change ="change($parent.$index,$index)"*@
