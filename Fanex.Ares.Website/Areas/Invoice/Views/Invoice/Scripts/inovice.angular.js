@@ -12,11 +12,31 @@
     }
 }
 
+var app = angular.module('Invoice', []);
 
-function InvoiceController($scope) {
-    //        $scope.invoiceItems = Items.query();
-    $scope.invoiceItems = OrgInvoiceInfoModel;
+app.controller('InvoiceController', function($scope) {
+   //        $scope.invoiceItems = Items.query();
+        invoiceApp.filter.getFilteringInfo();
+
+        //////// test
+
+        invoiceInfoModel.Operator = invoiceApp.Operator;
+        invoiceInfoModel.Licensee = invoiceApp.Licensee;
+        invoiceInfoModel.FromDate = invoiceApp.FromDate;
+        invoiceInfoModel.ToDate = invoiceApp.ToDate;
+        invoiceInfoModel.DueDate = invoiceApp.DueDate;
+        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+        invoiceInfoModel.Product = invoiceApp.Products;
+        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
+        invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount;
+    $scope.invoiceItems = invoiceInfoModel;
     $scope.isInsert = false;
+    $scope.descript = "Software & Data Licensing & Data transmission fees for ";
+
     $scope.insertItem = function (isDiscount_temp) {
         if ($scope.isInsert) {
             $scope.invoiceItems.StatementList.push({
@@ -29,7 +49,18 @@ function InvoiceController($scope) {
                     InvoiceMonth: '',
                     AdjustItem: true,
                     DiscountItem: isDiscount_temp,
-                    ProductType: -1
+                    ProductType: -1,
+                    StatementProductDetail: [{
+                            ID: 0,
+                            Reference: "",
+                            Description: "",
+                            Amount: 0,
+                            AmountFormated: '',
+                            InvoiceMonth: '',
+                            AdjustItem: true,
+                            DiscountItem: isDiscount_temp,
+                            ProductType: -1
+                        }],
                 }]
             });
         }
@@ -42,8 +73,8 @@ function InvoiceController($scope) {
         }
     };
 
-    $scope.deleteItem = function ($index) {
-        $scope.invoiceItems.StatementList.splice($index, 1);
+    $scope.deleteItem = function (index) {
+        $scope.invoiceItems.StatementList.splice(index, 1);
     };
 
     $scope.change = function (parentIndex, index) {
@@ -55,25 +86,23 @@ function InvoiceController($scope) {
         return; 
     };
 
-
     $scope.negativeClass = function (input) {
         //        return numeral().unformat(input) < 0 ? "red" : "";
         return input < 0 ? "red" : "";
     }
-//    '[Description, Reference, AmountFormated]',
-    $scope.$watch(function () {
+
+    $scope.$watch('invoiceItems.StatementList',function () {
         var total = 0;
         var count = 1;
         for (var i = 0; i < $scope.invoiceItems.StatementList.length; i++) {
             var statement = $scope.invoiceItems.StatementList[i];
             if (statement.StatementDetailList[0].DiscountItem == true) {
-                statement.No = '';
-            }
-            else {
-                statement.No = count;
-                count += 1;
-            }
-
+                    statement.No = '';
+                }
+                else {
+                    statement.No = count;
+                    count += 1;
+                }
             for (var j = 0; j < statement.StatementDetailList.length; j++) {
                 var statementDetail = statement.StatementDetailList[j];
                 if (statementDetail.AmountFormated != '') {
@@ -89,12 +118,16 @@ function InvoiceController($scope) {
         }
         $scope.invoiceItems.TotalAmount = total;
         $scope.invoiceItems.TotalAmountFomarted = numeral($scope.invoiceItems.TotalAmount).format(FormatConstant.NEGATIVE_TWO_DECIMAL_NUMBER);
-    });
-}
+    }, true);
 
-var shoppingModule = angular.module('Invoice', []);
+});
 
-shoppingModule.directive('renderOnblur', function () {
+
+app.controller('filterController', function($scope) {
+    
+});
+
+app.directive('renderOnblur', function () {
     return {
         require: 'ngModel',
         restrict: 'A',
@@ -115,3 +148,433 @@ shoppingModule.directive('renderOnblur', function () {
         }
     };
 });
+
+
+app.factory('invoiceService', function($rootScope) {
+   
+});
+
+
+$(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
+    //------binding events
+    invoiceApp.init();
+
+});
+
+var invoiceApp = {
+    Licensees: [],
+    FromDate: '',
+    ToDate: '',
+    DueDate: '',
+    Operator: null,
+    Licensee: null,
+    InvoiceType: null,
+    Currency: null,
+    Products: '',
+    ProductsName: '',
+    TotalAmount: 0,
+    InvoiceNo: '',
+    InvoiceName: '',
+    InvoiceID: 0,
+    newItemID: 0,
+    messageTimeOut: 4000,
+    isInsert: true,
+    newItemIDsList: [],
+
+    filterControls: {
+        ddlOperator: $('#ddlOperator'),
+        ddlLicensee: $('#ddlLicensee'),
+        cldFromDate: null,
+        cldToDate: null,
+        divInvoiceType: $('#divInvoiceType'),
+        ddlCurrency: $('#CurrencyID'),
+        txtInvoiceNo: $('#invoiceNo'),
+        cldDueDate: null,
+        btnGenerate: $('#btnGenerate'),
+        btnNewInvoice: $('#btnNewInvoice')
+    },
+
+    init: function () {
+        var filterControl = invoiceApp.filterControls;
+        $("#notemessage").tipsy({
+            html: true,
+            opacity: 0.9,
+            gravity: 'ne'
+        });
+
+        var rangeDate = invoiceApp.helper.getDateRangeOfLastMonth(_today);
+        $('#fromTopickerplugin').nexDatePicker({
+            nexDatePickerType: "daterange",
+            datePickerFormat: {
+                changeMonth: true,
+                dateFormat: "M dd, yy",
+                maxDate: new Date(maxDate)
+            },
+            firstDatePicker: {
+                Id: "FromDatePicker",
+                Label: labelFrom,
+                InitDate: rangeDate[0],
+                LabelCss: "lbl-field col_3",
+                TextboxCss: "edit-field col_5"
+            },
+            secondDatePicker: {
+                Id: "ToDatePicker",
+                Label: labelTo,
+                LabelCss: "lbl-field col_1",
+                TextboxCss: "edit-field col_5"
+            },
+            onSelectDatePicker: function () {
+                filterControl.btnGenerate.removeClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            },
+            minDate: new Date(minDate)
+        });
+
+        $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
+
+        $('#duteDatepickerplugin').nexDatePicker({
+            nexDatePickerType: "single",
+            datePickerFormat: {
+                changeMonth: true,
+                dateFormat: "M dd, yy"
+            },
+            firstDatePicker: {
+                Id: "DueDatePicker",
+                Label: "Due Date",
+                InitDate: "",
+                LabelCss: "lbl-field col_3",
+                TextboxCss: "edit-field col_6",
+                InitDate: new Date(selectDueDate)
+            },
+            onSelectDatePicker: function () {
+                invoiceApp.DueDate = filterControl.cldDueDate.val();
+                $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            },
+            minDate: new Date(minDate)
+        });
+
+        filterControl.cldFromDate = $('#FromDatePicker');
+        filterControl.cldToDate = $('#ToDatePicker');
+        filterControl.cldDueDate = $('#DueDatePicker');
+
+        filterControl.btnGenerate.button();
+        filterControl.btnGenerate.click(function () {
+            if (!$(this).hasClass('ui-state-disabled')) {
+                invoiceApp.submit();
+            }
+        });
+
+        filterControl.btnNewInvoice.button();
+
+        filterControl.ddlLicensee.change(function () {
+            if (filterControl.ddlLicensee.prop("selectedIndex") != 0) {
+                invoiceApp.filter.getInvoiceType();
+                filterControl.btnGenerate.removeClass('ui-state-disabled');
+                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            } else {
+                filterControl.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                filterControl.txtInvoiceNo.val('');
+            }
+        });
+
+        filterControl.ddlOperator.change(function () {
+            filterControl.ddlLicensee.html('');
+            filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
+
+            $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+            filterControl.txtInvoiceNo.val('');
+
+            if (filterControl.ddlOperator.prop("selectedIndex") != 0) {
+                invoiceApp.filter.getLicensees();
+            }
+
+            invoiceApp.filter.getInvoiceNo();
+            $(invoiceApp.filterControls.ddlCurrency).find('option').remove();
+        });
+
+        filterControl.txtInvoiceNo.change(function () {
+            filterControl.btnGenerate.removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        });
+
+        filterControl.ddlCurrency.change(function () {
+            filterControl.btnGenerate.removeClass('ui-state-disabled');
+            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        });
+
+        //------binding data
+
+        filterControl.ddlOperator.append('<option value="0">Please Select One!</option>');
+        $.each(operatorListModel, function (i, item) {
+            filterControl.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
+        });
+        filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
+        $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+        NapAres.NapAresPopUp = $('#dialog-popup');
+    },
+
+    submit: function () {
+        if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") == 0 ||
+            invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") == 0 ||
+            $.isNumeric(invoiceApp.filterControls.txtInvoiceNo.val()) == false)
+            return false;
+
+        if (invoiceApp.filterControls.txtInvoiceNo.val().length == 0) {
+            NapAres.Helper.showMsgBox({
+                ErrorCode: 1,
+                ErrorMsg: 'Please input Invoice No.!'
+            });
+            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+            return false;
+        }
+
+        invoiceApp.filter.getFilteringInfo();
+
+        if (invoiceApp.Products.length == 0) {
+            NapAres.Helper.showMsgBox({
+                ErrorCode: 1,
+                ErrorMsg: 'Please select product!'
+            });
+            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+
+            return false;
+        }
+
+        var toDateSelected = new Date(invoiceApp.filterControls.cldToDate.val());
+        var totalDays = invoiceApp.helper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
+
+        if (toDateSelected.getDate() != totalDays) {
+            $("#dialog:ui-dialog").dialog("destroy");
+            $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
+            $("#ims-dialog-message").dialog({
+                modal: true,
+                resizable: false,
+                width: 310,
+                position: ['middle', 100],
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                        invoiceApp.filter.getNewInvoiceData();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $(".ui-dialog-titlebar").hide();
+        } else {
+            invoiceApp.filter.getNewInvoiceData();
+        }
+    },
+
+    saveInvoice: function () {
+        invoiceInfoModel.Operator = invoiceApp.Operator;
+        invoiceInfoModel.Licensee = invoiceApp.Licensee;
+        invoiceInfoModel.FromDate = invoiceApp.FromDate;
+        invoiceInfoModel.ToDate = invoiceApp.ToDate;
+        invoiceInfoModel.DueDate = invoiceApp.DueDate;
+        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+        invoiceInfoModel.Product = invoiceApp.Products;
+        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
+        invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount;
+        var message = '';
+        $.ajax({
+            url: domain + "Invoice/Invoice/saveInvoice",
+            data: '{"invoiceModel":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    if (data.ErrorCode == 0) {
+                        $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                        invoiceApp.filterControls.btnGenerate.addClass('ui-state-disabled');
+                        $('#pdfID').removeClass('ui-state-disabled').removeAttr('disabled');
+
+                        invoiceApp.filterControls.ddlOperator.attr('disabled', 'disabled');
+                        invoiceApp.filterControls.ddlLicensee.attr('disabled', 'disabled');
+                        invoiceApp.filterControls.cldFromDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        invoiceApp.filterControls.cldToDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        invoiceApp.filterControls.divInvoiceType.find('input').attr('disabled', 'disabled').addClass('ui-state-disabled');
+                        invoiceApp.filterControls.ddlCurrency.attr('disabled', 'disabled');
+                        invoiceApp.filterControls.txtInvoiceNo.attr('disabled', 'disabled');
+
+                        invoiceApp.InvoiceID = data.ErrorMessage;
+                        invoiceInfoModel.InvoiceID = invoiceApp.InvoiceID;
+                        OrgInvoiceInfoModel.InvoiceID = invoiceApp.InvoiceID;
+                        NapAres.Helper.showMsgBox({
+                            ErrorCode: 0,
+                            ErrorMsg: 'Saving invoice successfully.'
+                        });
+                        invoiceInfoModel = [];
+                        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
+                    } else {
+                        NapAres.Helper.showMsgBox({
+                            ErrorCode: data.ErrCode,
+                            ErrorMsg: data.ErrorMessage
+                        });
+                        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                    }
+                } else {
+                    NapAres.Helper.showMsgBox({
+                        ErrorCode: 1,
+                        ErrorMsg: 'Saving invoice unsuccessfully.'
+                    });
+                    setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Saving invoice unsuccessfully.'
+                });
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
+
+        setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+    },
+
+    allowUpdateNewInfo: function (item) {
+        if (item != undefined) {
+            var amountID = 'newItem_text_' + $(item).prop('id').split('_')[2];
+            if ($('#' + amountID).val() != '') {
+                $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+                $('#pdfID').addClass('ui-state-disabled').attr('disabled');
+            }
+        } else {
+            $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+            $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled');
+        }
+    },
+
+    mappingSpecialPartyName: function (partyName) {
+        if (partyName.toLowerCase() == 'cozni') {
+            partyName = 'CL';
+        }
+        return partyName
+    },
+
+    viewDetail: function (fromDate, toDate) {
+        NapAres.disableInput();
+        invoiceApp.updateItem();
+        invoiceInfoModel.Operator = invoiceApp.Operator;
+        invoiceInfoModel.Licensee = invoiceApp.Licensee;
+        invoiceInfoModel.FromDate = fromDate;
+        invoiceInfoModel.ToDate = toDate;
+        invoiceInfoModel.DueDate = invoiceApp.DueDate;
+        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+        invoiceInfoModel.Product = invoiceApp.Products;
+        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
+        $.ajax({
+            url: domain + "Invoice/Invoice/Detail",
+            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
+
+                    if ($.browser.msie) {
+                        win.load = new function () {
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        }
+                    }
+                    else {
+                        $(win).load(function () {
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        });
+                    }
+                }
+            },
+            error: function () {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                NapAres.enableInput();
+            }
+        });
+        NapAres.enableInput();
+    },
+
+    previewInvoice: function () {
+        NapAres.disableInput();
+        invoiceApp.updateItem();
+        invoiceInfoModel.Operator = invoiceApp.Operator;
+        invoiceInfoModel.Licensee = invoiceApp.Licensee;
+        invoiceInfoModel.FromDate = invoiceApp.FromDate;
+        invoiceInfoModel.ToDate = invoiceApp.ToDate;
+        invoiceInfoModel.DueDate = invoiceApp.DueDate;
+        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
+        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
+        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
+        invoiceInfoModel.Product = invoiceApp.Products;
+        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
+        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
+        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
+        invoiceInfoModel.IsSignature = ($('#chkSign').hasClass("checkedCls") == true ? true : false);
+        $.ajax({
+            url: domain + "Invoice/Invoice/PrintScreen",
+            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            contentType: 'application/json',
+            type: "POST",
+            success: function (data, textStatus, jqXHR) {
+                if (data) {
+                    var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
+
+                    if ($.browser.msie) {
+                        win.load = new function () {
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        }
+                    }
+                    else {
+                        $(win).load(function () {
+                            win.document.write(data);
+                            win.document.title = invoiceApp.InvoiceName;
+                        });
+                    }
+                }
+            },
+            error: function () {
+                NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+                NapAres.enableInput();
+            }
+        });
+        NapAres.enableInput();
+        invoiceInfoModel = [];
+        invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
+    },
+
+    exportPDF: function ()
+    {       
+        var link = domain + "Invoice/Invoice/ExportDocument?isSignature= " + ($('#chkSign').hasClass("checkedCls") == true ? true : false);
+        location.href = link;
+    },
+
+    checkSignature: function()
+    {
+        $('#chkSign').hasClass("checkedCls") == true ? $('#chkSign').removeClass('checkedCls').addClass('uncheckedCls') : $('#chkSign').removeClass('uncheckedCls').addClass('checkedCls');
+    }
+}

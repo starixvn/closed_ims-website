@@ -248,12 +248,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
                         if (!string.IsNullOrEmpty(oldMonth) && !oldMonth.Equals(invoiceMonth))
                         {
-                            invoice.StatementList.Add(statement);
-                            statement = new Statement();
                             statement.StatementDetailList = new List<StatementDetail>();
-                            statement.No = no;
+                            invoice.StatementList.Add(statement);
                         }
-                        no++;
+                       
                         statement.StatementDetailList.Add(new StatementDetail()
                         {
                             ID = 0,
@@ -280,6 +278,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
                     if (statement != null && statement.StatementDetailList.Count > 0)
                     {
+                        statement.No = no++;
                         invoice.StatementList.Add(statement);
                     }
                 }

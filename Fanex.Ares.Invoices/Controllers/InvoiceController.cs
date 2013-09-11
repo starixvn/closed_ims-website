@@ -64,7 +64,8 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             ViewBag.ListOperator = this.invoiceService.GetOperatorList(new IMS_OperatorCriteria() { PartyID = 0 });
             
-            return View();
+            //return View();
+            return View("~/Areas/Invoice/Views/Invoice/Index_Angular.cshtml");
         }
 
         [HttpPost]

@@ -163,7 +163,7 @@ invoiceApp.filter = {};
         };
         invoiceApp.InvoiceNo = invoiceApp.filterControls.txtInvoiceNo.val();
         invoiceApp.InvoiceName = invoiceApp.mappingSpecialPartyName(Operator.PartyName) + ' INV-' + (invoiceApp.InvoiceNo > 9 ? invoiceApp.InvoiceNo : '0' + invoiceApp.InvoiceNo);
-
+        
     }
 
     this.getNewInvoiceData =  function () {

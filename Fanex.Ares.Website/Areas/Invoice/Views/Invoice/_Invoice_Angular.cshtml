@@ -18,7 +18,7 @@
 }
 
 
-<div class="wrapper">
+<div class="wrapper"  ng-app='Invoice' ng-controller="InvoiceController" id="ng-app">
     <div class="content" style="width: 90%;">
         <div class="boundary">
             <table id="header">
@@ -50,8 +50,7 @@
             <table id="tbl-content">
                 <tr>
                     <td>
-                        <table id="invoiceTbl" style="width: 100%;" ng-app='Invoice' ng-controller="InvoiceController"
-                            id="ng-app">
+                        <table id="invoiceTbl" style="width: 100%;">
                             <tbody ng-repeat="(what,statement) in invoiceItems.StatementList">
                                 <tr ng-repeat="statementDetail in statement.StatementDetailList">
                                     <td ng-switch on="statementDetail.AdjustItem" ng-show="$first" rowspan="{{statement.StatementDetailList.length}}" style="width: 10%; vertical-align: top;
@@ -60,7 +59,7 @@
                                            {{statement.No}} </div>
                                            
                                         <div ng-switch-default  style="display: inline-block;" title="Delete"
-                                            class="delete" ng-click="deleteItem($parent.$index)">
+                                            class="delete" ng-click="deleteItem($parent.$parent.$index)">
                                         </div>
                                         <div ng-switch-when = "1" title="View detail" style="display: inline-block;"
                                             class="viewdetail" ng-click="">
@@ -143,7 +142,7 @@
                                     <br />
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divBeneficiary">
-                                        &nbsp;</div>
+                                        {{invoiceItems.Operator.Benificiary}}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -153,7 +152,7 @@
                                 <td class="noneBorder paddingLeft height20">
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divAccountNo">
-                                        &nbsp;</div>
+                                        {{invoiceItems.Operator.AccountNumber}}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -163,7 +162,7 @@
                                 <td class="noneBorder paddingLeft height20">
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divIBAN">
-                                        &nbsp;</div>
+                                        {{invoiceItems.Operator.IBAN}}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -173,7 +172,7 @@
                                 <td class="noneBorder paddingLeft height20">
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divBeneficiaryBank">
-                                        &nbsp;</div>
+                                        {{invoiceItems.Operator.BenificiaryBank}}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -183,7 +182,7 @@
                                 <td class="noneBorder paddingLeft height20">
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divSwiftCode">
-                                        &nbsp;</div>
+                                       {{invoiceItems.Operator.SwiftCode}}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -199,7 +198,7 @@
                                 <td style="width: 45%;" class="noneBorder paddingLeft height20">
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divCorrespondent">
-                                        &nbsp;</div>
+                                        {{invoiceItems.Operator.CorrespondentBank}}</div>
                                 </td>
                                 <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                                     <div>
@@ -219,7 +218,7 @@
                                 <td class="noneBorder paddingLeft height20">
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divCorrespondentSwiftCode">
-                                        &nbsp;</div>
+                                         {{invoiceItems.Operator.CorrespondentSwiftCode}}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -229,7 +228,7 @@
                                 <td class="noneBorder paddingLeft height20">
                                     :&nbsp;&nbsp;&nbsp;
                                     <div class="label" id="divCorrespondentAccNo">
-                                        &nbsp;</div>
+                                        {{invoiceItems.Operator.CorrespondentAccNo}}</div>
                                 </td>
                             </tr>
                             <tr>
@@ -252,7 +251,7 @@
     <table border="0px" id="tblconfirm">
     </table>
 </div>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.4/angular.js"></script>
+ <script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/angular.min.js"></script>
 <script type="text/javascript">
     var _totalAmount = @totalAmount; 
     
@@ -275,14 +274,14 @@
         $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
     }
     else {
-        $('#divBeneficiary').html(invoiceApp.Operator.Benificiary + "&nbsp;&nbsp;&nbsp;");
-        $('#divBeneficiaryBank').html(invoiceApp.Operator.BenificiaryBank + "&nbsp;&nbsp;&nbsp;");
-        $('#divAccountNo').html(invoiceApp.Operator.AccountNumber + "&nbsp;&nbsp;&nbsp;");
-        $('#divIBAN').html(invoiceApp.Operator.IBAN + "&nbsp;&nbsp;&nbsp;");
-        $('#divSwiftCode').html(invoiceApp.Operator.SwiftCode + "&nbsp;&nbsp;&nbsp;");
-        $('#divCorrespondent').html(invoiceApp.Operator.CorrespondentBank + "&nbsp;&nbsp;&nbsp;");
-        $('#divCorrespondentSwiftCode').html(invoiceApp.Operator.CorrespondentSwiftCode + "&nbsp;&nbsp;&nbsp;");
-        $('#divCorrespondentAccNo').html(invoiceApp.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
+//        $('#divBeneficiary').html(invoiceApp.Operator.Benificiary + "&nbsp;&nbsp;&nbsp;");
+//        $('#divBeneficiaryBank').html(invoiceApp.Operator.BenificiaryBank + "&nbsp;&nbsp;&nbsp;");
+//        $('#divAccountNo').html(invoiceApp.Operator.AccountNumber + "&nbsp;&nbsp;&nbsp;");
+//        $('#divIBAN').html(invoiceApp.Operator.IBAN + "&nbsp;&nbsp;&nbsp;");
+//        $('#divSwiftCode').html(invoiceApp.Operator.SwiftCode + "&nbsp;&nbsp;&nbsp;");
+//        $('#divCorrespondent').html(invoiceApp.Operator.CorrespondentBank + "&nbsp;&nbsp;&nbsp;");
+//        $('#divCorrespondentSwiftCode').html(invoiceApp.Operator.CorrespondentSwiftCode + "&nbsp;&nbsp;&nbsp;");
+//        $('#divCorrespondentAccNo').html(invoiceApp.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
 
 
