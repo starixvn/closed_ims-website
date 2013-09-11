@@ -91,7 +91,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         LicenseeID = Convert.ToInt32(r["LicenseeID"]),
                         LicenseeName = r["LicenseeName"].ToString1(),
                         BrandName = r["BrandName"].ToString1(),
-                        CompanyName = r["CompanyName"].ToString1(),
+                        CompanyName = string.Empty,
                         IsDeposit = Convert.ToBoolean(r["IsDeposit"]),
                         IsActive = false,
                         IsOneWorkActive = false,
