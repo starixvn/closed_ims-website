@@ -118,8 +118,8 @@ namespace Fanex.Ares.Invoice.Controllers
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
 
-            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
-            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
+            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
+            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
         }
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)

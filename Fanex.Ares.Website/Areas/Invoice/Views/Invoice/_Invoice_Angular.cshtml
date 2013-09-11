@@ -54,15 +54,15 @@
                             id="ng-app">
                             <tbody ng-repeat="(what,statement) in invoiceItems.StatementList">
                                 <tr ng-repeat="statementDetail in statement.StatementDetailList">
-                                    <td ng-show="$first" rowspan="{{statement.StatementDetailList.length}}" style="width: 10%; vertical-align: top;
+                                    <td ng-switch on="statementDetail.AdjustItem" ng-show="$first" rowspan="{{statement.StatementDetailList.length}}" style="width: 10%; vertical-align: top;
                                         padding-top: 20px;">
                                         <div style="font-size: 20px; display: inline-block;">
                                            {{statement.index}} </div>
                                            
-                                        <div ng-show="statementDetail.AdjustItem" style="display: inline-block;" title="Delete"
+                                        <div ng-switch-default  style="display: inline-block;" title="Delete"
                                             class="delete" ng-click="deleteItem($parent.$index)">
                                         </div>
-                                        <div ng-show="!statementDetail.AdjustItem" title="View detail" style="display: inline-block;"
+                                        <div ng-switch-when = "1" title="View detail" style="display: inline-block;"
                                             class="viewdetail" ng-click="deleteItem($parent.$index)">
                                         </div>
                                     </td>
@@ -72,13 +72,15 @@
                                     <td class="" style="width: 20%; text-align: center;">
                                         <textarea rows="2" cols="33" ng-model="statementDetail.Reference"> </textarea>
                                     </td>
-                                    <td class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
-                                        padding-right: 10px;">
-                                        <input ng-class="negativeClass(statementDetail.AmountFormated)" onkeydown='validateNumber(event)'
-                                            style="font-weight: bold; text-align: right; width: 95%;" ng-show="statementDetail.AdjustItem"
-                                            type="text" ng-model="statementDetail.AmountFormated" render-onblur discount-item="{{statementDetail.DiscountItem}}">
-                                        <span ng-class="negativeClass(statementDetail.AmountFormated)" ng-show="!statementDetail.AdjustItem">
+                                    <td ng-switch on="statementDetail.AdjustItem" class="" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
+                                        padding-right: 10px;" >
+                                       
+                                       @* ng-change ="change($parent.$index,$index)"*@
+                                        <span ng-switch-when = "1" ng-class="negativeClass(statementDetail.AmountFormated)" >
                                             {{statementDetail.AmountFormated}} </span>
+
+                                             <input ng-switch-default  style="font-weight: bold; text-align: right; width: 95%;"  ng-class="negativeClass(statementDetail.Amount)" onkeydown='validateNumber(event)'
+                                            type="text" ng-model="statementDetail.AmountFormated" render-onblur discount-item="{{statementDetail}}" >
                                     </td>
                                 </tr>
                             </tbody>
@@ -98,7 +100,7 @@
                                     </td>
                                     <td style="width: 15%; text-align: center; font-weight: bold;">
                                         <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
-                                            <label ng-class="negativeClass(invoiceItems.TotalAmountFomarted)" id="totalAmount" style="font-weight: bold;">
+                                            <label ng-class="negativeClass(invoiceItems.TotalAmount)" id="totalAmount" style="font-weight: bold;">
                                                 {{invoiceItems.TotalAmountFomarted}}
                                             </label>
                                         </div>
