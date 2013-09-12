@@ -14,25 +14,123 @@
 
 var app = angular.module('Invoice', []);
 
+app.controller('filterController', function($scope) {
+    $scope.operators = operatorListModel;
+    $scope.licensees = new Array();
+
+     $scope.getLicensees = function(){
+       NapAres.disableInput();
+       
+       var partyIdTmp =  $scope.operator == null ? -1 :  $scope.operator.PartyID ;
+        $.ajax({
+            url: domain + "Invoice/Invoice/getLicenseesByParty",
+            type: "POST",
+            data: 'PartyId=' + partyIdTmp,
+            success: function (data, textStatus, jqXHR) {
+                    $scope.licensees = data;
+                    if(data.length == 0){
+                         $('#divInvoiceType').html('').append('<option value="0">Please Select One!</option>');
+                         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                    }
+                    $scope.$apply();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Loading Licensee data fail.'
+                });
+                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
+     };
+
+     $scope.getInvoiceType = function(){
+      NapAres.disableInput();
+       var partyIdTmp =  $scope.operator == null ? -1 :  $scope.operator.PartyID ;
+        var licenseeIdTmp =  $scope.licensee == null ? -1 :  $scope.licensee.LicenseeID ;
+
+        if($scope.operator == null || $scope.licensee == null){
+                    $('#divInvoiceType').html('').append('<option value="0">Please Select One!</option>');
+                         $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+        }
+        else{
+            $.ajax({
+                url: domain + "Invoice/Invoice/getInvoiceType",
+                type: "POST",
+                data: 'licenseeID=' + licenseeIdTmp + '&partyId=' + partyIdTmp,
+                success: function (result) {
+                    createInvoiceTypeDropdowList(result);
+                },
+                error: function () {
+                    try {
+                        NapAres.enableInput();
+                    } catch (e) { }
+                },
+                complete: function (jqXHR, textStatus) {
+                    NapAres.enableInput();
+                }
+            });
+        }
+        NapAres.enableInput();
+     };
+     
+     createInvoiceTypeDropdowList = function(result){
+        var invoiceTypeList = [];
+                    var productList = [];
+                    for (var i = 0; i < result.length; i++) {
+                        for (var j = 0; j < result[i].ProductList.length; j++) {
+                            productList.push({
+                                Id: "#ddlProduct" + result[i].ProductList[j].ProductID,
+                                Value: result[i].ProductList[j].ProductID,
+                                Text: result[i].ProductList[j].ProductName,
+                                Checked: (i == 0 ? true : false),
+                                Enable: true,
+                                CssClass: ""
+                            });
+                        }
+                        invoiceTypeList.push({
+                            Id: "#ddlInvoiceType" + result[i].InvoiceTypeID,
+                            Value: result[i].InvoiceTypeID,
+                            Text: result[i].InvoiceTypeName,
+                            Checked: (i == 0 ? true : false),
+                            Enable: true,
+                            CssClass: "",
+                            Items: productList
+                        });
+
+                        productList = [];
+                    }
+
+                    $("#ddlInvoiceType").multiRadioSelect({ //multiple: false,
+                        showCheckAll: false,
+                        maxHeight: 705,
+                        minWidth: 170,
+                        showFooter: false,
+                        listData: invoiceTypeList,
+                        hasOptGroup: true,
+                        onCheck: function () {
+                             invoiceApp.filter.getBaseCurrency();
+                            if (!$(this).is(':checked')) {
+                                invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
+                                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+                            }
+                        }, // when an individual checkbox is clicked 
+                        selectedList: 0,
+                        isCheckAll: false,
+                        isRetrieveDataAfterClose: false,
+                        showParentSelectedText: true,
+                        multiple: false,
+                        shadow: true
+                    });
+     };
+});
+
+
 app.controller('InvoiceController', function($scope) {
-   //        $scope.invoiceItems = Items.query();
-        invoiceApp.filter.getFilteringInfo();
-
-        //////// test
-
-        invoiceInfoModel.Operator = invoiceApp.Operator;
-        invoiceInfoModel.Licensee = invoiceApp.Licensee;
-        invoiceInfoModel.FromDate = invoiceApp.FromDate;
-        invoiceInfoModel.ToDate = invoiceApp.ToDate;
-        invoiceInfoModel.DueDate = invoiceApp.DueDate;
-        invoiceInfoModel.Currency = invoiceApp.Currency.CurrencyID;
-        invoiceInfoModel.CurrencyName = invoiceApp.Currency.CurrencyName;
-        invoiceInfoModel.InvoiceType = invoiceApp.InvoiceType;
-        invoiceInfoModel.Product = invoiceApp.Products;
-        invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
-        invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
-        invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
-        invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount;
     $scope.invoiceItems = invoiceInfoModel;
     $scope.isInsert = false;
     $scope.descript = "Software & Data Licensing & Data transmission fees for ";
@@ -123,9 +221,6 @@ app.controller('InvoiceController', function($scope) {
 });
 
 
-app.controller('filterController', function($scope) {
-    
-});
 
 app.directive('renderOnblur', function () {
     return {

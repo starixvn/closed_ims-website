@@ -25,7 +25,7 @@
         </div>
     </div>
 }
-<div id="filter-bar">
+<div id="filter-bar" ng-app='Invoice' ng-controller="filterController" id="ng-app">
     <span id="notemessage" class="note-info-message" title='For data accuracy, the system allows you to generate the billing report 5 days after month-end'></span>
     <div class="filter-form">
         <div class="filter-row">
@@ -34,13 +34,22 @@
                     Party/Operator
                 </div>
                 <div class="edit-field col_7">
-                      <select id="ddlOperator" style="width: 170px; "></select>
+                    <select ng-change="getLicensees()" 
+                            ng-model="operator"
+                            ng-options="value.PartyFullName for value in operators"  style="width: 170px; ">
+                            <option value="">Please Select One!</option>
+                    </select>
                 </div>
                 <div class="lbl-field col_3 align-right">
                     @Labels.Licensee
                 </div>
                 <div class="edit-field col_5">
-                    <select id="ddlLicensee" style="width: 135px; "></select>
+                     <select ng-change="getInvoiceType()"
+                                ng-model="licensee"
+                                ng-options="value.LicenseeName for value in licensees"  style="width: 135px; ">
+                                <option value="">Please Select One!</option>
+                        </select>
+
                 </div>
                 <div id="fromTopickerplugin">
                 </div>
