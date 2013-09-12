@@ -12,10 +12,22 @@
     }
 }
 
-var app = angular.module('Invoice', []);
+var app = angular.module('Invoice',  []).service('invoiceService', function ($rootScope) {
+    return {
+        getOperatorList: function()
+        {
+            return operatorListModel;
+        },
+        getInvoiceModel: function()
+        {
+            return invoiceInfoModel;
+        }
+    };
+    
+})
 
-app.controller('filterController', function($scope) {
-    $scope.operators = operatorListModel;
+app.controller('filterController', function($scope, invoiceService) {
+    $scope.operators = invoiceService.getOperatorList();
     $scope.licensees = new Array();
 
     $scope.invoiceNo = '';
@@ -23,6 +35,7 @@ app.controller('filterController', function($scope) {
 
     $scope.products = '';
     $scope.productsName = '';
+
     $scope.invoiceType = {
             InvoiceTypeID: '',
             InvoiceTypeName: ''
@@ -83,6 +96,48 @@ app.controller('filterController', function($scope) {
         NapAres.enableInput();
      };
      
+     $scope.submit = function () {
+          if($scope.operator == null || $scope.licensee == null || !$.isNumeric($scope.invoiceNo)){
+             return false;
+          }
+
+        if ($scope.invoiceNo == '') {
+            errorAjax('Please input Invoice No.!');
+            return false;
+        }
+
+        if ($scope.products == '') {
+            errorAjax('Please select product!');
+            return false;
+        }
+
+        var toDateSelected = new Date($('#ToDatePicker').val());
+        var totalDays = invoiceApp.helper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
+
+        if (toDateSelected.getDate() != totalDays) {
+            $("#dialog:ui-dialog").dialog("destroy");
+            $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
+            $("#ims-dialog-message").dialog({
+                modal: true,
+                resizable: false,
+                width: 310,
+                position: ['middle', 100],
+                buttons: {
+                    Ok: function () {
+                        $(this).dialog("close");
+                        getNewInvoiceData();
+                    },
+                    Cancel: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+            $(".ui-dialog-titlebar").hide();
+        } else {
+            getNewInvoiceData();
+        }
+    },
+
      createInvoiceTypeDropdowList = function(result){
         var invoiceTypeList = [];
                     var productList = [];
@@ -222,10 +277,50 @@ app.controller('filterController', function($scope) {
                             });
     }
     
+     getNewInvoiceData =  function () {
+        NapAres.disableInput();
+        $.ajax({
+            url: domain + "Invoice/Invoice/IsExistInvoiceNo",
+            type: "POST",
+            data: 'PartyID=' + $scope.operator.PartyID + '&InvoiceNo=' + $scope.invoiceNo,
+            success: function (data, textStatus, jqXHR) {
+                if (data == false) {
+                    $.ajax({
+                        url: domain + "Invoice/Invoice/GetInvoice",
+                        type: "POST",
+                        data: 'PartyID=' + $scope.operator.PartyID + '&LicenseeID=' + $scope.licensee.LicenseeID + '&Products=' + $scope.products + '&FromDate=' + $('#FromDatePicker').val() + '&ToDate=' + $('#ToDatePicker').val() + '&BillingCurrency=' + $scope.baseCurrency.Value,
+                        success: function (data) {
+                            $('#parentContainer').html(data);
+                            $("#parentContainer").css("margin-top", "90px !important;");
+                            $('#btnGenerate').addClass('ui-state-disabled');
+                            
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            $('#parentContainer').html('');
+                             errorAjax('Loading data fail.');
+                        },
+                        complete: function (jqXHR, textStatus) {
+                            NapAres.enableInput();
+                        }
+                    });
+                } else {
+                    $('#parentContainer').html('');
+                    errorAjax('The Invoice No. is existed, please enter a new number!');
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#parentContainer').html('');
+               errorAjax('Loading data fail.');
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
+    }
 });
 
-app.controller('InvoiceController', function($scope) {
-    $scope.invoiceItems = invoiceInfoModel;
+app.controller('InvoiceController', function($scope, invoiceService) {
+    $scope.invoiceItems = invoiceService.getInvoiceModel();
     $scope.isInsert = false;
     $scope.descript = "Software & Data Licensing & Data transmission fees for ";
 
@@ -336,10 +431,6 @@ app.directive('renderOnblur', function () {
     };
 });
 
-app.factory('invoiceService', function($rootScope) {
-   
-});
-
 $(document).ready(function () {
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     //------binding events
@@ -380,7 +471,7 @@ var invoiceApp = {
                 TextboxCss: "edit-field col_5"
             },
             onSelectDatePicker: function () {
-                filterControl.btnGenerate.removeClass('ui-state-disabled');
+                $('#btnGenerate').removeClass('ui-state-disabled');
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             },
@@ -412,68 +503,11 @@ var invoiceApp = {
             minDate: new Date(minDate)
         });
 
-        $('#btnGenerate').button().click(function () {
-            if (!$(this).hasClass('ui-state-disabled')) {
-                invoiceApp.submit();
-            }
-        });
+        $('#btnGenerate').button();
         
         $('#btnNewInvoice').button();
     },
 
-    submit: function () {
-        if (invoiceApp.filterControls.ddlOperator.prop("selectedIndex") == 0 ||
-            invoiceApp.filterControls.ddlLicensee.prop("selectedIndex") == 0 ||
-            $.isNumeric(invoiceApp.filterControls.txtInvoiceNo.val()) == false)
-            return false;
-
-        if (invoiceApp.filterControls.txtInvoiceNo.val().length == 0) {
-            NapAres.Helper.showMsgBox({
-                ErrorCode: 1,
-                ErrorMsg: 'Please input Invoice No.!'
-            });
-            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-            return false;
-        }
-
-        invoiceApp.filter.getFilteringInfo();
-
-        if (invoiceApp.Products.length == 0) {
-            NapAres.Helper.showMsgBox({
-                ErrorCode: 1,
-                ErrorMsg: 'Please select product!'
-            });
-            setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
-
-            return false;
-        }
-
-        var toDateSelected = new Date(invoiceApp.filterControls.cldToDate.val());
-        var totalDays = invoiceApp.helper.getTotalDayOfMonth(toDateSelected.getMonth() + 1, toDateSelected.getFullYear());
-
-        if (toDateSelected.getDate() != totalDays) {
-            $("#dialog:ui-dialog").dialog("destroy");
-            $("#ims-dialog-message").html('<p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>ToDate is not set as month end.<br/> Are you sure you want to generate data?</p>');
-            $("#ims-dialog-message").dialog({
-                modal: true,
-                resizable: false,
-                width: 310,
-                position: ['middle', 100],
-                buttons: {
-                    Ok: function () {
-                        $(this).dialog("close");
-                        invoiceApp.filter.getNewInvoiceData();
-                    },
-                    Cancel: function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-            $(".ui-dialog-titlebar").hide();
-        } else {
-            invoiceApp.filter.getNewInvoiceData();
-        }
-    },
 
     saveInvoice: function () {
         invoiceInfoModel.Operator = invoiceApp.Operator;

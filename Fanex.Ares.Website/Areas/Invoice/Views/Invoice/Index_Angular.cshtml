@@ -79,10 +79,8 @@
                      <select ng-model="baseCurrency" ng-options="currency.Text for currency in baseCurrencies"  class="col_5">
                         </select>
                 </div>
-                
-                
                 <div class="submit col_4">
-                    <input id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
+                    <input ng-click="submit()" id="btnGenerate" name="btnGenerate" type="button" value="GENERATE" />
                 </div>
                 <div class="submit col_6  align-center">
                     <input onClick="location.href='@Url.Action("Index", "Invoice")'" id="btnNewInvoice" class="ui-button ui-widget ui-state-default ui-corner-all"  name="btnNewInvoice" type="button" value="NEW INVOICE" />
@@ -114,9 +112,9 @@
         operatorList = operatorList.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
         var operatorListModel = jQuery.parseJSON(operatorList);
 
-         var invoiceModel = '@Json.Encode(invoiceModel)';
-         invoiceModel = invoiceModel.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-        var invoiceInfoModel = jQuery.parseJSON(invoiceModel);
+//         var invoiceModel = '@Json.Encode(invoiceModel)';
+//         invoiceModel = invoiceModel.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+//        var invoiceInfoModel = jQuery.parseJSON(invoiceModel);
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var _today = '@DateTime.Today.ToShortDateString()';

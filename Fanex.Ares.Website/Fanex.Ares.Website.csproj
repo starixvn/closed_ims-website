@@ -236,7 +236,7 @@
     <Content Include="Areas\Invoice\Styles\Images\Checkbox.gif" />
     <Content Include="Areas\Invoice\Styles\Images\COZNI LIMITED.png" />
     <Content Include="Areas\Invoice\Styles\Images\LDL.png" />
-    <Content Include="Areas\Invoice\Styles\Images\Lupine.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Lupine.jpg" />
     <Content Include="Areas\Invoice\Styles\Images\StarExpress.jpg" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />

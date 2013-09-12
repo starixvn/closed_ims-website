@@ -251,12 +251,8 @@
     <table border="0px" id="tblconfirm">
     </table>
 </div>
- <script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/angular.min.js"></script>
+ 
 <script type="text/javascript">
-    var _totalAmount = @totalAmount; 
-    
-//    $("#totalAmount").empty().html(invoiceApp.Currency.CurrencyName + ' ' +  invoiceApp.helper.negativeFormat(_totalAmount));
-     invoiceApp.TotalAmount = _totalAmount;
     $('#saveID').button();
    
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) invoiceApp.saveInvoice(); });
@@ -284,38 +280,6 @@
 //        $('#divCorrespondentAccNo').html(invoiceApp.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
 
-
-  
-function ExportPDF()
-{
-    $('#tblconfirm').empty().append("<tr><td class='popupTd'>Do you want to export document with signature?</td></tr>");
-            $("#tblconfirm").dialog({
-                title: "Export PDF",
-                autoOpen: false,
-                height: 130,
-                width: 360,
-                resizable: false,
-                modal: true,
-                buttons: {
-                    Yes: function () {
-                        link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = true })';
-                        location.href = link;
-                         $(this).dialog("close");
-                    },
-                    No: 
-                     function () {
-                       link = '@Url.Action("ExportDocument", "Invoice", new { isSignature = false })';
-                        location.href = link;
-                         $(this).dialog("close");
-                    }
-                },
-                close: function (event, ui) {
-                }
-            });
-            $('a.ui-dialog-titlebar-close').show();
-            $("#tblconfirm").dialog("open");
-}
-
 $("#noteId").bind('input propertychange', function () {
     var maxLength = $('#noteId').attr('maxlength');
     if ($(this).val().length > maxLength) {
@@ -323,3 +287,4 @@ $("#noteId").bind('input propertychange', function () {
     }
 });
 </script>
+<script type="text/javascript" src="~/Areas/Invoice/Views/Invoice/Scripts/angular.min.js"></script>
