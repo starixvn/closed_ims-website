@@ -142,7 +142,7 @@ app.controller('filterController', function($scope) {
                 setTimeout('NapAres.Helper.hideMsgBox()', 4000);
      };
 
-       getInvoiceNo = function () {
+     getInvoiceNo = function () {
         NapAres.disableInput();
         var partyIdTmp =  $scope.operator == null ? -1 :  $scope.operator.PartyID ;
 //        getSelectedInvoiceType();
@@ -163,7 +163,7 @@ app.controller('filterController', function($scope) {
         });
     };
 
-      getSelectedInvoiceType = function () {
+     getSelectedInvoiceType = function () {
         var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
         var productName = '';
         var produtID = '';
@@ -223,7 +223,6 @@ app.controller('filterController', function($scope) {
     }
     
 });
-
 
 app.controller('InvoiceController', function($scope) {
     $scope.invoiceItems = invoiceInfoModel;
@@ -315,8 +314,6 @@ app.controller('InvoiceController', function($scope) {
 
 });
 
-
-
 app.directive('renderOnblur', function () {
     return {
         require: 'ngModel',
@@ -339,11 +336,9 @@ app.directive('renderOnblur', function () {
     };
 });
 
-
 app.factory('invoiceService', function($rootScope) {
    
 });
-
 
 $(document).ready(function () {
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
@@ -353,45 +348,15 @@ $(document).ready(function () {
 });
 
 var invoiceApp = {
-    Licensees: [],
-    FromDate: '',
-    ToDate: '',
-    DueDate: '',
-    Operator: null,
-    Licensee: null,
-    InvoiceType: null,
-    Currency: null,
-    Products: '',
-    ProductsName: '',
-    TotalAmount: 0,
-    InvoiceNo: '',
-    InvoiceName: '',
-    InvoiceID: 0,
-    newItemID: 0,
-    messageTimeOut: 4000,
-    isInsert: true,
-    newItemIDsList: [],
-
-    filterControls: {
-        ddlOperator: $('#ddlOperator'),
-        ddlLicensee: $('#ddlLicensee'),
-        cldFromDate: null,
-        cldToDate: null,
-        divInvoiceType: $('#divInvoiceType'),
-        ddlCurrency: $('#CurrencyID'),
-        txtInvoiceNo: $('#invoiceNo'),
-        cldDueDate: null,
-        btnGenerate: $('#btnGenerate'),
-        btnNewInvoice: $('#btnNewInvoice')
-    },
-
     init: function () {
-        var filterControl = invoiceApp.filterControls;
         $("#notemessage").tipsy({
             html: true,
             opacity: 0.9,
             gravity: 'ne'
         });
+
+          $('#divInvoiceType').html('').append('<option value="0">Please Select One!</option>');
+          $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
 
         var rangeDate = invoiceApp.helper.getDateRangeOfLastMonth(_today);
         $('#fromTopickerplugin').nexDatePicker({
@@ -422,7 +387,7 @@ var invoiceApp = {
             minDate: new Date(minDate)
         });
 
-        $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
+       $('#ToDatePicker').datepicker("setDate", rangeDate[1]);
 
         $('#duteDatepickerplugin').nexDatePicker({
             nexDatePickerType: "single",
@@ -447,67 +412,13 @@ var invoiceApp = {
             minDate: new Date(minDate)
         });
 
-        filterControl.cldFromDate = $('#FromDatePicker');
-        filterControl.cldToDate = $('#ToDatePicker');
-        filterControl.cldDueDate = $('#DueDatePicker');
-
-        filterControl.btnGenerate.button();
-        filterControl.btnGenerate.click(function () {
+        $('#btnGenerate').button().click(function () {
             if (!$(this).hasClass('ui-state-disabled')) {
                 invoiceApp.submit();
             }
         });
-
-        filterControl.btnNewInvoice.button();
-
-        filterControl.ddlLicensee.change(function () {
-            if (filterControl.ddlLicensee.prop("selectedIndex") != 0) {
-                invoiceApp.filter.getInvoiceType();
-                filterControl.btnGenerate.removeClass('ui-state-disabled');
-                $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            } else {
-                filterControl.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                filterControl.txtInvoiceNo.val('');
-            }
-        });
-
-        filterControl.ddlOperator.change(function () {
-            filterControl.ddlLicensee.html('');
-            filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
-
-            $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-            filterControl.txtInvoiceNo.val('');
-
-            if (filterControl.ddlOperator.prop("selectedIndex") != 0) {
-                invoiceApp.filter.getLicensees();
-            }
-
-            invoiceApp.filter.getInvoiceNo();
-            $(invoiceApp.filterControls.ddlCurrency).find('option').remove();
-        });
-
-        filterControl.txtInvoiceNo.change(function () {
-            filterControl.btnGenerate.removeClass('ui-state-disabled');
-            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        });
-
-        filterControl.ddlCurrency.change(function () {
-            filterControl.btnGenerate.removeClass('ui-state-disabled');
-            $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-        });
-
-        //------binding data
-
-        filterControl.ddlOperator.append('<option value="0">Please Select One!</option>');
-        $.each(operatorListModel, function (i, item) {
-            filterControl.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
-        });
-        filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
-        $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-        NapAres.NapAresPopUp = $('#dialog-popup');
+        
+        $('#btnNewInvoice').button();
     },
 
     submit: function () {
