@@ -18,6 +18,16 @@ app.controller('filterController', function($scope) {
     $scope.operators = operatorListModel;
     $scope.licensees = new Array();
 
+    $scope.invoiceNo = '';
+    $scope.baseCurrencies = new Array();
+
+    $scope.products = '';
+    $scope.productsName = '';
+    $scope.invoiceType = {
+            InvoiceTypeID: '',
+            InvoiceTypeName: ''
+        };
+
      $scope.getLicensees = function(){
        NapAres.disableInput();
        
@@ -32,14 +42,11 @@ app.controller('filterController', function($scope) {
                          $('#divInvoiceType').html('').append('<option value="0">Please Select One!</option>');
                          $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
                     }
+                    getInvoiceNo();
                     $scope.$apply();
             },
-            error: function (xhr, ajaxOptions, thrownError) {
-                NapAres.Helper.showMsgBox({
-                    ErrorCode: 1,
-                    ErrorMsg: 'Loading Licensee data fail.'
-                });
-                setTimeout('NapAres.Helper.hideMsgBox()', invoiceApp.messageTimeOut);
+            error: function () {
+                errorAjax('Loading Licensee data fail.');
             },
             complete: function (jqXHR, textStatus) {
                 NapAres.enableInput();
@@ -63,11 +70,10 @@ app.controller('filterController', function($scope) {
                 data: 'licenseeID=' + licenseeIdTmp + '&partyId=' + partyIdTmp,
                 success: function (result) {
                     createInvoiceTypeDropdowList(result);
+                    getBaseCurrency();
                 },
                 error: function () {
-                    try {
-                        NapAres.enableInput();
-                    } catch (e) { }
+                     errorAjax('Loading Invoice Type fail.');
                 },
                 complete: function (jqXHR, textStatus) {
                     NapAres.enableInput();
@@ -112,7 +118,7 @@ app.controller('filterController', function($scope) {
                         listData: invoiceTypeList,
                         hasOptGroup: true,
                         onCheck: function () {
-                             invoiceApp.filter.getBaseCurrency();
+                             getBaseCurrency();
                             if (!$(this).is(':checked')) {
                                 invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
                                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
@@ -127,6 +133,95 @@ app.controller('filterController', function($scope) {
                         shadow: true
                     });
      };
+
+     errorAjax = function(messege){
+       NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: messege
+                });
+                setTimeout('NapAres.Helper.hideMsgBox()', 4000);
+     };
+
+       getInvoiceNo = function () {
+        NapAres.disableInput();
+        var partyIdTmp =  $scope.operator == null ? -1 :  $scope.operator.PartyID ;
+//        getSelectedInvoiceType();
+        $.ajax({
+            url: domain + "Invoice/Invoice/GetInvoiceNo",
+            type: "POST",
+            data: 'PartyId=' + partyIdTmp,
+            success: function (data, textStatus, jqXHR) {
+               $scope.invoiceNo = data;
+               $scope.$apply();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                 errorAjax('Loading Invoiceno fail.');
+            },
+            complete: function (jqXHR, textStatus) {
+                NapAres.enableInput();
+            }
+        });
+    };
+
+      getSelectedInvoiceType = function () {
+        var listChecked = $('#ddlInvoiceType').next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(#' + $('#ddlProduct').attr('id') + "HeaderCheckBox)").filter('[checked]');
+        var productName = '';
+        var produtID = '';
+        var index = 0;
+        for (var i = 0; i < listChecked.length; i++) {
+            if (listChecked[i].value == 'on')
+                continue;
+            if (index < listChecked.length - 1) {
+                productName += listChecked[i].title + ',';
+                produtID += listChecked[i].value + ',';
+            } else {
+                productName += listChecked[i].title;
+                produtID += listChecked[i].value;
+            }
+            index++;
+        }
+
+        var radioCheck = $("#divInvoiceType input[type='radio']:checked");
+        var invoiceTypeIdTmp = '';
+        var invoiceTypeNameTmp = '';
+        if (radioCheck && radioCheck.length > 0) {
+            invoiceTypeIdTmp = radioCheck[0].value;
+            invoiceTypeNameTmp = radioCheck[0].title;
+        }
+
+         $scope.products = produtID;
+         $scope.productsName = productName;
+         $scope.invoiceType = {
+            InvoiceTypeID: invoiceTypeIdTmp,
+            InvoiceTypeName: invoiceTypeNameTmp
+        };
+    }
+
+     getBaseCurrency = function(){
+       NapAres.disableInput();
+        var partyIdTmp =  $scope.operator == null ? -1 :  $scope.operator.PartyID ;
+        var licenseeIdTmp =  $scope.licensee == null ? -1 :  $scope.licensee.LicenseeID ;
+       getSelectedInvoiceType();
+                            $.ajax({
+                                url: domain + "Invoice/Invoice/GetBaseCurrency",
+                                type: "POST",
+                                data: 'licenseeID=' + licenseeIdTmp + '&partyId=' + partyIdTmp + '&Products=' + $scope.products,
+                                success: function (data) {
+                                      $scope.baseCurrencies = data;
+                                      $scope.baseCurrency = $scope.baseCurrencies[0];
+                                       $scope.$apply();
+                                },
+                                error: function () {
+                                    try {
+                                        parent.jQuery.unblockUI();
+                                    } catch (e) { }
+                                },
+                                complete: function (jqXHR, textStatus) {
+                                    NapAres.enableInput();
+                                }
+                            });
+    }
+    
 });
 
 

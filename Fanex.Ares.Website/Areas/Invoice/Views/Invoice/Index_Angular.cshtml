@@ -70,14 +70,14 @@
                     Invoice No.
                 </div>
                 <div class="edit-field col_5 align-left">
-                    <input type="text" name="invoiceNo" id="invoiceNo" style="width:133px"/>
+                    <input style="width:133px" type="text" ng-model="invoiceNo" />
                 </div>
                 <div class="lbl-field col_3 align-right">
                     Currency
                 </div>
                <div id="divCurrencyID" class="edit-field col_6">
-                    <select id="CurrencyID" class="col_5">
-                    </select>
+                     <select ng-model="baseCurrency" ng-options="currency.Text for currency in baseCurrencies"  class="col_5">
+                        </select>
                 </div>
                 
                 
