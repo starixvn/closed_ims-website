@@ -258,7 +258,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             Description = row.Description,
                             Reference = row.Reference,
                             Amount = row.Amount,
-                            AmountFormated = row.AmountFormated,
+                            AmountFormated = ((double)row.Amount).Format(2),
                             AdjustItem = row.AdjustItem,
                             InvoiceMonth = row.InvoiceMonth,
                             DiscountItem = row.DiscountItem,
