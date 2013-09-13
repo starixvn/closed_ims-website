@@ -121,8 +121,8 @@ var invoiceApp = {
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             } else {
                 filterControl.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 200px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 185px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
-                filterControl.txtInvoiceNo.val('');
             }
+             $(invoiceApp.filterControls.ddlCurrency).removeAttr('disabled');
         });
 
         filterControl.ddlOperator.change(function () {
@@ -137,6 +137,7 @@ var invoiceApp = {
             }
 
             invoiceApp.filter.getInvoiceNo();
+             $(invoiceApp.filterControls.ddlCurrency).removeAttr('disabled');
             $(invoiceApp.filterControls.ddlCurrency).find('option').remove();
         });
 
