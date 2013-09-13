@@ -120,7 +120,7 @@ var invoiceApp = {
                 $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                 $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
             } else {
-                filterControl.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+                filterControl.divInvoiceType.html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 200px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 185px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
                 filterControl.txtInvoiceNo.val('');
             }
         });
@@ -129,7 +129,7 @@ var invoiceApp = {
             filterControl.ddlLicensee.html('');
             filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
 
-            $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+            $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 200px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 185px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
             filterControl.txtInvoiceNo.val('');
 
             if (filterControl.ddlOperator.prop("selectedIndex") != 0) {
@@ -159,7 +159,7 @@ var invoiceApp = {
             filterControl.ddlOperator.append('<option value="' + item.PartyID + '">' + item.PartyFullName + '</option>');
         });
         filterControl.ddlLicensee.append('<option value="0">Please Select One!</option>');
-        $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 170px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 157px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
+        $('#divInvoiceType').html('<a class="ui-multiselect ui-multiselect-widget ui-multiselect-state-default" id="ddlInvoiceType" style="width: 200px;" parent-checked-value="4"><input type="text" title="" value="Please Select One!" class="ui-multiselect-state-default" readonly="readonly" style="width: 185px;"><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
         NapAres.NapAresPopUp = $('#dialog-popup');
     },
 

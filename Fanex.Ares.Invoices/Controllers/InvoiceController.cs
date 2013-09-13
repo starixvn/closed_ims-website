@@ -64,8 +64,8 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             ViewBag.ListOperator = this.invoiceService.GetOperatorList(new IMS_OperatorCriteria() { PartyID = 0 });
             
-            //return View();
-            return View("~/Areas/Invoice/Views/Invoice/Index_Angular.cshtml");
+            return View();
+            //return View("~/Areas/Invoice/Views/Invoice/Index_Angular.cshtml");
         }
 
         [HttpPost]
@@ -119,8 +119,8 @@ namespace Fanex.Ares.Invoice.Controllers
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
 
-            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
-            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
+            return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
+            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
         }
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)

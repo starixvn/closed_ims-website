@@ -279,6 +279,7 @@ app.controller('filterController', function($scope, invoiceService) {
     
      getNewInvoiceData =  function () {
         NapAres.disableInput();
+//        $rootScope.invoiceInfoModel.Operator = $scope.operator;
         $.ajax({
             url: domain + "Invoice/Invoice/IsExistInvoiceNo",
             type: "POST",

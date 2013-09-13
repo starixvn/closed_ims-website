@@ -37,7 +37,7 @@ invoiceApp.filter = {};
                 $("#ddlInvoiceType").multiRadioSelect({ //multiple: false,
                     showCheckAll: false,
                     maxHeight: 705,
-                    minWidth: 170,
+                    minWidth: 200,
                     showFooter: false,
                     listData: invoiceTypeList,
                     hasOptGroup: true,
@@ -106,6 +106,10 @@ invoiceApp.filter = {};
                                         $.each(data, function (i, item) {
                                             invoiceApp.filterControls.ddlCurrency.append('<option value="' + item.Value + '">' + item.Text + '</option>');
                                         });
+                                        if(data.length == 1)
+                                        {
+                                            $(invoiceApp.filterControls.ddlCurrency).attr('disabled', 'disabled');
+                                        }
                                     }
                                 },
                                 error: function () {
