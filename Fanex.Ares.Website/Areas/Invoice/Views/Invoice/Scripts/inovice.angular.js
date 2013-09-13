@@ -16,11 +16,20 @@ var app = angular.module('Invoice',  []).service('invoiceService', function ($ro
     return {
         getOperatorList: function()
         {
-            return operatorListModel;
+            operatorListService= operatorListModel;
+            return operatorListService;
         },
         getInvoiceModel: function()
         {
-            return invoiceInfoModel;
+            invoiceModelService = invoiceInfoModel
+            return invoiceModelService;
+        },
+        setOperatorSelect: function(operator)
+        {
+           operatorSelected = operator;
+        },
+        getOperatorSelected: function(){
+            return operatorSelected;
         }
     };
     
@@ -28,6 +37,7 @@ var app = angular.module('Invoice',  []).service('invoiceService', function ($ro
 
 app.controller('filterController', function($scope, invoiceService) {
     $scope.operators = invoiceService.getOperatorList();
+    
     $scope.licensees = new Array();
 
     $scope.invoiceNo = '';
@@ -97,9 +107,11 @@ app.controller('filterController', function($scope, invoiceService) {
      };
      
      $scope.submit = function () {
+           
           if($scope.operator == null || $scope.licensee == null || !$.isNumeric($scope.invoiceNo)){
              return false;
           }
+          invoiceService.setOperatorSelect($scope.operator);
 
         if ($scope.invoiceNo == '') {
             errorAjax('Please input Invoice No.!');
@@ -322,6 +334,7 @@ app.controller('filterController', function($scope, invoiceService) {
 
 app.controller('InvoiceController', function($scope, invoiceService) {
     $scope.invoiceItems = invoiceService.getInvoiceModel();
+    $scope.invoiceItems.Operator =  invoiceService.getOperatorSelected();
     $scope.isInsert = false;
     $scope.descript = "Software & Data Licensing & Data transmission fees for ";
 
@@ -431,6 +444,7 @@ app.directive('renderOnblur', function () {
         }
     };
 });
+
 
 $(document).ready(function () {
     domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
