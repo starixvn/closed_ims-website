@@ -16,21 +16,27 @@ var app = angular.module('Invoice',  []).service('invoiceService', function ($ro
     return {
         getOperatorList: function()
         {
-            operatorListService= operatorListModel;
-            return operatorListService;
+            return operatorListModel;
         },
         getInvoiceModel: function()
         {
             invoiceModelService = invoiceInfoModel
             return invoiceModelService;
         },
-        setOperatorSelect: function(operator)
+        setOperatorSelected: function(operator)
         {
-           operatorSelected = operator;
+           invoiceModelService.Operator = operator;
         },
-        getOperatorSelected: function(){
-            return operatorSelected;
-        }
+//        getOperatorSelected: function(){
+//            return operatorSelected;
+//        },
+//         setLicenseeSelected: function(operator)
+//        {
+//           operatorSelected = operator;
+//        },
+//        getLicenseeSelected: function(){
+//            return operatorSelected;
+//        },
     };
     
 })
@@ -111,7 +117,8 @@ app.controller('filterController', function($scope, invoiceService) {
           if($scope.operator == null || $scope.licensee == null || !$.isNumeric($scope.invoiceNo)){
              return false;
           }
-          invoiceService.setOperatorSelect($scope.operator);
+          invoiceService.setOperatorSelected($scope.operator);
+//          invoiceService.setLicenseeSelected($scope.operator);
 
         if ($scope.invoiceNo == '') {
             errorAjax('Please input Invoice No.!');
@@ -334,7 +341,7 @@ app.controller('filterController', function($scope, invoiceService) {
 
 app.controller('InvoiceController', function($scope, invoiceService) {
     $scope.invoiceItems = invoiceService.getInvoiceModel();
-    $scope.invoiceItems.Operator =  invoiceService.getOperatorSelected();
+//    $scope.invoiceItems.Operator =  invoiceService.getOperatorSelected();
     $scope.isInsert = false;
     $scope.descript = "Software & Data Licensing & Data transmission fees for ";
 

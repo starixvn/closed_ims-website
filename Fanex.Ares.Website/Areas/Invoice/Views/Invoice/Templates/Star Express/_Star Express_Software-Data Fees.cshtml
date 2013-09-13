@@ -214,7 +214,7 @@
             <tr>
                 <td colspan="11" style='vertical-align: top; padding-left: 5px;'>
                     <br />
-                    <span style="font-weight: bold;">For Telegraphic Transfer payments</span><br />
+                    <span style="font-weight: bold;">For Telegraphic Transfer Payments</span><br />
                 </td>
                 <td colspan="5" style='height: 40pt; vertical-align: top; mso-height-source: userset;
                     mso-height-alt: 600; padding-left: 5px;'>
@@ -225,31 +225,30 @@
             <tr>
                 <td colspan="4" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                     Beneficiary<br />
+                    Beneficiary Bank<br />
                     Account Number<br />
                     IBAN<br />
-                    <br />
+                    Swift Code
+                     <br />
                     <br />
                     Correspondent<br />
-                    Swift Code
-                    <br />
-                    Account Number<br />
-                    Beneficiary Bank<br />
                     Swift Code<br />
+                    Account Number<br />
                 </td>
                 <td colspan="7" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                     :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
-                    <br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
                     <br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentSwiftCode<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentAccNo<br />
-                    :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
-                    :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
                 </td>
                 <td colspan="5" style='height: 60pt; vertical-align: top; mso-height-source: userset;
                     mso-height-alt: 1584; padding-left: 5px;'>
+                  
                 </td>
             </tr>
             <tr>
@@ -267,6 +266,12 @@
                     <span style="font-weight: bold">Authorized Signatory</span>
                 </td>
             </tr>
+           <tr>
+                <td colspan="12"  style='height: 20pt; vertical-align: bottom; text-align:center; mso-height-source: userset;
+                    mso-height-alt: 400; padding-left: 5px;'>
+                      <span style="color: #FE2E2E; font-weight:bold;"> THANK YOU FOR YOUR BUSINESS! </span>
+                </td>
+           </tr>
 
         }
         else
@@ -275,35 +280,37 @@
                 <td colspan="16" style='height: 40pt;vertical-align: top; padding-left: 5px; mso-height-source: userset;
                     mso-height-alt: 600; '>
                     <br />
-                    <span style="font-weight: bold;">For Telegraphic Transfer payments</span><br />
+                    <span style="font-weight: bold;">For Telegraphic Transfer Payments</span><br />
                 </td>
             </tr>
             <tr>
                 <td colspan="4" style='vertical-align: top; padding-left: 5px; mso-height-source: userset;
                     mso-height-alt: 3000;'>
                     Beneficiary<br />
+                    Beneficiary Bank<br />
                     Account Number<br />
                     IBAN<br />
+                    Swift Code
                     <br />
                     <br />
                     Correspondent<br />
-                    Swift Code
-                    <br />
-                    Account Number<br />
-                    Beneficiary Bank<br />
                     Swift Code<br />
+                    Account Number<br />
+                   
+                    
                 </td>
                 <td colspan="12" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
                     :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
-                    <br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
                     <br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentSwiftCode<br />
                     :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentAccNo<br />
-                    :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
-                    :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br /><br />
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                     <span style="color: #FE2E2E; font-weight:bold;"> THANK YOU FOR YOUR BUSINESS! </span> <br /><br />
                     <span style="color: #01A9DB;">This is a computer generated invoice. No signature is
                         required. </span>
                 </td>
