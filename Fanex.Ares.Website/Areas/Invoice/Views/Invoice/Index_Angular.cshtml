@@ -30,13 +30,13 @@
     <div class="filter-form">
         <div class="filter-row">
             <div class="filter-cell">
-                <div class="lbl-field col_6  align-right">
+                <div class="lbl-field col_4  align-right">
                     Party/Operator
                 </div>
-                <div class="edit-field col_7">
+                <div class="edit-field col_8">
                     <select ng-change="getLicensees()" 
                             ng-model="operator"
-                            ng-options="value.PartyFullName for value in operators"  style="width: 170px; ">
+                            ng-options="value.PartyFullName for value in operators"  style="width: 201px; ">
                             <option value="">Please Select One!</option>
                     </select>
                 </div>
@@ -59,10 +59,10 @@
         </div>
         <div class="filter-row">
             <div class="filter-cell">
-                <div class="lbl-field col_6 align-right">
+                <div class="lbl-field col_4 align-right">
                     Invoice Type
                 </div>
-                <div id="divInvoiceType" class="edit-field col_7">
+                <div id="divInvoiceType" class="edit-field col_8">
                     <select id="ddlInvoiceType">
                     </select>
                 </div>
@@ -76,7 +76,7 @@
                     Currency
                 </div>
                <div id="divCurrencyID" class="edit-field col_6">
-                     <select ng-model="baseCurrency" ng-options="currency.Text for currency in baseCurrencies"  class="col_5">
+                     <select ng-disabled="baseCurrencies.length == 1 || baseCurrencies.length == 0" ng-model="baseCurrency" ng-options="currency.Text for currency in baseCurrencies"  class="col_5">
                         </select>
                 </div>
                 <div class="submit col_4">
