@@ -219,10 +219,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
                  
                 if (statementRawData != null)
                 {
-                    var statementDetailList = new List<StatementDetail>(); 
+                    var statementDetaitlList = new List<StatementDetail>(); 
                     foreach (var row in statementRawData)
                     {
-                        StatementDetail statementDetail = new StatementDetail()
+                        StatementDetail statementProductDetail = new StatementDetail()
                         {
                             ID = 0,
                             Description = row.Description,
@@ -235,52 +235,25 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             ProductType = row.ItemType
                         };
 
-                        this.InsertToStatement(ref statementDetailList, statementDetail);
+                        this.InsertToStatementProductDetailList(ref statementDetaitlList, statementProductDetail);
                     }
 
-                    var statement = new Statement();
-                    statement.StatementDetailList = new List<StatementDetail>();
-                    var oldMonth = string.Empty;
-                    int no = 1;
-                    foreach (var row in statementDetailList)
+                    var invoiceMonthList = statementDetaitlList.Select(item => item.InvoiceMonth).Distinct().ToList();
+                    foreach (string month in invoiceMonthList)
                     {
-                        string invoiceMonth = (string)row.InvoiceMonth;
-
-                        if (!string.IsNullOrEmpty(oldMonth) && !oldMonth.Equals(invoiceMonth))
-                        {
-                            statement.StatementDetailList = new List<StatementDetail>();
-                            invoice.StatementList.Add(statement);
-                        }
-                       
-                        statement.StatementDetailList.Add(new StatementDetail()
-                        {
-                            ID = 0,
-                            Description = row.Description,
-                            Reference = row.Reference,
-                            Amount = row.Amount,
-                            AmountFormated = ((double)row.Amount).Format(2),
-                            AdjustItem = row.AdjustItem,
-                            InvoiceMonth = row.InvoiceMonth,
-                            DiscountItem = row.DiscountItem,
-                            ProductType = row.ProductType
-                        });
-
-                        oldMonth = invoiceMonth;
+                        var statementTmp = new Statement();
+                        statementTmp.StatementDetailList = statementDetaitlList.Where(item => item.InvoiceMonth == month).ToList();
                         foreach (DateRange range in dateRangeList)
                         {
-                            if (CastAide.AsDateTime("1 " + oldMonth).Month == range.StartDate.Month)
+                            if (CastAide.AsDateTime("1 " + month).Month == range.StartDate.Month)
                             {
-                                statement.FromDate = Converter.To<string>(range.StartDate);
-                                statement.ToDate = Converter.To<string>(range.EndDate);
+                                statementTmp.FromDate = Converter.To<string>(range.StartDate);
+                                statementTmp.ToDate = Converter.To<string>(range.EndDate);
                             }
                         }
+                        invoice.StatementList.Add(statementTmp);
                     }
 
-                    if (statement != null && statement.StatementDetailList.Count > 0)
-                    {
-                        statement.No = no++;
-                        invoice.StatementList.Add(statement);
-                    }
                 }
             }
             catch (Exception ex)
@@ -500,27 +473,38 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// Insert statement to list.
         /// </summary>
         /// <param name="statementDetailList">List is exist.</param>
-        /// <param name="statementDetail">Statement detail to insert.</param>
-        private void InsertToStatement(ref List<StatementDetail> statementDetailList, StatementDetail statementDetail)
+        /// <param name="statementProductDetail">Statement detail to insert.</param>
+        private void InsertToStatementProductDetailList(ref List<StatementDetail> statementDetailList, StatementDetail statementProductDetail)
         {
-            if (statementDetailList != null && statementDetail != null)
+            if (statementDetailList != null && statementProductDetail != null)
             {
                 ////If this statement detail is not exist in statement, add statement detail to statement 
-                var isExistedStatementDetail = statementDetailList.Find(item => item.InvoiceMonth.Equals(statementDetail.InvoiceMonth) && item.DiscountItem.Equals(statementDetail.DiscountItem)) != null;
+                var isExistedStatementDetail = statementDetailList.Find(item => item.InvoiceMonth.Equals(statementProductDetail.InvoiceMonth) && item.DiscountItem.Equals(statementProductDetail.DiscountItem)) != null;
 
                 if (!isExistedStatementDetail)
                 {
-                    statementDetail.StatementProductDetail.Add(statementDetail);
-                    statementDetailList.Add(statementDetail);
+                    var productDetail = new StatementDetail();
+                    productDetail.AdjustItem = statementProductDetail.AdjustItem;
+                    productDetail.Amount = statementProductDetail.Amount;
+                    productDetail.AmountFormated = statementProductDetail.AmountFormated;
+                    productDetail.Description = statementProductDetail.Description;
+                    productDetail.DiscountItem = statementProductDetail.DiscountItem;
+                    productDetail.ID = statementProductDetail.ID;
+                    productDetail.InvoiceMonth = statementProductDetail.InvoiceMonth;
+                    productDetail.ProductType = statementProductDetail.ProductType;
+                    productDetail.Reference = statementProductDetail.Reference;
+
+                    statementProductDetail.StatementProductDetail.Add(productDetail);
+                    statementDetailList.Add(statementProductDetail);
                 }
                 else
                 {
                     statementDetailList = statementDetailList.Select(item =>
                     {
-                        if (item.InvoiceMonth.Equals(statementDetail.InvoiceMonth) && item.DiscountItem.Equals(statementDetail.DiscountItem))
+                        if (item.InvoiceMonth.Equals(statementProductDetail.InvoiceMonth) && item.DiscountItem.Equals(statementProductDetail.DiscountItem))
                         {
-                            item.StatementProductDetail.Add(statementDetail);
-                            item.Amount = item.Amount + statementDetail.Amount;
+                            item.StatementProductDetail.Add(statementProductDetail);
+                            item.Amount = item.Amount + statementProductDetail.Amount;
                             return item;
                         }
                         else
@@ -531,5 +515,6 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 }
             }
         }
+
     }
 }

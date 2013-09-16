@@ -233,6 +233,7 @@ var invoiceApp = {
         invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
         invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
         invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount;
+        invoiceInfoModel.IsSignature = ($('#chkSign').hasClass("checkedCls") == true ? true : false);
         var message = '';
         $.ajax({
             url: domain + "Invoice/Invoice/saveInvoice",

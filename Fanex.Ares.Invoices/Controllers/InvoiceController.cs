@@ -32,6 +32,7 @@ namespace Fanex.Ares.Invoice.Controllers
     using Fanex.Core.PdfHelper;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.Workbooks;
+    using System.Web;
 
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     [SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1126:PrefixCallsCorrectly", Justification = "Reviewed.")]
@@ -73,7 +74,9 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = this.invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
-
+            
+            bool isSignature = SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "isSignature") == null ? false :true;
+            ViewBag.IsSignature = isSignature;
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
             //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
         }
@@ -114,6 +117,7 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             var insertResult = this.invoiceService.SaveInvoice(invoiceModel);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave", invoiceModel);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "isSignature", invoiceModel.IsSignature);
             return Json(insertResult);
         }
 
@@ -122,7 +126,6 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             return Json(this.invoiceService.IsExistInvoiceNo(criteria));
         }
-
 
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
@@ -145,6 +148,7 @@ namespace Fanex.Ares.Invoice.Controllers
             IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
+          
             invoice.HTMLReportList = new List<string>(); // clear html when using ref
             invoice.IsSignature = isSignature;
 
@@ -223,8 +227,8 @@ namespace Fanex.Ares.Invoice.Controllers
                 ms.Seek(0, SeekOrigin.Begin);
 
                 string fileName = invoice.InvoiceName + "." + documentType.ToString().ToLower();
-
-                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
+                //Response.AppendHeader("content-disposition", "attach;filename=\"" + fileName + "\"");
+                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml",fileName);
             }
 
             return new EmptyResult();
@@ -235,6 +239,8 @@ namespace Fanex.Ares.Invoice.Controllers
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
+
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "isSignature", invoice.IsSignature);
 
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;

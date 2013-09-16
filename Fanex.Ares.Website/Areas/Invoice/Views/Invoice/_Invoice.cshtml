@@ -8,6 +8,7 @@
     int index = 0;
     double totalAmount = 0;
     string descript = "Software & Data Licensing & Data transmission fees for ";
+    string isSignature = ViewBag.IsSignature == true ? "checkedCls" : "uncheckedCls";
 }
 <div class="wrapper">
     <div class="content" style="width: 90%;">
@@ -201,7 +202,8 @@
                                 </td>
                                 <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                                 <div style="display:inline-block; float:left; font-weight: bold; height:15px;">
-                                        <div id="chkSign"  style="display: inline-block; "  class="uncheckedCls" onclick="invoiceApp.checkSignature()"></div>
+                                   
+                                        <div id="chkSign"  style="display: inline-block; "  class="@isSignature" onclick="invoiceApp.checkSignature()"></div>
                                         @*<input type="checkbox" id="chkSign"/>*@
                                        <span> with signature</span>
                                 </div>
