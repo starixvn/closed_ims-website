@@ -240,8 +240,6 @@ namespace Fanex.Ares.Invoice.Controllers
             List<DateRange> dateRangeList = new List<DateRange>();
             var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "isSignature", invoice.IsSignature);
-
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
             criteria.BaseCurrencyName = invoice.CurrencyName;

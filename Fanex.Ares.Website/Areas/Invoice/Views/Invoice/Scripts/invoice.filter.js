@@ -42,12 +42,10 @@ invoiceApp.filter = {};
                     listData: invoiceTypeList,
                     hasOptGroup: true,
                     onCheck: function () {
-                         invoiceApp.filter.getBaseCurrency();
-                        if (!$(this).is(':checked')) {
+                         invoiceApp.filter.getBaseCurrency();  
                             invoiceApp.filterControls.btnGenerate.removeClass('ui-state-disabled');
                             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
                             $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
-                        }
                     }, // when an individual checkbox is clicked 
                     selectedList: 0,
                     isCheckAll: false,
