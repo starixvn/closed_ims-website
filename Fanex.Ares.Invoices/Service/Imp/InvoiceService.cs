@@ -487,7 +487,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     productDetail.AdjustItem = statementProductDetail.AdjustItem;
                     productDetail.Amount = statementProductDetail.Amount;
                     productDetail.AmountFormated = statementProductDetail.AmountFormated;
-                    productDetail.Description = statementProductDetail.Description;
+                    if (statementProductDetail.ProductType == 1)
+                    {
+                        productDetail.Description = statementProductDetail.Description;
+                    }
                     productDetail.DiscountItem = statementProductDetail.DiscountItem;
                     productDetail.ID = statementProductDetail.ID;
                     productDetail.InvoiceMonth = statementProductDetail.InvoiceMonth;
