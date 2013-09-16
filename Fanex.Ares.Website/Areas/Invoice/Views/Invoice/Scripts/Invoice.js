@@ -357,7 +357,7 @@ var invoiceApp = {
             var amount = $('#newItem_text_' + id).val();
             if ($.isNumeric(amount) == true) {
                 if ($('#newItem_display_' + id).attr('discountItem') == "true") {
-                    $('#newItem_display_' + id).attr('amount', parseInt(amount) > 0 ? (parseInt(amount) * -1) : parseInt(amount));
+                    $('#newItem_display_' + id).attr('amount', parseFloat(amount) > 0 ? (parseFloat(amount) * -1) : parseFloat(amount));
                 } else {
                     $('#newItem_display_' + id).attr('amount', amount);
                 }
