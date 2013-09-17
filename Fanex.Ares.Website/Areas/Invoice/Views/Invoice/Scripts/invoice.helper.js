@@ -42,6 +42,13 @@ invoiceApp.helper = {};
 
     this.onBlurInput = function (obj) {
         obj.style.background = 'white';
-        invoiceApp.recalculateTotal();
+        if(invoiceApp.recalculateTotal() == false)
+        {
+        NapAres.Helper.hideMsgBox();
+            NapAres.Helper.showMsgBox({
+                    ErrorCode: 1,
+                    ErrorMsg: 'Please input Amount value !'
+                });
+        }
     }
 }).apply(invoiceApp.helper);
