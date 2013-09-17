@@ -63,7 +63,7 @@ textarea#styled
 }
 .discount
 {
-    background: url(Images/sprite.png) -26px -102px;
+    background: url(Images/sprite.png) -27px -102px;
 	cursor: pointer;
 	display: block;
 	height: 30px;
@@ -72,12 +72,12 @@ textarea#styled
 
 .discount:hover
 {
-	background: url(Images/sprite.png) -26px -128px;
+	background: url(Images/sprite.png) -27px -128px;
 }
 
 .newitem
 {
-	background: url(Images/sprite.png) 0px -102px;
+	background: url(Images/sprite.png) 1px -102px;
 	cursor: pointer;
 	display: block;
 	height: 30px;
@@ -86,7 +86,7 @@ textarea#styled
 
 .newitem:hover
 {
-	background: url(Images/sprite.png) 0px -128px;
+	background: url(Images/sprite.png) 1px -128px;
 }
 
 
