@@ -42,6 +42,10 @@ invoiceApp.helper = {};
         this.textTmp =  obj.style.value();
     }
 
+    this.onChangeAmount = function(obj){
+        invoiceApp.recalculateTotal();
+    }
+
     this.onChange = function(obj){
      if(invoiceApp.recalculateTotal() == false)
             {
