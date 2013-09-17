@@ -63,7 +63,7 @@
                                             </td>
                                         }
                                         <td  class="@fakeCssTd"style="width: 55%; text-align: center; height: 60px; ">
-                                            <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" onchange=" invoiceApp.AllowUpdateNewInfo();">
+                                            <textarea  rows="2" cols="106" name="@index" id="orgItem_des_@index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" onchange=" invoiceApp.AllowUpdateNewInfo();">
                                     @if (j == 0)
                                     {
                                        @descript @detail.Description
@@ -75,7 +75,7 @@
                                     }</textarea>
                                         </td>
                                         <td class="@fakeCssTd" style="width: 20%; text-align: center;">
-                                            <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  onchange=" invoiceApp.AllowUpdateNewInfo();">@detail.Reference</textarea>
+                                            <textarea  rows="2" cols="33" name="@index" id="orgItem_ref_@index"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  onchange=" invoiceApp.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                         </td>
                                         <td class="@fakeCssTd" style="width: 15%; text-align: right; vertical-align: middle; font-weight: bold;
                                             padding-right: 10px;">

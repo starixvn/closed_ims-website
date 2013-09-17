@@ -78,7 +78,7 @@ namespace Fanex.Ares.Invoice.Controllers
             bool isSignature = SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "isSignature") == null ? false :true;
             ViewBag.IsSignature = isSignature;
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
-            ////return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
+            //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
         }
 
         [HttpPost]
