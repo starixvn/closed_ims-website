@@ -46,6 +46,12 @@ var invoiceApp = {
             gravity: 'ne'
         });
 
+        invoiceApp.filterControls.ddlOperator.removeAttr('disabled');
+                        invoiceApp.filterControls.ddlLicensee.removeClass('ui-state-disabled').removeAttr('disabled');
+                        
+                        invoiceApp.filterControls.ddlCurrency.removeAttr('disabled');
+                        invoiceApp.filterControls.txtInvoiceNo.removeAttr('disabled');
+
         var rangeDate = invoiceApp.helper.getDateRangeOfLastMonth(_today);
         $('#fromTopickerplugin').nexDatePicker({
             nexDatePickerType: "daterange",
@@ -433,6 +439,7 @@ var invoiceApp = {
         invoiceInfoModel.TotalAmount = invoiceApp.TotalAmount = totalAmountTmp;
         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
         $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+         $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
 
         invoiceApp.isInsert = true;
     },
