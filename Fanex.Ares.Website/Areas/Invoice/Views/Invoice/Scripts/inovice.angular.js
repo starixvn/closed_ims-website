@@ -12,7 +12,9 @@
     }
 }
 
-var app = angular.module('Invoice',  []).service('invoiceService', function ($rootScope) {
+var app = angular.module('Invoice',  []).factory('invoiceService', function ($rootScope) {
+    var invoiceModelService;
+    var operatorSelected ;
     return {
         getOperatorList: function()
         {
@@ -20,11 +22,13 @@ var app = angular.module('Invoice',  []).service('invoiceService', function ($ro
         },
         getInvoiceModel: function()
         {
+        invoiceModelService = invoiceInfoModel;
 //            invoiceModelService = invoiceInfoModel
             return invoiceInfoModel;
         },
         setOperatorSelected: function(operator)
         {
+            invoiceModelService.Operator = operator;
            operatorSelected = operator;
         },
         getOperatorSelected: function(){
@@ -36,7 +40,7 @@ var app = angular.module('Invoice',  []).service('invoiceService', function ($ro
         },
         getLicenseeSelected: function(){
             return operatorSelected;
-        },
+        }
     };
     
 })

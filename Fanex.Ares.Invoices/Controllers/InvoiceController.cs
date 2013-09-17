@@ -74,8 +74,12 @@ namespace Fanex.Ares.Invoice.Controllers
             var model = this.invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
             model.ToDate = Converter.To<string>(criteria.ToDate);
-            
-            bool isSignature = SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "isSignature") == null ? false :true;
+
+            bool isSignature = false;
+            if (SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "isSignature") != null)
+            {
+                isSignature = (bool)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "isSignature");
+            }
             ViewBag.IsSignature = isSignature;
             return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice.cshtml", model);
             //return PartialView("~/Areas/Invoice/Views/Invoice/_Invoice_Angular.cshtml", model);
