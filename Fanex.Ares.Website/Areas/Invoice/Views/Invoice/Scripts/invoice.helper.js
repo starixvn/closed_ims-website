@@ -42,5 +42,8 @@ invoiceApp.helper = {};
 
     this.onBlurInput = function (obj) {
         obj.style.background = 'white';
+         $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+        $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+        $('#pdfID').addClass('ui-state-disabled').attr('disabled', 'disabled');
     }
 }).apply(invoiceApp.helper);

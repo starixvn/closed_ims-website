@@ -187,7 +187,7 @@ invoiceApp.filter = {};
                             $("#parentContainer").css("margin-top", "90px !important;");
                             //disable Generate button
                             invoiceApp.filterControls.btnGenerate.addClass('ui-state-disabled');
-
+                            invoiceApp.newItemIDsList = [];
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             $('#parentContainer').html('');
