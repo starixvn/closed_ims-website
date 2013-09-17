@@ -112,9 +112,9 @@
         operatorList = operatorList.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
         var operatorListModel = jQuery.parseJSON(operatorList);
 
-//         var invoiceModel = '@Json.Encode(invoiceModel)';
-//         invoiceModel = invoiceModel.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
-//        var invoiceInfoModel = jQuery.parseJSON(invoiceModel);
+         var invoiceModel = '@Json.Encode(invoiceModel)';
+         invoiceModel = invoiceModel.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+        var invoiceInfoModel = jQuery.parseJSON(invoiceModel);
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var _today = '@DateTime.Today.ToShortDateString()';

@@ -12,42 +12,41 @@
     }
 }
 
-var app = angular.module('Invoice',  []).factory('invoiceService', function ($rootScope) {
-    var invoiceModelService;
-    var operatorSelected ;
-    return {
-        getOperatorList: function()
-        {
-            return operatorListModel;
-        },
-        getInvoiceModel: function()
-        {
-        invoiceModelService = invoiceInfoModel;
-//            invoiceModelService = invoiceInfoModel
-            return invoiceInfoModel;
-        },
-        setOperatorSelected: function(operator)
-        {
-            invoiceModelService.Operator = operator;
-           operatorSelected = operator;
-        },
-        getOperatorSelected: function(){
-            return operatorSelected;
-        },
-         setLicenseeSelected: function(operator)
-        {
-           operatorSelected = operator;
-        },
-        getLicenseeSelected: function(){
-            return operatorSelected;
-        }
-    };
-    
+var app = angular.module('Invoice',  []).factory('invoiceService', function ($q) {
+        var invoiceModel ={};
+        var operatorList ={};
+        var operatorSelected ={};
+        return{
+            getOperatorList: function()
+            {
+                  var deferred = $q.defer();
+                  operatorList = operatorListModel;
+                  invoiceModel = invoiceInfoModel;
+                    deferred.resolve(operatorList);
+                    deferred.resolve(invoiceModel);
+                    return deferred.promise;
+            },
+            setOperatorSelected: function(operator){
+                var deferred = $q.defer();
+                  operatorSelected = operator;
+                    deferred.resolve(operatorSelected);
+                    return deferred.promise;
+            },
+            getInvoiceModel: function()
+            {
+                    var deferred = $q.defer();
+                    return deferred.promise;
+            }
+        };
 })
 
 app.controller('filterController', function($scope, invoiceService) {
-    $scope.operators = invoiceService.getOperatorList();
-    
+//    $scope.operators = invoiceService.getOperatorList();
+
+  invoiceService.getOperatorList().then(function(obj){
+        $scope.operators=obj
+    });
+
     $scope.licensees = new Array();
 
     $scope.invoiceNo = '';
@@ -344,8 +343,12 @@ app.controller('filterController', function($scope, invoiceService) {
 });
 
 app.controller('InvoiceController', function($scope, invoiceService) {
-    $scope.invoiceItems = invoiceService.getInvoiceModel();
-    $scope.invoiceItems.Operator =  invoiceService.getOperatorSelected();
+//    $scope.invoiceItems = invoiceService.getInvoiceModel();
+  invoiceService.getInvoiceModel().then(function(obj){
+        $scope.invoiceItems=obj
+    });
+
+//    $scope.invoiceItems.Operator =  invoiceService.getOperatorSelected();
     $scope.isInsert = false;
     $scope.descript = "Software & Data Licensing & Data transmission fees for ";
 

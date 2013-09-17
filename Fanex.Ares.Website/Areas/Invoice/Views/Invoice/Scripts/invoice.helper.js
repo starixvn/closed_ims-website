@@ -1,6 +1,7 @@
 ﻿var invoiceApp = invoiceApp || {};
 invoiceApp.helper = {};
 (function () {
+    this.textTmp =''
     this.getDateRangeOfLastMonth = function (today) {
         var currentDate = new Date(today);
         var currentMonth = currentDate.getMonth();
@@ -38,17 +39,25 @@ invoiceApp.helper = {};
 
     this.onFocusInput = function (obj) {
         obj.style.background = '#e5fff3';
+        this.textTmp =  obj.style.value();
+    }
+
+    this.onChange = function(obj){
+     if(invoiceApp.recalculateTotal() == false)
+            {
+                NapAres.Helper.hideMsgBox();
+                NapAres.Helper.showMsgBox({
+                        ErrorCode: 1,
+                        ErrorMsg: 'Please input Amount value !'
+                    });
+                    return false;
+            }
+        $('#reviewID').removeClass('ui-state-disabled').removeAttr('disabled');
+            $('#saveID').removeClass('ui-state-disabled').removeAttr('disabled');
+            $('#pdfID').addClass('ui-state-disabled').attr('disabled');
     }
 
     this.onBlurInput = function (obj) {
         obj.style.background = 'white';
-        if(invoiceApp.recalculateTotal() == false)
-        {
-        NapAres.Helper.hideMsgBox();
-            NapAres.Helper.showMsgBox({
-                    ErrorCode: 1,
-                    ErrorMsg: 'Please input Amount value !'
-                });
-        }
     }
 }).apply(invoiceApp.helper);
