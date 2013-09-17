@@ -21,9 +21,9 @@ var app = angular.module('Invoice',  []).factory('invoiceService', function ($q)
             {
                   var deferred = $q.defer();
                   operatorList = operatorListModel;
-                  invoiceModel = invoiceInfoModel;
+                  
                     deferred.resolve(operatorList);
-                    deferred.resolve(invoiceModel);
+                    
                     return deferred.promise;
             },
             setOperatorSelected: function(operator){
@@ -35,6 +35,9 @@ var app = angular.module('Invoice',  []).factory('invoiceService', function ($q)
             getInvoiceModel: function()
             {
                     var deferred = $q.defer();
+                    invoiceModel = invoiceInfoModel;
+                    invoiceModel.Opertor = operatorSelected;
+                  deferred.resolve(invoiceModel);
                     return deferred.promise;
             }
         };

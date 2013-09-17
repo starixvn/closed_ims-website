@@ -321,11 +321,11 @@ var invoiceApp = {
             $('#invoiceTbl tr.total').before(' <tr id="newItem_' + invoiceApp.newItemID + '" style="width: 100%; text-align: center;">\
                                     <td   style="width: 10%; "><div discountItem="' + (isDiscount == true ? true : false) + '"  id="newItem_display_' + invoiceApp.newItemID + '" style="  font-size: 20px;display: inline-block;">' + (isDiscount == true ? "" : displayID) + ' </div> <div style="display: inline-block;" title="Delete"  class="delete" onclick="invoiceApp.deleteItem(' + invoiceApp.newItemID + ')"></div></td>\
                                 <td style="width: 55%; text-align: center; height: 60px;">\
-                                    <textarea onchange="invoiceApp.helper.onChange(this)"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  id="newItem_des_' + invoiceApp.newItemID + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
-                                <td style="width: 20%; text-align: center;"><textarea onchange="invoiceApp.helper.onChange(this)"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" id="newItem_ref_' + invoiceApp.newItemID + '" rows="2" cols="33" name="styled-textarea"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
+                                    <textarea onchange="invoiceApp.helper.onChange()"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)"  id="newItem_des_' + invoiceApp.newItemID + '" rows="2" cols="106" name="styled-textarea" id="styled_300"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
+                                <td style="width: 20%; text-align: center;"><textarea onchange="invoiceApp.helper.onChange()"  onfocus="invoiceApp.helper.onFocusInput(this)" onblur="invoiceApp.helper.onBlurInput(this)" id="newItem_ref_' + invoiceApp.newItemID + '" rows="2" cols="33" name="styled-textarea"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px;text-align: right;">\
-                                        <input class="numeric"  name=""   onchange="invoiceApp.helper.onChangeAmount(this)" id="newItem_text_' + invoiceApp.newItemID + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
+                                        <input class="numeric"  name=""   onchange="invoiceApp.onChangeAmount()" id="newItem_text_' + invoiceApp.newItemID + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
             invoiceApp.newItemIDsList.push(invoiceApp.newItemID);
             invoiceApp.newItemID = invoiceApp.newItemID + 1;
             $(".numeric").numeric();
@@ -623,5 +623,9 @@ var invoiceApp = {
     checkSignature: function()
     {
         $('#chkSign').hasClass("checkedCls") == true ? $('#chkSign').removeClass('checkedCls').addClass('uncheckedCls') : $('#chkSign').removeClass('uncheckedCls').addClass('checkedCls');
+    },
+
+    onChangeAmount: function(){
+        invoiceApp.recalculateTotal();
     }
 }

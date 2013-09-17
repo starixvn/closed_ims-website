@@ -1,7 +1,6 @@
 ﻿var invoiceApp = invoiceApp || {};
 invoiceApp.helper = {};
 (function () {
-    this.textTmp =''
     this.getDateRangeOfLastMonth = function (today) {
         var currentDate = new Date(today);
         var currentMonth = currentDate.getMonth();
@@ -39,14 +38,13 @@ invoiceApp.helper = {};
 
     this.onFocusInput = function (obj) {
         obj.style.background = '#e5fff3';
-        this.textTmp =  obj.style.value();
     }
 
-    this.onChangeAmount = function(obj){
+    this.onChangeAmount = function(){
         invoiceApp.recalculateTotal();
     }
 
-    this.onChange = function(obj){
+    this.onChange = function(){
      if(invoiceApp.recalculateTotal() == false)
             {
                 NapAres.Helper.hideMsgBox();
