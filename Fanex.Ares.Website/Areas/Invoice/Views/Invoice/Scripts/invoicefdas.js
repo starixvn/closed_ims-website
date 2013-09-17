@@ -580,7 +580,7 @@ var invoiceApp = {
         invoiceInfoModel.ProductsName = invoiceApp.ProductsName;
         invoiceInfoModel.InvoiceNo = invoiceApp.InvoiceNo;
         invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
-         invoiceInfoModel.Note = $('#noteId').val().replace(/\n/g, '<br/>');
+        invoiceInfoModel.Note = $('#noteId').val().replace(/\n/g, '<br/>');
         invoiceInfoModel.IsSignature = ($('#chkSign').hasClass("checkedCls") == true ? true : false);
         $.ajax({
             url: domain + "Invoice/Invoice/PrintScreen",
