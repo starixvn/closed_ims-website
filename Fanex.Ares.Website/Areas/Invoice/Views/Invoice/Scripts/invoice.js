@@ -255,8 +255,7 @@ var invoiceApp = {
 
                         invoiceApp.filterControls.ddlOperator.attr('disabled', 'disabled');
                         invoiceApp.filterControls.ddlLicensee.attr('disabled', 'disabled');
-                        invoiceApp.filterControls.cldFromDate.attr('disabled', 'disabled').addClass('u
-                        i-state-disabled');
+                        invoiceApp.filterControls.cldFromDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
                         invoiceApp.filterControls.cldToDate.attr('disabled', 'disabled').addClass('ui-state-disabled');
                         invoiceApp.filterControls.divInvoiceType.find('input').attr('disabled', 'disabled').addClass('ui-state-disabled');
                         invoiceApp.filterControls.ddlCurrency.attr('disabled', 'disabled');
