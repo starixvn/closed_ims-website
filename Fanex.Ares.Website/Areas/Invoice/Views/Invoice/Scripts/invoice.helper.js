@@ -40,10 +40,6 @@ invoiceApp.helper = {};
         obj.style.background = '#e5fff3';
     }
 
-    this.onChangeAmount = function(){
-        invoiceApp.recalculateTotal();
-    }
-
     this.onChange = function(){
      if(invoiceApp.recalculateTotal() == false)
             {
