@@ -326,7 +326,7 @@ var invoiceApp = {
                                 <td style="width: 20%; text-align: center;"><textarea onchange="invoiceApp.helper.onChange();"  onfocus="invoiceApp.helper.onFocusInput(this);" onblur="invoiceApp.helper.onBlurInput(this);" id="newItem_ref_' + invoiceApp.newItemID + '" rows="2" cols="33" name="styled-textarea"  onchange=" invoiceApp.allowUpdateNewInfo(this);"></textarea></td>\
                                 <td style="width: 15%; text-align: center;">\
                                     <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px;text-align: right;">\
-                                        <input class="numeric" onclick=""  onchange="invoiceApp.helper.onChangeAmount();" id="newItem_text_' + invoiceApp.newItemID + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
+                                        <input class="numeric" onclick=""  onblur="invoiceApp.helper.onChangeAmount();" id="newItem_text_' + invoiceApp.newItemID + '" type="text" style="font-weight: bold;text-align:right;width:95%;"></input></div></td></tr>');
             invoiceApp.newItemIDsList.push(invoiceApp.newItemID);
             invoiceApp.newItemID = invoiceApp.newItemID + 1;
             $(".numeric").numeric();

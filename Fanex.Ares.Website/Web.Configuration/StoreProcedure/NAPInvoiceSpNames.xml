@@ -33,6 +33,6 @@
     <Setting Key="IMS_Invoice_Rpt_LicenseeSettlement" SpName="IMS_Invoice_Rpt_LicenseeSettlement" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_CheckExistedInvoiceNo" SpName="IMS_CheckExistedInvoiceNo" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_LicenseeProductChargeRateSel" SpName="IMS_LicenseeProductChargeRateSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
-    <Setting Key="IMS_GenInv_BaseCurrencySel" SpName="IMS_GenInv_BaseCurrencySel" DbName="invoice" />
+    <Setting Key="IMS_GenInv_BaseCurrencySel" SpName="IMS_GenInv_BaseCurrencySel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
   </Function>
 </Functions>
