@@ -37,8 +37,9 @@ namespace Fanex.Ares.Core.Web
             {
                 return ICacheManager.Get<object>(key);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Fanex.Ares.Core.Services.Impl.LoggingHandler.Log(ex);
                 return null;
             }
         }
@@ -71,7 +72,7 @@ namespace Fanex.Ares.Core.Web
             {
                 return ICacheManager.Get<T>(key);
             }
-            catch 
+            catch (Exception ex)
             {
                 Fanex.Ares.Core.Services.Impl.LoggingHandler.Log(ex);
                 return default(T);

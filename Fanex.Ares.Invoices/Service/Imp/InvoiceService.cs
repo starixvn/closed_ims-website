@@ -68,7 +68,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     return res;
                 };
 
-                operators = _repository.Fetch<Operator>(criteria, mappingFunc).Where(p => p.IsHide == false).ToList();
+                operators = BaseRepository.Fetch<Operator>(criteria, mappingFunc).Where(p => p.IsHide == false).ToList();
             }
             catch (Exception ex)
             {
@@ -459,7 +459,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     };
                 };
 
-                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
             catch (Exception ex)
             {
@@ -518,6 +518,5 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 }
             }
         }
-
     }
 }
