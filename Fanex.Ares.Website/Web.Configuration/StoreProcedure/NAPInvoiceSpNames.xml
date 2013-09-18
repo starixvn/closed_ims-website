@@ -9,7 +9,7 @@
     <Setting Key="IMS_LicenseeProductSel" SpName="IMS_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
     <Setting Key="IMS_ExchangeRateBillingSel" SpName="IMS_ExchangeRateBillingSel" DbName="DBEXT.bodb02.bodbAdminNet" />
     <Setting Key="IMS_LicenseeBillingInfoSel" SpName="IMS_LicenseeBillingInfoSel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
-    <Setting Key="IMS_Rpt_LicenseeSettlement" SpName="IMS_Rpt_LicenseeSettlement" DbName="DBEXT.bodb02.bodbAdminNet" />
+    <Setting Key="IMS_Rpt_LicenseeSettlement" SpName="IMS_Rpt_LicenseeSettlement_xtest" DbName="DBEXT.bodb02.bodbAdminNet" />
     <Setting Key="IMS_LicenseeCurrencySel" SpName="IMS_LicenseeCurrencySel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
     <Setting Key="IMS_BaseCurrencySel" SpName="IMS_BaseCurrencySel" DbName="DBEXT.bodb02.bodbAdminNet" />
   </Function>
@@ -23,14 +23,14 @@
 
   <Function Name="Invoice">
     <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="DBEXT.bodb02.bodbAdminNet" />
-    <Setting Key="IMS_InvoiceTypeSel" SpName="IMS_InvoiceTypeSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_InvoiceTypeSel" SpName="IMS_InvoiceTypeSel_xtest" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_NewInvoiceNoSel" SpName="IMS_NewInvoiceNoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
-    <Setting Key="IMS_NewInvoiceItemsSel" SpName="IMS_NewInvoiceItemsSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
-    <Setting Key="IMS_InvoiceIns" SpName="IMS_InvoiceIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_NewInvoiceItemsSel" SpName="IMS_NewInvoiceItemsSel_xtest" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_InvoiceIns" SpName="IMS_InvoiceIns_xtest" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_InvoiceItemsIns" SpName="IMS_InvoiceItemsIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_Invoice_ExchangeRateBillingSel" SpName="IMS_Invoice_ExchangeRateBillingSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_Invoice_LicenseeBillingInfoSel" SpName="IMS_Invoice_LicenseeBillingInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
-    <Setting Key="IMS_Invoice_Rpt_LicenseeSettlement" SpName="IMS_Invoice_Rpt_LicenseeSettlement" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_Invoice_Rpt_LicenseeSettlement" SpName="IMS_Invoice_Rpt_LicenseeSettlement_xtest" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_CheckExistedInvoiceNo" SpName="IMS_CheckExistedInvoiceNo" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_LicenseeProductChargeRateSel" SpName="IMS_LicenseeProductChargeRateSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_GenInv_BaseCurrencySel" SpName="IMS_GenInv_BaseCurrencySel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
