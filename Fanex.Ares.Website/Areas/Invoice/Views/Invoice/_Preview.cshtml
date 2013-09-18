@@ -1,0 +1,136 @@
+﻿@using Fanex.Ares.Core.Resources;
+@using Fanex.Ares.Core.Web;
+@using Fanex.Ares.Core.Services.Impl;
+@using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+@using Fanex.Ares.Report.ViewModels.LicenseeSettlement
+@using Fanex.Ares.Invoice.Models.Invoice;
+@{
+    ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/_PrintLayout.cshtml";
+    
+}
+<style type="text/css">
+html {
+        overflow: auto;
+}
+
+    body
+    {
+        width: 98% !important;
+    }
+        table, th, td
+    {
+        font-size: 8pt !important;
+    }
+    
+    .InvoiceTable table  td
+{
+    font-size: 16.0px !important;
+}
+
+.font20
+{
+    font-size: 50px !important;
+}
+
+.border-TRBL
+{
+    border: 1pt solid gray !important;
+}
+
+.border-L
+{
+    border-left: 1pt solid gray !important;
+}
+
+.border-R
+{
+    border-right: 1pt solid gray !important;
+}
+.border-B
+{
+    border-bottom: 1pt solid gray !important;
+}
+
+.border-T
+{
+    border-top: 1pt solid gray !important;
+}
+.border-RTB
+{
+    border-right: 1pt solid gray !important;
+    border-top: 1pt solid gray !important;
+    border-bottom: 1pt solid gray !important;
+}
+.border-LTB
+{
+    border-left: 1pt solid gray !important;
+    border-top: 1pt solid gray !important;
+    border-bottom: 1pt solid gray !important;
+}
+.border-RLT
+{
+    border-left: 1pt solid gray !important;
+    border-top: 1pt solid gray !important;
+    border-right: 1pt solid gray !important;
+}
+
+.border-RLB
+{
+    border-left: 1pt solid gray !important;
+    border-bottom: 1pt solid gray !important;
+    border-right: 1pt solid gray !important;
+}
+
+.border-LB
+{
+    border-left: 1pt solid gray !important;
+    border-bottom: 1pt solid gray !important;
+}
+
+.border-LT
+{
+    border-left: 1pt solid gray !important;
+    border-top: 1pt solid gray !important;
+}
+.border-RB
+{
+    border-right: 1pt solid gray !important;
+    border-bottom: 1pt solid gray !important;
+}
+
+.border-RT
+{
+    border-right: 1pt solid gray !important;
+    border-top: 1pt solid gray !important;
+}
+
+.border-RL
+{
+    border-right: 1pt solid gray !important;
+    border-left: 1pt solid gray !important;
+}
+
+</style>
+@section Head {
+    @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style")
+    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
+    <link href="~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css" rel="stylesheet"
+        type="text/css" />
+}
+@{
+    
+    int index = 1;
+}
+@foreach (string temp in Model.HTMLReportList)
+{
+    @MvcHtmlString.Create(temp);
+                               if (index < Model.HTMLReportList.Count)
+                               {                   
+    <div style="width: 100%; height: 10px; background: #565656;">
+    </div>
+                               }
+    index++;
+}

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="InvoiceCriteria.cs" company="Microsoft">
+// <copyright file="IMS_InvoiceCriteria.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -7,13 +7,12 @@
 namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class IMS_InvoiceCriteria
     {
         public int OperatorID { get; set; }
@@ -39,24 +38,5 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
         public DateTime ToDate { get; set; }
 
         public DateTime DueDate { get; set; }
-
-        //public List<DateRangeCriteria> DateRangeList { get; set; }
-
-        //public List<ProductCriteria> ProductList { get; set; }
-
-    }
-
-    public class DateRangeCriteria
-    {
-        public DateTime FromDate { get; set; }
-
-        public DateTime ToDate { get; set; }
-    }
-
-    public class ProductCriteria
-    {
-        public string ProductName { get; set; }
-
-        public int ProductID { get; set; }
     }
 }

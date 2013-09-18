@@ -71,7 +71,7 @@ namespace Fanex.Ares.Core.Web
             {
                 return ICacheManager.Get<T>(key);
             }
-            catch (Exception ex)
+            catch 
             {
                 Fanex.Ares.Core.Services.Impl.LoggingHandler.Log(ex);
                 return default(T);

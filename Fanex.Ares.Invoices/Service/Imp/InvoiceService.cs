@@ -1,5 +1,4 @@
-﻿
-// -----------------------------------------------------------------------
+﻿// -----------------------------------------------------------------------
 // <copyright file="InvoiceService.cs" company="Microsoft">
 // TODO: Update copyright text.
 // </copyright>
@@ -10,23 +9,31 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Linq;
+    using System.Text;
+    using DNAide.Core;
+    using Fanex.Ares.Core.Models;
     using Fanex.Ares.Core.Services.Impl;
+    using Fanex.Ares.Core.Web;
+    using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Interface;
     using Fanex.Common;
-    using Fanex.Ares.Invoice.Criteria.Invoice;
-    using System.Linq;
-    using System.Text;
-    using System.Collections;
-    using Fanex.Ares.Core.Web;
-    using DNAide.Core;
+    using Fanex.Ares.Core.Extensions;
+    using System.Web.Mvc;
+    using Fanex.Ares.Core.Repository.Impl;
 
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class InvoiceService : ServiceBase,IInvoiceService
+    public class InvoiceService : ServiceBase, IInvoiceService
     {
-        public List<Operator> GetOperatorList(IMS_OperatorSelCriteria criteria)
+        /// <summary>
+        ///  Get operator list
+        /// </summary>
+        /// <param name="criteria">IMS_OperatorCriteria criteria</param>
+        /// <returns> Operator list</returns>
+        public List<Operator> GetOperatorList(IMS_OperatorCriteria criteria)
         {
             List<Operator> operators = new List<Operator>();
             try
@@ -61,7 +68,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     return res;
                 };
 
-                operators = BaseRepository.Fetch<Operator>(criteria, mappingFunc).Where(p=> p.IsHide== false).ToList();             
+                operators = _repository.Fetch<Operator>(criteria, mappingFunc).Where(p => p.IsHide == false).ToList();
             }
             catch (Exception ex)
             {
@@ -71,7 +78,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return operators;
         }
 
-        public List<Licensee> GeLicenseesList(IMS_LicenseeSelByPartyCriteria criteria)
+        /// <summary>
+        /// Select licensee list.
+        /// </summary>
+        /// <param name="criteria">IMS_LicenseeByPartyCriteria criteria</param>
+        /// <returns>Licensee List</returns>
+        public List<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria)
         {
             var licensees = new List<Licensee>();
             try
@@ -102,7 +114,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return licensees;
         }
 
-        public List<InvoiceType> GetInvoieType(IMS_InvoieTypesSelCriteria criteria)
+        /// <summary>
+        /// Get invoice type.
+        /// </summary>
+        /// <param name="criteria">IMS_InvoiceTypesCriteria criteria</param>
+        /// <returns>InvoiceType List.</returns>
+        public List<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria)
         {
             List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
 
@@ -144,7 +161,6 @@ namespace Fanex.Ares.Invoice.Service.Imp
                                 ProductList = productList
                             });
                         }
-
                     }
                 }
             }
@@ -156,7 +172,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return invoiceTypeList;
         }
 
-        public int GetInvoieNo(IMS_InvoiceNoSelCriteria criteria)
+        /// <summary>
+        /// Get invoice no.
+        /// </summary>
+        /// <param name="criteria">IMS_InvoiceNoCriteria criteria</param>
+        /// <returns>invoice no.</returns>
+        public int GetInvoiceNo(IMS_InvoiceNoCriteria criteria)
         {
             int invoiceNo = 0;
 
@@ -179,63 +200,61 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return invoiceNo;
         }
 
-        public InvoiceModel GetInvoice(IMS_NewInvoiceItemsSelCriteria criteria)
+        /// <summary>
+        /// Get invoice detail.
+        /// </summary>
+        /// <param name="criteria">IMS_NewInvoiceItemsCriteria criteria</param>
+        /// <returns>invoice model.</returns>
+        public InvoiceModel GetInvoice(IMS_NewInvoiceItemsCriteria criteria)
         {
             var invoice = new InvoiceModel();
             try
             {
                 List<DateRange> dateRangeList = new List<DateRange>();
 
-                dateRangeList = GetDateRange(criteria.FromDate, criteria.ToDate);
+                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate);
 
-                #region mapping invoice items
                 invoice.StatementList = new List<Statement>();
                 var statementRawData = GetListData<dynamic>(criteria);
-
+                 
                 if (statementRawData != null)
                 {
-                    var statement = new Statement();
-                    statement.StatementDetailList = new List<StatementDetail>();
-                    var oldMonth = string.Empty;
+                    var statementDetaitlList = new List<StatementDetail>(); 
                     foreach (var row in statementRawData)
                     {
-                        string invoiceMonth = (string)row.InvoiceMonth;
-                        
-                        if (!string.IsNullOrEmpty(oldMonth) && !oldMonth.Equals(invoiceMonth))
-                        {
-                            invoice.StatementList.Add(statement);
-                            statement = new Statement();
-                            
-                            statement.StatementDetailList = new List<StatementDetail>();
-                        }                        
-                        statement.StatementDetailList.Add(new StatementDetail()
+                        StatementDetail statementProductDetail = new StatementDetail()
                         {
                             ID = 0,
                             Description = row.Description,
                             Reference = row.Reference,
                             Amount = (double)row.TotalAmount,
-                            AdjustItem = false,
+                            AmountFormated = ((double)row.TotalAmount).Format(2),
+                            AdjustItem = (int)row.ItemType,
                             InvoiceMonth = row.InvoiceMonth,
-                            DiscountItem = row.DiscountItem
-                            
-                        });
-                        oldMonth = invoiceMonth;
-                        foreach (DateRange range in dateRangeList)
-                        {
-                            if (CastAide.AsDateTime("1 " + oldMonth).Month == range.StartDate.Month)
-                            {
-                                statement.FromDate = Converter.To<string>(range.StartDate);
-                                statement.ToDate = Converter.To<string>(range.EndDate);
-                            }
-                        }
+                            DiscountItem = row.DiscountItem,
+                            ProductType = row.ItemType
+                        };
+
+                        this.InsertToStatementProductDetailList(ref statementDetaitlList, statementProductDetail);
                     }
 
-                    if (statement != null && statement.StatementDetailList.Count > 0)
+                    var invoiceMonthList = statementDetaitlList.Select(item => item.InvoiceMonth).Distinct().ToList();
+                    foreach (string month in invoiceMonthList)
                     {
-                        invoice.StatementList.Add(statement);
+                        var statementTmp = new Statement();
+                        statementTmp.StatementDetailList = statementDetaitlList.Where(item => item.InvoiceMonth == month).ToList();
+                        foreach (DateRange range in dateRangeList)
+                        {
+                            if (CastAide.AsDateTime("1 " + month).Month == range.StartDate.Month)
+                            {
+                                statementTmp.FromDate = Converter.To<string>(range.StartDate);
+                                statementTmp.ToDate = Converter.To<string>(range.EndDate);
+                            }
+                        }
+                        invoice.StatementList.Add(statementTmp);
                     }
+
                 }
-                #endregion                
             }
             catch (Exception ex)
             {
@@ -245,10 +264,14 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return invoice;
         }
 
-        public Core.Models.Result SaveInvoice(InvoiceModel invoiceModel)
+        /// <summary>
+        /// Save invoice.
+        /// </summary>
+        /// <param name="invoiceModel">Invoice model.</param>
+        /// <returns>Return result </returns>
+        public Result SaveInvoice(InvoiceModel invoiceModel)
         {
             var result = new Core.Models.Result();
-
             try
             {
                 double totalAmount = 0;
@@ -261,12 +284,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 invoiceXmlFormat.Append("   <PartyID>" + invoiceModel.Operator.PartyID + "</PartyID>");
                 invoiceXmlFormat.Append("   <PartyName>" + invoiceModel.Operator.PartyFullName + "</PartyName>");
                 invoiceXmlFormat.Append("   <LicenseeID>" + invoiceModel.Licensee.LicenseeID + "</LicenseeID>");
-                invoiceXmlFormat.Append("   <LicenseeName>" + invoiceModel.Licensee.LicenseeName + "</LicenseeName>");
+                //invoiceXmlFormat.Append("   <LicenseeName>" + invoiceModel.Licensee.LicenseeName + "</LicenseeName>");
                 invoiceXmlFormat.Append("   <InvoiceType>" + invoiceModel.InvoiceType.InvoiceTypeID + "</InvoiceType>");
-                invoiceXmlFormat.Append("   <InvoiceTypeName>" + invoiceModel.InvoiceType.InvoiceTypeName + "</InvoiceTypeName>");
+                //invoiceXmlFormat.Append("   <InvoiceTypeName>" + invoiceModel.InvoiceType.InvoiceTypeName + "</InvoiceTypeName>");
                 invoiceXmlFormat.Append("   <Products>" + invoiceModel.Product + "</Products>");
                 invoiceXmlFormat.Append("   <Currency>" + invoiceModel.Currency + "</Currency>");
-                invoiceXmlFormat.Append("   <CurrencyName>" + invoiceModel.CurrencyName + "</CurrencyName>");
+                //invoiceXmlFormat.Append("   <CurrencyName>" + invoiceModel.CurrencyName + "</CurrencyName>");
                 invoiceXmlFormat.Append("   <FromDate>" + invoiceModel.FromDate + "</FromDate>");
                 invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
                 invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
@@ -279,16 +302,17 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     {
                         invoiceXmlFormat.Append("<InvoiceItem>");
                         invoiceXmlFormat.Append("<InvoiceItemID>" + statementDetail.ID + "</InvoiceItemID>");
-                        invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? statementDetail.Description.Replace("&","amp"): string.Empty)  + "</Description>");
-                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference+ "</Reference>");
+                        invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? statementDetail.Description.Replace("&", "amp") : string.Empty)  + "</Description>");
+                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
-                        invoiceXmlFormat.Append("   <AdjustItem>" + statementDetail.AdjustItem + "</AdjustItem>");
+                        invoiceXmlFormat.Append("   <ItemType>" + statementDetail.AdjustItem + "</ItemType>");
                         invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");
                         invoiceXmlFormat.Append("   <DiscountItem>" + statementDetail.DiscountItem + "</DiscountItem>");
                         invoiceXmlFormat.Append("</InvoiceItem>");
                         totalAmount += statementDetail.Amount;
                     }
                 }
+
                 invoiceXmlFormat.Append("   </InvoiceItems>");
                 invoiceXmlFormat.Append("</Invoice>");
 
@@ -313,25 +337,38 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 result.ErrorCode = 100;
                 result.ErrorMessage = ex.Message;
             }
+
             return result;
         }
 
+        /// <summary>
+        /// Check invoice no is exist.
+        /// </summary>
+        /// <param name="criteria">IMS_CheckExistedInvoiceNo criteria</param>
+        /// <returns>return is exist or not.</returns>
         public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
         {
             var hashResult = BaseRepository.ExecuteCommand(criteria);
             return Converter.ToBool(hashResult["isexisted"]);
         }
-        public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)
+
+        /// <summary>
+        /// Divide range date to array of date period.
+        /// </summary>
+        /// <param name="fromDate">Date begin.</param>
+        /// <param name="toDate">Date end.</param>
+        /// <returns>Return list date period.</returns>
+        public List<DateRange> GetDateRange(DateTime fromDate, DateTime toDate)
         {
             List<DateRange> dateRangeList = new List<DateRange>();
 
-            int numericMonth = ToDate.Month - FromDate.Month + 1;
+            int numericMonth = toDate.Month - fromDate.Month + 1;
             if (numericMonth == 1)
             {
                 dateRangeList.Add(new DateRange
                 {
-                    StartDate = FromDate,
-                    EndDate = ToDate
+                    StartDate = fromDate,
+                    EndDate = toDate
                 });
             }
             else
@@ -339,32 +376,28 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 for (int i = 0; i < numericMonth; i++)
                 {
                     DateRange dateRange = new DateRange();
-                    DateTime StartDateTmp = new DateTime();
-                    DateTime EndDateTmp = new DateTime();
+                    DateTime startDateTmp = new DateTime();
+                    DateTime endDateTmp = new DateTime();
                     if (i == 0)
                     {
-                        StartDateTmp = FromDate;
-                        DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month, 1).AddMonths(1);
-                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                        EndDateTmp = firstOfNextMonth.AddDays(-1);
+                        startDateTmp = fromDate;
+                        DateTime firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month, 1).AddMonths(1);
+                        endDateTmp = firstOfNextMonth.AddDays(-1);
                     }
                     else if (i == numericMonth - 1)
                     {
-                        StartDateTmp = new DateTime(FromDate.Year, ToDate.Month, 1);
-                        //DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
-                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                        EndDateTmp = ToDate;
+                        startDateTmp = new DateTime(fromDate.Year, toDate.Month, 1);
+                        endDateTmp = toDate;
                     }
                     else
                     {
-                        StartDateTmp = new DateTime(FromDate.Year, FromDate.Month + i, 1);
-                        DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
-                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
-                        EndDateTmp = firstOfNextMonth.AddDays(-1);
+                        startDateTmp = new DateTime(fromDate.Year, fromDate.Month + i, 1);
+                        DateTime firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month + i, 1).AddMonths(1);
+                        endDateTmp = firstOfNextMonth.AddDays(-1);
                     }
 
-                    dateRange.StartDate = StartDateTmp;
-                    dateRange.EndDate = EndDateTmp;
+                    dateRange.StartDate = startDateTmp;
+                    dateRange.EndDate = endDateTmp;
                     dateRangeList.Add(dateRange);
                 }
             }
@@ -372,6 +405,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return dateRangeList;
         }
 
+        /// <summary>
+        /// Get charge rate with every months.
+        /// </summary>
+        /// <param name="criteria">IMS_GetChargeRateCriteria criteria.</param>
+        /// <returns>Return charge rate list.</returns>
         public List<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria)
         {
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
@@ -383,9 +421,6 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 {
                     foreach (var row in rawData)
                     {
-                        //int id = (int)row.ProductID;
-                        //bool isExist = false;
-
                         chargeRateList.Add(new ChargeRate
                         {
                             ProductID = (int)row.ProductID,
@@ -395,41 +430,6 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             StartDate = (DateTime)row.StartDate,
                             EndDate = (DateTime)row.EndDate
                         });
-
-                        //foreach (ChargeRate chargeRate in chargeRateList)
-                        //{
-                        //    if (id == chargeRate.ProductID)
-                        //    {
-                        //        chargeRate.ChargeRateDetailList.Add(new ChargeRateDetail
-                        //        {
-                        //            DistributorRate = (decimal)row.DistributorRate,
-                        //            PartnerRate = (decimal)row.PartnerRate,
-                        //            ONEworksRate = (decimal)row.ONEworksRate,
-                        //            StartDate = (DateTime)row.StartDate,
-                        //            EndDate = (DateTime)row.EndDate
-                        //        });
-                        //        isExist = true;
-                        //    }
-                        //}
-
-                        //if (!isExist)
-                        //{
-                        //    List<ChargeRateDetail> chargeRateDetailList = new List<ChargeRateDetail>();
-                        //    chargeRateDetailList.Add(new ChargeRateDetail
-                        //    {
-                        //        DistributorRate = (decimal)row.DistributorRate,
-                        //        PartnerRate = (decimal)row.PartnerRate,
-                        //        ONEworksRate = (decimal)row.ONEworksRate,
-                        //        StartDate = (DateTime)row.StartDate,
-                        //        EndDate = (DateTime)row.EndDate
-                        //    });
-                        //    chargeRateList.Add(new ChargeRate
-                        //    {
-                        //        ProductID = (int)row.ProductID,
-                        //        ChargeRateDetailList = chargeRateDetailList
-                        //    });
-                        //}
-
                     }
                 }
             }
@@ -440,5 +440,84 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
             return chargeRateList;
         }
+
+        /// <summary>
+        /// Get base currency invoice filter
+        /// </summary>
+        /// <param name="IMS_InvoiceTypesCriteria">criteria</param>
+        public IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(IMS_GenInv_BaseCurrencySel criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = _repository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
+        }
+
+        /// <summary>
+        /// Insert statement to list.
+        /// </summary>
+        /// <param name="statementDetailList">List is exist.</param>
+        /// <param name="statementProductDetail">Statement detail to insert.</param>
+        private void InsertToStatementProductDetailList(ref List<StatementDetail> statementDetailList, StatementDetail statementProductDetail)
+        {
+            if (statementDetailList != null && statementProductDetail != null)
+            {
+                ////If this statement detail is not exist in statement, add statement detail to statement 
+                var isExistedStatementDetail = statementDetailList.Find(item => item.InvoiceMonth.Equals(statementProductDetail.InvoiceMonth) && item.DiscountItem.Equals(statementProductDetail.DiscountItem)) != null;
+
+                if (!isExistedStatementDetail)
+                {
+                    var productDetail = new StatementDetail();
+                    productDetail.AdjustItem = statementProductDetail.AdjustItem;
+                    productDetail.Amount = statementProductDetail.Amount;
+                    productDetail.AmountFormated = statementProductDetail.AmountFormated;
+                    if (statementProductDetail.ProductType == 1)
+                    {
+                        productDetail.Description = statementProductDetail.Description;
+                    }
+                    productDetail.DiscountItem = statementProductDetail.DiscountItem;
+                    productDetail.ID = statementProductDetail.ID;
+                    productDetail.InvoiceMonth = statementProductDetail.InvoiceMonth;
+                    productDetail.ProductType = statementProductDetail.ProductType;
+                    productDetail.Reference = statementProductDetail.Reference;
+
+                    statementProductDetail.StatementProductDetail.Add(productDetail);
+                    statementDetailList.Add(statementProductDetail);
+                }
+                else
+                {
+                    statementDetailList = statementDetailList.Select(item =>
+                    {
+                        if (item.InvoiceMonth.Equals(statementProductDetail.InvoiceMonth) && item.DiscountItem.Equals(statementProductDetail.DiscountItem))
+                        {
+                            item.StatementProductDetail.Add(statementProductDetail);
+                            item.Amount = item.Amount + statementProductDetail.Amount;
+                            return item;
+                        }
+                        else
+                        {
+                            return item;
+                        }
+                    }).ToList();
+                }
+            }
+        }
+
     }
 }

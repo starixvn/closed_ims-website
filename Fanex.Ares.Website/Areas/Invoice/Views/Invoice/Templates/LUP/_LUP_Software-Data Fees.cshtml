@@ -1,0 +1,317 @@
+@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+@using Fanex.Ares.Report.ViewModels;
+@using Fanex.Ares.Core.Extensions;
+@using DNAide.Core;
+@using Fanex.Common;
+@using Fanex.Ares.Invoice.Models.Invoice;
+@{
+    var isCheckMappingDomail = ViewBag.isCheckMappingDomail;
+    string domain = HtmlHelperExtensions.GetFullDomainURL(isCheckMappingDomail);
+    var invoiceModel = new InvoiceModel();
+    invoiceModel = Model;
+    double totalAmount = 0;
+    int count = invoiceModel.StatementList.Count;
+
+    List<StatementDetail> emptyStatementList = new List<StatementDetail>();
+    emptyStatementList.Add(new StatementDetail
+    {
+        DiscountItem = false,
+        AdjustItem = 0
+    });
+
+    int limitRows = 0;
+    for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+    {
+        Statement state = invoiceModel.StatementList[i];
+        for (int j = 0; j < state.StatementDetailList.Count; j++)
+        {
+            limitRows++;
+        }
+    }
+    while (limitRows < 6)
+    {
+        invoiceModel.StatementList.Add(new Statement
+        {
+            StatementID = 100000,
+            StatementDetailList = emptyStatementList
+
+        });
+        limitRows++;
+    }
+}
+@functions {
+    public string NegativeFormat(double input)
+    {
+        string output = string.Empty;
+
+        output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
+
+        return output;
+    }
+}
+<div class="div-content InvoiceTable" style="overflow: hidden; width: 95%; margin-left: 30px;
+    height: 1600px;">
+    <table border="0" cellpadding="0" cellspacing="0" style='border-collapse: collapse;
+        overflow: auto; table-layout: fixed; width: 1150px;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <col style='mso-width-source: userset; mso-width-alt: 1500; width: 50pt;'>
+        <tr>
+            <td colspan="16" style='vertical-align: top;'>
+                <img style="display:inline-block;width:90%;height:100px;" width="600" height="96" v:shapes="Graphics_x0020_1"  src="@Url.Content(domain + "/Areas/Invoice/Styles/Images/Lupine.jpg")"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="16" style='border-top: 1pt solid white; mso-height-source: userset;
+                mso-height-alt: 1500;'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" rowspan="3" style="white-space: normal; vertical-align: top;">
+                <br />
+                @invoiceModel.Operator.To1
+                <br />
+                <br />
+            </td>
+            <td colspan="4" rowspan="3">
+            </td>
+            <td colspan="4" style='margin-left: 50pt; padding-left: 100px; font-weight: bold;'>
+                DATE
+            </td>
+            <td>
+                :
+            </td>
+            <td class="fontSize12" colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
+                mso-height-alt: 400;'>
+                @CastAide.AsDateTime(invoiceModel.ToDate).ToAresDayMonthYear() &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style='height: 20pt; margin-left: 50pt; font-weight: bold; padding-left: 100px;
+                white-space: nowrap;'>
+                INVOICE #
+            </td>
+            <td>
+                :
+            </td>
+            <td colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
+                mso-height-alt: 400;'>
+                @invoiceModel.InvoiceNo
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style='margin-left: 50pt; padding-left: 100px; font-weight: bold;'>
+                CURRENCY
+            </td>
+            <td>
+                :
+            </td>
+            <td class="fontSize12" colspan="3" style='height: 20pt; text-align: left; mso-height-source: userset;
+                mso-height-alt: 400; color: Red; font-weight: bold;'>
+                @invoiceModel.CurrencyName &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td colspan="16" style='height: 30pt; border-top: 1pt solid white; mso-height-source: userset;
+                mso-height-alt: 500;'>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="8" style='height: 30pt; padding-left: 5px; white-space: normal; vertical-align: top;'>
+                <span style="mso-spacerun: yes; font-weight: bold;">Bill To: @invoiceModel.Licensee.CompanyName</span>
+                <br />
+            </td>
+            <td colspan="8">
+            </td>
+        </tr>
+        <tr>
+            <td colspan="16" style='height: 60pt; border-top: 1pt solid white; mso-height-source: userset;
+                mso-height-alt: 600;'>
+            </td>
+        </tr>
+        <tr>
+            <td class="border-TRBL" colspan="11" style='height: 40pt; mso-height-source: userset;
+                mso-height-alt: 400; vertical-align: middle; text-align: center; font-weight: bold;'>
+                DESCRIPTION
+            </td>
+            <td class="border-TRBL" colspan="5" style='vertical-align: middle; text-align: center;
+                font-weight: bold;'>
+                AMOUNT
+            </td>
+        </tr>
+        @for (int i = 0; i < invoiceModel.StatementList.Count; i++)
+        {
+            Statement state = invoiceModel.StatementList[i];
+            string boderclass = string.Empty;
+
+            int lastStatementCount = invoiceModel.StatementList[invoiceModel.StatementList.Count - 1].StatementDetailList.Count - 1;
+            for (int j = 0; j < state.StatementDetailList.Count; j++)
+            {
+                StatementDetail detail = state.StatementDetailList[j];
+                if (i == 0 && j == 0)
+                {
+                    boderclass = "border-RLT";
+                }
+                else if ((i == invoiceModel.StatementList.Count - 1) && (j == lastStatementCount))
+                {
+                    boderclass = "border-RLB";
+                }
+                else
+                {
+                    boderclass = "border-RL";
+                }
+
+                int heightTmp = detail.DiscountItem == true ? 500 : 700;
+                
+            <tr>
+                <td class="@boderclass" colspan="11" style='height: 50pt; mso-height-source: userset;
+                mso-height-alt: @heightTmp;vertical-align: top; text-align: left;
+                        padding-left: 5pt;'>
+                    <br />
+                    @detail.Description
+                    <br />
+                </td>
+                <td class="@boderclass" colspan="5" style='vertical-align: top; text-align: right;'>
+                    <br />
+                    @{totalAmount += detail.Amount;}
+                    @if (state.StatementID != 100000)
+                    {
+                        @MvcHtmlString.Create((detail.Amount == 0 && detail.DiscountItem) ? "(nil)" : NumberExtensions.NegativeFormat(detail.Amount))
+                    }
+                    &nbsp;<br />
+                </td>
+            </tr>
+            }
+        }
+        <tr>
+            <td colspan="9" style='height: 30pt; mso-height-source: userset; mso-height-alt: 100;'>
+            </td>
+            <td colspan="2" class="border-R" style="text-align: center; vertical-align: middle;
+                font-weight: bold; mso-height-source: userset; mso-height-alt: 600; height: 30pt;">
+                TOTAL
+            </td>
+            <td class="border-RTB" colspan="5" style='vertical-align: middle; text-align: right;
+                font-weight: bold; color: #4f81bd;'>
+                @MvcHtmlString.Create(NumberExtensions.NegativeFormat(totalAmount))&nbsp;
+            </td>
+        </tr>
+        @if (invoiceModel.IsSignature)
+        {
+              
+            <tr>
+                <td colspan="11" style='vertical-align: top; padding-left: 5px;'>
+                    <br />
+                    <span style="font-weight: bold;">For Telegraphic Transfer Payments</span><br />
+                </td>
+                <td colspan="5" style='height: 40pt; vertical-align: top; mso-height-source: userset;
+                    mso-height-alt: 600; padding-left: 5px;'>
+                    <br />
+                    Prepared By:
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
+                     Beneficiary<br />
+                    Beneficiary Bank<br />
+                    Account Number<br />
+                    IBAN<br />
+                    Swift Code
+                     <br />
+                    <br />
+                    Correspondent<br />
+                    Swift Code<br />
+                    Account Number<br />
+                </td>
+                <td colspan="7" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
+                     :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br />
+                    <br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentSwiftCode<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentAccNo<br />
+                </td>
+                <td colspan="5" style='height: 60pt; vertical-align: top; mso-height-source: userset;
+                    mso-height-alt: 800; padding-left: 5px;'>
+                </td>
+            </tr>
+            <tr>
+                <td class="border-T" colspan="5" style='height: 100pt; vertical-align: top; mso-height-source: userset;
+                    mso-height-alt: 1500; padding-left: 5px;'>
+                    <span style="font-weight: bold;">Accounting Department:</span>
+                    <br />
+                    <br />
+                    Approved By:
+                </td>
+            </tr>
+            <tr>
+                <td class="border-T" colspan="5" style='height: 20pt; vertical-align: top; mso-height-source: userset;
+                    mso-height-alt: 400; padding-left: 5px;'>
+                    <span style="font-weight: bold">Authorized Signatory</span>
+                </td>
+            </tr>
+
+        }
+        else
+        {
+            <tr>
+                <td colspan="16" style='height: 40pt;vertical-align: top; padding-left: 5px; mso-height-source: userset;
+                    mso-height-alt: 600; '>
+                    <br />
+                    <span style="font-weight: bold;">For Telegraphic Transfer Payments</span><br />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style='vertical-align: top; padding-left: 5px; mso-height-source: userset;
+                    mso-height-alt: 3000;'>
+                    Beneficiary<br />
+                    Account Number<br />
+                    IBAN<br />
+                    <br />
+                    <br />
+                    Correspondent<br />
+                    Swift Code
+                    <br />
+                    Account Number<br />
+                    Beneficiary Bank<br />
+                    Swift Code<br />
+                </td>
+                <td colspan="12" rowspan="3" style='vertical-align: top; padding-left: 5px;'>
+                    :&nbsp;&nbsp;@invoiceModel.Operator.Benificiary<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.AccountNumber<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.IBAN<br />
+                    <br />
+                    <br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentBank<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentSwiftCode<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.CorrespondentAccNo<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.BenificiaryBank<br />
+                    :&nbsp;&nbsp;@invoiceModel.Operator.SwiftCode<br /><br />
+                    <span style="color: #01A9DB;">This is a computer generated invoice. No signature is
+                        required. </span>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="fontSize12" colspan="12" style='height: 50pt; mso-height-source: userset;
+                mso-height-alt: 400; vertical-align: middle; white-space: normal;'>
+                @MvcHtmlString.Create(invoiceModel.Note)
+            </td>
+        </tr>
+    </table>
+</div>
