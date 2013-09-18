@@ -512,10 +512,19 @@ var invoiceApp = {
     },
 
     mappingSpecialPartyName: function (partyName) {
-        if (partyName.toLowerCase() == 'cozni') {
-            partyName = 'CL';
+        var partyNameTmp = partyName.toLowerCase();
+        switch(partyNameTmp)
+        {
+            case 'cozni': 
+                partyName = 'CL';
+                break;
+            case 'star express':
+                partyName ='SEIG';
+                break;
+            default:
+                break;
         }
-        return partyName
+        return partyName;
     },
 
     viewDetail: function (fromDate, toDate) {
