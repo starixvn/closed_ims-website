@@ -215,10 +215,10 @@ namespace Fanex.Ares.Invoice.Controllers
             dateRangeList = this._invoiceService.GetDateRange(fromDate, toDate);
             //// Crerate invoice main page
             string mainInvoicePagePath = string.Format(
-                "Templates/{0}/{1}_{2}", 
+                "Templates/{0}/_{1}_{2}", 
                 invoice.Operator.PartyName, 
                 invoice.Operator.PartyName, 
-                invoice.InvoiceType.InvoiceTypeName);            
+                invoice.InvoiceType.InvoiceTypeName);
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
             pageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
             string mainInvoicePage = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, invoice, true);
@@ -305,7 +305,7 @@ namespace Fanex.Ares.Invoice.Controllers
             dateRangeList = this._invoiceService.GetDateRange(fromDate, toDate);
             //// Crerate invoice main page
             string mainInvoicePage = string.Format(
-                "Templates/{0}/{1}_{2}", 
+                "Templates/{0}/_{1}_{2}", 
                 invoice.Operator.PartyName,                 
                 invoice.Operator.PartyName, 
                 invoice.InvoiceType.InvoiceTypeName);            
