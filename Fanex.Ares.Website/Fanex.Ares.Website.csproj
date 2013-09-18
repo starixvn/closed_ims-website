@@ -252,6 +252,12 @@
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\filelist.xml" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\sheet001.htm" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\sheet002.htm" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\sheet003.htm" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\stylesheet.css" />
+    <None Include="Areas\Invoice\Views\Invoice\test\tabstrip.cshtml" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
@@ -688,6 +694,8 @@
     <Content Include="Areas\Invoice\Views\Invoice\Products\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Templates\Star Express\_Star Express_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index_Angular.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\excel.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\test.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />

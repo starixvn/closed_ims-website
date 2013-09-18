@@ -141,6 +141,38 @@ namespace Fanex.Ares.Invoice.Controllers
             return PartialView(this.settlementView, model);
         }
 
+        //public ActionResult ExportDocument(bool isSignature)
+        //{
+        //    List<string> excelCssFilePath = new List<string>();
+        //    List<bool> isAutoFitList = new List<bool>();
+        //    List<WorkbookManager.PageOrientation> pageOrientationList = new List<WorkbookManager.PageOrientation>();
+        //    List<string> template = new List<string>();
+        //    // Crerate invoice main page
+        //    string mainInvoicePagePath = "test/test";
+        //    excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\test\stylesheet.css"));
+        //    pageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
+        //    string mainInvoicePage = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, null, true);
+        //    template.Add(mainInvoicePage);
+        //    isAutoFitList.Add(false);
+
+          
+        //    var workbook = new WorkbookManager();
+        //    WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
+        //    var ms = workbook.CreateDocument(template, excelCssFilePath, documentType, pageOrientationList, isAutoFitList);
+        //    if (ms != null)
+        //    {
+        //        // return the filestream
+        //        // Rewind the memory stream to the beginning
+        //        ms.Seek(0, SeekOrigin.Begin);
+
+        //        string fileName = "test";
+        //        //Response.AppendHeader("content-disposition", "attach;filename=\"" + fileName + "\"");
+        //        return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
+        //    }
+
+        //    return new EmptyResult();
+        //}
+
         public ActionResult ExportDocument(bool isSignature)
         {
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
@@ -152,7 +184,7 @@ namespace Fanex.Ares.Invoice.Controllers
             IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
 
             InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
-          
+
             invoice.HTMLReportList = new List<string>(); // clear html when using ref
             invoice.IsSignature = isSignature;
 
@@ -198,7 +230,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         criteria.InvoiceReport = true;
 
                         //// some case chargeRateList == 0 when don't have more than one basic billing
-                        if (chargeRateList.Count == 0) 
+                        if (chargeRateList.Count == 0)
                         {
                             criteria.ToDate = dateRangeList[i].EndDate;
                             criteria.FromDate = dateRangeList[i].StartDate;
@@ -220,7 +252,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     }
                 }
             }
-           
+
             var workbook = new WorkbookManager();
             WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
             var ms = workbook.CreateDocument(invoice.HTMLReportList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList);
@@ -232,7 +264,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
                 string fileName = invoice.InvoiceName + "." + documentType.ToString().ToLower();
                 //Response.AppendHeader("content-disposition", "attach;filename=\"" + fileName + "\"");
-                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml",fileName);
+                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
             }
 
             return new EmptyResult();
