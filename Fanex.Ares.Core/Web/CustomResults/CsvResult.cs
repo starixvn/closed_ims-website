@@ -12,9 +12,9 @@ namespace Fanex.Ares.Core.Web.CustomResults
     using ExcelUtil.Spreadsheet;
 
     /// <summary>
-    /// Csv Result.
+    /// C.s.v Result.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "CsvResult")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewd.")]
     public class CsvResult : SpreadSheetResult
     {
         public CsvResult(ExcelFile file, string fileName)

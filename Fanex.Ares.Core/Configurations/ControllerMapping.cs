@@ -7,6 +7,7 @@
 namespace Fanex.Ares.Core.Configurations
 {
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Controller mapping.
@@ -42,6 +43,10 @@ namespace Fanex.Ares.Core.Configurations
     /// <summary>
     /// Controller setting collection.
     /// </summary>
+    [SuppressMessage(
+        "StyleCop.CSharp.MaintainabilityRules",
+        "SA1402:FileMayOnlyContainASingleClass",
+        Justification = "Reviewed. Suppression is OK here.")]
     public class ControllerSettingCollection : ConfigurationElementCollection
     {
         public override ConfigurationElementCollectionType CollectionType

@@ -19,7 +19,22 @@ namespace Fanex.Ares.Website.App_Start
         /// <param name="bundles">Bundle Collection.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            //// Common Scripts
+            AddCommon(bundles);
+            AddNapReCheckin(bundles);
+            AddNapMessageBox(bundles);
+            AddMultipleSelectPlugin(bundles);
+            AddNexcelDatePicker(bundles);
+            AddClientTemplateRender(bundles);
+            AddMonthPicker(bundles);
+            AddKnockout(bundles);
+        }
+
+        /// <summary>
+        /// Adds the Common.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddCommon(BundleCollection bundles)
+        {
             bundles.Add(new ScriptBundle("~/scripts/common").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery.form.js",
@@ -39,54 +54,88 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
                 "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"));
+        }
 
-            //// NAP Recheckin
-            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/JS").Include(
-                "~/Areas/UserLogin/scripts/ReCheckIn.js"));
-
-            //// NAP msgbox
-
-            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/lib/msgbox/JS").Include(
-                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.js"));
-
-            bundles.Add(new StyleBundle("~/Areas/UserLogin/scripts/lib/msgbox/CSS").Include(
-                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"));
-
-            //// Multiselect Plugin
-
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/MultipleSelect/style").Include(
-            "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"));
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/multiselect").Include(
-                      "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js"));
-
-            //// Nex Date Picker
-
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/DatePicker/style").Include(
-             "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.css"));
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/nexDatePicker").Include(
-                      "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.js"));
-
-            //// Client Template Render
-
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/template").Include(
-                     "~/Scripts/_Libs/TemplateRender/doT/doT.js"));
-
-            //// Month Picker
-
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/MonthPicker/style").Include(
-            "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.css"));
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/monPickr").Include(
-                      "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.js"));
-
-            //// Knockout
-
+        /// <summary>
+        /// Adds the knockout.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddKnockout(BundleCollection bundles)
+        {
             bundles.Add(new ScriptBundle("~/scripts-bundle/knockout").Include(
                         "~/Scripts/_Libs/knockout*"));
-
             bundles.Add(new StyleBundle("~/scripts/_lib/Tooltip/style").Include(
                 "~/scripts/_lib/Tooltip/tipsy.css"));
             bundles.Add(new ScriptBundle("~/scripts-bundle/jquery").Include(
                        "~/scripts/_lib/Tooltip/jquery.tipsy.js"));
+        }
+
+        /// <summary>
+        /// Adds the month picker.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddMonthPicker(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Scripts/_Libs/MonthPicker/style").Include(
+            "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.css"));
+            bundles.Add(new ScriptBundle("~/Scripts/_Libs/monPickr").Include(
+                      "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.js"));
+        }
+
+        /// <summary>
+        /// Adds the client template.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddClientTemplateRender(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/_Libs/template").Include(
+                     "~/Scripts/_Libs/TemplateRender/doT/doT.js"));
+        }
+
+        /// <summary>
+        /// Adds the N.e.x.c.e.l date picker.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddNexcelDatePicker(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Scripts/_Libs/DatePicker/style").Include(
+             "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.css"));
+            bundles.Add(new ScriptBundle("~/Scripts/_Libs/nexDatePicker").Include(
+                      "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.js"));
+        }
+
+        /// <summary>
+        /// Adds the Multiple Select Plugin.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddMultipleSelectPlugin(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Scripts/_Libs/MultipleSelect/style").Include(
+            "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"));
+            bundles.Add(new ScriptBundle("~/Scripts/_Libs/multiselect").Include(
+                      "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js"));
+        }
+
+        /// <summary>
+        /// Adds the N.a.p message box.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddNapMessageBox(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/lib/msgbox/JS").Include(
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.js"));
+            bundles.Add(new StyleBundle("~/Areas/UserLogin/scripts/lib/msgbox/CSS").Include(
+                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"));
+        }
+
+        /// <summary>
+        /// Adds the N.a.p re-check-in.
+        /// </summary>
+        /// <param name="bundles">The bundles.</param>
+        private static void AddNapReCheckin(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/JS").Include(
+                "~/Areas/UserLogin/scripts/ReCheckIn.js"));
         }
     }
 }

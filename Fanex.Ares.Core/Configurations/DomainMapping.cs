@@ -6,8 +6,8 @@
 
 namespace Fanex.Ares.Core.Configurations
 {
-    using System;
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// TODO: Update summary.
@@ -43,6 +43,10 @@ namespace Fanex.Ares.Core.Configurations
     /// <summary>
     /// Domain collection.
     /// </summary>
+    [SuppressMessage(
+        "StyleCop.CSharp.MaintainabilityRules",
+        "SA1402:FileMayOnlyContainASingleClass",
+        Justification = "Reviewed. Suppression is OK here.")]
     public class DomainCollection : ConfigurationElementCollection
     {
         public override ConfigurationElementCollectionType CollectionType

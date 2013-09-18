@@ -28,7 +28,7 @@ namespace Fanex.Core.PdfHelper
         /// <param name="htmlText">Html text.</param>
         /// <param name="pageTitle">Page title.</param>
         /// <param name="numericRows">Numeric Rows.</param>
-        /// <param name="cssFilePath">Css File Path.</param>
+        /// <param name="cssFilePath">C.s.s File Path.</param>
         /// <param name="isLandscape">Is Landscape.</param>
         /// <returns>Return value.</returns>
         public byte[] Render(string htmlText, string pageTitle, int numericRows, string cssFilePath, bool isLandscape = true)
@@ -67,7 +67,7 @@ namespace Fanex.Core.PdfHelper
         /// <summary>
         /// Load StyleSheet.
         /// </summary>
-        /// <param name="cssFilePath">Css File Path.</param>
+        /// <param name="cssFilePath">C.s.s File Path.</param>
         /// <returns>Return value.</returns>
         private static StyleSheet LoadStyleSheet(string cssFilePath)
         {
@@ -121,7 +121,7 @@ namespace Fanex.Core.PdfHelper
         }
 
         /// <summary>
-        /// Rotate Pdf.
+        /// Rotate P.d.f.
         /// </summary>
         /// <param name="inputFile">Input File.</param>
         /// <param name="outputFile">Output File.</param>

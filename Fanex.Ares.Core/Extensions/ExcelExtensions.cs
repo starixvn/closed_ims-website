@@ -166,7 +166,13 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="textAlign">Text align.</param>
         /// <param name="isItalic">Is italic style.</param>
         /// <param name="fontColor">Font color.</param>
-        public static void FormatCellText(this CellStyle cellStyle, Color backgroundColor, bool isBold, HorizontalAlignmentStyle textAlign, bool isItalic, Color fontColor)
+        public static void FormatCellText(
+            this CellStyle cellStyle, 
+            Color backgroundColor, 
+            bool isBold, 
+            HorizontalAlignmentStyle textAlign,
+            bool isItalic, 
+            Color fontColor)
         {
             cellStyle.Borders.SetBorders(MultipleBorders.Outside, Color.Gray, LineStyle.Thin);
             cellStyle.Font.Name = _FONT_NAME;
@@ -255,7 +261,14 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="isBold">Is bold style.</param>
         /// <param name="isPositive">Is positive style.</param>
         /// <param name="isNegative">Is negative style.</param>
-        public static void FormatCellNumberStyle(this CellStyle cellStyle, string symbol, Color backgroundColor, Color fontColor, bool isBold, bool isPositive, bool isNegative)
+        public static void FormatCellNumberStyle(
+            this CellStyle cellStyle, 
+            string symbol, 
+            Color backgroundColor, 
+            Color fontColor, 
+            bool isBold, 
+            bool isPositive, 
+            bool isNegative)
         {
             cellStyle.VerticalAlignment = VerticalAlignmentStyle.Center;
             cellStyle.HorizontalAlignment = HorizontalAlignmentStyle.Right;

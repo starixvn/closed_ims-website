@@ -12,9 +12,12 @@ namespace Fanex.Ares.Core.Web.CustomResults
     using ExcelUtil.Spreadsheet;
 
     /// <summary>
-    ///  A custom result with content type application/vnd.ms-excel.
+    ///  A custom result with content type.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "A custom result with content type application/vnd.ms-excel.")]
+    [SuppressMessage(
+        "Microsoft.StyleCop.CSharp.DocumentationRules", 
+        "SA1600:ElementsMustBeDocumented", 
+        Justification = "A custom result with content type application/vnd.ms-excel.")]
     public class ExcelResult : SpreadSheetResult
     {
         public ExcelResult(ExcelFile file, string fileName)

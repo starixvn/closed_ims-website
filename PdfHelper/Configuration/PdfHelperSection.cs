@@ -7,6 +7,7 @@
 namespace Fanex.Core.PdfHelper.Configuration
 {
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
 
     /// <summary>
     /// Helper section.
@@ -57,6 +58,10 @@ namespace Fanex.Core.PdfHelper.Configuration
     /// <summary>
     /// Helper collection.
     /// </summary>
+    [SuppressMessage(
+        "StyleCop.CSharp.MaintainabilityRules", 
+        "SA1402:FileMayOnlyContainASingleClass",
+        Justification = "Reviewed. Suppression is OK here.")]
     public class PdfHelperCollection : ConfigurationElementCollection
     {
         public PdfHelperCollection()

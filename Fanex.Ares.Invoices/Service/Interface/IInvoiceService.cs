@@ -8,31 +8,71 @@ namespace Fanex.Ares.Invoice.Service.Interface
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
-    using System.Web.Mvc;
 
     /// <summary>
-    /// Invoice service
+    /// Invoice service.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewd.")]
     public interface IInvoiceService
     {
+        /// <summary>
+        /// Gets the operator list.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List {Operator}.</returns>
         List<Operator> GetOperatorList(IMS_OperatorCriteria criteria);
 
+        /// <summary>
+        /// Gets the licensees list.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List {Licensee}.</returns>
         List<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria);
 
+        /// <summary>
+        /// Gets the type of the invoice.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List {InvoiceType}.</returns>
         List<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria);
 
+        /// <summary>
+        /// Gets the invoice no.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>System Int-32.</returns>
         int GetInvoiceNo(IMS_InvoiceNoCriteria criteria);
 
+        /// <summary>
+        /// Gets the invoice.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Invoice Model.</returns>
         InvoiceModel GetInvoice(IMS_NewInvoiceItemsCriteria criteria);
 
+        /// <summary>
+        /// Saves the invoice.
+        /// </summary>
+        /// <param name="invoiceModel">The invoice model.</param>
+        /// <returns>Core Models Result.</returns>
         Core.Models.Result SaveInvoice(InvoiceModel invoiceModel);
 
+        /// <summary>
+        /// Gets the charge rate.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>List {ChargeRate}.</returns>
         List<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria);
 
+        /// <summary>
+        /// Gets the base currency invoice filter.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>IEnumerable {Select List Item}.</returns>
         IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(IMS_GenInv_BaseCurrencySel criteria);
     }
 }

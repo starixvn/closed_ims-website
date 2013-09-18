@@ -14,7 +14,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// TODO: Update summary.
     /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewd.")]
     public class StatementDetail 
     {
         public StatementDetail()
@@ -41,6 +41,5 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public int ProductType { get; set; }
 
         public List<StatementDetail> StatementProductDetail { get; set; }
-
     }
 }

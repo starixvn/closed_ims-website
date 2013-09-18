@@ -7,8 +7,7 @@
 namespace Fanex.Ares.Core.Extensions
 {
     using System;
-using Fanex.Common;
-using Fanex.Ares.Core.Extensions;
+    using Fanex.Common;
 
     /// <summary>
     /// TODO: Update summary.
@@ -16,7 +15,7 @@ using Fanex.Ares.Core.Extensions;
     public static class NumberExtensions
     {
         /// <summary>
-        /// Format int.
+        /// Format integer.
         /// </summary>
         /// <param name="value">Value parameter.</param>
         /// <returns>Return value.</returns>
@@ -116,6 +115,42 @@ using Fanex.Ares.Core.Extensions;
 
             return source.ToString();
         }
+                
+        /// <summary>
+        /// Negatives the format.
+        /// </summary>
+        /// <param name="input">The input.</param>
+        /// <returns>System String.</returns>
+        public static string NegativeFormat(double input)
+        {
+            string output = string.Empty;
+
+            output = input >= 0 ? 
+                "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : 
+                "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
+
+            return output;
+        }
+        
+        /// <summary>
+        /// Gets the negative class.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <returns>System String.</returns>
+        public static string GetNegativeClass(double number)
+        {
+            return number < 0 ? "negative-number" : string.Empty;
+        }
+
+        /// <summary>
+        /// Gets the even class.
+        /// </summary>
+        /// <param name="number">The number.</param>
+        /// <returns>System String.</returns>
+        public static string GetEvenClass(int number)
+        {
+            return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
+        }
 
         /// <summary>
         /// Format specified number value.
@@ -140,40 +175,6 @@ using Fanex.Ares.Core.Extensions;
             {
                 throw new NullReferenceException();
             }
-        }
-        
-        /// <summary>
-        /// Negatives the format.
-        /// </summary>
-        /// <param name="input">The input.</param>
-        /// <returns>System.String.</returns>
-        public static string NegativeFormat(double input)
-        {
-            string output = string.Empty;
-
-            output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
-
-            return output;
-        }
-        
-        /// <summary>
-        /// Gets the negative class.
-        /// </summary>
-        /// <param name="number">The number.</param>
-        /// <returns>System.String.</returns>
-        public static string GetNegativeClass(double number)
-        {
-            return number < 0 ? "negative-number" : string.Empty;
-        }
-
-        /// <summary>
-        /// Gets the even class.
-        /// </summary>
-        /// <param name="number">The number.</param>
-        /// <returns>System.String.</returns>
-        public static string GetEvenClass(int number)
-        {
-            return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
         }
     }
 }

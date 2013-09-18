@@ -12,16 +12,23 @@ namespace Fanex.Ares.Invoice.Service.Imp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
     public class IMS_OperatorCriteria : CriteriaBase
     {
         public int PartyID { get; set; }
 
+        /// <summary>
+        /// Gets the setting key.
+        /// </summary>
+        /// <returns>System String.</returns>
         public override string GetSettingKey()
         {
             return "IMS_PartyInfoSel";
         }
 
+        /// <summary>
+        /// Determines whether this instance is valid.
+        /// </summary>
+        /// <returns><c>true</c> if this instance is valid; otherwise, <c>false</c>.</returns>
         public override bool IsValid() 
         { 
             return true; 

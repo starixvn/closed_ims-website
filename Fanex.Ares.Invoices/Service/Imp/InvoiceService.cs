@@ -9,19 +9,20 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Text;
+    using System.Web.Mvc;
     using DNAide.Core;
+    using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Models;
+    using Fanex.Ares.Core.Repository.Impl;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.Ares.Core.Web;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Interface;
     using Fanex.Common;
-    using Fanex.Ares.Core.Extensions;
-    using System.Web.Mvc;
-    using Fanex.Ares.Core.Repository.Impl;
 
     /// <summary>
     /// TODO: Update summary.
@@ -29,10 +30,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
     public class InvoiceService : ServiceBase, IInvoiceService
     {
         /// <summary>
-        ///  Get operator list
+        ///  Get operator list.
         /// </summary>
-        /// <param name="criteria">IMS_OperatorCriteria criteria</param>
-        /// <returns> Operator list</returns>
+        /// <param name="criteria">IMS_OperatorCriteria criteria.</param>
+        /// <returns> Operator list.</returns>
         public List<Operator> GetOperatorList(IMS_OperatorCriteria criteria)
         {
             List<Operator> operators = new List<Operator>();
@@ -81,8 +82,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Select licensee list.
         /// </summary>
-        /// <param name="criteria">IMS_LicenseeByPartyCriteria criteria</param>
-        /// <returns>Licensee List</returns>
+        /// <param name="criteria">IMS_LicenseeByPartyCriteria criteria.</param>
+        /// <returns>Licensee List.</returns>
         public List<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria)
         {
             var licensees = new List<Licensee>();
@@ -117,7 +118,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Get invoice type.
         /// </summary>
-        /// <param name="criteria">IMS_InvoiceTypesCriteria criteria</param>
+        /// <param name="criteria">IMS_InvoiceTypesCriteria criteria.</param>
         /// <returns>InvoiceType List.</returns>
         public List<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria)
         {
@@ -132,7 +133,6 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     {
                         int id = (int)row.invoiceTypeID;
                         bool isExist = false;
-
                         foreach (InvoiceType invoiceType in invoiceTypeList)
                         {
                             if (id == invoiceType.InvoiceTypeID)
@@ -175,8 +175,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Get invoice no.
         /// </summary>
-        /// <param name="criteria">IMS_InvoiceNoCriteria criteria</param>
-        /// <returns>invoice no.</returns>
+        /// <param name="criteria">IMS Invoice No Criteria criteria.</param>
+        /// <returns>Invoice no.</returns>
         public int GetInvoiceNo(IMS_InvoiceNoCriteria criteria)
         {
             int invoiceNo = 0;
@@ -203,20 +203,16 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Get invoice detail.
         /// </summary>
-        /// <param name="criteria">IMS_NewInvoiceItemsCriteria criteria</param>
-        /// <returns>invoice model.</returns>
+        /// <param name="criteria">IMS_NewInvoiceItemsCriteria criteria.</param>
+        /// <returns>Invoice model.</returns>
         public InvoiceModel GetInvoice(IMS_NewInvoiceItemsCriteria criteria)
         {
-            var invoice = new InvoiceModel();
+            InvoiceModel invoice = null;
             try
             {
                 List<DateRange> dateRangeList = new List<DateRange>();
-
-                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate);
-
-                invoice.StatementList = new List<Statement>();
-                var statementRawData = GetListData<dynamic>(criteria);
-                 
+                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate);                
+                var statementRawData = GetListData<dynamic>(criteria);                 
                 if (statementRawData != null)
                 {
                     var statementDetaitlList = new List<StatementDetail>(); 
@@ -234,26 +230,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
                             DiscountItem = row.DiscountItem,
                             ProductType = row.ItemType
                         };
-
                         this.InsertToStatementProductDetailList(ref statementDetaitlList, statementProductDetail);
                     }
 
                     var invoiceMonthList = statementDetaitlList.Select(item => item.InvoiceMonth).Distinct().ToList();
-                    foreach (string month in invoiceMonthList)
-                    {
-                        var statementTmp = new Statement();
-                        statementTmp.StatementDetailList = statementDetaitlList.Where(item => item.InvoiceMonth == month).ToList();
-                        foreach (DateRange range in dateRangeList)
-                        {
-                            if (CastAide.AsDateTime("1 " + month).Month == range.StartDate.Month)
-                            {
-                                statementTmp.FromDate = Converter.To<string>(range.StartDate);
-                                statementTmp.ToDate = Converter.To<string>(range.EndDate);
-                            }
-                        }
-                        invoice.StatementList.Add(statementTmp);
-                    }
-
+                    invoice = GroupingInvoiceDetailByMonth(invoiceMonthList, statementDetaitlList, dateRangeList);
                 }
             }
             catch (Exception ex)
@@ -268,58 +249,17 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// Save invoice.
         /// </summary>
         /// <param name="invoiceModel">Invoice model.</param>
-        /// <returns>Return result </returns>
+        /// <returns>Return result.</returns>
         public Result SaveInvoice(InvoiceModel invoiceModel)
         {
             var result = new Core.Models.Result();
             try
             {
                 double totalAmount = 0;
-                var invoiceXmlFormat = new StringBuilder();
-                
-                invoiceXmlFormat.Append("<Invoice>");
-                invoiceXmlFormat.Append("   <InvoiceID>" + invoiceModel.InvoiceID + "</InvoiceID>");
-                invoiceXmlFormat.Append("   <InvoiceNo>" + invoiceModel.InvoiceNo + "</InvoiceNo>");
-                invoiceXmlFormat.Append("   <InvoiceName>" + invoiceModel.InvoiceName + "</InvoiceName>");
-                invoiceXmlFormat.Append("   <PartyID>" + invoiceModel.Operator.PartyID + "</PartyID>");
-                invoiceXmlFormat.Append("   <PartyName>" + invoiceModel.Operator.PartyFullName + "</PartyName>");
-                invoiceXmlFormat.Append("   <LicenseeID>" + invoiceModel.Licensee.LicenseeID + "</LicenseeID>");
-                //invoiceXmlFormat.Append("   <LicenseeName>" + invoiceModel.Licensee.LicenseeName + "</LicenseeName>");
-                invoiceXmlFormat.Append("   <InvoiceType>" + invoiceModel.InvoiceType.InvoiceTypeID + "</InvoiceType>");
-                //invoiceXmlFormat.Append("   <InvoiceTypeName>" + invoiceModel.InvoiceType.InvoiceTypeName + "</InvoiceTypeName>");
-                invoiceXmlFormat.Append("   <Products>" + invoiceModel.Product + "</Products>");
-                invoiceXmlFormat.Append("   <Currency>" + invoiceModel.Currency + "</Currency>");
-                //invoiceXmlFormat.Append("   <CurrencyName>" + invoiceModel.CurrencyName + "</CurrencyName>");
-                invoiceXmlFormat.Append("   <FromDate>" + invoiceModel.FromDate + "</FromDate>");
-                invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
-                invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
-                invoiceXmlFormat.Append("   <Note>" + invoiceModel.Note + "</Note>");
-                invoiceXmlFormat.Append("   <TotalAmount>" + Math.Round(invoiceModel.TotalAmount, 2) + "</TotalAmount>");
-                invoiceXmlFormat.Append("   <InvoiceItems>");
-                foreach (Statement statement in invoiceModel.StatementList)
-                {
-                    foreach (StatementDetail statementDetail in statement.StatementDetailList)
-                    {
-                        invoiceXmlFormat.Append("<InvoiceItem>");
-                        invoiceXmlFormat.Append("<InvoiceItemID>" + statementDetail.ID + "</InvoiceItemID>");
-                        invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? statementDetail.Description.Replace("&", "amp") : string.Empty)  + "</Description>");
-                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
-                        invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
-                        invoiceXmlFormat.Append("   <ItemType>" + statementDetail.AdjustItem + "</ItemType>");
-                        invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");
-                        invoiceXmlFormat.Append("   <DiscountItem>" + statementDetail.DiscountItem + "</DiscountItem>");
-                        invoiceXmlFormat.Append("</InvoiceItem>");
-                        totalAmount += statementDetail.Amount;
-                    }
-                }
-
-                invoiceXmlFormat.Append("   </InvoiceItems>");
-                invoiceXmlFormat.Append("</Invoice>");
-
+                var invoiceXmlFormat = ConvertInvoiceDataToXMLFormat(invoiceModel, ref totalAmount);
                 var criteria = new IMS_InvoiceInsCriteria();
                 criteria.AdminID = AppSession.CurrentUser.Id;
                 criteria.XMLInvoice = invoiceXmlFormat.ToString();
-
                 var hashResult = BaseRepository.ExecuteCommand(criteria);
                 result.ErrorCode = Convert.ToInt32(hashResult["errcode"]);
                 if (result.ErrorCode == 0)
@@ -344,8 +284,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Check invoice no is exist.
         /// </summary>
-        /// <param name="criteria">IMS_CheckExistedInvoiceNo criteria</param>
-        /// <returns>return is exist or not.</returns>
+        /// <param name="criteria">IMS_CheckExistedInvoiceNo criteria.</param>
+        /// <returns>Return is exist or not.</returns>
         public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
         {
             var hashResult = BaseRepository.ExecuteCommand(criteria);
@@ -355,8 +295,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Divide range date to array of date period.
         /// </summary>
-        /// <param name="fromDate">Date begin.</param>
-        /// <param name="toDate">Date end.</param>
+        /// <param name="fromDate">The Date begin.</param>
+        /// <param name="toDate">The Date end.</param>
         /// <returns>Return list date period.</returns>
         public List<DateRange> GetDateRange(DateTime fromDate, DateTime toDate)
         {
@@ -442,9 +382,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
         }
 
         /// <summary>
-        /// Get base currency invoice filter
+        /// Get base currency invoice filter.
         /// </summary>
-        /// <param name="IMS_InvoiceTypesCriteria">criteria</param>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>IEnumerable {Select List Item}.</returns>
         public IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(IMS_GenInv_BaseCurrencySel criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
@@ -474,6 +415,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="statementDetailList">List is exist.</param>
         /// <param name="statementProductDetail">Statement detail to insert.</param>
+        [SuppressMessage(
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2100:CodeLineMustNotBeLongerThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         private void InsertToStatementProductDetailList(ref List<StatementDetail> statementDetailList, StatementDetail statementProductDetail)
         {
             if (statementDetailList != null && statementProductDetail != null)
@@ -491,6 +436,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     {
                         productDetail.Description = statementProductDetail.Description;
                     }
+
                     productDetail.DiscountItem = statementProductDetail.DiscountItem;
                     productDetail.ID = statementProductDetail.ID;
                     productDetail.InvoiceMonth = statementProductDetail.InvoiceMonth;
@@ -517,6 +463,92 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     }).ToList();
                 }
             }
+        }
+
+        /// <summary>
+        /// Converts the invoice data to XML format.
+        /// </summary>
+        /// <param name="invoiceModel">The invoice model.</param>
+        /// <param name="totalAmount">The total amount.</param>
+        /// <returns>String Builder.</returns>
+        [SuppressMessage(
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2100:CodeLineMustNotBeLongerThan",
+            Justification = "Reviewed. Suppression is OK here.")]
+        private StringBuilder ConvertInvoiceDataToXMLFormat(InvoiceModel invoiceModel, ref double totalAmount)
+        {
+            var invoiceXmlFormat = new StringBuilder();
+            invoiceXmlFormat.Append("<Invoice>");
+            invoiceXmlFormat.Append("   <InvoiceID>" + invoiceModel.InvoiceID + "</InvoiceID>");
+            invoiceXmlFormat.Append("   <InvoiceNo>" + invoiceModel.InvoiceNo + "</InvoiceNo>");
+            invoiceXmlFormat.Append("   <InvoiceName>" + invoiceModel.InvoiceName + "</InvoiceName>");
+            invoiceXmlFormat.Append("   <PartyID>" + invoiceModel.Operator.PartyID + "</PartyID>");
+            invoiceXmlFormat.Append("   <PartyName>" + invoiceModel.Operator.PartyFullName + "</PartyName>");
+            invoiceXmlFormat.Append("   <LicenseeID>" + invoiceModel.Licensee.LicenseeID + "</LicenseeID>");
+            invoiceXmlFormat.Append("   <InvoiceType>" + invoiceModel.InvoiceType.InvoiceTypeID + "</InvoiceType>");
+            invoiceXmlFormat.Append("   <Products>" + invoiceModel.Product + "</Products>");
+            invoiceXmlFormat.Append("   <Currency>" + invoiceModel.Currency + "</Currency>");
+            invoiceXmlFormat.Append("   <FromDate>" + invoiceModel.FromDate + "</FromDate>");
+            invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
+            invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
+            invoiceXmlFormat.Append("   <Note>" + invoiceModel.Note + "</Note>");
+            invoiceXmlFormat.Append("   <TotalAmount>" + Math.Round(invoiceModel.TotalAmount, 2) + "</TotalAmount>");
+            invoiceXmlFormat.Append("   <InvoiceItems>");
+            foreach (Statement statement in invoiceModel.StatementList)
+            {
+                foreach (StatementDetail statementDetail in statement.StatementDetailList)
+                {
+                    invoiceXmlFormat.Append("<InvoiceItem>");
+                    invoiceXmlFormat.Append("<InvoiceItemID>" + statementDetail.ID + "</InvoiceItemID>");
+                    invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? statementDetail.Description.Replace("&", "amp") : string.Empty) + "</Description>");
+                    invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
+                    invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
+                    invoiceXmlFormat.Append("   <ItemType>" + statementDetail.AdjustItem + "</ItemType>");
+                    invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");
+                    invoiceXmlFormat.Append("   <DiscountItem>" + statementDetail.DiscountItem + "</DiscountItem>");
+                    invoiceXmlFormat.Append("</InvoiceItem>");
+                    totalAmount += statementDetail.Amount;
+                }
+            }
+
+            invoiceXmlFormat.Append("   </InvoiceItems>");
+            invoiceXmlFormat.Append("</Invoice>");
+
+            return invoiceXmlFormat;
+        }
+
+        /// <summary>
+        /// Groupings the invoice detail by month.
+        /// </summary>
+        /// <param name="invoiceMonthList">The invoice month list.</param>
+        /// <param name="statementDetaitlList">The statement detail list.</param>
+        /// <param name="dateRangeList">The date range list.</param>
+        /// <returns>Invoice Model.</returns>
+        private InvoiceModel GroupingInvoiceDetailByMonth(
+            List<string> invoiceMonthList, 
+            List<StatementDetail> statementDetaitlList, 
+            List<DateRange> dateRangeList)
+        {
+            var invoice = new InvoiceModel();
+            invoice.StatementList = new List<Statement>();
+
+            foreach (string month in invoiceMonthList)
+            {
+                var statementTmp = new Statement();
+                statementTmp.StatementDetailList = statementDetaitlList.Where(item => item.InvoiceMonth == month).ToList();
+                foreach (DateRange range in dateRangeList)
+                {
+                    if (CastAide.AsDateTime("1 " + month).Month == range.StartDate.Month)
+                    {
+                        statementTmp.FromDate = Converter.To<string>(range.StartDate);
+                        statementTmp.ToDate = Converter.To<string>(range.EndDate);
+                    }
+                }
+
+                invoice.StatementList.Add(statementTmp);
+            }
+
+            return invoice;
         }
     }
 }

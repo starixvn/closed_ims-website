@@ -6,13 +6,13 @@
 
 namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
-    using System;
-    using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.NAP.Framework.Data;
 
-      [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]   
+    /// <summary>
+    /// Class IMS Invoice Insert Criteria.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewd.")]   
     public class IMS_InvoiceInsCriteria : CriteriaBase
     {                     
         public string XMLInvoice { get; set; }
@@ -25,11 +25,19 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
 
         public string ErrMsg { get; set; }
 
+        /// <summary>
+        /// Gets the setting key.
+        /// </summary>
+        /// <returns>System String.</returns>
         public override string GetSettingKey()
         {
             return "IMS_InvoiceIns";
         }
 
+        /// <summary>
+        /// Determines whether this instance is valid.
+        /// </summary>
+        /// <returns><c>true</c> if this instance is valid; otherwise, <c>false</c>.</returns>
         public override bool IsValid() 
         {
             return true; 
