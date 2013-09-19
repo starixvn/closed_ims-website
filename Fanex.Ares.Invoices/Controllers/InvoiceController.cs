@@ -311,11 +311,11 @@ namespace Fanex.Ares.Invoice.Controllers
                 invoice.InvoiceType.InvoiceTypeName);            
             string html = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePage, invoice, false);
             invoice.HTMLReportList.Add(html);
-            string[] products = invoice.ProductsName.Split(',');
+            string[] productNames = invoice.ProductsName.Split(',');
             string[] productID = invoice.Product.Split(',');
             for (int i = 0; i < dateRangeList.Count; i++)
             {
-                for (int j = 0; j < products.Count(); j++)
+                for (int j = 0; j < productNames.Count(); j++)
                 {
                     chargeRateList = this._invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
                     {
@@ -329,7 +329,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     if (!string.IsNullOrEmpty(productID[j]))
                     {
                         criteria.Product = Converter.To<int>(productID[j]);
-                        criteria.ProductName = products[j];
+                        criteria.ProductName = productNames[j];
                         criteria.InvoiceReport = true;
                         if (chargeRateList.Count == 0)
                         {
