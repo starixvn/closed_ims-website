@@ -237,7 +237,7 @@ namespace Fanex.Ares.Invoice.Controllers
                     {
                         PartyID = invoice.Operator.PartyID,
                         LicenseeID = invoice.Licensee.LicenseeID,
-                        Products = products[j],
+                        Products = productIDs[j],
                         FromDate = dateRangeList[i].StartDate,
                         ToDate = dateRangeList[i].EndDate
                     });
