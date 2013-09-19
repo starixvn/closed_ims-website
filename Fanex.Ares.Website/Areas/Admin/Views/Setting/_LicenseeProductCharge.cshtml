@@ -8,13 +8,13 @@
                     No
                 </th>
                 <th>
-                    Distributer Rate
+                    Distributer Rate&nbsp;(%)
                 </th>
                 <th>
-                    Partner Rate
+                    Partner Rate&nbsp;(%)
                 </th>
                 <th>
-                    ONEWorks Rate
+                    ONEWorks Rate&nbsp;(%)
                 </th>
                 <th>
                     Start Date
@@ -28,6 +28,9 @@
                 <th>
                     Billing Currency
                 </th>
+                <th>
+                    Description
+                </th>
             </tr>
         </thead>
         <tbody>
@@ -35,23 +38,23 @@
                 <td class="No">
                     1
                 </td>
-                <td>
-                    <input style="float: left; width: 80%; text-align: right;" type="text" id="DistributorRate"
-                        name="DistributorRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />&nbsp%
+                <td style="text-align:center; width: 80px;">
+                    <input style="float: left; width: 80px; text-align: right;" type="text" id="DistributorRate"
+                        name="DistributorRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />
+                </td>
+                <td style="text-align:center; width: 80px;">
+                    <input style="float: left; width: 80px; text-align: right;" type="text" id="PartnerRate"
+                        name="PartnerRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />
+                </td>
+                <td style="text-align:center; width: 80px;">
+                    <input style="float: left; width: 80px; text-align: right;" type="text" id="ONEWorksRate"
+                        name="ONEWorksRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />
                 </td>
                 <td>
-                    <input style="float: left; width: 80%; text-align: right;" type="text" id="PartnerRate"
-                        name="PartnerRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />&nbsp%
+                    <input type="text" id="StartDate" class="date" name="StartDate" value="" style="width:100px;" />
                 </td>
                 <td>
-                    <input style="float: left; width: 80%; text-align: right;" type="text" id="ONEWorksRate"
-                        name="ONEWorksRate" value="" onkeypress="return isNumberKey(event)" maxlength="3" />&nbsp%
-                </td>
-                <td>
-                    <input type="text" id="StartDate" class="date" name="StartDate" value="" />
-                </td>
-                <td>
-                    <input type="text" id="EndDate" class="date" name="EndDate" value="" />
+                    <input type="text" id="EndDate" class="date" name="EndDate" value=""  style="width:100px;" />
                 </td>
                 <td>
                     <select id="ChargeType" name="ChargeType">
@@ -61,7 +64,10 @@
                     </select>
                 </td>
                 <td>
-                    @Html.DropDownList("BillingCurrency", (IEnumerable<SelectListItem>)ViewBag.lstCurrencies, new { id = "BillingCurrency", style = "width:100%" })
+                    @Html.DropDownList("BillingCurrency", (IEnumerable<SelectListItem>)ViewBag.lstCurrencies, new { id = "BillingCurrency", style = "width:70px" })
+                </td>
+                <td>                
+                    <textarea name="Description"  style="width:200px;" rows="1" cols="0" id="Description" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>
                 </td>
             </tr>
         </tbody>

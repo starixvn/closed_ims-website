@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="SportBookModel.cs" company="Microsoft">
+// <copyright file="LicenseeSettlementModel.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
@@ -8,8 +8,6 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Fanex.Ares.Report.ViewModels;
 
     /// <summary>
@@ -18,34 +16,40 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
     [Serializable]
     public class LicenseeSettlementModel
     {
-        public LicenseeInformation LicenseeInfor { get; set; }
-
-        public Report Report { get; set; }
-
-        public List<ExchangeRate> ExchangeList { get; set; }
-
         public LicenseeSettlementModel()
         {
             ExchangeList = new List<ExchangeRate>();
             Report = new Report();
             LicenseeInfor = new LicenseeInformation();
         }
+
+        public LicenseeInformation LicenseeInfor { get; set; }
+
+        public Report Report { get; set; }
+
+        public List<ExchangeRate> ExchangeList { get; set; }
     }
 
+    /// <summary>
+    /// Report Model.
+    /// </summary>
     [Serializable]
     public class Report
     {
-        public List<ReportEntity> EntityList { get; set; }
-
-        public ReportEntity GrandTotal { get; set; }
-
         public Report()
         {
             EntityList = new List<ReportEntity>();
             GrandTotal = new ReportEntity();
         }
+
+        public List<ReportEntity> EntityList { get; set; }
+
+        public ReportEntity GrandTotal { get; set; }
     }
 
+    /// <summary>
+    /// Report Entity.
+    /// </summary>
     [Serializable]
     public class ReportEntity
     {

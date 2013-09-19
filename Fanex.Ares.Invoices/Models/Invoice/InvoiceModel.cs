@@ -25,33 +25,34 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public Operator Operator { get; set; }
 
-        public DateTime FromDate { get; set; }
+        public string FromDate { get; set; }
 
-        public DateTime ToDate { get; set; }
+        public string ToDate { get; set; }
 
-        public DateTime DueDate { get; set; }
+        public string DueDate { get; set; }
 
         public int Currency { get; set; }
         public string CurrencyName { get; set; }
 
         public InvoiceType InvoiceType { get; set; }
         public string Product { get; set; }
+        public string ProductsName { get; set; }
         public int InvoiceNo { get; set; }
         public string InvoiceName { get; set; }
         public List<Statement> StatementList { get; set; } // List statement
 
+        public List<DateRange> DateRangeList { get; set; }
         public double TotalAmount { get; set; }
 
         public string Note { get; set; }
 
         public List<string> HTMLReportList { get; set; }
 
-        public List<InvoiceReport> InvoiceReportList { get; set; }
 
         public InvoiceModel()
         {
+            this.DateRangeList = new List<DateRange>();
             this.StatementList = new List<Statement>();
-            this.InvoiceReportList = new List<InvoiceReport>();
             this.HTMLReportList = new List<string>();
         }
     }
@@ -62,7 +63,9 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public int StatementID { get; set; }
 
-        
+        public string FromDate { get; set; }
+
+        public string ToDate { get; set; }
 
         public Statement()
         {
@@ -82,6 +85,10 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public double Amount { get; set; }
 
         public bool AdjustItem { get; set; }
+
+        public string InvoiceMonth { get; set; }
+
+        public bool DiscountItem { get; set; }
     }
 
     [Serializable]
@@ -114,6 +121,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string SwiftCode { get; set; }
 
         public string CorrespondentBank { get; set; }
+        public string CorrespondentAccNo { get; set; }
+        public string CorrespondentSwiftCode { get; set; }
 
         public string AttnName { get; set; }
 
@@ -130,6 +139,8 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string Fax { get; set; }
 
         public string Email { get; set; }
+
+        public bool IsHide { get; set; }
     }
 
     [Serializable]
@@ -154,12 +165,14 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         public string To2 { get; set; }
     }
 
-    [Serializable]
-    public class InvoiceReport {
-        public string Name { get; set; }
 
-        public LicenseeSettlementModel LicenseeModel { get; set; }
+     [Serializable]
+    public class DateRange
+    {
+        public DateTime StartDate { get; set; }
 
+        public DateTime EndDate { get; set; }
     }
-
 }
+
+

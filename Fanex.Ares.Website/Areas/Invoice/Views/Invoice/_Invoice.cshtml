@@ -1,76 +1,26 @@
-﻿@using Fanex.Ares.Invoice.Models.Invoice;
+@using Fanex.Ares.Invoice.Models.Invoice;
+@using Fanex.Ares.Core.Extensions;
+@using DNAide.Core;
+@using Fanex.Ares.Invoice.Models.Invoice;
+@using Fanex.Common;
 @{
     InvoiceModel model = new InvoiceModel();
     model = Model;
+    int index = 0;
     double totalAmount = 0;
-    
+    string descript = "Software & Data Licensing & Data transmission fees for ";
 }
-<style type="text/css">
-    table, th, td
+@functions {
+    public string NegativeFormat(double input)
     {
-        background: #EDECEA;
-        border: 1px solid #CECCCD;
-        text-align: center;
-        vertical-align: middle;
+        string output = string.Empty;
+
+        output = input >= 0 ? "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
+
+        return output;
     }
-    
-    
-    th
-    {
-        background-color: #E9E480;
-        color: black;
-        font-weight: bold;
-    }
-    table
-    {
-        border-collapse: collapse;
-    }
-    
-    textarea#styled
-    {
-        width: 95%;
-        height: 40px;
-        border: 1px solid #cccccc;
-        padding: 5px;
-        font-family: Tahoma, sans-serif;
-        background-image: url(bg.gif);
-        background-position: bottom right;
-        background-repeat: no-repeat;
-    }
-    
-    .div-content
-{
-    clear:both; 
-    width: 1260px; 
-    margin:40px 0 0 10px;
-    padding: 2px;
 }
-    .noneBorder
-    {
-        border: 0px !important;
-    }
-    
-    .paddingLeft
-    {
-        text-align: left;
-        padding-left: 5px;
-    }
-    
-    .height20
-    {
-        height: 20px;
-    }
-    
-    .label
-    {
-        width: 75%;
-        font-weight: bold;
-        background-color: #c3c2c2 !important;
-        display: inline-block;
-        
-    }
-</style>
-<div class="div-content" style="overflow: auto; width: 100%; padding-top: 20px; margin: 0px !important;">
+<div id="divContent" class="div-content" style="overflow: auto; width: 100%;  margin: 0px !important;">
     <table id="invoiceTbl" border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;'>
         <tr>
             <td>
@@ -94,53 +44,68 @@
                     <tbody>
                         @for (int i = 0; i < model.StatementList.Count; i++)
                         {
-                            var index = 0;
                             Statement state = model.StatementList[i];
 
                             for (int j = 0; j < state.StatementDetailList.Count; j++)
                             {
                                 StatementDetail detail = state.StatementDetailList[j];
                                 totalAmount += detail.Amount;
-                            <tr style="width: 100%; text-align: center;" id="trStatement_@i">
+                            <tr style="width: 100%; text-align: center;">
                                 @if (j == 0)
                                 {
                                     <td rowspan="@state.StatementDetailList.Count" style="width: 10%; ">
                                         @(i + 1)
-                                        <br /><br /><br /><br /><br />
-                                          <a style="text-decoration:underline;cursor: pointer; font-style:italic;">Detail</a>
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <br />
+                                        <a onclick="Detail('@state.FromDate', '@state.ToDate')" style="text-decoration: underline; cursor: pointer; font-style: italic;">
+                                            Detail</a>
                                     </td>
                                 }
                                 <td style="width: 55%; text-align: center; height: 60px;">
-                                    <textarea rows="2" cols="106" name="styled-textarea" id="trStatement_@(i + "_" + index)" onfocus="setbg('#e5fff3', '@(i + "_" + index)');" onblur="setbg('white','@(i + "_" + index)')">@detail.Description</textarea>
+                                    <textarea  rows="2" cols="106" name="styled-textarea" id="orgItem_des_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onchange=" CreatingInvoice.AllowUpdateNewInfo();">
+                                    @if (j == 0)
+                                    {
+                                       @descript @detail.Description
+                                    }
+                                    else
+                                    {
+                                    @detail.Description
+                                    }</textarea>
                                 </td>
-                                @{
-                                index++;
-                                }
                                 <td style="width: 20%; text-align: center;">
-                                    <textarea rows="2" cols="33" name="styled-textarea" id="trStatement_@(i + "_" + index)" onfocus="setbg('#e5fff3','@(i + "_" + index)');" onblur="setbg('white','@(i + "_" + index)')">@detail.Reference</textarea>
+                                    <textarea  rows="2" cols="33" name="styled-textarea" id="orgItem_ref_@index"  onfocus="onFocusInput(this)" onblur="onBlurInput(this)"  onchange=" CreatingInvoice.AllowUpdateNewInfo();">@detail.Reference</textarea>
                                 </td>
                                 <td style="width: 15%; text-align: center;">
-                                    <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;text-align: right;">
-                                        <label style="font-weight: bold; ">@(detail.Amount == 0 ? "(nil)" : detail.Amount.ToString())
-                                        </label>
+                                    <div style="width: 90%; height: 20px; border: 1px solid #CECCCD; margin: -20px 5px 0px 10px;
+                                        text-align: right;font-weight: bold;">
+                                        @MvcHtmlString.Create(detail.Amount == 0 && detail.DiscountItem ? "(nil)" : NegativeFormat(detail.Amount))
                                     </div>
                                 </td>
                             </tr>
-                                index++;
+                                    index++;
                             }
                         }
                         <tr class="total" style="width: 100%;">
                             <td style="text-align: center; border-right: 0px solid black !important;">
-                                <a onClick="AddItem('newItem_')" style="text-decoration:underline; cursor: pointer; font-style:italic;">+New Item</a>
+                                <a onclick="CreatingInvoice.AddItem(false)" style="text-decoration: underline; cursor: pointer;
+                                    font-style: italic;">+New Item</a>
                             </td>
                             <td style="width: 55%; height: 30px; text-align: left; border-left: 0px solid black!important;">
-                                <a onClick="AddItem()" style="text-decoration:underline;cursor: pointer; font-style:italic;">+New Discount</a>
+                                <a onclick="CreatingInvoice.AddItem(true)" style="text-decoration: underline; cursor: pointer;
+                                    font-style: italic;">+New Discount</a>
                             </td>
                             <td style="width: 20%; text-align: center;">
                                 TOTAL AMOUNT
                             </td>
                             <td style="width: 15%; text-align: center; font-weight: bold;">
-                                EUR @totalAmount
+                                <div style="width: 90%; height: 20px; margin: 0px 5px 0px 10px; text-align: right;">
+                                    <label id="totalAmount" style="font-weight: bold;">
+                                        
+                                    </label>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
@@ -150,12 +115,12 @@
         <tr>
             <td>
                 <table style="width: 100%; border-collapse: collapse; border: 0px !important;">
-                <tr>
-                    <td colspan="3" class="noneBorder ">
-                    
-                     <div style="width:95%; height:5px; background-color: White !important; margin:5px;"> </div>
-                    </td>
-                </tr>
+                    <tr>
+                        <td colspan="3" class="noneBorder ">
+                            <div style="width: 99%; height: 5px; background-color: White !important; margin: 5px;">
+                            </div>
+                        </td>
+                    </tr>
                     <tr style="width: 100%;">
                         <td colspan="2" style="border: 0px !important; text-align: left; font-weight: bold;
                             padding-left: 5px;">
@@ -165,9 +130,9 @@
                             <div style="width: 27%; display: inline-block; text-align: right;">
                                 Note</div>
                         </td>
-                        <td rowspan="7" style="border: 0px !important; vertical-align:top">
+                        <td rowspan="7" style="border: 0px !important; vertical-align: top">
                             <div>
-                                <textarea rows="5" cols="90" name="styled-textarea" id="noteId"></textarea>
+                                <textarea maxlength="300" rows="5" cols="90" name="styled-textarea" id="noteId" onfocus="onFocusInput(this)" onblur="onBlurInput(this)" onchange=" CreatingInvoice.AllowUpdateNewInfo();"></textarea>
                             </div>
                         </td>
                     </tr>
@@ -239,13 +204,13 @@
                         <td style="width: 45%;" rowspan="3" class="noneBorder  height20">
                             <div>
                                 <input id="saveID" name="saveID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp;
+                                    type="button" value="SAVE" />&nbsp;&nbsp;&nbsp; @*<input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
+                                    type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;*@
                                 <input id="reviewID" name="reviewID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="REVIEW"  onClick="window.open('@Url.Action("PrintScreen", "Invoice", null)', 'mywindow','width=1260px,height=900px,scrollbars=yes')")"/>&nbsp;&nbsp;&nbsp;
-                                <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all "
-                                    type="button" value="EXPORT PDF" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Pdf })'"/>
-                                    <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all"
-                                    type="button" value="EXPORT ECXEL" onClick="location.href='@Url.Action("ExportDocument", "Invoice", new { documentType = Fanex.Ares.Core.Extensions.WorkBookExtension.DocumentType.Xlsx })'"/>
+                                    type="button" value="PREVIEW" onclick="Review()" />&nbsp;&nbsp;&nbsp; @*  <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
+                                    type="button" value="EXPORT TO PDF"  onClick="ExportPDF()"/>*@
+                                <input id="pdfID" name="pdfID" class="ui-button ui-widget ui-state-default ui-corner-all ui-state-disabled" 
+                                    type="button" value="EXPORT PDF" disabled="disabled" onclick="location.href='@Url.Action("ExportDocument", "Invoice")'"/>
                             </div>
                         </td>
                     </tr>
@@ -255,7 +220,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divCorrespondentSwiftCode">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -265,7 +230,7 @@
                         </td>
                         <td class="noneBorder paddingLeft height20">
                             :&nbsp;&nbsp;&nbsp;
-                            <div class="label">
+                            <div class="label" id="divCorrespondentAccNo">
                                 &nbsp;</div>
                         </td>
                     </tr>
@@ -280,27 +245,142 @@
         </tr>
     </table>
 </div>
+<div id="333"></div>
 <script type="text/javascript">
-    function setbg(color, id) {
-        document.getElementById("trStatement_" + id).style.background = color
-    }
-    
+
+
+    var _totalAmount = @totalAmount; 
+    $("#totalAmount").empty().html(CreatingInvoice.Currency.CurrencyName + ' ' +  NegativeFormat(_totalAmount));
+    CreatingInvoice.TotalAmount = _totalAmount;
     $('#saveID').button();
+   
     $('#saveID').click(function () { if (!$(this).hasClass('ui-state-disabled')) CreatingInvoice.SaveInvoice(); });
     var invoiceInfo = '@Json.Encode(Model)';
-    invoiceInfo = invoiceInfo.replace(/&quot;/g, '"');
-    var invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
+    invoiceInfo = invoiceInfo.replace(/&quot;/g, '"').replace(/&amp;/g, '&');
+    invoiceInfoModel = jQuery.parseJSON(invoiceInfo);
+    var OrgInvoiceInfoModel =[];
+     OrgInvoiceInfoModel = $.extend(true, {}, invoiceInfoModel);
+
+    var divContentHeight = $(window).height() - 200;
+    $('#divContent').height(divContentHeight);
+
     if (invoiceInfoModel.StatementList.length == 0) {
-        $('#saveID').addClass('ui-state-disabled');
-        $('#reviewID').addClass('ui-state-disabled');
+        $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+        $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
     }
     else {
 
-        $('#divBeneficiary').html(CreatingInvoice.Operator.Benificiary);
-        $('#divBeneficiaryBank').html(CreatingInvoice.Operator.BenificiaryBank);
-        $('#divAccountNo').html(CreatingInvoice.Operator.AccountNumber);
-        $('#divIBAN').html(CreatingInvoice.Operator.IBAN);
-        $('#divSwiftCode').html(CreatingInvoice.Operator.SwiftCode);
-        $('#divCorrespondent').html(CreatingInvoice.Operator.CorrespondentBank);
+        $('#divBeneficiary').html(CreatingInvoice.Operator.Benificiary + "&nbsp;&nbsp;&nbsp;");
+        $('#divBeneficiaryBank').html(CreatingInvoice.Operator.BenificiaryBank + "&nbsp;&nbsp;&nbsp;");
+        $('#divAccountNo').html(CreatingInvoice.Operator.AccountNumber + "&nbsp;&nbsp;&nbsp;");
+        $('#divIBAN').html(CreatingInvoice.Operator.IBAN + "&nbsp;&nbsp;&nbsp;");
+        $('#divSwiftCode').html(CreatingInvoice.Operator.SwiftCode + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondent').html(CreatingInvoice.Operator.CorrespondentBank + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondentSwiftCode').html(CreatingInvoice.Operator.CorrespondentSwiftCode + "&nbsp;&nbsp;&nbsp;");
+        $('#divCorrespondentAccNo').html(CreatingInvoice.Operator.CorrespondentAccNo + "&nbsp;&nbsp;&nbsp;");
     }
+
+function Review() {
+  NapAres.disableInput();
+    CreatingInvoice.UpdateItem();
+    invoiceInfoModel.Operator = CreatingInvoice.Operator;
+    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceInfoModel.FromDate = CreatingInvoice.FromDate;
+    invoiceInfoModel.ToDate = CreatingInvoice.ToDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+    invoiceInfoModel.Product = CreatingInvoice.Products;
+    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    $.ajax({
+        url: domain + "Invoice/Invoice/PrintScreen",
+        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+        contentType: 'application/json',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            if (data) {
+                var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
+              
+                if($.browser.msie){
+                    win.load = new function(){
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
+                    }
+                }
+                else{
+                    $(win).load(function(){ 
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
+                    });
+                }
+            }
+        },
+        error: function(){
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+             NapAres.enableInput();
+        }
+    });
+     NapAres.enableInput();
+    invoiceInfoModel = [];
+    invoiceInfoModel = $.extend(true, {}, OrgInvoiceInfoModel);
+}
+
+
+function Detail(fromDate, toDate) {
+ NapAres.disableInput();
+    CreatingInvoice.UpdateItem();
+    invoiceInfoModel.Operator = CreatingInvoice.Operator;
+    invoiceInfoModel.Licensee = CreatingInvoice.Licensee;
+    invoiceInfoModel.FromDate = fromDate;
+    invoiceInfoModel.ToDate = toDate;
+    invoiceInfoModel.DueDate = CreatingInvoice.DueDate;
+    invoiceInfoModel.Currency = CreatingInvoice.Currency.CurrencyID;
+    invoiceInfoModel.CurrencyName = CreatingInvoice.Currency.CurrencyName;
+    invoiceInfoModel.InvoiceType = CreatingInvoice.InvoiceType;
+    invoiceInfoModel.Product = CreatingInvoice.Products;
+    invoiceInfoModel.ProductsName = CreatingInvoice.ProductsName;
+    invoiceInfoModel.InvoiceNo = CreatingInvoice.InvoiceNo;
+    invoiceInfoModel.InvoiceName = CreatingInvoice.InvoiceName;
+    $.ajax({
+        url: domain + "Invoice/Invoice/Detail",
+        data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+        contentType: 'application/json',
+        type: "POST",
+        success: function (data, textStatus, jqXHR) {
+            if (data) {
+                var win = window.open((domain + 'Invoice/Invoice/ReviewInvoice'), ('invoice' + new Date().getMilliseconds()));
+	              
+                if($.browser.msie){
+                    win.load = new function(){
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
+                    }
+                }
+                else{
+                    $(win).load(function(){ 
+                        win.document.write(data);
+                        win.document.title = CreatingInvoice.InvoiceName;
+                    });
+                }
+            }
+        },
+        error: function(){
+            NapAres.Helper.showMsgBox({ ErrorCode: 1, ErrorMsg: 'Fail' });
+            setTimeout('NapAres.Helper.hideMsgBox()', CreatingInvoice.messageTimeOut);
+             NapAres.enableInput();
+        }
+    });
+     NapAres.enableInput();
+}
+
+$("#noteId").bind('input propertychange', function () {
+    var maxLength = $('#noteId').attr('maxlength');
+    if ($(this).val().length > maxLength) {
+        $(this).val($(this).val().substring(0, maxLength));
+    }
+});
 </script>

@@ -26,15 +26,23 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Party Service.
+    /// </summary>
     public class PartyService : ServiceBase, IPartyService
     {
-        IAdminRepository _adminRepository;
+        private IAdminRepository _adminRepository;
 
         public PartyService()
         {
             _adminRepository = new AdminRepository();
         }
 
+        /// <summary>
+        /// Get All Parties.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<PartyModel> GetAllParties(ICriteria criteria)
         {
             var listParties = new List<PartyModel>();
@@ -53,19 +61,24 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         AccountName = Convert.ToString(r["AccountName"]),
                         BankName = Convert.ToString(r["BankName"]),
                         Benificiary = Convert.ToString(r["Benificiary"]),
+                        BenificiaryBank = Convert.ToString(r["BenificiaryBank"]),
                         IBAN = Convert.ToString(r["IBAN"]),
                         SwiftCode = Convert.ToString(r["SwiftCode"]),
                         CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
+                        CorrespondentAccNo = Convert.ToString(r["CorrespondentAccNo"]),
+                        CorrespondentSwiftCode = Convert.ToString(r["CorrespondentSwiftCode"]),
                         AttnName = Convert.ToString(r["AttnName"]),
                         To1 = Convert.ToString(r["To1"]),
                         To2 = Convert.ToString(r["To2"]),
-                        Logo = Convert.ToString(r["Logo"])
+                        Logo = Convert.ToString(r["Logo"]),
+                        Company = Convert.ToString(r["Company"]),
+                        IsHide = Convert.ToBoolean(r["IsHide"])
                     };
 
                     return res;
                 };
 
-                listParties = _repository.Fetch<PartyModel>(criteria, mappingFunc).ToList();
+                listParties = BaseRepository.Fetch<PartyModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -75,6 +88,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listParties;
         }
 
+        /// <summary>
+        /// Get All Party Types.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<SelectListItem> GetAllPartyTypes(ICriteria criteria)
         {
             var listPartyTypes = new List<SelectListItem>();
@@ -91,7 +109,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listPartyTypes = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
+                listPartyTypes = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -101,6 +119,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listPartyTypes;
         }
 
+        /// <summary>
+        /// Get Available Or Selected Licensees.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<SelectListItem> GetAvailableOrSelectedLicensees(ICriteria criteria)
         {
             var listAvailableLicensees = new List<SelectListItem>();
@@ -113,13 +136,13 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     var res = new SelectListItem
                     {
                         Value = r["LicenseeID"].ToString1(),
-                        Text = brandName != "" ? brandName : licenseeName
+                        Text = brandName != string.Empty ? brandName : licenseeName
                     };
 
                     return res;
                 };
 
-                listAvailableLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
+                listAvailableLicensees = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -129,10 +152,16 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listAvailableLicensees;
         }
 
-        public Hashtable CreateUpdateParty(IMS_PartyIns criteria, HttpRequestBase Request)
+        /// <summary>
+        /// Create Update Party.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <param name="request">Request base.</param>
+        /// <returns>Return value.</returns>
+        public Hashtable CreateUpdateParty(IMS_PartyIns criteria, HttpRequestBase request)
         {
             var rs = new Hashtable();
-            if (Request.Files.Count <= 0)
+            if (request.Files.Count <= 0)
             {
                 criteria.Logo = string.Empty;
                 rs = this.ExecuteCommand(criteria);
@@ -140,7 +169,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             else
             {
                 string directory = System.Web.HttpContext.Current.Server.MapPath("~\\App_Data\\Logo\\") + criteria.PartyName + "\\";
-                string fileName = "Logo" + Path.GetExtension(Request.Files[0].FileName);
+                string fileName = "Logo" + Path.GetExtension(request.Files[0].FileName);
                 string fullFileName = Path.Combine(directory, fileName);
                 criteria.Logo = fileName;
                 rs = this.ExecuteCommand(criteria);
@@ -157,7 +186,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         System.IO.File.Delete(fullFileName);
                     }
 
-                    Request.Files[0].SaveAs(fullFileName);
+                    request.Files[0].SaveAs(fullFileName);
                 }
             }
 
@@ -165,16 +194,16 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
         }
 
         /// <summary>
-        /// Using for Insert, Update, Delete
+        /// Using for Insert, Update, Delete.
         /// </summary>
-        /// <param name="criteria">Criteria</param>
-        /// <returns>ErrCode, ErrMsg</returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Error Code, Error Message.</returns>
         public Hashtable ExecuteCommand(ICriteria criteria)
         {
             Hashtable rs = new Hashtable();
             try
             {
-                rs = _repository.ExecuteCommand(criteria);
+                rs = BaseRepository.ExecuteCommand(criteria);
             }
             catch (Exception ex)
             {

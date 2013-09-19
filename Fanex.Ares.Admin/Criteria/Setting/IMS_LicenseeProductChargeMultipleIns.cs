@@ -9,23 +9,37 @@
 
 namespace Fanex.Ares.Admin.Criteria.Setting
 {
-    using Fanex.NAP.Framework.Data;
     using System.Web.Mvc;
+    using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Licensee Product Charge Multiple Insert.
+    /// </summary>
     public class IMS_LicenseeProductChargeMultipleIns : CriteriaBase
     {
         [AllowHtml]
         public string XmlSettings { get; set; }
+
         public int ErrCode { get; set; }
+
         public string ErrMsg { get; set; }
 
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_LicenseeProductChargeMultipleIns";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }
-
-

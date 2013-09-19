@@ -4,34 +4,38 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.IO;
-using System.Web;
-using System.Web.Mvc;
-
 namespace Fanex.Core.PdfHelper
 {
+    using System.IO;
+    using System.Web;
+    using System.Web.Mvc;
+
     /// <summary>
     /// An ActionResult used to send binary data to the browser.
     /// </summary>
     public class BinaryContentResult : ActionResult
     {
-        private readonly string contentType;
-        private readonly byte[] contentBytes;
+        private readonly string _contentType;
+        private readonly byte[] _contentBytes;
 
         public BinaryContentResult(byte[] contentBytes, string contentType)
         {
-            this.contentBytes = contentBytes;
-            this.contentType = contentType;
+            this._contentBytes = contentBytes;
+            this._contentType = contentType;
         }
 
+        /// <summary>
+        /// Execute Result.
+        /// </summary>
+        /// <param name="context">Request context.</param>
         public override void ExecuteResult(ControllerContext context)
         {
             var response = context.HttpContext.Response;
             response.Clear();
             response.Cache.SetCacheability(HttpCacheability.Public);
-            response.ContentType = this.contentType;
+            response.ContentType = this._contentType;
 
-            using (var stream = new MemoryStream(this.contentBytes))
+            using (var stream = new MemoryStream(this._contentBytes))
             {
                 stream.WriteTo(response.OutputStream);
                 stream.Flush();

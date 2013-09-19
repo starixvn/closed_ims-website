@@ -3,25 +3,24 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2013.1.4">Created</change>
-// </history>
-
-using System.Web.Mvc;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.NAP.Core.Service.Interface;
-using Fanex.NAP.Core.Service.Impl;
-using System.Web.Security;
 
 namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
+    using System.Web.Security;
+    using Fanex.NAP.Core.Service.Impl;
+    using Fanex.NAP.Core.Service.Interface;
+
+    /// <summary>
+    /// Common Controller.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Common Controller")]
     public class CommonController : Controller
     {
         private readonly IMaintainanceService _maintenanceService;
 
-        public CommonController()
-            : this(null)
+        public CommonController() : this(null)
         {
         }
 
@@ -30,6 +29,10 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             _maintenanceService = maintenanceService ?? new MaintainanceService();
         }
 
+        /// <summary>
+        /// Checking down time.
+        /// </summary>
+        /// <returns>Return result.</returns>
         public ActionResult Offline()
         {
             var downTime = _maintenanceService.GetDowntimeInfo();
@@ -45,9 +48,31 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Access denied.
+        /// </summary>
+        /// <returns>Return view.</returns>
         public ActionResult AccessDenied()
         {
             return View("AccessDenied");
+        }
+
+        /// <summary>
+        /// Page not found.
+        /// </summary>
+        /// <returns>Return view.</returns>
+        public ActionResult PageNotFound()
+        {
+            return View("~/Views/Common/PageNotFound.cshtml");
+        }
+
+        /// <summary>
+        /// Error page.
+        /// </summary>
+        /// <returns>Return view.</returns>
+        public ActionResult Error()
+        {
+            return View("~/Views/Common/Error.cshtml");
         }
     }
 }

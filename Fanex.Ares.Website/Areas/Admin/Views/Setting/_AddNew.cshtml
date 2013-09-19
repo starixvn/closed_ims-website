@@ -4,19 +4,20 @@
 <div id="AddNewDialog" class="model-dialog" title="Edit Setting" style="display: none">
     <div id="validateTips" class="validateTips">
     </div>
-    @using (Html.BeginForm("CreateNewSetting", "Setting", FormMethod.Post, new { id = "formSetting" }))
+    @using (Html.BeginForm("CreateNewSetting", "Setting", FormMethod.Post, new { id = "formAddNew" }))
     {
         <fieldset>
             <span class="update">
-                <label for="LicenseeID">
-                    Licensee ID</label>
-                @Html.DropDownListFor(model => model.LicenseeID, (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
                 <label for="PartyID">
                     Party ID</label>
-                @Html.DropDownListFor(model => model.PartyID, (IEnumerable<SelectListItem>)ViewBag.lstParties, new { id = "PartyID", @class = "select ui-widget-content ui-corner-all" })
+                @Html.DropDownList("PartyID", (IEnumerable<SelectListItem>)ViewBag.lstParties, new { id = "PartyID", @class = "select ui-widget-content ui-corner-all" })
+                <label for="LicenseeID">
+                    Licensee ID</label>
+                
+                @Html.DropDownList("LicenseeID", (IEnumerable<SelectListItem>)ViewBag.lstLicensees, new { id = "LicenseeID", @class = "select ui-widget-content ui-corner-all" })
                 <label for="ProductID">
                     Product ID</label>
-                @Html.DropDownListFor(model => model.ProductID, (IEnumerable<SelectListItem>)ViewBag.lstProducts, new { id = "ProductID", @class = "select ui-widget-content ui-corner-all" })
+                @Html.DropDownList("ProductID", (IEnumerable<SelectListItem>)ViewBag.lstProducts, new { id = "ProductID", @class = "select ui-widget-content ui-corner-all" })
             </span>
             <label for="FirstBillingDate">
                 First Billing Date</label>
@@ -29,6 +30,9 @@
             <label for="MinimumFee">
                 Minimum Fee</label>
             @Html.TextBoxFor(m => m.MinimumFee, new { id = "MinimumFee", @class = "text ui-widget-content ui-corner-all", onkeypress = "return isNumberKey(event)" })
+            <label for="MinimumFeeTerm">
+                Minimum Fee Term</label>
+            <textarea name="MinimumFeeTerm" rows="5" cols="0" id="MinimumFeeTerm" maxlength="4000" class="text ui-widget-content ui-corner-all"></textarea>
             <label for="WaivedDate">
                 Waived Date</label>
             @*<div id="WaivedDate" class="datepicker"></div>*@

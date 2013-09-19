@@ -85,9 +85,6 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\_Dependency\Entlib\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\_Dependency\FanexLibs\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NPOI, Version=1.2.4.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\_Dependency\FanexLibs\Excel\NPOI.dll</HintPath>
@@ -187,9 +184,6 @@
     <Compile Include="Areas\Invoice\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Invoice\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Invoice\InvoiceAreaRegistration.cs" />
-    <Compile Include="Areas\Misc\Area_Start\BundleConfig.cs" />
-    <Compile Include="Areas\Misc\Area_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Misc\MiscAreaRegistration.cs" />
     <Compile Include="Areas\Report\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Report\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
@@ -202,12 +196,9 @@
     <Compile Include="Areas\UserLogin\Controllers\SSOController.cs" />
     <Compile Include="Areas\UserLogin\UserLoginAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Model\Test\IssueDetail.cs" />
-    <Compile Include="Model\Test\IssueDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Test\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -232,11 +223,6 @@
     <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
     <Content Include="Areas\Admin\Views\Setting\Scripts\SettingManager.js" />
     <Content Include="Areas\Admin\Views\Setting\Styles\Setting.css" />
-    <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessage.js" />
-    <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageHelper.js" />
-    <Content Include="Areas\Invoice\Scripts\BatchMessage\BatchMessageValidateData.js" />
-    <Content Include="Areas\Invoice\Scripts\TicketListing.js" />
-    <Content Include="Areas\Invoice\Scripts\TicketListingManager.js" />
     <Content Include="Areas\Invoice\Styles\Images\Acqua-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Aldford-logo.png" />
     <Content Include="Areas\Invoice\Styles\Images\Boping-logo.png" />
@@ -248,18 +234,22 @@
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Acqua-logo.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Aldford-logo.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\BCH.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Boping-logo.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Checkbox.gif" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\COZNI LIMITED.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\LDL.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Lupine.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Startlit-logo.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\BHC_Boping\BHC_Boping.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Lupine\Lupine.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\COZNI LIMITED\COZNILIMITED.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\LDL\LDL.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\close.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
-    <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageValidateData.js" />
-    <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessageHelper.js" />
-    <Content Include="Areas\Misc\Scripts\BatchMessage\BatchMessage.js" />
-    <Content Include="Areas\Misc\Scripts\TicketListingManager.js" />
-    <Content Include="Areas\Misc\Scripts\TicketListing.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement_bk.css" />
@@ -317,6 +307,7 @@
     <Content Include="Content\base\jquery\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\base\jquery\jquery-ui-1.9.1.custom.min.css" />
     <Content Include="Content\BetList.css" />
+    <Content Include="Content\img\404.jpg" />
     <Content Include="Content\img\BetList.png" />
     <Content Include="Content\img\bgHeader.jpg" />
     <Content Include="Content\img\firstGoal.gif" />
@@ -543,6 +534,7 @@
     <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.min.js" />
     <Content Include="Scripts\_Libs\Tooltip\tipsy.css" />
     <Content Include="Scripts\_Libs\Utils\jquery.fixBugsBrowser.js" />
+    <Content Include="Scripts\_Libs\Utils\jquery.numeric.js" />
     <Content Include="Scripts\_Libs\Utils\Namespace.js" />
     <Content Include="Content\base\img\1350530947_page_excel.png" />
     <Content Include="Content\base\img\arrow-down.png" />
@@ -598,7 +590,6 @@
     <Content Include="Content\jquery-ui\images\ui-icons_fcd113_256x240.png" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.css" />
     <Content Include="Content\jquery-ui\jquery-ui-1.9.1.custom.min.css" />
-    <Content Include="Areas\Misc\Views\TicketListing\LewisIndex.cshtml" />
     <Content Include="Areas\Report\Views\_ViewStart.cshtml" />
     <Content Include="Content\bootstrap\accordion.less" />
     <Content Include="Content\bootstrap\alerts.less" />
@@ -644,8 +635,6 @@
     <Content Include="Content\fonts\BrandonLight.woff" />
     <Content Include="Content\fonts\ProximaNovaBold.woff" />
     <Content Include="Content\fonts\ProximaNovaReg.woff" />
-    <Content Include="Areas\Misc\Views\BatchMessage\Index.cshtml" />
-    <Content Include="Areas\Misc\Styles\BatchMessage.less" />
     <Content Include="Areas\Admin\Styles\BatchMessage.less" />
     <Content Include="Areas\Admin\Styles\TicketListing.less" />
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
@@ -673,10 +662,10 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH-DataFees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\BHC_Boping.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\COZNI LIMITED\COZNI LIMITED.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\Lupine\Lupine.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\_BHC_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\Cozni\_Cozni_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\LUP\_LUP_Software-Data Fees.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
@@ -684,6 +673,9 @@
     <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Template\LDL\_LDL_Software-Data Fees.cshtml" />
+    <Content Include="App_Browsers\firefox.browser" />
+    <Content Include="App_Browsers\ie.browser" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -715,11 +707,6 @@
     <Content Include="Areas\UserControl\Views\User\ChangePassword.cshtml" />
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
-    <Content Include="Areas\Misc\Views\TicketListing\Index.cshtml" />
-    <Content Include="Areas\Misc\Views\Web.config" />
-    <Content Include="Areas\Misc\Views\TicketListing\TemplatePage.cshtml" />
-    <Content Include="Areas\Misc\Styles\TicketListing.less" />
-    <Content Include="Areas\Misc\Views\_ViewStart.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
@@ -756,11 +743,16 @@
     <Content Include="Web.Configuration\PdfHelper.config" />
     <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
     <Content Include="Views\Common\AccessDenied.cshtml" />
+    <Content Include="Web.Configuration\DomainMapping.config" />
+    <Content Include="Web.Configuration\ControllerMapping.config" />
+    <Content Include="Views\Common\PageNotFound.cshtml" />
+    <Content Include="Views\Common\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
+    <Folder Include="Model\" />
     <Folder Include="Scripts\_Libs\BlockUI\img\" />
   </ItemGroup>
   <ItemGroup>
@@ -811,7 +803,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>58035</DevelopmentServerPort>
+          <DevelopmentServerPort>63113</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

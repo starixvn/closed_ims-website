@@ -561,3 +561,16 @@ div.divSorter.desc {
     position: relative;
     white-space: pre;
 }
+
+.btnPDF {
+    background: url("images/pdf.png") no-repeat scroll 0 0 transparent;
+    border: 0 solid red;
+    cursor: pointer;
+    font-size: 11px;
+    height: 17px;
+    margin: 0 2px;
+    overflow: visible;
+    padding-left: 6px;
+    padding-right: 6px;
+    width: 18px;
+}

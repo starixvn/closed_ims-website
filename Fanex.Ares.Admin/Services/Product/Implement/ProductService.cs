@@ -20,8 +20,16 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Product Service.
+    /// </summary>
     public class ProductService : ServiceBase, IProductService
     {
+        /// <summary>
+        /// Get All Products.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
         public IEnumerable<ProductModel> GetAllProducts(ICriteria criteria)
         {
             var listproducts = new List<ProductModel>();
@@ -40,7 +48,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listproducts = _repository.Fetch<ProductModel>(criteria, mappingFunc).ToList();
+                listproducts = BaseRepository.Fetch<ProductModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -50,43 +58,17 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listproducts;
         }
 
-        //public IEnumerable<SelectListItem> GetAvailableOrSelectedParties(ICriteria criteria)
-        //{
-        //    var listAvailableLicensees = new List<SelectListItem>();
-        //    try
-        //    {
-        //        Func<IDataReader, SelectListItem> mappingFunc = r =>
-        //        {
-        //            var res = new SelectListItem
-        //            {
-        //                Value = r["PartyID"].ToString1(),
-        //                Text = r["PartyName"].ToString1()
-        //            };
-
-        //            return res;
-        //        };
-
-        //        listAvailableLicensees = _repository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        LoggingHandler.Log(ex);
-        //    }
-
-        //    return listAvailableLicensees;
-        //}
-
         /// <summary>
-        /// Using for Insert, Update, Delete
+        /// Using for Insert, Update, Delete.
         /// </summary>
-        /// <param name="criteria">Criteria</param>
-        /// <returns>ErrCode, ErrMsg</returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Error Code, Error Message.</returns>
         public Hashtable ExecuteCommand(ICriteria criteria)
         {
             Hashtable rs = new Hashtable();
             try
             {
-                rs = _repository.ExecuteCommand(criteria);
+                rs = BaseRepository.ExecuteCommand(criteria);
             }
             catch (Exception ex)
             {

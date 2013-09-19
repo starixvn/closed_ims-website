@@ -1,24 +1,30 @@
-﻿using System;
-using System.Web.Mvc;
-using Fanex.Ares.Core.Web;
-using Fanex.Ares.Core.Web.Controllers;
-using Fanex.NAP.Core.Service.Interface;
-using Fanex.NAP.Core.Service.Impl;
-using Fanex.NAP.Core.Criteria.User;
-using Fanex.Logging;
-using Fanex.Common;
-using Fanex.NAP.Core.Web;
+﻿// --------------------------------------------------------------------------
+// <copyright file="UserController.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Website.Areas.UserControl.Controllers
 {
+    using System;
+    using System.Web.Mvc;
+    using Fanex.Ares.Core.Web;
+    using Fanex.Ares.Core.Web.Controllers;
+    using Fanex.Common;
+    using Fanex.Logging;
+    using Fanex.NAP.Core.Criteria.User;
+    using Fanex.NAP.Core.Service.Impl;
+    using Fanex.NAP.Core.Service.Interface;
+    using Fanex.NAP.Core.Web;
+
+    /// <summary>
+    /// User Controller.
+    /// </summary>
     public class UserController : BaseController
-    {
-        //
-        // GET: /UserControl/User/
+    {        
         private readonly IUserService _userService;
 
-        public UserController()
-            : this(null)
+        public UserController() : this(null)
         {
         }
 
@@ -32,12 +38,21 @@ namespace Fanex.Ares.Website.Areas.UserControl.Controllers
 
         #region Change Password
 
+        /// <summary>
+        /// Change Password.
+        /// </summary>
+        /// <returns>Return view.</returns>
         [HttpGet]
         public ActionResult ChangePassword()
         {
             return View(new UpdatePasswordCustCriteria { Username = AppSession.CurrentUser.Name });
         }
 
+        /// <summary>
+        /// Change Password.
+        /// </summary>
+        /// <param name="criteria">Update Password Criteria.</param>
+        /// <returns>Return view.</returns>
         [HttpPost]
         public ActionResult ChangePassword(UpdatePasswordCustCriteria criteria)
         {
@@ -83,6 +98,10 @@ namespace Fanex.Ares.Website.Areas.UserControl.Controllers
 
         #region Profile
 
+        /// <summary>
+        /// User Profile.
+        /// </summary>
+        /// <returns>Return result.</returns>
         [HttpGet]
         public ActionResult UserProfile()
         {
@@ -107,6 +126,11 @@ namespace Fanex.Ares.Website.Areas.UserControl.Controllers
             return View(criteria);
         }
 
+        /// <summary>
+        /// User Profile.
+        /// </summary>
+        /// <param name="criteria">Update Criteria.</param>
+        /// <returns>Return result.</returns>
         [HttpPost]
         public ActionResult UserProfile(UpdateCustCriteria criteria)
         {

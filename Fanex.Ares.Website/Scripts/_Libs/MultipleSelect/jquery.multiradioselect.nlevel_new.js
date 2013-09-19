@@ -592,7 +592,7 @@
                     } else {
                         top = (offset.top + $select.outerHeight());
                     }
-                    top += 3; // padding extra 3px to seperate options with multi select div 
+                    top += 1; // padding extra 3px to seperate options with multi select div 
 
                     // calculate the width of the options menu
                     if (browserDectect.msie) {

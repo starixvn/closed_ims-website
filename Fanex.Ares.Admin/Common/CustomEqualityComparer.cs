@@ -7,21 +7,28 @@
 //   <change who="Phillip.Truong" date="2013.05.31">Created</change>
 // </history>
 
-
 namespace Fanex.Ares.Admin.Common
 {
-    using System.Diagnostics.CodeAnalysis;
     using System.Collections.Generic;
-    using System;
 
+    /// <summary>
+    /// Custom Equality Comparer.
+    /// </summary>
+    /// <typeparam name="T">Parameter type.</typeparam>
     public class CustomEqualityComparer<T> : IEqualityComparer<T>
     {
+        /// <summary>
+        /// Checking values.
+        /// </summary>
+        /// <param name="x">First value.</param>
+        /// <param name="y">Second value.</param>
+        /// <returns>Return result.</returns>
         public bool Equals(T x, T y)
         {
             bool result = true;
             foreach (var propertyInfo in x.GetType().GetProperties())
             {
-                if (!(propertyInfo.GetValue(x, null).Equals(propertyInfo.GetValue(y, null))))
+                if (!propertyInfo.GetValue(x, null).Equals(propertyInfo.GetValue(y, null)))
                 {
                     result = false;
                     break;
@@ -31,9 +38,14 @@ namespace Fanex.Ares.Admin.Common
             return result;
         }
 
+        /// <summary>
+        /// Get Hash Code.
+        /// </summary>
+        /// <param name="obj">Object value.</param>
+        /// <returns>Return result.</returns>
         public int GetHashCode(T obj)
         {
-            // Ignore HashCode focus on Properties
+            //// Ignore HashCode focus on Properties
             return 0;
         }
     }

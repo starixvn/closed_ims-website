@@ -3,26 +3,23 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2012.11.22">Created</change>
-// </history>
-
-using System;
-using System.Web;
 
 namespace Fanex.Ares.Core.Web
 {
+    using System;
+    using System.Web;
+
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
     public class SessionManager
     {
         /// <summary>
-        /// Set Value to session with specific type
+        /// Set Value to session with specific type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sessionKey"></param>
-        /// <param name="value"></param>
+        /// <typeparam name="T">The parameter type.</typeparam>
+        /// <param name="sessionKey">Session key.</param>
+        /// <param name="value">Object value.</param>
         public static void Set<T>(string sessionKey, T value)
         {
             try
@@ -35,11 +32,11 @@ namespace Fanex.Ares.Core.Web
         }
 
         /// <summary>
-        /// Get Value from Session with specific Type
+        /// Get Value from Session with specific Type.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="sessionKey"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">The parameter type.</typeparam>
+        /// <param name="sessionKey">Session key.</param>
+        /// <returns>Return result.</returns>
         public static T Get<T>(string sessionKey)
         {
             try
@@ -54,20 +51,20 @@ namespace Fanex.Ares.Core.Web
         }
 
         /// <summary>
-        /// Set object to Session
+        /// Set object to Session.
         /// </summary>
-        /// <param name="sessionKey"></param>
-        /// <param name="value"></param>
+        /// <param name="sessionKey">Session key.</param>
+        /// <param name="value">Object value.</param>
         public static void Set(string sessionKey, object value)
         {
             SessionManager.Set<object>(sessionKey, value);
         }
 
         /// <summary>
-        /// Get value object from Session
+        /// Get value object from Session.
         /// </summary>
-        /// <param name="sessionKey"></param>
-        /// <returns></returns>
+        /// <param name="sessionKey">Session key.</param>
+        /// <returns>Return result.</returns>
         public static object Get(string sessionKey)
         {
             return SessionManager.Get<object>(sessionKey);

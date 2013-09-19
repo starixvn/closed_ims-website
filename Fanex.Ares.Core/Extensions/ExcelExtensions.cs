@@ -7,52 +7,53 @@
 //   <change who="Ricky.Nguyen" date="2012.11.6">Created</change>
 // </history>
 
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Web;
-using ExcelUtil.Spreadsheet;
-using Fanex.Ares.Core.Resources;
-
 namespace Fanex.Ares.Core.Extensions
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Drawing;
+    using System.Web;
+    using ExcelUtil.Spreadsheet;
+    using Fanex.Ares.Core.Resources;
+
+    /// <summary>
+    /// Excel extensions.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Excel Extensions")]
     public static class ExcelExtensions
     {
         #region Constanst values
 
-        public const int FONT_WIDTH = 30;
-        public const int FONT_SIZE = 160;
-        private const string FONT_NAME = "Tahoma";
-        private const string NEGATIVE_NUMBER = "#,##0{0}_);[RED](#,##0{1})";
-        private const string NORMAL_NUMBER_FORMAT = "#,##0{0}_);-#,##0{1}";
-        private const string POSITIVE_NUMBER_FORMAT = "[RED][>=0.1]#,##0{0}_);-#,##0{1}";
-
-        public static readonly Color BACKGROUND_COLOR = Color.White;
-        public static readonly Color HEADER_TITLE_COLOR = Color.FromArgb(60, 94, 165);
-        public static readonly Color EVEN_ROW_COLOR = Color.FromArgb(228, 242, 253);
-        public static readonly Color ODD_ROW_COLOR = Color.White;
-        public static readonly Color SUB_TOTAL_ROW_COLOR = Color.FromArgb(194, 217, 236);
-        public static readonly Color TOTAL_ROW_COLOR = Color.FromArgb(244, 244, 190);
-        public static readonly Color GRAND_TOTAL_ROW_COLOR = Color.FromArgb(219, 225, 187);
-        public static readonly Color GRAND_TOTAL_SEPERATOR_COLOR = Color.FromArgb(255, 102, 0);
-        public static readonly Color REVENUE_LICENSEE_COLOR = Color.FromArgb(213, 132, 52);
-
+        public const int _FONT_WIDTH = 30;
+        public const int _FONT_SIZE = 160;
+        public static readonly Color _BACKGROUND_COLOR = Color.White;
+        public static readonly Color _HEADER_TITLE_COLOR = Color.FromArgb(60, 94, 165);
+        public static readonly Color _EVEN_ROW_COLOR = Color.FromArgb(228, 242, 253);
+        public static readonly Color _ODD_ROW_COLOR = Color.White;
+        public static readonly Color _SUB_TOTAL_ROW_COLOR = Color.FromArgb(194, 217, 236);
+        public static readonly Color _TOTAL_ROW_COLOR = Color.FromArgb(244, 244, 190);
+        public static readonly Color _GRAND_TOTAL_ROW_COLOR = Color.FromArgb(219, 225, 187);
+        public static readonly Color _GRAND_TOTAL_SEPERATOR_COLOR = Color.FromArgb(255, 102, 0);
+        public static readonly Color _REVENUE_LICENSEE_COLOR = Color.FromArgb(213, 132, 52);
+        private const string _FONT_NAME = "Tahoma";
+        private const string _NEGATIVE_NUMBER = "#,##0{0}_);[RED](#,##0{1})";
+        private const string _NORMAL_NUMBER_FORMAT = "#,##0{0}_);-#,##0{1}";
+        private const string _POSITIVE_NUMBER_FORMAT = "[RED][>=0.1]#,##0{0}_);-#,##0{1}";
         #endregion Constanst values
 
         #region Response Stream
 
         /// <summary>
-        /// Response Stream for export excel file
+        /// Response Stream for export excel file.
         /// </summary>
-        /// <param name="excelFile"></param>
-        /// <param name="reportName"></param>
+        /// <param name="excelFile">Excel file.</param>
+        /// <param name="reportName">Report name.</param>
         public static void ReponseStream(this ExcelFile excelFile, string reportName)
         {
             var response = HttpContext.Current.Response;
             response.Clear();
             response.ContentType = "application/vnd.ms-excel";
-            response.AddHeader("Content-Disposition", String.Format("attachment; filename={0}.xls", reportName));
+            response.AddHeader("Content-Disposition", string.Format("attachment; filename={0}.xls", reportName));
             excelFile.SaveXls(response.OutputStream);
         }
 
@@ -61,14 +62,13 @@ namespace Fanex.Ares.Core.Extensions
         #region Title Cell Format
 
         /// <summary>
-        /// Format exist Title Cell
+        /// Format exist Title Cell.
         /// </summary>
-        /// <param name="cellStyle"></param>
-        /// <param name="bgColor"></param>
-        public static void FormatTitleCell(this CellStyle cellStyle,
-            Color bgColor)
+        /// <param name="cellStyle">Cell style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        public static void FormatTitleCell(this CellStyle cellStyle, Color backgroundColor)
         {
-            cellStyle.FormatCellText(bgColor, true);
+            cellStyle.FormatCellText(backgroundColor, true);
             cellStyle.Font.Color = Color.White;
             cellStyle.VerticalAlignment = VerticalAlignmentStyle.Center;
             cellStyle.HorizontalAlignment = HorizontalAlignmentStyle.Center;
@@ -76,14 +76,14 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
-        /// Get Style of Title Cell
+        /// Get Style of Title Cell.
         /// </summary>
-        /// <param name="bgColor"></param>
-        /// <returns></returns>
-        public static CellStyle GetCellTitleStyle(Color bgColor)
+        /// <param name="backgroundColor">Background color.</param>
+        /// <returns>Return value.</returns>
+        public static CellStyle GetCellTitleStyle(Color backgroundColor)
         {
             CellStyle cellStyle = new CellStyle();
-            cellStyle.FormatTitleCell(bgColor);
+            cellStyle.FormatTitleCell(backgroundColor);
             return cellStyle;
         }
 
@@ -92,105 +92,88 @@ namespace Fanex.Ares.Core.Extensions
         #region Text Cell Format
 
         /// <summary>
-        /// Get Style of Text Cell
+        /// Get Style of Text Cell.
         /// </summary>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        /// <returns></returns>
-        public static CellStyle GetCellTextStyle(Color bgColor,
-            bool isBold)
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <returns>Return value.</returns>
+        public static CellStyle GetCellTextStyle(Color backgroundColor, bool isBold)
         {
             CellStyle cellStyle = new CellStyle();
-            cellStyle.FormatCellText(bgColor, isBold);
+            cellStyle.FormatCellText(backgroundColor, isBold);
             return cellStyle;
         }
 
         /// <summary>
-        /// Get Cell Style with Full Options
+        /// Get Cell Style with Full Options.
         /// </summary>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="textAlign"></param>
-        /// <param name="isItalic"></param>
-        /// <param name="fontColor"></param>
-        /// <returns></returns>
-        public static CellStyle GetCellTextStyle(Color bgColor,
-            bool isBold,
-            HorizontalAlignmentStyle textAlign,
-            bool isItalic,
-            Color fontColor)
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="textAlign">Text align.</param>
+        /// <param name="isItalic">Is italic style.</param>
+        /// <param name="fontColor">Font color.</param>
+        /// <returns>Return value.</returns>
+        public static CellStyle GetCellTextStyle(Color backgroundColor, bool isBold, HorizontalAlignmentStyle textAlign, bool isItalic, Color fontColor)
         {
             CellStyle cellStyle = new CellStyle();
-            cellStyle.FormatCellText(bgColor, isBold, textAlign, isItalic, fontColor);
+            cellStyle.FormatCellText(backgroundColor, isBold, textAlign, isItalic, fontColor);
             return cellStyle;
         }
         
         /// <summary>
-        /// Get Style of Text Cell
+        /// Get Style of Text Cell.
         /// </summary>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="textAlign"></param>
-        /// <returns></returns>
-        public static CellStyle GetCellTextStyle(Color bgColor,
-            bool isBold,
-            HorizontalAlignmentStyle textAlign)
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="textAlign">Text align.</param>
+        /// <returns>Return value.</returns>
+        public static CellStyle GetCellTextStyle(Color backgroundColor, bool isBold, HorizontalAlignmentStyle textAlign)
         {
             CellStyle cellStyle = new CellStyle();
-            cellStyle.FormatCellText(bgColor, isBold, textAlign);
+            cellStyle.FormatCellText(backgroundColor, isBold, textAlign);
             return cellStyle;
         }
 
         /// <summary>
-        /// Format Exist Cell Text
+        /// Format Exist Cell Text.
         /// </summary>
-        /// <param name="cellStyle"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        public static void FormatCellText(this CellStyle cellStyle,
-            Color bgColor,
-            bool isBold)
+        /// <param name="cellStyle">Cell style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        public static void FormatCellText(this CellStyle cellStyle, Color backgroundColor, bool isBold)
         {
-            cellStyle.FormatCellText(bgColor, isBold, HorizontalAlignmentStyle.General);
+            cellStyle.FormatCellText(backgroundColor, isBold, HorizontalAlignmentStyle.General);
         }
         
         /// <summary>
-        /// Format Text Cell With Background Color, Bold or not, And Text Align
+        /// Format Text Cell With Background Color, Bold or not, And Text Align.
         /// </summary>
-        /// <param name="cellStyle"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="textAlign"></param>
-        public static void FormatCellText(this CellStyle cellStyle,
-            Color bgColor,
-            bool isBold,
-            HorizontalAlignmentStyle textAlign)
+        /// <param name="cellStyle">Cell style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="textAlign">Text align.</param>
+        public static void FormatCellText(this CellStyle cellStyle, Color backgroundColor, bool isBold, HorizontalAlignmentStyle textAlign)
         {
-            cellStyle.FormatCellText(bgColor, isBold, textAlign, false, Color.Black);
+            cellStyle.FormatCellText(backgroundColor, isBold, textAlign, false, Color.Black);
         }
 
         /// <summary>
-        /// Format Cell Text Full Options
+        /// Format Cell Text Full Options.
         /// </summary>
-        /// <param name="cellStyle"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="textAlign"></param>
-        /// <param name="isItalic"></param>
-        /// <param name="fontColor"></param>
-        public static void FormatCellText(this CellStyle cellStyle,
-            Color bgColor,
-            bool isBold,
-            HorizontalAlignmentStyle textAlign,
-            bool isItalic,
-            Color fontColor)
+        /// <param name="cellStyle">Cell style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="textAlign">Text align.</param>
+        /// <param name="isItalic">Is italic style.</param>
+        /// <param name="fontColor">Font color.</param>
+        public static void FormatCellText(this CellStyle cellStyle, Color backgroundColor, bool isBold, HorizontalAlignmentStyle textAlign, bool isItalic, Color fontColor)
         {
             cellStyle.Borders.SetBorders(MultipleBorders.Outside, Color.Gray, LineStyle.Thin);
-            cellStyle.Font.Name = FONT_NAME;
-            cellStyle.Font.Size = FONT_SIZE;
-            if (bgColor != null)
+            cellStyle.Font.Name = _FONT_NAME;
+            cellStyle.Font.Size = _FONT_SIZE;
+            if (backgroundColor != null)
             {
-                cellStyle.FillPattern.SetSolid(bgColor);
+                cellStyle.FillPattern.SetSolid(backgroundColor);
             }
 
             cellStyle.VerticalAlignment = VerticalAlignmentStyle.Center;
@@ -216,113 +199,87 @@ namespace Fanex.Ares.Core.Extensions
         #region Number Cell Format
 
         /// <summary>
-        /// Get Style Of Cell Number
+        /// Get Style Of Cell Number.
         /// </summary>
-        /// <param name="symbol"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="isPossitive"></param>
-        /// <param name="isNagative"></param>
-        /// <returns></returns>
-        public static CellStyle GetCellNumberStyle(
-            string symbol,
-            Color bgColor,
-            bool isBold,
-            bool isPossitive,
-            bool isNagative)
+        /// <param name="symbol">Symbol style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="isPositive">Is positive style.</param>
+        /// <param name="isNegative">Is negative style.</param>
+        /// <returns>Return value.</returns>
+        public static CellStyle GetCellNumberStyle(string symbol, Color backgroundColor, bool isBold, bool isPositive, bool isNegative)
         {
             CellStyle cellStyle = new CellStyle();
-            cellStyle.FormatCellNumberStyle(symbol, bgColor, isBold, isPossitive, isNagative);
+            cellStyle.FormatCellNumberStyle(symbol, backgroundColor, isBold, isPositive, isNegative);
             return cellStyle;
         }
 
         /// <summary>
-        /// Get Style Of Cell Number
+        /// Get Style Of Cell Number.
         /// </summary>
-        /// <param name="symbol"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="fontColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="isPossitive"></param>
-        /// <param name="isNagative"></param>
-        /// <returns></returns>
-        public static CellStyle GetCellNumberStyle(string symbol,
-            Color bgColor,
-            Color fontColor,
-            bool isBold,
-            bool isPossitive,
-            bool isNagative)
+        /// <param name="symbol">Symbol style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="fontColor">Font color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="isPositive">Is positive style.</param>
+        /// <param name="isNegative">Is negative style.</param>
+        /// <returns>Return value.</returns>
+        public static CellStyle GetCellNumberStyle(string symbol, Color backgroundColor, Color fontColor, bool isBold, bool isPositive, bool isNegative)
         {
             CellStyle cellStyle = new CellStyle();
-            cellStyle.FormatCellNumberStyle(symbol, bgColor, fontColor, isBold, isPossitive, isNagative);
+            cellStyle.FormatCellNumberStyle(symbol, backgroundColor, fontColor, isBold, isPositive, isNegative);
             return cellStyle;
         }
 
         /// <summary>
-        /// Format Cell Which contains number value
+        /// Format Cell Which contains number value.
         /// </summary>
-        /// <param name="cellStyle"></param>
-        /// <param name="symbol"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="isPossitive"></param>
-        /// <param name="isNagative"></param>
-        public static void FormatCellNumberStyle(this CellStyle cellStyle,
-            string symbol,
-            Color bgColor,
-            bool isBold,
-            bool isPossitive,
-            bool isNagative)
+        /// <param name="cellStyle">Cell style.</param>
+        /// <param name="symbol">Symbol style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="isPositive">Is positive style.</param>
+        /// <param name="isNegative">Is negative style.</param>
+        public static void FormatCellNumberStyle(this CellStyle cellStyle, string symbol, Color backgroundColor, bool isBold, bool isPositive, bool isNegative)
         {
-            cellStyle.FormatCellNumberStyle(symbol,
-                bgColor,
-                Color.Black,
-                isBold,
-                isPossitive,
-                isNagative);
+            cellStyle.FormatCellNumberStyle(symbol, backgroundColor, Color.Black, isBold, isPositive, isNegative);
         }
 
         /// <summary>
-        /// Format Cell Which contains number value
+        /// Format Cell Which contains number value.
         /// </summary>
-        /// <param name="cellStyle"></param>
-        /// <param name="symbol"></param>
-        /// <param name="bgColor"></param>
-        /// <param name="fontColor"></param>
-        /// <param name="isBold"></param>
-        /// <param name="isPossitive"></param>
-        /// <param name="isNagative"></param>
-        public static void FormatCellNumberStyle(this CellStyle cellStyle,
-            string symbol,
-            Color bgColor,
-            Color fontColor,
-            bool isBold,
-            bool isPossitive,
-            bool isNagative)
+        /// <param name="cellStyle">Cell style.</param>
+        /// <param name="symbol">Symbol style.</param>
+        /// <param name="backgroundColor">Background color.</param>
+        /// <param name="fontColor">Font color.</param>
+        /// <param name="isBold">Is bold style.</param>
+        /// <param name="isPositive">Is positive style.</param>
+        /// <param name="isNegative">Is negative style.</param>
+        public static void FormatCellNumberStyle(this CellStyle cellStyle, string symbol, Color backgroundColor, Color fontColor, bool isBold, bool isPositive, bool isNegative)
         {
             cellStyle.VerticalAlignment = VerticalAlignmentStyle.Center;
             cellStyle.HorizontalAlignment = HorizontalAlignmentStyle.Right;
             cellStyle.Borders.SetBorders(MultipleBorders.Outside, Color.Gray, LineStyle.Thin);
 
-            if (isNagative)
+            if (isNegative)
             {
-                cellStyle.NumberFormat = string.Format(NEGATIVE_NUMBER, symbol, symbol);
+                cellStyle.NumberFormat = string.Format(_NEGATIVE_NUMBER, symbol, symbol);
             }
-            else if (isPossitive)
+            else if (isPositive)
             {
-                cellStyle.NumberFormat = string.Format(POSITIVE_NUMBER_FORMAT, symbol, symbol);
+                cellStyle.NumberFormat = string.Format(_POSITIVE_NUMBER_FORMAT, symbol, symbol);
             }
             else
             {
-                cellStyle.NumberFormat = string.Format(NORMAL_NUMBER_FORMAT, symbol, symbol);
+                cellStyle.NumberFormat = string.Format(_NORMAL_NUMBER_FORMAT, symbol, symbol);
             }
 
-            cellStyle.Font.Name = FONT_NAME;
-            cellStyle.Font.Size = FONT_SIZE;
+            cellStyle.Font.Name = _FONT_NAME;
+            cellStyle.Font.Size = _FONT_SIZE;
 
-            if (bgColor != null)
+            if (backgroundColor != null)
             {
-                cellStyle.FillPattern.SetSolid(bgColor);
+                cellStyle.FillPattern.SetSolid(backgroundColor);
             }
 
             if (fontColor != null)
@@ -341,18 +298,14 @@ namespace Fanex.Ares.Core.Extensions
         #region Row Format
 
         /// <summary>
-        /// Format Empty Row Extension
+        /// Format Empty Row Extension.
         /// </summary>
-        /// <param name="ws"></param>
-        /// <param name="startRow"></param>
-        /// <param name="startColumn"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="endColumn"></param>
-        public static void ExportEmptyRow(this ExcelWorksheet ws,
-            int startRow,
-            int startColumn,
-            ref int currentRow,
-            int endColumn)
+        /// <param name="ws">Excel Worksheet.</param>
+        /// <param name="startRow">Start row.</param>
+        /// <param name="startColumn">Start column.</param>
+        /// <param name="currentRow">Current row.</param>
+        /// <param name="endColumn">End column.</param>
+        public static void ExportEmptyRow(this ExcelWorksheet ws, int startRow, int startColumn, ref int currentRow, int endColumn)
         {
             var currentColumn = startColumn;
             var currentCellRange = ws.Cells.GetSubrangeAbsolute(currentRow, currentColumn, currentRow, endColumn);
@@ -367,19 +320,15 @@ namespace Fanex.Ares.Core.Extensions
         #region Report Format
 
         /// <summary>
-        /// ExportEmptyReport: export empty report message
+        /// ExportEmptyReport: export empty report message.
         /// Ex: There is no data.
         /// </summary>
-        /// <param name="ws">Excel Worksheet</param>
-        /// <param name="startRow"></param>
-        /// <param name="startColumn"></param>
-        /// <param name="currentRow"></param>
-        /// <param name="endColumn"></param>
-        public static void ExportEmptyReport(this ExcelWorksheet ws,
-            int startRow,
-            int startColumn,
-            ref int currentRow,
-            int endColumn)
+        /// <param name="ws">Excel Worksheet.</param>
+        /// <param name="startRow">Start row.</param>
+        /// <param name="startColumn">Start column.</param>
+        /// <param name="currentRow">Current row.</param>
+        /// <param name="endColumn">End column.</param>
+        public static void ExportEmptyReport(this ExcelWorksheet ws, int startRow, int startColumn, ref int currentRow, int endColumn)
         {
             var currentColumn = startColumn;
             var currentCellRange = ws.Cells.GetSubrangeAbsolute(currentRow, currentColumn, currentRow, endColumn);

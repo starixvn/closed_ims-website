@@ -1,10 +1,23 @@
-﻿using System.Web.Mvc;
-using System.Web.Routing;
+﻿// --------------------------------------------------------------------------
+// <copyright file="RouteConfig.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Website.App_Start
 {
+    using System.Web.Mvc;
+    using System.Web.Routing;
+
+    /// <summary>
+    /// Route Config.
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// Register Routes.
+        /// </summary>
+        /// <param name="routes">Route Collection.</param>
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
@@ -12,8 +25,7 @@ namespace Fanex.Ares.Website.App_Start
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
         }
     }
 }

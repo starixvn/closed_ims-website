@@ -14,6 +14,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
+    [Serializable]
     public class InvoiceType
     {
         public int InvoiceTypeID { get; set; }

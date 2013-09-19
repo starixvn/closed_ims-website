@@ -3,21 +3,18 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Anders.Le" date="2012.10.12">Created</change>
-// </history>
-
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using ExcelUtil.Spreadsheet;
 
 namespace Fanex.Ares.Core.Web.CustomResults
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using ExcelUtil.Spreadsheet;
+
     /// <summary>
-    ///  A custom result with content type application/vnd.ms-excel
+    ///  A custom result with content type application/vnd.ms-excel.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "A custom result with content type application/vnd.ms-excel.")]
     public class ExcelResult : SpreadSheetResult
     {
         public ExcelResult(ExcelFile file, string fileName)

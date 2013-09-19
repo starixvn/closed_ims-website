@@ -7,31 +7,23 @@
 //   <change who="Phillip.Truong" date="2013.06.03">Created</change>
 // </history>
 
-using System.Web;
-using System.Web.Mvc;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.Ares.Admin.Criteria;
-using Fanex.Ares.Admin.Services.Implement;
-using Fanex.Ares.Admin.Services.Interface;
-using Fanex.Ares.Core.Web;
-using Fanex.NAP.Core.Web.Attribute;
-using Fanex.NAP.Core.Business;
-using Fanex.Ares.Core.Web.Security;
-using Fanex.Ares.Admin.Models.Party;
-using Fanex.Ares.Admin.Services.Party.Implement;
-using Fanex.Ares.Admin.Services.Party.Interface;
-using Fanex.Ares.Admin.Common;
-using System.Collections.Generic;
-using System.Linq;
-using System.Collections;
-using Fanex.Ares.Core.Web.Controllers;
-using System.IO;
-using System;
-
 namespace Fanex.Ares.Admin.Controllers
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Web.Mvc;
+    using Fanex.Ares.Admin.Criteria;
+    using Fanex.Ares.Admin.Criteria.Setting;
+    using Fanex.Ares.Admin.Services.Party.Implement;
+    using Fanex.Ares.Admin.Services.Party.Interface;
+    using Fanex.Ares.Core.Extensions;
+    using Fanex.Ares.Core.Web.Controllers;
+    using Fanex.Ares.Core.Web.Security;
+    using Fanex.NAP.Core.Web.Attribute;
 
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    /// <summary>
+    /// Licensee Controller.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Licensee Controller")]
     [NapSuperAuth]
     public class LicenseeController : BaseController
     {
@@ -42,6 +34,10 @@ namespace Fanex.Ares.Admin.Controllers
             _licenseeService = new LicenseeService();
         }
 
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Return view.</returns>
         [HttpGet]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
@@ -49,6 +45,10 @@ namespace Fanex.Ares.Admin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Get All Licensees.
+        /// </summary>
+        /// <returns>Return licensees.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicensees()
@@ -56,12 +56,22 @@ namespace Fanex.Ares.Admin.Controllers
             return Json(_licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()));
         }
 
+        /// <summary>
+        /// Add new licensee.
+        /// </summary>
+        /// <returns>Return result.</returns>
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
+            ViewBag.lstLicensees = _licenseeService.GetAvailableLicensees(new IMS_ExistedLicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
             return PartialView();
         }
 
+        /// <summary>
+        /// Get Party - Licensee.
+        /// </summary>
+        /// <param name="criteria">Licensee ID.</param>
+        /// <returns>Return party.</returns>
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public PartialViewResult _PartyLicensee(IMS_PartySelByLicensee criteria)
         {
@@ -72,6 +82,11 @@ namespace Fanex.Ares.Admin.Controllers
             return PartialView();
         }
 
+        /// <summary>
+        /// Create new licensee.
+        /// </summary>
+        /// <param name="criteria">Licensee info.</param>
+        /// <returns>Return result.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreateNewLicensee(IMS_LicenseeIns criteria)
@@ -80,6 +95,11 @@ namespace Fanex.Ares.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Update licensee info.
+        /// </summary>
+        /// <param name="criteria">Licensee info.</param>
+        /// <returns>Return result.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult UpdateLicensee(IMS_LicenseeInfoUpd criteria)
@@ -88,6 +108,11 @@ namespace Fanex.Ares.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Create party - licensee relation.
+        /// </summary>
+        /// <param name="criteria">Party - license info.</param>
+        /// <returns>Return page.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
         public ActionResult CreatePartyLicensee(IMS_LicenseePartyMultipleIns criteria)

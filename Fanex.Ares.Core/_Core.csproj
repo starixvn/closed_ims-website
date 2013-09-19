@@ -96,20 +96,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configurations\AppSettings.cs" />
+    <Compile Include="Configurations\ControllerMapping.cs" />
+    <Compile Include="Configurations\DomainMapping.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />
-    <Compile Include="Criteria\IMS_LicenseeCurrencySelCriteria.cs" />
-    <Compile Include="Criteria\IMS_LicenseeProductSelCriteria.cs" />
-    <Compile Include="Criteria\IMS_LicenseeSelCriteria.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\NumberExtensions.cs" />
     <Compile Include="Extensions\WorkBookExtension.cs" />
-    <Compile Include="Models\Licensee.cs" />
-    <Compile Include="Models\Operator.cs" />
-    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Impl\BaseRepository.cs" />
@@ -146,7 +142,6 @@
     <Compile Include="Web\CustomResults\CsvResult.cs" />
     <Compile Include="Web\CustomResults\ExcelResult.cs" />
     <Compile Include="Web\CustomResults\SpreadSheetResult.cs" />
-    <Compile Include="Web\NAPSpecialDeleteFunctionKeys.cs" />
     <Compile Include="Web\Security\AuthenticateAction.cs" />
     <Compile Include="Web\SessionManager.cs" />
     <Compile Include="Web\ViewEngine\CustomViewEngine.cs" />

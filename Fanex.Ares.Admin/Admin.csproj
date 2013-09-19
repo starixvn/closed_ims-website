@@ -55,12 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CustomEqualityComparer.cs" />
-    <Compile Include="Common\Enums.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\LicenseeController.cs" />
     <Compile Include="Controllers\PartyController.cs" />
     <Compile Include="Criteria\AccountingUserCheckOnlineStatusCriteria.cs" />
+    <Compile Include="Criteria\IMS_LicenseeCurrencySelCriteria.cs" />
     <Compile Include="Criteria\IMS_AvailablePartySelByLicensee.cs" />
     <Compile Include="Criteria\IMS_LicenseeInfoSel.cs" />
     <Compile Include="Criteria\IMS_LicenseeInfoUpd.cs" />
@@ -78,6 +78,8 @@
     <Compile Include="Criteria\IMS_ProductInfoSel.cs" />
     <Compile Include="Criteria\IMS_ProductIns.cs" />
     <Compile Include="Criteria\IMS_ProductnfoUpd.cs" />
+    <Compile Include="Criteria\IMS_ProductSelByPartyLicensee.cs" />
+    <Compile Include="Criteria\Setting\IMS_ExistedLicenseeInfoSel.cs" />
     <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeInfoSel.cs" />
     <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeIns.cs" />
     <Compile Include="Criteria\Setting\IMS_LicenseeProductChargeMultipleIns.cs" />

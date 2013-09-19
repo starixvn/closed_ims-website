@@ -15,25 +15,25 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
     using System.Data;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Ares.Admin.Models.Licensee;
-    using Fanex.Ares.Admin.Models.Party;
-    using Fanex.Ares.Admin.Repositories.Impl;
-    using Fanex.Ares.Admin.Repositories.Interface;
+    using Fanex.Ares.Admin.Models.Setting;
     using Fanex.Ares.Admin.Services.Party.Interface;
-    using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.NAP.Framework.Data;
-    using Fanex.Ares.Admin.Models.Setting;
 
+    /// <summary>
+    /// Setting Service.
+    /// </summary>
     public class SettingService : ServiceBase, ISettingService
     {
-        IAdminRepository _adminRepository;
-
         public SettingService()
         {
-            _adminRepository = new AdminRepository();
         }
 
+        /// <summary>
+        /// Get All Settings.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return result.</returns>
         public IEnumerable<SettingModel> GetAllSettings(ICriteria criteria)
         {
             var listSettings = new List<SettingModel>();
@@ -47,9 +47,13 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         FirstBillingDate = Convert.ToDateTime(r["FirstBillingDate"] == System.DBNull.Value ? DateTime.MinValue : r["FirstBillingDate"]),
                         HeadOfTerms = Convert.ToDateTime(r["HeadOfTerms"] == System.DBNull.Value ? DateTime.MinValue : r["HeadOfTerms"]),
                         MinimumFee = Convert.ToInt32(r["MinimumFee"] == System.DBNull.Value ? 0 : r["MinimumFee"]),
+                        MinimumFeeTerm = Convert.ToString(r["MinimumFeeTerm"] == System.DBNull.Value ? string.Empty : r["MinimumFeeTerm"]),
                         LicenseeID = Convert.ToInt32(r["LicenseeID"]),
+                        LicenseeName = Convert.ToString(r["BrandName"] != System.DBNull.Value ? r["BrandName"] : r["LicenseeName"]),
                         PartyID = Convert.ToInt32(r["PartyID"]),
+                        PartyName = Convert.ToString(r["PartyName"]),
                         ProductID = Convert.ToInt32(r["ProductID"]),
+                        ProductName = Convert.ToString(r["ProductName"]),
                         WaivedDate = Convert.ToDateTime(r["WaivedDate"] == System.DBNull.Value ? DateTime.MinValue : r["WaivedDate"]),
                         WaivedMonth = Convert.ToInt32(r["WaivedMonth"] == System.DBNull.Value ? 0 : r["WaivedMonth"])
                     };
@@ -57,7 +61,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listSettings = _repository.Fetch<SettingModel>(criteria, mappingFunc).ToList();
+                listSettings = BaseRepository.Fetch<SettingModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -67,6 +71,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listSettings;
         }
 
+        /// <summary>
+        /// Get All Licensee Product Charge.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return result.</returns>
         public IEnumerable<LicenseeProductChargeModel> GetAllLicenseeProductCharge(ICriteria criteria)
         {
             var listObjects = new List<LicenseeProductChargeModel>();
@@ -85,13 +94,14 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         EndDate = Convert.ToDateTime(r["EndDate"] == System.DBNull.Value ? DateTime.MinValue : r["EndDate"]),
                         LicenseeID = Convert.ToInt32(r["LicenseeID"]),
                         PartyID = Convert.ToInt32(r["PartyID"]),
-                        ProductID = Convert.ToInt32(r["ProductID"])
+                        ProductID = Convert.ToInt32(r["ProductID"]),
+                        Description = Convert.ToString(r["Description"] == System.DBNull.Value ? string.Empty : r["Description"])
                     };
 
                     return res;
                 };
 
-                listObjects = _repository.Fetch<LicenseeProductChargeModel>(criteria, mappingFunc).ToList();
+                listObjects = BaseRepository.Fetch<LicenseeProductChargeModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -101,6 +111,11 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             return listObjects;
         }
 
+        /// <summary>
+        /// Get All Licensee Product Discount.
+        /// </summary>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Return result.</returns>
         public IEnumerable<LicenseeProductDiscountModel> GetAllLicenseeProductDiscount(ICriteria criteria)
         {
             var listObjects = new List<LicenseeProductDiscountModel>();
@@ -123,7 +138,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                     return res;
                 };
 
-                listObjects = _repository.Fetch<LicenseeProductDiscountModel>(criteria, mappingFunc).ToList();
+                listObjects = BaseRepository.Fetch<LicenseeProductDiscountModel>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -134,16 +149,16 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
         }
 
         /// <summary>
-        /// Using for Insert, Update, Delete
+        /// Using for Insert, Update, Delete.
         /// </summary>
-        /// <param name="criteria">Criteria</param>
-        /// <returns>ErrCode, ErrMsg</returns>
+        /// <param name="criteria">The Criteria.</param>
+        /// <returns>Error Code, Error message.</returns>
         public Hashtable ExecuteCommand(ICriteria criteria)
         {
             Hashtable rs = new Hashtable();
             try
             {
-                rs = _repository.ExecuteCommand(criteria);
+                rs = BaseRepository.ExecuteCommand(criteria);
             }
             catch (Exception ex)
             {
@@ -151,6 +166,64 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
             }
 
             return rs;
+        }
+
+        /// <summary>
+        /// Get All Currencies By Licensee.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
+        public IEnumerable<System.Web.Mvc.SelectListItem> GetAllCurrenciesByLicensee(ICriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["currency"]),
+                        Text = Convert.ToString(r["currencyname"])
+                    };
+                };
+
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
+        }
+        
+        /// <summary>
+        /// Get Products By Licensee Party.
+        /// </summary>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return value.</returns>
+        public IEnumerable<SelectListItem> GetProductsByLicenseeParty(ICriteria criteria)
+        {
+            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            try
+            {
+                Func<IDataReader, SelectListItem> mappingFunc = r =>
+                {
+                    return new SelectListItem
+                    {
+                        Value = Convert.ToString(r["productid"]),
+                        Text = Convert.ToString(r["productname"])
+                    };
+                };
+
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
+            }
+            catch (Exception ex)
+            {
+                LoggingHandler.Log(ex);
+            }
+
+            return listProducts;
         }
     }
 }

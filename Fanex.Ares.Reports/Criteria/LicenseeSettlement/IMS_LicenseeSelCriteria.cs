@@ -1,0 +1,36 @@
+// -----------------------------------------------------------------------
+// <copyright file="IMS_LicenseeSelCriteria.cs" company="Nexcel">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.4.23">Created</change>
+// </history>
+namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
+{
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// Licensee Select Criteria.
+    /// </summary>
+    public class IMS_LicenseeSelCriteria : CriteriaBase
+    {
+        /// <summary>
+        /// Get Setting Key.
+        /// </summary>
+        /// <returns>Return Setting Key.</returns>
+        public override string GetSettingKey()
+        {
+            return "IMS_LicenseeSel";
+        }
+
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid() 
+        { 
+            return true; 
+        }
+    }
+}

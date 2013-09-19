@@ -17,10 +17,30 @@
             @Html.DropDownList("PartyType", (IEnumerable<SelectListItem>)ViewBag.lstPartyTypes, new { @class = "select ui-widget-content ui-corner-all" })
             <label for="Description">
                 Description</label>
-            <textarea name="Description" rows="5" cols="0" id="Description" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>
-            <label for="PartyFullName">
+            <textarea name="Description" rows="5" cols="0" id="Description" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>            
+            <label for="Company">Comany</label>
+            <input type="text" name="Company" id="Company" maxlength="300" class="text ui-widget-content ui-corner-all" />
+             <label for="PartyFullName">
                 Party Full Name</label>
             <input type="text" name="PartyFullName" id="PartyFullName" maxlength="200" class="text ui-widget-content ui-corner-all" />
+            <label for="AttnName">
+                Attn Name</label>
+            <input type="text" name="AttnName" id="AttnName" maxlength="50" class="text ui-widget-content ui-corner-all" />
+            <label for="To1">
+                To1</label>
+            <textarea name="To1" rows="5" cols="0" id="To1" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>
+            <label for="To2">
+                To2</label>
+            <textarea name="To2" rows="5" cols="0" id="To2" maxlength="300" class="text ui-widget-content ui-corner-all"></textarea>
+            <label for="Logo">
+                Logo</label>
+            <input type="file" name="Logo" id="Logo" size="38" />
+            
+            <label for="IsHide">Is Hide</label>
+            <input type="checkbox" name="IsHide" id="IsHide" class="ui-widget-content ui-corner-all" value="true" />
+
+            <div style="margin-top: 3px; margin-bottom: 3px; font-weight: bold;">Bank Info</div>
+
             <label for="AccountNumber">
                 Account Number</label>
             <input type="text" name="AccountNumber" id="AccountNumber" maxlength="30" class="text ui-widget-content ui-corner-all" />
@@ -36,24 +56,22 @@
             <label for="IBAN">
                 IBAN</label>
             <input type="text" name="IBAN" id="IBAN" maxlength="500" class="text ui-widget-content ui-corner-all" />
+            <label for="BenificiaryBank">
+                Benificiary Bank</label>
+            <input type="text" name="BenificiaryBank" id="BenificiaryBank" maxlength="100" class="text ui-widget-content ui-corner-all" />
             <label for="SwiftCode">
                 Swift Code</label>
             <input type="text" name="SwiftCode" id="SwiftCode" maxlength="50" class="text ui-widget-content ui-corner-all" />
             <label for="CorrespondentBank">
                 Correspondent Bank</label>
             <input type="text" name="CorrespondentBank" maxlength="100" id="CorrespondentBank" class="text ui-widget-content ui-corner-all" />
-            <label for="AttnName">
-                Attn Name</label>
-            <input type="text" name="AttnName" id="AttnName" maxlength="50" class="text ui-widget-content ui-corner-all" />
-            <label for="To1">
-                To1</label>
-            <textarea name="To1" rows="5" cols="0" id="To1" maxlength="100" class="text ui-widget-content ui-corner-all"></textarea>
-            <label for="To2">
-                To2</label>
-            <textarea name="To2" rows="5" cols="0" id="To2" maxlength="100" class="text ui-widget-content ui-corner-all"></textarea>
-            <label for="Logo">
-                Logo</label>
-            <input type="file" name="Logo" id="Logo" size="38" />
+            <label for="CorrespondentAccNo">
+                Correspondent Account Number</label>
+            <input type="text" name="CorrespondentAccNo" maxlength="100" id="CorrespondentAccNo" class="text ui-widget-content ui-corner-all" />
+            <label for="CorrespondentBank">
+                Correspondent Swift Code</label>
+            <input type="text" name="CorrespondentSwiftCode" maxlength="100" id="CorrespondentSwiftCode" class="text ui-widget-content ui-corner-all" />
+            
         </fieldset>
     }
 </div>

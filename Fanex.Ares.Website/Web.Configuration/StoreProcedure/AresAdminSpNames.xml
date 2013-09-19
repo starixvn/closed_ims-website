@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Functions>
   <Function Name="Party">
-    <Setting Key="IMS_PartyIns" SpName="IMS_PartyIns" DbName="invoice" />
-    <Setting Key="IMS_PartyTypeSel" SpName="IMS_PartyTypeSel" DbName="invoice" />
-    <Setting Key="IMS_PartyInfoUpd" SpName="IMS_PartyInfoUpd" DbName="invoice" />
-    <Setting Key="IMS_PartyInfoSel" SpName="IMS_PartyInfoSel" DbName="invoice" />
-    <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="invoice" />
-    <Setting Key="IMS_LicenseePartyIns" SpName="IMS_LicenseePartyIns" DbName="invoice" />
-    <Setting Key="IMS_LicenseeSelByParty" SpName="IMS_LicenseeSelByParty" DbName="invoice" />
-    <Setting Key="IMS_AvailableLicenseeSelByParty" SpName="IMS_AvailableLicenseeSelByParty" DbName="invoice" />
-    <Setting Key="IMS_LicenseePartyMultipleIns" SpName="IMS_LicenseePartyMultipleIns" DbName="invoice" />
+    <Setting Key="IMS_PartyIns" SpName="IMS_PartyIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_PartyTypeSel" SpName="IMS_PartyTypeSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_PartyInfoUpd" SpName="IMS_PartyInfoUpd" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_PartyInfoSel" SpName="IMS_PartyInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_PartySel" SpName="IMS_PartySel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseePartyIns" SpName="IMS_LicenseePartyIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeSelByParty" SpName="IMS_LicenseeSelByParty" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_AvailableLicenseeSelByParty" SpName="IMS_AvailableLicenseeSelByParty" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseePartyMultipleIns" SpName="IMS_LicenseePartyMultipleIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
   </Function>
   <Function Name="Licensee">
-    <Setting Key="IMS_PartySelByLicensee" SpName="IMS_PartySelByLicensee" DbName="invoice" />
-    <Setting Key="IMS_AvailablePartySelByLicensee" SpName="IMS_AvailablePartySelByLicensee" DbName="invoice" />
-    <Setting Key="IMS_LicenseeInfoSel" SpName="IMS_LicenseeInfoSel" DbName="invoice" />
-    <Setting Key="IMS_LicenseeInfoUpd" SpName="IMS_LicenseeInfoUpd" DbName="invoice" />
-    <Setting Key="IMS_LicenseeIns" SpName="IMS_LicenseeIns" DbName="invoice" />
+    <Setting Key="IMS_PartySelByLicensee" SpName="IMS_PartySelByLicensee" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_AvailablePartySelByLicensee" SpName="IMS_AvailablePartySelByLicensee" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeInfoSel" SpName="IMS_LicenseeInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeInfoUpd" SpName="IMS_LicenseeInfoUpd" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeIns" SpName="IMS_LicenseeIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
   </Function>
   <Function Name="Product">
-    <Setting Key="IMS_ProductInfoSel" SpName="IMS_ProductInfoSel" DbName="invoice" />
-    <Setting Key="IMS_ProductIns" SpName="IMS_ProductIns" DbName="invoice" />
-    <Setting Key="IMS_ProductnfoUpd" SpName="IMS_ProductnfoUpd" DbName="invoice" />
+    <Setting Key="IMS_ProductInfoSel" SpName="IMS_ProductInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_ProductIns" SpName="IMS_ProductIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_ProductnfoUpd" SpName="IMS_ProductnfoUpd" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
   </Function>
   <Function Name="Setting">
-    <Setting Key="IMS_LicenseeProductSettingUpd" SpName="IMS_LicenseeProductSettingUpd" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductSettingIns" SpName="IMS_LicenseeProductSettingIns" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductSettingInfoSel" SpName="IMS_LicenseeProductSettingInfoSel" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductChargeMultipleIns" SpName="IMS_LicenseeProductChargeMultipleIns" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductDiscountIns" SpName="IMS_LicenseeProductDiscountIns" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductDiscountMultipleIns" SpName="IMS_LicenseeProductDiscountMultipleIns" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductChargeIns" SpName="IMS_LicenseeProductChargeIns" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductChargeInfoSel" SpName="IMS_LicenseeProductChargeInfoSel" DbName="invoice" />
-    <Setting Key="IMS_LicenseeProductDiscountInfoSel" SpName="IMS_LicenseeProductDiscountInfoSel" DbName="invoice" />
+    <Setting Key="IMS_LicenseeProductSettingUpd" SpName="IMS_LicenseeProductSettingUpd" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductSettingIns" SpName="IMS_LicenseeProductSettingIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductSettingInfoSel" SpName="IMS_LicenseeProductSettingInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductChargeMultipleIns" SpName="IMS_LicenseeProductChargeMultipleIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductDiscountIns" SpName="IMS_LicenseeProductDiscountIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductDiscountMultipleIns" SpName="IMS_LicenseeProductDiscountMultipleIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductChargeIns" SpName="IMS_LicenseeProductChargeIns" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductChargeInfoSel" SpName="IMS_LicenseeProductChargeInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_LicenseeProductDiscountInfoSel" SpName="IMS_LicenseeProductDiscountInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_ExistedLicenseeInfoSel" SpName="IMS_ExistedLicenseeInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
+    <Setting Key="IMS_ProductSelByPartyLicensee" SpName="IMS_ProductSelByPartyLicensee" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     
   </Function>
 </Functions>

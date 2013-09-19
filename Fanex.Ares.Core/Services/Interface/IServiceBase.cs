@@ -7,23 +7,27 @@
 //   <change who="Anders.Le" date="2012.10.9">Created</change>
 //   <change who="Ricky.Nguyen" date="2012.11.6">Move</change>
 // </history>
-
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.NAP.Framework.Data;
-using Fanex.Ares.Core.Extensions;
+// -----------------------------------------------------------------------
+// <copyright file="IServiceBase.cs" company="Nexcel Solutions Vietnam">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Fanex.Ares.Core.Services.Interface
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.NAP.Framework.Data;
+
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "IServiceBase")]
     public interface IServiceBase
     {
         /// <summary>
-        /// Get IEnumerable<T>
+        /// Get IEnumerable.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="criteria"></param>
-        /// <returns></returns>
+        /// <typeparam name="T">Parameter type.</typeparam>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Return result.</returns>
         IEnumerable<T> GetListData<T>(ICriteria criteria);
     }
 }

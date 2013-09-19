@@ -3,14 +3,14 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ethan.Nguyen" date="2012.10.18">Created</change>
-// </history>
-
-using System.Web.Mvc;
 
 namespace Fanex.Ares.Website.Areas.UserLogin
 {
+    using System.Web.Mvc;
+
+    /// <summary>
+    /// User Login Area Registration.
+    /// </summary>
     public class UserLoginAreaRegistration : AreaRegistration
     {
         public override string AreaName
@@ -21,6 +21,10 @@ namespace Fanex.Ares.Website.Areas.UserLogin
             }
         }
 
+        /// <summary>
+        /// Register Area.
+        /// </summary>
+        /// <param name="context">Area Registration Context.</param>
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(

@@ -1,17 +1,29 @@
-﻿using System.Web.Optimization;
+﻿// --------------------------------------------------------------------------
+// <copyright file="BundleConfig.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Website.Areas.Admin.Area_Start
 {
+    using System.Web.Optimization;
+
+    /// <summary>
+    /// Bundle Config.
+    /// </summary>
     public class BundleConfig
     {
+        /// <summary>
+        /// Register Bundles.
+        /// </summary>
+        /// <param name="bundles">Bundle Collection.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/areas/admin/ticketlisting").Include(
                 "~/Scripts/_Libs/TimePicker/jquery-ui-timepicker-addon.js",
                 "~/Scripts/_Libs/Utils/stdlib.js",
                 "~/Areas/Misc/Scripts/TicketListing.js",
-                "~/Areas/Misc/Scripts/TicketListingManager.js"
-            ));
+                "~/Areas/Misc/Scripts/TicketListingManager.js"));
 
             bundles.Add(new ScriptBundle("~/areas/admin/BatchMessage").Include(
                 "~/Scripts/_Libs/Utils/stdlib.js",
@@ -19,8 +31,7 @@ namespace Fanex.Ares.Website.Areas.Admin.Area_Start
                 "~/Scripts/Common/Message.Validator.js",
                 "~/Areas/Misc/Scripts/BatchMessage/BatchMessageHelper.js",
                 "~/Areas/Misc/Scripts/BatchMessage/BatchMessageValidateData.js",
-                "~/Areas/Misc/Scripts/BatchMessage/BatchMessage.js"                
-            ));
+                "~/Areas/Misc/Scripts/BatchMessage/BatchMessage.js"));
         }
     }
 }

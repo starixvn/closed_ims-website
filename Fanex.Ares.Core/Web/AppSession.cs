@@ -3,50 +3,51 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Louis.Bao" date="2012.10.18">Created</change>
-//   <change who="Ricky.Nguyen" date="2012.11.22">Update Session Manager</change>
-// </history>
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using Fanex.NAP.Core.Model;
 
 namespace Fanex.Ares.Core.Web
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.NAP.Core.Model;
+
+    /// <summary>
+    /// App Session.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "App Session.")]
     public static class AppSession
     {
         /// <summary>
-        /// Gets or sets current login user
+        /// Gets or sets current login user.
         /// </summary>
+        /// <value>Current User.</value>
         public static User CurrentUser
         {
             get
             {
-                return SessionManager.Get<User>(Constants.CURRENT_LOG_IN_USER);
+                return SessionManager.Get<User>(Constants._CURRENT_LOG_IN_USER);
             }
 
             set
             {
-                SessionManager.Set<User>(Constants.CURRENT_LOG_IN_USER, value);
+                SessionManager.Set<User>(Constants._CURRENT_LOG_IN_USER, value);
             }
         }
 
         /// <summary>
-        /// Gets or sets menu of current login user
+        /// Gets or sets menu of current login user.
         /// </summary>
+        /// <value>Current User Menu.</value>
         public static IList<MenuItem> CurrentUserMenu
         {
             get
             {
-                return SessionManager.Get<IList<MenuItem>>(Constants.CURRENT_USER_MENU);
+                return SessionManager.Get<IList<MenuItem>>(Constants._CURRENT_USER_MENU);
             }
 
             set
             {
-                SessionManager.Set<IList<MenuItem>>(Constants.CURRENT_USER_MENU, value);
+                SessionManager.Set<IList<MenuItem>>(Constants._CURRENT_USER_MENU, value);
             }
         }
 
@@ -56,7 +57,7 @@ namespace Fanex.Ares.Core.Web
             {
                 try
                 {
-                    return SessionManager.Get<Dictionary<string, int>>(Constants.CURRENT_USER_ROLE_ACCESS);
+                    return SessionManager.Get<Dictionary<string, int>>(Constants._CURRENT_USER_ROLE_ACCESS);
                 }
                 catch (Exception)
                 {
@@ -66,41 +67,42 @@ namespace Fanex.Ares.Core.Web
 
             set
             {
-                SessionManager.Set<Dictionary<string, int>>(Constants.CURRENT_USER_ROLE_ACCESS, value);
+                SessionManager.Set<Dictionary<string, int>>(Constants._CURRENT_USER_ROLE_ACCESS, value);
             }
         }
 
         /// <summary>
-        /// Gets or sets current working menu url
+        /// Gets or sets current working menu url.
         /// </summary>
+        /// <value>Current Working O nMenu.</value>
         public static MenuItem CurrentWorkingOnMenu
         {
             get
             {
-                return SessionManager.Get<MenuItem>(Constants.CURRENT_WORKING_ON_MENU);
+                return SessionManager.Get<MenuItem>(Constants._CURRENT_WORKING_ON_MENU);
             }
 
             set
             {
-                SessionManager.Set<MenuItem>(Constants.CURRENT_WORKING_ON_MENU, value);
+                SessionManager.Set<MenuItem>(Constants._CURRENT_WORKING_ON_MENU, value);
             }
         }
 
-
         /// <summary>
-        /// Gets or sets IsTrackedMenu: determine current working on menu is
-        /// tracked for page tracking or not
+        /// Gets or sets IsTrackedMenu: determine current working on menu is,
+        /// tracked for page tracking or not.
         /// </summary>
+        /// <value>Current Action Name.</value>
         public static string CurrentActionName
         {
             get
             {
-                return SessionManager.Get<string>(Constants.CURRENT_ACTION_NAME);
+                return SessionManager.Get<string>(Constants._CURRENT_ACTION_NAME);
             }
 
             set
             {
-                SessionManager.Set<string>(Constants.CURRENT_ACTION_NAME, value);
+                SessionManager.Set<string>(Constants._CURRENT_ACTION_NAME, value);
             }
         }
 
@@ -108,11 +110,25 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                return SessionManager.Get<bool>(Constants.VIEW_IP_VN);
+                return SessionManager.Get<bool>(Constants._VIEW_IP_VN);
             }
+
             set
             {
-                SessionManager.Set<bool>(Constants.VIEW_IP_VN, value);
+                SessionManager.Set<bool>(Constants._VIEW_IP_VN, value);
+            }
+        }
+
+        public static bool IsShowMenu
+        {
+            get
+            {
+                return SessionManager.Get<bool>(Constants._IS_SHOW_MENU);
+            }
+
+            set
+            {
+                SessionManager.Set<bool>(Constants._IS_SHOW_MENU, value);
             }
         }
     }

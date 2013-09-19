@@ -1,16 +1,11 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="LicenseeModel.cs" company="Microsoft">
+// <copyright file="LicenseeModel.cs" company="Nexcel">
 // TODO: Update copyright text.
 // </copyright>
 // -----------------------------------------------------------------------
 
 namespace Fanex.Ares.Admin.Models.Licensee
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -24,11 +19,11 @@ namespace Fanex.Ares.Admin.Models.Licensee
 
         public string CompanyName { get; set; }
 
-        public bool IsLabel { get; set; }
+        public bool IsDeposit { get; set; }
 
         public bool IsActive { get; set; }
 
-        public bool IsOneWorkActive{ get; set; }
+        public bool IsOneWorkActive { get; set; }
 
         public string AttnName { get; set; }
 

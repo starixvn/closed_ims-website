@@ -1,22 +1,29 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
+﻿// --------------------------------------------------------------------------
+// <copyright file="Result.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Core.Models
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// Result Model.
+    /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Result Model.")]
     public class Result
     {
-        public int ErrorCode { get; set; }
-
-        public string ErrorMessage { get; set; }
-
-       // public dynamic ExtendContent { get; set; }
-
         public Result()
         {
             ErrorCode = 0;
             ErrorMessage = string.Empty;
         }
+
+        public int ErrorCode { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
 }

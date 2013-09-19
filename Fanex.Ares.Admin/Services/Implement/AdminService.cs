@@ -1,4 +1,9 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="AdminService.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
 namespace Fanex.Ares.Admin.Services.Implement
 {
     using System;
@@ -8,15 +13,23 @@ namespace Fanex.Ares.Admin.Services.Implement
     using Fanex.Ares.Admin.Services.Interface;
     using Fanex.Ares.Core.Services.Impl;
 
-    public class AdminService: IAdminService
+    /// <summary>
+    /// Admin Service.
+    /// </summary>
+    public class AdminService : IAdminService
     {
-        IAdminRepository _adminRepository;
+        private IAdminRepository _adminRepository;
 
         public AdminService()
         {
             _adminRepository = new AdminRepository();
         }
 
+        /// <summary>
+        /// Check User Online Status.
+        /// </summary>
+        /// <param name="criteria">User online status.</param>
+        /// <returns>Return result.</returns>
         public bool CheckUserOnlineStatus(AccountingUserCheckOnlineStatusCriteria criteria)
         {
             var onlineStatus = false;
@@ -28,6 +41,7 @@ namespace Fanex.Ares.Admin.Services.Implement
             {
                 LoggingHandler.Log(ex);
             }
+
             return onlineStatus;
         }
     }

@@ -1,15 +1,35 @@
-﻿using System.Configuration;
+﻿// -----------------------------------------------------------------------
+// <copyright file="PdfHelperSection.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Fanex.Core.PdfHelper.Configuration
 {
+    using System.Configuration;
+
+    /// <summary>
+    /// Helper section.
+    /// </summary>
     public class PdfHelperSection : ConfigurationSection
     {
         public enum ElementType
         {
+            /// <summary>
+            /// Style sheet.
+            /// </summary>
             StyleSheet
         }
 
-       
+        public static PdfHelperSection Instance
+        {
+            get
+            {
+                var section = ConfigurationManager.GetSection("PdfHelper") as PdfHelperSection;
+                return section;
+            }
+        }
+               
         [ConfigurationProperty("StyleSheet", IsDefaultCollection = false)]
         [ConfigurationCollection(typeof(PdfHelperCollection),
             AddItemName = "add",
@@ -19,46 +39,28 @@ namespace Fanex.Core.PdfHelper.Configuration
         {
             get
             {
-                var spCollection =
-                    (PdfHelperCollection)base["StyleSheet"];
-                return spCollection;
+                var collection = (PdfHelperCollection)base["StyleSheet"];
+                return collection;
             }
-        }
-
-
-      
-
-        public static PdfHelperSection Instance
-        {
-            get
-            {
-                var spSection =
-                 ConfigurationManager.GetSection("PdfHelper") as PdfHelperSection;
-                return spSection;
-            }
-        }
-
+        }    
 
         public PdfHelperCollection this[ElementType name]
         {
             get
             {
-
-                var spCollection = (PdfHelperCollection)this.GetType().GetProperty(name.ToString()).GetValue(this, System.Reflection.BindingFlags.GetField, null, null, null);
-                return spCollection;
+                var collection = (PdfHelperCollection)this.GetType().GetProperty(name.ToString()).GetValue(this, System.Reflection.BindingFlags.GetField, null, null, null);
+                return collection;
             }
         }
-
-
     }
 
+    /// <summary>
+    /// Helper collection.
+    /// </summary>
     public class PdfHelperCollection : ConfigurationElementCollection
     {
-
         public PdfHelperCollection()
         {
-            //var storeProcedure = (HelperElement) CreateNewElement();
-            //Add(storeProcedure);
         }
 
         public override ConfigurationElementCollectionType CollectionType
@@ -68,100 +70,136 @@ namespace Fanex.Core.PdfHelper.Configuration
                 return ConfigurationElementCollectionType.AddRemoveClearMap;
             }
         }
-
-        public void Add(PdfHelperElement HelperElement)
-        {
-            BaseAdd(HelperElement);
-        }
-
-        protected override void BaseAdd(ConfigurationElement element)
-        {
-            BaseAdd(element, false);
-        }
-
-        public void Remove(PdfHelperElement HelperElement)
-        {
-            if (BaseIndexOf(HelperElement) >= 0)
-                BaseRemove(HelperElement.Name);
-        }
-
-        public void RemoveAt(int index)
-        {
-            BaseRemoveAt(index);
-        }
-
-        public void Remove(string alias)
-        {
-            BaseRemove(alias);
-        }
-
-        public void Clear()
-        {
-            BaseClear();
-        }
-
-
+        
         public PdfHelperElement this[int index]
         {
             get
             {
                 return (PdfHelperElement)BaseGet(index);
             }
+
             set
             {
                 if (BaseGet(index) != null)
                 {
                     BaseRemoveAt(index);
                 }
+
                 BaseAdd(index, value);
             }
         }
 
-        new public PdfHelperElement this[string Name]
+        public new PdfHelperElement this[string name]
         {
             get
             {
-                return (PdfHelperElement)BaseGet(Name);
+                return (PdfHelperElement)BaseGet(name);
             }
         }
 
-        public int IndexOf(PdfHelperElement HelperElement)
+        /// <summary>
+        /// Add element.
+        /// </summary>
+        /// <param name="helperElement">Helper element.</param>
+        public void Add(PdfHelperElement helperElement)
         {
-            return BaseIndexOf(HelperElement);
+            BaseAdd(helperElement);
         }
 
+        /// <summary>
+        /// Remove element.
+        /// </summary>
+        /// <param name="helperElement">Helper element.</param>
+        public void Remove(PdfHelperElement helperElement)
+        {
+            if (BaseIndexOf(helperElement) >= 0)
+            {
+                BaseRemove(helperElement.Name);
+            }
+        }
+                
+        /// <summary>
+        /// Remove element.
+        /// </summary>
+        /// <param name="index">Remove index.</param>
+        public void RemoveAt(int index)
+        {
+            BaseRemoveAt(index);
+        }
 
+        /// <summary>
+        /// Remove alias.
+        /// </summary>
+        /// <param name="alias">Alias name.</param>
+        public void Remove(string alias)
+        {
+            BaseRemove(alias);
+        }
+
+        /// <summary>
+        /// Clear element.
+        /// </summary>
+        public void Clear()
+        {
+            BaseClear();
+        }
+
+        /// <summary>
+        /// Index of element.
+        /// </summary>
+        /// <param name="helperElement">Helper element.</param>
+        /// <returns>Return value.</returns>
+        public int IndexOf(PdfHelperElement helperElement)
+        {
+            return BaseIndexOf(helperElement);
+        }
+
+        /// <summary>
+        /// Create new element.
+        /// </summary>
+        /// <returns>Return value.</returns>
         protected override sealed ConfigurationElement CreateNewElement()
         {
             return new PdfHelperElement();
         }
 
+        /// <summary>
+        /// Get element key.
+        /// </summary>
+        /// <param name="element">Element key.</param>
+        /// <returns>Return value.</returns>
         protected override object GetElementKey(ConfigurationElement element)
         {
             return ((PdfHelperElement)element).Name;
         }
+        
+        /// <summary>
+        /// Base add function.
+        /// </summary>
+        /// <param name="element">Configuration element.</param>
+        protected override void BaseAdd(ConfigurationElement element)
+        {
+            BaseAdd(element, false);
+        }
     }
 
+    /// <summary>
+    /// Helper element.
+    /// </summary>
     public class PdfHelperElement : ConfigurationElement
     {
-
-
-
         public PdfHelperElement()
         {
-
         }
 
-       
-
         [ConfigurationProperty("name", IsRequired = true)]
-        //[RegexStringValidator(@"\w+:\/\/[\w.]+\S*")]
         public string Name
         {
             get
             {
                 return (string)this["name"];
             }
+
             set
             {
                 this["name"] = value;
@@ -169,13 +207,13 @@ namespace Fanex.Core.PdfHelper.Configuration
         }
 
         [ConfigurationProperty("value", IsRequired = false)]
-        //[RegexStringValidator(@"\w+:\/\/[\w.]+\S*")]
         public string Value
         {
             get
             {
                 return (string)this["value"];
             }
+
             set
             {
                 this["value"] = value;
@@ -196,6 +234,5 @@ namespace Fanex.Core.PdfHelper.Configuration
                 return items;
             }
         }
-
     }
 }

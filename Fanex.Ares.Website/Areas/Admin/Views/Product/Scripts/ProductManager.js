@@ -1,5 +1,6 @@
 ﻿var productManager;
 $(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     productManager = new ProductManager();
     productManager.initPage();
 });
@@ -73,12 +74,12 @@ ProductManager = function () {
 
         $.ajax({
             type: "POST",
-            url: window.rootUrl + "Admin/Product/GetAllProducts",
+            url: domain +"Admin/Product/GetAllProducts",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: null,
             beforeSend: function () {
-                NapTicketControl.disableInput();
+                NapAres.disableInput();
             },
             success: function (rs) {
                 renderProducts(rs);
@@ -87,7 +88,7 @@ ProductManager = function () {
                 renderProducts([]);
             },
             complete: function () {
-                NapTicketControl.enableInput();
+                NapAres.enableInput();
             }
         });
 
@@ -197,7 +198,7 @@ ProductManager = function () {
                 "Edit Product": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.frmProduct.attr("Action", "/admin/Product/UpdateProduct");
+                        _table.frmProduct.attr("Action", domain + "admin/Product/UpdateProduct");
                         _table.frmProduct.submit();
                         $(this).dialog("close");
                     }

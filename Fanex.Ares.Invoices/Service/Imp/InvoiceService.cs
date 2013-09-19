@@ -16,9 +16,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using Fanex.Common;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using System.Linq;
-using System.Text;
+    using System.Text;
     using System.Collections;
     using Fanex.Ares.Core.Web;
+    using DNAide.Core;
 
     /// <summary>
     /// TODO: Update summary.
@@ -47,16 +48,20 @@ using System.Text;
                         IBAN = Convert.ToString(r["IBAN"]),
                         SwiftCode = Convert.ToString(r["SwiftCode"]),
                         CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
+                        Company = Convert.ToString(r["Company"]),
+                        CorrespondentAccNo = Convert.ToString(r["CorrespondentAccNo"]),
+                        CorrespondentSwiftCode = Convert.ToString(r["CorrespondentSwiftCode"]),
                         AttnName = Convert.ToString(r["AttnName"]),
                         To1 = Convert.ToString(r["To1"]),
                         To2 = Convert.ToString(r["To2"]),
-                        Logo = Convert.ToString(r["Logo"])
+                        Logo = Convert.ToString(r["Logo"]),
+                        IsHide = Convert.ToBoolean(r["IsHide"])
                     };
 
                     return res;
                 };
 
-                operators = _repository.Fetch<Operator>(criteria, mappingFunc).ToList();             
+                operators = BaseRepository.Fetch<Operator>(criteria, mappingFunc).Where(p=> p.IsHide== false).ToList();             
             }
             catch (Exception ex)
             {
@@ -87,7 +92,7 @@ using System.Text;
                     return res;
                 };
 
-                licensees = _repository.Fetch<Licensee>(criteria, mappingFunc).ToList();
+                licensees = BaseRepository.Fetch<Licensee>(criteria, mappingFunc).ToList();
             }
             catch (Exception ex)
             {
@@ -178,7 +183,11 @@ using System.Text;
         {
             var invoice = new InvoiceModel();
             try
-            {   
+            {
+                List<DateRange> dateRangeList = new List<DateRange>();
+
+                dateRangeList = GetDateRange(criteria.FromDate, criteria.ToDate);
+
                 #region mapping invoice items
                 invoice.StatementList = new List<Statement>();
                 var statementRawData = GetListData<dynamic>(criteria);
@@ -191,10 +200,12 @@ using System.Text;
                     foreach (var row in statementRawData)
                     {
                         string invoiceMonth = (string)row.InvoiceMonth;
+                        
                         if (!string.IsNullOrEmpty(oldMonth) && !oldMonth.Equals(invoiceMonth))
                         {
                             invoice.StatementList.Add(statement);
                             statement = new Statement();
+                            
                             statement.StatementDetailList = new List<StatementDetail>();
                         }                        
                         statement.StatementDetailList.Add(new StatementDetail()
@@ -203,9 +214,20 @@ using System.Text;
                             Description = row.Description,
                             Reference = row.Reference,
                             Amount = (double)row.TotalAmount,
-                            AdjustItem = false
+                            AdjustItem = false,
+                            InvoiceMonth = row.InvoiceMonth,
+                            DiscountItem = row.DiscountItem
+                            
                         });
                         oldMonth = invoiceMonth;
+                        foreach (DateRange range in dateRangeList)
+                        {
+                            if (CastAide.AsDateTime("1 " + oldMonth).Month == range.StartDate.Month)
+                            {
+                                statement.FromDate = Converter.To<string>(range.StartDate);
+                                statement.ToDate = Converter.To<string>(range.EndDate);
+                            }
+                        }
                     }
 
                     if (statement != null && statement.StatementDetailList.Count > 0)
@@ -248,6 +270,8 @@ using System.Text;
                 invoiceXmlFormat.Append("   <FromDate>" + invoiceModel.FromDate + "</FromDate>");
                 invoiceXmlFormat.Append("   <ToDate>" + invoiceModel.ToDate + "</ToDate>");
                 invoiceXmlFormat.Append("   <DueDate>" + invoiceModel.DueDate + "</DueDate>");
+                invoiceXmlFormat.Append("   <Note>" + invoiceModel.Note + "</Note>");
+                invoiceXmlFormat.Append("   <TotalAmount>" + Math.Round(invoiceModel.TotalAmount, 2) + "</TotalAmount>");
                 invoiceXmlFormat.Append("   <InvoiceItems>");
                 foreach (Statement statement in invoiceModel.StatementList)
                 {
@@ -255,10 +279,12 @@ using System.Text;
                     {
                         invoiceXmlFormat.Append("<InvoiceItem>");
                         invoiceXmlFormat.Append("<InvoiceItemID>" + statementDetail.ID + "</InvoiceItemID>");
-                        invoiceXmlFormat.Append("<Description>" + statementDetail.Description + "</Description>");
-                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
+                        invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? statementDetail.Description.Replace("&","amp"): string.Empty)  + "</Description>");
+                        invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference+ "</Reference>");
                         invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
                         invoiceXmlFormat.Append("   <AdjustItem>" + statementDetail.AdjustItem + "</AdjustItem>");
+                        invoiceXmlFormat.Append("   <InvoiceMonth>" + statementDetail.InvoiceMonth + "</InvoiceMonth>");
+                        invoiceXmlFormat.Append("   <DiscountItem>" + statementDetail.DiscountItem + "</DiscountItem>");
                         invoiceXmlFormat.Append("</InvoiceItem>");
                         totalAmount += statementDetail.Amount;
                     }
@@ -270,7 +296,7 @@ using System.Text;
                 criteria.AdminID = AppSession.CurrentUser.Id;
                 criteria.XMLInvoice = invoiceXmlFormat.ToString();
 
-                var hashResult = _repository.ExecuteCommand(criteria);
+                var hashResult = BaseRepository.ExecuteCommand(criteria);
                 result.ErrorCode = Convert.ToInt32(hashResult["errcode"]);
                 if (result.ErrorCode == 0)
                 {
@@ -288,6 +314,131 @@ using System.Text;
                 result.ErrorMessage = ex.Message;
             }
             return result;
+        }
+
+        public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
+        {
+            var hashResult = BaseRepository.ExecuteCommand(criteria);
+            return Converter.ToBool(hashResult["isexisted"]);
+        }
+        public List<DateRange> GetDateRange(DateTime FromDate, DateTime ToDate)
+        {
+            List<DateRange> dateRangeList = new List<DateRange>();
+
+            int numericMonth = ToDate.Month - FromDate.Month + 1;
+            if (numericMonth == 1)
+            {
+                dateRangeList.Add(new DateRange
+                {
+                    StartDate = FromDate,
+                    EndDate = ToDate
+                });
+            }
+            else
+            {
+                for (int i = 0; i < numericMonth; i++)
+                {
+                    DateRange dateRange = new DateRange();
+                    DateTime StartDateTmp = new DateTime();
+                    DateTime EndDateTmp = new DateTime();
+                    if (i == 0)
+                    {
+                        StartDateTmp = FromDate;
+                        DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month, 1).AddMonths(1);
+                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                        EndDateTmp = firstOfNextMonth.AddDays(-1);
+                    }
+                    else if (i == numericMonth - 1)
+                    {
+                        StartDateTmp = new DateTime(FromDate.Year, ToDate.Month, 1);
+                        //DateTime firstOfNextMonth = new DateTime(FromDate.Year + i - 1, FromDate.Month + i - 1, 1).AddMonths(1);
+                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                        EndDateTmp = ToDate;
+                    }
+                    else
+                    {
+                        StartDateTmp = new DateTime(FromDate.Year, FromDate.Month + i, 1);
+                        DateTime firstOfNextMonth = new DateTime(FromDate.Year, FromDate.Month + i, 1).AddMonths(1);
+                        //DateTime lastOfThisMonth = firstOfNextMonth.AddDays(-1);
+                        EndDateTmp = firstOfNextMonth.AddDays(-1);
+                    }
+
+                    dateRange.StartDate = StartDateTmp;
+                    dateRange.EndDate = EndDateTmp;
+                    dateRangeList.Add(dateRange);
+                }
+            }
+
+            return dateRangeList;
+        }
+
+        public List<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria)
+        {
+            List<ChargeRate> chargeRateList = new List<ChargeRate>();
+
+            try
+            {
+                var rawData = GetListData<dynamic>(criteria);
+                if (rawData != null)
+                {
+                    foreach (var row in rawData)
+                    {
+                        //int id = (int)row.ProductID;
+                        //bool isExist = false;
+
+                        chargeRateList.Add(new ChargeRate
+                        {
+                            ProductID = (int)row.ProductID,
+                            DistributorRate = Converter.To<decimal>(row.DistributorRate),
+                            PartnerRate = Converter.To<decimal>(row.PartnerRate),
+                            ONEworksRate = Converter.To<decimal>(row.ONEworksRate),
+                            StartDate = (DateTime)row.StartDate,
+                            EndDate = (DateTime)row.EndDate
+                        });
+
+                        //foreach (ChargeRate chargeRate in chargeRateList)
+                        //{
+                        //    if (id == chargeRate.ProductID)
+                        //    {
+                        //        chargeRate.ChargeRateDetailList.Add(new ChargeRateDetail
+                        //        {
+                        //            DistributorRate = (decimal)row.DistributorRate,
+                        //            PartnerRate = (decimal)row.PartnerRate,
+                        //            ONEworksRate = (decimal)row.ONEworksRate,
+                        //            StartDate = (DateTime)row.StartDate,
+                        //            EndDate = (DateTime)row.EndDate
+                        //        });
+                        //        isExist = true;
+                        //    }
+                        //}
+
+                        //if (!isExist)
+                        //{
+                        //    List<ChargeRateDetail> chargeRateDetailList = new List<ChargeRateDetail>();
+                        //    chargeRateDetailList.Add(new ChargeRateDetail
+                        //    {
+                        //        DistributorRate = (decimal)row.DistributorRate,
+                        //        PartnerRate = (decimal)row.PartnerRate,
+                        //        ONEworksRate = (decimal)row.ONEworksRate,
+                        //        StartDate = (DateTime)row.StartDate,
+                        //        EndDate = (DateTime)row.EndDate
+                        //    });
+                        //    chargeRateList.Add(new ChargeRate
+                        //    {
+                        //        ProductID = (int)row.ProductID,
+                        //        ChargeRateDetailList = chargeRateDetailList
+                        //    });
+                        //}
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                this.HandleException(ex);
+            }
+
+            return chargeRateList;
         }
     }
 }

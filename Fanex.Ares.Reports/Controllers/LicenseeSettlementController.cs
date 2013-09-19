@@ -7,45 +7,46 @@
 //   <change who="" date="">Created</change>
 // </history>
 
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
-using System.Web.Hosting;
-using System.Web.Mvc;
-using Fanex.Ares.Core.Criteria;
-using Fanex.Ares.Core.Extensions;
-using Fanex.Ares.Core.Models;
-using Fanex.Ares.Core.Utils;
-using Fanex.Ares.Core.Web.Controllers;
-using Fanex.Ares.Core.Web.Security;
-using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-
-using Fanex.Ares.Report.Services.Interface;
-using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-using Fanex.Common.Extensions;
-using Fanex.Core.PdfHelper;
-using Fanex.NAP.Core.Web.Attribute;
-using Fanex.Workbooks;
-using Newtonsoft.Json;
-
 namespace Fanex.Ares.Report.Controllers
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Linq;
+    using System.Web.Hosting;
+    using System.Web.Mvc;
+    using Fanex.Ares.Core.Criteria;
+    using Fanex.Ares.Core.Extensions;
+    using Fanex.Ares.Core.Utils;
+    using Fanex.Ares.Core.Web.Controllers;
+    using Fanex.Ares.Core.Web.Security;
+    using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+    using Fanex.Ares.Report.Models;
+    using Fanex.Ares.Report.Services.Interface;
+    using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+    using Fanex.Common.Extensions;
+    using Fanex.Core.PdfHelper;
+    using Fanex.NAP.Core.Web.Attribute;
+    using Fanex.Workbooks;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Licensee Settlement Controller.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Licensee Settlement Controller.")]
     [NapSuperAuth]
     public class LicenseeSettlementController : BaseController
-    {
-        ILicenseeSettlementService _service;
-
-        private readonly StandardPdfRenderer standardPdfRenderer;
-
+    {       
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
+       
+        private readonly StandardPdfRenderer _standardPdfRenderer;
+        
+        private ILicenseeSettlementService _service;
 
         #region View path
 
-        protected string SettlementView = string.Empty;
+        private string _settlementView = string.Empty;
 
         #endregion
 
@@ -53,9 +54,13 @@ namespace Fanex.Ares.Report.Controllers
         {
             _service = new LicenseeSettlementService();
 
-            this.standardPdfRenderer = new StandardPdfRenderer();
+            this._standardPdfRenderer = new StandardPdfRenderer();
         }
 
+        /// <summary>
+        /// The index page.
+        /// </summary>
+        /// <returns>Return view.</returns>
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
@@ -65,38 +70,48 @@ namespace Fanex.Ares.Report.Controllers
             ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = 0 });
             ViewBag.ListCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
             ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
-
             return View(model);
         }
 
+        /// <summary>
+        /// Get Settlement report.
+        /// </summary>
+        /// <param name="criteria">Report criteria.</param>
+        /// <returns>Report result.</returns>
         public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
         {
             var model = _service.GenerateReport(criteria);
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
-            SettlementView = "_" + criteria.ProductName;
+            _settlementView = "_" + criteria.ProductName;
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, SettlementView);
-            return PartialView(SettlementView, model);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, _settlementView);
+            return PartialView(_settlementView, model);
         }
 
+        /// <summary>
+        /// Export document.
+        /// </summary>
+        /// <param name="documentType">Document type.</param>
+        /// <returns>Export result.</returns>
         public ActionResult ExportDocument(WorkbookManager.DocumentType documentType)
         {
             var model = new LicenseeSettlementModel();
             List<string> htmlList = new List<string>();
-            List<WorkbookManager.PageOrientation> PageOrientationList = new List<WorkbookManager.PageOrientation>();
+            List<WorkbookManager.PageOrientation> pageOrientationList = new List<WorkbookManager.PageOrientation>();
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            SettlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
-            string html = HtmlHelperExtensions.RenderViewToString(this, SettlementView, model);
+            _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+            string html = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
             htmlList.Add(html);
-            PageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
+            pageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
             var excelCssFilePath = new List<string>();
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
-
+            List<bool> isAutoFitList = new List<bool>();
+            isAutoFitList.Add(true);
             var workbook = new WorkbookManager();
 
-            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, PageOrientationList);
+            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList);
             if (ms != null)
             {
                 // return the filestream
@@ -111,32 +126,45 @@ namespace Fanex.Ares.Report.Controllers
             return new EmptyResult();
         }
 
+        /// <summary>
+        /// Get Product By LicenseeID.
+        /// </summary>
+        /// <param name="licenseeID">Licensee id.</param>
+        /// <returns>Product result.</returns>
         public JsonResult GetProductByLicenseeID(int licenseeID)
         {
             return Json(_service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID }));
         }
 
-        public JsonResult GetCurencyByLicenseeID(int licenseeID)
+        /// <summary>
+        /// Get Currency By LicenseeID.
+        /// </summary>
+        /// <param name="licenseeID">Licensee id.</param>
+        /// <returns>Currency result.</returns>
+        public JsonResult GetCurrencyByLicenseeID(int licenseeID)
         {
             return Json(_service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }));
         }
 
+        /// <summary>
+        /// Print screen.
+        /// </summary>
+        /// <returns>Return result.</returns>
         public ActionResult PrintScreen()
         {
             var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             return View("PrintReport", model);
         }
 
-
+        /// <summary>
+        /// Export Document.
+        /// </summary>
+        /// <param name="documentType1">Document type.</param>
+        /// <returns>Return result.</returns>
         public ActionResult ExportDocument1(string documentType1)
-        {
-            
+        {            
             var student = JsonConvert.DeserializeObject<Product>(documentType1);
             return new EmptyResult();
-
-
         }
     }
-
-    
 }

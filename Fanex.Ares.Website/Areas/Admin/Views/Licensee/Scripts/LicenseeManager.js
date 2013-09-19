@@ -1,7 +1,9 @@
 ﻿var licenseeManager;
 $(document).ready(function () {
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     licenseeManager = new LicenseeManager();
     licenseeManager.initPage();
+
 });
 
 LicenseeManager = function () {
@@ -22,7 +24,7 @@ LicenseeManager = function () {
         LicenseeName: 1,
         BrandName: 2,
         CompanyName: 3,
-        IsLabel: 4,
+        IsDeposit: 4,
         IsActive: 5,
         IsOneWorkActive: 6,
         AttnName: 7,
@@ -31,12 +33,11 @@ LicenseeManager = function () {
     }
 
     var _dlgAddNew = {
-        hidLicenseeID: null,
-        txtLicenseeID: null,
+        selLicenseeID: null,
         txtLicenseeName: null,
         txtBrandName: null,
         txtCompanyName: null,
-        chkIsLabel: null,
+        chkIsDeposit: null,
         chkIsActive: null,
         chkIsOneWorkActive: null,
         txtAttnName: null,
@@ -55,12 +56,11 @@ LicenseeManager = function () {
         _table.errCode = $('#ErrCode');
         _table.errMsg = $('#ErrMsg');
 
-        _dlgAddNew.hidLicenseeID = $('#LicenseeID');
-        _dlgAddNew.txtLicenseeID = $('#txtLicenseeID');
+        _dlgAddNew.selLicenseeID = $('#LicenseeID');
         _dlgAddNew.txtLicenseeName = $('#LicenseeName');
         _dlgAddNew.txtBrandName = $('#BrandName');
         _dlgAddNew.txtCompanyName = $('#CompanyName');
-        _dlgAddNew.chkIsLabel = $('#IsLabel');
+        _dlgAddNew.chkIsDeposit = $('#IsDeposit');
         _dlgAddNew.chkIsActive = $('#IsActive');
         _dlgAddNew.chkIsOneWorkActive = $('#IsOneWorkActive');
         _dlgAddNew.txtAttnName = $('#AttnName');
@@ -80,6 +80,9 @@ LicenseeManager = function () {
         bindingEvent();
         GenerateData();
         checkError();
+        if ($('#CreateNewLicensee>#LicenseeID').find('option').length == 0) {
+            _table.btnAddNew.attr('disabled', true).addClass('ui-state-disabled');
+        }
     }
 
     var checkError = function () {
@@ -92,7 +95,7 @@ LicenseeManager = function () {
 
         $.ajax({
             type: "POST",
-            url: window.rootUrl + "Admin/Licensee/GetAllLicensees",
+            url: domain + "Admin/Licensee/GetAllLicensees",
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             data: null,
@@ -124,14 +127,14 @@ LicenseeManager = function () {
                                 { Name: "LicenseeName", Value: item.LicenseeName },
                                 { Name: "BrandName", Value: item.BrandName },
                                 { Name: "CompanyName", Value: item.CompanyName },
-                                { Name: "IsLabel", Value: item.IsLabel },
+                                { Name: "IsDeposit", Value: item.IsDeposit },
                                 { Name: "IsActive", Value: item.IsActive },
                                 { Name: "IsOneWorkActive", Value: item.IsOneWorkActive },
                                 { Name: "AttnName", Value: item.AttnName },
                                 { Name: "To1", Value: item.To1 },
                                 { Name: "To2", Value: item.To2 },
                                 { Name: "Edit", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateEditButton(cell, cellFormated); } },
-                                { Name: "AddLicensee", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateAddLicenseeButton(cell, cellFormated); } }
+                                { Name: "AddParty", Value: i, CellAlign: "center", CustomCellRender: function (cell, cellFormated) { return GenerateAddLicenseeButton(cell, cellFormated); } }
                             ]
                 };
 
@@ -144,7 +147,7 @@ LicenseeManager = function () {
         }
 
         var GenerateAddLicenseeButton = function (cell, cellFormated) {
-            return "<input value='Add Licensee' type='button' onclick='licenseeManager.AddParty(" + cell.Value + ")' />";
+            return "<input value='Add Party' type='button' onclick='licenseeManager.AddParty(" + cell.Value + ")' />";
         }
 
         gridOptions = {
@@ -153,14 +156,14 @@ LicenseeManager = function () {
                     { HeaderText: "Licensee Name", Width: 100, Name: "LicenseeName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Brand Name", Width: 100, Name: "BrandName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Company Name", Width: 200, Name: "CompanyName", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Is Label", Width: 100, Name: "IsLabel", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Is Label", Width: 100, Name: "IsDeposit", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Is Active", Width: 100, Name: "IsActive", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Is One Work Active", Width: 100, Name: "IsOneWorkActive", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Attn Name", Width: 100, Name: "AttnName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "To1", Width: 100, Name: "To1", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "To2", Width: 100, Name: "To2", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Edit", Width: 100, Name: "Edit", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "Add Licensee", Width: 100, Name: "AddLicensee", HeaderAlign: "center", CellAlign: "left"}],
+                    { HeaderText: "Add Party", Width: 100, Name: "AddParty", HeaderAlign: "center", CellAlign: "left"}],
             showTitle: true,
             //showFooter: true,
             titleInfo:
@@ -177,16 +180,6 @@ LicenseeManager = function () {
         };
 
         _table.licenseesContainer.fanexGrid(gridOptions);
-//        _table.licenseesContainer.fanexGrid("hideColumns", gridOptions, [_mappingColumns.PartyID,
-//                                                                        _mappingColumns.PartyType,
-//                                                                        _mappingColumns.Description,
-//                                                                        _mappingColumns.AccountNumber,
-//                                                                        _mappingColumns.AccountName,
-//                                                                        _mappingColumns.BankName,
-//                                                                        _mappingColumns.Benificiary,
-//                                                                        _mappingColumns.IBAN,
-//                                                                        _mappingColumns.SwiftCode,
-//                                                                        _mappingColumns.CorrespondentBank]);
     };
 
     self.AddNewLicensee = function () {
@@ -228,7 +221,10 @@ LicenseeManager = function () {
     self.EditLicensee = function (rowNum) {
         _table.dlgAddNew.attr('title', 'Edit Licensee');
         var originalDialog = _table.dlgAddNew.html();
+        var row = gridOptions.bodyRows[rowNum].Columns;
+        var LicenseeID = row[_mappingColumns.LicenseeID].Value;
         cachedDOMElements();
+        $('.insert').hide();
         FillDataToEditForm(rowNum);
         _table.dlgAddNew.dialog({
             autoOpen: false,
@@ -239,7 +235,12 @@ LicenseeManager = function () {
                 "Edit Licensee": function () {
                     if (ValidateForm()) {
                         _dlgAddNew.txtValidateTips.hide();
-                        _table.frmLicensee.attr("Action", "/admin/Licensee/UpdateLicensee");
+                        _table.frmLicensee.attr("Action", domain + "admin/Licensee/UpdateLicensee");
+                        $('<input />').attr('type', 'hidden')
+                            .attr('name', "LicenseeID")
+                            .attr('value', LicenseeID)
+                            .appendTo(_table.frmLicensee);
+                        _dlgAddNew.selLicenseeID.remove();
                         _table.frmLicensee.submit();
                         $(this).dialog("close");
                     }
@@ -300,7 +301,7 @@ LicenseeManager = function () {
             open: function () {
                 $.ajax({
                     type: "POST",
-                    url: window.rootUrl + "Admin/Licensee/_PartyLicensee",
+                    url: domain + "Admin/Licensee/_PartyLicensee",
                     dataType: "html",
                     data: "LicenseeID=" + LicenseeID,
                     beforeSend: function () {
@@ -332,12 +333,11 @@ LicenseeManager = function () {
 
     var FillDataToEditForm = function (rowNum) {
         var row = gridOptions.bodyRows[rowNum].Columns;
-        _dlgAddNew.hidLicenseeID.val(row[_mappingColumns.LicenseeID].Value);
-        _dlgAddNew.txtLicenseeID.val(row[_mappingColumns.LicenseeID].Value);
+        _dlgAddNew.selLicenseeID.val(row[_mappingColumns.LicenseeID].Value);
         _dlgAddNew.txtLicenseeName.val(row[_mappingColumns.LicenseeName].Value);
         _dlgAddNew.txtBrandName.val(row[_mappingColumns.BrandName].Value);
         _dlgAddNew.txtCompanyName.val(row[_mappingColumns.CompanyName].Value);
-        _dlgAddNew.chkIsLabel.attr('checked', row[_mappingColumns.IsLabel].Value);
+        _dlgAddNew.chkIsDeposit.attr('checked', row[_mappingColumns.IsDeposit].Value);
         _dlgAddNew.chkIsActive.attr('checked', row[_mappingColumns.IsActive].Value);
         _dlgAddNew.chkIsOneWorkActive.attr('checked', row[_mappingColumns.IsOneWorkActive].Value);
         _dlgAddNew.txtAttnName.val(row[_mappingColumns.AttnName].Value);
@@ -348,7 +348,7 @@ LicenseeManager = function () {
     var ValidateForm = function () {
         var result = true;
         _dlgAddNew.txtValidateTips.html("");
-        if (_dlgAddNew.txtLicenseeName.val().length <= 0) {
+        if (_dlgAddNew.txtLicenseeName.is(":visible") && _dlgAddNew.txtLicenseeName.val().length <= 0) {
             _dlgAddNew.txtLicenseeName.addClass("input-validation-error");
             _dlgAddNew.txtValidateTips.html(_dlgAddNew.txtValidateTips.html() + "Licensee Name must be enter.");
             result = false;

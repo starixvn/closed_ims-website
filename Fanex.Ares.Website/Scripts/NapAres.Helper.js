@@ -49,6 +49,7 @@ NapAres.Helper = (function ($) {
             });
         },
         showMsgBox: function (msgs) {
+            NapAres.Helper.msgbox = $('#dialog-popup')
             if (this.msgbox.length == 0) {
                 this.msgbox = $(
                     '<div class="alert alert-error" id="dialog-popup">' +

@@ -1,0 +1,28 @@
+// -----------------------------------------------------------------------
+// <copyright file="IMS_Invoice_LicenseeBillingInfoSelCriteria.cs" company="Nexcel">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+// <history>
+//   <change who="Phillip.Truong" date="2013.4.23">Created</change>
+// </history>
+
+namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
+{
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// IMS Invoice LicenseeBilling Info Select Criteria.
+    /// </summary>
+    public class IMS_Invoice_LicenseeBillingInfoSelCriteria : IMS_LicenseeBillingInfoSelCriteria
+    {
+        /// <summary>
+        /// Get Setting Key.
+        /// </summary>
+        /// <returns>Return value.</returns>
+        public override string GetSettingKey()
+        {
+            return "IMS_Invoice_LicenseeBillingInfoSel";
+        }
+    }
+}

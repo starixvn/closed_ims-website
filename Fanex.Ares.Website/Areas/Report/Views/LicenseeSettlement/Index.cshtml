@@ -89,14 +89,13 @@
         </div>
     }
 </div>
-<div class="grid-title" style="clear: both; display: none;">
+<div class="grid-title" style="clear: both; display: none; margin:85px 0 0 10px;">
     <div class="grid-title-label">
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
         @*<input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />*@
         <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
-        <input id="btnPDF1" class="btnPDF" type="button" name="btnPDF1" value="" title="PDF1"  onClick="ExportPdf()" />
         @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
         
       @*  <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />*@

@@ -3,36 +3,36 @@
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
 // --------------------------------------------------------------------------
-// <history>
-//   <change who="Ricky.Nguyen" date="2012.12.12">Created</change>
-// </history>
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Security;
-using Fanex.Ares.Core.Configurations;
-using Fanex.Ares.Core.Resources;
-using Fanex.Ares.Core.Services.Impl;
-using Fanex.Ares.Core.Web;
-using Fanex.Ares.Core.Web.Controllers;
-using Fanex.Common;
-using Fanex.Logging;
-using Fanex.NAP.Core.Configuration;
-using Fanex.NAP.Core.Criteria.User;
-using Fanex.NAP.Core.Model;
-using Fanex.NAP.Core.Service.Impl;
-using Fanex.NAP.Core.Service.Interface;
-using Fanex.NAP.Core.Web;
-using Fanex.NAP.Core.Web.Auth;
-using Fanex.NAP.Core.Web.Session;
 
 namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 {
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented")]
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+    using System.Web.Security;
+    using Fanex.Ares.Core.Configurations;
+    using Fanex.Ares.Core.Resources;
+    using Fanex.Ares.Core.Services.Impl;
+    using Fanex.Ares.Core.Web;
+    using Fanex.Ares.Core.Web.Controllers;
+    using Fanex.Common;
+    using Fanex.Logging;
+    using Fanex.NAP.Core.Configuration;
+    using Fanex.NAP.Core.Criteria.User;
+    using Fanex.NAP.Core.Model;
+    using Fanex.NAP.Core.Service.Impl;
+    using Fanex.NAP.Core.Service.Interface;
+    using Fanex.NAP.Core.Web;
+    using Fanex.NAP.Core.Web.Auth;
+    using Fanex.NAP.Core.Web.Session;
+
+    /// <summary>
+    /// Login Controller.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Login Controller")]
     public class LoginController : BaseController
     {
         #region members
@@ -45,10 +45,9 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         private IFunctionService _functionService;
         private IMaintainanceService _maintenanceService;
 
-
         #endregion members
 
-        #region ctors
+        //// ctors
 
         public LoginController()
             : this(null, null, null, null, null, null, null)
@@ -71,56 +70,16 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             _currentSession = currentSession ?? new CurrentSession();
             _functionService = functionService ?? new FunctionService();
             _maintenanceService = maintenanceService ?? new MaintainanceService();
-
         }
 
-        #endregion ctors
+        //// ctors
 
-        #region helpers
+        //// sign in
 
-        private void CreateUserMenu(User user)
-        {
-            _currentSession.MenuItemList = (IList<MenuItem>)_menuItemService.GetByUserAndSiteIncludeGroup(
-                                                                                    user.Id,
-                                                                                    SiteId,
-                                                                                    Environment,
-                                                                                    true);
-            AppSession.CurrentUserMenu = _currentSession.MenuItemList;
-        }
-
-        private void CreateAuthInfo(User user)
-        {
-            var currentDomain = CurrentContext.GetCurrentDomain();
-
-            var authInfo = new AuthInfo();
-
-            authInfo.UserId = user.Id;
-            authInfo.OnUserId = this._currentSession.OnUserId;
-
-            var authTicket = new FormsAuthenticationTicket(
-                 1,
-                user.Username,
-                DateTime.Now,
-                DateTime.Now.AddMinutes(20000),
-                false,
-                authInfo.ToXml(),
-                currentDomain.Path);
-
-            string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket)
-            {
-                HttpOnly = true,
-                Path = currentDomain.Path,
-                Name = FormsAuthentication.FormsCookieName
-            };
-
-            Response.Cookies.Add(authCookie);
-        }
-
-        #endregion helpers
-
-        #region sign in
-
+        /// <summary>
+        /// Index page.
+        /// </summary>
+        /// <returns>Return view.</returns>
         [HttpGet]
         public ActionResult Index()
         {
@@ -134,6 +93,12 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Login method.
+        /// </summary>
+        /// <param name="username">User name.</param>
+        /// <param name="password">User Password.</param>
+        /// <returns>Return result.</returns>
         [HttpPost]
         public ActionResult Index(string username, string password)
         {
@@ -155,9 +120,9 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                             if ((group == null || group.IsActive) &&
                                 siteLevelList.Where(x => x.IsActive).Any())
                             {
-                                #region allows user login
+                                //// allows user login
 
-                                #region check-in user
+                                //// check-in user
 
                                 var criteria = new UserCheckInUserCriteria
                                 {
@@ -174,9 +139,9 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
 
                                 _userService.UserCheckIn(ref criteria);
 
-                                #endregion check-in user
+                               //// check-in user
 
-                                #region saves user session
+                                //// saves user session
 
                                 _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
                                 _currentSession.UserId = user.Id;
@@ -194,17 +159,18 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                 AppSession.CurrentUser = user;
                                 AppSession.RoleAccess = PermissionService.GetRoleAccess(_functionService.GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
 
-                                #endregion saves user session
+                                //// saves user session
+                                AppSession.IsShowMenu = true;
 
                                 if (AppSession.CurrentUserMenu != null &&
                                     AppSession.CurrentUserMenu.Where(m => m.Parent == null).ToList().Count > 0)
                                 {
-                                    #region redirects user
+                                    //// redirects user
 
-                                    // if the user login directly, not through NAP Hub
+                                    //// if the user login directly, not through NAP Hub
                                     if (this.IsSiteLogin == 1)
                                     {
-                                        #region checks if logging-in user is active on this site
+                                        //// checks if logging-in user is active on this site
 
                                         bool userIsActiveOnThisSite = false;
 
@@ -216,11 +182,10 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                             }
                                         }
 
-                                        #endregion checks if logging-in user is active on this site
+                                        //// checks if logging-in user is active on this site
 
                                         if (userIsActiveOnThisSite)
                                         {
-                                            //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
                                             return Redirect(FormsAuthentication.DefaultUrl);
                                         }
                                         else
@@ -231,8 +196,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                     }
                                     else
                                     {
-                                        //AppSession.ViewIPVN = PermissionService.HasPermission(AccReportFunctionKeys.ViewIPVN);
-                                        // user has access to multiple sites
+                                        //// user has access to multiple sites
                                         if (siteLevelList.Count() > 1)
                                         {
                                             return RedirectToAction("Site", "UserSite");
@@ -241,40 +205,40 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                         return RedirectToAction("GoToSite", "UserSite", new { id = siteLevelList.First().Site.Id });
                                     }
 
-                                    #endregion redirects user
+                                    //// redirects user
                                 }
                                 else
                                 {
-                                    // user has no menu permission
+                                    //// user has no menu permission
                                     DoSignOut();
                                     ViewBag.Message = Labels.You_have_no_menu_permission;
                                 }
 
-                                #endregion allows user login
+                                //// allows user login
                             }
                             else
                             {
-                                // user account was suspended on all sites
+                                //// user account was suspended on all sites
                                 if (siteLevelList.Count() > 0)
                                 {
                                     ViewBag.Message = ViewResources.Your_account_was_suspended;
                                 }
                                 else
                                 {
-                                    // logging-in user belongs to no site
+                                    //// logging-in user belongs to no site
                                     ViewBag.Message = ViewResources.You_have_no_authorization;
                                 }
                             }
                         }
                         else
                         {
-                            // wrong password
+                            //// wrong password
                             ViewBag.Message = ViewResources.Invalid_Username_or_Password;
                         }
                     }
                     else
                     {
-                        // user doesn't exist
+                        //// user doesn't exist
                         ViewBag.Message = ViewResources.Invalid_Username_or_Password;
                     }
                 }
@@ -292,10 +256,14 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             return View();
         }
 
-        #endregion sign in
+        //// sign in
 
-        #region sign out
+        //// sign out
 
+        /// <summary>
+        /// Log out method.
+        /// </summary>
+        /// <returns>Return result.</returns>
         public ActionResult LogOut()
         {
             DoSignOut();
@@ -303,20 +271,14 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             return Redirect(FormsAuthentication.LoginUrl);
         }
 
-        private void DoSignOut()
-        {
-            _userService.UserLogOut(new LogOutUserCriteria
-            {
-                OnUserId = _currentSession.OnUserId
-            });
-            FormsAuthentication.SignOut();
-            _currentSession.ClearAll();
-        }
+        //// sign out
 
-        #endregion sign out
-
-        #region re check in
-
+        //// re check in
+        
+        /// <summary>
+        /// ReCheck Login.
+        /// </summary>
+        /// <returns>Return result.</returns>
         [HttpPost]
         public ActionResult ReCheckLogin()
         {
@@ -348,21 +310,17 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                     criteria.OnUserId = Convert.ToInt32(_currentSession.OnUserId);
                     _userService.ReUserCheckIn(ref criteria);
 
-                    return Json
-                    (new
+                    return Json(new
                     {
                         OnUserId = Convert.ToInt32(_currentSession.OnUserId),
                         IsKickedOut = criteria.IsKickedOut ? "1" : "0"
                     });
-
-                    //return Json(criteria.IsKickedOut ? "1" : "0");
                 }
 
-                return Json(
-                    (new
+                return Json(new
                     {
                         IsKickedOut = "0"
-                    }));
+                    });
             }
             catch (Exception ex)
             {
@@ -371,6 +329,70 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             }
         }
 
-        #endregion re check in
+        //// re check in
+
+        //// helpers
+
+        /// <summary>
+        /// Create User Menu.
+        /// </summary>
+        /// <param name="user">User info.</param>
+        private void CreateUserMenu(User user)
+        {
+            _currentSession.MenuItemList = (IList<MenuItem>)_menuItemService.GetByUserAndSiteIncludeGroup(
+                                                                                    user.Id,
+                                                                                    SiteId,
+                                                                                    Environment,
+                                                                                    true);
+            AppSession.CurrentUserMenu = _currentSession.MenuItemList;
+        }
+
+        /// <summary>
+        /// Create Authenticate Info.
+        /// </summary>
+        /// <param name="user">User info.</param>
+        private void CreateAuthInfo(User user)
+        {
+            var currentDomain = CurrentContext.GetCurrentDomain();
+
+            var authInfo = new AuthInfo();
+
+            authInfo.UserId = user.Id;
+            authInfo.OnUserId = this._currentSession.OnUserId;
+
+            var authTicket = new FormsAuthenticationTicket(
+                 1,
+                user.Username,
+                DateTime.Now,
+                DateTime.Now.AddMinutes(20000),
+                false,
+                authInfo.ToXml(),
+                currentDomain.Path);
+
+            string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+            var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket)
+            {
+                HttpOnly = true,
+                Path = currentDomain.Path,
+                Name = FormsAuthentication.FormsCookieName
+            };
+
+            Response.Cookies.Add(authCookie);
+        }
+
+        //// helpers
+
+        /// <summary>
+        /// Do sign out.
+        /// </summary>
+        private void DoSignOut()
+        {
+            _userService.UserLogOut(new LogOutUserCriteria
+            {
+                OnUserId = _currentSession.OnUserId
+            });
+            FormsAuthentication.SignOut();
+            _currentSession.ClearAll();
+        }
     }
 }

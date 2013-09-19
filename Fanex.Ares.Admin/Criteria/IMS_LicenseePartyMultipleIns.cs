@@ -9,9 +9,12 @@
 
 namespace Fanex.Ares.Admin.Criteria
 {
-    using Fanex.NAP.Framework.Data;
     using System.Web.Mvc;
+    using Fanex.NAP.Framework.Data;
 
+    /// <summary>
+    /// Licensee Party Multiple Insert.
+    /// </summary>
     public class IMS_LicenseePartyMultipleIns : CriteriaBase
     {
         [AllowHtml]
@@ -21,11 +24,22 @@ namespace Fanex.Ares.Admin.Criteria
 
         public string ErrMsg { get; set; }
 
+        /// <summary>
+        /// Get setting key.
+        /// </summary>
+        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_LicenseePartyMultipleIns";
         }
 
-        public override bool IsValid() { return true; }
+        /// <summary>
+        /// Check is valid.
+        /// </summary>
+        /// <returns>Return result.</returns>
+        public override bool IsValid()
+        {
+            return true;
+        }
     }
 }

@@ -6,11 +6,6 @@
 
 namespace Fanex.Ares.Admin.Models.Party
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
@@ -34,11 +29,17 @@ namespace Fanex.Ares.Admin.Models.Party
 
         public string Benificiary { get; set; }
 
+        public string BenificiaryBank { get; set; }
+
         public string IBAN { get; set; }
 
         public string SwiftCode { get; set; }
 
         public string CorrespondentBank { get; set; }
+
+        public string CorrespondentAccNo { get; set; }
+
+        public string CorrespondentSwiftCode { get; set; }
 
         public string AttnName { get; set; }
 
@@ -48,22 +49,8 @@ namespace Fanex.Ares.Admin.Models.Party
 
         public string Logo { get; set; }
 
-        //public PartyModel()
-        //{
-        //    PartyName = "Boping";
-        //    PartyType = 1;
-        //    Description = "Description";
-        //    PartyFullName = " Boping Full";
-        //    AccountName = "sa";
-        //    AccountNumber = "12345";
-        //    BankName = "ACB";
-        //    Benificiary = "";
-        //    IBAN = "4325";
-        //    SwiftCode = "45674";
-        //    CorrespondentBank = "CorrespondentBank";
-        //    AttnName = "AttnName";
-        //    To1 = "New York";
-        //    To2 = "Ho chi minh";
-        //}
+        public string Company { get; set; }
+
+        public bool IsHide { get; set; }
     }
 }

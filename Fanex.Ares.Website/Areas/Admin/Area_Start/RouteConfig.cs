@@ -1,9 +1,23 @@
-﻿using System.Web.Mvc;
+﻿// --------------------------------------------------------------------------
+// <copyright file="RouteConfig.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
 
 namespace Fanex.Ares.Website.Areas.Admin.Area_Start
 {
+    using System.Web.Mvc;
+
+    /// <summary>
+    /// Route Config.
+    /// </summary>
     public class RouteConfig
     {
+        /// <summary>
+        /// Register Routes.
+        /// </summary>
+        /// <param name="areaName">Area Name.</param>
+        /// <param name="context">Area Registration Context.</param>
         public static void RegisterRoutes(string areaName, AreaRegistrationContext context)
         {
             context.MapRoute(

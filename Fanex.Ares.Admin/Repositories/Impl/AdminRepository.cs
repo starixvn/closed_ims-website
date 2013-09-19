@@ -1,4 +1,9 @@
-﻿
+﻿// --------------------------------------------------------------------------
+// <copyright file="AdminRepository.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+
 namespace Fanex.Ares.Admin.Repositories.Impl
 {
     using System;
@@ -7,8 +12,16 @@ namespace Fanex.Ares.Admin.Repositories.Impl
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.Data;
 
-    public class AdminRepository: IAdminRepository
+    /// <summary>
+    /// Admin Repository.
+    /// </summary>
+    public class AdminRepository : IAdminRepository
     {
+        /// <summary>
+        /// Check User Online Status.
+        /// </summary>
+        /// <param name="criteria">User Status.</param>
+        /// <returns>Return result.</returns>
         public bool CheckUserOnlineStatus(AccountingUserCheckOnlineStatusCriteria criteria)
         {
             try
@@ -23,6 +36,7 @@ namespace Fanex.Ares.Admin.Repositories.Impl
             {
                 LoggingHandler.Log(ex);
             }
+
             return false;
         }
     }

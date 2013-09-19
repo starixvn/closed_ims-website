@@ -1,7 +1,5 @@
-﻿/// <reference path="../../../../../Scripts/NapTicketControl.js" />
-var domain;
+﻿/// <reference path="../../../../../Scripts/NapAres.js" />
 $(document).ready(function () {
-    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {
@@ -156,7 +154,7 @@ function GetProductByLicenseeID(licenseeID) {
 
 function GetCurrencyByLicenseeID(licenseeID) {
     $.ajax({
-        url: domain + "Report/LicenseeSettlement/GetCurencyByLicenseeID",
+        url: domain + "Report/LicenseeSettlement/GetCurrencyByLicenseeID",
         type: "POST",
         data: "&licenseeID=" + $('#LicenseeId').val(),
         success: function (data, textStatus, jqXHR) {
