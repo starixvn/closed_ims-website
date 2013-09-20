@@ -43,26 +43,27 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 {
                     var res = new Operator
                     {
-                        PartyID = Convert.ToInt32(r["PartyID"]),
-                        PartyName = Convert.ToString(r["PartyName"]),
-                        PartyType = Convert.ToInt32(r["PartyType"]),
-                        Description = Convert.ToString(r["Description"]),
-                        PartyFullName = Convert.ToString(r["PartyFullName"]),
-                        AccountNumber = Convert.ToString(r["AccountNumber"]),
-                        AccountName = Convert.ToString(r["AccountName"]),
-                        BankName = Convert.ToString(r["BankName"]),
-                        Benificiary = Convert.ToString(r["Benificiary"]),
-                        BenificiaryBank = Convert.ToString(r["BenificiaryBank"]),
-                        IBAN = Convert.ToString(r["IBAN"]),
-                        SwiftCode = Convert.ToString(r["SwiftCode"]),
-                        CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
-                        Company = Convert.ToString(r["Company"]),
-                        CorrespondentAccNo = Convert.ToString(r["CorrespondentAccNo"]),
-                        CorrespondentSwiftCode = Convert.ToString(r["CorrespondentSwiftCode"]),
-                        AttnName = Convert.ToString(r["AttnName"]),
-                        To1 = Convert.ToString(r["To1"]),
-                        To2 = Convert.ToString(r["To2"]),
-                        Logo = Convert.ToString(r["Logo"]),
+                     
+                        PartyID = Converter.To<Int32>(r["PartyID"]),
+                        PartyName = Converter.ToString2(r["PartyName"]),
+                        PartyType = Converter.To<Int32>(r["PartyType"]),
+                        Description = Converter.ToString2(r["Description"]),
+                        PartyFullName = Converter.ToString2(r["PartyFullName"]),
+                        AccountNumber = Converter.ToString2(r["AccountNumber"]),
+                        AccountName = Converter.ToString2(r["AccountName"]),
+                        BankName = Converter.ToString2(r["BankName"]),
+                        Benificiary = Converter.ToString2(r["Benificiary"]),
+                        BenificiaryBank = Converter.ToString2(r["BenificiaryBank"]),
+                        IBAN = Converter.ToString2(r["IBAN"]),
+                        SwiftCode = Converter.ToString2(r["SwiftCode"]),
+                        CorrespondentBank = Converter.ToString2(r["CorrespondentBank"]),
+                        Company = Converter.ToString2(r["Company"]),
+                        CorrespondentAccNo = Converter.ToString2(r["CorrespondentAccNo"]),
+                        CorrespondentSwiftCode = Converter.ToString2(r["CorrespondentSwiftCode"]),
+                        AttnName = Converter.ToString2(r["AttnName"]),
+                        To1 = Converter.ToString2(r["To1"]),
+                        To2 = Converter.ToString2(r["To2"]),
+                        Logo = Converter.ToString2(r["Logo"]),
                         IsHide = Convert.ToBoolean(r["IsHide"])
                     };
 
@@ -93,13 +94,13 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 {
                     var res = new Licensee
                     {
-                        LicenseeID = Convert.ToInt32(r["LicenseeID"]),
+                        LicenseeID = Converter.To<Int32>(r["LicenseeID"]),
                         LicenseeName = r["LicenseeName"].ToString(),
-                        BrandName = Convert.ToString(r["BrandName"]),
-                        CompanyName = Convert.ToString(r["CompanyName"]),
+                        BrandName = Converter.ToString2(r["BrandName"]),
+                        CompanyName = Converter.ToString2(r["CompanyName"]),
                         AttnName = r["AttnName"].ToString(),
-                        To1 = Convert.ToString(r["To1"]),
-                        To2 = Convert.ToString(r["To2"])
+                        To1 = Converter.ToString2(r["To1"]),
+                        To2 = Converter.ToString2(r["To2"])
                     };
 
                     return res;
