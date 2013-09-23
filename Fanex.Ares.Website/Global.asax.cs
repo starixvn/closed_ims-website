@@ -14,6 +14,7 @@ namespace Fanex.Ares.Website
     using Fanex.Ares.Core.Web.ViewEngine;
     using Fanex.Ares.Website.App_Start;
     using Fanex.Data.Configuration;
+    using Fanex.Ares.Core.Web;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
@@ -38,6 +39,7 @@ namespace Fanex.Ares.Website
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             ViewEngines.Engines.Add(new CustomViewEngine());
+            ModelBinders.Binders.DefaultBinder = new EmptyStringModelBinder();
         }
 
         /// <summary>

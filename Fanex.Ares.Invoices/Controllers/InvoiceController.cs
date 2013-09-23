@@ -18,6 +18,7 @@ namespace Fanex.Ares.Invoice.Controllers
     using DNAide.Core;
     using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Services.Impl;
+    using Fanex.Ares.Core.Web;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
     using Fanex.Ares.Invoice.Criteria.Invoice;
@@ -151,7 +152,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// <returns>Return Result.</returns>
         [HttpPost]
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
-        public JsonResult SaveInvoice(InvoiceModel invoiceModel)
+        public JsonResult SaveInvoice([ModelBinder(typeof(EmptyStringModelBinder))] InvoiceModel invoiceModel)
         {
             var insertResult = this._invoiceService.SaveInvoice(invoiceModel);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave", invoiceModel);
