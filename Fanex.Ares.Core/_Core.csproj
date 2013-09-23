@@ -142,6 +142,7 @@
     <Compile Include="Web\CustomResults\CsvResult.cs" />
     <Compile Include="Web\CustomResults\ExcelResult.cs" />
     <Compile Include="Web\CustomResults\SpreadSheetResult.cs" />
+    <Compile Include="Web\EmptyStringModelBinder.cs" />
     <Compile Include="Web\Security\AuthenticateAction.cs" />
     <Compile Include="Web\SessionManager.cs" />
     <Compile Include="Web\ViewEngine\CustomViewEngine.cs" />

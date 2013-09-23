@@ -144,6 +144,8 @@ var invoiceApp = {
             invoiceApp.filter.getInvoiceNo();
              $(invoiceApp.filterControls.ddlCurrency).removeAttr('disabled');
             $(invoiceApp.filterControls.ddlCurrency).find('option').remove();
+             $('#saveID').addClass('ui-state-disabled').attr('disabled', 'disabled');
+            $('#reviewID').addClass('ui-state-disabled').attr('disabled', 'disabled');
         });
 
         filterControl.txtInvoiceNo.change(function () {
