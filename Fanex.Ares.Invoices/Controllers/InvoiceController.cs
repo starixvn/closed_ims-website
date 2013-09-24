@@ -269,6 +269,7 @@ namespace Fanex.Ares.Invoice.Controllers
             }
 
             string mainInvoicePagePath1 = "_Excel";
+            excelCssFilePath.Insert(0, HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
             pageOrientationList.Insert(0, WorkbookManager.PageOrientation.Portrait);
             string mainInvoicePage1 = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath1, invoice, true);
             invoice.HTMLReportList.Insert(0, mainInvoicePage1);

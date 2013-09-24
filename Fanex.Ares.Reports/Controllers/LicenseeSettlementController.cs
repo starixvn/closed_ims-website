@@ -1,4 +1,4 @@
-﻿// --------------------------------------------------------------------------
+﻿﻿// --------------------------------------------------------------------------
 // <copyright file="LicenseeSettlementController.cs" company="Nexcel Solutions Vietnam">
 // Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
 // </copyright>
@@ -37,11 +37,11 @@ namespace Fanex.Ares.Report.Controllers
     [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Licensee Settlement Controller.")]
     [NapSuperAuth]
     public class LicenseeSettlementController : BaseController
-    {       
+    {
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
-       
+
         private readonly StandardPdfRenderer _standardPdfRenderer;
-        
+
         private ILicenseeSettlementService _service;
 
         #region View path
@@ -111,7 +111,7 @@ namespace Fanex.Ares.Report.Controllers
             isAutoFitList.Add(true);
 
             string mainPagePath = "_Excel";
-            excelCssFilePath.Insert(0, HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\test\stylesheet.css"));
+            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
             pageOrientationList.Insert(0, WorkbookManager.PageOrientation.Portrait);
             string mainPage = HtmlHelperExtensions.RenderViewToString(this, mainPagePath, model, true);
             htmlList.Insert(0, mainPage);
@@ -170,7 +170,7 @@ namespace Fanex.Ares.Report.Controllers
         /// <param name="documentType1">Document type.</param>
         /// <returns>Return result.</returns>
         public ActionResult ExportDocument1(string documentType1)
-        {            
+        {
             var student = JsonConvert.DeserializeObject<Product>(documentType1);
             return new EmptyResult();
         }
