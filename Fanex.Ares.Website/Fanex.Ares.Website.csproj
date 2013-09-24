@@ -678,8 +678,9 @@
     <Content Include="Areas\Invoice\Views\Invoice\Products\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Templates\Star Express\_Star Express_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index_Angular.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\excel.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Excel.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\test\test.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_Excel.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -810,7 +811,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63113</DevelopmentServerPort>
+          <DevelopmentServerPort>63851</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

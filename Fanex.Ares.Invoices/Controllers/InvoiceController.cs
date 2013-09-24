@@ -268,9 +268,16 @@ namespace Fanex.Ares.Invoice.Controllers
                 }
             }
 
+            string mainInvoicePagePath1 = "_Excel";
+            pageOrientationList.Insert(0, WorkbookManager.PageOrientation.Portrait);
+            string mainInvoicePage1 = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath1, invoice, true);
+            invoice.HTMLReportList.Insert(0, mainInvoicePage1);
+            isAutoFitList.Insert(0, false);
+
+
             var workbook = new WorkbookManager();
             WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
-            var ms = workbook.CreateDocument(invoice.HTMLReportList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList);
+            var ms = workbook.CreateDocument(invoice.HTMLReportList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList, invoice.Operator.PartyName);
             if (ms != null)
             {
                 //// return the filestream. Rewind the memory stream to the beginning
