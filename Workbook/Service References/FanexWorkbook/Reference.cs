@@ -15,18 +15,108 @@ namespace Fanex.Workbooks.FanexWorkbook {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="DocumentSetting", Namespace="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Entities")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DocumentFile", Namespace="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Entities")]
     [System.SerializableAttribute()]
-    public partial class DocumentSetting : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class DocumentFile : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Fanex.Workbooks.FanexWorkbook.WorkBookManagerDocumentType DocumentTypeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string FileNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private Fanex.Workbooks.FanexWorkbook.PageSetting MainPageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.PageSetting> PageDetailListField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Fanex.Workbooks.FanexWorkbook.WorkBookManagerDocumentType DocumentType {
+            get {
+                return this.DocumentTypeField;
+            }
+            set {
+                if ((this.DocumentTypeField.Equals(value) != true)) {
+                    this.DocumentTypeField = value;
+                    this.RaisePropertyChanged("DocumentType");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string FileName {
+            get {
+                return this.FileNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.FileNameField, value) != true)) {
+                    this.FileNameField = value;
+                    this.RaisePropertyChanged("FileName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public Fanex.Workbooks.FanexWorkbook.PageSetting MainPage {
+            get {
+                return this.MainPageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MainPageField, value) != true)) {
+                    this.MainPageField = value;
+                    this.RaisePropertyChanged("MainPage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.PageSetting> PageDetailList {
+            get {
+                return this.PageDetailListField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.PageDetailListField, value) != true)) {
+                    this.PageDetailListField = value;
+                    this.RaisePropertyChanged("PageDetailList");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PageSetting", Namespace="http://schemas.datacontract.org/2004/07/Fanex.Workbook.Service.Entities")]
+    [System.SerializableAttribute()]
+    public partial class PageSetting : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string CssContentField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private Fanex.Workbooks.FanexWorkbook.WorkBookManagerDocumentType DocumentTypeField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string HtmlContentField;
@@ -56,19 +146,6 @@ namespace Fanex.Workbooks.FanexWorkbook {
                 if ((object.ReferenceEquals(this.CssContentField, value) != true)) {
                     this.CssContentField = value;
                     this.RaisePropertyChanged("CssContent");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public Fanex.Workbooks.FanexWorkbook.WorkBookManagerDocumentType DocumentType {
-            get {
-                return this.DocumentTypeField;
-            }
-            set {
-                if ((this.DocumentTypeField.Equals(value) != true)) {
-                    this.DocumentTypeField = value;
-                    this.RaisePropertyChanged("DocumentType");
                 }
             }
         }
@@ -213,7 +290,7 @@ namespace Fanex.Workbooks.FanexWorkbook {
         string GetData(int value);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkBookService/CreateDocument", ReplyAction="http://tempuri.org/IWorkBookService/CreateDocumentResponse")]
-        byte[] CreateDocument(System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.DocumentSetting> input);
+        byte[] CreateDocument(Fanex.Workbooks.FanexWorkbook.DocumentFile input);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IWorkBookService/GetDataUsingDataContract", ReplyAction="http://tempuri.org/IWorkBookService/GetDataUsingDataContractResponse")]
         Fanex.Workbooks.FanexWorkbook.CompositeType GetDataUsingDataContract(Fanex.Workbooks.FanexWorkbook.CompositeType composite);
@@ -250,7 +327,7 @@ namespace Fanex.Workbooks.FanexWorkbook {
             return base.Channel.GetData(value);
         }
         
-        public byte[] CreateDocument(System.Collections.Generic.List<Fanex.Workbooks.FanexWorkbook.DocumentSetting> input) {
+        public byte[] CreateDocument(Fanex.Workbooks.FanexWorkbook.DocumentFile input) {
             return base.Channel.CreateDocument(input);
         }
         

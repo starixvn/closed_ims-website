@@ -44,7 +44,13 @@ namespace Fanex.Ares.Report.Services.Interface
             }
 
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            return model.LicenseeInfor.LicenseeName + "_" + model.LicenseeInfor.ProductName + "_" + "Settlement_From_" + model.LicenseeInfor.FromDate.ToAresDayMonthYear() + "_To_" + model.LicenseeInfor.ToDate.ToAresDayMonthYear();
+            
+            return string.Format(
+                "{0}_{1}_Settlement_From_{2}_To_{3}",
+                model.LicenseeInfor.LicenseeName,
+                model.LicenseeInfor.ProductName,
+                model.LicenseeInfor.FromDate.ToAresDayMonthYear(),
+                model.LicenseeInfor.ToDate.ToAresDayMonthYear());
         }
 
         #region Generate Report
@@ -80,28 +86,19 @@ namespace Fanex.Ares.Report.Services.Interface
                 var licenseeItem = listLicensee.Where(m => m.Item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
                 criteria.LicenseeName = Convert.ToString(licenseeItem.Extension["LicenseeName"]);
                 model.LicenseeInfor.LicenseeName = licenseeItem.Item.Text;
-                ////model.LicenseeInfor.ProductName = listProduct.Where(m => m.Value == criteria.Product.ToString()).FirstOrDefault<SelectListItem>().Text;
                 model.LicenseeInfor.ProductName = criteria.ProductName;
                 model.LicenseeInfor.SettlementDate = criteria.ToDate;
-
                 model.Report = this.GetLicenseeReport(criteria);
-
-                //// Exchange Rate
-                
+                //// Exchange Rate                
                 model.ExchangeList = new List<ViewModels.ExchangeRate>();
-
                 var exchangeRatecurrencies = string.Empty;
                 exchangeRatecurrencies = string.Join(",", model.Report.EntityList.Select(m => m.Currency).Distinct().ToArray());
-
                 exchangeRateCriteria.Currency = exchangeRatecurrencies;
                 exchangeRateCriteria.ExchangeDate = criteria.ToDate;
                 exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
                 exchangeRateCriteria.BaseCurrencyName = listBaseCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
-
                 var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
-
                 model.ExchangeList = exchangeList;
-
                 model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
                 SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport, model);
             }

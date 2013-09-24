@@ -16,7 +16,7 @@ namespace Fanex.Ares.Core.Extensions
     /// <summary>
     /// List Extensions.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "List Extensions")]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Reviewd.")]
     public static class ListExtensions
     {
         /// <summary>
@@ -70,7 +70,12 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="textPriorField">Display prior text Field reference from Source Object. If this field is empty, the textField will take place.</param>
         /// <param name="selectedValue">Selected Value.</param>
         /// <returns>Return value.</returns>
-        public static IEnumerable<SelectListItem> ToSelectListItem<T>(this IEnumerable<T> source, string valueField, string textField, string textPriorField = "", string selectedValue = null)
+        public static IEnumerable<SelectListItem> ToSelectListItem<T>(
+            this IEnumerable<T> source, 
+            string valueField, 
+            string textField, 
+            string textPriorField = "", 
+            string selectedValue = null)
         {
             foreach (var item in source)
             {

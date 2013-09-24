@@ -23,7 +23,7 @@ namespace Fanex.Ares.Core.Extensions
             Xlsx, 
             
             /// <summary>
-            /// The Pdf type.
+            /// The P.d.f type.
             /// </summary>
             Pdf
         }

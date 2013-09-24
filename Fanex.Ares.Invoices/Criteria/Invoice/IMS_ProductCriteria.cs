@@ -1,0 +1,18 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IMS_ProductCriteria.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Ares.Invoice.Criteria.Invoice
+{
+    /// <summary>
+    /// Product criteria.
+    /// </summary>
+    public class IMS_ProductCriteria
+    {
+        public string ProductName { get; set; }
+
+        public int ProductID { get; set; }
+    }
+}

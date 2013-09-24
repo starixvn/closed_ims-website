@@ -1,0 +1,22 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IMS_DateRangeCriteria.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Ares.Invoice.Criteria.Invoice
+{
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// Date range for period time.
+    /// </summary>
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
+    public class IMS_DateRangeCriteria
+    {
+        public DateTime FromDate { get; set; }
+
+        public DateTime ToDate { get; set; }
+    }
+}

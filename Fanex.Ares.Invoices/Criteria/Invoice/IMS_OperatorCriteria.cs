@@ -1,0 +1,37 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="IMS_OperatorCriteria.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Ares.Invoice.Service.Imp
+{
+    using System.Diagnostics.CodeAnalysis;
+    using Fanex.NAP.Framework.Data;
+
+    /// <summary>
+    /// TODO: Update summary.
+    /// </summary>
+    public class IMS_OperatorCriteria : CriteriaBase
+    {
+        public int PartyID { get; set; }
+
+        /// <summary>
+        /// Gets the setting key.
+        /// </summary>
+        /// <returns>System String.</returns>
+        public override string GetSettingKey()
+        {
+            return "IMS_PartyInfoSel";
+        }
+
+        /// <summary>
+        /// Determines whether this instance is valid.
+        /// </summary>
+        /// <returns><c>true</c> if this instance is valid; otherwise, <c>false</c>.</returns>
+        public override bool IsValid() 
+        { 
+            return true; 
+        }
+    }
+}

@@ -71,6 +71,10 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         /// <param name="onuserId">On user id.</param>
         /// <param name="time">Log in time.</param>
         /// <returns>Return result.</returns>
+        [SuppressMessage(
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         [AllowAnonymous]
         [HttpGet]
         public ActionResult Index(string userId, string onuserId, string time)
@@ -79,13 +83,11 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
             time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
             string currentTime = _userService.UserSSOGetTime();
-
             var expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
 
             if (expiration.TotalSeconds <= _timeExipration)
             {
                 //// do SSO check-in
-
                 var criteria = new UserSSOCheckInUserCriteria
                 {
                     UserId = Convert.ToInt32(userId),
@@ -100,25 +102,24 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                     Domain = CurrentContext.DomainName,
                     Platform = CurrentContext.Platform
                 };
-
                 _userService.UserSSOCheckIn(ref criteria);
 
                 //// do SSO check-in
-
                 if (criteria.OnUserId != 0)
                 {
                     var user = _userService.GetById(criteria.UserId) as User;
-
                     //// saves user session & auth info
-
                     _currentSession.UserId = user.Id;
                     _currentSession.Username = user.Username;
                     _currentSession.OnUserId = criteria.OnUserId;
                     _currentSession.SessionId = Session.SessionID.ToString();
                     _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
-
                     AppSession.CurrentUser = user;
-                    AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
+                    AppSession.RoleAccess = PermissionService.GetRoleAccess(
+                        (new FunctionService()).GetByUserAndSiteIncludeGroup(
+                        user.Id, 
+                        NapSettings.Settings.SiteId, 
+                        NapSettings.Settings.Environment));
                     
                     if (this.SiteId != 0)
                     {
@@ -131,9 +132,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                     }
 
                     CreateAuthInfo(user);
-
                     AppSession.IsShowMenu = true;
-                    //// saves user session & auth info
                     return Redirect(FormsAuthentication.DefaultUrl);
                 }
             }
@@ -148,6 +147,10 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         /// <param name="onuserId">On user id.</param>
         /// <param name="redirectToUrl">Redirect page.</param>
         /// <returns>Return result.</returns>
+        [SuppressMessage(
+            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
+            "SP2101:MethodMustNotContainMoreLinesThan",
+            Justification = "Reviewed. Suppression is OK here.")]
         [AllowAnonymous]
         [HttpGet]
         public ActionResult AccountingLogin(string username, string onuserId, string redirectToUrl)
@@ -158,32 +161,30 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                 username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
                 onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
                 //// do SSO check-in
-
                 var criteria = new AccountingUserCheckOnlineStatusCriteria
                 {
                     IsKickedOut = false,
                     On_UserID = Convert.ToInt32(onuserId)
                 };
-
                 var onlineStatus = _adminService.CheckUserOnlineStatus(criteria);
-
-                //// do SSO check-in
-
+                
                 if (onlineStatus)
                 {
                     var user = _userService.GetByUsername(username) as User;
                     if (user != null)
                     {
                         //// saves user session & auth info
-
                         _currentSession.UserId = user.Id;
                         _currentSession.Username = user.Username;
                         _currentSession.OnUserId = criteria.On_UserID;
                         _currentSession.SessionId = Session.SessionID.ToString();
                         _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
-
                         AppSession.CurrentUser = user;
-                        AppSession.RoleAccess = PermissionService.GetRoleAccess((new FunctionService()).GetByUserAndSiteIncludeGroup(user.Id, NapSettings.Settings.SiteId, NapSettings.Settings.Environment));
+                        AppSession.RoleAccess = PermissionService.GetRoleAccess(
+                            (new FunctionService()).GetByUserAndSiteIncludeGroup(
+                            user.Id, 
+                            NapSettings.Settings.SiteId, 
+                            NapSettings.Settings.Environment));
                         
                         if (this.SiteId != 0)
                         {
@@ -196,9 +197,6 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                         }
 
                         CreateAuthInfo(user);
-
-                        //// saves user session & auth info
-
                         AppSession.IsShowMenu = false;
                         var controllerMapping = ControllerMapping.Instance.ControllerSetting;
                         if (controllerMapping != null)
