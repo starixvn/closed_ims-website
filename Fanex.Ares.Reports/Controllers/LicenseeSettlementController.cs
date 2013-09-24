@@ -109,9 +109,17 @@ namespace Fanex.Ares.Report.Controllers
             excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
             List<bool> isAutoFitList = new List<bool>();
             isAutoFitList.Add(true);
+
+            string mainPagePath = "_Excel";
+            excelCssFilePath.Insert(0, HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\test\stylesheet.css"));
+            pageOrientationList.Insert(0, WorkbookManager.PageOrientation.Portrait);
+            string mainPage = HtmlHelperExtensions.RenderViewToString(this, mainPagePath, model, true);
+            htmlList.Insert(0, mainPage);
+            isAutoFitList.Insert(0, false);
+
             var workbook = new WorkbookManager();
 
-            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList);
+            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList, model.LicenseeInfor.LicenseeName);
             if (ms != null)
             {
                 // return the filestream
