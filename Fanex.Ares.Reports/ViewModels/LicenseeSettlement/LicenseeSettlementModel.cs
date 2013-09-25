@@ -8,6 +8,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Ares.Report.ViewModels;
 
     /// <summary>
@@ -33,6 +34,10 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
     /// <summary>
     /// Report Model.
     /// </summary>
+    [SuppressMessage(
+        "StyleCop.CSharp.MaintainabilityRules",
+        "SA1402:FileMayOnlyContainASingleClass",
+        Justification = "Reviewed. Suppression is OK here.")]
     [Serializable]
     public class Report
     {

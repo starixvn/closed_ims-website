@@ -47,22 +47,22 @@ namespace Fanex.Ares.Core.Extensions
 
             return string.Empty;
         }
-
+        
         /// <summary>
-        /// Format a date time value to string (MMM dd, yyyy).
+        /// To the short format date.
         /// </summary>
-        /// <param name="date">Date parameter.</param>
-        /// <returns>Return value.</returns>
+        /// <param name="date">The formatting date.</param>
+        /// <returns>System String.</returns>
         public static string ToShortFormatedDate(this DateTime date)
         {
             return date.ToString(Constants._SHORT_DATE_FORMAT);
         }
 
         /// <summary>
-        /// Format a null able date time value to string (MMM dd, yyyy hh:mm).
+        /// To the long formatting date.
         /// </summary>
-        /// <param name="date">Date parameter.</param>
-        /// <returns>Return value.</returns>
+        /// <param name="date">The formatting date.</param>
+        /// <returns>System String.</returns>
         public static string ToLongFormatedDate(this DateTime? date)
         {
             if (date.HasValue)
@@ -72,22 +72,22 @@ namespace Fanex.Ares.Core.Extensions
 
             return string.Empty;
         }
-
+        
         /// <summary>
-        /// Format a date time value to string (MMM dd, yyyy hh:mm).
+        /// To the long formatting date.
         /// </summary>
-        /// <param name="date">Date parameter.</param>
-        /// <returns>Return value.</returns>
+        /// <param name="date">The formatting date.</param>
+        /// <returns>System String.</returns>
         public static string ToLongFormatedDate(this DateTime date)
         {
             return date.ToString(Constants._LONG_DATE_FORMAT);
         }
 
         /// <summary>
-        /// Format a null able date time value to string (dd-MMM).
+        /// To the month and day.
         /// </summary>
-        /// <param name="date">Date parameter.</param>
-        /// <returns>Return value.</returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>System String.</returns>
         public static string ToMonthAndDay(this DateTime? date)
         {
             if (date.HasValue)
@@ -99,20 +99,20 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
-        /// Foarmat da date time value to string (dd-MMM).
+        /// To the month and day.
         /// </summary>
-        /// <param name="date">Date parameter.</param>
-        /// <returns>Return value.</returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>System String.</returns>
         public static string ToMonthAndDay(this DateTime date)
         {
             return date.ToString("dd-MMM");
         }
 
         /// <summary>
-        /// Format a null able date time value to string (MMM yyyy).
+        /// To the month year.
         /// </summary>
-        /// <param name="date">Date parameter.</param>
-        /// <returns>Return value.</returns>
+        /// <param name="date">The date value.</param>
+        /// <returns>System String.</returns>
         public static string ToMonthYear(this DateTime? date)
         {
             if (date.HasValue)
@@ -127,14 +127,14 @@ namespace Fanex.Ares.Core.Extensions
         /// Format date time value to string.
         /// </summary>
         /// <param name="date">Date parameter.</param>
-        /// <returns>String with format (MMM yyyy).</returns>
+        /// <returns>String with format.</returns>
         public static string ToMonthYear(this DateTime date)
         {
             return date.ToString(Constants._MONTH_YEAR_DATE_FORMAT);
         }
 
         /// <summary>
-        /// Format Short Date (MM/dd/yyyy).
+        /// Format Short Date.
         /// </summary>
         /// <param name="date">Date parameter.</param>
         /// <returns>Return value.</returns>
@@ -149,7 +149,7 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
-        /// Format a datetime value to string (MM/dd/yyyy).
+        /// Format a date-time value to string.
         /// </summary>
         /// <param name="date">Date parameter.</param>
         /// <returns>Return value.</returns>
@@ -159,7 +159,7 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
-        /// Format a datetime value to string (MM/dd/yyyy).
+        /// Format a date-time value to string.
         /// </summary>
         /// <param name="date">Date parameter.</param>
         /// <returns>Return value.</returns>
@@ -187,14 +187,14 @@ namespace Fanex.Ares.Core.Extensions
         /// Format date time value to string.
         /// </summary>
         /// <param name="date">Date parameter.</param>
-        /// <returns>String with format (MM/yyyy).</returns>
+        /// <returns>String with format.</returns>
         public static string ToMonthYearWithSlash(this DateTime date)
         {
             return date.ToString(Constants._MONTH_YEAR_DATE_FORMAT_WITH_SLASH);
         }
 
         /// <summary>
-        /// Foarmat da date time value to string (dd-MMM-yy).
+        /// Format da date time value to string.
         /// </summary>
         /// <param name="date">Date parameter.</param>
         /// <returns>Return value.</returns>
@@ -204,7 +204,7 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
-        /// Format date time value to string (MMM-yy).
+        /// Format date time value to string.
         /// </summary>
         /// <param name="date">Date parameter.</param>
         /// <returns>Return value.</returns>

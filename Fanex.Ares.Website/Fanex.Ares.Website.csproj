@@ -47,9 +47,6 @@
     <Reference Include="Enyim.Caching">
       <HintPath>..\_Dependency\FanexLibs\Enyim.Caching.dll</HintPath>
     </Reference>
-    <Reference Include="Fanex.Ares.Core">
-      <HintPath>..\Fanex.Ares.Core\bin\Debug\Fanex.Ares.Core.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
@@ -230,26 +227,28 @@
     <Content Include="Areas\Invoice\Styles\Images\Checkbox.gif" />
     <Content Include="Areas\Invoice\Styles\Images\COZNI LIMITED.png" />
     <Content Include="Areas\Invoice\Styles\Images\LDL.png" />
-    <Content Include="Areas\Invoice\Styles\Images\Lupine.png" />
+    <Content Include="Areas\Invoice\Styles\Images\Lupine.jpg" />
+    <Content Include="Areas\Invoice\Styles\Images\StarExpress.jpg" />
     <Content Include="Areas\Invoice\Styles\Images\Startlit-logo.png" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Styles\LicenseeSettlementPDF.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Acqua-logo.png" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Aldford-logo.png" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\BCH.png" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Boping-logo.png" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Checkbox.gif" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\COZNI LIMITED.png" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\LDL.png" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Lupine.png" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\Startlit-logo.png" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\angular.min.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\inovice.angular.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.filter.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.helper.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Scripts\JScript1.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\sprite.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\Invoice.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\close.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Styles\InvoiceWeb.css" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\filelist.xml" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\sheet001.htm" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\sheet002.htm" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\sheet003.htm" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\stylesheet.css" />
+    <None Include="Areas\Invoice\Views\Invoice\test\tabstrip.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Scripts\LicenseeSettlement.js" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementWeb.css" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement_bk.css" />
@@ -647,7 +646,6 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\_SportsbookBK.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\PrintReport.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook3.cshtml" />
@@ -659,13 +657,11 @@
     <Content Include="Areas\Admin\Views\Licensee\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\_PartyLicensee.cshtml" />
     <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Number Game.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Sportsbook.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Review.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\BCH\_BCH_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\BHC\_BHC_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\Cozni\_Cozni_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\LUP\_LUP_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Preview.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\BCH\_BCH_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\BHC\_BHC_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\Cozni\_Cozni_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\LUP\_LUP_Software-Data Fees.cshtml" />
     <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
@@ -673,9 +669,18 @@
     <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
     <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Template\LDL\_LDL_Software-Data Fees.cshtml" />
-    <Content Include="App_Browsers\firefox.browser" />
-    <Content Include="App_Browsers\ie.browser" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\LDL\_LDL_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Invoice_Angular.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Products\_Virtual Sports.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Products\_Sportsbook.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Products\_Number Game.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Products\_Live Casino.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Products\_BA.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\Star Express\_Star Express_Software-Data Fees.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Index_Angular.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\_Excel.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\test\test.cshtml" />
+    <Content Include="Areas\Report\Views\LicenseeSettlement\_Excel.cshtml" />
     <None Include="Content\base\common.less" />
     <None Include="Content\base\fonts.less" />
     <None Include="Content\base\style.less" />
@@ -684,6 +689,7 @@
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
+    <Content Include="Test\angular.htm" />
     <Content Include="Test\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -743,7 +749,9 @@
     <Content Include="Web.Configuration\PdfHelper.config" />
     <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
     <Content Include="Views\Common\AccessDenied.cshtml" />
-    <Content Include="Web.Configuration\DomainMapping.config" />
+    <Content Include="Web.Configuration\DomainMapping.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Configuration\ControllerMapping.config" />
     <Content Include="Views\Common\PageNotFound.cshtml" />
     <Content Include="Views\Common\Error.cshtml" />
@@ -803,7 +811,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>63113</DevelopmentServerPort>
+          <DevelopmentServerPort>63851</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

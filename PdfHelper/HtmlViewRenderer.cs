@@ -31,7 +31,10 @@ namespace Fanex.Core.PdfHelper
             {
                 var fakeResponse = new HttpResponse(responseWriter);
                 var fakeContext = new HttpContext(HttpContext.Current.Request, fakeResponse);
-                var fakeControllerContext = new ControllerContext(new HttpContextWrapper(fakeContext), controller.ControllerContext.RouteData, controller.ControllerContext.Controller);
+                var fakeControllerContext = new ControllerContext(
+                    new HttpContextWrapper(fakeContext), 
+                    controller.ControllerContext.RouteData, 
+                    controller.ControllerContext.Controller);
 
                 var oldContext = HttpContext.Current;
                 HttpContext.Current = fakeContext;

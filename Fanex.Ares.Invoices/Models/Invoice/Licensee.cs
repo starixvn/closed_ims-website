@@ -1,0 +1,37 @@
+﻿// -----------------------------------------------------------------------
+// <copyright file="Licensee.cs" company="Microsoft">
+// TODO: Update copyright text.
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Fanex.Ares.Invoice.Models.Invoice
+{
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+
+    /// <summary>
+    /// Licensee model.
+    /// </summary>
+    [Serializable]
+    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Run stylecop")]
+    public class Licensee
+    {
+        public string LicenseeName { get; set; }
+
+        public int LicenseeID { get; set; }
+
+        public string BrandName { get; set; }
+
+        public string CompanyName { get; set; }
+
+        public bool IsLabel { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public string AttnName { get; set; }
+
+        public string To1 { get; set; }
+
+        public string To2 { get; set; }
+    }
+}

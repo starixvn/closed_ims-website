@@ -21,7 +21,7 @@ br
 	mso-rotate:0;
 	mso-background-source:auto;
 	mso-pattern:auto;
-	color:black;
+	color:gray;
 	font-size:10.0pt;
 	font-weight:400;
 	font-style:normal;
@@ -55,7 +55,7 @@ td
 	padding:0px;
 	mso-ignore:padding;
 	color:windowtext;
-	font-size:18.0pt;
+	font-size:9.0pt;
 	font-weight:400;
 	font-style:normal;
 	text-decoration:none;
@@ -64,7 +64,7 @@ td
 	mso-number-format:General;
 	text-align:general;
 	vertical-align:bottom;
-	border:none;
+	border: none;
 	mso-background-source:auto;
 	mso-pattern:auto;
 	mso-protection:locked visible;
@@ -73,98 +73,93 @@ td
 
 
 
-html {
-        overflow: auto;
-}
-
-
-.fontSize16
+.font10
 {
-    font-size: 16pt;
+    font-size: 10pt;
 }
 
-.fontSize12
+.font20
 {
-    font-size: 16pt;
+    font-size: 20pt;
 }
 
-
+/* T: Top; R: Right; B: bottom; L: left*/
 .border-TRBL
 {
-    border: 1pt solid black !important;
+    border: .5pt solid gray !important;
 }
 
 .border-L
 {
-    border-left: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
 }
 
 .border-R
 {
-    border-right: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
 }
 .border-B
 {
-    border-bottom: 1pt solid black !important;
+    border-bottom: .5pt solid gray !important;
 }
 
 .border-T
 {
-    border-top: 1pt solid black !important;
+    border-top: .5pt solid gray !important;
 }
 .border-RTB
 {
-    border-right: 1pt solid black !important;
-    border-top: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 .border-LTB
 {
-    border-left: 1pt solid black !important;
-    border-top: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 .border-RLT
 {
-    border-left: 1pt solid black !important;
-    border-top: 1pt solid black !important;
-    border-right: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
+    border-right: .5pt solid gray !important;
 }
 
 .border-RLB
 {
-    border-left: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
-    border-right: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
+    border-right: .5pt solid gray !important;
 }
 
 .border-LB
 {
-    border-left: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 
 .border-LT
 {
-    border-left: 1pt solid black !important;
-    border-top: 1pt solid black !important;
+    border-left: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
 }
 .border-RB
 {
-    border-right: 1pt solid black !important;
-    border-bottom: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-bottom: .5pt solid gray !important;
 }
 
 .border-RT
 {
-    border-right: 1pt solid black !important;
-    border-top: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-top: .5pt solid gray !important;
 }
 
 .border-RL
 {
-    border-right: 1pt solid black !important;
-    border-left: 1pt solid black !important;
+    border-right: .5pt solid gray !important;
+    border-left: .5pt solid gray !important;
 }
 .bold-red
 {
@@ -178,6 +173,3 @@ html {
     font-weight: bold ;
 }
  
-.InvoiceTable table td {
-white-space: normal;
-}
