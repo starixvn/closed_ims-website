@@ -87,7 +87,11 @@
             <td colspan="2">
                 Minimum Fees:
             </td>
-            <td class="boldInfor" colspan="8" style="white-space: normal;">
+             @{
+                 int lengthTmp = licensee.LicenseeInfor.MinimumFees.Length > 100 ? 600 : 300;
+                }
+            <td class="boldInfor" colspan="8" style="white-space: normal;mso-height-source: userset;
+                mso-height-alt: @lengthTmp;">
                 @licensee.LicenseeInfor.MinimumFees
             </td>
         </tr>
