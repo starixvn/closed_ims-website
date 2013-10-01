@@ -19,6 +19,7 @@ namespace Fanex.Ares.Report.Services.Interface
     using Fanex.Ares.Report.ViewModels;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Common.Extensions;
+    using Fanex.Common;
 
     /// <summary>
     /// Licensee Settlement Service.
@@ -44,7 +45,7 @@ namespace Fanex.Ares.Report.Services.Interface
             }
 
             model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            
+
             return string.Format(
                 "{0}_{1}_Settlement_From_{2}_To_{3}",
                 model.LicenseeInfor.LicenseeName,
@@ -54,7 +55,7 @@ namespace Fanex.Ares.Report.Services.Interface
         }
 
         #region Generate Report
-       
+
         /// <summary>
         /// Generate Report.
         /// </summary>
@@ -125,8 +126,8 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     return new SelectListItem
                     {
-                        Value = Convert.ToString(r["currency"]),
-                        Text = Convert.ToString(r["currencyname"])
+                        Value = Converter.ToString2(r["currency"]),
+                        Text = Converter.ToString2(r["currencyname"])
                     };
                 };
 
@@ -154,8 +155,8 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     return new SelectListItem
                     {
-                        Value = Convert.ToString(r["productid"]),
-                        Text = Convert.ToString(r["productname"])
+                        Value = Converter.ToString2(r["productid"]),
+                        Text = Converter.ToString2(r["productname"])
                     };
                 };
 
@@ -182,8 +183,8 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     return new SelectListItem
                     {
-                        Value = Convert.ToString(r["LicenseeID"]),
-                        Text = Convert.ToString(r["BrandName"])
+                        Value = Converter.ToString2(r["LicenseeID"]),
+                        Text = Converter.ToString2(r["BrandName"])
                     };
                 };
 
@@ -212,8 +213,8 @@ namespace Fanex.Ares.Report.Services.Interface
                     {
                         Item = new SelectListItem()
                         {
-                            Value = Convert.ToString(r["LicenseeID"]),
-                            Text = Convert.ToString(r["BrandName"])
+                            Value = Converter.ToString2(r["LicenseeID"]),
+                            Text = Converter.ToString2(r["BrandName"])
                         },
                         Extension = new Dictionary<string, object>() 
                         { 
@@ -243,7 +244,7 @@ namespace Fanex.Ares.Report.Services.Interface
             if (listLicenseeInfo == null)
             {
                 listLicenseeInfo = new LicenseeInformation();
-            }                
+            }
 
             return listLicenseeInfo;
         }
@@ -261,17 +262,17 @@ namespace Fanex.Ares.Report.Services.Interface
             {
                 var res = new ReportEntity
                 {
-                    Betcount = Convert.ToInt32(r["Betcount"].ToString()),
-                    Company = Convert.ToDouble(r["Company"].ToString()),
-                    Currency = Convert.ToInt32(r["Currency"].ToString()),
-                    CurrencyName = r["CurrencyName"].ToString(),
-                    LicenseeComm = Convert.ToDouble(r["LicenseeComm"].ToString()),
-                    LicenseeWL = Convert.ToDouble(r["LicenseeWL"].ToString()),
-                    MemberComm = Convert.ToDouble(r["MemberComm"].ToString()),
-                    MemberWinloss = Convert.ToDouble(r["MemberWinloss"].ToString()),
-                    Turnover = Convert.ToDouble(r["Turnover"].ToString()),
+                    Betcount = Converter.To<Int32>(r["Betcount"]),
+                    Company = Converter.To<Double>(r["Company"].ToString()),
+                    Currency = Converter.To<Int32>(r["Currency"].ToString()),
+                    CurrencyName = Converter.ToString2(r["CurrencyName"]),
+                    LicenseeComm = Converter.To<Double>(r["LicenseeComm"].ToString()),
+                    LicenseeWL = Converter.To<Double>(r["LicenseeWL"].ToString()),
+                    MemberComm = Converter.To<Double>(r["MemberComm"].ToString()),
+                    MemberWinloss = Converter.To<Double>(r["MemberWinloss"].ToString()),
+                    Turnover = Converter.To<Double>(r["Turnover"].ToString()),
                     WinlostDate = DateTime.Parse(r["WinLostMonth"].ToString()),
-                    BaseCurrencyExchangeRate = Convert.ToDouble(r[criteria.BaseCurrencyName].ToString())
+                    BaseCurrencyExchangeRate = Converter.To<Double>(r[criteria.BaseCurrencyName].ToString())
                 };
 
                 res.TurnoverBase = res.Turnover * res.BaseCurrencyExchangeRate;
@@ -318,9 +319,9 @@ namespace Fanex.Ares.Report.Services.Interface
                 {
                     var res = new ExchangeRate
                     {
-                        Currency = Convert.ToInt32(r["ExchangeId"].ToString()),
-                        CurrencyName = r["Code"].ToString(),
-                        BasePerUnit = Convert.ToDouble(r[criteria.BaseCurrencyName].ToString())
+                        Currency = Converter.To<Int32>(r["ExchangeId"]),
+                        CurrencyName = Converter.ToString2(r["Code"]),
+                        BasePerUnit = Converter.To<Double>(r[criteria.BaseCurrencyName].ToString())
                     };
 
                     res.UnitsPerBase = 1 / res.BasePerUnit;
