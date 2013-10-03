@@ -11,10 +11,10 @@ namespace Fanex.Ares.Website
     using System.Web.Mvc;
     using System.Web.Optimization;
     using System.Web.Routing;
+    using Fanex.Ares.Core.Web;
     using Fanex.Ares.Core.Web.ViewEngine;
     using Fanex.Ares.Website.App_Start;
     using Fanex.Data.Configuration;
-    using Fanex.Ares.Core.Web;
 
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801

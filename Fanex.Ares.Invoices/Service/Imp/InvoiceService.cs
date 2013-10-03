@@ -43,10 +43,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 {
                     var res = new Operator
                     {
-                     
-                        PartyID = Converter.To<Int32>(r["PartyID"]),
+                        PartyID = Converter.To<int>(r["PartyID"]),
                         PartyName = Converter.ToString2(r["PartyName"]),
-                        PartyType = Converter.To<Int32>(r["PartyType"]),
+                        PartyType = Converter.To<int>(r["PartyType"]),
                         Description = Converter.ToString2(r["Description"]),
                         PartyFullName = Converter.ToString2(r["PartyFullName"]),
                         AccountNumber = Converter.ToString2(r["AccountNumber"]),
@@ -94,7 +93,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 {
                     var res = new Licensee
                     {
-                        LicenseeID = Converter.To<Int32>(r["LicenseeID"]),
+                        LicenseeID = Converter.To<int>(r["LicenseeID"]),
                         LicenseeName = r["LicenseeName"].ToString(),
                         BrandName = Converter.ToString2(r["BrandName"]),
                         CompanyName = Converter.ToString2(r["CompanyName"]),
