@@ -1,29 +1,69 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Fanex.Workbooks.FanexWorkbook;
+﻿// -----------------------------------------------------------------------
+// <copyright file="WorkbookManager.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="">Created</change>
+// </history>
 
 namespace Fanex.Workbooks
 {
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using Fanex.Workbooks.FanexWorkbook;
+
     /// <summary>
-    /// Excel, Word, PDF... extension
+    /// Excel, Word, PDF... extension .
     /// </summary>
     public class WorkbookManager
     {
         public enum DocumentType
         {
-            Xlsx, Pdf
+            /// <summary>
+            /// Excel file.
+            /// </summary>
+            Xlsx,
+            
+            /// <summary>
+            /// Document file.
+            /// </summary>
+            Pdf
         }
 
         public enum PageOrientation
         {
-            Landscape, Portrait
+            /// <summary>
+            /// Landscape page's dimension.
+            /// </summary>
+            Landscape, 
+
+            /// <summary>
+            /// Portrait page's dimension.
+            /// </summary>
+            Portrait
         }
 
-        public MemoryStream CreateDocument(List<string> htmlContent, List<string> listCssFilePath, DocumentType format, List<PageOrientation> pageOrientation, List<bool> IsAutoFitList, string sheetName)
+        /// <summary>
+        /// Export document.
+        /// </summary>
+        /// <param name="htmlContent">List HTML file.</param>
+        /// <param name="listCssFilePath">List style sheet file.</param>
+        /// <param name="format">Format of document.</param>
+        /// <param name="pageOrientation">Page Orientation.</param>
+        /// <param name="isAutoFitList">List auto fit page.</param>
+        /// <param name="sheetName">Sheet name of every page in excel file.</param>
+        /// <returns>Memory of document.</returns>
+        public MemoryStream CreateDocument(
+                        List<string> htmlContent, 
+                        List<string> listCssFilePath, 
+                        DocumentType format, 
+                        List<PageOrientation> pageOrientation, 
+                        List<bool> isAutoFitList, 
+                        string sheetName)
         {
-            //var css = LoadCss(listCssFilePath);
-            var wbService = new FanexWorkbook.WorkBookServiceClient();
+            var webService = new FanexWorkbook.WorkBookServiceClient();
 
             List<PageSetting> pageList = new List<PageSetting>();
 
@@ -35,7 +75,7 @@ namespace Fanex.Workbooks
                                               ? WorkBookManagerPageOrientation.Landscape
                                               : WorkBookManagerPageOrientation.Portrait;
 
-            mainPage.IsAutoFit = IsAutoFitList[0];
+            mainPage.IsAutoFit = isAutoFitList[0];
 
             for (int i = 1; i < pageOrientation.Count; i++)
             {
@@ -47,7 +87,7 @@ namespace Fanex.Workbooks
                                                   ? WorkBookManagerPageOrientation.Landscape
                                                   : WorkBookManagerPageOrientation.Portrait;
 
-                page.IsAutoFit = IsAutoFitList[i];
+                page.IsAutoFit = isAutoFitList[i];
 
                 pageList.Add(page);
             }
@@ -62,13 +102,20 @@ namespace Fanex.Workbooks
 
             documentFile.MainPage = mainPage;
 
-            var ms = wbService.CreateDocument(documentFile);
+            var ms = webService.CreateDocument(documentFile);
             if (ms == null)
+            {
                 return null;
+            }
 
             return new MemoryStream(ms);
         }
 
+        /// <summary>
+        /// Load style sheet.
+        /// </summary>
+        /// <param name="cssFilePath">Path of style sheet.</param>
+        /// <returns>String style sheet. </returns>
         private static string LoadCss(string cssFilePath)
         {
             string css = string.Empty;
