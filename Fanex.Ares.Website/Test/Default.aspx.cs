@@ -1,20 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Fanex.Ares.Report.Controllers;
-using Fanex.Workbooks;
-
+﻿// -----------------------------------------------------------------------
+// <copyright file="Default.aspx.cs" company="Nexcel Solutions Vietnam">
+// Copyright (c) Nexcel Solutions Vietnam. All rights reserved.
+// </copyright>
+// --------------------------------------------------------------------------
+// <history>
+//   <change who="" date="">Created</change>
+// </history>
 
 namespace Fanex.Ares.Website.Test
 {
+    using System;
+    using System.Reflection;
+    using System.Web.Mvc;
+    using Fanex.Ares.Report.Controllers;
+
+    /// <summary>
+    /// Default page.
+    /// </summary>
     public partial class Default : System.Web.UI.Page
     {
+        /// <summary>
+        /// Page Load.
+        /// </summary>
+        /// <param name="sender">Object sender by default.</param>
+        /// <param name="e">Default event.</param>
         protected void Page_Load(object sender, EventArgs e)
         {
             Type t = typeof(LicenseeSettlementController);
@@ -22,10 +31,12 @@ namespace Fanex.Ares.Website.Test
             foreach (MethodInfo m in mi)
             {
                 if (m.IsPublic)
+                {
                     if (typeof(ActionResult).IsAssignableFrom(m.ReturnParameter.ParameterType))
                     {
                         var methods = m.Name + Environment.NewLine;
                     }
+                }
             }
         }
     }

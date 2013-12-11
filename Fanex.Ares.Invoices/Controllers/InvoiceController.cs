@@ -275,7 +275,6 @@ namespace Fanex.Ares.Invoice.Controllers
             invoice.HTMLReportList.Insert(0, mainInvoicePage1);
             isAutoFitList.Insert(0, false);
 
-
             var workbook = new WorkbookManager();
             WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
             var ms = workbook.CreateDocument(invoice.HTMLReportList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList, invoice.Operator.PartyName);

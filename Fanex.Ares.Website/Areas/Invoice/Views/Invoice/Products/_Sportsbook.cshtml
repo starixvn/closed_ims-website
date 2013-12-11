@@ -83,9 +83,11 @@
             var minimumfees = licensee.LicenseeInfor.MinimumFees == null ? string.Empty : licensee.LicenseeInfor.MinimumFees;
             string[] minimumfeesList = minimumfees.Split(';');
             int minimumfeeIndex = 0;
+            
         }
         @foreach (string minimumfeeInfo in minimumfeesList)
         {
+            int lengthTmp = minimumfeeInfo.Length > 100 ? 600 : 300;
             <tr>
                 <td colspan="5" style='height: 12.75pt;'>
                 </td>
@@ -95,7 +97,8 @@
                         <span>Minimum Fees:</span>
                     }
                 </td>
-                <td class="boldInfor" colspan="8" style='height: 12.75pt; vertical-align: top; text-align: left; white-space: normal;'>
+                <td class="boldInfor" colspan="8" style='height: 12.75pt; vertical-align: top; text-align: left; white-space: normal; mso-height-source: userset;
+                mso-height-alt: @lengthTmp;'>
                     @minimumfeeInfo
                 </td>
             </tr>
