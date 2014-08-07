@@ -143,11 +143,11 @@ LicenseeManager = function () {
         }
 
         var GenerateEditButton = function (cell, cellFormated) {
-            return "<input value='Edit' type='button' onclick='licenseeManager.EditLicensee(" + cell.Value + ")' />";
+            return "<input value='Edit' type='button' class='ui-button' onclick='licenseeManager.EditLicensee(" + cell.Value + ")' />";
         }
 
         var GenerateAddLicenseeButton = function (cell, cellFormated) {
-            return "<input value='Add Party' type='button' onclick='licenseeManager.AddParty(" + cell.Value + ")' />";
+            return "<input value='Add Party' type='button' class='ui-button' onclick='licenseeManager.AddParty(" + cell.Value + ")' />";
         }
 
         gridOptions = {
