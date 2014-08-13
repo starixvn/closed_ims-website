@@ -48,17 +48,19 @@ var Recheckin = function ($) {
         },
 
         reCheckin: function () {
-
             $.ajax({
                 url: Recheckin.root + "UserLogin/Login/ReCheckLogin",
                 type: "POST",
                 dataType: "json",
                 success: function (result) {
-                    if (result == "1") {
-                        Recheckin.headlineMsgBox.showInfo(Recheckin.kickedOutMsg, { closeBtn: false });
-                    }
-                    if (result == "-1") {
-                        window.location.href = Recheckin.root + "UserLogin/Common/Offline";
+                    if (typeof (result) != 'undefined' && result != null) {
+                        if (result.IsKickedOut == "1" || result.IsKickedOut == "2") {
+                            alert('Another session has been logged in or your session is expired. Forced to logout!');
+                            window.location.href = Recheckin.root + "UserLogin/Login/LogOut";
+                        }
+                        else if (result.IsKickedOut == "3") {
+                            window.location.href = Recheckin.root + "UserLogin/Common/Offline";
+                        }
                     }
                 },
                 error: function (request, status, error) {
