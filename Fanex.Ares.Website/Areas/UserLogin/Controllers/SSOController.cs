@@ -78,17 +78,22 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             Justification = "Reviewed. Suppression is OK here.")]
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Index(string userId, string onuserId, string time)
+        public ActionResult Index(string userId, string onuserId, string time, Uri redirectUrl = null)
         {
+            Session.Clear();
+
+            string currentTime = this._userService.UserSSOGetTime();
+            string forwardLink = redirectUrl == null ? FormsAuthentication.DefaultUrl : redirectUrl.ToString();
+            TimeSpan expiration = new TimeSpan();
+
             userId = Cryptography.CfsDeCrypt(userId.Replace(" ", "+"));
             onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
             time = Cryptography.CfsDeCrypt(time.Replace(" ", "+"));
-            string currentTime = _userService.UserSSOGetTime();
-            var expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
+            expiration = Convert.ToDateTime(currentTime) - Convert.ToDateTime(time);
 
-            if (expiration.TotalSeconds <= _timeExipration)
+            if (expiration.TotalSeconds <= this._timeExipration)
             {
-                //// do SSO check-in
+                // do SSO check-in
                 var criteria = new UserSSOCheckInUserCriteria
                 {
                     UserId = Convert.ToInt32(userId),
@@ -103,42 +108,37 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                     Domain = CurrentContext.DomainName,
                     Platform = CurrentContext.Platform
                 };
-                _userService.UserSSOCheckIn(ref criteria);
 
-                //// do SSO check-in
+                this._userService.UserSSOCheckIn(ref criteria);
+
                 if (criteria.OnUserId != 0)
                 {
-                    var user = _userService.GetById(criteria.UserId) as User;
-                    //// saves user session & auth info
-                    _currentSession.UserId = user.Id;
-                    _currentSession.Username = user.Username;
-                    _currentSession.OnUserId = criteria.OnUserId;
-                    _currentSession.SessionId = Session.SessionID.ToString();
-                    _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
-                    AppSession.CurrentUser = user;
-                    AppSession.RoleAccess = PermissionService.GetRoleAccess(
-                        (new FunctionService()).GetByUserAndSiteIncludeGroup(
-                        user.Id, 
-                        NapSettings.Settings.SiteId, 
-                        NapSettings.Settings.Environment));
-                    
+                    var user = this._userService.GetById(criteria.UserId) as User;
+
+                    // saves user session & auth info
+                    this._currentSession.UserId = user.Id;
+                    this._currentSession.Username = user.Username;
+                    this._currentSession.OnUserId = criteria.OnUserId;
+                    this._currentSession.SessionId = Session.SessionID.ToString();
+                    this._currentSession.Level = this._userService.GetUserSiteLevel(user.Id, this.SiteId);
+
                     if (this.SiteId != 0)
                     {
-                        _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
+                        this._currentSession.MenuItemList = this._menuItemService.GetByUserAndSiteIncludeGroup(
                                                                                 user.Id,
                                                                                 SiteId,
-                                                                                Environment,
+                                                                                this.Environment,
                                                                                 true) as IList<MenuItem>;
                         AppSession.CurrentUserMenu = _currentSession.MenuItemList;
                     }
 
-                    CreateAuthInfo(user);
+                    this.CreateAuthInfo(user);
                     AppSession.IsShowMenu = true;
-                    return Redirect(FormsAuthentication.DefaultUrl);
+                    return this.Redirect(forwardLink);
                 }
             }
 
-            return Redirect(FormsAuthentication.LoginUrl);
+            return this.Redirect(FormsAuthentication.LoginUrl);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                     On_UserID = Convert.ToInt32(onuserId)
                 };
                 var onlineStatus = _adminService.CheckUserOnlineStatus(criteria);
-                
+
                 if (onlineStatus)
                 {
                     var user = _userService.GetByUsername(username) as User;
@@ -183,10 +183,10 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                         AppSession.CurrentUser = user;
                         AppSession.RoleAccess = PermissionService.GetRoleAccess(
                             (new FunctionService()).GetByUserAndSiteIncludeGroup(
-                            user.Id, 
-                            NapSettings.Settings.SiteId, 
+                            user.Id,
+                            NapSettings.Settings.SiteId,
                             NapSettings.Settings.Environment));
-                        
+
                         if (this.SiteId != 0)
                         {
                             _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
@@ -198,31 +198,31 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                         }
 
                         CreateAuthInfo(user);
-                        AppSession.IsShowMenu = false;
+                        AppSession.IsShowMenu = true;
                         var controllerMapping = ControllerMapping.Instance.ControllerSetting;
                         if (controllerMapping != null)
                         {
                             var getMappingConfig = from m in
-                                                        controllerMapping.Cast<ControllerSettingElement>().Where(
-                                                            m => m.ControllerName.ToLower().Equals(redirectToUrl.ToLower()) && m.Active)
-                                                    select m;
+                                                       controllerMapping.Cast<ControllerSettingElement>().Where(
+                                                           m => m.ControllerName.ToLower().Equals(redirectToUrl.ToLower()) && m.Active)
+                                                   select m;
                             if (getMappingConfig != null && getMappingConfig.Count() > 0)
                             {
                                 return Redirect(getMappingConfig.First().Url);
-                            }                            
-                        }     
-                   
+                            }
+                        }
+
                         return Redirect(FormsAuthentication.DefaultUrl);
-                    }                    
+                    }
                 }
-                
+
                 return Redirect(FormsAuthentication.LoginUrl);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LoggingHandler.Log(ex);
                 return Redirect(FormsAuthentication.LoginUrl);
-            }            
+            }
         }
 
         #region utilities

@@ -236,15 +236,15 @@ SettingManager = function () {
         }
 
         var GenerateEditButton = function (cell, cellFormated) {
-            return "<input value='Edit' type='button' onclick='settingManager.EditSetting(" + cell.Value + ")' />";
+            return "<input value='Edit' type='button' class='ui-button' onclick='settingManager.EditSetting(" + cell.Value + ")' />";
         }
 
         var GenerateLicenseeProductChargeButton = function (cell, cellFormated) {
-            return "<input value='Charge' type='button' onclick='settingManager.LicenseeProductCharge(" + cell.Value + ")' />";
+            return "<input value='Charge' type='button' class='ui-button' onclick='settingManager.LicenseeProductCharge(" + cell.Value + ")' />";
         }
 
         var GenerateLicenseeProductDiscountButton = function (cell, cellFormated) {
-            return "<input value='Discount' type='button' onclick='settingManager.LicenseeProductDiscount(" + cell.Value + ")' />";
+            return "<input value='Discount' type='button' class='ui-button' onclick='settingManager.LicenseeProductDiscount(" + cell.Value + ")' />";
         }
 
         gridOptions = {

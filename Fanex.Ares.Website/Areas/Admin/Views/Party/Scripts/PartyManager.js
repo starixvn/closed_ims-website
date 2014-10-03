@@ -185,11 +185,11 @@ PartyManager = function () {
         }
 
         var GenerateEditButton = function (cell, cellFormated) {
-            return "<input value='Edit' type='button' onclick='partyManager.EditParty(" + cell.Value + ")' />";
+            return "<input value='Edit' type='button' class='ui-button' onclick='partyManager.EditParty(" + cell.Value + ")' />";
         }
 
         var GenerateAddLicenseeButton = function (cell, cellFormated) {
-            return "<input value='Add Licensee' type='button' onclick='partyManager.AddLicensee(" + cell.Value + ")' />";
+            return "<input value='Add Licensee' type='button' class='ui-button' onclick='partyManager.AddLicensee(" + cell.Value + ")' />";
         }
 
         gridOptions = {

@@ -115,11 +115,11 @@ ProductManager = function () {
         }
 
         var GenerateEditButton = function (cell, cellFormated) {
-            return "<input value='Edit' type='button' onclick='productManager.EditProduct(" + cell.Value + ")' />";
+            return "<input value='Edit' type='button' class='ui-button' onclick='productManager.EditProduct(" + cell.Value + ")' />";
         }
 
         var GenerateAddLicenseeButton = function (cell, cellFormated) {
-            return "<input value='Add Licensee' type='button' onclick='productManager.AddParty(" + cell.Value + ")' />";
+            return "<input value='Add Licensee' type='button' class='ui-button' onclick='productManager.AddParty(" + cell.Value + ")' />";
         }
 
         gridOptions = {

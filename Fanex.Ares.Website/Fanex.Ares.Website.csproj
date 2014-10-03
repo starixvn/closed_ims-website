@@ -238,6 +238,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.helper.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.js" />
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\JScript1.js" />
+    <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\sprite-2.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Images\sprite.png" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\Invoice.css" />
     <Content Include="Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css" />
