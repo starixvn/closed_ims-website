@@ -791,6 +791,15 @@
     <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Local.Web.ConnectionString.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
