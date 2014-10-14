@@ -78,7 +78,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             Justification = "Reviewed. Suppression is OK here.")]
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult Index(string userId, string onuserId, string time, Uri redirectUrl = null)
+        public ActionResult Index(string userId, string onuserId, string time, Uri redirectUrl = null, bool newTab = true)
         {
             Session.Clear();
 
@@ -133,96 +133,12 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                     }
 
                     this.CreateAuthInfo(user);
-                    AppSession.IsShowMenu = true;
+                    AppSession.IsShowMenu = newTab;
                     return this.Redirect(forwardLink);
                 }
             }
 
             return this.Redirect(FormsAuthentication.LoginUrl);
-        }
-
-        /// <summary>
-        /// Accounting Login.
-        /// </summary>
-        /// <param name="username">User name.</param>
-        /// <param name="onuserId">On user id.</param>
-        /// <param name="redirectToUrl">Redirect page.</param>
-        /// <returns>Return result.</returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed. Suppression is OK here.")]
-        [AllowAnonymous]
-        [HttpGet]
-        public ActionResult AccountingLogin(string username, string onuserId, string redirectToUrl)
-        {
-            try
-            {
-                Session.Clear();
-                username = Cryptography.CfsDeCrypt(username.Replace(" ", "+"));
-                onuserId = Cryptography.CfsDeCrypt(onuserId.Replace(" ", "+"));
-                //// do SSO check-in
-                var criteria = new AccountingUserCheckOnlineStatusCriteria
-                {
-                    IsKickedOut = false,
-                    On_UserID = Convert.ToInt32(onuserId)
-                };
-                var onlineStatus = _adminService.CheckUserOnlineStatus(criteria);
-
-                if (onlineStatus)
-                {
-                    var user = _userService.GetByUsername(username) as User;
-                    if (user != null)
-                    {
-                        //// saves user session & auth info
-                        _currentSession.UserId = user.Id;
-                        _currentSession.Username = user.Username;
-                        _currentSession.OnUserId = criteria.On_UserID;
-                        _currentSession.SessionId = Session.SessionID.ToString();
-                        _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
-                        AppSession.CurrentUser = user;
-                        AppSession.RoleAccess = PermissionService.GetRoleAccess(
-                            (new FunctionService()).GetByUserAndSiteIncludeGroup(
-                            user.Id,
-                            NapSettings.Settings.SiteId,
-                            NapSettings.Settings.Environment));
-
-                        if (this.SiteId != 0)
-                        {
-                            _currentSession.MenuItemList = _menuItemService.GetByUserAndSiteIncludeGroup(
-                                                                                    user.Id,
-                                                                                    SiteId,
-                                                                                    Environment,
-                                                                                    true) as IList<MenuItem>;
-                            AppSession.CurrentUserMenu = _currentSession.MenuItemList;
-                        }
-
-                        CreateAuthInfo(user);
-                        AppSession.IsShowMenu = true;
-                        var controllerMapping = ControllerMapping.Instance.ControllerSetting;
-                        if (controllerMapping != null)
-                        {
-                            var getMappingConfig = from m in
-                                                       controllerMapping.Cast<ControllerSettingElement>().Where(
-                                                           m => m.ControllerName.ToLower().Equals(redirectToUrl.ToLower()) && m.Active)
-                                                   select m;
-                            if (getMappingConfig != null && getMappingConfig.Count() > 0)
-                            {
-                                return Redirect(getMappingConfig.First().Url);
-                            }
-                        }
-
-                        return Redirect(FormsAuthentication.DefaultUrl);
-                    }
-                }
-
-                return Redirect(FormsAuthentication.LoginUrl);
-            }
-            catch (Exception ex)
-            {
-                LoggingHandler.Log(ex);
-                return Redirect(FormsAuthentication.LoginUrl);
-            }
         }
 
         #region utilities
