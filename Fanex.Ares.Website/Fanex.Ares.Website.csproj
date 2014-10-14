@@ -288,7 +288,6 @@
     <Content Include="Areas\UserLogin\Views\Common\Style\AccessDenied.css" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\accessDenied.gif" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\UnderMaintenance.gif" />
-    <Content Include="Content\base\img\icons\appbar.clear.reflect.horizontal.white.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_60_4264ac_40x100.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_75_5476bb_40x100.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_90_466bb9_40x100.png" />
@@ -756,6 +755,42 @@
     <Content Include="Web.Configuration\ControllerMapping.config" />
     <Content Include="Views\Common\PageNotFound.cshtml" />
     <Content Include="Views\Common\Error.cshtml" />
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Pro.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Pro.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Local.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Dev.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\UAT.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Pro.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\UAT.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Dev.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Local.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\UAT.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Dev.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Local.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
