@@ -288,7 +288,6 @@
     <Content Include="Areas\UserLogin\Views\Common\Style\AccessDenied.css" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\accessDenied.gif" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\UnderMaintenance.gif" />
-    <Content Include="Content\base\img\icons\appbar.clear.reflect.horizontal.white.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_60_4264ac_40x100.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_75_5476bb_40x100.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_90_466bb9_40x100.png" />
@@ -682,11 +681,11 @@
     <Content Include="Areas\Invoice\Views\Invoice\_Excel.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\test\test.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Excel.cshtml" />
-    <None Include="Content\base\common.less" />
-    <None Include="Content\base\fonts.less" />
-    <None Include="Content\base\style.less" />
-    <None Include="Content\base\themes.less" />
-    <None Include="Content\reset.less" />
+    <Content Include="Content\base\common.less" />
+    <Content Include="Content\base\fonts.less" />
+    <Content Include="Content\base\style.less" />
+    <Content Include="Content\base\themes.less" />
+    <Content Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
@@ -717,7 +716,7 @@
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
-    <None Include="Areas\UserLogin\themes\select-site.less" />
+    <Content Include="Areas\UserLogin\themes\select-site.less" />
     <Content Include="Areas\UserLogin\Views\Common\AccessDenied.cshtml" />
     <Content Include="Areas\UserLogin\Views\Common\Offline.cshtml" />
     <Content Include="Areas\UserLogin\Views\Login\Index.cshtml" />
@@ -733,7 +732,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.css" />
-    <None Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
     <Content Include="Content\base\colors.less" />
     <Content Include="Content\base\grid.less" />
     <Content Include="Content\base\jqueryuicustom.less" />
@@ -756,6 +755,51 @@
     <Content Include="Web.Configuration\ControllerMapping.config" />
     <Content Include="Views\Common\PageNotFound.cshtml" />
     <Content Include="Views\Common\Error.cshtml" />
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Pro.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Pro.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Local.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Dev.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\UAT.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Pro.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\UAT.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Dev.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Local.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\UAT.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Dev.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Local.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.AppSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.ConnectionString.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
