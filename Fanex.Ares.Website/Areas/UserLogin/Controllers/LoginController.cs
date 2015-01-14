@@ -139,7 +139,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                 };
 
                                 _userService.UserCheckIn(ref criteria);
-                               //// check-in user,saves user session
+                                //// check-in user,saves user session
                                 _currentSession.Level = _userService.GetUserSiteLevel(user.Id, this.SiteId);
                                 _currentSession.UserId = user.Id;
                                 _currentSession.Username = username;
@@ -156,8 +156,8 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                 AppSession.CurrentUser = user;
                                 AppSession.RoleAccess = PermissionService.GetRoleAccess(
                                     _functionService.GetByUserAndSiteIncludeGroup(
-                                    user.Id, 
-                                    NapSettings.Settings.SiteId, 
+                                    user.Id,
+                                    NapSettings.Settings.SiteId,
                                     NapSettings.Settings.Environment));
 
                                 //// saves user session
@@ -165,39 +165,35 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                 if (AppSession.CurrentUserMenu != null &&
                                     AppSession.CurrentUserMenu.Where(m => m.Parent == null).ToList().Count > 0)
                                 {
-                                    //// redirects user. if the user login directly, not through NAP Hub.
-                                    if (this.IsSiteLogin == 1)
+                                    //// checks if logging-in user is active on this site
+                                    bool userIsActiveOnThisSite = false;
+                                    foreach (var siteLevel in siteLevelList)
                                     {
-                                        //// checks if logging-in user is active on this site
-                                        bool userIsActiveOnThisSite = false;
-                                        foreach (var siteLevel in siteLevelList)
+                                        if (siteLevel.Site.Id == this.SiteId && siteLevel.IsActive)
                                         {
-                                            if (siteLevel.Site.Id == this.SiteId && siteLevel.IsActive)
-                                            {
-                                                userIsActiveOnThisSite = true;
-                                            }
+                                            userIsActiveOnThisSite = true;
                                         }
-                                        //// checks if logging-in user is active on this site
-                                        if (userIsActiveOnThisSite)
-                                        {
-                                            return Redirect(FormsAuthentication.DefaultUrl);
-                                        }
-                                        else
-                                        {
-                                            DoSignOut();
-                                            ViewBag.Message = ViewResources.Your_account_was_suspended;
-                                        }
+                                    }
+                                    //// checks if logging-in user is active on this site
+                                    if (userIsActiveOnThisSite)
+                                    {
+                                        return Redirect(FormsAuthentication.DefaultUrl);
                                     }
                                     else
                                     {
-                                        //// user has access to multiple sites
+                                        DoSignOut();
+                                        ViewBag.Message = ViewResources.Your_account_was_suspended;
+                                    }
+                                    /* else
+                                    {
+                                        // user has access to multiple sites
                                         if (siteLevelList.Count() > 1)
                                         {
                                             return RedirectToAction("Site", "UserSite");
                                         }
 
                                         return RedirectToAction("GoToSite", "UserSite", new { id = siteLevelList.First().Site.Id });
-                                    }
+                                    } */
                                 }
                                 else
                                 {
@@ -214,7 +210,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
                                     ViewBag.Message = ViewResources.Your_account_was_suspended;
                                 }
                                 else
-                                {                                    
+                                {
                                     //// logging-in user belongs to no site
                                     ViewBag.Message = ViewResources.You_have_no_authorization;
                                 }
@@ -264,7 +260,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         //// sign out
 
         //// re check in
-        
+
         /// <summary>
         /// ReCheck Login.
         /// </summary>
