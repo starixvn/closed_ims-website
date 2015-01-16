@@ -110,7 +110,6 @@
     <Compile Include="Services\Party\Implement\PartyService.cs" />
     <Compile Include="Services\Party\Interface\IPartyService.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>

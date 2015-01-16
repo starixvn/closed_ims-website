@@ -7,7 +7,7 @@
 
 namespace Fanex.Ares.Core.Web.Controllers
 {
-    using System;
+    using System.Configuration;
     using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
     using Fanex.NAP.Core.Business;
@@ -33,6 +33,11 @@ namespace Fanex.Ares.Core.Web.Controllers
         protected readonly string Environment = NapSettings.Settings.Environment;
 
         protected readonly int SiteId = NapSettings.Settings.SiteId;
+
+        protected string ExcelTemplateRootPath
+        {
+            get { return HttpContext.Server.MapPath(ConfigurationManager.AppSettings["ExcelTemplatePath"]); }
+        }
 
         protected readonly string HubUrl = "http://10.18.200.209:8009/nap-home-local2";
 

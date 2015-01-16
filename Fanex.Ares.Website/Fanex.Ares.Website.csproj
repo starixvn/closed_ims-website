@@ -83,10 +83,6 @@
     <Reference Include="Microsoft.Practices.Unity.Interception">
       <HintPath>..\_Dependency\Entlib\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
-    <Reference Include="NPOI, Version=1.2.4.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\FanexLibs\Excel\NPOI.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -801,12 +797,12 @@
     <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="ExcelTemplates\LicenseeBillingForSportsBook.xls" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
-    <Folder Include="Model\" />
     <Folder Include="Scripts\_Libs\BlockUI\img\" />
   </ItemGroup>
   <ItemGroup>

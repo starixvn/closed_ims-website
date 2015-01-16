@@ -30,7 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9806B9
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Ares.Excel", "Fanex.Artist.Excel\Fanex.Ares.Excel.csproj", "{D499F262-7461-4D26-A015-78E03EF1B0C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Ares.Export", "Fanex.Ares.Export\Fanex.Ares.Export.csproj", "{6E7C7E38-E639-4F89-9047-1CA63C51F1A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,10 +70,10 @@ Global
 		{C0D5A32D-72BC-4737-949D-FDF9342B243F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0D5A32D-72BC-4737-949D-FDF9342B243F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0D5A32D-72BC-4737-949D-FDF9342B243F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D499F262-7461-4D26-A015-78E03EF1B0C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D499F262-7461-4D26-A015-78E03EF1B0C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D499F262-7461-4D26-A015-78E03EF1B0C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D499F262-7461-4D26-A015-78E03EF1B0C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E7C7E38-E639-4F89-9047-1CA63C51F1A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E7C7E38-E639-4F89-9047-1CA63C51F1A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E7C7E38-E639-4F89-9047-1CA63C51F1A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E7C7E38-E639-4F89-9047-1CA63C51F1A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
