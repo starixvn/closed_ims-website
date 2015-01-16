@@ -34,6 +34,8 @@ namespace Fanex.Ares.Core.Web.Controllers
 
         protected readonly int SiteId = NapSettings.Settings.SiteId;
 
+        protected readonly string HubUrl = "http://10.18.200.209:8009/nap-home-local2";
+
         private ViewFlags _viewFlags;
 
         private int _issiteLogin = NapSettings.Settings.IsSiteLogin;

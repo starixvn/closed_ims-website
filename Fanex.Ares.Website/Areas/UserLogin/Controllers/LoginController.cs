@@ -86,6 +86,11 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         {
             var maintenanceInfo = _maintenanceService.GetDowntimeInfo();
 
+            if (IsSiteLogin == 0)
+            {
+                return Redirect(HubUrl);
+            }
+
             if (maintenanceInfo.IsDowntime)
             {
                 return RedirectToAction("Offline", "Common");
