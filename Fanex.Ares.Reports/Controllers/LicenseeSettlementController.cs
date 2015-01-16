@@ -7,21 +7,21 @@ namespace Fanex.Ares.Report.Controllers
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Fanex.Ares.Core;
+    using Fanex.Ares.Core.Attributes;
     using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
+    using Fanex.Ares.Report.Export.Excel;
     using Fanex.Ares.Report.Models;
     using Fanex.Ares.Report.Services.Interface;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-    using Fanex.Artist.Export.Report;
     using Fanex.Common.Extensions;
     using Fanex.Core.PdfHelper;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.Workbooks;
     using Newtonsoft.Json;
-    using Fanex.Ares.Core.Attributes;
     using NPOI.HSSF.UserModel;
 
     /// <summary>
@@ -124,8 +124,9 @@ namespace Fanex.Ares.Report.Controllers
                 return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
             }*/
 
+            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             var templatePath = Path.Combine(ExcelTemplateRootPath, TemplatePath.LicenseeBillingForSportsBook);
-            var excel = new Sportsbook(templatePath);
+            var excel = new Sportsbook("ABC", templatePath, model);
 
             excel.Export();
 

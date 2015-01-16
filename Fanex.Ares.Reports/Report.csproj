@@ -97,6 +97,7 @@
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
+    <Compile Include="Export\Excel\Sportsbook.cs" />
     <Compile Include="Models\Licensee.cs" />
     <Compile Include="Models\Operator.cs" />
     <Compile Include="Models\Product.cs" />
@@ -111,10 +112,6 @@
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.Ares.Export\Fanex.Ares.Export.csproj">
-      <Project>{6E7C7E38-E639-4F89-9047-1CA63C51F1A9}</Project>
-      <Name>Fanex.Ares.Export</Name>
     </ProjectReference>
     <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
       <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
@@ -132,6 +129,7 @@
   <ItemGroup>
     <Folder Include="Controllers\Repositories\Impl\" />
     <Folder Include="Controllers\Repositories\Interface\" />
+    <Folder Include="Export\Pdf\" />
     <Folder Include="Repositories\Impl\" />
     <Folder Include="Repositories\Interface\" />
   </ItemGroup>

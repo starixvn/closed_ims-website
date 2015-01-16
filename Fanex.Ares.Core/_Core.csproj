@@ -109,8 +109,12 @@
     <Compile Include="Configurations\DomainMapping.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />
+    <Compile Include="Export\ExcelBase.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />
+    <Compile Include="Extensions\HSSFCellExtension.cs" />
+    <Compile Include="Extensions\HSSFSheetExtension.cs" />
+    <Compile Include="Extensions\HSSFWorkbookExtension.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\NumberExtensions.cs" />
@@ -146,6 +150,7 @@
     <Compile Include="TemplatePath.cs" />
     <Compile Include="Utils\CacheServiceKey.cs" />
     <Compile Include="Utils\FormatKey.cs" />
+    <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Web\AppSession.cs" />
     <Compile Include="Web\CacheManager.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
