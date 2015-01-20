@@ -36,7 +36,7 @@ namespace Fanex.Ares.Core.Web.Controllers
 
         protected string ExcelTemplateRootPath
         {
-            get { return HttpContext.Server.MapPath(ConfigurationManager.AppSettings["ExcelTemplatePath"]); }
+            get { return Server.MapPath(ConfigurationManager.AppSettings["ExcelTemplatePath"]); }
         }
 
         protected readonly string HubUrl = "http://10.18.200.209:8009/nap-home-local2";
@@ -44,7 +44,7 @@ namespace Fanex.Ares.Core.Web.Controllers
         private ViewFlags _viewFlags;
 
         private int _issiteLogin = NapSettings.Settings.IsSiteLogin;
-        
+
         public BaseController()
         {
             this.CurrentContext = new CurrentContext();
@@ -88,7 +88,7 @@ namespace Fanex.Ares.Core.Web.Controllers
                 ViewBag.ViewFlags = this._viewFlags = value;
             }
         }
-        
+
         /// <summary>
         /// Execute before each request, if Downtime then go to Downtime page,
         /// Or not Authenticate will go to Login Page.
@@ -126,6 +126,6 @@ namespace Fanex.Ares.Core.Web.Controllers
                 JsonRequestBehavior = behavior,
                 MaxJsonLength = int.MaxValue
             };
-        } 
+        }
     }
 }
