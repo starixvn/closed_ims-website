@@ -10,7 +10,7 @@
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Licensee Settlement Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
-     @* if (Request.UserAgent.Contains("Chrome"))
+@* if (Request.UserAgent.Contains("Chrome"))
       {
       <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlementChrome.css" />
       }
@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
     <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlementWeb.css" />
- }   
+}
 @section Headline {
     <div class="title">
         <div>
@@ -89,17 +89,21 @@
         </div>
     }
 </div>
-<div class="grid-title" style="clear: both; display: none; margin:85px 0 0 10px;">
+<div class="grid-title" style="clear: both; display: none; margin: 85px 0 0 10px;">
     <div class="grid-title-label">
         <span id="nonLiveBingoReportTitle"></span>
     </div>
     <div class="grid-toolbox">
-        @*<input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportPDF", "LicenseeSettlement", new { isSavePDF = true })'" />*@
-        <input id="btnPDF" class="btnPDF" type="button" name="btnPDF" value="" title="PDF"  onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Pdf })'" />
-        @*<input id="btnPrint" class="btnPrint" type="button" name="btnPrint" value="" title="Print" />*@
-        
-      @*  <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" />*@
-        <input id="btnExcel" class="btnExcel" type="button" name="btnExcel" value="" title="Excel" onClick="location.href='@Url.Action("ExportDocument", "LicenseeSettlement", new { documentType = WorkBookExtension.DocumentType.Xlsx })'"  />
+        @using (Html.BeginForm("ExportDocument", "LicenseeSettlement", FormMethod.Post, new { @id = "xlsForm" }))
+        {
+            <input style="float: right" id="btnExcel" class="btnExcel" type="submit" name="btnExcel"
+                value="" title="Excel" />
+        }
+        @using (Html.BeginForm("ExportDocument", "LicenseeSettlement", FormMethod.Post, new { @id = "pdfForm" }))
+        {
+            <input style="float: right" id="btnPDF" class="btnPDF" type="submit" name="btnPDF"
+                value="" title="PDF" />
+        }
     </div>
 </div>
 <div id="parentContainer" class="content-grid">
@@ -107,7 +111,7 @@
 @section scripts
 {
     <script type="text/javascript">
-        
+
 
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
@@ -121,7 +125,6 @@
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=1"></script>
-    
     <script type="text/javascript">
 
         function Product() {

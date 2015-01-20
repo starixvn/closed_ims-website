@@ -4,7 +4,7 @@
     using Fanex.Ares.Core.Extensions;
 
     /// <summary>
-    /// Utilities.
+    /// Utilities Class.
     /// </summary>
     public static class Utilities
     {

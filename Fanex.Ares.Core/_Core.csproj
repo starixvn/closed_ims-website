@@ -109,6 +109,8 @@
     <Compile Include="Configurations\DomainMapping.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />
+    <Compile Include="DataDomain\BaseCurrencyName.cs" />
+    <Compile Include="DataDomain\Products.cs" />
     <Compile Include="Export\ExcelBase.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ExcelExtensions.cs" />

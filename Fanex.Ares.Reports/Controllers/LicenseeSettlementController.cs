@@ -2,6 +2,7 @@ namespace Fanex.Ares.Report.Controllers
 {
     using System;
     using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web.Hosting;
@@ -9,6 +10,9 @@ namespace Fanex.Ares.Report.Controllers
     using Fanex.Ares.Core;
     using Fanex.Ares.Core.Attributes;
     using Fanex.Ares.Core.Criteria;
+    using Fanex.Ares.Core.DataDomain;
+    using Fanex.Ares.Core.Export;
+    using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
@@ -20,7 +24,6 @@ namespace Fanex.Ares.Report.Controllers
     using Fanex.Common.Extensions;
     using Fanex.Core.PdfHelper;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.Workbooks;
     using Newtonsoft.Json;
     using NPOI.HSSF.UserModel;
 
@@ -86,9 +89,10 @@ namespace Fanex.Ares.Report.Controllers
         /// <summary>
         /// Export document.
         /// </summary>
-        /// <param name="documentType">Document type.</param>
+        /// <param name="productId">Product Identify.</param>
+        /// <param name="documentType">Document Type.</param>
         /// <returns>Export result.</returns>
-        public NPOIResult ExportDocument(WorkbookManager.DocumentType documentType)
+        public NPOIResult ExportDocument(int productId, string documentType)
         {
             /*var model = new LicenseeSettlementModel();
             List<string> htmlList = new List<string>();
@@ -125,12 +129,11 @@ namespace Fanex.Ares.Report.Controllers
             }*/
 
             var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            var templatePath = Path.Combine(ExcelTemplateRootPath, TemplatePath.LicenseeBillingForSportsBook);
-            var excel = new Sportsbook("ABC", templatePath, model);
+            var excel = GetReport(model, productId);
 
-            excel.Export();
+            var fileName = excel.ReportTitle.Replace(' ', '.');
 
-            return new NPOIResult((HSSFWorkbook)excel.Workbook, "abc");
+            return new NPOIResult((HSSFWorkbook)excel.Workbook, fileName);
         }
 
         /// <summary>
@@ -173,5 +176,76 @@ namespace Fanex.Ares.Report.Controllers
             var student = JsonConvert.DeserializeObject<Product>(documentType1);
             return new EmptyResult();
         }
+
+        #region Utilities
+
+        private static string GetReportTitle(string licenseeName, DateTime fromDate, DateTime toDate)
+        {
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                "Settlement Report for {0} from {1} to {2}",
+                licenseeName,
+                fromDate.ToAresDayMonthYear(),
+                toDate.ToAresDayMonthYear());
+        }
+
+        /// <summary>
+        /// Get Report.
+        /// </summary>
+        /// <param name="model">Licensee Settlement Model.</param>
+        /// <param name="productId">Product Identify.</param>
+        /// <returns>Excel Base.</returns>
+        private ExcelBase GetReport(LicenseeSettlementModel model, int productId)
+        {
+            var templatePath = GetReportTemplatePath(productId);
+            ExcelBase excel = null;
+
+            switch (productId)
+            {
+                case Products.Sportsbook:
+                case Products.NumberGame:
+                    excel = new Sportsbook(templatePath, model);
+                    break;
+                case Products.BA:
+                    excel = new BetAggregator(templatePath, model);
+                    break;
+                default:
+                    excel = new Sportsbook(templatePath, model);
+                    break;
+            }
+
+            excel.ReportTitle = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate);
+            excel.Export();
+
+            return excel;
+        }
+
+        /// <summary>
+        /// Get Report Template Path.
+        /// </summary>
+        /// <param name="productId">Product Identify.</param>
+        /// <returns>Template Path.</returns>
+        private string GetReportTemplatePath(int productId)
+        {
+            var templatePath = string.Empty;
+
+            switch (productId)
+            {
+                case Products.Sportsbook:
+                case Products.NumberGame:
+                    templatePath = TemplatePath.LicenseeBillingForSportsBook;
+                    break;
+                case Products.BA:
+                    templatePath = TemplatePath.LicenseeBillingForBA;
+                    break;
+                default:
+                    templatePath = TemplatePath.LicenseeBillingForSportsBook;
+                    break;
+            }
+
+            return Path.Combine(ExcelTemplateRootPath, templatePath);
+        }
+
+        #endregion
     }
 }

@@ -86,7 +86,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\LicenseeSettlementController.cs" />
+    <Compile Include="Controllers\LicenseeSettlementController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_ExchangeRateBillingSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_LicenseeBillingInfoSelCriteria.cs" />
@@ -97,6 +99,7 @@
     <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
+    <Compile Include="Export\Excel\BetAggegator.cs" />
     <Compile Include="Export\Excel\Sportsbook.cs" />
     <Compile Include="Models\Licensee.cs" />
     <Compile Include="Models\Operator.cs" />

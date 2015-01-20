@@ -1,5 +1,7 @@
 ﻿/// <reference path="../../../../../Scripts/NapAres.js" />
 $(document).ready(function () {
+    var formOriginalAction = $('#xlsForm').attr('action');
+
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {
@@ -7,10 +9,18 @@ $(document).ready(function () {
     });
 
     $('#btnGenerate').button();
-    $('#btnGenerate').click(function () { if (!$(this).hasClass('ui-state-disabled')) Submit(); });
+    $('#btnGenerate').click(function () {
+        if (!$(this).hasClass('ui-state-disabled')) {
+            Submit();
 
-    //    $('#btnExcel').click(function () { exportReportToExcel(); });
-    //    $('#btnPrint').click(function () { exportReportToPDF(); });
+            var productId = $('#Product').val();
+            var exportExcelRoutes = "?ProductId=" + parseInt(productId, 10) + "&documentType='Xlsx'";
+            var exportPdfRoutes = "?ProductId=" + parseInt(productId, 10) + "&documentType='Pdf'";
+
+            $('#pdfForm').attr('action', formOriginalAction + exportPdfRoutes);
+            $('#xlsForm').attr('action', formOriginalAction + exportExcelRoutes);
+        }
+    });
 
     RenderFilterNote();
 

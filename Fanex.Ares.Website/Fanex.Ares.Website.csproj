@@ -797,6 +797,7 @@
     <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Master.Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <None Include="ExcelTemplates\LicenseeBillingForBA.xls" />
     <None Include="ExcelTemplates\LicenseeBillingForSportsBook.xls" />
   </ItemGroup>
   <ItemGroup>
