@@ -15,29 +15,29 @@
 
     public string GetEvenClass(int number)
     {
-        return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
+        return number % 2 == 0 ? "even-row" : string.Empty;
     }
 }
-<div class="div-content" style="overflow: auto; width: 98%">
-    <table border="0" cellpadding="0" cellspacing="0" width="100%" style='border-collapse: collapse;'>
+<div class="div-content">
+    <table class="table-content" cellpadding="2" cellspacing="0">
         <tr>
-            <td colspan="14" class="boldTilte" style='height: 16.5pt;'>
+            <td colspan="14" class="boldTilte height16">
                 INTERNAL WORKSHEET FOR SETTLEMENT
             </td>
         </tr>
         <tr>
-            <td colspan="3" style='height: 12.75pt;'>
+            <td class="colNote height12" colspan="3">
                 Finance Department
             </td>
             <td colspan="11">
             </td>
         </tr>
         <tr>
-            <td colspan="14" style='height: 12.75pt;'>
+            <td colspan="14" class="height12">
             </td>
         </tr>
         <tr>
-            <td colspan="2" style='height: 12.75pt;'>
+            <td class="colNote height12" colspan="2" >
                 SETTLEMENT REPORT
             </td>
             <td colspan="12" class="boldInfor">
@@ -46,7 +46,7 @@
             </td>
         </tr>
         <tr>
-            <td style='height: 12.75pt;'>
+            <td class="colNote height12">
                 LICENSEE:
             </td>
             <td colspan="1" class="licenseeName">
@@ -55,7 +55,7 @@
             <td class="sportName" colspan="3">
                 @licensee.LicenseeInfor.ProductName.ToUpper()
             </td>
-            <td colspan="1">
+            <td class="colNote" colspan="1">
                 1st Billing:
             </td>
             <td class="boldInfor" colspan="8">
@@ -63,9 +63,9 @@
             </td>
         </tr>
         <tr>
-            <td colspan="5" style='height: 12.75pt;'>
+            <td colspan="5" class="height12">
             </td>
-            <td colspan="1">
+            <td class="colNote" colspan="1">
                 Head of Terms:
             </td>
             <td class="boldInfor" colspan="8">
@@ -73,11 +73,11 @@
             </td>
         </tr>
         <tr>
-            <td colspan="10" style='height: 12.75pt; border: none !important;'>
+            <td colspan="10" class="height12">
             </td>
         </tr>
         <tr>
-            <td rowspan="2" class="header" style='height: 26pt'>
+            <td rowspan="2" class="header height26">
                 @Labels.Date
             </td>
             <td rowspan="2" class="header">
@@ -126,7 +126,7 @@
         </tr>
         <tr>
             <td class="header">
-                &nbsp;&nbsp;&nbsp;@Labels.BA&nbsp;&nbsp;&nbsp;
+                @Labels.BA
             </td>
             <td class="header">
                 @Labels.BAEqui @licensee.LicenseeInfor.BaseCurrencyName
@@ -164,52 +164,60 @@
                 var evenClass = GetEvenClass(i);
             
             <tr>
-                <td height="17" class="colDateTime" style='height: 15pt; border-left: .5pt solid gray; @evenClass'>
+                <td class="colDateTime cell-content height15 @evenClass">
                     @report.WinlostDate.ToAresDayMonthYear()
                 </td>
-                <td class="colText" style="@evenClass">
+                <td class="colText cell-content @evenClass" >
                     @report.CurrencyName
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass" >
                     <span class=" @GetNegativeClass(report.Turnover)">@report.Turnover.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass" >
                     <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.FormatNegative(2)</span>
                 </td>
-                <td class="colInteger" style="@evenClass">
+                <td class="colInteger cell-content @evenClass" >
                     @report.Betcount.Format(0)
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass" >
                     <span class=" @GetNegativeClass(report.MemberWinloss)">@report.MemberWinloss.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass" >
                     <span class="  @GetNegativeClass(report.MemberWinlossBase)">@report.MemberWinlossBase.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass" >
                     <span class="  @GetNegativeClass(report.LicenseeWL)">@report.LicenseeWL.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass" >
                     <span class="  @GetNegativeClass(report.LicenseeWLBase)">@report.LicenseeWLBase.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass" >
                     <span class="  @GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
                 </td>
-                <td class="colNumber" style="@evenClass">
+                <td class="colNumber cell-content @evenClass">
                     <span class="  @GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
                 </td>
                 <td class="currency">
-                    &nbsp;&nbsp;&nbsp;@exchange.CurrencyName
+                    @exchange.CurrencyName
                 </td>
-                <td class="colNumber5Odd" style="border-left: .5pt solid gray;@evenClass">
+                <td class="colNumber5Odd cell-content @evenClass">
                     @exchange.BasePerUnit.Format(5)
                 </td>
-                <td class="colNumber5Odd" style="border-right: .5pt solid gray; @evenClass">
+                <td class="colNumber5Odd cell-content @evenClass">
                     @exchange.UnitsPerBase.Format(5)
                 </td>
             </tr>
             }
             <tr>
-                <td colspan="4" align="right" class="grandtotal" style='height: 15pt;'>
+                <td colspan="11" class="height5">
+                </td>
+                <td class="emptyCell">
+                </td>
+                <td class="emptytotal" colspan="2">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" align="right" class="grandtotal">
                     <span class="@GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">@licensee.Report.GrandTotal.TurnoverBase.FormatNegative(2)</span>
                 </td>
                 <td colspan="3" align="right" class="grandtotal">
@@ -223,23 +231,37 @@
                 </td>
                 <td class="emptyCell">
                 </td>
-                <td class="emptytotal" style="height: 10pt;" colspan="2">
+                <td class="emptytotal" colspan="2">
                 </td>
             </tr>
             <tr>
-                <td colspan="14" style='height: 10pt;'>
+                <td colspan="11">
+                    <div>
+                        <hr />
+                    </div>
                 </td>
             </tr>
             if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
             {
-                <tr> <td style='height: 15pt'> IDR &amp; VND * </td> <td colspan="13" style='height:
-                15pt'> Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
-                Equv, x1000 </td> </tr>
-                <tr> <td style='height: 15pt;'> FOREX </td> <td colspan="13" style='height: 15pt;'>
-                www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
-                Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
-                use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
-            </td> </tr>
+            <tr>
+                <td class="colNote height15">
+                    IDR &amp; VND *
+                </td>
+                <td class="colNote" colspan="13">
+                    Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
+                    Equv, x1000
+                </td>
+            </tr>
+            <tr>
+                <td class="colNote height15">
+                    FOREX
+                </td>
+                <td class="colNote" colspan="13">
+                    www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
+                    Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
+                    use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
+                </td>
+            </tr>
             }
         }
     </table>

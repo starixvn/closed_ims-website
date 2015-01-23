@@ -1,202 +1,208 @@
 ﻿@page
 {
-    margin:1.0in .25in 1.0in .25in;
-    mso-header-margin:.5in;
-    mso-footer-margin:.5in;
-    mso-page-orientation:landscape;
+    margin: 1.0in .25in 1.0in .25in;
+    mso-header-margin: .5in;
+    mso-footer-margin: .5in;
+    mso-page-orientation: landscape;
 }
 
 tr
 {
-    mso-height-source:auto;
+    mso-height-source: auto;
 }
 
 col
 {
-    mso-width-source:auto;
+    mso-width-source: auto;
 }
 
 br
 {
-    mso-data-placement:same-cell;
+    mso-data-placement: same-cell;
 }
 
+hr
+{
+    border: 1px solid gray;
+}
 
 .style0
 {
-    mso-number-format:General;
-    mso-rotate:0;
-    mso-background-source:auto;
-    mso-pattern:auto;
-    text-align:general;
-    mso-generic-font-family:auto;
-    mso-font-charset:0;
-    border:none;
-    mso-protection:locked visible;
-    mso-style-name:Normal;
-    mso-style-id:0;
-    vertical-align:bottom;
-    white-space:nowrap;
-    color:black;
-    font-size:10.0pt;
-    font-weight:400;
-    font-style:normal;
-    text-decoration:none;
-    font-family:sans-serif;
+    mso-number-format: General;
+    mso-rotate: 0;
+    mso-background-source: auto;
+    mso-pattern: auto;
+    text-align: general;
+    mso-generic-font-family: auto;
+    mso-font-charset: 0;
+    border: none;
+    mso-protection: locked visible;
+    mso-style-name: Normal;
+    mso-style-id: 0;
+    vertical-align: bottom;
+    white-space: nowrap;
+    color: black;
+    font-size: 10.0pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    font-family: sans-serif;
 }
 
 td
 {
-    mso-style-parent:style0;
-    mso-ignore:padding;
-    mso-generic-font-family:auto;
-    mso-font-charset:0;
-    mso-number-format:General;
-    text-align:general;
-    mso-background-source:auto;
-    mso-pattern:auto;
-    mso-protection:locked visible;
-    white-space:nowrap;
-    mso-rotate:0;
-    padding-top:1px;
-    padding-right:1px;
-    padding-left:1px;
-    color:black;
-    font-size:10.0pt;
-    font-weight:400;
-    font-style:normal;
-    text-decoration:none;
-    font-family:sans-serif;
-    vertical-align:bottom;
-    border:none;
+    mso-style-parent: style0;
+    mso-ignore: padding;
+    mso-generic-font-family: auto;
+    mso-font-charset: 0;
+    mso-number-format: General;
+    text-align: general;
+    mso-background-source: auto;
+    mso-pattern: auto;
+    mso-protection: locked visible;
+    white-space: nowrap;
+    mso-rotate: 0;
+    padding-top: 1px;
+    padding-right: 1px;
+    padding-left: 1px;
+    color: black;
+    font-size: 10.0pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    font-family: sans-serif;
+    vertical-align: bottom;
+    border: none;
+}
+
+.table-content
+{
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
 }
 
 .boldTilte
 {
-    mso-style-parent:style0;
-    font-size:10pt;
-    font-weight:700;
+    mso-style-parent: style0;
+    font-size: 10pt;
+    font-weight: 700;
 }
 
 .boldInfor
 {
-    mso-style-parent:style0;
-    font-weight:700;
-    mso-number-format:"\@";
+    mso-style-parent: style0;
+    font-weight: 700;
+    mso-number-format: "\@";
 }
 
 .licenseeName
 {
-    mso-style-parent:style0;
-    color:#0040FF;
-    font-weight:700;
+    mso-style-parent: style0;
+    color: #0040FF;
+    font-weight: 700;
 }
 
 .sportName
 {
-    mso-style-parent:style0;
-    color:#C21515;
-    font-weight:700;
+    mso-style-parent: style0;
+    color: #C21515;
+    font-weight: 700;
 }
 
 .currency
 {
-    mso-style-parent:style0;
-    mso-font-charset:0;
+    mso-style-parent: style0;
+    mso-font-charset: 0;
     font-size: 8pt;
-    text-align:right;
-    border-top:none;
+    text-align: right;
+    border-top: none;
     border-bottom: none;
 }
 
 .header
 {
-    mso-style-parent:style0;
-    mso-font-charset:0;
-    mso-pattern:white none;
-    color:white;
-    text-align:center;
-    font-weight:bold;
-    vertical-align:middle;
-    white-space:nowrap;
-    border:0.5pt solid gray;
-    background:#3C5EA5;
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-pattern: white none;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: 0.5pt solid gray;
+    background: #3C5EA5;
     white-space: normal;
 }
 
 .colNumber
 {
-    mso-style-parent:style0;
-    mso-font-charset:0;
-    mso-number-format:"\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
-    mso-pattern:white none;
-    text-align:right;
-    vertical-align:middle;
-    border:0.5pt solid gray;
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-number-format: "\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
+    mso-pattern: white none;
+    text-align: right;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
     font-size: 8pt;
 }
 
 .colInteger
 {
-    mso-style-parent:style0;
-    mso-font-charset:0;
-    mso-number-format:"\#\,\#\#0\_\)\;\\\(\#\,\#\#0\\\\)";
-    mso-pattern:white none;
-    text-align:right;
-    vertical-align:middle;
-    border:0.5pt solid gray;
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-number-format: "\#\,\#\#0\_\)\;\\\(\#\,\#\#0\\\\)";
+    mso-pattern: white none;
+    text-align: right;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
     font-size: 8pt;
 }
 
 .colText
 {
-    mso-style-parent:style0;
-    mso-font-charset:0;
-    mso-pattern:white none;
-    text-align:center;
-    vertical-align:middle;
-    border:0.5pt solid gray;
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-pattern: white none;
+    text-align: center;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
     font-size: 8pt;
 }
 
 .colDateTime
 {
     mso-number-format: "Medium Date";
-    mso-font-charset:0;
-    mso-pattern:white none;
-    text-align:center;
-    vertical-align:middle;
-    border:0.5pt solid gray;
+    mso-font-charset: 0;
+    mso-pattern: white none;
+    text-align: center;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
     font-size: 8pt;
 }
 
 .grandtotal
 {
-    mso-style-parent:style0;
-    mso-font-charset:0;
-    mso-number-format:"\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
-    font-weight:bold;
-    border-top:.5pt solid gray;
-    border-right:none;
-    border-bottom:1.0pt solid black;
-    border-left:none;
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-number-format: "\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+    font-weight: bold;
     text-align: right;
     font-size: 8pt;
-    height: 18pt;
-    mso-height-source:userset;
+    mso-height-source: userset;
 }
-	
+
 .emptytotal
 {
-    border-top:.5pt solid gray;
-    border-right:none;
-    border-bottom:none;
-    border-left:none;
+    border-top: .5pt solid gray;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
 }
 
 .emptyCell
 {
-    border-right:none;
+    border-right: none;
 }
 
 .negative-number
@@ -206,26 +212,69 @@ td
 
 .colNumber5Odd
 {
-    mso-style-parent:style0;
-    color:black;
-    mso-number-format:"\#\,\#\#0\.00000_\)\;\\\(\#\,\#\#0\.00000\\\)";
-    text-align:right;
-    vertical-align:middle;
-    border:0.5pt solid gray;
-    mso-background-source:auto;
-    mso-pattern:white none;
+    mso-style-parent: style0;
+    color: black;
+    mso-number-format: "\#\,\#\#0\.00000_\)\;\\\(\#\,\#\#0\.00000\\\)";
+    text-align: right;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
+    mso-background-source: auto;
+    mso-pattern: white none;
     font-size: 8pt;
 }
 
 .even
 {
-   background-color: #ff00ff !important;
+    background-color: #ff00ff !important;
 }
 
 .div-content
 {
-    clear:both; 
-    width: 1260px; 
-    margin:40px 0 0 10px;
+    clear: both;
+    width: 1260px;
+    margin: 40px 0 0 10px;
     padding: 2px;
+    overflow: auto;
+    width: 98%;
+}
+
+table.table-content
+{
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+}
+
+.even-row
+{
+    background-color: #e4f2fd;
+}
+
+.height5
+{
+    height: 5pt;
+}
+
+.height10
+{
+    height: 10pt;
+}
+
+.height12
+{
+    height: 12pt;
+}
+
+.height15
+{
+    height: 15pt;
+}
+
+.height16
+{
+    height: 16pt;
+}
+.height26
+{
+    height: 26pt;
 }

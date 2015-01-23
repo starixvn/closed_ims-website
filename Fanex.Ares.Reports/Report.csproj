@@ -58,6 +58,13 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.0.6\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\iTextSharp.5.5.4\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.4\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -101,6 +108,7 @@
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Export\Excel\BetAggegator.cs" />
     <Compile Include="Export\Excel\Sportsbook.cs" />
+    <Compile Include="Export\Pdf\PdfRender.cs" />
     <Compile Include="Models\Licensee.cs" />
     <Compile Include="Models\Operator.cs" />
     <Compile Include="Models\Product.cs" />
@@ -132,11 +140,11 @@
   <ItemGroup>
     <Folder Include="Controllers\Repositories\Impl\" />
     <Folder Include="Controllers\Repositories\Interface\" />
-    <Folder Include="Export\Pdf\" />
     <Folder Include="Repositories\Impl\" />
     <Folder Include="Repositories\Interface\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

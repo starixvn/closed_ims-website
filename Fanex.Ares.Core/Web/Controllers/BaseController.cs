@@ -39,6 +39,11 @@ namespace Fanex.Ares.Core.Web.Controllers
             get { return Server.MapPath(ConfigurationManager.AppSettings["ExcelTemplatePath"]); }
         }
 
+        protected string LicenseeSettlementCssPath
+        {
+            get { return Server.MapPath(ConfigurationManager.AppSettings["LicenseeSettlementCssPath"]); } 
+        }
+
         protected readonly string HubUrl = "http://10.18.200.209:8009/nap-home-local2";
 
         private ViewFlags _viewFlags;

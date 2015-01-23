@@ -1,173 +1,136 @@
-﻿.titleBold
+﻿hr
 {
-    size: 13pt;
-    align: left;
+    border: 1px solid;
+    color: Black;
+}
+
+table.table-content
+{
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+}
+
+table.table-content td.cell-content
+{
+    border: 0.1px solid gray;
+    font-size: 10px;
+}
+
+.even-row
+{
+    background-color: #e4f2fd;
+}
+
+.header
+{
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    border: 0.1px solid gray;
+    background: #3C5EA5;
+    white-space: normal;
+    font-size: 11px;
+    height: 15px;
+}
+
+.colNumber
+{
+    text-align: right;
+}
+
+.colInteger
+{
+    text-align: right;
+}
+
+.colText
+{
+    text-align: center;
+}
+
+.colDateTime
+{
+    text-align: center;
+}
+
+.colNote
+{
+    text-align: left;
+    font-size: 11px;
+}
+
+.colNumber5Odd
+{
+    text-align: right;
+}
+
+.currency
+{
+    text-align: right;
+    font-size: 11px;
+}
+
+.boldTilte
+{
+    font-size: 13px;
     font-weight: bold;
 }
 
-.titleSub
+.boldInfor
 {
-    size: 11pt;
-    align: left;
-}
-
-.cellInfo
-{
-    size: 8pt;
-    align: left;
-}
-
-.lineHeight200
-{
-   line-height:200% ;
-}
-
-
-.lineHeight80
-{
-   line-height:80% ;
-}
-
-.headerReport
-{
-    size: 7pt;
-    align: center;
     font-weight: bold;
-    color: #ffffff;
-    bgcolor: #618ADA;
+    font-size: 11px;
 }
 
-.cellstyle
+.licenseeName
 {
-    size: 7pt;
-    valign: middle;
-    line-height:100% ;
-}
-.grandtotal
-{
-    size: 7pt;
-    valign: middle;
-    line-height:100% ;
-     font-weight: bold;
+    color: #0040FF;
+    font-weight: bold;
+    font-size: 11px;
 }
 
-.aligncenter
+.sportName
 {
-    align: center;
-}
-
-.alignright
-{
-    align: right;
-}
-
-.alignleft
-{
-    align: left;
-}
-
-.col60
-{
-    width: 60;
-}
-.col30
-{
-    width: 30;
-}
-.col200
-{
-    width: 200;
-}
-
-.col65
-{
-    width: 65;
-}
-.col40
-{
-    width: 40;
-}
-.col650
-{
-    width: 600;
-}
-
-.col120
-{
-    width: 120;
-}
-.col100
-{
-    width: 100;
-}
-.col80
-{
-    width: 80;
-}
-
-.col50
-{
-    width: 50;
-}
-.col400
-{
-    width: 400;
-}
-.col140
-{
-    width:140;
-}
-
-.col10percent
-{
-    width: 10%;
-}
-.noneBorder
-{
-    border: 0;
-}
-.colborder01
-{
-    border: 0.1;
-}
-
-.boldBorderBlack
-{
-     border: 1;
-}
-
-.boldBorderWhite
-{
-    border: 0;
+    color: #C21515;
+    font-weight: bold;
+    font-size: 11px;
 }
 
 .negative-number
 {
-    color: Red;
+    color: Red !important;
 }
 
-.even
+.grandtotal
 {
-    bgcolor: #e4f2fd;
-}
-
-.product-name
-{
-    color:  #C21515;
     font-weight: bold;
+    text-align: right;
+    font-size: 11px;
+    border-top: 1pt solid gray;
 }
 
- .licensee-name {
-    color: #0040FF;
-    font-weight: bold;
-}
-
-.bold
+.height5
 {
-   font-weight: bold;
+    height: 5pt;
 }
 
-.pad5
+.height12
 {
-    br: br;
+    height: 12pt;
+}
+
+.height15
+{
+    height: 15pt;
+}
+
+.height16
+{
+    height: 16pt;
+}
+.height26
+{
+    height: 26pt;
 }

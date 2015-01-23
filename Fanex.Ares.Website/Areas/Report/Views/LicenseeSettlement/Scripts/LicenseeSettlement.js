@@ -14,8 +14,8 @@ $(document).ready(function () {
             Submit();
 
             var productId = $('#Product').val();
-            var exportExcelRoutes = "?ProductId=" + parseInt(productId, 10) + "&documentType='Xlsx'";
-            var exportPdfRoutes = "?ProductId=" + parseInt(productId, 10) + "&documentType='Pdf'";
+            var exportExcelRoutes = "?ProductId=" + parseInt(productId, 10) + "&documentType=Xlsx";
+            var exportPdfRoutes = "?ProductId=" + parseInt(productId, 10) + "&documentType=Pdf";
 
             $('#pdfForm').attr('action', formOriginalAction + exportPdfRoutes);
             $('#xlsForm').attr('action', formOriginalAction + exportExcelRoutes);

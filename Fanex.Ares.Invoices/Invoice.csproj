@@ -130,6 +130,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="App_Browsers\firefox.browser" />
     <None Include="App_Browsers\ie.browser" />
     <None Include="packages.config" />

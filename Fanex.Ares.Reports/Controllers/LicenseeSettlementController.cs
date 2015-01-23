@@ -5,6 +5,7 @@ namespace Fanex.Ares.Report.Controllers
     using System.Globalization;
     using System.IO;
     using System.Linq;
+    using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Fanex.Ares.Core;
@@ -18,12 +19,14 @@ namespace Fanex.Ares.Report.Controllers
     using Fanex.Ares.Core.Web.Security;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.Export.Excel;
+    using Fanex.Ares.Report.Export.Pdf;
     using Fanex.Ares.Report.Models;
     using Fanex.Ares.Report.Services.Interface;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Common.Extensions;
     using Fanex.Core.PdfHelper;
     using Fanex.NAP.Core.Web.Attribute;
+    using iTextSharp.text.pdf;
     using Newtonsoft.Json;
     using NPOI.HSSF.UserModel;
 
@@ -92,44 +95,18 @@ namespace Fanex.Ares.Report.Controllers
         /// <param name="productId">Product Identify.</param>
         /// <param name="documentType">Document Type.</param>
         /// <returns>Export result.</returns>
-        public NPOIResult ExportDocument(int productId, string documentType)
+        public ActionResult ExportDocument(int productId, string documentType)
         {
-            /*var model = new LicenseeSettlementModel();
-            List<string> htmlList = new List<string>();
-            List<WorkbookManager.PageOrientation> pageOrientationList = new List<WorkbookManager.PageOrientation>();
-            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
-            string html = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
-            htmlList.Add(html);
-            pageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            var excelCssFilePath = new List<string>();
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
-            List<bool> isAutoFitList = new List<bool>();
-            isAutoFitList.Add(true);
-
-            string mainPagePath = "_Excel";
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlement.css"));
-            pageOrientationList.Insert(0, WorkbookManager.PageOrientation.Portrait);
-            string mainPage = HtmlHelperExtensions.RenderViewToString(this, mainPagePath, model, true);
-            htmlList.Insert(0, mainPage);
-            isAutoFitList.Insert(0, false);
-
-            var workbook = new WorkbookManager();
-
-            var ms = workbook.CreateDocument(htmlList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList, model.LicenseeInfor.LicenseeName);
-            if (ms != null)
-            {
-                // return the filestream
-                // Rewind the memory stream to the beginning
-                ms.Seek(0, SeekOrigin.Begin);
-
-                string fileName = _service.GetFileName() + "." + documentType.ToString().ToLower();
-
-                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
-            }*/
-
             var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            var excel = GetReport(model, productId);
+
+            if (documentType == WorkBookExtension.DocumentType.Pdf.ToString())
+            {
+                var filePath = ExportPdf(model);
+
+                return File(filePath, "application/force-download", Path.GetFileName(filePath));
+            }
+
+            var excel = ExportExcel(model, productId);
 
             var fileName = excel.ReportTitle.Replace(' ', '.');
 
@@ -190,12 +167,37 @@ namespace Fanex.Ares.Report.Controllers
         }
 
         /// <summary>
-        /// Get Report.
+        /// Export PDF.
+        /// </summary>
+        /// <param name="model">Licensee Settlement Model.</param>
+        /// <returns>File Path.</returns>
+        private string ExportPdf(LicenseeSettlementModel model)
+        {
+            _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+
+            var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
+            var fileName = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate).Replace(' ', '.');
+            var filePath = string.Format("{0}\\{1}.pdf", Directory.GetCurrentDirectory(), fileName);
+            //// Remember to update App Setting in Local, UAT and PRO.
+            var pdfRender = new PdfRender(string.Empty, PdfCssFilePath, htmlString);
+            var pdfStream = pdfRender.StreamRender();
+
+            using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
+            {
+                var streamData = pdfStream.ToArray();
+                stream.Write(streamData, 0, streamData.Length);
+            }
+
+            return filePath;
+        }
+
+        /// <summary>
+        /// Export Excel.
         /// </summary>
         /// <param name="model">Licensee Settlement Model.</param>
         /// <param name="productId">Product Identify.</param>
         /// <returns>Excel Base.</returns>
-        private ExcelBase GetReport(LicenseeSettlementModel model, int productId)
+        private ExcelBase ExportExcel(LicenseeSettlementModel model, int productId)
         {
             var templatePath = GetReportTemplatePath(productId);
             ExcelBase excel = null;

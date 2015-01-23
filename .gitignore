@@ -34,3 +34,5 @@ _ReSharper*/
 $tf*/
 *.dbmdl
 Fanex.Ares.sln.GhostDoc.xml
+
+/Fanex.Ares.Website/Content/template.less
