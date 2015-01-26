@@ -96,15 +96,15 @@
     <Compile Include="Controllers\LicenseeSettlementController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Criteria\LicenseeSettlement\IMS_ExchangeRateBillingSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_ExchangeRateBillingSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_LicenseeBillingInfoSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_Invoice_Rpt_LicenseeSettlementCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeBillingInfoSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeCurrencySelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeProductSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_LicenseeSelCriteria.cs" />
-    <Compile Include="Criteria\LicenseeSettlement\IMS_Rpt_LicenseeSettlementCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\ExchangeRateBillingSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\InvoiceExchangeRateBillingSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\InvoiceLicenseeBillingInfoSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\InvoiceReportLicenseeSettlementCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\LicenseeBillingInfoSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\LicenseeCurrencySelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\LicenseeProductSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\LicenseeSelCriteria.cs" />
+    <Compile Include="Criteria\LicenseeSettlement\ReportLicenseeSettlementCriteria.cs" />
     <Compile Include="Entities\BaseTicketInfo.cs" />
     <Compile Include="Export\Excel\BetAggegator.cs" />
     <Compile Include="Export\Excel\Sportsbook.cs" />
@@ -124,10 +124,6 @@
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
-      <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
-      <Name>PdfHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Resource\Resources.csproj">
       <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
       <Name>Resources</Name>
@@ -145,7 +141,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CodeAnalysis\FanexRules.ruleset" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

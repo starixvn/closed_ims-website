@@ -30,7 +30,6 @@ namespace Fanex.Ares.Invoice.Controllers
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Common;
     using Fanex.Common.Extensions;
-    using Fanex.Core.PdfHelper;
     using Fanex.NAP.Core.Web.Attribute;
     using Fanex.Workbooks;
 
@@ -40,8 +39,6 @@ namespace Fanex.Ares.Invoice.Controllers
     [NapSuperAuth]
     public class InvoiceController : BaseController
     {
-        private readonly HtmlViewRenderer _htmlViewRenderer;
-        private readonly StandardPdfRenderer _standardPdfRenderer;
         private readonly string _pdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css");
         private ServiceBase _service;
         private InvoiceService _invoiceService;
@@ -56,8 +53,6 @@ namespace Fanex.Ares.Invoice.Controllers
             this._service = new ServiceBase();
             this._invoiceService = new InvoiceService();
             this._reportService = new LicenseeSettlementService();
-            this._htmlViewRenderer = new HtmlViewRenderer();
-            this._standardPdfRenderer = new StandardPdfRenderer();
         }
 
         /// <summary>
@@ -177,7 +172,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Partial View Result.</returns>
-        public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public PartialViewResult GetReport(ReportLicenseeSettlementCriteria criteria)
         {
             var model = new LicenseeSettlementModel();
             model.LicenseeInfor.FromDate = criteria.FromDate;
@@ -203,7 +198,7 @@ namespace Fanex.Ares.Invoice.Controllers
             List<string> excelCssFilePath = new List<string>();
             List<bool> isAutoFitList = new List<bool>();
             List<WorkbookManager.PageOrientation> pageOrientationList = new List<WorkbookManager.PageOrientation>();
-            IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
+            InvoiceReportLicenseeSettlementCriteria criteria = new InvoiceReportLicenseeSettlementCriteria();
             InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
             invoice.HTMLReportList = new List<string>(); // clear html when using ref
             invoice.IsSignature = isSignature;
@@ -303,7 +298,7 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
-            var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
+            var criteria = new InvoiceReportLicenseeSettlementCriteria();
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
             criteria.BaseCurrencyName = invoice.CurrencyName;
@@ -375,7 +370,7 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             List<ChargeRate> chargeRateList = new List<ChargeRate>();
             List<DateRange> dateRangeList = new List<DateRange>();
-            var criteria = new IMS_Invoice_Rpt_LicenseeSettlementCriteria();
+            var criteria = new InvoiceReportLicenseeSettlementCriteria();
             InvoiceModel imodel = new InvoiceModel();
             criteria.LicenseeId = invoice.Licensee.LicenseeID;
             criteria.BaseCurrency = invoice.Currency;
@@ -445,7 +440,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// <param name="pageOrientationList">The page orientation list.</param>
         /// <param name="isAutoFitList">The is automatic fit list.</param>
         private void CreateDocumentPagePDF(
-                                    IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria,
+                                    InvoiceReportLicenseeSettlementCriteria criteria,
                                     string cssPath,
                                     ref InvoiceModel invoice,
                                     ref List<string> excelCssFilePath,
@@ -470,7 +465,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <param name="invoice">The invoice.</param>
         private void CreateDocumentPageWeb(
-                                        IMS_Invoice_Rpt_LicenseeSettlementCriteria criteria,
+                                        InvoiceReportLicenseeSettlementCriteria criteria,
                                         ref InvoiceModel invoice)
         {
             var model = this._reportService.GenerateReport(criteria);

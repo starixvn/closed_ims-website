@@ -65,20 +65,20 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Licensee criteria.</param>
         /// <returns>Return result.</returns>
-        public LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria)
         {
             //// Licensee Information
             var listLicensee = this.GetAllLicenseesEx();
-            var listProduct = this.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
-            var listCurrency = this.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
+            var listProduct = this.GetProductsByLicensee(new LicenseeProductSelCriteria() { LicenseeId = criteria.LicenseeId });
+            var listCurrency = this.GetCurrencyByLicensee(new LicenseeCurrencySelCriteria() { LicenseeId = criteria.LicenseeId });
             var listBaseCurrency = this.GetBaseCurrency(new IMS_BaseCurrencySel());
             var model = new LicenseeSettlementModel();
-            var licenseeInfoCriteria = new IMS_LicenseeBillingInfoSelCriteria();
-            var exchangeRateCriteria = new IMS_ExchangeRateBillingSelCriteria();
+            var licenseeInfoCriteria = new LicenseeBillingInfoSelCriteria();
+            var exchangeRateCriteria = new ExchangeRateBillingSelCriteria();
             if (criteria.InvoiceReport)
             {
-                licenseeInfoCriteria = new IMS_Invoice_LicenseeBillingInfoSelCriteria();
-                exchangeRateCriteria = new IMS_Invoice_ExchangeRateBillingSelCriteria();
+                licenseeInfoCriteria = new InvoiceLicenseeBillingInfoSelCriteria();
+                exchangeRateCriteria = new InvoiceExchangeRateBillingSelCriteria();
             }
 
             try
@@ -121,7 +121,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Licensee criteria.</param>
         /// <returns>Return result.</returns>
-        public IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria)
+        public IEnumerable<SelectListItem> GetCurrencyByLicensee(LicenseeCurrencySelCriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
             try
@@ -150,7 +150,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Licensee criteria.</param>
         /// <returns>Return result.</returns>
-        public IEnumerable<SelectListItem> GetProductsByLicensee(IMS_LicenseeProductSelCriteria criteria)
+        public IEnumerable<SelectListItem> GetProductsByLicensee(LicenseeProductSelCriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
             try
@@ -192,7 +192,7 @@ namespace Fanex.Ares.Report.Services.Interface
                     };
                 };
 
-                listLicensees = BaseRepository.Fetch<SelectListItem>(new IMS_LicenseeSelCriteria(), mappingFunc);
+                listLicensees = BaseRepository.Fetch<SelectListItem>(new LicenseeSelCriteria(), mappingFunc);
             }
             catch (Exception ex)
             {
@@ -227,7 +227,7 @@ namespace Fanex.Ares.Report.Services.Interface
                     };
                 };
 
-                listLicensees = BaseRepository.Fetch<SelectListItemEx>(new IMS_LicenseeSelCriteria(), mappingFunc);
+                listLicensees = BaseRepository.Fetch<SelectListItemEx>(new LicenseeSelCriteria(), mappingFunc);
             }
             catch (Exception ex)
             {
@@ -242,7 +242,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Licensee criteria.</param>
         /// <returns>Return licensee info.</returns>
-        private LicenseeInformation GetLicenseeInformation(IMS_LicenseeBillingInfoSelCriteria criteria)
+        private LicenseeInformation GetLicenseeInformation(LicenseeBillingInfoSelCriteria criteria)
         {
             var listLicenseeInfo = DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
             if (listLicenseeInfo == null)
@@ -258,7 +258,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Licensee criteria.</param>
         /// <returns>Return result.</returns>
-        private Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        private Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report GetLicenseeReport(ReportLicenseeSettlementCriteria criteria)
         {
             var report = new Fanex.Ares.Report.ViewModels.LicenseeSettlement.Report();
             Func<IDataReader, ReportEntity> mappingFunc;
@@ -314,7 +314,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Billing currency.</param>
         /// <returns>Return result.</returns>
-        private IEnumerable<ExchangeRate> GetLicenseeExchangeRate(IMS_ExchangeRateBillingSelCriteria criteria)
+        private IEnumerable<ExchangeRate> GetLicenseeExchangeRate(ExchangeRateBillingSelCriteria criteria)
         {
             var listExchangeRate = new List<ExchangeRate>();
             try

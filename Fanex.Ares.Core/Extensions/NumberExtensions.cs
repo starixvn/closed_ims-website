@@ -127,8 +127,8 @@ namespace Fanex.Ares.Core.Extensions
             string output = string.Empty;
 
             output = input >= 0 ? 
-                "<span style=\"font-weight: bold;\">" + Converter.To<string>(input.Format(2)) + "</span>" : 
-                "<span style=\"color: red;font-weight: bold;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
+                "<span >" + Converter.To<string>(input.Format(2)) + "</span>" : 
+                "<span style=\"color: red;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
 
             return output;
         }
@@ -150,7 +150,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <returns>System String.</returns>
         public static string GetEvenClass(int number)
         {
-            return number % 2 == 0 ? "background-color: #e4f2fd;" : string.Empty;
+            return number % 2 == 0 ? "even-row" : string.Empty;
         }
 
         /// <summary>

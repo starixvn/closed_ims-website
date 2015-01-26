@@ -285,6 +285,7 @@
     <Content Include="Areas\UserLogin\Views\Common\Style\AccessDenied.css" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\accessDenied.gif" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\UnderMaintenance.gif" />
+    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_60_4264ac_40x100.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_75_5476bb_40x100.png" />
     <Content Include="Content\base\jquery\images\ui-bg_flat_90_466bb9_40x100.png" />
@@ -677,7 +678,6 @@
     <Content Include="Areas\Invoice\Views\Invoice\Index_Angular.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\_Excel.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\test\test.cshtml" />
-    <Content Include="Areas\Report\Views\LicenseeSettlement\_Excel.cshtml" />
     <Content Include="Content\base\common.less" />
     <Content Include="Content\base\fonts.less" />
     <Content Include="Content\base\style.less" />
@@ -734,6 +734,7 @@
     <Content Include="Content\base\grid.less" />
     <Content Include="Content\base\jqueryuicustom.less" />
     <Content Include="Content\fonts\OpenSans.woff" />
+    <None Include="CodeAnalysis\FanexRules.ruleset" />
     <None Include="Content\fonts\YanoneKaffeesatz.woff" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
@@ -829,10 +830,6 @@
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PdfHelper\PdfHelper.csproj">
-      <Project>{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}</Project>
-      <Name>PdfHelper</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Workbook\Fanex.Workbooks.csproj">
       <Project>{C0D5A32D-72BC-4737-949D-FDF9342B243F}</Project>
       <Name>Fanex.Workbooks</Name>
@@ -854,7 +851,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>6384</DevelopmentServerPort>
+          <DevelopmentServerPort>54998</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

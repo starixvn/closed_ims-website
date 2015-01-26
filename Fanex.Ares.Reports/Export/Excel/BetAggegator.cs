@@ -237,7 +237,7 @@
             var row = sheet.CopyRow(TemplateSheet, LicenseeRow, LicenseeRow);
 
             row.Cells[ReportLicenseeCol].SetCellValue(_model.LicenseeInfor.LicenseeName);
-            row.Cells[ProductCol].SetCellValue(_model.LicenseeInfor.ProductName.ToUpper());
+            row.Cells[ProductCol].SetCellValue(_model.LicenseeInfor.ProductName.ToUpper(CultureInfo.CurrentCulture));
             row.Cells[FirstBillingCol].SetCellValue(_model.LicenseeInfor.FirstBilling.ToAresMonthYear());
 
             row = sheet.CopyRow(TemplateSheet, TermsRow, TermsRow);

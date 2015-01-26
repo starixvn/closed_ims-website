@@ -173,7 +173,7 @@
             row = sheet.CopyRow(TemplateSheet, NoteRow, rowIndex++);
             row.Height = 500;
             row.Cells[DateCol].SetCellValue(secondNote);
-            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, CompanyBaseCurrencyCol); 
+            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, CompanyBaseCurrencyCol);
         }
 
         private void AssignGrandTotal(ISheet sheet, ref int rowIndex)
@@ -182,7 +182,7 @@
 
             row.Height = 500;
             row.Cells[GrossCol].SetCellValue(_model.Report.GrandTotal.CompanyBaseCurrency);
-            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, CompanyBaseCurrencyCol); 
+            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, CompanyBaseCurrencyCol);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@
             var row = sheet.CopyRow(TemplateSheet, LicenseeRow, LicenseeRow);
 
             row.Cells[ReportLicenseeCol].SetCellValue(_model.LicenseeInfor.LicenseeName);
-            row.Cells[ProductCol].SetCellValue(_model.LicenseeInfor.ProductName.ToUpper());
+            row.Cells[ProductCol].SetCellValue(_model.LicenseeInfor.ProductName.ToUpper(CultureInfo.CurrentCulture));
             row.Cells[FirstBillingCol].SetCellValue(_model.LicenseeInfor.FirstBilling.ToAresMonthYear());
 
             row = sheet.CopyRow(TemplateSheet, BasisBillingRow, BasisBillingRow);

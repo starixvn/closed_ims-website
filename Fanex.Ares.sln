@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fanex.Ares.Website", "Fanex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Admin", "Fanex.Ares.Admin\Admin.csproj", "{AE0012D9-DD72-4DC5-A94D-6FFA1C3A259A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PdfHelper", "PdfHelper\PdfHelper.csproj", "{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resources", "Resource\Resources.csproj", "{9FF96A41-B105-41FF-AE1D-B67689FACA66}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{97AE227F-BCC9-4478-950D-BF828CCA4C49}"
@@ -28,6 +26,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{9806B9
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CodeAnalysis", "CodeAnalysis", "{9FF587C8-41C0-45C5-97AF-F9060EB4051B}"
+	ProjectSection(SolutionItems) = preProject
+		CodeAnalysis\CodeAnalysisConfiguration.xml = CodeAnalysis\CodeAnalysisConfiguration.xml
+		CodeAnalysis\FanexRules.ruleset = CodeAnalysis\FanexRules.ruleset
 	EndProjectSection
 EndProject
 Global
@@ -56,10 +60,6 @@ Global
 		{AE0012D9-DD72-4DC5-A94D-6FFA1C3A259A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE0012D9-DD72-4DC5-A94D-6FFA1C3A259A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE0012D9-DD72-4DC5-A94D-6FFA1C3A259A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9FF96A41-B105-41FF-AE1D-B67689FACA66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9FF96A41-B105-41FF-AE1D-B67689FACA66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FF96A41-B105-41FF-AE1D-B67689FACA66}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -75,7 +75,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{97AE227F-BCC9-4478-950D-BF828CCA4C49} = {38A87FC9-4BEC-449E-8997-373D447CA4FA}
 		{7F697EB1-F35A-4AC8-8398-627DD76F4FDE} = {38A87FC9-4BEC-449E-8997-373D447CA4FA}
-		{E8B8A573-A8CD-47FE-B14A-FD5AAAFB5A96} = {97AE227F-BCC9-4478-950D-BF828CCA4C49}
 		{9FF96A41-B105-41FF-AE1D-B67689FACA66} = {97AE227F-BCC9-4478-950D-BF828CCA4C49}
 		{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7} = {97AE227F-BCC9-4478-950D-BF828CCA4C49}
 		{C0D5A32D-72BC-4737-949D-FDF9342B243F} = {97AE227F-BCC9-4478-950D-BF828CCA4C49}

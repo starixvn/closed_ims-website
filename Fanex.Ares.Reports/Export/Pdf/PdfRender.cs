@@ -24,9 +24,7 @@
 
         private MemoryStream _stream;
 
-        private string _htmlString;
-
-        private string _outputFilePath;
+        private string _htmlText;
 
         private string _cssFilePath;
 
@@ -38,10 +36,9 @@
         {
         }
 
-        public PdfRender(string outputfilePath, string cssFilePath, string htmlString)
+        public PdfRender(string cssFilePath, string htmlText)
         {
-            _outputFilePath = outputfilePath;
-            _htmlString = htmlString;
+            _htmlText = htmlText;
             _cssFilePath = cssFilePath;
             _pdfDocument = new Document();
             _stream = new MemoryStream();
@@ -51,14 +48,9 @@
 
         #region Properties
 
-        protected string OutputfilePath
-        {
-            get { return _outputFilePath; }
-        }
-
         protected string HtmlString
         {
-            get { return _htmlString; }
+            get { return _htmlText; }
         }
 
         #endregion
@@ -81,15 +73,6 @@
             }
         }
 
-        public Document DocumentRender()
-        {
-            Render();
-            _pdfDocument.Close();
-
-            return _pdfDocument;
-            //// Save();
-        }
-
         public MemoryStream StreamRender()
         {
             Render();
@@ -101,26 +84,6 @@
         #endregion
 
         #region Utilities
-
-        /// <summary>
-        /// Save data-stream to file.
-        /// </summary>
-        private void Save()
-        {
-            if (File.Exists(this.OutputfilePath))
-            {
-                File.Delete(this.OutputfilePath);
-            }
-
-            _pdfDocument.Close();
-
-            var streamData = _stream.ToArray();
-
-            using (var fileStream = new FileStream(OutputfilePath, FileMode.OpenOrCreate))
-            {
-                fileStream.Write(streamData, 0, streamData.Length);
-            }
-        }
 
         /// <summary>
         /// Render data into stream.
@@ -149,7 +112,7 @@
         /// </summary>
         private void AssignData()
         {
-            using (var stringReader = new StringReader(_htmlString))
+            using (var stringReader = new StringReader(_htmlText))
             {
                 var htmlContext = new HtmlPipelineContext(null);
                 var cssResolver = XMLWorkerHelper.GetInstance().GetDefaultCssResolver(true);

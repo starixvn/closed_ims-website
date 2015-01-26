@@ -1,7 +1,6 @@
 ﻿hr
 {
-    border: 1px solid;
-    color: Black;
+    border: 0.1px solid gray;
 }
 
 table.table-content
@@ -108,7 +107,6 @@ table.table-content td.cell-content
     font-weight: bold;
     text-align: right;
     font-size: 11px;
-    border-top: 1pt solid gray;
 }
 
 .height5

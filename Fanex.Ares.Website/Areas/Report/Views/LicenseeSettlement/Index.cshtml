@@ -5,19 +5,11 @@
 @using Fanex.Ares.Report.Controllers
 @using Fanex.Ares.Report.Criteria.LicenseeSettlement;
 @using Fanex.Ares.Core.Extensions
-@model IMS_Rpt_LicenseeSettlementCriteria
+@model ReportLicenseeSettlementCriteria
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Licensee Settlement Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
-@* if (Request.UserAgent.Contains("Chrome"))
-      {
-      <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlementChrome.css" />
-      }
-      else
-      {
-           <link rel="stylesheet" type="text/css" href="~/Areas/Report/Views/LicenseeSettlement/Styles/LicenseeSettlement.css" />
-      }*@
 
 }
 @section Head {
@@ -48,8 +40,6 @@
                         <div class="edit-field col_6 align-left">
                             @Html.DropDownListFor(m => m.LicenseeId, ((List<SelectListItemEx>)ViewBag.ListLicenseeEx).ToListSelectListItem(), new SelectListItem() { Selected = true, Text = "Please Choose One !", Value = "0" }, new { @class = "alpha auto-width" })
                         </div>
-                        @*<div id="datepickerplugin" class="lbl-field col_27 align-right">
-                    </div>*@
                         <div class="lbl-field col_3">
                             <div>
                                 Month</div>
@@ -125,19 +115,4 @@
     @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
     <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
     <script type="text/javascript" src="~/Areas/Report/Views/LicenseeSettlement/Scripts/LicenseeSettlement.js?ver=1"></script>
-    <script type="text/javascript">
-
-        function Product() {
-            this.ProductName = "Soccer";
-        }
-
-        var product = new Product();
-        product.CurrencyName = "EUR";
-
-        function ExportPdf() {
-            var link = '@Url.Action("ExportDocument1", "LicenseeSettlement", new { documentType1 = "jsondata" })';
-            link = link.replace("jsondata", JSON.stringify(product));
-            location.href = link;
-        }
-    </script>
 }

@@ -746,4 +746,10 @@ Win Loss</value>
   <data name="SETTLEMENT_REPORT" xml:space="preserve">
     <value>SETTLEMENT REPORT</value>
   </data>
+  <data name="IDRNote" xml:space="preserve">
+    <value>Amount in IDR is stated in 000, when converted to {0} Equv, x1000</value>
+  </data>
+  <data name="OandaNote" xml:space="preserve">
+    <value>www.oanda.com provided minor difference between '{0}/1 Unit' vs 'Units/1 {1}', we standardize the use of 'Units/1 {2}' rate to prevail all.</value>
+  </data>
 </root>

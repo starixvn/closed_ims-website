@@ -36,14 +36,14 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Licensee product criteria.</param>
         /// <returns>Return result.</returns>
-        IEnumerable<SelectListItem> GetProductsByLicensee(IMS_LicenseeProductSelCriteria criteria);
+        IEnumerable<SelectListItem> GetProductsByLicensee(LicenseeProductSelCriteria criteria);
 
         /// <summary>
         /// Get Currency By Licensee.
         /// </summary>
         /// <param name="criteria">Licensee currency criteria.</param>
         /// <returns>Return result.</returns>
-        IEnumerable<SelectListItem> GetCurrencyByLicensee(IMS_LicenseeCurrencySelCriteria criteria);
+        IEnumerable<SelectListItem> GetCurrencyByLicensee(LicenseeCurrencySelCriteria criteria);
 
         /// <summary>
         /// Get Base Currency.
@@ -57,7 +57,7 @@ namespace Fanex.Ares.Report.Services.Interface
         /// </summary>
         /// <param name="criteria">Licensee settlement criteria.</param>
         /// <returns>Return result.</returns>
-        LicenseeSettlementModel GenerateReport(IMS_Rpt_LicenseeSettlementCriteria criteria);
+        LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria);
 
         /// <summary>
         /// Get File Name.

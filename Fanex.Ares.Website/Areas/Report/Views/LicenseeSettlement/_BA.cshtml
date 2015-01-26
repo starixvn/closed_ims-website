@@ -2,21 +2,13 @@
 @using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @using Fanex.Ares.Core.Resources;
+@using Fanex.Ares.Core.DataDomain;
+@model LicenseeSettlementModel
 @{
-    LicenseeSettlementModel licensee = new LicenseeSettlementModel();
-    licensee = Model;
-    var reportCount = licensee.Report.EntityList.Count;
-}
-@functions{
-    public string GetNegativeClass(double number)
-    {
-        return number < 0 ? "negative-number" : string.Empty;
-    }
-
-    public string GetEvenClass(int number)
-    {
-        return number % 2 == 0 ? "even-row" : string.Empty;
-    }
+    var reportCount = Model.Report.EntityList.Count;
+    var baseCurrencyName = Model.LicenseeInfor.BaseCurrencyName;
+    var forexNote = string.Format(Labels.OandaNote, baseCurrencyName, baseCurrencyName, baseCurrencyName);
+    var idrNote = string.Format(Labels.IDRNote, baseCurrencyName);
 }
 <div class="div-content">
     <table class="table-content" cellpadding="2" cellspacing="0">
@@ -37,12 +29,12 @@
             </td>
         </tr>
         <tr>
-            <td class="colNote height12" colspan="2" >
+            <td class="colNote height12" colspan="2">
                 SETTLEMENT REPORT
             </td>
             <td colspan="12" class="boldInfor">
-                From @licensee.LicenseeInfor.FromDate.ToAresDayMonthYear()
-                To @licensee.LicenseeInfor.ToDate.ToAresDayMonthYear()
+                From @Model.LicenseeInfor.FromDate.ToAresDayMonthYear()
+                To @Model.LicenseeInfor.ToDate.ToAresDayMonthYear()
             </td>
         </tr>
         <tr>
@@ -50,16 +42,16 @@
                 LICENSEE:
             </td>
             <td colspan="1" class="licenseeName">
-                @licensee.LicenseeInfor.LicenseeName
+                @Model.LicenseeInfor.LicenseeName
             </td>
             <td class="sportName" colspan="3">
-                @licensee.LicenseeInfor.ProductName.ToUpper()
+                @Model.LicenseeInfor.ProductName.ToUpper()
             </td>
             <td class="colNote" colspan="1">
                 1st Billing:
             </td>
             <td class="boldInfor" colspan="8">
-                @licensee.LicenseeInfor.FirstBilling.ToAresMonthYear()
+                @Model.LicenseeInfor.FirstBilling.ToAresMonthYear()
             </td>
         </tr>
         <tr>
@@ -69,7 +61,7 @@
                 Head of Terms:
             </td>
             <td class="boldInfor" colspan="8">
-                @licensee.LicenseeInfor.HeadOfTerms
+                @Model.LicenseeInfor.HeadOfTerms
             </td>
         </tr>
         <tr>
@@ -87,7 +79,7 @@
                 @Labels.Turnover
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.Turnover + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Html.RawWithLineBreak(Labels.Turnover + "\n (" + Model.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td rowspan="2" class="header">
                 @Labels.TotalTrans
@@ -96,13 +88,13 @@
                 @Html.RawWithLineBreak(Labels.CustomerWinLoss)
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + Model.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td rowspan="2" class="header">
                 @Labels.BAComm
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.BAComm + "\n (" + licensee.LicenseeInfor.BaseCurrencyName + ")")
+                @Html.RawWithLineBreak(Labels.BAComm + "\n (" + Model.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td colspan="2" class="header">
                 @Labels.AmountDue
@@ -112,13 +104,13 @@
             <td colspan="2" class="header">
                 @{
                     string forexTime = string.Empty;
-                    if (DateTime.Now.Year == licensee.LicenseeInfor.SettlementDate.Year && DateTime.Now.Month == licensee.LicenseeInfor.SettlementDate.Month)
+                    if (DateTime.Now.Year == Model.LicenseeInfor.SettlementDate.Year && DateTime.Now.Month == Model.LicenseeInfor.SettlementDate.Month)
                     {
                         forexTime = DateTime.Now.ToAresDayMonthYear();
                     }
                     else
                     {
-                        forexTime = licensee.LicenseeInfor.SettlementDate.LastDayOfMonth().ToAresDayMonthYear();
+                        forexTime = Model.LicenseeInfor.SettlementDate.LastDayOfMonth().ToAresDayMonthYear();
                     }
                 }
                 Forex @@ @forexTime
@@ -129,13 +121,13 @@
                 @Labels.BA
             </td>
             <td class="header">
-                @Labels.BAEqui @licensee.LicenseeInfor.BaseCurrencyName
+                @Labels.BAEqui @Model.LicenseeInfor.BaseCurrencyName
             </td>
             <td class="header">
-                @licensee.LicenseeInfor.BaseCurrencyName/1 Unit
+                @Model.LicenseeInfor.BaseCurrencyName/1 Unit
             </td>
             <td class="header">
-                Units/1 @licensee.LicenseeInfor.BaseCurrencyName
+                Units/1 @Model.LicenseeInfor.BaseCurrencyName
             </td>
         </tr>
         @if (reportCount == 0)
@@ -153,15 +145,14 @@
         }
         else
         {
-            for (int i = 0; i < licensee.Report.EntityList.Count; i++)
+            for (int i = 0; i < Model.Report.EntityList.Count; i++)
             {
-                ReportEntity report = new ReportEntity();
-                report = licensee.Report.EntityList[i];
+                var report = new ReportEntity();
+                var evenClass = NumberExtensions.GetEvenClass(i);
+                var exchange = new ExchangeRate();
 
-                ExchangeRate exchange = new ExchangeRate();
-                exchange = licensee.ExchangeList[i];
-
-                var evenClass = GetEvenClass(i);
+                report = Model.Report.EntityList[i];
+                exchange = Model.ExchangeList[i];
             
             <tr>
                 <td class="colDateTime cell-content height15 @evenClass">
@@ -171,31 +162,31 @@
                     @report.CurrencyName
                 </td>
                 <td class="colNumber cell-content @evenClass" >
-                    <span class=" @GetNegativeClass(report.Turnover)">@report.Turnover.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.Turnover))
                 </td>
                 <td class="colNumber cell-content @evenClass" >
-                    <span class="@GetNegativeClass(report.TurnoverBase)">@report.TurnoverBase.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.TurnoverBase))
                 </td>
                 <td class="colInteger cell-content @evenClass" >
                     @report.Betcount.Format(0)
                 </td>
                 <td class="colNumber cell-content @evenClass" >
-                    <span class=" @GetNegativeClass(report.MemberWinloss)">@report.MemberWinloss.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.MemberWinloss))
                 </td>
                 <td class="colNumber cell-content @evenClass" >
-                    <span class="  @GetNegativeClass(report.MemberWinlossBase)">@report.MemberWinlossBase.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.MemberWinlossBase))
                 </td>
                 <td class="colNumber cell-content @evenClass" >
-                    <span class="  @GetNegativeClass(report.LicenseeWL)">@report.LicenseeWL.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.LicenseeWL))
                 </td>
                 <td class="colNumber cell-content @evenClass" >
-                    <span class="  @GetNegativeClass(report.LicenseeWLBase)">@report.LicenseeWLBase.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.LicenseeWLBase))
                 </td>
                 <td class="colNumber cell-content @evenClass" >
-                    <span class="  @GetNegativeClass(report.Company)">@report.Company.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.Company))
                 </td>
                 <td class="colNumber cell-content @evenClass">
-                    <span class="  @GetNegativeClass(report.CompanyBaseCurrency)">@report.CompanyBaseCurrency.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(report.CompanyBaseCurrency))
                 </td>
                 <td class="currency">
                     @exchange.CurrencyName
@@ -218,16 +209,16 @@
             </tr>
             <tr>
                 <td colspan="4" align="right" class="grandtotal">
-                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.TurnoverBase)">@licensee.Report.GrandTotal.TurnoverBase.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.TurnoverBase))
                 </td>
                 <td colspan="3" align="right" class="grandtotal">
-                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.MemberWinlossBase)">@licensee.Report.GrandTotal.MemberWinlossBase.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.MemberWinlossBase))
                 </td>
                 <td colspan="2" align="right" class="grandtotal">
-                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.LicenseeWLBase)">@licensee.Report.GrandTotal.LicenseeWLBase.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.LicenseeWLBase))
                 </td>
                 <td colspan="2" align="right" class="grandtotal">
-                    <span class="@GetNegativeClass(licensee.Report.GrandTotal.CompanyBaseCurrency)">@licensee.Report.GrandTotal.CompanyBaseCurrency.FormatNegative(2)</span>
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.CompanyBaseCurrency))
                 </td>
                 <td class="emptyCell">
                 </td>
@@ -241,15 +232,14 @@
                     </div>
                 </td>
             </tr>
-            if (licensee.LicenseeInfor.BaseCurrencyName.Trim() != "CNY")
+            if (!Model.LicenseeInfor.BaseCurrencyName.Trim().Equals(BaseCurrencyName.CNY))
             {
             <tr>
                 <td class="colNote height15">
                     IDR &amp; VND *
                 </td>
                 <td class="colNote" colspan="13">
-                    Amount in IDR is stated in 000, when converted to @licensee.LicenseeInfor.BaseCurrencyName
-                    Equv, x1000
+                    @idrNote
                 </td>
             </tr>
             <tr>
@@ -257,9 +247,7 @@
                     FOREX
                 </td>
                 <td class="colNote" colspan="13">
-                    www.oanda.com provided minor difference between '@licensee.LicenseeInfor.BaseCurrencyName/1
-                    Unit' vs 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName', we standardize the
-                    use of 'Units/1 @licensee.LicenseeInfor.BaseCurrencyName' rate to prevail all.
+                    @forexNote
                 </td>
             </tr>
             }

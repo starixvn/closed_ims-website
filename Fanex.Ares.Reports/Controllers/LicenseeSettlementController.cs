@@ -1,11 +1,9 @@
 namespace Fanex.Ares.Report.Controllers
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Web;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Fanex.Ares.Core;
@@ -20,41 +18,41 @@ namespace Fanex.Ares.Report.Controllers
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.Export.Excel;
     using Fanex.Ares.Report.Export.Pdf;
-    using Fanex.Ares.Report.Models;
     using Fanex.Ares.Report.Services.Interface;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Common.Extensions;
-    using Fanex.Core.PdfHelper;
     using Fanex.NAP.Core.Web.Attribute;
-    using iTextSharp.text.pdf;
-    using Newtonsoft.Json;
     using NPOI.HSSF.UserModel;
 
     /// <summary>
     /// Licensee Settlement Controller.
     /// </summary>
-    [SuppressMessage("Microsoft.StyleCop.CSharp.DocumentationRules", "SA1600:ElementsMustBeDocumented", Justification = "Licensee Settlement Controller.")]
     [NapSuperAuth]
     public class LicenseeSettlementController : BaseController
     {
+        #region Fields
+
         private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Views\LicenseeSettlement\Styles\LicenseeSettlementPDF.css");
-
-        private readonly StandardPdfRenderer _standardPdfRenderer;
-
-        private ILicenseeSettlementService _service;
-
-        #region View path
 
         private string _settlementView = string.Empty;
 
+        private ILicenseeSettlementService _licenseeSettlementService;
+
         #endregion
+
+        #region Constructor
 
         public LicenseeSettlementController()
         {
-            _service = new LicenseeSettlementService();
-
-            this._standardPdfRenderer = new StandardPdfRenderer();
+            _licenseeSettlementService = new LicenseeSettlementService();
         }
+
+        public LicenseeSettlementController(ILicenseeSettlementService licenseeSettmentService)
+        {
+            _licenseeSettlementService = licenseeSettmentService ?? new LicenseeSettlementService();
+        }
+
+        #endregion
 
         /// <summary>
         /// The index page.
@@ -63,12 +61,15 @@ namespace Fanex.Ares.Report.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            IMS_Rpt_LicenseeSettlementCriteria model = new IMS_Rpt_LicenseeSettlementCriteria();
+            var model = new ReportLicenseeSettlementCriteria();
+
             model.Year = DateTime.Now.Year;
-            ViewBag.ListLicenseeEx = _service.GetAllLicenseesEx();
-            ViewBag.ListProduct = _service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = 0 });
-            ViewBag.ListCurrency = _service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
-            ViewBag.ListExchangeRate = _service.GetBaseCurrency(new IMS_BaseCurrencySel());
+
+            ViewBag.ListLicenseeEx = _licenseeSettlementService.GetAllLicenseesEx();
+            ViewBag.ListProduct = _licenseeSettlementService.GetProductsByLicensee(new LicenseeProductSelCriteria() { LicenseeId = 0 });
+            ViewBag.ListCurrency = _licenseeSettlementService.GetCurrencyByLicensee(new LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
+            ViewBag.ListExchangeRate = _licenseeSettlementService.GetBaseCurrency(new IMS_BaseCurrencySel());
+
             return View(model);
         }
 
@@ -77,15 +78,18 @@ namespace Fanex.Ares.Report.Controllers
         /// </summary>
         /// <param name="criteria">Report criteria.</param>
         /// <returns>Report result.</returns>
-        public PartialViewResult GetReport(IMS_Rpt_LicenseeSettlementCriteria criteria)
+        public PartialViewResult GetReport(ReportLicenseeSettlementCriteria criteria)
         {
-            var model = _service.GenerateReport(criteria);
+            var model = _licenseeSettlementService.GenerateReport(criteria);
+
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
             _settlementView = "_" + criteria.ProductName;
+
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, _settlementView);
+
             return PartialView(_settlementView, model);
         }
 
@@ -107,7 +111,6 @@ namespace Fanex.Ares.Report.Controllers
             }
 
             var excel = ExportExcel(model, productId);
-
             var fileName = excel.ReportTitle.Replace(' ', '.');
 
             return new NPOIResult((HSSFWorkbook)excel.Workbook, fileName);
@@ -120,7 +123,7 @@ namespace Fanex.Ares.Report.Controllers
         /// <returns>Product result.</returns>
         public JsonResult GetProductByLicenseeID(int licenseeID)
         {
-            return Json(_service.GetProductsByLicensee(new IMS_LicenseeProductSelCriteria() { LicenseeId = licenseeID }));
+            return Json(_licenseeSettlementService.GetProductsByLicensee(new LicenseeProductSelCriteria() { LicenseeId = licenseeID }));
         }
 
         /// <summary>
@@ -130,7 +133,7 @@ namespace Fanex.Ares.Report.Controllers
         /// <returns>Currency result.</returns>
         public JsonResult GetCurrencyByLicenseeID(int licenseeID)
         {
-            return Json(_service.GetCurrencyByLicensee(new IMS_LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }));
+            return Json(_licenseeSettlementService.GetCurrencyByLicensee(new LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }));
         }
 
         /// <summary>
@@ -141,17 +144,6 @@ namespace Fanex.Ares.Report.Controllers
         {
             var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             return View("PrintReport", model);
-        }
-
-        /// <summary>
-        /// Export Document.
-        /// </summary>
-        /// <param name="documentType1">Document type.</param>
-        /// <returns>Return result.</returns>
-        public ActionResult ExportDocument1(string documentType1)
-        {
-            var student = JsonConvert.DeserializeObject<Product>(documentType1);
-            return new EmptyResult();
         }
 
         #region Utilities
@@ -178,8 +170,7 @@ namespace Fanex.Ares.Report.Controllers
             var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
             var fileName = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate).Replace(' ', '.');
             var filePath = string.Format("{0}\\{1}.pdf", Directory.GetCurrentDirectory(), fileName);
-            //// Remember to update App Setting in Local, UAT and PRO.
-            var pdfRender = new PdfRender(string.Empty, PdfCssFilePath, htmlString);
+            var pdfRender = new PdfRender(PdfCssFilePath, htmlString);
             var pdfStream = pdfRender.StreamRender();
 
             using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
