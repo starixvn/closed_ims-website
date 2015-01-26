@@ -26,7 +26,7 @@ namespace Fanex.Ares.Invoice.Controllers
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-    using Fanex.Ares.Report.Services.Interface;
+    using Fanex.Ares.Report.Services.Interfaces;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Common;
     using Fanex.Common.Extensions;

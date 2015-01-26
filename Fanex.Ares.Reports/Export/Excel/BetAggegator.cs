@@ -141,12 +141,12 @@
             row = sheet.CopyRow(TemplateSheet, NoteRow, rowIndex++);
             row.Height = 500;
             row.Cells[DateCol].SetCellValue(firstNote);
-            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, CompanyBaseCurrencyCol);
+            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, AmountDueToBABaseCol);
 
             row = sheet.CopyRow(TemplateSheet, NoteRow, rowIndex++);
             row.Height = 500;
             row.Cells[DateCol].SetCellValue(secondNote);
-            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, CompanyBaseCurrencyCol);
+            sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, AmountDueToBABaseCol);
         }
 
         /// <summary>
@@ -159,16 +159,16 @@
             var row = sheet.CopyRow(TemplateSheet, GrandTotalRow, rowIndex++);
 
             row.Height = 500;
-            row.Cells[DateCol].SetCellValue(_model.Report.GrandTotal.TurnoverBase);
+            row.Cells[DateCol].SetCellValue(_model.GrandTotal.TurnoverBase);
             sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, TurnoverBaseCol);
 
-            row.Cells[TotalTransCol].SetCellValue(_model.Report.GrandTotal.MemberWinlossBase);
+            row.Cells[TotalTransCol].SetCellValue(_model.GrandTotal.MemberWinlossBase);
             sheet.MergeCells(rowIndex - 1, TotalTransCol, rowIndex - 1, MemberWinLossBaseCol);
 
-            row.Cells[BACommCol].SetCellValue(_model.Report.GrandTotal.LicenseeWLBase);
+            row.Cells[BACommCol].SetCellValue(_model.GrandTotal.LicenseeWLBase);
             sheet.MergeCells(rowIndex - 1, BACommCol, rowIndex - 1, BACommBaseCol);
 
-            row.Cells[AmountDueToBACol].SetCellValue(_model.Report.GrandTotal.CompanyBaseCurrency);
+            row.Cells[AmountDueToBACol].SetCellValue(_model.GrandTotal.CompanyBaseCurrency);
             sheet.MergeCells(rowIndex - 1, AmountDueToBACol, rowIndex - 1, AmountDueToBABaseCol);
         }
 
@@ -179,9 +179,9 @@
         /// <param name="rowIndex">Row Index.</param>
         private void AssignContentTable(ISheet sheet, ref int rowIndex)
         {
-            for (var index = 0; index < _model.Report.EntityList.Count; index++)
+            for (var index = 0; index < _model.ReportList.Count; index++)
             {
-                var report = _model.Report.EntityList[index];
+                var report = _model.ReportList[index];
                 var exchangeRate = _model.ExchangeList[index];
                 var contentRow = index % 2 == 0 ? OddContentRow : EvenContentRow;
 

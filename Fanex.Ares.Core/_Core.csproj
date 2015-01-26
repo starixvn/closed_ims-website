@@ -127,6 +127,7 @@
     <Compile Include="Services\Impl\LoggingHandler.cs" />
     <Compile Include="Services\Impl\PermissionService.cs" />
     <Compile Include="Services\Impl\ServiceBase.cs" />
+    <Compile Include="Services\Impl\ServiceException.cs" />
     <Compile Include="Services\Interface\ICoreService.cs" />
     <Compile Include="Services\Interface\IServiceBase.cs" />
     <Compile Include="Resources\Errors.Designer.cs">

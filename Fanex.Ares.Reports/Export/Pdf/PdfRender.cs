@@ -62,14 +62,23 @@
         /// </summary>
         public void Dispose()
         {
-            if (_pdfDocument != null)
-            {
-                _pdfDocument.Dispose();
-            }
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-            if (_stream != null)
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
             {
-                _stream.Dispose();
+                if (_pdfDocument != null)
+                {
+                    _pdfDocument.Dispose();
+                }
+
+                if (_stream != null)
+                {
+                    _stream.Dispose();
+                }
             }
         }
 

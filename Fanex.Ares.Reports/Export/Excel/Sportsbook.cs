@@ -181,7 +181,7 @@
             var row = sheet.CopyRow(TemplateSheet, GrandTotalRow, rowIndex++);
 
             row.Height = 500;
-            row.Cells[GrossCol].SetCellValue(_model.Report.GrandTotal.CompanyBaseCurrency);
+            row.Cells[GrossCol].SetCellValue(_model.GrandTotal.CompanyBaseCurrency);
             sheet.MergeCells(rowIndex - 1, DateCol, rowIndex - 1, CompanyBaseCurrencyCol);
         }
 
@@ -192,9 +192,9 @@
         /// <param name="rowIndex">Row Index.</param>
         private void AssignContentTable(ISheet sheet, ref int rowIndex)
         {
-            for (var index = 0; index < _model.Report.EntityList.Count; index++)
+            for (var index = 0; index < _model.ReportList.Count; index++)
             {
-                var report = _model.Report.EntityList[index];
+                var report = _model.ReportList[index];
                 var exchangeRate = _model.ExchangeList[index];
                 var contentRow = index % 2 == 0 ? OddContentRow : EvenContentRow;
 

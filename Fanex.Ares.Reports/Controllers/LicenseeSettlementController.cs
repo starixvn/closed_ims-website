@@ -18,7 +18,7 @@ namespace Fanex.Ares.Report.Controllers
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.Export.Excel;
     using Fanex.Ares.Report.Export.Pdf;
-    using Fanex.Ares.Report.Services.Interface;
+    using Fanex.Ares.Report.Services.Interfaces;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Common.Extensions;
     using Fanex.NAP.Core.Web.Attribute;
@@ -47,9 +47,9 @@ namespace Fanex.Ares.Report.Controllers
             _licenseeSettlementService = new LicenseeSettlementService();
         }
 
-        public LicenseeSettlementController(ILicenseeSettlementService licenseeSettmentService)
+        public LicenseeSettlementController(ILicenseeSettlementService licenseeSettlementService)
         {
-            _licenseeSettlementService = licenseeSettmentService ?? new LicenseeSettlementService();
+            _licenseeSettlementService = licenseeSettlementService ?? new LicenseeSettlementService();
         }
 
         #endregion
@@ -65,7 +65,7 @@ namespace Fanex.Ares.Report.Controllers
 
             model.Year = DateTime.Now.Year;
 
-            ViewBag.ListLicenseeEx = _licenseeSettlementService.GetAllLicenseesEx();
+            ViewBag.ListLicenseeEx = _licenseeSettlementService.AllLicenseesExension;
             ViewBag.ListProduct = _licenseeSettlementService.GetProductsByLicensee(new LicenseeProductSelCriteria() { LicenseeId = 0 });
             ViewBag.ListCurrency = _licenseeSettlementService.GetCurrencyByLicensee(new LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
             ViewBag.ListExchangeRate = _licenseeSettlementService.GetBaseCurrency(new IMS_BaseCurrencySel());
@@ -169,7 +169,7 @@ namespace Fanex.Ares.Report.Controllers
 
             var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
             var fileName = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate).Replace(' ', '.');
-            var filePath = string.Format("{0}\\{1}.pdf", Directory.GetCurrentDirectory(), fileName);
+            var filePath = string.Format(CultureInfo.CurrentCulture, "{0}\\{1}.pdf", Directory.GetCurrentDirectory(), fileName);
             var pdfRender = new PdfRender(PdfCssFilePath, htmlString);
             var pdfStream = pdfRender.StreamRender();
 

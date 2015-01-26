@@ -1,11 +1,10 @@
 ﻿@using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
-@using Fanex.Ares.Report.ViewModels;
 @using Fanex.Ares.Core.Extensions;
 @using Fanex.Ares.Core.Resources;
 @using Fanex.Ares.Core.DataDomain;
 @model LicenseeSettlementModel
 @{
-    var reportCount = Model.Report.EntityList.Count;
+    var reportCount = Model.ReportList.Count;
     var baseCurrencyName = Model.LicenseeInfor.BaseCurrencyName;
     var forexNote = string.Format(Labels.OandaNote, baseCurrencyName, baseCurrencyName, baseCurrencyName);
     var idrNote = string.Format(Labels.IDRNote, baseCurrencyName);
@@ -145,14 +144,11 @@
         }
         else
         {
-            for (int i = 0; i < Model.Report.EntityList.Count; i++)
+            for (int i = 0; i < Model.ReportList.Count; i++)
             {
-                var report = new ReportEntity();
+                var report = Model.ReportList[i];
+                var exchange = Model.ExchangeList[i];
                 var evenClass = NumberExtensions.GetEvenClass(i);
-                var exchange = new ExchangeRate();
-
-                report = Model.Report.EntityList[i];
-                exchange = Model.ExchangeList[i];
             
             <tr>
                 <td class="colDateTime cell-content height15 @evenClass">
@@ -209,16 +205,16 @@
             </tr>
             <tr>
                 <td colspan="4" align="right" class="grandtotal">
-                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.TurnoverBase))
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.GrandTotal.TurnoverBase))
                 </td>
                 <td colspan="3" align="right" class="grandtotal">
-                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.MemberWinlossBase))
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.GrandTotal.MemberWinlossBase))
                 </td>
                 <td colspan="2" align="right" class="grandtotal">
-                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.LicenseeWLBase))
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.GrandTotal.LicenseeWLBase))
                 </td>
                 <td colspan="2" align="right" class="grandtotal">
-                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.Report.GrandTotal.CompanyBaseCurrency))
+                    @Html.Raw(NumberExtensions.NegativeFormat(@Model.GrandTotal.CompanyBaseCurrency))
                 </td>
                 <td class="emptyCell">
                 </td>
