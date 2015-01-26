@@ -66,6 +66,18 @@
             GC.SuppressFinalize(this);
         }
 
+        public MemoryStream StreamRender()
+        {
+            Render();
+            _pdfDocument.Close();
+
+            return _stream;
+        }
+
+        /// <summary>
+        /// Clear all resources.
+        /// </summary>
+        /// <param name="disposing">Is Disposing.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
@@ -80,14 +92,6 @@
                     _stream.Dispose();
                 }
             }
-        }
-
-        public MemoryStream StreamRender()
-        {
-            Render();
-            _pdfDocument.Close();
-
-            return _stream;
         }
 
         #endregion

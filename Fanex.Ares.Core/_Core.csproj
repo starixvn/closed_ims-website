@@ -121,6 +121,7 @@
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\NumberExtensions.cs" />
     <Compile Include="Extensions\WorkBookExtension.cs" />
+    <Compile Include="Models\PdfResult.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Impl\BaseRepository.cs" />

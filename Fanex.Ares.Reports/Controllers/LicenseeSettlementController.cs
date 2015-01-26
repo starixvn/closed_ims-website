@@ -12,6 +12,7 @@ namespace Fanex.Ares.Report.Controllers
     using Fanex.Ares.Core.DataDomain;
     using Fanex.Ares.Core.Export;
     using Fanex.Ares.Core.Extensions;
+    using Fanex.Ares.Core.Models;
     using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
@@ -102,16 +103,18 @@ namespace Fanex.Ares.Report.Controllers
         public ActionResult ExportDocument(int productId, string documentType)
         {
             var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            var fileName = string.Empty;
 
             if (documentType == WorkBookExtension.DocumentType.Pdf.ToString())
             {
-                var filePath = ExportPdf(model);
+                fileName = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate).Replace(' ', '.');
+                var fileStream = ExportPdf(model);
 
-                return File(filePath, "application/force-download", Path.GetFileName(filePath));
+                return new PdfResult(fileStream, fileName);
             }
 
             var excel = ExportExcel(model, productId);
-            var fileName = excel.ReportTitle.Replace(' ', '.');
+            fileName = excel.ReportTitle.Replace(' ', '.');
 
             return new NPOIResult((HSSFWorkbook)excel.Workbook, fileName);
         }
@@ -162,24 +165,15 @@ namespace Fanex.Ares.Report.Controllers
         /// Export PDF.
         /// </summary>
         /// <param name="model">Licensee Settlement Model.</param>
-        /// <returns>File Path.</returns>
-        private string ExportPdf(LicenseeSettlementModel model)
+        /// <returns>Memory Stream.</returns>
+        private MemoryStream ExportPdf(LicenseeSettlementModel model)
         {
             _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
 
             var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
             var fileName = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate).Replace(' ', '.');
-            var filePath = string.Format(CultureInfo.CurrentCulture, "{0}\\{1}.pdf", Directory.GetCurrentDirectory(), fileName);
             var pdfRender = new PdfRender(PdfCssFilePath, htmlString);
-            var pdfStream = pdfRender.StreamRender();
-
-            using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite))
-            {
-                var streamData = pdfStream.ToArray();
-                stream.Write(streamData, 0, streamData.Length);
-            }
-
-            return filePath;
+            return pdfRender.StreamRender();
         }
 
         /// <summary>
