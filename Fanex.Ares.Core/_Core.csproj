@@ -103,7 +103,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\NPOIResult.cs" />
+    <Compile Include="DataDomain\DocumentType.cs" />
+    <Compile Include="DataDomain\PageOrientation.cs" />
+    <Compile Include="Entities\ExchangeRate.cs" />
+    <Compile Include="Entities\LicenseeInformation.cs" />
+    <Compile Include="Entities\LicenseeReport.cs" />
+    <Compile Include="Export\NPOIResult.cs" />
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Configurations\ControllerMapping.cs" />
     <Compile Include="Configurations\DomainMapping.cs" />
@@ -120,8 +125,7 @@
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\NumberExtensions.cs" />
-    <Compile Include="Extensions\WorkBookExtension.cs" />
-    <Compile Include="Models\PdfResult.cs" />
+    <Compile Include="Export\PdfResult.cs" />
     <Compile Include="Models\Result.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Impl\BaseRepository.cs" />
@@ -192,7 +196,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Repository\Interface\" />
   </ItemGroup>
   <ItemGroup>

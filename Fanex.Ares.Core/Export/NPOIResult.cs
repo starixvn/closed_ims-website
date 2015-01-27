@@ -1,4 +1,4 @@
-﻿namespace Fanex.Ares.Core.Attributes
+﻿namespace Fanex.Ares.Core.Export
 {
     using System;
     using System.IO;

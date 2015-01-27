@@ -1,4 +1,4 @@
-﻿namespace Fanex.Ares.Report.Entities
+﻿namespace Fanex.Ares.Core.Entities
 {
     using System;
 

@@ -7,12 +7,10 @@ namespace Fanex.Ares.Report.Controllers
     using System.Web.Hosting;
     using System.Web.Mvc;
     using Fanex.Ares.Core;
-    using Fanex.Ares.Core.Attributes;
     using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.DataDomain;
     using Fanex.Ares.Core.Export;
     using Fanex.Ares.Core.Extensions;
-    using Fanex.Ares.Core.Models;
     using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
@@ -105,18 +103,27 @@ namespace Fanex.Ares.Report.Controllers
             var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
             var fileName = string.Empty;
 
-            if (documentType == WorkBookExtension.DocumentType.Pdf.ToString())
+            if (documentType == DocumentType.Pdf)
             {
-                fileName = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate).Replace(' ', '.');
-                var fileStream = ExportPdf(model);
+                var reportTitle = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate);
+                var streamContent = GetStreamContent(model);
 
-                return new PdfResult(fileStream, fileName);
+                fileName = reportTitle.Replace(" ", ".") + "." + documentType;
+
+                if (streamContent != null)
+                {
+                    return File(streamContent, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
+                }
+            }
+            else
+            {
+                var excel = ExportExcel(model, productId);
+                fileName = excel.ReportTitle.Replace(' ', '.');
+
+                return new NPOIResult((HSSFWorkbook)excel.Workbook, fileName);
             }
 
-            var excel = ExportExcel(model, productId);
-            fileName = excel.ReportTitle.Replace(' ', '.');
-
-            return new NPOIResult((HSSFWorkbook)excel.Workbook, fileName);
+            return new EmptyResult();
         }
 
         /// <summary>
@@ -139,16 +146,6 @@ namespace Fanex.Ares.Report.Controllers
             return Json(_licenseeSettlementService.GetCurrencyByLicensee(new LicenseeCurrencySelCriteria() { LicenseeId = licenseeID }));
         }
 
-        /// <summary>
-        /// Print screen.
-        /// </summary>
-        /// <returns>Return result.</returns>
-        public ActionResult PrintScreen()
-        {
-            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
-            return View("PrintReport", model);
-        }
-
         #region Utilities
 
         private static string GetReportTitle(string licenseeName, DateTime fromDate, DateTime toDate)
@@ -162,18 +159,18 @@ namespace Fanex.Ares.Report.Controllers
         }
 
         /// <summary>
-        /// Export PDF.
+        /// Get Stream Content.
         /// </summary>
         /// <param name="model">Licensee Settlement Model.</param>
         /// <returns>Memory Stream.</returns>
-        private MemoryStream ExportPdf(LicenseeSettlementModel model)
+        private byte[] GetStreamContent(LicenseeSettlementModel model)
         {
             _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
 
             var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
-            var fileName = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate).Replace(' ', '.');
             var pdfRender = new PdfRender(PdfCssFilePath, htmlString);
-            return pdfRender.StreamRender();
+
+            return pdfRender.ContentRender();
         }
 
         /// <summary>
@@ -184,7 +181,7 @@ namespace Fanex.Ares.Report.Controllers
         /// <returns>Excel Base.</returns>
         private ExcelBase ExportExcel(LicenseeSettlementModel model, int productId)
         {
-            var templatePath = GetReportTemplatePath(productId);
+            var templatePath = GetExcelTemplatePath(productId);
             ExcelBase excel = null;
 
             switch (productId)
@@ -208,11 +205,11 @@ namespace Fanex.Ares.Report.Controllers
         }
 
         /// <summary>
-        /// Get Report Template Path.
+        /// Get Excel Template Path.
         /// </summary>
         /// <param name="productId">Product Identify.</param>
         /// <returns>Template Path.</returns>
-        private string GetReportTemplatePath(int productId)
+        private string GetExcelTemplatePath(int productId)
         {
             var templatePath = string.Empty;
 

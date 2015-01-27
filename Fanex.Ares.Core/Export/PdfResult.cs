@@ -1,4 +1,4 @@
-﻿namespace Fanex.Ares.Core.Models
+﻿namespace Fanex.Ares.Core.Export
 {
     using System.IO;
     using System.Web.Mvc;

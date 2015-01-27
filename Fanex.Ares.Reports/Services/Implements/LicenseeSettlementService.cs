@@ -7,12 +7,11 @@ namespace Fanex.Ares.Report.Services.Interfaces
     using System.Linq;
     using System.Web.Mvc;
     using Fanex.Ares.Core.Criteria;
+    using Fanex.Ares.Core.Entities;
     using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
-    using Fanex.Ares.Report.Entities;
-    using Fanex.Ares.Report.Services.Interfaces;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Artist.Services;
     using Fanex.Common;

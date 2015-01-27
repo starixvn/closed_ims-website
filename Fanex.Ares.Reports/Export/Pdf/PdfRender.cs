@@ -66,12 +66,20 @@
             GC.SuppressFinalize(this);
         }
 
-        public MemoryStream StreamRender()
+        public MemoryStream SteamRender()
         {
             Render();
             _pdfDocument.Close();
 
             return _stream;
+        }
+
+        public byte[] ContentRender()
+        {
+            Render();
+            _pdfDocument.Close();
+
+            return _stream.ToArray();
         }
 
         /// <summary>
