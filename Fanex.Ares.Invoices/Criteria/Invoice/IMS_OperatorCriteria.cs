@@ -5,9 +5,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Fanex.Ares.Invoice.Service.Imp
+namespace Fanex.Ares.Invoice.Criteria.Invoice
 {
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.NAP.Framework.Data;
 
     /// <summary>

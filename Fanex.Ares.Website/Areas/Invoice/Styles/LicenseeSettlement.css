@@ -1,53 +1,280 @@
-﻿.div-content
+﻿tr
 {
-    clear:both; 
-    width: 1260px; 
-    margin:6px 0 0 10px;
-}
-.div-content1
-{
-    clear:both; 
-    width: 1260px; 
-    margin:6px 0 0 10px;
-}
-.titleBold
-{
-    font-size: 17px !important;
-    text-align: left !important;
-    font-weight: bold !important;
+    mso-height-source: auto;
 }
 
-.titleSub
+col
 {
-    font-size: 17px !important;
-    text-align: left !important;
+    mso-width-source: auto;
+}
+
+br
+{
+    mso-data-placement: same-cell;
+}
+
+hr
+{
+    border: 1px solid gray;
+}
+
+.style0
+{
+    mso-number-format: General;
+    mso-rotate: 0;
+    mso-background-source: auto;
+    mso-pattern: auto;
+    text-align: general;
+    mso-generic-font-family: auto;
+    mso-font-charset: 0;
+    border: none;
+    mso-protection: locked visible;
+    mso-style-name: Normal;
+    mso-style-id: 0;
+    vertical-align: bottom;
+    white-space: nowrap;
+    color: black;
+    font-size: 10.0pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    font-family: sans-serif;
+}
+
+td
+{
+    mso-style-parent: style0;
+    mso-ignore: padding;
+    mso-generic-font-family: auto;
+    mso-font-charset: 0;
+    mso-number-format: General;
+    text-align: general;
+    mso-background-source: auto;
+    mso-pattern: auto;
+    mso-protection: locked visible;
+    white-space: nowrap;
+    mso-rotate: 0;
+    padding-top: 1px;
+    padding-right: 1px;
+    padding-left: 1px;
+    color: black;
+    font-size: 10.0pt;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: none;
+    font-family: sans-serif;
+    vertical-align: bottom;
+    border: none;
+}
+
+.table-content
+{
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+}
+
+.boldTilte
+{
+    mso-style-parent: style0;
+    font-size: 10pt;
+    font-weight: 700;
+}
+
+.boldInfor
+{
+    mso-style-parent: style0;
+    font-weight: 700;
+    mso-number-format: "\@";
+}
+
+.licenseeName
+{
+    mso-style-parent: style0;
+    color: #0040FF;
+    font-weight: 700;
+}
+
+.sportName
+{
+    mso-style-parent: style0;
+    color: #C21515;
+    font-weight: 700;
+}
+
+.currency
+{
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    font-size: 8pt;
+    text-align: right;
+    border-top: none;
+    border-bottom: none;
+}
+
+.header
+{
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-pattern: white none;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    white-space: nowrap;
+    border: 0.5pt solid gray;
+    background: #3C5EA5;
+    white-space: normal;
+}
+
+.colNumber
+{
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-number-format: "\#\,\#\#0\.00_\)\;\\\(\#\,\#\#0\.00\\\)";
+    mso-pattern: white none;
+    text-align: right;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
+    font-size: 8pt;
+}
+
+.colInteger
+{
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-number-format: "\#\,\#\#0\_\)\;\\\(\#\,\#\#0\\\\)";
+    mso-pattern: white none;
+    text-align: right;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
+    font-size: 8pt;
+}
+
+.colText
+{
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-pattern: white none;
+    text-align: center;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
+    font-size: 8pt;
+}
+
+.colDateTime
+{
+    mso-number-format: "Medium Date";
+    mso-font-charset: 0;
+    mso-pattern: white none;
+    text-align: center;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
+    font-size: 8pt;
+}
+
+.grandtotal
+{
+    mso-style-parent: style0;
+    mso-font-charset: 0;
+    mso-number-format: "\#\,\#\#0\.00_\)\;\[Red\]\\\(\#\,\#\#0\.00\\\)";
+    font-weight: bold;
+    text-align: right;
+    font-size: 8pt;
+    mso-height-source: userset;
+}
+
+.emptytotal
+{
+    border-top: .5pt solid gray;
+    border-right: none;
+    border-bottom: none;
+    border-left: none;
+}
+
+.emptyCell
+{
+    border-right: none;
+}
+
+.negative-number
+{
+    color: Red !important;
+}
+
+.colNumber5Odd
+{
+    mso-style-parent: style0;
+    color: black;
+    mso-number-format: "\#\,\#\#0\.00000_\)\;\\\(\#\,\#\#0\.00000\\\)";
+    text-align: right;
+    vertical-align: middle;
+    border: 0.5pt solid gray;
+    mso-background-source: auto;
+    mso-pattern: white none;
+    font-size: 8pt;
+}
+
+.even
+{
+    background-color: #ff00ff !important;
+}
+
+.div-content
+{
+    clear: both;
+    width: 1260px;
+    margin: 40px 0 0 10px;
+    padding: 2px;
+    overflow: auto;
+    width: 98%;
+}
+
+table.table-content
+{
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+}
+
+.even-row
+{
+    background-color: #e4f2fd;
+}
+
+.height5
+{
+    height: 5pt;
+}
+
+.height10
+{
+    height: 10pt;
+}
+
+.height12
+{
+    height: 12pt;
+}
+
+.height15
+{
+    height: 15pt;
+}
+
+.height16
+{
+    height: 16pt;
+}
+.height26
+{
+    height: 26pt;
 }
 
 .cellInfo
 {
     font-size: 13px !important;
     text-align: left !important;
-}
-
-.lineHeight200
-{
-    padding-top: 15px !important;
-}
-
-.lineHeight80
-{
-   padding-top: 0px !important;
-}
-
-.headerReport
-{
-    font-size: 12px !important;
-    text-align: center !important;
-    font-weight: bold !important;
-    color: #ffffff !important;
-    background-color: #618ADA !important;
-    height: 18px !important;
-    border: 1.5px solid #736767
 }
 
 .cellstyle
@@ -58,134 +285,10 @@
     height: 18px !important;
     border: 1.5px solid #736767
 }
-.grandtotal
-{
-    font-size: 13px !important;
-     vertical-align:middle !important;
-    line-height:100% !important;
-     font-weight: bold !important;
-}
 
-.aligncenter
-{
-    text-align: center !important;
-}
-
-.alignright
-{
-    text-align: right !important;
-}
-
-.alignleft
-{
-    text-align: left !important;
-}
-
-.col60
-{
-    width: 82px !important;
-}
-.col30
-{
-    width: 30px !important;
-}
-.col200
-{
-    width: 200px !important;
-}
-
-.col65
-{
-    width: 65px !important;
-}
-.col40
-{
-    width: 55px !important;
-}
-.col650
-{
-    width: 980px !important;
-}
-
-.col120
-{
-    width: 120px !important;
-} 
-.col100
-{
-    width: 100px !important;
-}
-.col80
-{
-    width: 80px !important;
-}
-
-.col50
-{
-    width: 65px !important;
-}
-.col400
-{
-    width: 600px !important;
-}
-.col140
-{
-    width:200px !important;
-}
-
-.col10percent
-{
-    width: 10% !important;
-}
-.noneBorder
-{
-    border:  0 none !important;
-}
-
-.boldBorderBlack
-{
-    border-bottom: 2px solid black;
-}
-
-.boldBorderWhite
-{
-    border-bottom: 2px solid white;
-}
-
-.negative-number
-{
-    color: Red !important;
-}
-
-.even
-{
-   background-color: #e4f2fd !important;
-}
-
-.product-name
-{
-    color:  #C21515;
-    font-weight: bold !important;
-}
-
- .licensee-name {
-    color: #0040FF !important;
-    font-weight: bold !important;
-}
-
-.bold
-{
-   font-weight: bold !important;
-}
 
 .cellPadding
 {
     border-collapse: collapse;
     width: 100%;
-}
-
-.pad5
-{
-    padding-top:5px; 
-    display:block;
 }

@@ -35,9 +35,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_OperatorCriteria criteria.</param>
         /// <returns> Operator list.</returns>
-        public List<Operator> GetOperatorList(IMS_OperatorCriteria criteria)
+        public IEnumerable<Operator> GetOperatorList(IMS_OperatorCriteria criteria)
         {
-            List<Operator> operators = new List<Operator>();
+            var operators = new List<Operator>();
             try
             {
                 Func<IDataReader, Operator> mappingFunc = r =>
@@ -85,7 +85,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_LicenseeByPartyCriteria criteria.</param>
         /// <returns>Licensee List.</returns>
-        public List<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria)
+        public IEnumerable<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria)
         {
             var licensees = new List<Licensee>();
             try
@@ -121,9 +121,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_InvoiceTypesCriteria criteria.</param>
         /// <returns>InvoiceType List.</returns>
-        public List<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria)
+        public IEnumerable<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria)
         {
-            List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
+            var invoiceTypeList = new List<InvoiceType>();
 
             try
             {
@@ -212,7 +212,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
             try
             {
                 List<DateRange> dateRangeList = new List<DateRange>();
-                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate);                
+                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate).ToList();                
                 var statementRawData = GetListData<dynamic>(criteria);                 
                 if (statementRawData != null)
                 {
@@ -299,9 +299,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <param name="fromDate">The Date begin.</param>
         /// <param name="toDate">The Date end.</param>
         /// <returns>Return list date period.</returns>
-        public List<DateRange> GetDateRange(DateTime fromDate, DateTime toDate)
+        public IEnumerable<DateRange> GetDateRange(DateTime fromDate, DateTime toDate)
         {
-            List<DateRange> dateRangeList = new List<DateRange>();
+            var dateRangeList = new List<DateRange>();
 
             int numericMonth = toDate.Month - fromDate.Month + 1;
             if (numericMonth == 1)
@@ -351,9 +351,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_GetChargeRateCriteria criteria.</param>
         /// <returns>Return charge rate list.</returns>
-        public List<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria)
+        public IEnumerable<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria)
         {
-            List<ChargeRate> chargeRateList = new List<ChargeRate>();
+            var chargeRateList = new List<ChargeRate>();
 
             try
             {

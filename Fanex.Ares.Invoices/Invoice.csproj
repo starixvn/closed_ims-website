@@ -51,6 +51,12 @@
     <Reference Include="Fanex.NAP.Framework">
       <HintPath>..\_Dependency\FanexLibs\Fanex.NAP.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.4\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.4.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.4\lib\itextsharp.xmlworker.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\_Dependency\FanexLibs\Excel\Microsoft.Office.Interop.Excel.dll</HintPath>
@@ -85,6 +91,7 @@
     <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_OperatorCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_ProductCriteria.cs" />
+    <Compile Include="Export\PdfRender.cs" />
     <Compile Include="Models\Invoice\ChargeRate.cs" />
     <Compile Include="Models\Invoice\DateRange.cs" />
     <Compile Include="Models\Invoice\InvoiceModel.cs" />
@@ -94,11 +101,6 @@
     <Compile Include="Models\Invoice\Product.cs" />
     <Compile Include="Models\Invoice\Statement.cs" />
     <Compile Include="Models\Invoice\StatementDetail.cs" />
-    <Compile Include="Models\LicenseeSettlement\ExchangeRate.cs" />
-    <Compile Include="Models\LicenseeSettlement\LicenseeInformation.cs" />
-    <Compile Include="Models\LicenseeSettlement\LicenseeSettlementModel.cs" />
-    <Compile Include="Models\LicenseeSettlement\Report.cs" />
-    <Compile Include="Models\LicenseeSettlement\ReportEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Imp\InvoiceService.cs" />
     <Compile Include="Service\Interface\IInvoiceService.cs" />

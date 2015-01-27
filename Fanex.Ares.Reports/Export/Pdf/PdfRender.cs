@@ -46,15 +46,6 @@
 
         #endregion
 
-        #region Properties
-
-        protected string HtmlString
-        {
-            get { return _htmlText; }
-        }
-
-        #endregion
-
         #region Methods
 
         /// <summary>

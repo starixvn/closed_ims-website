@@ -21,14 +21,6 @@
 	padding: 0 5px 0 5px;
 }
 
-.grandtotal
-{
-	border-bottom: 1pt solid black !important;
-	border-left: none;
-	border-right: none;
-	border-top: 1pt solid gray !important;
-	padding: 0 5px 0 5px;
-}
 .emptyheader
 { 
     border-bottom: none !important;

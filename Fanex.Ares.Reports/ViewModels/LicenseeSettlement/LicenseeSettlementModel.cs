@@ -2,7 +2,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
 {
     using System;
     using System.Collections.Generic;
-    using Fanex.Ares.Core.Entities;
+    using Fanex.Ares.Report.Entities;
 
     /// <summary>
     /// Licensee Settlement Model.

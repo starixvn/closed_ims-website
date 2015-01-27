@@ -105,6 +105,9 @@
     <Compile Include="Criteria\LicenseeSettlement\LicenseeProductSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\LicenseeSelCriteria.cs" />
     <Compile Include="Criteria\LicenseeSettlement\ReportLicenseeSettlementCriteria.cs" />
+    <Compile Include="Entities\ExchangeRate.cs" />
+    <Compile Include="Entities\LicenseeInformation.cs" />
+    <Compile Include="Entities\LicenseeReport.cs" />
     <Compile Include="Export\Excel\BetAggegator.cs" />
     <Compile Include="Export\Excel\Sportsbook.cs" />
     <Compile Include="Export\Pdf\PdfRender.cs" />
