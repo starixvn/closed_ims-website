@@ -1,15 +1,15 @@
 ﻿table, th, td
 {
-	background: #EDECEA;
-	text-align: center;
-	vertical-align: middle;
+    background: #EDECEA;
+    text-align: center;
+    vertical-align: middle;
 }
 
 th
 {
-	background-color: #E9E480;
-	color: black;
-	font-weight: bold;
+    background-color: #E9E480;
+    color: black;
+    font-weight: bold;
 }
 td
 {
@@ -17,109 +17,102 @@ td
 }
 table
 {
-	border-collapse: collapse;
+    border-collapse: collapse;
 }
 textarea
 {
-	overflow: auto;
-	resize: none !important;
+    overflow: auto;
+    resize: none !important;
 }
 textarea#styled
 {
+    background-repeat: no-repeat;
+    border: 1px solid #cccccc;
+    font-family: Tahoma, sans-serif;
+    height: 40px;
+    padding: 5px;
+    width: 100%;
+}
 
-	background-repeat: no-repeat;
-	border: 1px solid #cccccc;
-	font-family: Tahoma, sans-serif;
-	height: 40px;
-	padding: 5px;
-	width: 100%;
-}
-.div-content
-{
-	clear: both;
-	margin: 40px 0 0 10px;
-	padding: 2px;
-	width: 1260px;
-}
 .noneBorder
 {
-	border: 0px !important;
+    border: 0px !important;
 }
 .paddingLeft
 {
-	padding-left: 10px !important;
-	text-align: left;
+    padding-left: 10px !important;
+    text-align: left;
 }
 .height20
 {
-	height: 20px;
+    height: 20px;
 }
 .label
 {
-	background-color: #c3c2c2 !important;
-	display: inline-block;
-	font-weight: bold;
-	width: 75%;
+    background-color: #c3c2c2 !important;
+    display: inline-block;
+    font-weight: bold;
+    width: 75%;
 }
 .discount
 {
     background: url(Images/sprite.png) -27px -102px;
-	cursor: pointer;
-	display: block;
-	height: 30px;
-	width: 30px;
+    cursor: pointer;
+    display: block;
+    height: 30px;
+    width: 30px;
 }
 
 .discount:hover
 {
-	background: url(Images/sprite.png) -27px -128px;
+    background: url(Images/sprite.png) -27px -128px;
 }
 
 .newitem
 {
-	background: url(Images/sprite.png) 1px -102px;
-	cursor: pointer;
-	display: block;
-	height: 30px;
-	width: 30px;
+    background: url(Images/sprite.png) 1px -102px;
+    cursor: pointer;
+    display: block;
+    height: 30px;
+    width: 30px;
 }
 
 .newitem:hover
 {
-	background: url(Images/sprite.png) 1px -128px;
+    background: url(Images/sprite.png) 1px -128px;
 }
 
 
 .viewdetail
 {
-	background: url(Images/sprite.png) 0px -61px;
-	cursor: pointer;
-	display: block;
-	height: 24px;
-	width: 24px;
-	float:left;
-	margin-left: 45px;
+    background: url(Images/sprite.png) 0px -61px;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    width: 24px;
+    float: left;
+    margin-left: 45px;
 }
 
 .viewdetail:hover
 {
-	background: url(Images/sprite.png) 0px -82px;
+    background: url(Images/sprite.png) 0px -82px;
 }
 
 .delete
 {
-	background: url(Images/sprite.png) -40px -61px;
-	cursor: pointer;
-	display: block;
-	height: 24px;
-	width: 24px;
-	float:left;
-	margin-left: 45px;
+    background: url(Images/sprite.png) -40px -61px;
+    cursor: pointer;
+    display: block;
+    height: 24px;
+    width: 24px;
+    float: left;
+    margin-left: 45px;
 }
 
 .delete:hover
 {
-	background: url(Images/sprite.png) -40px -82px;
+    background: url(Images/sprite.png) -40px -82px;
 }
 
 .fakeCssTd
@@ -128,81 +121,91 @@ textarea#styled
 }
 .red
 {
-	color: Red;
+    color: Red;
 }
 .popupTd
 {
     border: none !important;
     background: none !important;
-    padding-left:10px;
+    padding-left: 10px;
 }
 
-table#header th {
-	font-size: 12px;
-    font-weight: bold;
-	padding : 5px;
-	text-align: center;
-	vertical-align: middle;
-	}
-
-table#header th#right-border {
-	border-right:none;
-	}
-
-	table#tbl-content{
-			border-spacing: 0;
-			border:1px solid #EDECEA;
-			width:100%;
-			table-layout:fixed;
-			border-collapse: collapse;
-	}
-table#tbl-content td {
+table#header th
+{
     font-size: 12px;
-	padding: 0px;
-	vertical-align: middle;
-	}
-
-table#tbl-content tr#bottom td {
-	border-bottom:none;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
 }
 
-table#header{
-			border-spacing: 0;
-			width:100%;
-			table-layout:fixed;
+table#header th#right-border
+{
+    border-right: none;
 }
 
-div.box{
-	width:100%;
-	overflow-y:auto;
-	border-top:none;
-	height:650px;
+table#tbl-content
+{
+    border-spacing: 0;
+    border: 1px solid #EDECEA;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+table#tbl-content td
+{
+    font-size: 12px;
+    padding: 0px;
+    vertical-align: middle;
 }
 
-div.wrapper{
-	font-family:tahoma,arial;
-	font-size:90%;
+table#tbl-content tr#bottom td
+{
+    border-bottom: none;
 }
 
-div.boundary{
-	margin-right:0px;
+table#header
+{
+    border-spacing: 0;
+    width: 100%;
+    table-layout: fixed;
 }
 
-.uncheckedCls{
+div.box
+{
+    width: 100%;
+    overflow-y: auto;
+    border-top: none;
+    height: 650px;
+}
+
+div.wrapper
+{
+    font-family: tahoma,arial;
+    font-size: 90%;
+}
+
+div.boundary
+{
+    margin-right: 0px;
+}
+
+.uncheckedCls
+{
     background: url(Images/sprite.png) -63px -43px;
-	cursor: pointer;
-	display: block;
-	height: 20px;
-	width: 24px;
-	float:left;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    width: 24px;
+    float: left;
 }
 
 .checkedCls
 {
-     background: url(Images/sprite.png) -42px -43px;
-	cursor: pointer;
-	display: block;
-	height: 20px;
-	width: 24px;
-	float:left;
+    background: url(Images/sprite.png) -42px -43px;
+    cursor: pointer;
+    display: block;
+    height: 20px;
+    width: 24px;
+    float: left;
 }

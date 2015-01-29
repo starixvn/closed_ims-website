@@ -1,78 +1,12 @@
-﻿<!--table
-	{mso-displayed-decimal-separator:"\.";
-	mso-displayed-thousand-separator:"\,";}
-@page
-	{margin:1.0in .25in 1.0in .25in;
-	mso-header-margin:.5in;
-	mso-footer-margin:.5in;
-	mso-page-orientation:landscape;}
-	
-tr
-	{mso-height-source:auto;}
-col
-	{mso-width-source:auto;}
-br
-	{mso-data-placement:same-cell;}
-.style21
-	{mso-number-format:General;
-	text-align:general;
-	vertical-align:bottom;
-	white-space:nowrap;
-	mso-rotate:0;
-	mso-background-source:auto;
-	mso-pattern:auto;
-	color:gray;
-	font-size:10.0pt;
-	font-weight:400;
-	font-style:normal;
-	text-decoration:none;
-	font-family:Arial, sans-serif;
-	mso-font-charset:0;
-	border:none;
-	mso-protection:locked visible;
-	mso-style-name:"Excel Built-in Normal";}
-.style0
-	{mso-number-format:General;
-	text-align:general;
-	vertical-align:bottom;
-	white-space:nowrap;
-	mso-rotate:0;
-	mso-background-source:auto;
-	mso-pattern:auto;
-	color:windowtext;
-	font-size:10.0pt;
-	font-weight:400;
-	font-style:normal;
-	text-decoration:none;
-	font-family:Arial, sans-serif;
-	mso-font-charset:0;
-	border:none;
-	mso-protection:locked visible;
-	mso-style-name:Normal;
-	mso-style-id:0;}
-td
-	{mso-style-parent:style0;
-	padding:0px;
-	mso-ignore:padding;
-	color:windowtext;
-	font-size:9.0pt;
-	font-weight:400;
-	font-style:normal;
-	text-decoration:none;
-	font-family:Arial, sans-serif;
-	mso-font-charset:0;
-	mso-number-format:General;
-	text-align:general;
-	vertical-align:bottom;
-	border: none;
-	mso-background-source:auto;
-	mso-pattern:auto;
-	mso-protection:locked visible;
-	white-space:normal;
-	mso-rotate:0;}
-
-
-
+﻿.invoice-table
+{
+    min-height: 1600px;
+}
+.invoice-table table td
+{
+    font-size: 16.0px;
+    width: 6%;
+}
 .font10
 {
     font-size: 10pt;
@@ -83,93 +17,130 @@ td
     font-size: 20pt;
 }
 
-/* T: Top; R: Right; B: bottom; L: left*/
-.border-TRBL
+.border-all
 {
-    border: .5pt solid gray !important;
+    border: 0.1px solid gray;
 }
 
-.border-L
+.col-header
 {
-    border-left: .5pt solid gray !important;
+    text-align: center;
+    vertical-align: middle;
 }
 
-.border-R
+.col-align-left
 {
-    border-right: .5pt solid gray !important;
-}
-.border-B
-{
-    border-bottom: .5pt solid gray !important;
+    text-align: left;
+    vertical-align: middle;
 }
 
-.border-T
+.col-align-right
 {
-    border-top: .5pt solid gray !important;
-}
-.border-RTB
-{
-    border-right: .5pt solid gray !important;
-    border-top: .5pt solid gray !important;
-    border-bottom: .5pt solid gray !important;
-}
-.border-LTB
-{
-    border-left: .5pt solid gray !important;
-    border-top: .5pt solid gray !important;
-    border-bottom: .5pt solid gray !important;
-}
-.border-RLT
-{
-    border-left: .5pt solid gray !important;
-    border-top: .5pt solid gray !important;
-    border-right: .5pt solid gray !important;
+    text-align: right;
+    vertical-align: middle;
 }
 
-.border-RLB
+.col-bold-left
 {
-    border-left: .5pt solid gray !important;
-    border-bottom: .5pt solid gray !important;
-    border-right: .5pt solid gray !important;
+    font-weight: bold;
+    text-align: left;
+    vertical-align: middle;
 }
 
-.border-LB
+.col-total-amount
 {
-    border-left: .5pt solid gray !important;
-    border-bottom: .5pt solid gray !important;
+    font-weight: bold;
+    text-align: left;
+    color: #4f81bd;
+    vertical-align: middle;
 }
 
-.border-LT
-{
-    border-left: .5pt solid gray !important;
-    border-top: .5pt solid gray !important;
-}
-.border-RB
-{
-    border-right: .5pt solid gray !important;
-    border-bottom: .5pt solid gray !important;
-}
-
-.border-RT
-{
-    border-right: .5pt solid gray !important;
-    border-top: .5pt solid gray !important;
-}
-
-.border-RL
-{
-    border-right: .5pt solid gray !important;
-    border-left: .5pt solid gray !important;
-}
 .bold-red
 {
-    color: Red; 
+    color: Red;
     font-weight: bold;
 }
-.invoiceFont
+
+.invoice-title
 {
-    font-size: 25pt !important; 
-    color: #4f81bd; 
-    font-weight: bold ;
+    font-size: 25pt !important;
+    color: #4f81bd;
+    font-weight: bold;
 }
- 
+
+.invoice-image
+{
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+}
+
+.bold
+{
+    font-weight: bold;
+}
+
+.invoice-header
+{
+    white-space: normal;
+}
+
+table.currency-table
+{
+    width: 95%;
+    border-collapse: collapse;
+}
+
+table.currency-table td
+{
+    width: 5%;
+    vertical-align: top;
+}
+
+table.currency-table td.currency-text
+{
+    text-align: center;
+}
+
+table.currency-table td.currency-mark
+{
+    border: 0.1pt solid gray;
+    text-align: center;
+}
+
+table.table-no-signature
+{
+    width: 95%;
+    border-collapse: collapse;
+}
+
+table.table-no-signature td
+{
+    width: 5%;
+    vertical-align: top;
+}
+
+table.table-no-signature td.no-signature
+{
+    color: #01A9DB;
+}
+
+.height30
+{
+    height: 30pt;
+}
+
+.height40
+{
+    height: 40pt;
+}
+
+.height50
+{
+    height: 50pt;
+}
+
+.height60
+{
+    height: 60pt;
+}

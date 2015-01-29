@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataDomain\DocumentType.cs" />
+    <Compile Include="DataDomain\PartyName.cs" />
     <Compile Include="DataDomain\PageOrientation.cs" />
     <Compile Include="Export\NPOIResult.cs" />
     <Compile Include="Configurations\AppSettings.cs" />

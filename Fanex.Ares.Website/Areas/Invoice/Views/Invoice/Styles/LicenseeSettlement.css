@@ -236,6 +236,7 @@ td
     padding: 2px;
     overflow: auto;
     width: 98%;
+    height: 800px;
 }
 
 table.table-content

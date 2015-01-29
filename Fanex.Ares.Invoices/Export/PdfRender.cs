@@ -6,7 +6,12 @@
     using iTextSharp.text;
     using iTextSharp.text.pdf;
     using iTextSharp.tool.xml;
+    using iTextSharp.tool.xml.html;
+    using iTextSharp.tool.xml.parser;
     using iTextSharp.tool.xml.pipeline.css;
+    using iTextSharp.tool.xml.pipeline.end;
+    using iTextSharp.tool.xml.pipeline.html;
+    using iTextSharp.tool.xml.exceptions;
 
     /// <summary>
     /// PDF Render.
@@ -33,10 +38,17 @@
 
         public PdfRender()
         {
+            _htmlTextList = new List<string>();
+            _cssPathList = new List<string>();
+            _cssResolver = XMLWorkerHelper.GetInstance().GetDefaultCssResolver(true);
+            _pdfDocument = new Document();
+            _stream = new MemoryStream();
         }
 
         public PdfRender(List<string> cssPathList, List<string> htmlTextList)
         {
+            _htmlTextList = new List<string>();
+            _cssPathList = new List<string>();
             _htmlTextList.AddRange(htmlTextList);
             _cssPathList.AddRange(cssPathList);
             _cssResolver = XMLWorkerHelper.GetInstance().GetDefaultCssResolver(true);
@@ -112,7 +124,7 @@
         private void Create()
         {
             _stream = new MemoryStream();
-            _pdfDocument = new Document(new Rectangle(1600, 960), 20, 20, 40, 40);
+            _pdfDocument = new Document(new Rectangle(1600, 960), 20, 20, 20, 20);
             _pdfDocument.SetPageSize(PageSize.A4.Rotate());
             _pdfWriter = PdfWriter.GetInstance(_pdfDocument, _stream);
 
@@ -124,30 +136,46 @@
         /// </summary>
         private void AssignData()
         {
-            AssignInvoicePage();
-            AssignProductPage();
-            Export();
-        }
-
-        /// <summary>
-        /// Assign Invoice Page.
-        /// </summary>
-        private void AssignInvoicePage()
-        {
+            AssignCss();
+            AssignContent();
         }
 
         /// <summary>
         /// Assign Product Page.
         /// </summary>
-        private void AssignProductPage()
+        private void AssignCss()
         {
+            foreach (var cssPath in _cssPathList)
+            {
+                _cssResolver.AddCssFile(cssPath, true);
+            }
         }
 
         /// <summary>
-        /// Export Method.
+        /// Assign Invoice Page.
         /// </summary>
-        private void Export()
+        private void AssignContent()
         {
+            foreach (var htmlText in _htmlTextList)
+            {
+                using (var stringReader = new StringReader(htmlText))
+                {
+                    var htmlContext = new HtmlPipelineContext(null);
+
+                    htmlContext.SetTagFactory(Tags.GetHtmlTagProcessorFactory());
+
+                    var pdfWriterPipeline = new PdfWriterPipeline(_pdfDocument, _pdfWriter);
+                    var htmlPipeline = new HtmlPipeline(htmlContext, pdfWriterPipeline);
+                    var pipeline = new CssResolverPipeline(_cssResolver, htmlPipeline);
+                    var xmlWorker = new XMLWorker(pipeline, true);
+                    var xmlParse = new XMLParser(xmlWorker);
+
+                    xmlParse.Parse(stringReader);
+                    xmlParse.Flush();
+
+                    _pdfDocument.NewPage();
+                }
+            }
         }
 
         #endregion

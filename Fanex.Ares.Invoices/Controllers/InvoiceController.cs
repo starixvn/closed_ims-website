@@ -1,18 +1,18 @@
 namespace Fanex.Ares.Invoice.Controllers
 {
-    using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
+    using System.Globalization;
     using System.Linq;
     using System.Web.Hosting;
     using System.Web.Mvc;
     using DNAide.Core;
+    using Fanex.Ares.Core.DataDomain;
     using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Web;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
     using Fanex.Ares.Invoice.Criteria.Invoice;
+    using Fanex.Ares.Invoice.Export;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
     using Fanex.Ares.Invoice.Service.Interface;
@@ -22,7 +22,6 @@ namespace Fanex.Ares.Invoice.Controllers
     using Fanex.Common;
     using Fanex.Common.Extensions;
     using Fanex.NAP.Core.Web.Attribute;
-    using Fanex.Workbooks;
 
     /// <summary>
     /// Invoice Controller.
@@ -30,14 +29,17 @@ namespace Fanex.Ares.Invoice.Controllers
     [NapSuperAuth]
     public class InvoiceController : BaseController
     {
-        private readonly string _pdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css");
+        #region Fields
 
+        private readonly string _invoiceCSS = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css");
+        private readonly string _productCss = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementPDF.css");
+        private string _settlementView = string.Empty;
         private IInvoiceService _invoiceService;
         private ILicenseeSettlementService _licenseeSettlementService;
 
-        #region View path
-        private string _settlementView = string.Empty;
         #endregion
+
+        #region Constructor
 
         public InvoiceController()
         {
@@ -48,8 +50,12 @@ namespace Fanex.Ares.Invoice.Controllers
         public InvoiceController(IInvoiceService invoiceService, ILicenseeSettlementService licenseeSettlementService)
         {
             _invoiceService = invoiceService ?? new InvoiceService();
-            _licenseeSettlementService = licenseeSettlementService ?? new LicenseeSettlementService(); 
+            _licenseeSettlementService = licenseeSettlementService ?? new LicenseeSettlementService();
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         /// Indexes this instance.
@@ -91,7 +97,7 @@ namespace Fanex.Ares.Invoice.Controllers
         [HttpPost]
         public JsonResult GetLicenseesByParty(int partyID)
         {
-            List<Licensee> licensees = new List<Licensee>();
+            var licensees = new List<Licensee>();
             licensees = this._invoiceService.GeLicenseesList(new IMS_LicenseeByPartyCriteria() { PartyID = partyID }).ToList();
             return Json(licensees);
         }
@@ -105,7 +111,7 @@ namespace Fanex.Ares.Invoice.Controllers
         [HttpPost]
         public JsonResult GetInvoiceType(int licenseeID, int partyID)
         {
-            List<InvoiceType> invoiceTypeList = new List<InvoiceType>();
+            var invoiceTypeList = new List<InvoiceType>();
             invoiceTypeList = this._invoiceService.GetInvoieType(new IMS_InvoiceTypesCriteria() { LicenseeId = licenseeID, PartyId = partyID }).ToList();
             return Json(invoiceTypeList);
         }
@@ -183,240 +189,50 @@ namespace Fanex.Ares.Invoice.Controllers
         /// </summary>
         /// <param name="isSignature">If set to <c>true</c> [is signature].</param>
         /// <returns>Action Result.</returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed.")]
         public ActionResult ExportDocument(bool isSignature)
         {
-            /*
-            List<ChargeRate> chargeRateList = new List<ChargeRate>();
-            List<DateRange> dateRangeList = new List<DateRange>();
-            List<string> excelCssFilePath = new List<string>();
-            List<bool> isAutoFitList = new List<bool>();
-            List<WorkbookManager.PageOrientation> pageOrientationList = new List<WorkbookManager.PageOrientation>();
-            InvoiceReportLicenseeSettlementCriteria criteria = new InvoiceReportLicenseeSettlementCriteria();
-            InvoiceModel invoice = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
-            invoice.HTMLReportList = new List<string>(); // clear html when using ref
-            invoice.IsSignature = isSignature;
-            criteria.LicenseeId = invoice.Licensee.LicenseeID;
-            criteria.BaseCurrency = invoice.Currency;
-            criteria.BaseCurrencyName = invoice.CurrencyName;
-            criteria.Currency = 0;
-            criteria.PartyId = invoice.Operator.PartyID;
-            DateTime fromDate = CastAide.AsDateTime(invoice.FromDate);
-            DateTime toDate = CastAide.AsDateTime(invoice.ToDate);
-            dateRangeList = this._invoiceService.GetDateRange(fromDate, toDate).ToList();
-            //// Crerate invoice main page
-            string mainInvoicePagePath = string.Format(
-                "Templates/{0}/_{1}_{2}",
-                invoice.Operator.PartyName,
-                invoice.Operator.PartyName,
-                invoice.InvoiceType.InvoiceTypeName);
-            excelCssFilePath.Add(HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css"));
-            pageOrientationList.Add(WorkbookManager.PageOrientation.Portrait);
-            string mainInvoicePage = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, invoice, true);
-            invoice.HTMLReportList.Add(mainInvoicePage);
-            isAutoFitList.Add(false);
-            //// Create invoice report pages
-            string[] products = invoice.ProductsName.Split(',');
-            string[] productIDs = invoice.Product.Split(',');
-            string cssPath = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css");
+            var cssPathList = AssignCssPathList();
+            var model = (InvoiceModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, "invoiceModelAfterSave");
 
-            for (int i = 0; i < dateRangeList.Count; i++)
-            {
-                for (int j = 0; j < products.Count(); j++)
-                {
-                    chargeRateList = this._invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
-                    {
-                        PartyID = invoice.Operator.PartyID,
-                        LicenseeID = invoice.Licensee.LicenseeID,
-                        Products = productIDs[j],
-                        FromDate = dateRangeList[i].StartDate,
-                        ToDate = dateRangeList[i].EndDate
-                    }).ToList();
+            model.IsSignature = isSignature;
 
-                    if (!string.IsNullOrEmpty(productIDs[j]))
-                    {
-                        criteria.Product = Converter.To<int>(productIDs[j]);
-                        criteria.ProductName = products[j];
-                        criteria.InvoiceReport = true;
-                        //// some case chargeRateList == 0 when don't have more than one basic billing
-                        if (chargeRateList.Count == 0)
-                        {
-                            criteria.ToDate = dateRangeList[i].EndDate;
-                            criteria.FromDate = dateRangeList[i].StartDate;
-                            this.CreateDocumentPagePDF(criteria, cssPath, ref invoice, ref excelCssFilePath, ref pageOrientationList, ref isAutoFitList);
-                        }
-                        else
-                        {
-                            for (int g = 0; g < chargeRateList.Count; g++)
-                            {
-                                criteria.ToDate = chargeRateList[g].EndDate;
-                                criteria.FromDate = chargeRateList[g].StartDate;
-                                this.CreateDocumentPagePDF(criteria, cssPath, ref invoice, ref excelCssFilePath, ref pageOrientationList, ref isAutoFitList);
-                            }
-                        }
-                    }
-                }
-            }
+            var invoiceMainPageText = GetInvoiceMainPageText(model);
+            var productPageList = GetProductPageList(model);
 
-            string mainInvoicePagePath1 = "_Excel";
-            excelCssFilePath.Insert(0, HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlement.css"));
-            pageOrientationList.Insert(0, WorkbookManager.PageOrientation.Portrait);
-            string mainInvoicePage1 = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath1, invoice, true);
-            invoice.HTMLReportList.Insert(0, mainInvoicePage1);
-            isAutoFitList.Insert(0, false);
+            model.HTMLReportList.Add(invoiceMainPageText);
+            model.HTMLReportList.AddRange(productPageList);
 
-            var workbook = new WorkbookManager();
-            WorkbookManager.DocumentType documentType = (WorkbookManager.DocumentType)Enum.Parse(typeof(WorkbookManager.DocumentType), "Pdf", false);
-            var ms = workbook.CreateDocument(invoice.HTMLReportList, excelCssFilePath, documentType, pageOrientationList, isAutoFitList, invoice.Operator.PartyName);
-            if (ms != null)
-            {
-                //// return the filestream. Rewind the memory stream to the beginning
-                ms.Seek(0, SeekOrigin.Begin);
-                string fileName = string.Format("{0}.{1}", invoice.InvoiceName, documentType.ToString().ToLower());
-                return File(ms, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", fileName);
-            }
-            */
-
-            return new EmptyResult();
+            return ExportPdf(cssPathList, model.HTMLReportList);
         }
 
         /// <summary>
         /// Prints the screen.
         /// </summary>
-        /// <param name="invoice">The invoice.</param>
+        /// <param name="model">Invoice Model.</param>
         /// <returns>Action Result.</returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed.")]
-        public ActionResult PrintScreen(InvoiceModel invoice)
+        public ActionResult PrintScreen(InvoiceModel model)
         {
-            List<ChargeRate> chargeRateList = new List<ChargeRate>();
-            List<DateRange> dateRangeList = new List<DateRange>();
-            var criteria = new InvoiceReportLicenseeSettlementCriteria();
-            criteria.LicenseeId = invoice.Licensee.LicenseeID;
-            criteria.BaseCurrency = invoice.Currency;
-            criteria.BaseCurrencyName = invoice.CurrencyName;
-            criteria.Currency = 0;
-            criteria.PartyId = invoice.Operator.PartyID;
-            DateTime fromDate = CastAide.AsDateTime(invoice.FromDate);
-            DateTime toDate = CastAide.AsDateTime(invoice.ToDate);
-            dateRangeList = this._invoiceService.GetDateRange(fromDate, toDate).ToList();
-            //// Crerate invoice main page
-            string mainInvoicePage = string.Format(
-                "Templates/{0}/_{1}_{2}",
-                invoice.Operator.PartyName,
-                invoice.Operator.PartyName,
-                invoice.InvoiceType.InvoiceTypeName);
-            string html = HtmlHelperExtensions.RenderViewToString(this, mainInvoicePage, invoice, false);
-            invoice.HTMLReportList.Add(html);
-            string[] productNames = invoice.ProductsName.Split(',');
-            string[] productID = invoice.Product.Split(',');
-            for (int i = 0; i < dateRangeList.Count; i++)
-            {
-                for (int j = 0; j < productNames.Count(); j++)
-                {
-                    chargeRateList = this._invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
-                    {
-                        PartyID = invoice.Operator.PartyID,
-                        LicenseeID = invoice.Licensee.LicenseeID,
-                        Products = productID[j],
-                        FromDate = dateRangeList[i].StartDate,
-                        ToDate = dateRangeList[i].EndDate
-                    }).ToList();
+            var invoiceMainPageText = GetInvoiceMainPageText(model);
+            var productPageList = GetProductPageList(model);
 
-                    if (!string.IsNullOrEmpty(productID[j]))
-                    {
-                        criteria.Product = Converter.To<int>(productID[j]);
-                        criteria.ProductName = productNames[j];
-                        criteria.InvoiceReport = true;
-                        if (chargeRateList.Count == 0)
-                        {
-                            criteria.ToDate = dateRangeList[i].EndDate;
-                            criteria.FromDate = dateRangeList[i].StartDate;
-                            this.CreateDocumentPageWeb(criteria, ref invoice);
-                        }
-                        else
-                        {
-                            for (int g = 0; g < chargeRateList.Count; g++)
-                            {
-                                criteria.ToDate = chargeRateList[g].EndDate;
-                                criteria.FromDate = chargeRateList[g].StartDate;
-                                this.CreateDocumentPageWeb(criteria, ref invoice);
-                            }
-                        }
-                    }
-                }
-            }
+            model.HTMLReportList.Add(invoiceMainPageText);
+            model.HTMLReportList.AddRange(productPageList);
 
-            return View("_Preview", invoice);
+            return View("_Preview", model);
         }
 
         /// <summary>
         /// Details the specified invoice.
         /// </summary>
-        /// <param name="invoice">The invoice.</param>
+        /// <param name="model">The invoice.</param>
         /// <returns>Action Result.</returns>
-        [SuppressMessage(
-            "StyleCop.CSharp.Nexcel.NexcelCustomRules",
-            "SP2101:MethodMustNotContainMoreLinesThan",
-            Justification = "Reviewed.")]
-        public ActionResult Detail(InvoiceModel invoice)
+        public ActionResult Detail(InvoiceModel model)
         {
-            List<ChargeRate> chargeRateList = new List<ChargeRate>();
-            List<DateRange> dateRangeList = new List<DateRange>();
-            var criteria = new InvoiceReportLicenseeSettlementCriteria();
-            InvoiceModel imodel = new InvoiceModel();
-            criteria.LicenseeId = invoice.Licensee.LicenseeID;
-            criteria.BaseCurrency = invoice.Currency;
-            criteria.BaseCurrencyName = invoice.CurrencyName;
-            criteria.Currency = 0;
-            criteria.PartyId = invoice.Operator.PartyID;
-            DateTime fromDate = CastAide.AsDateTime(invoice.FromDate);
-            DateTime toDate = CastAide.AsDateTime(invoice.ToDate);
-            dateRangeList = this._invoiceService.GetDateRange(fromDate, toDate).ToList();
-            string[] products = invoice.ProductsName.Split(',');
-            string[] productID = invoice.Product.Split(',');
-            for (int i = 0; i < dateRangeList.Count; i++)
-            {
-                for (int j = 0; j < products.Count(); j++)
-                {
-                    chargeRateList = this._invoiceService.GetChargeRate(new IMS_GetChargeRateCriteria
-                    {
-                        PartyID = invoice.Operator.PartyID,
-                        LicenseeID = invoice.Licensee.LicenseeID,
-                        Products = productID[j],
-                        FromDate = dateRangeList[i].StartDate,
-                        ToDate = dateRangeList[i].EndDate
-                    }).ToList();
-                    if (!string.IsNullOrEmpty(productID[j]))
-                    {
-                        criteria.Product = Converter.To<int>(productID[j]);
-                        criteria.ProductName = products[j];
-                        criteria.InvoiceReport = true;
-                        if (chargeRateList.Count == 0)
-                        {
-                            criteria.ToDate = dateRangeList[i].EndDate;
-                            criteria.FromDate = dateRangeList[i].StartDate;
-                            this.CreateDocumentPageWeb(criteria, ref invoice);
-                        }
-                        else
-                        {
-                            for (int g = 0; g < chargeRateList.Count; g++)
-                            {
-                                criteria.ToDate = chargeRateList[g].EndDate;
-                                criteria.FromDate = chargeRateList[g].StartDate;
-                                this.CreateDocumentPageWeb(criteria, ref invoice);
-                            }
-                        }
-                    }
-                }
-            }
+            var productPageList = GetProductPageList(model);
 
-            return View("_Preview", invoice);
+            model.HTMLReportList.AddRange(productPageList);
+
+            return View("_Preview", model);
         }
 
         /// <summary>
@@ -428,50 +244,216 @@ namespace Fanex.Ares.Invoice.Controllers
             return new EmptyResult();
         }
 
-        /// <summary>
-        /// Creates the document page PDF.
-        /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="cssPath">The CSS path.</param>
-        /// <param name="invoice">The invoice.</param>
-        /// <param name="excelCssFilePath">The excel CSS file path.</param>
-        /// <param name="pageOrientationList">The page orientation list.</param>
-        /// <param name="isAutoFitList">The is automatic fit list.</param>
-        private void CreateDocumentPagePDF(
-                                    InvoiceReportLicenseeSettlementCriteria criteria,
-                                    string cssPath,
-                                    ref InvoiceModel invoice,
-                                    ref List<string> excelCssFilePath,
-                                    ref List<WorkbookManager.PageOrientation> pageOrientationList,
-                                    ref List<bool> isAutoFitList)
-        {
-            string html = string.Empty;
-            var model = this._licenseeSettlementService.GenerateReport(criteria);
-            model.LicenseeInfor.FromDate = criteria.FromDate;
-            model.LicenseeInfor.ToDate = criteria.ToDate;
+        #endregion
 
-            pageOrientationList.Add(WorkbookManager.PageOrientation.Landscape);
-            html = HtmlHelperExtensions.RenderViewToString(this, "Products/_" + criteria.ProductName, model, false);
-            invoice.HTMLReportList.Add(html);
-            excelCssFilePath.Add(cssPath);
-            isAutoFitList.Add(true);
+        /// <summary>
+        /// Get Invoice Limited Row Number.
+        /// </summary>
+        /// <param name="partyName">Party Name.</param>
+        /// <returns>Row Number.</returns>
+        private static int GetInvoiceLimitedRowNumber(string partyName)
+        {
+            switch (partyName)
+            {
+                case PartyName.Bch:
+                case PartyName.Cozni:
+                case PartyName.Ldl:
+                    return 5;
+                case PartyName.Boping:
+                    return 1;
+                case PartyName.Lupine:
+                    return 6;
+                case PartyName.StarExpress:
+                    return 6;
+                default:
+                    return 5;
+            }
         }
 
         /// <summary>
-        /// Creates the document page web.
+        /// Re-fill Statement List.
         /// </summary>
-        /// <param name="criteria">The criteria.</param>
-        /// <param name="invoice">The invoice.</param>
-        private void CreateDocumentPageWeb(
-                                        InvoiceReportLicenseeSettlementCriteria criteria,
-                                        ref InvoiceModel invoice)
+        /// <param name="model">Invoice Model.</param>
+        /// <param name="limitedRow">Limited Row.</param>
+        private static void RefillStatementList(ref InvoiceModel model, int limitedRow)
         {
-            var model = this._licenseeSettlementService.GenerateReport(criteria);
+            var emptyStatementList = new List<StatementDetail>();
+            var rowCount = 0;
+
+            emptyStatementList.Add(new StatementDetail
+            {
+                DiscountItem = false,
+                AdjustItem = 0
+            });
+
+            foreach (var statement in model.StatementList)
+            {
+                rowCount += statement.StatementDetailList.Count;
+            }
+
+            while (rowCount < 5)
+            {
+                model.StatementList.Add(new Statement
+                {
+                    StatementID = 100000,
+                    StatementDetailList = emptyStatementList
+                });
+
+                rowCount++;
+            }
+        }
+
+        /// <summary>
+        /// Assign CSS Path List.
+        /// </summary>
+        /// <returns>List of String.</returns>
+        private List<string> AssignCssPathList()
+        {
+            var cssPathList = new List<string>();
+            var mainPageCss = _invoiceCSS;
+            var productCss = _productCss;
+
+            cssPathList.Add(mainPageCss);
+            cssPathList.Add(productCss);
+
+            return cssPathList;
+        }
+
+        /// <summary>
+        /// Get Invoice Main Page Text.
+        /// </summary>
+        /// <param name="model">Invoice Model.</param>
+        /// <returns>HTML Text.</returns>
+        private string GetInvoiceMainPageText(InvoiceModel model)
+        {
+            var mainInvoicePagePath = string.Format(
+                    CultureInfo.CurrentCulture,
+                    "Templates/{0}/_{1}_{2}",
+                    model.Operator.PartyName,
+                    model.Operator.PartyName,
+                    model.InvoiceType.InvoiceTypeName);
+
+            var limitedRow = GetInvoiceLimitedRowNumber(model.Operator.PartyName);
+
+            RefillStatementList(ref model, limitedRow);
+
+            return HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, model, true);
+        }
+
+        /// <summary>
+        /// Get Product Page List.
+        /// </summary>
+        /// <param name="model">Invoice Model.</param>
+        /// <returns>List Of String.</returns>
+        private List<string> GetProductPageList(InvoiceModel model)
+        {
+            var fromDate = CastAide.AsDateTime(model.FromDate);
+            var toDate = CastAide.AsDateTime(model.ToDate);
+            var productPageList = new List<string>();
+            var chargeRateList = new List<ChargeRate>();
+            var dateRangeList = _invoiceService.GetDateRange(fromDate, toDate).ToList();
+            var criteria = new InvoiceReportLicenseeSettlementCriteria();
+            var products = model.ProductsName.Split(',');
+            var productIDs = model.Product.Split(',');
+
+            criteria.LicenseeId = model.Licensee.LicenseeID;
+            criteria.BaseCurrency = model.Currency;
+            criteria.BaseCurrencyName = model.CurrencyName;
+            criteria.Currency = 0;
+            criteria.PartyId = model.Operator.PartyID;
+
+            foreach (var dateRange in dateRangeList)
+            {
+                for (int productIndex = 0; productIndex < products.Count(); productIndex++)
+                {
+                    var productId = productIDs[productIndex];
+                    var productName = products[productIndex];
+                    var getChargeRateCriteria = new IMS_GetChargeRateCriteria
+                    {
+                        PartyID = model.Operator.PartyID,
+                        LicenseeID = model.Licensee.LicenseeID,
+                        Products = productId,
+                        FromDate = dateRange.StartDate,
+                        ToDate = dateRange.EndDate
+                    };
+
+                    chargeRateList = this._invoiceService.GetChargeRate(getChargeRateCriteria).ToList();
+
+                    criteria.Product = Converter.To<int>(productId);
+                    criteria.ProductName = productName;
+                    criteria.InvoiceReport = true;
+
+                    var renderedProductPages = RenderProductPages(criteria, dateRange, chargeRateList);
+
+                    productPageList.AddRange(renderedProductPages);
+                }
+            }
+
+            return productPageList;
+        }
+
+        /// <summary>
+        /// Render Product Pages.
+        /// </summary>
+        /// <param name="criteria">Invoice Report Licensee Settlement Criteria.</param>
+        /// <param name="dateRange">Date Range.</param>
+        /// <param name="chargeRateList">Charge Rate List.</param>
+        /// <returns>Rendered Product Pages.</returns>
+        private List<string> RenderProductPages(InvoiceReportLicenseeSettlementCriteria criteria, DateRange dateRange, List<ChargeRate> chargeRateList)
+        {
+            var productPageList = new List<string>();
+
+            if (chargeRateList.Count == 0)
+            {
+                criteria.ToDate = dateRange.EndDate;
+                criteria.FromDate = dateRange.StartDate;
+                productPageList.Add(GetProductPageText(criteria));
+            }
+            else
+            {
+                foreach (var chargeRate in chargeRateList)
+                {
+                    criteria.ToDate = chargeRate.EndDate;
+                    criteria.FromDate = chargeRate.StartDate;
+                    productPageList.Add(GetProductPageText(criteria));
+                }
+            }
+
+            return productPageList;
+        }
+
+        /// <summary>
+        /// Get Product Page Text.
+        /// </summary>
+        /// <param name="criteria">Invoice Report Licensee Settlement Criteria.</param>
+        /// <returns>HTML Text.</returns>
+        private string GetProductPageText(InvoiceReportLicenseeSettlementCriteria criteria)
+        {
+            var model = _licenseeSettlementService.GenerateReport(criteria);
+
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
 
-            string html = HtmlHelperExtensions.RenderViewToString(this, "Products/_" + criteria.ProductName, model, false);
-            invoice.HTMLReportList.Add(html);
+            return HtmlHelperExtensions.RenderViewToString(this, "Products/_" + criteria.ProductName, model, false);
+        }
+
+        /// <summary>
+        /// Export PDF.
+        /// </summary>
+        /// <param name="cssPathList">CSS Path List.</param>
+        /// <param name="htmlTextList">HTML Text List.</param>
+        /// <returns>Action Result.</returns>
+        private ActionResult ExportPdf(List<string> cssPathList, List<string> htmlTextList)
+        {
+            var pdfRender = new PdfRender(cssPathList, htmlTextList);
+            var streamContent = pdfRender.ContentRender();
+
+            if (streamContent != null)
+            {
+                return File(streamContent, @"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml", "abc.pdf");
+            }
+
+            return new EmptyResult();
         }
     }
 }

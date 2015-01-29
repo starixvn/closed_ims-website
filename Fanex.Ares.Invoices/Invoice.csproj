@@ -78,7 +78,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
     <Compile Include="Criteria\Invoice\IMS_DateRangeCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_CheckExistedInvoiceNo.cs" />
     <Compile Include="Criteria\Invoice\IMS_GenInv_BaseCurrencySel.cs" />

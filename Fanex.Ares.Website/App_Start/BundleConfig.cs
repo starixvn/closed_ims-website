@@ -28,6 +28,7 @@ namespace Fanex.Ares.Website.App_Start
             AddClientTemplateRender(bundles);
             AddMonthPicker(bundles);
             AddKnockout(bundles);
+            InvoicePreviewCSS(bundles);
         }
 
         /// <summary>
@@ -115,6 +116,12 @@ namespace Fanex.Ares.Website.App_Start
             "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"));
             bundles.Add(new ScriptBundle("~/Scripts/_Libs/multiselect").Include(
                       "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js"));
+        }
+
+        private static void InvoicePreviewCSS(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Areas/Invoice/Styles/InvoicePreviewCss").Include(
+            "~/Areas/Invoice/Views/Invoice/Styles/InvoicePreview.css"));
         }
 
         /// <summary>

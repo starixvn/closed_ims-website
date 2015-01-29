@@ -547,7 +547,7 @@ var invoiceApp = {
         invoiceInfoModel.InvoiceName = invoiceApp.InvoiceName;
         $.ajax({
             url: domain + "Invoice/Invoice/Detail",
-            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            data: '{"model":' + JSON.stringify(invoiceInfoModel) + '}',
             contentType: 'application/json',
             type: "POST",
             success: function (data, textStatus, jqXHR) {
@@ -596,7 +596,7 @@ var invoiceApp = {
         invoiceInfoModel.IsSignature = ($('#chkSign').hasClass("checkedCls") == true ? true : false);
         $.ajax({
             url: domain + "Invoice/Invoice/PrintScreen",
-            data: '{"invoice":' + JSON.stringify(invoiceInfoModel) + '}',
+            data: '{"model":' + JSON.stringify(invoiceInfoModel) + '}',
             contentType: 'application/json',
             type: "POST",
             success: function (data, textStatus, jqXHR) {

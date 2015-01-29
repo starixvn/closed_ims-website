@@ -1,0 +1,134 @@
+﻿hr
+{
+    border: 0.1px solid gray;
+}
+
+table.table-content
+{
+    border-collapse: collapse;
+    border: 0;
+    width: 100%;
+}
+
+table.table-content td.cell-content
+{
+    border: 0.1px solid gray;
+    font-size: 10px;
+}
+
+.even-row
+{
+    background-color: #e4f2fd;
+}
+
+.header
+{
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    border: 0.1px solid gray;
+    background: #3C5EA5;
+    white-space: normal;
+    font-size: 11px;
+    height: 15px;
+}
+
+.colNumber
+{
+    text-align: right;
+}
+
+.colInteger
+{
+    text-align: right;
+}
+
+.colText
+{
+    text-align: center;
+}
+
+.colDateTime
+{
+    text-align: center;
+}
+
+.colNote
+{
+    text-align: left;
+    font-size: 11px;
+}
+
+.colNumber5Odd
+{
+    text-align: right;
+}
+
+.currency
+{
+    text-align: right;
+    font-size: 11px;
+}
+
+.boldTilte
+{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.boldInfor
+{
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.licenseeName
+{
+    color: #0040FF;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.sportName
+{
+    color: #C21515;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.negative-number
+{
+    color: Red !important;
+}
+
+.grandtotal
+{
+    font-weight: bold;
+    text-align: right;
+    font-size: 11px;
+}
+
+.height5
+{
+    height: 5pt;
+}
+
+.height12
+{
+    height: 12pt;
+}
+
+.height15
+{
+    height: 15pt;
+}
+
+.height16
+{
+    height: 16pt;
+}
+.height26
+{
+    height: 26pt;
+}
