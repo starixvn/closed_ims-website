@@ -11,7 +11,6 @@
     using iTextSharp.tool.xml.pipeline.css;
     using iTextSharp.tool.xml.pipeline.end;
     using iTextSharp.tool.xml.pipeline.html;
-    using iTextSharp.tool.xml.exceptions;
 
     /// <summary>
     /// PDF Render.

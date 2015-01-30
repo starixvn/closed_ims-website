@@ -92,7 +92,6 @@
     <Compile Include="Criteria\Invoice\IMS_LicenseeByPartyCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsCriteria.cs" />
     <Compile Include="Criteria\Invoice\IMS_OperatorCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_ProductCriteria.cs" />
     <Compile Include="Export\PdfRender.cs" />
     <Compile Include="Models\Invoice\ChargeRate.cs" />
     <Compile Include="Models\Invoice\DateRange.cs" />
@@ -107,10 +106,7 @@
     <Compile Include="Service\Imp\InvoiceService.cs" />
     <Compile Include="Service\Interface\IInvoiceService.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\Impl\" />
-    <Folder Include="Repositories\Interface\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
@@ -123,10 +119,6 @@
     <ProjectReference Include="..\Resource\Resources.csproj">
       <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
       <Name>Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Workbook\Fanex.Workbooks.csproj">
-      <Project>{C0D5A32D-72BC-4737-949D-FDF9342B243F}</Project>
-      <Name>Fanex.Workbooks</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

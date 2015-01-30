@@ -832,10 +832,6 @@
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Workbook\Fanex.Workbooks.csproj">
-      <Project>{C0D5A32D-72BC-4737-949D-FDF9342B243F}</Project>
-      <Name>Fanex.Workbooks</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
