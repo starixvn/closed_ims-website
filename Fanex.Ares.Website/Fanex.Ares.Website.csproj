@@ -225,7 +225,7 @@
     <Content Include="Areas\Invoice\Views\Invoice\Scripts\JScript1.js" />
     <Content Include="Content\Invoice\Images\BCH.png" />
     <Content Include="Content\Invoice\Images\Boping-logo.png" />
-    <Content Include="Content\Invoice\Images\COZNI LIMITED.png" />
+    <Content Include="Content\Invoice\Images\COZNI-LIMITED.png" />
     <Content Include="Content\Invoice\Images\LDL.png" />
     <Content Include="Content\Invoice\Images\Lupine.jpg" />
     <Content Include="Content\Invoice\Images\sprite-2.png" />

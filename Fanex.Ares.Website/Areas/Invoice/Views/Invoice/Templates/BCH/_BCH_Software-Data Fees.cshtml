@@ -170,7 +170,7 @@
                 var amountText = string.Empty;
                 foreach (var statementDetail in statement.StatementDetailList)
                 {
-                    var amount = statementDetail.Amount == 0 ? "(nil)" : NumberExtensions.NegativeFormat(statementDetail.Amount);
+                    var amount = statementDetail.Amount == 0 && statementDetail.DiscountItem ? "(nil)" : NumberExtensions.NegativeFormat(statementDetail.Amount);
 
                     descriptionText += string.IsNullOrEmpty(statementDetail.Description) ?
                         string.Empty :

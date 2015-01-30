@@ -13,7 +13,7 @@
 
         public const string Boping = "BHC";
 
-        public const string Lupine = "Lupine";
+        public const string Lupine = "LUP";
 
         public const string StarExpress = "Star Express";
     }

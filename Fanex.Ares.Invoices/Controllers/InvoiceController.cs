@@ -260,11 +260,10 @@ namespace Fanex.Ares.Invoice.Controllers
                 case PartyName.Ldl:
                     return 5;
                 case PartyName.Boping:
-                    return 1;
+                    return 6;
                 case PartyName.Lupine:
-                    return 6;
                 case PartyName.StarExpress:
-                    return 6;
+                    return 7;
                 default:
                     return 5;
             }
@@ -291,7 +290,7 @@ namespace Fanex.Ares.Invoice.Controllers
                 rowCount += statement.StatementDetailList.Count;
             }
 
-            while (rowCount < 5)
+            while (rowCount < limitedRow)
             {
                 model.StatementList.Add(new Statement
                 {
