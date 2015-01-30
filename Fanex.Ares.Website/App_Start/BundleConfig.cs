@@ -120,8 +120,9 @@ namespace Fanex.Ares.Website.App_Start
 
         private static void InvoicePreviewCSS(BundleCollection bundles)
         {
-            bundles.Add(new StyleBundle("~/Areas/Invoice/Styles/InvoicePreviewCss").Include(
-            "~/Areas/Invoice/Views/Invoice/Styles/InvoicePreview.css"));
+            bundles.Add(new StyleBundle("~/Content/Invoice/InvoicePreviewCss")
+                .Include("~/Content/Invoice/InvoicePreview.css")
+                .Include("~/Content/Report/LicenseeSettlement.css"));
         }
 
         /// <summary>

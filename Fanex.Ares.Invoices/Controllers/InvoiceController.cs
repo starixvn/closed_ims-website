@@ -31,8 +31,8 @@ namespace Fanex.Ares.Invoice.Controllers
     {
         #region Fields
 
-        private readonly string _invoiceCSS = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\InvoicePDF.css");
-        private readonly string _productCss = HostingEnvironment.MapPath(@"~\Areas\Invoice\Views\Invoice\Styles\LicenseeSettlementPDF.css");
+        private readonly string _invoiceCSS = HostingEnvironment.MapPath(@"~\Content\Invoice\InvoicePDF.css");
+        private readonly string _productCss = HostingEnvironment.MapPath(@"~\Content\Report\LicenseeSettlementPDF.css");
         private string _settlementView = string.Empty;
         private IInvoiceService _invoiceService;
         private ILicenseeSettlementService _licenseeSettlementService;

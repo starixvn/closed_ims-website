@@ -10,9 +10,7 @@
     var forexNote = string.Format(Labels.OandaNote, baseCurrencyName, baseCurrencyName, baseCurrencyName);
     var idrNote = string.Format(Labels.IDRNote, baseCurrencyName);
 }
-<link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/LicenseeSettlement.css" />
-<link rel="stylesheet" type="text/css" href="~/Areas/Invoice/Views/Invoice/Styles/LicenseeSettlementWeb.css" />
-<div class="div-content">
+<div class="div-content invoive-product-content">
     <table class="table-content" cellpadding="2" cellspacing="0">
         <tr>
             <td colspan="15" class="boldTilte height16">
@@ -275,7 +273,7 @@
                 </td>
                 <td class="emptyCell">
                 </td>
-                <td class="emptytotal" colspan="2">
+                <td colspan="2">
                 </td>
             </tr>
             <tr>
@@ -306,7 +304,7 @@
                 </td>
                 <td class="emptyCell">
                 </td>
-                <td class="emptytotal height10" colspan="2">
+                <td class="height10" colspan="2">
                 </td>
             </tr>
             <tr>
@@ -317,7 +315,7 @@
                 </td>
                 <td class="emptyCell">
                 </td>
-                <td class="emptytotal" colspan="2">
+                <td colspan="2">
                 </td>
             </tr>
             if (!Model.LicenseeInfor.BaseCurrencyName.Trim().Equals(BaseCurrencyName.CNY))

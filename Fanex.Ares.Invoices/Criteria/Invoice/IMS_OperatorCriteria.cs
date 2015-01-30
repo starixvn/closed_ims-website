@@ -3,7 +3,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// Get Operatior.
+    /// Get Operator.
     /// </summary>
     public class IMS_OperatorCriteria : CriteriaBase
     {

@@ -82,41 +82,46 @@ td
     font-weight: bold;
     vertical-align: middle;
     white-space: nowrap;
-    border: 0.5pt solid gray;
+    border: 1pt solid gray;
     background: #3C5EA5;
     white-space: normal;
+    padding: 0 5px 0 5px;
 }
 
 .colNumber
 {
     text-align: right;
     vertical-align: middle;
-    border: 0.5pt solid gray;
+    border: 1pt solid gray;
     font-size: 8pt;
+    padding: 0 5px 0 5px;
 }
 
 .colInteger
 {
     text-align: right;
     vertical-align: middle;
-    border: 0.5pt solid gray;
+    border: 1pt solid gray;
     font-size: 8pt;
+    padding: 0 5px 0 5px;
 }
 
 .colText
 {
     text-align: center;
     vertical-align: middle;
-    border: 0.5pt solid gray;
+    border: 1pt solid gray;
     font-size: 8pt;
+    padding: 0 5px 0 5px;
 }
 
 .colDateTime
 {
     text-align: center;
     vertical-align: middle;
-    border: 0.5pt solid gray;
+    border: 1pt solid gray;
     font-size: 8pt;
+    padding: 0 5px 0 5px;
 }
 
 .grandtotal
@@ -126,12 +131,12 @@ td
     font-size: 8pt;
 }
 
-.emptytotal
-{
-    border-top: .5pt solid gray;
-    border-right: none;
-    border-bottom: none;
+.emptyheader
+{ 
+    border-bottom: none !important;
     border-left: none;
+    border-right: none;
+    border-top: 1pt solid white !important;
 }
 
 .emptyCell
@@ -149,8 +154,9 @@ td
     color: black;
     text-align: right;
     vertical-align: middle;
-    border: 0.5pt solid gray;
+    border: 1pt solid gray;
     font-size: 8pt;
+    padding: 0 5px 0 5px;
 }
 
 .even
@@ -178,6 +184,11 @@ table.table-content
 .even-row
 {
     background-color: #e4f2fd;
+}
+
+.aligncenter
+{
+    text-align: center;
 }
 
 .height5
