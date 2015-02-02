@@ -1,0 +1,60 @@
+﻿@model string
+<table class="currency-table">
+    <tr>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+        </td>
+        <td class="currency-text">
+            USD
+        </td>
+        <td class="currency-mark">
+            @if (Model == "USD")
+            {
+                <span>X</span>
+            }
+        </td>
+        <td class="currency-text">
+            EUR
+        </td>
+        <td class="currency-mark">
+            @if (Model == "EUR")
+            {
+                <span>X</span>
+            }
+        </td>
+        <td class="currency-text">
+            GBP
+        </td>
+        <td class="currency-mark">
+            @if (Model == "GBP")
+            {
+                <span>X</span>
+            }
+        </td>
+    </tr>
+</table>

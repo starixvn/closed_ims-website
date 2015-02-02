@@ -9,40 +9,9 @@
 }
 <div class="div-content invoice-table">
     <table class="table-content" cellpadding="2" cellspacing="0">
-        <tr>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-            <td>
-            </td>
-        </tr>
+        @{
+            Html.RenderPartial("~/Areas/Invoice/Views/Invoice/Templates/Common/FirstRow.cshtml");
+        }
         <tr>
             <td colspan="7">
                 <img alt="" class="invoice-image" src="@Url.Content(domain + "/Content/Invoice/Images/COZNI-LIMITED.png")"/>
@@ -266,143 +235,11 @@
         </tr>
         @if (invoiceModel.IsSignature)
         {
-            <tr>
-                <td colspan="10" rowspan="3" class="border-all">
-                    <table class="table-no-signature">
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="col-align-left bold">
-                                For Telegraphic Transfer Payments
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Beneficiary<br />
-                                Beneficiary Bank<br />
-                                Account Number<br />
-                                IBAN<br />
-                                Swift Code
-                                <br />
-                                <br />
-                                Correspondent<br />
-                                Swift Code<br />
-                                <br />
-                                <br />
-                            </td>
-                            <td colspan="4">
-                                :&nbsp;&nbsp; @invoiceModel.Operator.Benificiary<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.BenificiaryBank<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.AccountNumber<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.IBAN<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.SwiftCode
-                                <br />
-                                <br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentBank<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentSwiftCode<br />
-                                <br />
-                                <br />
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-                <td colspan="6" class="border-all vertical-align-top">
-                    <br />
-                    Prepared By:
-                    <br />
-                    <br />
-                    <br />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="6" class="border-all vertical-align-top">
-                    <span class="bold">Accounting Department:</span>
-                    <br />
-                    <br />
-                    Approved By:
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="6" class="border-all vertical-align-top bold">
-                    Authorized Signatory
-                </td>
-            </tr>
+            Html.RenderPartial("~/Areas/Invoice/Views/Invoice/Templates/Common/SignatureView.cshtml", invoiceModel.Operator);
         }
         else
         {
-            <tr>
-                <td colspan="16" class="border-all">
-                    <table class="table-no-signature">
-                        <tr>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" class="col-align-left bold">
-                                For Telegraphic Transfer Payments
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Beneficiary<br />
-                                Beneficiary Bank<br />
-                                Account Number<br />
-                                IBAN<br />
-                                Swift Code
-                                <br />
-                                <br />
-                                Correspondent<br />
-                                Swift Code<br />
-                                <br />
-                                <br />
-                            </td>
-                            <td colspan="4">
-                                :&nbsp;&nbsp; @invoiceModel.Operator.Benificiary<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.BenificiaryBank<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.AccountNumber<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.IBAN<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.SwiftCode
-                                <br />
-                                <br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentBank<br />
-                                :&nbsp;&nbsp; @invoiceModel.Operator.CorrespondentSwiftCode<br />
-                                <br />
-                                <br />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            </td>
-                            <td colspan="4" class="no-signature">
-                                This is a computer generated invoice. No signature is required.
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+            Html.RenderPartial("~/Areas/Invoice/Views/Invoice/Templates/Common/NoSignatureView.cshtml", invoiceModel.Operator);
         }
         <tr>
             <td colspan="16" class="vertical-align-middle height50">

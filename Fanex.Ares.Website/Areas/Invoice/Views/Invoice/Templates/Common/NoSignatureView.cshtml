@@ -1,0 +1,59 @@
+﻿@model Fanex.Ares.Invoice.Models.Invoice.Operator
+<tr>
+    <td colspan="16" class="border-all">
+        <table class="table-no-signature">
+            <tr>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" class="col-align-left bold">
+                    For Telegraphic Transfer Payments
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Beneficiary<br />
+                    Beneficiary Bank<br />
+                    Account Number<br />
+                    IBAN<br />
+                    Swift Code
+                    <br />
+                    <br />
+                    Correspondent<br />
+                    Swift Code<br />
+                    <br />
+                    <br />
+                </td>
+                <td colspan="4">
+                    :&nbsp;&nbsp; @Model.Benificiary<br />
+                    :&nbsp;&nbsp; @Model.BenificiaryBank<br />
+                    :&nbsp;&nbsp; @Model.AccountNumber<br />
+                    :&nbsp;&nbsp; @Model.IBAN<br />
+                    :&nbsp;&nbsp; @Model.SwiftCode
+                    <br />
+                    <br />
+                    :&nbsp;&nbsp; @Model.CorrespondentBank<br />
+                    :&nbsp;&nbsp; @Model.CorrespondentSwiftCode<br />
+                    <br />
+                    <br />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td colspan="4" class="no-signature">
+                    This is a computer generated invoice. No signature is required.
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>

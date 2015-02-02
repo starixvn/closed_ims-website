@@ -680,6 +680,10 @@
     <Content Include="Areas\UserControl\Views\User\ChangePassword.cshtml" />
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\FirstRow.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\SignatureView.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\NoSignatureView.cshtml" />
+    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\CurrencyCheckboxRow.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
