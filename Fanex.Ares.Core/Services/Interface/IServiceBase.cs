@@ -29,6 +29,6 @@ namespace Fanex.Ares.Core.Services.Interface
         /// <typeparam name="T">Parameter type.</typeparam>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Return result.</returns>
-        IEnumerable<T> GetListData<T>(ICriteria criteria);
+        IEnumerable<T> GetEntites<T>(ICriteria criteria);
     }
 }

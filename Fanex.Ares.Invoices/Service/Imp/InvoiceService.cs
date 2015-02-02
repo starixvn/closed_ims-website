@@ -24,92 +24,14 @@ namespace Fanex.Ares.Invoice.Service.Imp
     /// </summary>
     public class InvoiceService : ServiceBase, IInvoiceService
     {
-        /// <summary>
-        ///  Get operator list.
-        /// </summary>
-        /// <param name="criteria">IMS_OperatorCriteria criteria.</param>
-        /// <returns> Operator list.</returns>
         public IEnumerable<Party> GetOperatorList(OperatorSelectionCriteria criteria)
         {
-            var operators = new List<Party>();
-            try
-            {
-                Func<IDataReader, Party> mappingFunc = r =>
-                {
-                    var res = new Party
-                    {
-                        PartyID = Converter.To<int>(r["PartyID"]),
-                        PartyName = Converter.ToString2(r["PartyName"]),
-                        PartyType = Converter.To<int>(r["PartyType"]),
-                        Description = Converter.ToString2(r["Description"]),
-                        PartyFullName = Converter.ToString2(r["PartyFullName"]),
-                        AccountNumber = Converter.ToString2(r["AccountNumber"]),
-                        AccountName = Converter.ToString2(r["AccountName"]),
-                        BankName = Converter.ToString2(r["BankName"]),
-                        Benificiary = Converter.ToString2(r["Benificiary"]),
-                        BenificiaryBank = Converter.ToString2(r["BenificiaryBank"]),
-                        Iban = Converter.ToString2(r["Iban"]),
-                        SwiftCode = Converter.ToString2(r["SwiftCode"]),
-                        CorrespondentBank = Converter.ToString2(r["CorrespondentBank"]),
-                        Company = Converter.ToString2(r["Company"]),
-                        CorrespondentAccNo = Converter.ToString2(r["CorrespondentAccNo"]),
-                        CorrespondentSwiftCode = Converter.ToString2(r["CorrespondentSwiftCode"]),
-                        AttnName = Converter.ToString2(r["AttnName"]),
-                        To1 = Converter.ToString2(r["To1"]),
-                        To2 = Converter.ToString2(r["To2"]),
-                        Logo = Converter.ToString2(r["Logo"]),
-                        IsHide = Convert.ToBoolean(r["IsHide"])
-                    };
-
-                    return res;
-                };
-
-                operators = BaseRepository.Fetch<Party>(criteria, mappingFunc).Where(p => p.IsHide == false).ToList();
-            }
-            catch (SqlException exception)
-            {
-                LoggingHandler.Log(exception.Message);
-                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
-            }
-
-            return operators;
+            return GetEntites<Party>(criteria).Where(p => p.IsHide == false).ToList();
         }
 
-        /// <summary>
-        /// Select licensee list.
-        /// </summary>
-        /// <param name="criteria">IMS_LicenseeByPartyCriteria criteria.</param>
-        /// <returns>Licensee List.</returns>
         public IEnumerable<Licensee> GetLicenseesList(LicenseeByPartySelectionCriteria criteria)
         {
-            var licensees = new List<Licensee>();
-            try
-            {
-                Func<IDataReader, Licensee> mappingFunc = r =>
-                {
-                    var res = new Licensee
-                    {
-                        LicenseeID = Converter.To<int>(r["LicenseeID"]),
-                        LicenseeName = r["LicenseeName"].ToString(),
-                        BrandName = Converter.ToString2(r["BrandName"]),
-                        CompanyName = Converter.ToString2(r["CompanyName"]),
-                        AttnName = r["AttnName"].ToString(),
-                        To1 = Converter.ToString2(r["To1"]),
-                        To2 = Converter.ToString2(r["To2"])
-                    };
-
-                    return res;
-                };
-
-                licensees = BaseRepository.Fetch<Licensee>(criteria, mappingFunc).ToList();
-            }
-            catch (SqlException exception)
-            {
-                LoggingHandler.Log(exception.Message);
-                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
-            }
-
-            return licensees;
+            return GetEntites<Licensee>(criteria);
         }
 
         /// <summary>
@@ -120,82 +42,53 @@ namespace Fanex.Ares.Invoice.Service.Imp
         public IEnumerable<InvoiceType> GetInvoieType(InvoiceTypesCriteria criteria)
         {
             var invoiceTypeList = new List<InvoiceType>();
-            try
-            {
-                var rawData = GetListData<dynamic>(criteria);
-                if (rawData != null)
-                {
-                    foreach (var row in rawData)
-                    {
-                        int id = (int)row.invoiceTypeID;
-                        bool isExist = false;
-                        foreach (InvoiceType invoiceType in invoiceTypeList)
-                        {
-                            if (id == invoiceType.InvoiceTypeID)
-                            {
-                                invoiceType.ProductList.Add(new Product
-                                {
-                                    ProductID = (int)row.productID,
-                                    ProductName = row.productName,
-                                });
-                                isExist = true;
-                            }
-                        }
+            var rawData = GetEntites<dynamic>(criteria);
 
-                        if (!isExist)
+            if (rawData != null)
+            {
+                foreach (var row in rawData)
+                {
+                    var id = (int)row.invoiceTypeID;
+                    var isSameInvoiceType = false;
+
+                    foreach (var invoiceType in invoiceTypeList)
+                    {
+                        if (id == invoiceType.InvoiceTypeID)
                         {
-                            List<Product> productList = new List<Product>();
-                            productList.Add(new Product
+                            invoiceType.ProductList.Add(new Product
                             {
                                 ProductID = (int)row.productID,
                                 ProductName = row.productName,
                             });
-                            invoiceTypeList.Add(new InvoiceType
-                            {
-                                InvoiceTypeID = (int)row.invoiceTypeID,
-                                InvoiceTypeName = row.invoiceTypeName,
-                                ProductList = productList
-                            });
+
+                            isSameInvoiceType = true;
                         }
                     }
+
+                    if (!isSameInvoiceType)
+                    {
+                        var productList = new List<Product>();
+                        productList.Add(new Product
+                        {
+                            ProductID = (int)row.productID,
+                            ProductName = row.productName,
+                        });
+                        invoiceTypeList.Add(new InvoiceType
+                        {
+                            InvoiceTypeID = (int)row.invoiceTypeID,
+                            InvoiceTypeName = row.invoiceTypeName,
+                            ProductList = productList
+                        });
+                    }
                 }
-            }
-            catch (SqlException exception)
-            {
-                LoggingHandler.Log(exception.Message);
-                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return invoiceTypeList;
         }
 
-        /// <summary>
-        /// Get invoice no.
-        /// </summary>
-        /// <param name="criteria">IMS Invoice No Criteria criteria.</param>
-        /// <returns>Invoice no.</returns>
         public int GetInvoiceNo(InvoiceNumberCriteria criteria)
         {
-            int invoiceNo = 0;
-
-            try
-            {
-                var rawData = GetListData<dynamic>(criteria);
-                if (rawData != null)
-                {
-                    foreach (var row in rawData)
-                    {
-                        invoiceNo = (int)row.NewInvoiceNo;
-                    }
-                }
-            }
-            catch (SqlException exception)
-            {
-                LoggingHandler.Log(exception.Message);
-                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
-            }
-
-            return invoiceNo;
+            return GetEntity<int>(criteria);
         }
 
         /// <summary>
@@ -206,39 +99,34 @@ namespace Fanex.Ares.Invoice.Service.Imp
         public InvoiceModel GetInvoice(NewInvoiceItemsInsertionCriteria criteria)
         {
             InvoiceModel invoice = null;
-            try
-            {
-                List<DateRange> dateRangeList = new List<DateRange>();
-                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate).ToList();
-                var statementRawData = GetListData<dynamic>(criteria);
-                if (statementRawData != null)
-                {
-                    var statementDetaitlList = new List<StatementDetail>();
-                    foreach (var row in statementRawData)
-                    {
-                        StatementDetail statementProductDetail = new StatementDetail()
-                        {
-                            ID = 0,
-                            Description = row.Description,
-                            Reference = row.Reference,
-                            Amount = (double)row.TotalAmount,
-                            AmountFormated = ((double)row.TotalAmount).Format(2),
-                            AdjustItem = (int)row.ItemType,
-                            InvoiceMonth = row.InvoiceMonth,
-                            DiscountItem = row.DiscountItem,
-                            ProductType = row.ItemType
-                        };
-                        this.InsertToStatementProductDetailList(ref statementDetaitlList, statementProductDetail);
-                    }
+            var dateRangeList = GetDateRange(criteria.FromDate, criteria.ToDate).ToList();
+            var statementRawData = GetEntites<dynamic>(criteria);
 
-                    var invoiceMonthList = statementDetaitlList.Select(item => item.InvoiceMonth).Distinct().ToList();
-                    invoice = GroupingInvoiceDetailByMonth(invoiceMonthList, statementDetaitlList, dateRangeList);
-                }
-            }
-            catch (SqlException exception)
+            if (statementRawData != null)
             {
-                LoggingHandler.Log(exception.Message);
-                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
+                var statementDetaitlList = new List<StatementDetail>();
+
+                foreach (var row in statementRawData)
+                {
+                    var statementProductDetail = new StatementDetail()
+                    {
+                        ID = 0,
+                        Description = row.Description,
+                        Reference = row.Reference,
+                        Amount = (double)row.TotalAmount,
+                        AmountFormated = ((double)row.TotalAmount).Format(2),
+                        AdjustItem = (int)row.ItemType,
+                        InvoiceMonth = row.InvoiceMonth,
+                        DiscountItem = row.DiscountItem,
+                        ProductType = row.ItemType
+                    };
+
+                    InsertToStatementProductDetailList(ref statementDetaitlList, statementProductDetail);
+                }
+
+                var invoiceMonthList = statementDetaitlList.Select(item => item.InvoiceMonth).Distinct().ToList();
+
+                invoice = GroupingInvoiceDetailByMonth(invoiceMonthList, statementDetaitlList, dateRangeList);
             }
 
             return invoice;
@@ -251,29 +139,27 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <returns>Return result.</returns>
         public Result SaveInvoice(InvoiceModel invoiceModel)
         {
-            var result = new Core.Models.Result();
+            var result = new Result();
+
             try
             {
                 double totalAmount = 0;
                 var invoiceXmlFormat = ConvertInvoiceDataToXMLFormat(invoiceModel, ref totalAmount);
                 var criteria = new InvoiceInsertionCriteria();
+
                 criteria.AdminID = AppSession.CurrentUser.Id;
                 criteria.XMLInvoice = invoiceXmlFormat.ToString();
+
                 var hashResult = BaseRepository.ExecuteCommand(criteria);
+
                 result.ErrorCode = Convert.ToInt32(hashResult["errcode"]);
-                if (result.ErrorCode == 0)
-                {
-                    result.ErrorMessage = hashResult["invoiceid"].ToString();
-                }
-                else
-                {
-                    result.ErrorMessage = hashResult["errmsg"].ToString();
-                }
+                result.ErrorMessage = result.ErrorCode == 0 ? hashResult["invoiceid"].ToString() : hashResult["errmsg"].ToString();
             }
             catch (SqlException exception)
             {
                 result.ErrorCode = 100;
                 result.ErrorMessage = exception.Message;
+
                 LoggingHandler.Log(exception.Message);
                 throw new ServiceException(exception.Message);
             }
@@ -281,14 +167,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return result;
         }
 
-        /// <summary>
-        /// Check invoice no is exist.
-        /// </summary>
-        /// <param name="criteria">IMS_CheckExistedInvoiceNo criteria.</param>
-        /// <returns>Return is exist or not.</returns>
         public bool IsExistInvoiceNo(ExistedInvoiceNumberCheckingCriteria criteria)
         {
             var hashResult = BaseRepository.ExecuteCommand(criteria);
+
             return Converter.ToBool(hashResult["isexisted"]);
         }
 
@@ -315,13 +197,13 @@ namespace Fanex.Ares.Invoice.Service.Imp
             {
                 for (int i = 0; i < numericMonth; i++)
                 {
-                    DateRange dateRange = new DateRange();
-                    DateTime startDateTmp = new DateTime();
-                    DateTime endDateTmp = new DateTime();
+                    var dateRange = new DateRange();
+                    var startDateTmp = new DateTime();
+                    var endDateTmp = new DateTime();
                     if (i == 0)
                     {
                         startDateTmp = fromDate;
-                        DateTime firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month, 1).AddMonths(1);
+                        var firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month, 1).AddMonths(1);
                         endDateTmp = firstOfNextMonth.AddDays(-1);
                     }
                     else if (i == numericMonth - 1)
@@ -332,7 +214,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     else
                     {
                         startDateTmp = new DateTime(fromDate.Year, fromDate.Month + i, 1);
-                        DateTime firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month + i, 1).AddMonths(1);
+                        var firstOfNextMonth = new DateTime(fromDate.Year, fromDate.Month + i, 1).AddMonths(1);
                         endDateTmp = firstOfNextMonth.AddDays(-1);
                     }
 
@@ -345,41 +227,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
             return dateRangeList;
         }
 
-        /// <summary>
-        /// Get charge rate with every months.
-        /// </summary>
-        /// <param name="criteria">IMS_GetChargeRateCriteria criteria.</param>
-        /// <returns>Return charge rate list.</returns>
-        public IEnumerable<ChargeRate> GetChargeRate(ProductChargeRateCriteria criteria)
+        public IEnumerable<ChargeRate> GetChargeRates(ProductChargeRateCriteria criteria)
         {
-            var chargeRateList = new List<ChargeRate>();
-
-            try
-            {
-                var rawData = GetListData<dynamic>(criteria);
-                if (rawData != null)
-                {
-                    foreach (var row in rawData)
-                    {
-                        chargeRateList.Add(new ChargeRate
-                        {
-                            ProductID = (int)row.ProductID,
-                            DistributorRate = Converter.To<decimal>(row.DistributorRate),
-                            PartnerRate = Converter.To<decimal>(row.PartnerRate),
-                            ONEworksRate = Converter.To<decimal>(row.ONEworksRate),
-                            StartDate = (DateTime)row.StartDate,
-                            EndDate = (DateTime)row.EndDate
-                        });
-                    }
-                }
-            }
-            catch (SqlException exception)
-            {
-                LoggingHandler.Log(exception.Message);
-                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
-            }
-
-            return chargeRateList;
+            return GetEntites<ChargeRate>(criteria).ToList();
         }
 
         /// <summary>
@@ -389,7 +239,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <returns>IEnumerable {Select List Item}.</returns>
         public IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(BaseCurrencySelectionCriteria criteria)
         {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            var listProducts = new List<SelectListItem>();
             try
             {
                 Func<IDataReader, SelectListItem> mappingFunc = r =>
@@ -401,7 +251,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     };
                 };
 
-                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (SqlException exception)
             {
@@ -531,18 +381,18 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
             foreach (string month in invoiceMonthList)
             {
-                var statementTmp = new Statement();
-                statementTmp.StatementDetailList = statementDetaitlList.Where(item => item.InvoiceMonth == month).ToList();
-                foreach (DateRange range in dateRangeList)
+                var statement = new Statement();
+                statement.StatementDetailList = statementDetaitlList.Where(item => item.InvoiceMonth == month).ToList();
+                foreach (var range in dateRangeList)
                 {
                     if (CastAide.AsDateTime("1 " + month).Month == range.StartDate.Month)
                     {
-                        statementTmp.FromDate = Converter.To<string>(range.StartDate);
-                        statementTmp.ToDate = Converter.To<string>(range.EndDate);
+                        statement.FromDate = Converter.To<string>(range.StartDate);
+                        statement.ToDate = Converter.To<string>(range.EndDate);
                     }
                 }
 
-                invoice.StatementList.Add(statementTmp);
+                invoice.StatementList.Add(statement);
             }
 
             return invoice;

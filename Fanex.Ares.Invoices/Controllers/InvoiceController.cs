@@ -98,7 +98,13 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetLicenseesByParty(int partyID)
         {
             var licensees = new List<Licensee>();
-            licensees = this._invoiceService.GetLicenseesList(new LicenseeByPartySelectionCriteria() { PartyID = partyID }).ToList();
+            var criteria = new LicenseeByPartySelectionCriteria
+            {
+                PartyID = partyID
+            };
+
+            licensees = _invoiceService.GetLicenseesList(criteria).ToList();
+
             return Json(licensees);
         }
 
@@ -376,7 +382,7 @@ namespace Fanex.Ares.Invoice.Controllers
                         ToDate = dateRange.EndDate
                     };
 
-                    chargeRateList = this._invoiceService.GetChargeRate(getChargeRateCriteria).ToList();
+                    chargeRateList = this._invoiceService.GetChargeRates(getChargeRateCriteria).ToList();
 
                     criteria.Product = Converter.To<int>(productId);
                     criteria.ProductName = productName;

@@ -24,7 +24,7 @@ namespace Fanex.Ares.Invoice.Service.Interfaces
 
         Result SaveInvoice(InvoiceModel invoiceModel);
 
-        IEnumerable<ChargeRate> GetChargeRate(ProductChargeRateCriteria criteria);
+        IEnumerable<ChargeRate> GetChargeRates(ProductChargeRateCriteria criteria);
 
         IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(BaseCurrencySelectionCriteria criteria);
 

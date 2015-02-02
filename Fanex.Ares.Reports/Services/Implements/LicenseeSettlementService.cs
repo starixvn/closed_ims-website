@@ -52,7 +52,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <summary>
         /// Generate Report.
         /// </summary>
-        /// <param name="criteria">Licensee criteria.</param>
+        /// <param name="criteria">Report Licensee Settlement Criteria.</param>
         /// <returns>Return result.</returns>
         public LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria)
         {
@@ -94,16 +94,15 @@ namespace Fanex.Ares.Report.Services.Interfaces
 
             return model;
         }
-        #endregion
 
         /// <summary>
         /// Get Currency by licensee.
         /// </summary>
-        /// <param name="criteria">Licensee criteria.</param>
+        /// <param name="criteria">Licensee Currency Select Criteria.</param>
         /// <returns>Return result.</returns>
         public IEnumerable<SelectListItem> GetCurrencyByLicensee(LicenseeCurrencySelCriteria criteria)
         {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            var listProducts = new List<SelectListItem>();
             try
             {
                 Func<IDataReader, SelectListItem> mappingFunc = r =>
@@ -115,7 +114,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
                     };
                 };
 
-                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (SqlException exception)
             {
@@ -133,7 +132,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <returns>Return result.</returns>
         public IEnumerable<SelectListItem> GetProductsByLicensee(LicenseeProductSelCriteria criteria)
         {
-            IList<SelectListItem> listProducts = new List<SelectListItem>();
+            var listProducts = new List<SelectListItem>();
             try
             {
                 Func<IDataReader, SelectListItem> mappingFunc = r =>
@@ -145,7 +144,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
                     };
                 };
 
-                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
+                listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc).ToList();
             }
             catch (SqlException exception)
             {
@@ -156,6 +155,8 @@ namespace Fanex.Ares.Report.Services.Interfaces
             return listProducts;
         }
 
+        #endregion
+
         #region Utilities
 
         /// <summary>
@@ -164,7 +165,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <returns>Return result.</returns>
         private IEnumerable<SelectListItem> GetAllLicensees()
         {
-            IList<SelectListItem> listLicensees = new List<SelectListItem>();
+            var listLicensees = new List<SelectListItem>();
             try
             {
                 Func<IDataReader, SelectListItem> mappingFunc = r =>
@@ -176,7 +177,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
                     };
                 };
 
-                listLicensees = BaseRepository.Fetch<SelectListItem>(new LicenseeSelCriteria(), mappingFunc);
+                listLicensees = BaseRepository.Fetch<SelectListItem>(new LicenseeSelCriteria(), mappingFunc).ToList();
             }
             catch (SqlException exception)
             {
@@ -193,7 +194,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <returns>Return result.</returns>
         private IEnumerable<SelectListItemEx> GetAllLicenseesExension()
         {
-            IList<SelectListItemEx> listLicensees = new List<SelectListItemEx>();
+            var listLicensees = new List<SelectListItemEx>();
             try
             {
                 Func<IDataReader, SelectListItemEx> mappingFunc = r =>
@@ -212,7 +213,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
                     };
                 };
 
-                listLicensees = BaseRepository.Fetch<SelectListItemEx>(new LicenseeSelCriteria(), mappingFunc);
+                listLicensees = BaseRepository.Fetch<SelectListItemEx>(new LicenseeSelCriteria(), mappingFunc).ToList();
             }
             catch (SqlException exception)
             {

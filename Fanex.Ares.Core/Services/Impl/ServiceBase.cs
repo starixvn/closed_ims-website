@@ -3,10 +3,12 @@ namespace Fanex.Ares.Core.Services.Impl
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.SqlClient;
     using System.Web.Mvc;
     using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.Repository.Impl;
     using Fanex.Ares.Core.Services.Interface;
+    using Fanex.Artist.Services;
     using Fanex.Caching;
     using Fanex.Common.Helper;
     using Fanex.NAP.Core.Web.Context;
@@ -16,7 +18,7 @@ namespace Fanex.Ares.Core.Services.Impl
     /// <summary>
     /// Service base.
     /// </summary>
-   public class ServiceBase : IServiceBase
+    public class ServiceBase : IServiceBase
     {
         protected readonly IDynamicRepository DynamicRepository;
 
@@ -47,12 +49,12 @@ namespace Fanex.Ares.Core.Services.Impl
         }
 
         /// <summary>
-        /// Get Report Data with Criteria.
+        /// Get Entities.
         /// </summary>
         /// <typeparam name="T">Type of Object return.</typeparam>
         /// <param name="criteria">Criteria to Query DB.</param>
         /// <returns>Enumerable of Type T.</returns>
-        public virtual IEnumerable<T> GetListData<T>(ICriteria criteria)
+        public virtual IEnumerable<T> GetEntites<T>(ICriteria criteria)
         {
             Check.Argument.IsNotNull(criteria, "criteria");
 
@@ -62,14 +64,40 @@ namespace Fanex.Ares.Core.Services.Impl
                 {
                     return DynamicRepository.Fetch<T>(criteria);
                 }
-
-                return new List<T>();
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                LoggingHandler.Log(ex);
-                return null;
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
+
+            return new List<T>();
+        }
+
+        /// <summary>
+        /// Gets data.
+        /// </summary>
+        /// <typeparam name="T">The input object type.</typeparam>
+        /// <param name="criteria">The criteria.</param>
+        /// <returns>Returns a object T.</returns>
+        public T GetEntity<T>(ICriteria criteria)
+        {
+            Check.Argument.IsNotNull(criteria, "criteria");
+
+            try
+            {
+                if (criteria.IsValid())
+                {
+                    return DynamicRepository.Get<T>(criteria);
+                }
+            }
+            catch (SqlException exception)
+            {
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
+            }
+
+            return (T)new object();
         }
 
         #region Get data for combobox

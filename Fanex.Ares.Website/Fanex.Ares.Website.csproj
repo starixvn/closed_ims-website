@@ -203,7 +203,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\NumberWheelChoice.txt" />
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessage.js" />
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageHelper.js" />
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
@@ -775,6 +774,7 @@
     <Content Include="ExcelTemplates\LicenseeBillingForSportsBook.xls" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Areas\UserControl\Models\" />
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />

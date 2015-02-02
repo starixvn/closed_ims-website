@@ -10,9 +10,9 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     {
         public string PartyName { get; set; }
 
-        public int PartyID { get; set; }
+        public byte PartyID { get; set; }
 
-        public int PartyType { get; set; }
+        public byte PartyType { get; set; }
 
         public string Company { get; set; }
 

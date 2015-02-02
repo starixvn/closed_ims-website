@@ -7,7 +7,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     /// </summary>
     public class ChargeRate
     {
-        public int ProductID { get; set; }
+        public byte ProductID { get; set; }
 
         public decimal DistributorRate { get; set; }
 
