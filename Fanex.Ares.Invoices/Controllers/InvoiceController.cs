@@ -15,7 +15,7 @@ namespace Fanex.Ares.Invoice.Controllers
     using Fanex.Ares.Invoice.Export;
     using Fanex.Ares.Invoice.Models.Invoice;
     using Fanex.Ares.Invoice.Service.Imp;
-    using Fanex.Ares.Invoice.Service.Interface;
+    using Fanex.Ares.Invoice.Service.Interfaces;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.Services.Interfaces;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
@@ -64,7 +64,7 @@ namespace Fanex.Ares.Invoice.Controllers
         [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
-            ViewBag.ListOperator = this._invoiceService.GetOperatorList(new IMS_OperatorCriteria() { PartyID = 0 });
+            ViewBag.ListOperator = this._invoiceService.GetOperatorList(new OperatorSelectionCriteria() { PartyID = 0 });
             return View();
         }
 
@@ -73,7 +73,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>Partial View Result.</returns>
-        public PartialViewResult GetInvoice(IMS_NewInvoiceItemsCriteria criteria)
+        public PartialViewResult GetInvoice(NewInvoiceItemsInsertionCriteria criteria)
         {
             var model = this._invoiceService.GetInvoice(criteria);
             model.FromDate = Converter.To<string>(criteria.FromDate);
@@ -98,7 +98,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetLicenseesByParty(int partyID)
         {
             var licensees = new List<Licensee>();
-            licensees = this._invoiceService.GeLicenseesList(new IMS_LicenseeByPartyCriteria() { PartyID = partyID }).ToList();
+            licensees = this._invoiceService.GetLicenseesList(new LicenseeByPartySelectionCriteria() { PartyID = partyID }).ToList();
             return Json(licensees);
         }
 
@@ -112,7 +112,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetInvoiceType(int licenseeID, int partyID)
         {
             var invoiceTypeList = new List<InvoiceType>();
-            invoiceTypeList = this._invoiceService.GetInvoieType(new IMS_InvoiceTypesCriteria() { LicenseeId = licenseeID, PartyId = partyID }).ToList();
+            invoiceTypeList = this._invoiceService.GetInvoieType(new InvoiceTypesCriteria() { LicenseeId = licenseeID, PartyId = partyID }).ToList();
             return Json(invoiceTypeList);
         }
 
@@ -127,7 +127,7 @@ namespace Fanex.Ares.Invoice.Controllers
         public JsonResult GetBaseCurrency(int licenseeID, int partyID, string products)
         {
             var listExchangeRate = this._invoiceService.GetBaseCurrencyInvoiceFilter(
-                new IMS_GenInv_BaseCurrencySel { LicenseeID = licenseeID, PartyID = partyID, Products = products });
+                new BaseCurrencySelectionCriteria { LicenseeID = licenseeID, PartyID = partyID, Products = products });
             return Json(listExchangeRate);
         }
 
@@ -137,7 +137,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>Return Result.</returns>
         [HttpPost]
-        public JsonResult GetInvoiceNo(IMS_InvoiceNoCriteria criteria)
+        public JsonResult GetInvoiceNo(InvoiceNumberCriteria criteria)
         {
             int invoiceNo = this._invoiceService.GetInvoiceNo(criteria);
             return Json(invoiceNo);
@@ -164,7 +164,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// <param name="criteria">The criteria.</param>
         /// <returns>Return Result.</returns>
         [HttpPost]
-        public JsonResult IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
+        public JsonResult IsExistInvoiceNo(ExistedInvoiceNumberCheckingCriteria criteria)
         {
             return Json(this._invoiceService.IsExistInvoiceNo(criteria));
         }
@@ -199,10 +199,10 @@ namespace Fanex.Ares.Invoice.Controllers
             var invoiceMainPageText = GetInvoiceMainPageText(model);
             var productPageList = GetProductPageList(model);
 
-            model.HTMLReportList.Add(invoiceMainPageText);
-            model.HTMLReportList.AddRange(productPageList);
+            model.HtmlReportList.Add(invoiceMainPageText);
+            model.HtmlReportList.AddRange(productPageList);
 
-            return ExportPdf(cssPathList, model.HTMLReportList);
+            return ExportPdf(cssPathList, model.HtmlReportList);
         }
 
         /// <summary>
@@ -215,8 +215,8 @@ namespace Fanex.Ares.Invoice.Controllers
             var invoiceMainPageText = GetInvoiceMainPageText(model);
             var productPageList = GetProductPageList(model);
 
-            model.HTMLReportList.Add(invoiceMainPageText);
-            model.HTMLReportList.AddRange(productPageList);
+            model.HtmlReportList.Add(invoiceMainPageText);
+            model.HtmlReportList.AddRange(productPageList);
 
             return View("_Preview", model);
         }
@@ -230,7 +230,7 @@ namespace Fanex.Ares.Invoice.Controllers
         {
             var productPageList = GetProductPageList(model);
 
-            model.HTMLReportList.AddRange(productPageList);
+            model.HtmlReportList.AddRange(productPageList);
 
             return View("_Preview", model);
         }
@@ -367,7 +367,7 @@ namespace Fanex.Ares.Invoice.Controllers
                 {
                     var productId = productIDs[productIndex];
                     var productName = products[productIndex];
-                    var getChargeRateCriteria = new IMS_GetChargeRateCriteria
+                    var getChargeRateCriteria = new ProductChargeRateCriteria
                     {
                         PartyID = model.Operator.PartyID,
                         LicenseeID = model.Licensee.LicenseeID,

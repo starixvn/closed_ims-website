@@ -647,7 +647,6 @@
     <Content Include="Areas\Invoice\Views\Invoice\Products\_BA.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Templates\Star Express\_Star Express_Software-Data Fees.cshtml" />
     <Content Include="Areas\Invoice\Views\Invoice\Index_Angular.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Excel.cshtml" />
     <Content Include="Content\base\common.less" />
     <Content Include="Content\base\fonts.less" />
     <Content Include="Content\base\style.less" />

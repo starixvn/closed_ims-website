@@ -63,7 +63,7 @@ namespace Fanex.Ares.Admin.Services.Party.Implement
                         BankName = Convert.ToString(r["BankName"]),
                         Benificiary = Convert.ToString(r["Benificiary"]),
                         BenificiaryBank = Convert.ToString(r["BenificiaryBank"]),
-                        IBAN = Convert.ToString(r["IBAN"]),
+                        Iban = Convert.ToString(r["Iban"]),
                         SwiftCode = Convert.ToString(r["SwiftCode"]),
                         CorrespondentBank = Convert.ToString(r["CorrespondentBank"]),
                         CorrespondentAccNo = Convert.ToString(r["CorrespondentAccNo"]),

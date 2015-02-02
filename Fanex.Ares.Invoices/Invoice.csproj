@@ -81,30 +81,28 @@
     <Compile Include="Controllers\InvoiceController.cs">
       <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
     </Compile>
-    <Compile Include="Criteria\Invoice\IMS_DateRangeCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_CheckExistedInvoiceNo.cs" />
-    <Compile Include="Criteria\Invoice\IMS_GenInv_BaseCurrencySel.cs" />
-    <Compile Include="Criteria\Invoice\IMS_GetChargeRateCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceInsCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceNoCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_InvoiceTypesCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_LicenseeByPartyCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_NewInvoiceItemsCriteria.cs" />
-    <Compile Include="Criteria\Invoice\IMS_OperatorCriteria.cs" />
+    <Compile Include="Criteria\Invoice\ExistedInvoiceNumberCheckingCriteria.cs" />
+    <Compile Include="Criteria\Invoice\BaseCurrencySelectionCriteria.cs" />
+    <Compile Include="Criteria\Invoice\ProductChargeRateCriteria.cs" />
+    <Compile Include="Criteria\Invoice\InvoiceInsertionCriteria.cs" />
+    <Compile Include="Criteria\Invoice\InvoiceNumberCriteria.cs" />
+    <Compile Include="Criteria\Invoice\InvoiceTypesCriteria.cs" />
+    <Compile Include="Criteria\Invoice\LicenseeByPartySelectionCriteria.cs" />
+    <Compile Include="Criteria\Invoice\NewInvoiceItemsInsertionCriteria.cs" />
+    <Compile Include="Criteria\Invoice\OperatorSelectionCriteria.cs" />
     <Compile Include="Export\PdfRender.cs" />
     <Compile Include="Models\Invoice\ChargeRate.cs" />
     <Compile Include="Models\Invoice\DateRange.cs" />
     <Compile Include="Models\Invoice\InvoiceModel.cs" />
     <Compile Include="Models\Invoice\InvoiceType.cs" />
     <Compile Include="Models\Invoice\Licensee.cs" />
-    <Compile Include="Models\Invoice\Operator.cs" />
+    <Compile Include="Models\Invoice\Party.cs" />
     <Compile Include="Models\Invoice\Product.cs" />
     <Compile Include="Models\Invoice\Statement.cs" />
     <Compile Include="Models\Invoice\StatementDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Imp\InvoiceService.cs" />
-    <Compile Include="Service\Interface\IInvoiceService.cs" />
+    <Compile Include="Service\Interfaces\IInvoiceService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

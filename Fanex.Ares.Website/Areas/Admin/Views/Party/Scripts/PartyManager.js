@@ -30,7 +30,7 @@ PartyManager = function () {
         BankName: 8,
         Benificiary: 9,
         BenificiaryBank: 10,
-        IBAN: 11,
+        Iban: 11,
         SwiftCode: 12,
         CorrespondentBank: 13,
         CorrespondentAccNo: 14,
@@ -54,7 +54,7 @@ PartyManager = function () {
         txtBankName: null,
         txtBenificiary: null,
         txtBenificiaryBank: null,
-        txtIBAN: null,
+        txtIban: null,
         txtSwiftCode: null,
         txtCorrespondentBank: null,
         txtCorrespondentAccNo: null,
@@ -90,7 +90,7 @@ PartyManager = function () {
         _dlgAddNew.txtBankName = $('#BankName');
         _dlgAddNew.txtBenificiary = $('#Benificiary');
         _dlgAddNew.txtBenificiaryBank = $('#BenificiaryBank');
-        _dlgAddNew.txtIBAN = $('#IBAN');
+        _dlgAddNew.txtIban = $('#Iban');
         _dlgAddNew.txtSwiftCode = $('#SwiftCode');
         _dlgAddNew.txtCorrespondentBank = $('#CorrespondentBank');
         _dlgAddNew.txtCorrespondentAccNo = $('#CorrespondentAccNo');
@@ -166,7 +166,7 @@ PartyManager = function () {
                                 { Name: "BankName", Value: item.BankName },
                                 { Name: "Benificiary", Value: item.Benificiary },
                                 { Name: "BenificiaryBank", Value: item.BenificiaryBank },
-                                { Name: "IBAN", Value: item.IBAN },
+                                { Name: "Iban", Value: item.Iban },
                                 { Name: "SwiftCode", Value: item.SwiftCode },
                                 { Name: "CorrespondentBank", Value: item.CorrespondentBank },
                                 { Name: "CorrespondentAccNo", Value: item.CorrespondentAccNo },
@@ -205,7 +205,7 @@ PartyManager = function () {
                     { HeaderText: "Bank Name", Width: 100, Name: "BankName", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Benificiary", Width: 100, Name: "Benificiary", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "Benificiary Bank", Width: 100, Name: "BenificiaryBank", HeaderAlign: "center", CellAlign: "left" },
-                    { HeaderText: "IBAN", Width: 100, Name: "IBAN", HeaderAlign: "center", CellAlign: "left" },
+                    { HeaderText: "Iban", Width: 100, Name: "Iban", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "SwiftCode", Width: 100, Name: "SwiftCode", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "CorrespondentBank", Width: 100, Name: "CorrespondentBank", HeaderAlign: "center", CellAlign: "left" },
                     { HeaderText: "CorrespondentAccNo", Width: 100, Name: "CorrespondentAccNo", HeaderAlign: "center", CellAlign: "left" },
@@ -240,7 +240,7 @@ PartyManager = function () {
                                                                         _mappingColumns.BankName,
                                                                         _mappingColumns.Benificiary,
                                                                         _mappingColumns.BenificiaryBank,
-                                                                        _mappingColumns.IBAN,
+                                                                        _mappingColumns.Iban,
                                                                         _mappingColumns.SwiftCode,
                                                                         _mappingColumns.CorrespondentBank,
                                                                         _mappingColumns.CorrespondentAccNo,
@@ -404,7 +404,7 @@ PartyManager = function () {
         _dlgAddNew.txtBankName.val(row[_mappingColumns.BankName].Value);
         _dlgAddNew.txtBenificiary.val(row[_mappingColumns.Benificiary].Value);
         _dlgAddNew.txtBenificiaryBank.val(row[_mappingColumns.BenificiaryBank].Value);
-        _dlgAddNew.txtIBAN.val(row[_mappingColumns.IBAN].Value);
+        _dlgAddNew.txtIban.val(row[_mappingColumns.Iban].Value);
         _dlgAddNew.txtSwiftCode.val(row[_mappingColumns.SwiftCode].Value);
         _dlgAddNew.txtCorrespondentBank.val(row[_mappingColumns.CorrespondentBank].Value);
         _dlgAddNew.txtCorrespondentAccNo.val(row[_mappingColumns.CorrespondentAccNo].Value);

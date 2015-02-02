@@ -13,7 +13,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
         {
             this.DateRangeList = new List<DateRange>();
             this.StatementList = new List<Statement>();
-            this.HTMLReportList = new List<string>();
+            this.HtmlReportList = new List<string>();
             this.IsSignature = true;
         }
 
@@ -21,7 +21,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public Licensee Licensee { get; set; }
 
-        public Operator Operator { get; set; }
+        public Party Operator { get; set; }
 
         public string FromDate { get; set; }
 
@@ -47,7 +47,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public List<DateRange> DateRangeList { get; set; }
 
-        public List<string> HTMLReportList { get; set; }
+        public List<string> HtmlReportList { get; set; }
 
         public double TotalAmount { get; set; }
 

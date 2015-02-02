@@ -3,10 +3,10 @@ namespace Fanex.Ares.Invoice.Models.Invoice
     using System;
 
     /// <summary>
-    /// Operator Class.
+    /// Party Class.
     /// </summary>
     [Serializable]
-    public class Operator
+    public class Party
     {
         public string PartyName { get; set; }
 
@@ -30,7 +30,7 @@ namespace Fanex.Ares.Invoice.Models.Invoice
 
         public string BenificiaryBank { get; set; }
 
-        public string IBAN { get; set; }
+        public string Iban { get; set; }
 
         public string SwiftCode { get; set; }
 

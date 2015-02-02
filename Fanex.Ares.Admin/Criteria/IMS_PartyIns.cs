@@ -37,7 +37,7 @@ namespace Fanex.Ares.Admin.Criteria
 
         public string BenificiaryBank { get; set; }
 
-        public string IBAN { get; set; }
+        public string Iban { get; set; }
 
         public string SwiftCode { get; set; }
 

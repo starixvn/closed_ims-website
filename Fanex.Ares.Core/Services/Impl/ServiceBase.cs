@@ -47,15 +47,6 @@ namespace Fanex.Ares.Core.Services.Impl
         }
 
         /// <summary>
-        /// Handler Exception.
-        /// </summary>
-        /// <param name="ex">Exception parameter.</param>
-        public void HandleException(Exception ex)
-        {
-            LoggingHandler.Log(ex);
-        }
-
-        /// <summary>
         /// Get Report Data with Criteria.
         /// </summary>
         /// <typeparam name="T">Type of Object return.</typeparam>
@@ -76,7 +67,7 @@ namespace Fanex.Ares.Core.Services.Impl
             }
             catch (Exception ex)
             {
-                HandleException(ex);
+                LoggingHandler.Log(ex);
                 return null;
             }
         }

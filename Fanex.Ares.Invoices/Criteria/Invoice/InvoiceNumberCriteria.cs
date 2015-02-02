@@ -5,7 +5,7 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// <summary>
     /// Get Invoice Number Criteria.
     /// </summary>
-     public class IMS_InvoiceNoCriteria : CriteriaBase
+     public class InvoiceNumberCriteria : CriteriaBase
     {
         public int PartyId { get; set; }
 

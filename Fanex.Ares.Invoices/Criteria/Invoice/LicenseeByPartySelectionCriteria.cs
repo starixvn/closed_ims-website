@@ -5,23 +5,15 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     /// <summary>
     /// Get Licensee By Party Criteria.
     /// </summary>
-    public class IMS_LicenseeByPartyCriteria : CriteriaBase
+    public class LicenseeByPartySelectionCriteria : CriteriaBase
     {
         public int PartyID { get; set; }
 
-        /// <summary>
-        /// Gets the setting key.
-        /// </summary>
-        /// <returns>System String.</returns>
         public override string GetSettingKey()
         {
             return "IMS_LicenseeSelByParty";
         }
 
-        /// <summary>
-        /// Determines whether this instance is valid.
-        /// </summary>
-        /// <returns><c>true</c> if this instance is valid; otherwise, <c>false</c>.</returns>
         public override bool IsValid() 
         { 
             return true; 

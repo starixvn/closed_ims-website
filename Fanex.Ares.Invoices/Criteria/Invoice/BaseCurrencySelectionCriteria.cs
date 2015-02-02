@@ -3,9 +3,9 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// IMS Base Currency Select.
+    /// Base Currency Selection Criteria.
     /// </summary>
-   public class IMS_GenInv_BaseCurrencySel : CriteriaBase
+   public class BaseCurrencySelectionCriteria : CriteriaBase
     {
         public int PartyID { get; set; }
 
@@ -13,19 +13,11 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
 
         public int LicenseeID { get; set; }
 
-        /// <summary>
-        /// Gets the setting key.
-        /// </summary>
-        /// <returns>System String.</returns>
         public override string GetSettingKey()
         {
             return "IMS_GenInv_BaseCurrencySel";
         }
 
-        /// <summary>
-        /// Determines whether this instance is valid.
-        /// </summary>
-        /// <returns><c>true</c> if this instance is valid; otherwise, <c>false</c>.</returns>
         public override bool IsValid()
         {
             return true;

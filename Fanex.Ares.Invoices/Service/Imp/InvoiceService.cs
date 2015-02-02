@@ -3,6 +3,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using System;
     using System.Collections.Generic;
     using System.Data;
+    using System.Data.SqlClient;
     using System.Linq;
     using System.Text;
     using System.Web.Mvc;
@@ -14,7 +15,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
     using Fanex.Ares.Core.Web;
     using Fanex.Ares.Invoice.Criteria.Invoice;
     using Fanex.Ares.Invoice.Models.Invoice;
-    using Fanex.Ares.Invoice.Service.Interface;
+    using Fanex.Ares.Invoice.Service.Interfaces;
+    using Fanex.Artist.Services;
     using Fanex.Common;
 
     /// <summary>
@@ -27,14 +29,14 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_OperatorCriteria criteria.</param>
         /// <returns> Operator list.</returns>
-        public IEnumerable<Operator> GetOperatorList(IMS_OperatorCriteria criteria)
+        public IEnumerable<Party> GetOperatorList(OperatorSelectionCriteria criteria)
         {
-            var operators = new List<Operator>();
+            var operators = new List<Party>();
             try
             {
-                Func<IDataReader, Operator> mappingFunc = r =>
+                Func<IDataReader, Party> mappingFunc = r =>
                 {
-                    var res = new Operator
+                    var res = new Party
                     {
                         PartyID = Converter.To<int>(r["PartyID"]),
                         PartyName = Converter.ToString2(r["PartyName"]),
@@ -46,7 +48,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
                         BankName = Converter.ToString2(r["BankName"]),
                         Benificiary = Converter.ToString2(r["Benificiary"]),
                         BenificiaryBank = Converter.ToString2(r["BenificiaryBank"]),
-                        IBAN = Converter.ToString2(r["IBAN"]),
+                        Iban = Converter.ToString2(r["Iban"]),
                         SwiftCode = Converter.ToString2(r["SwiftCode"]),
                         CorrespondentBank = Converter.ToString2(r["CorrespondentBank"]),
                         Company = Converter.ToString2(r["Company"]),
@@ -62,11 +64,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     return res;
                 };
 
-                operators = BaseRepository.Fetch<Operator>(criteria, mappingFunc).Where(p => p.IsHide == false).ToList();
+                operators = BaseRepository.Fetch<Party>(criteria, mappingFunc).Where(p => p.IsHide == false).ToList();
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                LoggingHandler.Log(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return operators;
@@ -77,7 +80,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_LicenseeByPartyCriteria criteria.</param>
         /// <returns>Licensee List.</returns>
-        public IEnumerable<Licensee> GeLicenseesList(IMS_LicenseeByPartyCriteria criteria)
+        public IEnumerable<Licensee> GetLicenseesList(LicenseeByPartySelectionCriteria criteria)
         {
             var licensees = new List<Licensee>();
             try
@@ -100,9 +103,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
                 licensees = BaseRepository.Fetch<Licensee>(criteria, mappingFunc).ToList();
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                LoggingHandler.Log(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return licensees;
@@ -111,12 +115,11 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <summary>
         /// Get invoice type.
         /// </summary>
-        /// <param name="criteria">IMS_InvoiceTypesCriteria criteria.</param>
+        /// <param name="criteria">Invoice Types Criteria.</param>
         /// <returns>InvoiceType List.</returns>
-        public IEnumerable<InvoiceType> GetInvoieType(IMS_InvoiceTypesCriteria criteria)
+        public IEnumerable<InvoiceType> GetInvoieType(InvoiceTypesCriteria criteria)
         {
             var invoiceTypeList = new List<InvoiceType>();
-
             try
             {
                 var rawData = GetListData<dynamic>(criteria);
@@ -157,9 +160,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                this.HandleException(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return invoiceTypeList;
@@ -170,7 +174,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS Invoice No Criteria criteria.</param>
         /// <returns>Invoice no.</returns>
-        public int GetInvoiceNo(IMS_InvoiceNoCriteria criteria)
+        public int GetInvoiceNo(InvoiceNumberCriteria criteria)
         {
             int invoiceNo = 0;
 
@@ -185,9 +189,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                this.HandleException(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return invoiceNo;
@@ -198,17 +203,17 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_NewInvoiceItemsCriteria criteria.</param>
         /// <returns>Invoice model.</returns>
-        public InvoiceModel GetInvoice(IMS_NewInvoiceItemsCriteria criteria)
+        public InvoiceModel GetInvoice(NewInvoiceItemsInsertionCriteria criteria)
         {
             InvoiceModel invoice = null;
             try
             {
                 List<DateRange> dateRangeList = new List<DateRange>();
-                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate).ToList();                
-                var statementRawData = GetListData<dynamic>(criteria);                 
+                dateRangeList = this.GetDateRange(criteria.FromDate, criteria.ToDate).ToList();
+                var statementRawData = GetListData<dynamic>(criteria);
                 if (statementRawData != null)
                 {
-                    var statementDetaitlList = new List<StatementDetail>(); 
+                    var statementDetaitlList = new List<StatementDetail>();
                     foreach (var row in statementRawData)
                     {
                         StatementDetail statementProductDetail = new StatementDetail()
@@ -230,9 +235,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     invoice = GroupingInvoiceDetailByMonth(invoiceMonthList, statementDetaitlList, dateRangeList);
                 }
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                LoggingHandler.Log(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return invoice;
@@ -250,7 +256,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
             {
                 double totalAmount = 0;
                 var invoiceXmlFormat = ConvertInvoiceDataToXMLFormat(invoiceModel, ref totalAmount);
-                var criteria = new IMS_InvoiceInsCriteria();
+                var criteria = new InvoiceInsertionCriteria();
                 criteria.AdminID = AppSession.CurrentUser.Id;
                 criteria.XMLInvoice = invoiceXmlFormat.ToString();
                 var hashResult = BaseRepository.ExecuteCommand(criteria);
@@ -264,11 +270,12 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     result.ErrorMessage = hashResult["errmsg"].ToString();
                 }
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                LoggingHandler.Log(ex);
                 result.ErrorCode = 100;
-                result.ErrorMessage = ex.Message;
+                result.ErrorMessage = exception.Message;
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message);
             }
 
             return result;
@@ -279,7 +286,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_CheckExistedInvoiceNo criteria.</param>
         /// <returns>Return is exist or not.</returns>
-        public bool IsExistInvoiceNo(IMS_CheckExistedInvoiceNo criteria)
+        public bool IsExistInvoiceNo(ExistedInvoiceNumberCheckingCriteria criteria)
         {
             var hashResult = BaseRepository.ExecuteCommand(criteria);
             return Converter.ToBool(hashResult["isexisted"]);
@@ -343,7 +350,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">IMS_GetChargeRateCriteria criteria.</param>
         /// <returns>Return charge rate list.</returns>
-        public IEnumerable<ChargeRate> GetChargeRate(IMS_GetChargeRateCriteria criteria)
+        public IEnumerable<ChargeRate> GetChargeRate(ProductChargeRateCriteria criteria)
         {
             var chargeRateList = new List<ChargeRate>();
 
@@ -366,9 +373,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
                     }
                 }
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                this.HandleException(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return chargeRateList;
@@ -379,7 +387,7 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// </summary>
         /// <param name="criteria">The criteria.</param>
         /// <returns>IEnumerable {Select List Item}.</returns>
-        public IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(IMS_GenInv_BaseCurrencySel criteria)
+        public IEnumerable<SelectListItem> GetBaseCurrencyInvoiceFilter(BaseCurrencySelectionCriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
             try
@@ -395,9 +403,10 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
                 listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                LoggingHandler.Log(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
             }
 
             return listProducts;
@@ -486,8 +495,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
                 {
                     invoiceXmlFormat.Append("<InvoiceItem>");
                     invoiceXmlFormat.Append("<InvoiceItemID>" + statementDetail.ID + "</InvoiceItemID>");
-                    invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ? 
-                        statementDetail.Description.Replace("&", "amp") : 
+                    invoiceXmlFormat.Append("<Description>" + (statementDetail.Description != null ?
+                        statementDetail.Description.Replace("&", "amp") :
                         string.Empty) + "</Description>");
                     invoiceXmlFormat.Append("   <Reference>" + statementDetail.Reference + "</Reference>");
                     invoiceXmlFormat.Append("   <Amount>" + statementDetail.Amount + "</Amount>");
@@ -513,8 +522,8 @@ namespace Fanex.Ares.Invoice.Service.Imp
         /// <param name="dateRangeList">The date range list.</param>
         /// <returns>Invoice Model.</returns>
         private InvoiceModel GroupingInvoiceDetailByMonth(
-            List<string> invoiceMonthList, 
-            List<StatementDetail> statementDetaitlList, 
+            List<string> invoiceMonthList,
+            List<StatementDetail> statementDetaitlList,
             List<DateRange> dateRangeList)
         {
             var invoice = new InvoiceModel();

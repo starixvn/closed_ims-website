@@ -22,10 +22,10 @@
     
     int index = 1;
 }
-@foreach (string temp in Model.HTMLReportList)
+@foreach (string temp in Model.HtmlReportList)
 {
     @MvcHtmlString.Create(temp);
-                               if (index < Model.HTMLReportList.Count)
+                               if (index < Model.HtmlReportList.Count)
                                {                   
     <div style="width: 100%; height: 10px; background: #565656;">
     </div>

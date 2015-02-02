@@ -3,9 +3,9 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
     using Fanex.NAP.Framework.Data;
 
     /// <summary>
-    /// Class IMS Check Existed Invoice No.
+    /// Existed Invoice Number Checking Criteria.
     /// </summary>
-    public class IMS_CheckExistedInvoiceNo : CriteriaBase
+    public class ExistedInvoiceNumberCheckingCriteria : CriteriaBase
     {
         public int PartyID { get; set; }
 
@@ -13,19 +13,11 @@ namespace Fanex.Ares.Invoice.Criteria.Invoice
 
         public bool IsExisted { get; set; }
 
-        /// <summary>
-        /// Gets the setting key.
-        /// </summary>
-        /// <returns>System String.</returns>
         public override string GetSettingKey()
         {
             return "IMS_CheckExistedInvoiceNo";
         }
 
-        /// <summary>
-        /// Determines whether this instance is valid.
-        /// </summary>
-        /// <returns><c>true</c> if this instance is valid; otherwise, <c>false</c>.</returns>
         public override bool IsValid() 
         { 
             return true; 

@@ -5,10 +5,9 @@
 @using Fanex.Ares.Core.Extensions;
 @using Fanex.Ares.Core.Models;
 @using Fanex.Ares.Invoice.Models.Invoice;
-@model IMS_InvoiceCriteria
 @{
     ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : "Create Invoice";    
-    InvoiceModel invoiceModel = new InvoiceModel();
+    var invoiceModel = new InvoiceModel();
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
