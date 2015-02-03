@@ -4,14 +4,20 @@ namespace Fanex.Ares.Report.Services.Interfaces
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
+    using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Web.Mvc;
+    using Fanex.Ares.Core;
     using Fanex.Ares.Core.Criteria;
+    using Fanex.Ares.Core.DataDomain;
+    using Fanex.Ares.Core.Export;
     using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.Entities;
+    using Fanex.Ares.Report.Export.Excel;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Artist.Services;
     using Fanex.Common;
@@ -22,10 +28,12 @@ namespace Fanex.Ares.Report.Services.Interfaces
     /// </summary>
     public class LicenseeSettlementService : ServiceBase, ILicenseeSettlementService
     {
-        #region ctor
+        #region Constructor
+
         public LicenseeSettlementService()
         {
         }
+
         #endregion
 
         #region Properties
@@ -56,40 +64,31 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <returns>Return result.</returns>
         public LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria)
         {
-            //// Licensee Information
-            var listLicensee = this.GetAllLicenseesExension();
-            var listBaseCurrency = this.GetBaseCurrency(new IMS_BaseCurrencySel());
+            var listLicensee = GetAllLicenseesExension();
             var model = new LicenseeSettlementModel();
             var licenseeInfoCriteria = new LicenseeBillingInfoSelCriteria();
-            var exchangeRateCriteria = new ExchangeRateBillingSelCriteria();
-            if (criteria.InvoiceReport)
-            {
-                licenseeInfoCriteria = new InvoiceLicenseeBillingInfoSelCriteria();
-                exchangeRateCriteria = new InvoiceExchangeRateBillingSelCriteria();
-            }
 
             licenseeInfoCriteria.LicenseeId = criteria.LicenseeId;
             licenseeInfoCriteria.ProductId = criteria.Product;
             licenseeInfoCriteria.PartyId = criteria.PartyId;
-            model.LicenseeInfor = this.GetLicenseeInformation(licenseeInfoCriteria);
+            model.LicenseeInfor = GetLicenseeInformation(licenseeInfoCriteria);
             model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
+
             var licenseeItem = listLicensee.Where(m => m.Item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
+
             criteria.LicenseeName = Convert.ToString(licenseeItem.Extension["LicenseeName"]);
             model.LicenseeInfor.LicenseeName = licenseeItem.Item.Text;
             model.LicenseeInfor.ProductName = criteria.ProductName;
             model.LicenseeInfor.SettlementDate = criteria.ToDate;
 
             GetLicenseeReport(model, criteria);
-            //// Exchange Rate                
-            var exchangeRatecurrencies = string.Empty;
-            exchangeRatecurrencies = string.Join(",", model.ReportList.Select(m => m.Currency).Distinct().ToArray());
-            exchangeRateCriteria.Currency = exchangeRatecurrencies;
-            exchangeRateCriteria.ExchangeDate = criteria.ToDate;
-            exchangeRateCriteria.BaseCurrencyId = criteria.BaseCurrency;
-            exchangeRateCriteria.BaseCurrencyName = listBaseCurrency.Where(m => m.Value == criteria.BaseCurrency.ToString()).FirstOrDefault<SelectListItem>().Text;
-            var exchangeList = this.GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
+
+            var exchangeRateCriteria = GetExchangeRateCriteria(criteria.ToDate, criteria.BaseCurrency, model.ReportList);
+            var exchangeList = GetLicenseeExchangeRate(exchangeRateCriteria).ToList();
+
             model.ExchangeList.AddRange(exchangeList);
             model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
+
             SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport, model);
 
             return model;
@@ -155,9 +154,128 @@ namespace Fanex.Ares.Report.Services.Interfaces
             return listProducts;
         }
 
+        /// <summary>
+        /// Export Excel.
+        /// </summary>
+        /// <param name="model">Licensee Settlement Model.</param>
+        /// <param name="productId">Product Identify.</param>
+        /// <param name="excelTemplateRootPath">Excel Template Root Path.</param>
+        /// <returns>Excel Base.</returns>
+        public ExcelBase ExportExcel(LicenseeSettlementModel model, int productId, string excelTemplateRootPath)
+        {
+            var templatePath = GetExcelTemplatePath(productId, excelTemplateRootPath);
+            ExcelBase excel = null;
+
+            switch (productId)
+            {
+                case Products.Sportsbook:
+                case Products.NumberGame:
+                    excel = new Sportsbook(templatePath, model);
+                    break;
+                case Products.BA:
+                    excel = new BetAggregator(templatePath, model);
+                    break;
+                default:
+                    excel = new Sportsbook(templatePath, model);
+                    break;
+            }
+
+            excel.ReportTitle = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate);
+            excel.Export();
+
+            return excel;
+        }
+
+        public string GetReportTitle(string licenseeName, DateTime fromDate, DateTime toDate)
+        {
+            return string.Format(
+                CultureInfo.CurrentCulture,
+                "Settlement Report for {0} from {1} to {2}",
+                licenseeName,
+                fromDate.ToAresDayMonthYear(),
+                toDate.ToAresDayMonthYear());
+        }
+
         #endregion
 
         #region Utilities
+
+        /// <summary>
+        /// Get Excel Template Path.
+        /// </summary>
+        /// <param name="productId">Product Identify.</param>
+        /// <param name="excelTemplateRootPath">Excel Template Root Path.</param>
+        /// <returns>Template Path.</returns>
+        private static string GetExcelTemplatePath(int productId, string excelTemplateRootPath)
+        {
+            var templatePath = string.Empty;
+
+            switch (productId)
+            {
+                case Products.Sportsbook:
+                case Products.NumberGame:
+                    templatePath = TemplatePath.LicenseeBillingForSportsBook;
+                    break;
+                case Products.BA:
+                    templatePath = TemplatePath.LicenseeBillingForBA;
+                    break;
+                default:
+                    templatePath = TemplatePath.LicenseeBillingForSportsBook;
+                    break;
+            }
+
+            return Path.Combine(excelTemplateRootPath, templatePath);
+        }
+
+        /// <summary>
+        /// Get Licensee Grand Total.
+        /// </summary>
+        /// <param name="reportList">Report List.</param>
+        /// <returns>Licensee Report.</returns>
+        private static LicenseeReport GetLicenseeGrandTotal(List<LicenseeReport> reportList)
+        {
+            return new LicenseeReport
+            {
+                Betcount = reportList.Sum(x => x.Betcount),
+                Company = reportList.Sum(x => x.Company),
+                CompanyBaseCurrency = reportList.Sum(x => x.CompanyBaseCurrency),
+                Currency = reportList.Sum(x => x.Currency),
+                LicenseeComm = reportList.Sum(x => x.LicenseeComm),
+                LicenseeCommBase = reportList.Sum(x => x.LicenseeCommBase),
+                LicenseeWL = reportList.Sum(x => x.LicenseeWL),
+                LicenseeWLBase = reportList.Sum(x => x.LicenseeWLBase),
+                MemberComm = reportList.Sum(x => x.MemberComm),
+                MemberWinloss = reportList.Sum(x => x.MemberWinloss),
+                MemberWinlossBase = reportList.Sum(x => x.MemberWinlossBase),
+                Turnover = reportList.Sum(x => x.Turnover),
+                TurnoverBase = reportList.Sum(x => x.TurnoverBase),
+                BaseCurrencyExchangeRate = reportList.Sum(x => x.BaseCurrencyExchangeRate)
+            };
+        }
+
+        /// <summary>
+        /// Get Exchange Rate Criteria.
+        /// </summary>
+        /// <param name="toDate">Exchange Date.</param>
+        /// <param name="baseCurrencyId">Base Currency.</param>
+        /// <param name="reportList">Report List.</param>
+        /// <returns>Exchange Rate Billing Criteria.</returns>
+        private ExchangeRateBillingSelCriteria GetExchangeRateCriteria(DateTime toDate, int baseCurrencyId, List<LicenseeReport> reportList)
+        {
+            var listBaseCurrency = GetBaseCurrency(new IMS_BaseCurrencySel());
+            var exchangeRatecurrencies = string.Empty;
+            var baseCurrencyName = listBaseCurrency.Where(m => m.Value == baseCurrencyId.ToString()).FirstOrDefault<SelectListItem>().Text;
+
+            exchangeRatecurrencies = string.Join(",", reportList.Select(m => m.Currency).Distinct().ToArray());
+
+            return new ExchangeRateBillingSelCriteria
+            {
+                Currency = exchangeRatecurrencies,
+                ExchangeDate = toDate,
+                BaseCurrencyId = baseCurrencyId,
+                BaseCurrencyName = baseCurrencyName
+            };
+        }
 
         /// <summary>
         /// Get all licensees.
@@ -224,26 +342,11 @@ namespace Fanex.Ares.Report.Services.Interfaces
             return listLicensees;
         }
 
-        /// <summary>
-        /// Get Licensee Information.
-        /// </summary>
-        /// <param name="criteria">Licensee criteria.</param>
-        /// <returns>Return licensee info.</returns>
         private LicenseeInformation GetLicenseeInformation(LicenseeBillingInfoSelCriteria criteria)
         {
-            var listLicenseeInfo = new LicenseeInformation();
+            var licenseeInfo = GetEntity<LicenseeInformation>(criteria);
 
-            try
-            {
-                listLicenseeInfo = DynamicRepository.Fetch<LicenseeInformation>(criteria).FirstOrDefault<LicenseeInformation>();
-            }
-            catch (SqlException exception)
-            {
-                LoggingHandler.Log(exception.Message);
-                throw new ServiceException(exception.Message, criteria.GetSettingKey(), criteria.GetSpParams());
-            }
-
-            return listLicenseeInfo ?? new LicenseeInformation();
+            return licenseeInfo ?? new LicenseeInformation();
         }
 
         /// <summary>
@@ -279,26 +382,12 @@ namespace Fanex.Ares.Report.Services.Interfaces
                 res.MemberTotal = res.MemberWinloss + res.MemberComm;
                 res.LicenseeTotal = res.LicenseeWL + res.LicenseeComm;
 
-                model.GrandTotal.Betcount += res.Betcount;
-                model.GrandTotal.Company += res.Company;
-                model.GrandTotal.CompanyBaseCurrency += res.CompanyBaseCurrency;
-                model.GrandTotal.Currency += res.Currency;
-                model.GrandTotal.LicenseeComm += res.LicenseeComm;
-                model.GrandTotal.LicenseeCommBase += res.LicenseeCommBase;
-                model.GrandTotal.LicenseeWL += res.LicenseeWL;
-                model.GrandTotal.LicenseeWLBase += res.LicenseeWLBase;
-                model.GrandTotal.MemberComm += res.MemberComm;
-                model.GrandTotal.MemberWinloss += res.MemberWinloss;
-                model.GrandTotal.MemberWinlossBase += res.MemberWinlossBase;
-                model.GrandTotal.Turnover += res.Turnover;
-                model.GrandTotal.TurnoverBase += res.TurnoverBase;
-                model.GrandTotal.BaseCurrencyExchangeRate += res.BaseCurrencyExchangeRate;
-
                 return res;
             };
 
             var reportList = BaseRepository.Fetch<LicenseeReport>(criteria, mappingFunc).ToList();
 
+            model.GrandTotal = GetLicenseeGrandTotal(reportList);
             model.ReportList.AddRange(reportList);
         }
 
@@ -343,13 +432,12 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <returns>Return file name.</returns>
         private string GetFileName()
         {
-            LicenseeSettlementModel model = null;
             if (SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport) == null)
             {
                 return string.Empty;
             }
 
-            model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
 
             return string.Format(
                 "{0}_{1}_Settlement_From_{2}_To_{3}",

@@ -25,19 +25,11 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
             set; 
         }
 
-        /// <summary>
-        /// Get setting key.
-        /// </summary>
-        /// <returns>Return setting key.</returns>
         public override string GetSettingKey()
         {
             return "IMS_Invoice_LicenseeBillingInfoSel";
         }
 
-        /// <summary>
-        /// Check is valid.
-        /// </summary>
-        /// <returns>Return result.</returns>
         public override bool IsValid() 
         { 
             return true; 

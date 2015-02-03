@@ -145,7 +145,7 @@ namespace Fanex.Ares.Invoice.Controllers
         [HttpPost]
         public JsonResult GetInvoiceNo(InvoiceNumberCriteria criteria)
         {
-            int invoiceNo = this._invoiceService.GetInvoiceNo(criteria);
+            int invoiceNo = _invoiceService.GetInvoiceNo(criteria);
             return Json(invoiceNo);
         }
 

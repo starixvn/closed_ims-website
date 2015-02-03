@@ -88,7 +88,9 @@ namespace Fanex.Ares.Invoice.Service.Imp
 
         public int GetInvoiceNo(InvoiceNumberCriteria criteria)
         {
-            return GetEntity<int>(criteria);
+            int? invoiceNumber = GetEntity<int>(criteria);
+
+            return invoiceNumber ?? 1;
         }
 
         /// <summary>

@@ -1,8 +1,10 @@
 namespace Fanex.Ares.Report.Services.Interfaces
 {
+    using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
     using Fanex.Ares.Core.Criteria;
+    using Fanex.Ares.Core.Export;
     using Fanex.Ares.Core.Extensions;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
@@ -18,32 +20,16 @@ namespace Fanex.Ares.Report.Services.Interfaces
 
         string FileName { get; }
 
-        /// <summary>
-        /// Get Products By Licensee.
-        /// </summary>
-        /// <param name="criteria">Licensee product criteria.</param>
-        /// <returns>Return result.</returns>
         IEnumerable<SelectListItem> GetProductsByLicensee(LicenseeProductSelCriteria criteria);
 
-        /// <summary>
-        /// Get Currency By Licensee.
-        /// </summary>
-        /// <param name="criteria">Licensee currency criteria.</param>
-        /// <returns>Return result.</returns>
         IEnumerable<SelectListItem> GetCurrencyByLicensee(LicenseeCurrencySelCriteria criteria);
 
-        /// <summary>
-        /// Get Base Currency.
-        /// </summary>
-        /// <param name="criteria">Base currency criteria.</param>
-        /// <returns>Return result.</returns>
         IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria);
 
-        /// <summary>
-        /// Generate Report.
-        /// </summary>
-        /// <param name="criteria">Licensee settlement criteria.</param>
-        /// <returns>Return result.</returns>
         LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria);
+
+        ExcelBase ExportExcel(LicenseeSettlementModel model, int productId, string excelTemplateRootPath);
+
+        string GetReportTitle(string licenseeName, DateTime fromDate, DateTime toDate);
     }
 }
