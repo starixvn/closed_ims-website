@@ -194,13 +194,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Test\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessage.js" />
@@ -363,42 +356,9 @@
     <Content Include="Scripts\_Libs\FormatLibs\jquery.customformat.js" />
     <Content Include="Scripts\_Libs\FormatLibs\NumberFormat\numeral-min.js" />
     <Content Include="Scripts\_Libs\FormatLibs\NumberFormat\numeral.js" />
-    <Content Include="Scripts\_Libs\GridScroller\gridscroller.css" />
-    <Content Include="Scripts\_Libs\GridScroller\images\1350530947_page_excel.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\ajax-loader.gif" />
-    <Content Include="Scripts\_Libs\GridScroller\images\back-icon.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\bgtitle.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\bg_gloss_wave.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\collapse-icon.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\collapse-small.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\email.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\excel-icon.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\expand-icon.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\expand-small.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\icn_add.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\icn_del.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\icn_edit.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\refresh_icon.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\report_check.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\send-mail.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\setting.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\sort-icon.png" />
-    <Content Include="Scripts\_Libs\GridScroller\images\sorting_asc.gif" />
-    <Content Include="Scripts\_Libs\GridScroller\images\sorting_bg.gif" />
-    <Content Include="Scripts\_Libs\GridScroller\images\sorting_desc.gif" />
-    <Content Include="Scripts\_Libs\GridScroller\images\white-top-bottom.gif" />
-    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscroller.1.0.js" />
-    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscroller.1.1.js" />
-    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscroller.js" />
-    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.0.js" />
-    <Content Include="Scripts\_Libs\GridScroller\jquery.gridscrollerlite.1.1.js" />
     <Content Include="Scripts\_Libs\jQuery\classList.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery.form.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery.formattyping.js" />
-    <Content Include="Scripts\_Libs\MessageNotifier\Images\error.png" />
-    <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
-    <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />
-    <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.js" />
     <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiradioselect.nlevel_new.js" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.css" />
     <Content Include="Scripts\_Libs\TimePicker\jquery-ui-timepicker-addon.js" />
@@ -493,15 +453,8 @@
     <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiselect.min.js" />
     <Content Include="Scripts\_Libs\MultipleSelect\jquery.nextreeview.css" />
     <Content Include="Scripts\_Libs\MultipleSelect\jquery.nextreeview.js" />
-    <Content Include="Scripts\_Libs\Pager\go-hover-icon.png" />
-    <Content Include="Scripts\_Libs\Pager\icon_page.gif" />
-    <Content Include="Scripts\_Libs\Pager\jpager.js" />
-    <Content Include="Scripts\_Libs\Pager\pagination.css" />
-    <Content Include="Scripts\_Libs\Pager\seperations.png" />
-    <Content Include="Scripts\_Libs\PopUp\dialogbox.js" />
     <Content Include="Scripts\_Libs\TemplateRender\doT\doT.js" />
     <Content Include="Scripts\_Libs\TemplateRender\doT\doT.min.js" />
-    <Content Include="Scripts\_Libs\Tooltip\Demo.htm" />
     <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.js" />
     <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.min.js" />
     <Content Include="Scripts\_Libs\Tooltip\tipsy.css" />
@@ -654,8 +607,6 @@
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
     <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
-    <Content Include="Test\angular.htm" />
-    <Content Include="Test\Default.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -700,7 +651,6 @@
     <Content Include="Web.ConnectionString.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\_Libs\MessageNotifier\jquery.messagenotifier.css" />
     <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
     <Content Include="Content\base\colors.less" />
     <Content Include="Content\base\grid.less" />
@@ -714,8 +664,6 @@
     <Content Include="Views\Shared\_PrintLayout.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Views\Test\Index.cshtml" />
-    <Content Include="Views\Test\Employee.cshtml" />
     <Content Include="Web.Configuration\PdfHelper.config" />
     <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
     <Content Include="Views\Common\AccessDenied.cshtml" />
