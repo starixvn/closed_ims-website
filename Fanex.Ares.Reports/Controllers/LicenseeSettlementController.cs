@@ -6,9 +6,7 @@ namespace Fanex.Ares.Report.Controllers
     using System.Web.Mvc;
     using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.DataDomain;
-    using Fanex.Ares.Core.Export;
     using Fanex.Ares.Core.Extensions;
-    using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Ares.Core.Web.Security;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
@@ -17,7 +15,6 @@ namespace Fanex.Ares.Report.Controllers
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
     using Fanex.Common.Extensions;
     using Fanex.NAP.Core.Web.Attribute;
-    using NPOI.HSSF.UserModel;
 
     /// <summary>
     /// Licensee Settlement Controller.
@@ -63,7 +60,7 @@ namespace Fanex.Ares.Report.Controllers
             ViewBag.ListLicenseeEx = _licenseeSettlementService.AllLicenseesExension;
             ViewBag.ListProduct = _licenseeSettlementService.GetProductsByLicensee(new LicenseeProductSelCriteria() { LicenseeId = 0 });
             ViewBag.ListCurrency = _licenseeSettlementService.GetCurrencyByLicensee(new LicenseeCurrencySelCriteria() { LicenseeId = 0 }).ToList<SelectListItem>();
-            ViewBag.ListExchangeRate = _licenseeSettlementService.GetBaseCurrency(new IMS_BaseCurrencySel());
+            ViewBag.ListExchangeRate = _licenseeSettlementService.GetBaseCurrency(new BaseCurrencyCriteria());
 
             return View(model);
         }
@@ -81,9 +78,9 @@ namespace Fanex.Ares.Report.Controllers
             model.LicenseeInfor.ToDate = criteria.ToDate;
             _settlementView = "_" + criteria.ProductName;
 
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementMonth, criteria.Month);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementYear, criteria.Year);
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName, _settlementView);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementMonth, criteria.Month);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementYear, criteria.Year);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementViewName, _settlementView);
 
             return PartialView(_settlementView, model);
         }
@@ -96,7 +93,7 @@ namespace Fanex.Ares.Report.Controllers
         /// <returns>Export result.</returns>
         public ActionResult ExportDocument(int productId, string documentType)
         {
-            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementReport);
             var fileName = string.Empty;
 
             if (documentType == DocumentType.Pdf)
@@ -148,7 +145,7 @@ namespace Fanex.Ares.Report.Controllers
         /// <returns>Memory Stream.</returns>
         private byte[] GetStreamContent(LicenseeSettlementModel model)
         {
-            _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementViewName);
+            _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementViewName);
 
             var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
             var pdfRender = new PdfRender(PdfCssFilePath, htmlString);

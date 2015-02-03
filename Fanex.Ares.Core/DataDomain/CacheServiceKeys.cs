@@ -1,9 +1,9 @@
-namespace Fanex.Ares.Core.Utils
+﻿namespace Fanex.Ares.Core.DataDomain
 {
     /// <summary>
     /// Cache Service Key.
     /// </summary>
-    public class CacheServiceKey
+    public static class CacheServiceKeys
     {
         public const string KeyCurrency = "Core.Key.Currency";
         public const string CacheKeyAllLicensee = "Fanex.Ares.Report.Services.AllLicensees";

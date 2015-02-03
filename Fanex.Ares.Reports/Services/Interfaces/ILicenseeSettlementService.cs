@@ -24,7 +24,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
 
         IEnumerable<SelectListItem> GetCurrencyByLicensee(LicenseeCurrencySelCriteria criteria);
 
-        IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria);
+        IEnumerable<SelectListItem> GetBaseCurrency(BaseCurrencyCriteria criteria);
 
         LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria);
 

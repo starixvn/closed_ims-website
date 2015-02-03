@@ -101,18 +101,7 @@
             <td rowspan="2" class="emptyheader">
             </td>
             <td colspan="2" class="header">
-                @{
-                    string forexTime = string.Empty;
-                    if (DateTime.Now.Year == Model.LicenseeInfor.SettlementDate.Year && DateTime.Now.Month == Model.LicenseeInfor.SettlementDate.Month)
-                    {
-                        forexTime = DateTime.Now.ToAresDayMonthYear();
-                    }
-                    else
-                    {
-                        forexTime = Model.LicenseeInfor.SettlementDate.LastDayOfMonth().ToAresDayMonthYear();
-                    }
-                }
-                Forex @@ @forexTime
+                Forex @@ @Model.ForexTime
             </td>
         </tr>
         <tr>

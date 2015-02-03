@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: CLSCompliant(false)]
-[assembly: AssemblyTitle("Fanex.Ares.SportBook")]
+[assembly: AssemblyTitle("Fanex.Ares.Report")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Fanex.Ares.SportBook")]
+[assembly: AssemblyProduct("Fanex.Ares.Report")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

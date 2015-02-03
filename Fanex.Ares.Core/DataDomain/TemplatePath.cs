@@ -1,4 +1,4 @@
-﻿namespace Fanex.Ares.Core
+﻿namespace Fanex.Ares.Core.DataDomain
 {
     /// <summary>
     /// Template Path.

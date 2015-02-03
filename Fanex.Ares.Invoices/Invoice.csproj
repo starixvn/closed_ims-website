@@ -114,10 +114,6 @@
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>
       <Name>Report</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Resource\Resources.csproj">
-      <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
-      <Name>Resources</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

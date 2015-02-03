@@ -121,10 +121,6 @@
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Resource\Resources.csproj">
-      <Project>{9FF96A41-B105-41FF-AE1D-B67689FACA66}</Project>
-      <Name>Resources</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -36,16 +36,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ExcelUtil">
-      <HintPath>..\_Dependency\FanexLibs\Excel\ExcelUtil.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core, Version=1.0.4827.30669, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Fanex.BetList.Core.TicketHelper">
-      <HintPath>..\_Dependency\FanexLibs\Fanex.BetList.Core.TicketHelper.dll</HintPath>
-    </Reference>
     <Reference Include="Fanex.Caching">
       <HintPath>..\_Dependency\FanexLibs\Fanex.Caching.dll</HintPath>
     </Reference>
@@ -82,7 +72,6 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -98,6 +87,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataDomain\CacheServiceKeys.cs" />
+    <Compile Include="DataDomain\DateFormat.cs" />
     <Compile Include="DataDomain\DocumentType.cs" />
     <Compile Include="DataDomain\PartyName.cs" />
     <Compile Include="DataDomain\PageOrientation.cs" />
@@ -105,13 +96,12 @@
     <Compile Include="Configurations\AppSettings.cs" />
     <Compile Include="Configurations\ControllerMapping.cs" />
     <Compile Include="Configurations\DomainMapping.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="Criteria\IMS_BaseCurrencySel.cs" />
+    <Compile Include="DataDomain\Constants.cs" />
+    <Compile Include="Criteria\BaseCurrencyCriteria.cs" />
     <Compile Include="DataDomain\BaseCurrencyName.cs" />
     <Compile Include="DataDomain\Products.cs" />
     <Compile Include="Export\ExcelBase.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
-    <Compile Include="Extensions\ExcelExtensions.cs" />
     <Compile Include="Extensions\HSSFCellExtension.cs" />
     <Compile Include="Extensions\HSSFSheetExtension.cs" />
     <Compile Include="Extensions\HSSFWorkbookExtension.cs" />
@@ -125,7 +115,6 @@
     <Compile Include="Services\Impl\PermissionService.cs" />
     <Compile Include="Services\Impl\ServiceBase.cs" />
     <Compile Include="Services\Impl\ServiceException.cs" />
-    <Compile Include="Services\Interface\ICoreService.cs" />
     <Compile Include="Services\Interface\IServiceBase.cs" />
     <Compile Include="Resources\Errors.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -147,16 +136,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Messages.resx</DependentUpon>
     </Compile>
-    <Compile Include="TemplatePath.cs" />
-    <Compile Include="Utils\CacheServiceKey.cs" />
-    <Compile Include="Utils\FormatKey.cs" />
+    <Compile Include="DataDomain\TemplatePath.cs" />
     <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Web\AppSession.cs" />
     <Compile Include="Web\CacheManager.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
-    <Compile Include="Web\CustomResults\CsvResult.cs" />
-    <Compile Include="Web\CustomResults\ExcelResult.cs" />
-    <Compile Include="Web\CustomResults\SpreadSheetResult.cs" />
     <Compile Include="Web\EmptyStringModelBinder.cs" />
     <Compile Include="Web\Security\AuthenticateAction.cs" />
     <Compile Include="Web\SessionManager.cs" />
@@ -188,7 +172,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Repository\Interface\" />
   </ItemGroup>
   <ItemGroup>

@@ -6,14 +6,12 @@
 @using Fanex.Ares.Core.Extensions
 @model ReportLicenseeSettlementCriteria
 @{
-    ViewBag.Title = AppSession.CurrentWorkingOnMenu != null ? AppSession.CurrentWorkingOnMenu.Name : string.Empty;
     ViewBag.Title = "Licensee Settlement Report";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 @section Head {
     @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style", "~/Scripts/_Libs/MonthPicker/style")
-    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less?ver=@DateTime.Now.ToString()" />
+    <link rel="stylesheet" type="text/css" href="~/scripts/_libs/MonthPicker/monPickr-0.0.3-custom.less" />
     <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/Report/LicenseeSettlement.css" />
 }
@@ -99,8 +97,6 @@
 @section scripts
 {
     <script type="text/javascript">
-
-
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var today = '@DateTime.Today.ToShortDateString()';

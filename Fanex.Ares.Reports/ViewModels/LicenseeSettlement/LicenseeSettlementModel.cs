@@ -19,6 +19,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
             _reportList = new List<LicenseeReport>();
             LicenseeInfor = new LicenseeInformation();
             GrandTotal = new LicenseeReport();
+            ForexTime = string.Empty;
         }
 
         public LicenseeInformation LicenseeInfor { get; set; }
@@ -34,5 +35,7 @@ namespace Fanex.Ares.Report.ViewModels.LicenseeSettlement
         {
             get { return _exchangeList; }
         }
+
+        public string ForexTime { get; set; }
     }
 }

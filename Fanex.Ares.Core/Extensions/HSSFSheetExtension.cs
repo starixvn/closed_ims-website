@@ -1,13 +1,9 @@
 ﻿namespace Fanex.Ares.Core.Extensions
 {
-    #region Using
-
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using NPOI.SS.UserModel;
     using NPOI.SS.Util;
-
-    #endregion Using
 
     /// <summary>
     /// HSSFSheetExtensions class, define some extension method for HSSFSheet such as Copy Row, Copy Cell, ..

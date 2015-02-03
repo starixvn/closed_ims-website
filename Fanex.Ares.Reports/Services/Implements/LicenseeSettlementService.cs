@@ -8,7 +8,6 @@ namespace Fanex.Ares.Report.Services.Interfaces
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
-    using Fanex.Ares.Core;
     using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.DataDomain;
     using Fanex.Ares.Core.Export;
@@ -81,6 +80,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
             model.LicenseeInfor.LicenseeName = licenseeItem.Item.Text;
             model.LicenseeInfor.ProductName = criteria.ProductName;
             model.LicenseeInfor.SettlementDate = criteria.ToDate;
+            model.ForexTime = Utilities.GetForexTime(criteria.ToDate);
 
             GetLicenseeReport(model, criteria);
 
@@ -90,7 +90,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
             model.ExchangeList.AddRange(exchangeList);
             model.LicenseeInfor.BaseCurrencyName = exchangeRateCriteria.BaseCurrencyName;
 
-            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport, model);
+            SessionExtensions.AddSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementReport, model);
 
             return model;
         }
@@ -264,7 +264,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <returns>Exchange Rate Billing Criteria.</returns>
         private ExchangeRateBillingSelCriteria GetExchangeRateCriteria(DateTime toDate, int baseCurrencyId, List<LicenseeReport> reportList)
         {
-            var listBaseCurrency = GetBaseCurrency(new IMS_BaseCurrencySel());
+            var listBaseCurrency = GetBaseCurrency(new BaseCurrencyCriteria());
             var exchangeRatecurrencies = string.Empty;
             var baseCurrencyName = listBaseCurrency.Where(m => m.Value == baseCurrencyId.ToString()).FirstOrDefault<SelectListItem>().Text;
 
@@ -434,12 +434,12 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <returns>Return file name.</returns>
         private string GetFileName()
         {
-            if (SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport) == null)
+            if (SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementReport) == null)
             {
                 return string.Empty;
             }
 
-            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKey.SessionKeyLicenseeSettlementReport);
+            var model = (LicenseeSettlementModel)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementReport);
 
             return string.Format(
                 "{0}_{1}_Settlement_From_{2}_To_{3}",

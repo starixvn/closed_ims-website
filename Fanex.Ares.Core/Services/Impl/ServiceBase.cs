@@ -106,7 +106,7 @@ namespace Fanex.Ares.Core.Services.Impl
         /// </summary>
         /// <param name="criteria">Base currency criteria.</param>
         /// <returns>Return result.</returns>
-        public IEnumerable<SelectListItem> GetBaseCurrency(IMS_BaseCurrencySel criteria)
+        public IEnumerable<SelectListItem> GetBaseCurrency(BaseCurrencyCriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
             try
