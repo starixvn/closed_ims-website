@@ -113,10 +113,7 @@ namespace Fanex.Ares.Report.Controllers
             }
             else
             {
-                var excel = _licenseeSettlementService.ExportExcel(model, productId, ExcelTemplateRootPath);
-                fileName = excel.ReportTitle.Replace(' ', '.');
-
-                return new NPOIResult((HSSFWorkbook)excel.Workbook, fileName);
+                return _licenseeSettlementService.ExportExcel(model, productId, ExcelTemplateRootPath);
             }
 
             return new EmptyResult();

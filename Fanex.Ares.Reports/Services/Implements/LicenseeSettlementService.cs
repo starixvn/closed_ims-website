@@ -22,6 +22,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
     using Fanex.Artist.Services;
     using Fanex.Common;
     using Fanex.Common.Extensions;
+    using NPOI.HSSF.UserModel;
 
     /// <summary>
     /// Licensee Settlement Service.
@@ -160,8 +161,8 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// <param name="model">Licensee Settlement Model.</param>
         /// <param name="productId">Product Identify.</param>
         /// <param name="excelTemplateRootPath">Excel Template Root Path.</param>
-        /// <returns>Excel Base.</returns>
-        public ExcelBase ExportExcel(LicenseeSettlementModel model, int productId, string excelTemplateRootPath)
+        /// <returns>NPOI Result.</returns>
+        public NPOIResult ExportExcel(LicenseeSettlementModel model, int productId, string excelTemplateRootPath)
         {
             var templatePath = GetExcelTemplatePath(productId, excelTemplateRootPath);
             ExcelBase excel = null;
@@ -181,9 +182,10 @@ namespace Fanex.Ares.Report.Services.Interfaces
             }
 
             excel.ReportTitle = GetReportTitle(model.LicenseeInfor.LicenseeName, model.LicenseeInfor.FromDate, model.LicenseeInfor.ToDate);
+            var fileName = excel.ReportTitle.Replace(' ', '.');
             excel.Export();
 
-            return excel;
+            return new NPOIResult((HSSFWorkbook)excel.Workbook, fileName);
         }
 
         public string GetReportTitle(string licenseeName, DateTime fromDate, DateTime toDate)

@@ -28,7 +28,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
 
         LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria);
 
-        ExcelBase ExportExcel(LicenseeSettlementModel model, int productId, string excelTemplateRootPath);
+        NPOIResult ExportExcel(LicenseeSettlementModel model, int productId, string excelTemplateRootPath);
 
         string GetReportTitle(string licenseeName, DateTime fromDate, DateTime toDate);
     }
