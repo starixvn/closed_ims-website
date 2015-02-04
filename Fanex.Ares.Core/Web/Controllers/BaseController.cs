@@ -25,11 +25,11 @@ namespace Fanex.Ares.Core.Web.Controllers
 
         protected readonly int SiteId = NapSettings.Settings.SiteId;
 
-        protected readonly string HubUrl = "http://10.18.200.209:8009/nap-home-local2";
+        protected readonly string HubUrl = NapSettings.Settings.HubUrl;
 
         private ViewFlags _viewFlags;
 
-        private int _issiteLogin = NapSettings.Settings.IsSiteLogin;
+        private bool _issiteLogin = NapSettings.Settings.EnableDirectLogin;
 
         public BaseController()
         {
@@ -49,12 +49,7 @@ namespace Fanex.Ares.Core.Web.Controllers
             };
         }
 
-        /// <summary>
-        /// Gets ... Indicates whether the current site allows users login directly.
-        /// If "0", users must login through NAP Hub.
-        /// </summary>
-        /// <value>Is Site Login.</value>
-        public int IsSiteLogin
+        public bool IsSiteLogin
         {
             get
             {

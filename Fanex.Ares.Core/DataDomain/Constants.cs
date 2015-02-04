@@ -1,5 +1,7 @@
 namespace Fanex.Ares.Core.DataDomain
 {
+    using System.Web.Configuration;
+
     /// <summary>
     /// The constants.
     /// </summary>
@@ -12,5 +14,7 @@ namespace Fanex.Ares.Core.DataDomain
         public const string CurrentActionName = "Fanex.Ares.Core.Contants.AppSession.CurrentActionName";
         public const string ViewIpVN = "ViewIPVN";
         public const string IsShowMenu = "Fanex.Ares.Core.Contants.AppSession.IsShowMenu";
+
+        public static readonly string MaintenanceHost = WebConfigurationManager.AppSettings["LBUrl"] ?? string.Empty;
     }
 }
