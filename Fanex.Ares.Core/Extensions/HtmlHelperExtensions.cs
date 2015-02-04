@@ -387,34 +387,15 @@ namespace Fanex.Ares.Core.Extensions
         /// <summary>
         /// Get Full Domain URL.
         /// </summary>
-        /// <param name="isCheckMappingDomail">Is Check Mapping Domain.</param>
-        /// <returns>Return value.</returns>
-        public static string GetFullDomainURL(bool isCheckMappingDomail = false)
+        /// <returns>Domain URL.</returns>
+        public static string GetFullDomainURL()
         {
             NameValueCollection variables = HttpContext.Current.Request.ServerVariables;
             string protocol = (variables["SERVER_PORT_SECURE"] == "1") ? "https://" : "http://";
             string domain = variables["SERVER_NAME"];
             string port = variables["SERVER_PORT"];
             
-            var fullDomainInfo = protocol + domain + ":" + port + (HttpRuntime.AppDomainAppVirtualPath == "/" ? string.Empty : HttpRuntime.AppDomainAppVirtualPath);
-
-            if (isCheckMappingDomail)
-            {
-                var domainMapping = DomainMapping.Instance.Domain;
-                if (domainMapping != null && domainMapping.Count > 0)
-                {
-                    foreach (DomainElement domainElement in domainMapping)
-                    {
-                        if (fullDomainInfo.ToLower().Equals(domainElement.CurrentDomain.ToLower()))
-                        {
-                            fullDomainInfo = domainElement.ConvertToDomain;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            return fullDomainInfo;
+            return protocol + domain + ":" + port + (HttpRuntime.AppDomainAppVirtualPath == "/" ? string.Empty : HttpRuntime.AppDomainAppVirtualPath);
         }
 
         /// <summary>
@@ -438,9 +419,8 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="controller">Controller parameter.</param>
         /// <param name="viewName">View name parameter.</param>
         /// <param name="viewData">View data parameter.</param>
-        /// <param name="isCheckMappingDomail">Is Check Mapping Domain.</param>
         /// <returns>Return value.</returns>
-        public static string RenderViewToString(Controller controller, string viewName, object viewData, bool isCheckMappingDomail)
+        public static string RenderViewToString(Controller controller, string viewName, object viewData)
         {
             var renderedView = new StringBuilder();
             using (var responseWriter = new StringWriter(renderedView))
@@ -458,7 +438,6 @@ namespace Fanex.Ares.Core.Extensions
                 using (var viewPage = new ViewPage())
                 {
                     var html = new HtmlHelper(CreateViewContext(responseWriter, fakeControllerContext), viewPage);
-                    html.ViewBag.isCheckMappingDomail = isCheckMappingDomail;
                     html.RenderPartial(viewName, viewData);
                     HttpContext.Current = oldContext;
                 }

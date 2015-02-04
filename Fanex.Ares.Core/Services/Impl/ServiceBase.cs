@@ -7,7 +7,7 @@ namespace Fanex.Ares.Core.Services.Impl
     using System.Web.Mvc;
     using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.Repository.Impl;
-    using Fanex.Ares.Core.Services.Interface;
+    using Fanex.Ares.Core.Services.Interfaces;
     using Fanex.Artist.Services;
     using Fanex.Caching;
     using Fanex.Common.Helper;

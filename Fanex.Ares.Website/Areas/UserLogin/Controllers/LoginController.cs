@@ -36,7 +36,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         private IMenuItemService _menuItemService;
         private ICurrentSession _currentSession;
         private IFunctionService _functionService;
-        private Fanex.Ares.Core.Services.Interface.IMaintenanceService _maintenanceService;
+        private Fanex.Ares.Core.Services.Interfaces.IMaintenanceService _maintenanceService;
 
         #endregion members
 
@@ -54,7 +54,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
             IMenuItemService menuItemService,
             ICurrentSession currentSession,
             IFunctionService functionService,
-            Fanex.Ares.Core.Services.Interface.IMaintenanceService maintenanceService)
+            Fanex.Ares.Core.Services.Interfaces.IMaintenanceService maintenanceService)
         {
             _userService = userService ?? new UserService();
             _groupService = groupService ?? new GroupService();

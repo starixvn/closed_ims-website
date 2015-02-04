@@ -2,8 +2,7 @@
 @using DNAide.Core;
 @using Fanex.Ares.Invoice.Models.Invoice;
 @{
-    var isCheckMappingDomail = ViewBag.isCheckMappingDomail;
-    var domain = HtmlHelperExtensions.GetFullDomainURL(isCheckMappingDomail);
+    var domain = HtmlHelperExtensions.GetFullDomainURL();
     InvoiceModel invoiceModel = Model;
     double totalAmount = 0;
 }

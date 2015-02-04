@@ -137,8 +137,6 @@
     <Compile Include="DataDomain\PageOrientation.cs" />
     <Compile Include="Export\NPOIResult.cs" />
     <Compile Include="Configurations\AppSettings.cs" />
-    <Compile Include="Configurations\ControllerMapping.cs" />
-    <Compile Include="Configurations\DomainMapping.cs" />
     <Compile Include="DataDomain\Constants.cs" />
     <Compile Include="Criteria\BaseCurrencyCriteria.cs" />
     <Compile Include="DataDomain\BaseCurrencyName.cs" />
@@ -160,8 +158,8 @@
     <Compile Include="Services\Impl\PermissionService.cs" />
     <Compile Include="Services\Impl\ServiceBase.cs" />
     <Compile Include="Services\Impl\ServiceException.cs" />
-    <Compile Include="Services\Interface\IMaintenanceService.cs" />
-    <Compile Include="Services\Interface\IServiceBase.cs" />
+    <Compile Include="Services\Interfaces\IMaintenanceService.cs" />
+    <Compile Include="Services\Interfaces\IServiceBase.cs" />
     <Compile Include="Resources\Errors.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

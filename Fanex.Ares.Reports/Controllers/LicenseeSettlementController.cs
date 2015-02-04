@@ -147,7 +147,7 @@ namespace Fanex.Ares.Report.Controllers
         {
             _settlementView = (string)SessionExtensions.GetSession(System.Web.HttpContext.Current.Session, CacheServiceKeys.SessionKeyLicenseeSettlementViewName);
 
-            var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model, false);
+            var htmlString = HtmlHelperExtensions.RenderViewToString(this, _settlementView, model);
             var pdfRender = new PdfRender(PdfCssFilePath, htmlString);
 
             return pdfRender.ContentRender();

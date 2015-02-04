@@ -46,6 +46,7 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
             set; 
         }
 
+        [SpParam(Ignored = true)]
         public string ProductName 
         { 
             get; 
@@ -58,12 +59,14 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
             set; 
         }
 
+        [SpParam(Ignored = true)]
         public int BaseCurrency 
         { 
             get; 
             set; 
         }
 
+        [SpParam(Ignored = true)]
         public string BaseCurrencyName 
         { 
             get; 

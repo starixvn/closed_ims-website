@@ -342,7 +342,7 @@ namespace Fanex.Ares.Invoice.Controllers
 
             RefillStatementList(ref model, limitedRow);
 
-            return HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, model, true);
+            return HtmlHelperExtensions.RenderViewToString(this, mainInvoicePagePath, model);
         }
 
         /// <summary>
@@ -439,7 +439,7 @@ namespace Fanex.Ares.Invoice.Controllers
             model.LicenseeInfor.FromDate = criteria.FromDate;
             model.LicenseeInfor.ToDate = criteria.ToDate;
 
-            return HtmlHelperExtensions.RenderViewToString(this, "Products/_" + criteria.ProductName, model, false);
+            return HtmlHelperExtensions.RenderViewToString(this, "Products/_" + criteria.ProductName, model);
         }
 
         /// <summary>

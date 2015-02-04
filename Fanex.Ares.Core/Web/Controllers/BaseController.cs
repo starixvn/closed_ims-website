@@ -75,6 +75,11 @@ namespace Fanex.Ares.Core.Web.Controllers
             get { return Server.MapPath(ConfigurationManager.AppSettings["ExcelTemplatePath"]); }
         }
 
+        protected string CurrentDomain
+        {
+            get { return Server.MapPath(string.Empty); }
+        }
+
         /// <summary>
         /// Execute before each request, if Downtime then go to Downtime page,
         /// Or not Authenticate will go to Login Page.

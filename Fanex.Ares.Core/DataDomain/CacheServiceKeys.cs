@@ -11,5 +11,7 @@
         public const string SessionKeyLicenseeSettlementMonth = "Fanex.Ares.Report.Services.Month";
         public const string SessionKeyLicenseeSettlementYear = "Fanex.Ares.Report.Services.Year";
         public const string SessionKeyLicenseeSettlementViewName = "Fanex.Ares.Report.Services.LicenseeSettlementViewName";
+
+        public const string MaintenanceInformation = "Fanex.Ares.Core.MaintenanceInformation";
     }
 }

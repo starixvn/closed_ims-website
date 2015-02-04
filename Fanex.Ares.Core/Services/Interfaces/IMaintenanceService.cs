@@ -1,6 +1,7 @@
-﻿namespace Fanex.Ares.Core.Services.Interface
+﻿namespace Fanex.Ares.Core.Services.Interfaces
 {
     using Fanex.Ares.Core.Models;
+    using Fanex.Caching;
     using Sunplus.UMControllerLibrary;
 
     /// <summary>
@@ -9,6 +10,8 @@
     public interface IMaintenanceService
     {
         #region Properties
+
+        ICache Cache { get; }
 
         UMBusiness UnderMaintenanceService { get; }
 
