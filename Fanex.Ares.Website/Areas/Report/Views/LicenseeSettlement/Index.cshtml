@@ -63,7 +63,12 @@
                         @Html.LabelFor(m => m.BaseCurrency, "Exchange")
                     </div>
                     <div class="edit-field col_6 align-left">
-                        @Html.DropDownListFor(m => m.BaseCurrency, (IEnumerable<SelectListItem>)ViewBag.ListExchangeRate, new { @class = "alpha auto-width" })
+                        <select id="BaseCurrency" name="BaseCurrency">
+                        @foreach (var baseCurrency in ViewBag.ListExchangeRate)
+                        {
+                            <option value="@baseCurrency.Value" selected="@baseCurrency.Selected">@baseCurrency.Text</option>
+                        }
+                        </select>
                     </div>
                     <div class="lbl-field col_3 align-right">
                     </div>
@@ -100,7 +105,7 @@
         var labelFrom = '@Labels.From';
         var labelTo = '@Labels.To';
         var today = '@DateTime.Today.ToShortDateString()';
-        var minDate = '@(new DateTime(2007, 1, 1).ToShortDateString())';
+        var minDate = '@(new DateTime(2012, 06, 1).ToShortDateString())';
         var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
         var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
     </script>

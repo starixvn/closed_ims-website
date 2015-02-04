@@ -42,7 +42,7 @@ $(document).ready(function () {
     $('#ddlMonth').monPickr({
         today: now,
         maxDate: now,
-        minDate: new Date(2005, 1, 1),
+        minDate: new Date(2012, 06, 1),
         showDateRange: true,
         fromDayId: 'ddlFrom',
         month: lastMonth,

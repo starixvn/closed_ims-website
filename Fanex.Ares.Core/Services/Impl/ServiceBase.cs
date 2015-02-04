@@ -116,7 +116,8 @@ namespace Fanex.Ares.Core.Services.Impl
                     return new SelectListItem
                     {
                         Value = Convert.ToString(r["currency"]),
-                        Text = Convert.ToString(r["currencyname"])
+                        Text = Convert.ToString(r["currencyname"]),
+                        Selected = string.Equals(Convert.ToString(r["currencyname"]), "GBP", StringComparison.OrdinalIgnoreCase)
                     };
                 };
 
