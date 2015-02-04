@@ -133,7 +133,9 @@ namespace Fanex.Ares.Core.Web.Security
                 }
             }
 
-            return privilege;
+            /* return privilege; Disabled Access Denied*/
+
+            return 2;
         }
     }
 }

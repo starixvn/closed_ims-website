@@ -25,7 +25,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -683,13 +683,8 @@
     <Content Include="Views\Shared\_PrintLayout.cshtml">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="Web.Configuration\PdfHelper.config" />
     <Content Include="Views\Shared\_ExcelTemplate.cshtml" />
     <Content Include="Views\Common\AccessDenied.cshtml" />
-    <Content Include="Web.Configuration\DomainMapping.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Configuration\ControllerMapping.config" />
     <Content Include="Views\Common\PageNotFound.cshtml" />
     <Content Include="Views\Common\Error.cshtml" />
     <Content Include="Web.Configuration\WebDeployment.ConfigTransform\Pro.Web.config">

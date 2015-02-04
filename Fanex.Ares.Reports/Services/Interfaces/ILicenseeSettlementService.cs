@@ -5,7 +5,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
     using System.Web.Mvc;
     using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.Export;
-    using Fanex.Ares.Core.Extensions;
+    using Fanex.Ares.Core.Models;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
 
@@ -16,7 +16,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
     {
         IEnumerable<SelectListItem> AllLicensees { get; }
 
-        IEnumerable<SelectListItemEx> AllLicenseesExension { get; }
+        IEnumerable<SelectListItemExtension> AllLicenseesExension { get; }
 
         string FileName { get; }
 

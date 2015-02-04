@@ -12,6 +12,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
     using Fanex.Ares.Core.DataDomain;
     using Fanex.Ares.Core.Export;
     using Fanex.Ares.Core.Extensions;
+    using Fanex.Ares.Core.Models;
     using Fanex.Ares.Core.Services.Impl;
     using Fanex.Ares.Core.Utils;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
@@ -43,7 +44,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
             get { return GetAllLicensees(); }
         }
 
-        public IEnumerable<SelectListItemEx> AllLicenseesExension
+        public IEnumerable<SelectListItemExtension> AllLicenseesExension
         {
             get { return GetAllLicenseesExension(); }
         }
@@ -74,7 +75,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
             model.LicenseeInfor = GetLicenseeInformation(licenseeInfoCriteria);
             model.LicenseeInfor.LicenseeID = criteria.LicenseeId;
 
-            var licenseeItem = listLicensee.Where(m => m.Item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemEx>();
+            var licenseeItem = listLicensee.Where(m => m.Item.Value == criteria.LicenseeId.ToString()).FirstOrDefault<SelectListItemExtension>();
 
             criteria.LicenseeName = Convert.ToString(licenseeItem.Extension["LicenseeName"]);
             model.LicenseeInfor.LicenseeName = licenseeItem.Item.Text;
@@ -312,14 +313,14 @@ namespace Fanex.Ares.Report.Services.Interfaces
         /// Get all licensee extension.
         /// </summary>
         /// <returns>Return result.</returns>
-        private IEnumerable<SelectListItemEx> GetAllLicenseesExension()
+        private IEnumerable<SelectListItemExtension> GetAllLicenseesExension()
         {
-            var listLicensees = new List<SelectListItemEx>();
+            var listLicensees = new List<SelectListItemExtension>();
             try
             {
-                Func<IDataReader, SelectListItemEx> mappingFunc = r =>
+                Func<IDataReader, SelectListItemExtension> mappingFunc = r =>
                 {
-                    return new SelectListItemEx
+                    return new SelectListItemExtension
                     {
                         Item = new SelectListItem()
                         {
@@ -333,7 +334,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
                     };
                 };
 
-                listLicensees = BaseRepository.Fetch<SelectListItemEx>(new LicenseeSelCriteria(), mappingFunc).ToList();
+                listLicensees = BaseRepository.Fetch<SelectListItemExtension>(new LicenseeSelCriteria(), mappingFunc).ToList();
             }
             catch (SqlException exception)
             {

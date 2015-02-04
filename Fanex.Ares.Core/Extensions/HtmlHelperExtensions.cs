@@ -4,7 +4,6 @@ namespace Fanex.Ares.Core.Extensions
     using System.Collections.Generic;
     using System.Collections.Specialized;
     using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Linq.Expressions;
@@ -12,8 +11,8 @@ namespace Fanex.Ares.Core.Extensions
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Mvc.Html;
-    using Fanex.Ares.Core.Configurations;
     using Fanex.Ares.Core.DataDomain;
+    using Fanex.Ares.Core.Models;
 
     /// <summary>
     /// It contains extension to render common html control.
@@ -36,68 +35,29 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="unavailDates">Unavailable date parameter.</param>
         /// <returns>Return value.</returns>
         public static MvcHtmlString DatePicker(
-            this HtmlHelper htmlHelper, 
-            string name, 
-            DateTime? date, 
-            DateTime? minDate = null, 
+            this HtmlHelper htmlHelper,
+            string name,
+            DateTime? date,
+            DateTime? minDate = null,
             DateTime? maxDate = null,
-            string formatDate = DateFormat.ShortDate, 
+            string formatDate = DateFormat.ShortDate,
             IEnumerable<DateTime> unavailDates = null)
         {
-            if (string.IsNullOrWhiteSpace(formatDate))
-            {
-                throw new ArgumentNullException("formatDate cannot be null");
-            }
-
             string disabledDate = (unavailDates != null && unavailDates.Count() > 0)
                 ? string.Join(",", unavailDates.Select(d => d.ToString(DateFormat.ShortDate)))
                 : string.Empty;
             var textbox = htmlHelper.TextBox(
-                name, 
-                date.HasValue ? date.Value.ToString(formatDate) : string.Empty, 
-                new 
+                name,
+                date.HasValue ? date.Value.ToString(formatDate) : string.Empty,
+                new
                 {
-                    @class = "datepicker", 
+                    @class = "datepicker",
                     mindate = minDate != null && minDate != DateTime.MinValue ? ((DateTime)minDate).ToString("yyyy/MM/dd") : "null",
-                    maxdate = maxDate != null && maxDate != DateTime.MinValue ? ((DateTime)maxDate).ToString("yyyy/MM/dd") : "null", 
-                    disabledDate = disabledDate 
+                    maxdate = maxDate != null && maxDate != DateTime.MinValue ? ((DateTime)maxDate).ToString("yyyy/MM/dd") : "null",
+                    disabledDate = disabledDate
                 });
 
             return MvcHtmlString.Create(textbox.ToString());
-        }
-
-        /// <summary>
-        /// Date Picker For.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TValue">Value parameter.</typeparam>
-        /// <param name="html">HTML parameter.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <param name="minDate">Min date parameter.</param>
-        /// <param name="maxDate">Max date parameter.</param>
-        /// <param name="formatDate">Format date parameter.</param>
-        /// <param name="unavailDates">Unavailable date parameter.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString DatePickerFor<TModel, TValue>(
-            this HtmlHelper<TModel> html, 
-            Expression<Func<TModel, TValue>> expression,
-            DateTime? minDate = null, 
-            DateTime? maxDate = null,
-            string formatDate = DateFormat.ShortDate, 
-            IEnumerable<DateTime> unavailDates = null)
-        {
-            var metaData = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
-            DateTime? value = DateTime.Now;
-            if (metaData.Model is DateTime? || metaData.Model is DateTime)
-            {
-                value = (DateTime?)metaData.Model;
-            }
-            else
-            {
-                value = null;
-            }
-
-            return html.DatePicker(metaData.PropertyName, value, minDate, maxDate, formatDate, unavailDates);
         }
 
         #endregion Date Picker
@@ -151,119 +111,6 @@ namespace Fanex.Ares.Core.Extensions
 
         #endregion Year Picker
 
-        #region CheckBoxList
-
-        /// <summary>
-        /// Check Box List.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">Checkbox name.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name)
-        {
-            return CheckBoxList(htmlHelper, name, null);
-        }
-
-        /// <summary>
-        /// Check Box List.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">Checkbox name.</param>
-        /// <param name="selectList">Select List.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList)
-        {
-            return CheckBoxList(htmlHelper, name, selectList, (IDictionary<string, object>)null);
-        }
-
-        /// <summary>
-        /// Check Box List.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">Checkbox name.</param>
-        /// <param name="selectList">Select List.</param>
-        /// <param name="htmlAttributes">HTML Attributes.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString CheckBoxList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes)
-        {
-            return CheckBoxList(htmlHelper, name, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-        }
-
-        /// <summary>
-        /// Check Box List For.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TProperty">Property parameter.</typeparam>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression)
-        {
-            return CheckBoxListFor(htmlHelper, expression, null);
-        }
-
-        /// <summary>
-        /// Check Box List For.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TProperty">Property parameter.</typeparam>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <param name="selectList">Select List.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            IEnumerable<SelectListItem> selectList)
-        {
-            return CheckBoxListFor(htmlHelper, expression, selectList, (IDictionary<string, object>)null);
-        }
-
-        /// <summary>
-        /// Check Box List For.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TProperty">Property parameter.</typeparam>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <param name="selectList">Select List.</param>
-        /// <param name="htmlAttributes">HTML Attributes.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            IEnumerable<SelectListItem> selectList, 
-            object htmlAttributes)
-        {
-            return CheckBoxListFor(htmlHelper, expression, selectList, HtmlHelper.AnonymousObjectToHtmlAttributes(htmlAttributes));
-        }
-
-        /// <summary>
-        /// Check Box List For.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TProperty">Property parameter.</typeparam>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <param name="selectList">Select List.</param>
-        /// <param name="htmlAttributes">HTML Attributes.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString CheckBoxListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            IEnumerable<SelectListItem> selectList, 
-            IDictionary<string, object> htmlAttributes)
-        {
-            if (expression == null)
-            {
-                throw new ArgumentNullException("expression");
-            }
-
-            return CheckBoxList(htmlHelper, ExpressionHelper.GetExpressionText(expression), selectList, htmlAttributes);
-        }
-
-        #endregion CheckBoxList
-
         #region Dropdownlist
 
         /// <summary>
@@ -278,10 +125,10 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="htmlAttributes">HTML Attributes.</param>
         /// <returns>Return value.</returns>
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            IEnumerable<SelectListItem> selectList, 
-            SelectListItem firstItem, 
+            this HtmlHelper<TModel> htmlHelper,
+            Expression<Func<TModel, TProperty>> expression,
+            IEnumerable<SelectListItem> selectList,
+            SelectListItem firstItem,
             object htmlAttributes)
         {
             var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
@@ -313,67 +160,6 @@ namespace Fanex.Ares.Core.Extensions
         }
 
         /// <summary>
-        /// Drop Down List For Month.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TProperty">Property parameter.</typeparam>
-        /// <param name="htmlHelper">HTML helper parameter.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <param name="htmlAttributes">HTML Attributes parameter.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString DropDownListForMonth<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            object htmlAttributes)
-        {
-            var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            int month = metaData == null ? 1 : metaData.Model == null ? 1 : (int)metaData.Model;
-            var newitems = DateTimeFormatInfo
-                .InvariantInfo
-                .MonthNames
-                .Where(m => m.Trim().Length != 0)
-                .Select((monthName, index) => new SelectListItem
-                {
-                    Value = (index + 1).ToString(),
-                    Text = monthName,
-                    Selected = month == (index + 1)
-                });
-
-            return SelectExtensions.DropDownListFor(htmlHelper, expression, newitems, htmlAttributes);
-        }
-
-        /// <summary>
-        /// Drop Down List For Year.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TProperty">Property parameter.</typeparam>
-        /// <param name="htmlHelper">HTML helper parameter.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <param name="htmlAttributes">HTML Attributes parameter.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString DropDownListForYear<TModel, TProperty>(
-            this HtmlHelper<TModel> htmlHelper, 
-            Expression<Func<TModel, TProperty>> expression, 
-            object htmlAttributes)
-        {
-            var metaData = ModelMetadata.FromLambdaExpression(expression, htmlHelper.ViewData);
-            int year = metaData == null ? 1 : metaData.Model == null ? 1 : (int)metaData.Model;
-            List<SelectListItem> newitems = new List<SelectListItem>();
-
-            for (var i = 2005; i <= DateTime.Now.Year; i++)
-            {
-                newitems.Add(new SelectListItem()
-                {
-                    Text = i.ToString(),
-                    Value = i.ToString(),
-                    Selected = year == i
-                });
-            }
-
-            return SelectExtensions.DropDownListFor(htmlHelper, expression, newitems.OrderByDescending(m => m.Value), htmlAttributes);
-        }
-
-        /// <summary>
         /// Raw With Line Break.
         /// </summary>
         /// <param name="helper">HTML helper parameter.</param>
@@ -388,13 +174,14 @@ namespace Fanex.Ares.Core.Extensions
         /// Get Full Domain URL.
         /// </summary>
         /// <returns>Domain URL.</returns>
-        public static string GetFullDomainURL()
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed")]
+        public static string GetFullDomain()
         {
             NameValueCollection variables = HttpContext.Current.Request.ServerVariables;
             string protocol = (variables["SERVER_PORT_SECURE"] == "1") ? "https://" : "http://";
             string domain = variables["SERVER_NAME"];
             string port = variables["SERVER_PORT"];
-            
+
             return protocol + domain + ":" + port + (HttpRuntime.AppDomainAppVirtualPath == "/" ? string.Empty : HttpRuntime.AppDomainAppVirtualPath);
         }
 
@@ -403,7 +190,7 @@ namespace Fanex.Ares.Core.Extensions
         /// </summary>
         /// <param name="listEx">List extension.</param>
         /// <returns>Return value.</returns>
-        public static IEnumerable<SelectListItem> ToListSelectListItem(this List<SelectListItemEx> listEx)
+        public static IEnumerable<SelectListItem> ToListSelectListItem(this List<SelectListItemExtension> listEx)
         {
             foreach (var item in listEx)
             {
@@ -428,8 +215,8 @@ namespace Fanex.Ares.Core.Extensions
                 var fakeResponse = new HttpResponse(responseWriter);
                 var fakeContext = new HttpContext(HttpContext.Current.Request, fakeResponse);
                 var fakeControllerContext = new ControllerContext(
-                    new HttpContextWrapper(fakeContext), 
-                    controller.ControllerContext.RouteData, 
+                    new HttpContextWrapper(fakeContext),
+                    controller.ControllerContext.RouteData,
                     controller.ControllerContext.Controller);
 
                 var oldContext = HttpContext.Current;
@@ -456,44 +243,5 @@ namespace Fanex.Ares.Core.Extensions
         {
             return new ViewContext(fakeControllerContext, new FakeView(), new ViewDataDictionary(), new TempDataDictionary(), responseWriter);
         }
-    }
-
-    /// <summary>
-    /// Fake View.
-    /// </summary>
-    [SuppressMessage(
-        "StyleCop.CSharp.MaintainabilityRules",
-        "SA1402:FileMayOnlyContainASingleClass",
-        Justification = "Reviewed. Suppression is OK here.")]
-    public class FakeView : IView
-    {
-        #region IView Members
-        /// <summary>
-        /// Render content.
-        /// </summary>
-        /// <param name="viewContext">View Context.</param>
-        /// <param name="writer">Text Writer.</param>
-        public void Render(ViewContext viewContext, TextWriter writer)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-    }
-
-    /// <summary>
-    /// Select List Item Ex.
-    /// </summary>
-    public class SelectListItemEx
-    {
-        public SelectListItemEx()
-        {
-            Item = new SelectListItem();
-            Extension = new Dictionary<string, object>();
-        }
-
-        public SelectListItem Item { get; set; }
-
-        public Dictionary<string, object> Extension { get; set; }
     }
 }
