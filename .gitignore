@@ -36,3 +36,10 @@ $tf*/
 Fanex.Ares.sln.GhostDoc.xml
 
 /Fanex.Ares.Website/Content/template.less
+
+*.StyleCop.violations.xml
+*.StyleCop.xml
+*.FxCop.xml
+MsBuild.xml
+MSBUILD.SUMMARY.email
+SUMMARY.DISPLAY.xml
