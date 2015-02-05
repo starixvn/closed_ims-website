@@ -38,7 +38,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return view.</returns>
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View();
@@ -49,7 +49,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return parties.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetAllParties()
         {
             return Json(_partyService.GetAllParties(new IMS_PartyInfoSelCriteria()));
@@ -60,7 +60,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return type.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetAllPartyTypes()
         {
             return Json(_partyService.GetAllPartyTypes(new IMS_PartyInfoSelCriteria()));
@@ -70,7 +70,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// Add new party.
         /// </summary>
         /// <returns>Return result.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             ViewBag.lstPartyTypes = _partyService.GetAllPartyTypes(new IMS_PartyTypeSel());
@@ -82,7 +82,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <param name="criteria">Party - Licensee id.</param>
         /// <returns>Return result.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _PartyLicensee(IMS_LicenseeSelByParty criteria)
         {
             ViewBag.lstAvailableLicensee = _partyService.GetAvailableOrSelectedLicensees(new IMS_AvailableLicenseeSelByParty() { PartyID = criteria.PartyID });
@@ -98,7 +98,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Party info.</param>
         /// <returns>Redirect to Index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreateNewParty(IMS_PartyIns criteria)
         {
             TempData["Result"] = _partyService.CreateUpdateParty(criteria, Request);
@@ -111,7 +111,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Party info.</param>
         /// <returns>Redirect to Index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult UpdateParty(IMS_PartyInfoUpd criteria)
         {
             TempData["Result"] = _partyService.CreateUpdateParty(criteria, Request);
@@ -124,7 +124,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Party - Licensee info.</param>
         /// <returns>Redirect to Index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreatePartyLicensee(IMS_LicenseePartyMultipleIns criteria)
         {
             TempData["Result"] = _partyService.ExecuteCommand(criteria);

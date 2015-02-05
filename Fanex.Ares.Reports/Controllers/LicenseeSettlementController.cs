@@ -50,7 +50,7 @@ namespace Fanex.Ares.Report.Controllers
         /// The index page.
         /// </summary>
         /// <returns>Return view.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             var model = new ReportLicenseeSettlementCriteria();

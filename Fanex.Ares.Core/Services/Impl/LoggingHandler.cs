@@ -3,9 +3,14 @@ namespace Fanex.Ares.Core.Services.Impl
     using System;
     using System.Web;
     using Fanex.Logging;
-    
+
     public enum LogType : int
     {
+        /// <summary>
+        /// Log type - Default.
+        /// </summary>
+        None = 0,
+
         /// <summary>
         /// Log type - Info.
         /// </summary>
@@ -15,12 +20,12 @@ namespace Fanex.Ares.Core.Services.Impl
         /// Log type - Error.
         /// </summary>
         Error = 2
-    }        
+    }
 
     /// <summary>
     /// Logging Handler.
     /// </summary>
-    public class LoggingHandler
+    public static class LoggingHandler
     {
         /// <summary>
         /// Write log.

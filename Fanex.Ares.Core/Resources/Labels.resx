@@ -557,8 +557,8 @@ Win Loss</value>
   <data name="USD" xml:space="preserve">
     <value>USD</value>
   </data>
-  <data name="Username" xml:space="preserve">
-    <value>Username</value>
+  <data name="UserName" xml:space="preserve">
+    <value>UserName</value>
   </data>
   <data name="VirtualSports" xml:space="preserve">
     <value>Virtual Sports</value>
@@ -751,5 +751,8 @@ Win Loss</value>
   </data>
   <data name="OandaNote" xml:space="preserve">
     <value>www.oanda.com provided minor difference between '{0}/1 Unit' vs 'Units/1 {1}', we standardize the use of 'Units/1 {2}' rate to prevail all.</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Customer</value>
   </data>
 </root>

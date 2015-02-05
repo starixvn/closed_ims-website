@@ -109,7 +109,7 @@ namespace Fanex.Ares.Core.Extensions
 
             return source.ToString();
         }
-                
+
         /// <summary>
         /// Negatives the format.
         /// </summary>
@@ -119,13 +119,13 @@ namespace Fanex.Ares.Core.Extensions
         {
             string output = string.Empty;
 
-            output = input >= 0 ? 
-                "<span >" + Converter.To<string>(input.Format(2)) + "</span>" : 
+            output = input >= 0 ?
+                "<span >" + Converter.To<string>(input.Format(2)) + "</span>" :
                 "<span style=\"color: red;\">(" + Converter.To<string>((input * -1).Format(2)) + ")</span>";
 
             return output;
         }
-        
+
         /// <summary>
         /// Gets the negative class.
         /// </summary>
@@ -165,10 +165,8 @@ namespace Fanex.Ares.Core.Extensions
 
                 return result;
             }
-            else
-            {
-                throw new NullReferenceException();
-            }
+
+            return string.Empty;
         }
     }
 }

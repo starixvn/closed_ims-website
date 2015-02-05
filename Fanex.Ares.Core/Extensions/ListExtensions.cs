@@ -12,47 +12,6 @@ namespace Fanex.Ares.Core.Extensions
     public static class ListExtensions
     {
         /// <summary>
-        /// Sort By Property.
-        /// </summary>
-        /// <typeparam name="T">Type parameter.</typeparam>
-        /// <param name="dataSource">Data source.</param>
-        /// <param name="sortType">Sort type.</param>
-        /// <param name="sortCol">Sort column.</param>
-        public static void SortByProperty<T>(this List<T> dataSource, string sortType, string sortCol)
-        {
-            PropertyInfo propInfo = typeof(T).GetProperty(sortCol);
-            if (propInfo == null || dataSource == null || dataSource.Count == 0)
-            {
-                return;
-            }
-
-            bool isAsc = false;
-            if (sortType.ToLower().Equals("asc"))
-            {
-                isAsc = true;
-            }
-            else
-            {
-                isAsc = false;
-            }
-
-            Comparison<T> compare = delegate(T a, T b)
-            {
-                object valueA = isAsc
-                    ? Converter.ToDecimal(propInfo.GetValue(a, null))
-                    : Converter.ToDecimal(propInfo.GetValue(b, null));
-
-                object valueB = isAsc
-                    ? Converter.ToDecimal(propInfo.GetValue(b, null))
-                    : Converter.ToDecimal(propInfo.GetValue(a, null));
-
-                return valueA is IComparable ? ((IComparable)valueA).CompareTo(valueB) : 0;
-            };
-
-            dataSource.Sort(compare);
-        }
-
-        /// <summary>
         /// Convert List object to List Select list item using for HtmlHelper.
         /// </summary>
         /// <typeparam name="T">Source type.</typeparam>

@@ -4,6 +4,7 @@ namespace Fanex.Ares.Core.Repository.Impl
     using System.Collections;
     using System.Collections.Generic;
     using System.Data;
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Data;
     using Fanex.NAP.Framework.Data;
 
@@ -19,6 +20,7 @@ namespace Fanex.Ares.Core.Repository.Impl
         /// <param name="criteria">The Criteria.</param>
         /// <param name="mapObjectFunction">Read data reader and pass object.</param>
         /// <returns>Collection of object.</returns>
+        [SuppressMessage("Microsoft.Naming", "CA1715:IdentifiersShouldHaveCorrectPrefix", Justification = "Reviewed")]
         public virtual IList<S> Fetch<S>(ICriteria criteria, Func<IDataReader, S> mapObjectFunction) where S : class
         {
             IList<S> listObject = new List<S>();

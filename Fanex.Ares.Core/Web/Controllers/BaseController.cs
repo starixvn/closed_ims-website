@@ -1,12 +1,11 @@
 namespace Fanex.Ares.Core.Web.Controllers
 {
     using System.Configuration;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
-    using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Service.Impl;
     using Fanex.NAP.Core.Service.Interface;
-    using Fanex.NAP.Core.Web;
     using Fanex.NAP.Core.Web.Context;
     using Fanex.NAP.Core.Web.Session;
 
@@ -15,58 +14,48 @@ namespace Fanex.Ares.Core.Web.Controllers
     /// </summary>
     public class BaseController : Controller
     {
-        protected readonly ICurrentContext CurrentContext;
+        #region Fields
 
-        protected readonly ICurrentSession CurrentSession;
+        private readonly string _environment = NapSettings.Settings.Environment;
 
-        protected readonly IServiceContext ServiceContext;
+        private readonly int _siteId = NapSettings.Settings.SiteId;
 
-        protected readonly string Environment = NapSettings.Settings.Environment;
+        private readonly string _hubUrl = NapSettings.Settings.HubUrl;
 
-        protected readonly int SiteId = NapSettings.Settings.SiteId;
+        private ICurrentContext _currentContext;
 
-        protected readonly string HubUrl = NapSettings.Settings.HubUrl;
+        private ICurrentSession _currentSession;
 
-        private ViewFlags _viewFlags;
+        private IServiceContext _serviceContext;
 
         private bool _issiteLogin = NapSettings.Settings.EnableDirectLogin;
 
+        #endregion
+
+        #region Constructors
+
         public BaseController()
         {
-            this.CurrentContext = new CurrentContext();
-            ViewBag.Session = this.CurrentSession = new CurrentSession();
-            this.ServiceContext = new ServiceContext
-            {
-                UserId = this.CurrentSession.UserId,
-                SiteId = this.SiteId,
-                Ip = this.CurrentContext.IP
-            };
+            _currentContext = new CurrentContext();
+            ViewBag.Session = _currentSession = new CurrentSession();
 
-            ViewFlags = new ViewFlags
+            _serviceContext = new ServiceContext
             {
-                IsLive = this.Environment.Equals(Constant.LIVE),
-                HasEditRight = false
+                UserId = CurrentSession.UserId,
+                SiteId = _siteId,
+                Ip = CurrentContext.IP
             };
         }
+
+        #endregion
+
+        #region Properties
 
         public bool IsSiteLogin
         {
             get
             {
                 return this._issiteLogin;
-            }
-        }
-
-        protected ViewFlags ViewFlags
-        {
-            get
-            {
-                return ViewBag.ViewFlags;
-            }
-
-            set
-            {
-                ViewBag.ViewFlags = this._viewFlags = value;
             }
         }
 
@@ -80,33 +69,47 @@ namespace Fanex.Ares.Core.Web.Controllers
             get { return Server.MapPath(string.Empty); }
         }
 
-        /// <summary>
-        /// Execute before each request, if Downtime then go to Downtime page,
-        /// Or not Authenticate will go to Login Page.
-        /// </summary>
-        /// <param name="filterContext">Filter Context.</param>
+        protected ICurrentContext CurrentContext
+        {
+            get { return _currentContext; }
+        }
+
+        protected ICurrentSession CurrentSession
+        {
+            get { return _currentSession; }
+        }
+
+        protected IServiceContext ServiceContext
+        {
+            get { return _serviceContext; }
+        }
+
+        protected string Environment
+        {
+            get { return _environment; }
+        }
+
+        protected int SiteId
+        {
+            get { return _siteId; }
+        }
+
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Reviewed")]
+        protected string HubUrl
+        {
+            get { return _hubUrl; }
+        }
+
+        #endregion
+
+        #region Methods
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             AppSession.CurrentActionName = filterContext.ActionDescriptor.ActionName;
             base.OnActionExecuting(filterContext);
         }
 
-        /// <summary>
-        /// On Result Executing.
-        /// </summary>
-        /// <param name="filterContext">Filter Context.</param>
-        protected override void OnResultExecuting(ResultExecutingContext filterContext)
-        {
-        }
-
-        /// <summary>
-        /// Override function.
-        /// </summary>
-        /// <param name="data">Object data.</param>
-        /// <param name="contentType">Content type.</param>
-        /// <param name="contentEncoding">Content Encoding.</param>
-        /// <param name="behavior">The behavior.</param>
-        /// <returns>Return result.</returns>
         protected override JsonResult Json(object data, string contentType, System.Text.Encoding contentEncoding, JsonRequestBehavior behavior)
         {
             return new JsonResult()
@@ -118,5 +121,7 @@ namespace Fanex.Ares.Core.Web.Controllers
                 MaxJsonLength = int.MaxValue
             };
         }
+
+        #endregion
     }
 }

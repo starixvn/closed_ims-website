@@ -62,55 +62,6 @@ namespace Fanex.Ares.Core.Extensions
 
         #endregion Date Picker
 
-        #region Year Picker
-
-        /// <summary>
-        ///  Generate year selection item,
-        ///  it add class year picker to text-box.
-        /// </summary>
-        /// <param name="htmlHelper">HTML helper.</param>
-        /// <param name="name">Name parameter.</param>
-        /// <param name="fromYear">From year - Default is 2000.</param>
-        /// <param name="currentYear">Current year - Default is 2000.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString YearPicker(this HtmlHelper htmlHelper, string name, int fromYear = 2000, int currentYear = 2000)
-        {
-            var list = new List<SelectListItem>();
-            var endYear = DateTime.Now.Year;
-
-            for (var i = endYear; i >= fromYear; i--)
-            {
-                list.Add(new SelectListItem
-                {
-                    Text = i.ToString(),
-                    Value = i.ToString(),
-                    Selected = i == currentYear
-                });
-            }
-
-            var dropDownList = htmlHelper.DropDownList(name, list, new { @class = "yearpicker" });
-            return MvcHtmlString.Create(dropDownList.ToString());
-        }
-
-        /// <summary>
-        ///  Generate year selection items.
-        /// </summary>
-        /// <typeparam name="TModel">Model parameter.</typeparam>
-        /// <typeparam name="TValue">Value parameter.</typeparam>
-        /// <param name="html">HTML parameter.</param>
-        /// <param name="expression">Expression parameter.</param>
-        /// <param name="fromYear">Default from year 2000.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString YearPickerFor<TModel, TValue>(this HtmlHelper<TModel> html, Expression<Func<TModel, TValue>> expression, int fromYear = 2000)
-        {
-            var metaData = ModelMetadata.FromLambdaExpression(expression, html.ViewData);
-            var currentYear = (int)metaData.Model;
-
-            return html.YearPicker(metaData.PropertyName, fromYear, currentYear);
-        }
-
-        #endregion Year Picker
-
         #region Dropdownlist
 
         /// <summary>
@@ -124,6 +75,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="firstItem">First Item.</param>
         /// <param name="htmlAttributes">HTML Attributes.</param>
         /// <returns>Return value.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1006:DoNotNestGenericTypesInMemberSignatures", Justification = "Reviewed")]
         public static MvcHtmlString DropDownListFor<TModel, TProperty>(
             this HtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TProperty>> expression,
@@ -157,17 +109,6 @@ namespace Fanex.Ares.Core.Extensions
 
             var result = SelectExtensions.DropDownListFor(htmlHelper, expression, selectList, htmlAttributes);
             return result;
-        }
-
-        /// <summary>
-        /// Raw With Line Break.
-        /// </summary>
-        /// <param name="helper">HTML helper parameter.</param>
-        /// <param name="htmlString">HTML string.</param>
-        /// <returns>Return value.</returns>
-        public static MvcHtmlString RawWithLineBreak(this HtmlHelper helper, string htmlString)
-        {
-            return new MvcHtmlString(htmlString.Replace("\n", "<br />"));
         }
 
         /// <summary>
@@ -207,7 +148,7 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="viewName">View name parameter.</param>
         /// <param name="viewData">View data parameter.</param>
         /// <returns>Return value.</returns>
-        public static string RenderViewToString(Controller controller, string viewName, object viewData)
+        public static string RenderViewToString(ControllerBase controller, string viewName, object viewData)
         {
             var renderedView = new StringBuilder();
             using (var responseWriter = new StringWriter(renderedView))

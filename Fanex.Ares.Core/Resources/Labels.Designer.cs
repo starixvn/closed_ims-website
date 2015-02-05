@@ -466,6 +466,15 @@ namespace Fanex.Ares.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Customer.
+        /// </summary>
+        public static string Customer {
+            get {
+                return ResourceManager.GetString("Customer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Customer
         ///Win Loss.
         /// </summary>
@@ -1845,11 +1854,11 @@ namespace Fanex.Ares.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username.
+        ///   Looks up a localized string similar to UserName.
         /// </summary>
-        public static string Username {
+        public static string UserName {
             get {
-                return ResourceManager.GetString("Username", resourceCulture);
+                return ResourceManager.GetString("UserName", resourceCulture);
             }
         }
         

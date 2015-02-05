@@ -40,7 +40,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return view.</returns>
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View();
@@ -51,7 +51,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return licensees.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicensees()
         {
             return Json(_licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()));
@@ -61,7 +61,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// Add new licensee.
         /// </summary>
         /// <returns>Return result.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             ViewBag.lstLicensees = _licenseeService.GetAvailableLicensees(new IMS_ExistedLicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
@@ -73,7 +73,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <param name="criteria">Licensee ID.</param>
         /// <returns>Return party.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _PartyLicensee(IMS_PartySelByLicensee criteria)
         {
             ViewBag.lstAvailableParties = _licenseeService.GetAvailableOrSelectedParties(new IMS_AvailablePartySelByLicensee() { LinceseeID = criteria.LicenseeID });
@@ -89,7 +89,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee info.</param>
         /// <returns>Return result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreateNewLicensee(IMS_LicenseeIns criteria)
         {
             TempData["Result"] = _licenseeService.ExecuteCommand(criteria);
@@ -102,7 +102,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee info.</param>
         /// <returns>Return result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult UpdateLicensee(IMS_LicenseeInfoUpd criteria)
         {
             TempData["Result"] = _licenseeService.ExecuteCommand(criteria);
@@ -115,7 +115,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Party - license info.</param>
         /// <returns>Return page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreatePartyLicensee(IMS_LicenseePartyMultipleIns criteria)
         {
             TempData["Result"] = _licenseeService.ExecuteCommand(criteria);

@@ -49,14 +49,7 @@ namespace Fanex.Ares.Core.Web
         {
             get
             {
-                try
-                {
-                    return SessionManager.Get<Dictionary<string, int>>(Constants.CurrentUserRoleAccess);
-                }
-                catch (Exception)
-                {
-                    return null;
-                }
+                return SessionManager.Get<Dictionary<string, int>>(Constants.CurrentUserRoleAccess);
             }
 
             set

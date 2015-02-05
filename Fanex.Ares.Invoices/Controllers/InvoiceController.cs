@@ -61,7 +61,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// Indexes this instance.
         /// </summary>
         /// <returns>Action Result.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             ViewBag.ListOperator = this._invoiceService.GetOperatorList(new OperatorSelectionCriteria() { PartyID = 0 });
@@ -155,7 +155,7 @@ namespace Fanex.Ares.Invoice.Controllers
         /// <param name="invoiceModel">The invoice model.</param>
         /// <returns>Return Result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public JsonResult SaveInvoice([ModelBinder(typeof(EmptyStringModelBinder))] InvoiceModel invoiceModel)
         {
             var insertResult = this._invoiceService.SaveInvoice(invoiceModel);

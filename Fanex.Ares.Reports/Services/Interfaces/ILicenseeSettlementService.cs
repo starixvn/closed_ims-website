@@ -3,11 +3,11 @@ namespace Fanex.Ares.Report.Services.Interfaces
     using System;
     using System.Collections.Generic;
     using System.Web.Mvc;
-    using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.Export;
     using Fanex.Ares.Core.Models;
     using Fanex.Ares.Report.Criteria.LicenseeSettlement;
     using Fanex.Ares.Report.ViewModels.LicenseeSettlement;
+    using Fanex.NAP.Framework.Data;
 
     /// <summary>
     /// Licensee Settlement Service.
@@ -24,7 +24,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
 
         IEnumerable<SelectListItem> GetCurrencyByLicensee(LicenseeCurrencySelCriteria criteria);
 
-        IEnumerable<SelectListItem> GetBaseCurrency(BaseCurrencyCriteria criteria);
+        IEnumerable<SelectListItem> GetBaseCurrency(ICriteria criteria);
 
         LicenseeSettlementModel GenerateReport(ReportLicenseeSettlementCriteria criteria);
 

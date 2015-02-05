@@ -413,7 +413,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
                         BasePerUnit = Converter.To<double>(r[criteria.BaseCurrencyName].ToString())
                     };
 
-                    res.UnitsPerBase = 1 / res.BasePerUnit;
+                    res.UnitsPerBase = res.BasePerUnit == 0 ? 0 : 1 / res.BasePerUnit;
 
                     return res;
                 };

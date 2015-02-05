@@ -185,10 +185,10 @@
     <Compile Include="DataDomain\TemplatePath.cs" />
     <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Web\AppSession.cs" />
-    <Compile Include="Web\CacheManager.cs" />
     <Compile Include="Web\Controllers\BaseController.cs" />
     <Compile Include="Web\EmptyStringModelBinder.cs" />
     <Compile Include="Web\Security\AuthenticateAction.cs" />
+    <Compile Include="Web\Security\AuthenticationType.cs" />
     <Compile Include="Web\SessionManager.cs" />
     <Compile Include="Web\ViewEngine\CustomViewEngine.cs" />
   </ItemGroup>

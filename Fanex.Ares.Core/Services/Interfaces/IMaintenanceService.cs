@@ -1,5 +1,6 @@
 ﻿namespace Fanex.Ares.Core.Services.Interfaces
 {
+    using System.Diagnostics.CodeAnalysis;
     using Fanex.Ares.Core.Models;
     using Fanex.Caching;
     using Sunplus.UMControllerLibrary;
@@ -19,6 +20,7 @@
 
         #region Methods
 
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed")]
         MaintenanceInfo GetMaintenanceInfo();
 
         #endregion

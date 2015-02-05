@@ -48,7 +48,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return view.</returns>
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
@@ -62,7 +62,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee - Product setting.</param>
         /// <returns>Return result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetAllSettings(IMS_LicenseeProductSettingInfoSel criteria)
         {
             var rs = Json(_settingService.GetAllSettings(criteria));
@@ -75,7 +75,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee - product.</param>
         /// <returns>Return result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicenseeProductCharge(IMS_LicenseeProductChargeInfoSel criteria)
         {
             return Json(_settingService.GetAllLicenseeProductCharge(criteria));
@@ -87,7 +87,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee product.</param>
         /// <returns>Return result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetAllLicenseeProductDiscount(IMS_LicenseeProductDiscountInfoSel criteria)
         {
             return Json(_settingService.GetAllLicenseeProductDiscount(criteria));
@@ -99,7 +99,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">The Party id.</param>
         /// <returns>Return result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetLicenseesByPartyID(IMS_LicenseeSelByParty criteria)
         {
             return Json(_licenseeService.GetLicenseesByPartyID(criteria));
@@ -111,7 +111,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee - party.</param>
         /// <returns>Return result.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetProductsByLicenseeIDPartyID(IMS_ProductSelByPartyLicensee criteria)
         {
             return Json(_settingService.GetProductsByLicenseeParty(criteria));
@@ -121,7 +121,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// Add new setting.
         /// </summary>
         /// <returns>Return result.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             ViewBag.lstLicensees = _licenseeService.GetAllLicensees(new IMS_LicenseeInfoSel()).ToSelectListItem("LicenseeID", "LicenseeName", "BrandName");
@@ -136,7 +136,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// Licensee product charge page.
         /// </summary>
         /// <returns>Return view.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _LicenseeProductCharge()
         {
             ViewBag.lstCurrencies = _settingService.GetAllCurrenciesByLicensee(new IMS_LicenseeCurrencySelCriteria());
@@ -147,7 +147,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// Licensee - product discount page.
         /// </summary>
         /// <returns>Return view.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _LicenseeProductDiscount()
         {
             ViewBag.lstCurrencies = _settingService.GetAllCurrenciesByLicensee(new IMS_LicenseeCurrencySelCriteria());
@@ -160,7 +160,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee - product setting.</param>
         /// <returns>Redirect to index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreateNewSetting(IMS_LicenseeProductSettingIns criteria)
         {
             criteria.WaivedDate = criteria.WaivedDate == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.WaivedDate;
@@ -176,7 +176,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee - product setting.</param>
         /// <returns>Redirect to index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult UpdateSetting(IMS_LicenseeProductSettingUpd criteria)
         {
             criteria.WaivedDate = criteria.WaivedDate == Convert.ToDateTime("1/1/0001") ? DateTime.Now.AddYears(50) : criteria.WaivedDate;
@@ -192,7 +192,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee - product setting.</param>
         /// <returns>Redirect to index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreateLicenseeProductCharge(IMS_LicenseeProductChargeMultipleIns criteria)
         {
             var rs = new Hashtable();
@@ -211,7 +211,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Licensee - product discount.</param>
         /// <returns>Redirect to index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreateLicenseeProductDiscount(IMS_LicenseeProductDiscountMultipleIns criteria)
         {
             var rs = new Hashtable();

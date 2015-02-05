@@ -5,11 +5,9 @@ namespace Fanex.Ares.Core.Services.Impl
     using System.Data;
     using System.Data.SqlClient;
     using System.Web.Mvc;
-    using Fanex.Ares.Core.Criteria;
     using Fanex.Ares.Core.Repository.Impl;
     using Fanex.Ares.Core.Services.Interfaces;
     using Fanex.Artist.Services;
-    using Fanex.Caching;
     using Fanex.Common.Helper;
     using Fanex.NAP.Core.Web.Context;
     using Fanex.NAP.Core.Web.Session;
@@ -20,33 +18,53 @@ namespace Fanex.Ares.Core.Services.Impl
     /// </summary>
     public class ServiceBase : IServiceBase
     {
-        protected readonly IDynamicRepository DynamicRepository;
+        #region Fields
 
-        protected readonly ICache CacheManager;
+        private readonly IDynamicRepository _dynamicRepository;
 
-        protected readonly BaseRepository BaseRepository;
+        private readonly BaseRepository _baseRepository;
 
-        protected readonly ICurrentContext Context;
+        private readonly ICurrentContext _context;
 
-        protected readonly ICurrentSession Session;
+        private readonly ICurrentSession _session;
+
+        #endregion
+
+        #region Constructors
 
         public ServiceBase(IDynamicRepository repository = null)
         {
-            this.DynamicRepository = repository ?? new DynamicRepository();
-            this.CacheManager = CacheService.CreateInstance();
-            this.BaseRepository = new BaseRepository();
-            this.Context = this.Context ?? new CurrentContext();
-            this.Session = this.Session ?? new CurrentSession();
+            _dynamicRepository = repository ?? new DynamicRepository();
+            _baseRepository = new BaseRepository();
+            _context = new CurrentContext();
+            _session = new CurrentSession();
         }
 
-        /// <summary>
-        ///  Gets dynamic Repository.
-        /// </summary>
-        /// <value>The Repository value.</value>
+        #endregion
+
+        #region Properties
+
         protected IDynamicRepository Repository
         {
-            get { return this.DynamicRepository; }
+            get { return _dynamicRepository; }
         }
+
+        protected BaseRepository BaseRepository
+        {
+            get { return _baseRepository; }
+        }
+
+        protected ICurrentContext Context
+        {
+            get { return _context; }
+        }
+
+        protected ICurrentSession Session
+        {
+            get { return _session; }
+        }
+
+        #endregion
 
         /// <summary>
         /// Get Entities.
@@ -62,7 +80,7 @@ namespace Fanex.Ares.Core.Services.Impl
             {
                 if (criteria.IsValid())
                 {
-                    return DynamicRepository.Fetch<T>(criteria);
+                    return _dynamicRepository.Fetch<T>(criteria);
                 }
             }
             catch (SqlException exception)
@@ -88,7 +106,7 @@ namespace Fanex.Ares.Core.Services.Impl
             {
                 if (criteria.IsValid())
                 {
-                    return DynamicRepository.Get<T>(criteria);
+                    return _dynamicRepository.Get<T>(criteria);
                 }
             }
             catch (SqlException exception)
@@ -106,7 +124,7 @@ namespace Fanex.Ares.Core.Services.Impl
         /// </summary>
         /// <param name="criteria">Base currency criteria.</param>
         /// <returns>Return result.</returns>
-        public IEnumerable<SelectListItem> GetBaseCurrency(BaseCurrencyCriteria criteria)
+        public IEnumerable<SelectListItem> GetBaseCurrency(ICriteria criteria)
         {
             IList<SelectListItem> listProducts = new List<SelectListItem>();
             try
@@ -123,9 +141,10 @@ namespace Fanex.Ares.Core.Services.Impl
 
                 listProducts = BaseRepository.Fetch<SelectListItem>(criteria, mappingFunc);
             }
-            catch (Exception ex)
+            catch (SqlException exception)
             {
-                LoggingHandler.Log(ex);
+                LoggingHandler.Log(exception.Message);
+                throw new ServiceException(exception.Message, criteria.GetSettingKey());
             }
 
             return listProducts;

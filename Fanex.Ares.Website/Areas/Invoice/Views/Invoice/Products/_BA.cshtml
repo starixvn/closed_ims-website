@@ -78,22 +78,22 @@
                 @Labels.Turnover
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.Turnover + "\n (" + Model.LicenseeInfor.BaseCurrencyName + ")")
+                @Html.Raw(Labels.Turnover + "<br/> (" + Model.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td rowspan="2" class="header">
                 @Labels.TotalTrans
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.CustomerWinLoss)
+                @Html.Raw(Labels.Customer + "<br/>" + Labels.Win_Loss)
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.CustomerWinLoss + " (" + Model.LicenseeInfor.BaseCurrencyName + ")")
+                @Html.Raw(Labels.Customer + "<br/>" + Labels.Win_Loss + " (" + Model.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td rowspan="2" class="header">
                 @Labels.BAComm
             </td>
             <td rowspan="2" class="header">
-                @Html.RawWithLineBreak(Labels.BAComm + "\n (" + Model.LicenseeInfor.BaseCurrencyName + ")")
+                @Html.Raw(Labels.BAComm + "<br/> (" + Model.LicenseeInfor.BaseCurrencyName + ")")
             </td>
             <td colspan="2" class="header">
                 @Labels.AmountDue

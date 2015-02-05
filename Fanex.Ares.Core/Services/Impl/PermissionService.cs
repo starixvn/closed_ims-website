@@ -10,15 +10,8 @@ namespace Fanex.Ares.Core.Services.Impl
     /// <summary>
     /// Permission Service.
     /// </summary>
-    public class PermissionService
+    public static class PermissionService
     {
-        private static readonly IUserService UserService;
-
-        static PermissionService()
-        {
-            UserService = new UserService();
-        }
-
         /// <summary>
         /// GetRollAccess: get permission to access with each menu item of current user login.
         /// </summary>

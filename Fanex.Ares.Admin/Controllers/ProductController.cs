@@ -38,7 +38,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return view.</returns>
         [HttpGet]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public ActionResult Index()
         {
             return View();
@@ -49,7 +49,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// </summary>
         /// <returns>Return products.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public JsonResult GetAllProducts()
         {
             return Json(_productService.GetAllProducts(new IMS_ProductInfoSel()));
@@ -59,7 +59,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// Add new product page.
         /// </summary>
         /// <returns>Return result.</returns>
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Read, "Index")]
+        [AuthenticateAction(AuthenticationType.Read, "Index")]
         public PartialViewResult _AddNew()
         {
             return PartialView();
@@ -71,7 +71,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Product info.</param>
         /// <returns>Redirect to index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult CreateNewProduct(IMS_ProductIns criteria)
         {
             TempData["Result"] = _productService.ExecuteCommand(criteria);
@@ -84,7 +84,7 @@ namespace Fanex.Ares.Admin.Controllers
         /// <param name="criteria">Product info.</param>
         /// <returns>Redirect to index page.</returns>
         [HttpPost]
-        [AuthenticateAction(AuthenticateAction.AuthenticationType.Host, "Index")]
+        [AuthenticateAction(AuthenticationType.Host, "Index")]
         public ActionResult UpdateProduct(IMS_ProductnfoUpd criteria)
         {
             TempData["Result"] = _productService.ExecuteCommand(criteria);
