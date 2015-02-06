@@ -7,7 +7,7 @@
   <Function Name="Licensee Settlement">
     <Setting Key="IMS_LicenseeSel" SpName="IMS_LicenseeSel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
     <Setting Key="IMS_LicenseeProductSel" SpName="IMS_LicenseeProductSel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
-    <Setting Key="IMS_ExchangeRateBillingSel" SpName="IMS_ExchangeRateBillingSel" DbName="DBEXT.bodb02.bodbAdminNet" />
+    <Setting Key="IMS_ExchangeRateBillingSel" SpName="IMS_ExchangeRateBillingSel_xtest" DbName="DBEXT.bodb02.bodbAdminNet" />
     <Setting Key="IMS_LicenseeBillingInfoSel" SpName="IMS_LicenseeBillingInfoSel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
     <Setting Key="IMS_Rpt_LicenseeSettlement" SpName="IMS_Rpt_LicenseeSettlement_xtest" DbName="DBEXT.bodb02.bodbAdminNet" />
     <Setting Key="IMS_LicenseeCurrencySel" SpName="IMS_LicenseeCurrencySel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
