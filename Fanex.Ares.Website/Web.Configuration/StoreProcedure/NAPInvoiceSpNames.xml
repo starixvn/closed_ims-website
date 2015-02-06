@@ -11,7 +11,7 @@
     <Setting Key="IMS_LicenseeBillingInfoSel" SpName="IMS_LicenseeBillingInfoSel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
     <Setting Key="IMS_Rpt_LicenseeSettlement" SpName="IMS_Rpt_LicenseeSettlement_xtest" DbName="DBEXT.bodb02.bodbAdminNet" />
     <Setting Key="IMS_LicenseeCurrencySel" SpName="IMS_LicenseeCurrencySel" DbName="DBLIC.bodb_Licensee.bodbAdminNet" />
-    <Setting Key="IMS_BaseCurrencySel" SpName="IMS_BaseCurrencySel" DbName="DBEXT.bodb02.bodbAdminNet" />
+    <Setting Key="IMS_BaseCurrencySel" SpName="IMS_BaseCurrencySel_xtest" DbName="DBEXT.bodb02.bodbAdminNet" />
   </Function>
 
   <Function Name="Setting">
