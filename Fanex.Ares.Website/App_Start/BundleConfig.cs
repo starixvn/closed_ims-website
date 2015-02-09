@@ -53,8 +53,7 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/NapAres.Helper.js",
                 "~/Scripts/NapAres.Validator.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
-                "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
-                "~/Scripts/_Libs/FanexGrid/Fanex.Pagination.js"));
+                "~/Scripts/_Libs/Validation/jquery.validationEngine.js"));
         }
 
         /// <summary>

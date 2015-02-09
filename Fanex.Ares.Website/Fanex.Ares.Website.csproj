@@ -378,6 +378,8 @@
     <Content Include="Scripts\_Libs\FanexGrid\images\sorting_bg.gif" />
     <Content Include="Scripts\_Libs\FanexGrid\images\sorting_desc.gif" />
     <Content Include="Scripts\_Libs\FanexGrid\images\white-top-bottom.gif" />
+    <Content Include="Scripts\_Libs\FanexGrid\moment.js" />
+    <Content Include="Scripts\_Libs\FanexGrid\numeral.js" />
     <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.js" />
     <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.min.js" />
     <Content Include="Scripts\_Libs\FormatLibs\jquery.customformat.js" />
@@ -415,6 +417,7 @@
     <Content Include="Scripts\_Libs\jQuery\classList.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery.form.js" />
     <Content Include="Scripts\_Libs\jQuery\jquery.formattyping.js" />
+    <Content Include="Scripts\_Libs\jQuery\jquery.jqprint-0.3.js" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\error.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\success.png" />
     <Content Include="Scripts\_Libs\MessageNotifier\Images\warning.png" />
