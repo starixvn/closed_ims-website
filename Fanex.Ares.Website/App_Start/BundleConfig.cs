@@ -36,7 +36,7 @@ namespace Fanex.Ares.Website.App_Start
         /// <param name="bundles">The bundles.</param>
         private static void AddCommon(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/scripts/common").Include(
+            bundles.Add(new ScriptBundle("~/scripts/js/common").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery.form.js",
                 "~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.js",
@@ -53,7 +53,8 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/NapAres.Helper.js",
                 "~/Scripts/NapAres.Validator.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
-                "~/Scripts/_Libs/Validation/jquery.validationEngine.js"));
+                "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
+                "~/Scripts/_Libs/FanexGrid/numeral.js"));
         }
 
         /// <summary>
