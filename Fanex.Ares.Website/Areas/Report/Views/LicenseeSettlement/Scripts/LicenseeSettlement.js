@@ -1,7 +1,10 @@
 ﻿/// <reference path="../../../../../Scripts/NapAres.js" />
+
+var domain;
+
 $(document).ready(function () {
     var formOriginalAction = $('#xlsForm').attr('action');
-
+    domain = location.protocol + '//' + location.host + $('#NapHubRoot').val();
     renderDatePicker();
     $('#dropDownListId').addClass('auto-width');
     $('#FromDate, #ToDate').each(function () {
@@ -105,7 +108,7 @@ function RenderFilterNote() {
 };
 
 function Submit() {
-    NapAres.disableInput();
+    $.blockUI();
     $.ajax({
         url: domain + "Report/LicenseeSettlement/GetReport",
         type: "POST",
@@ -137,7 +140,7 @@ function Submit() {
             alert("fail");
         },
         complete: function (jqXHR, textStatus) {
-            NapAres.enableInput();
+            $.unblockUI();
         }
     });
 }

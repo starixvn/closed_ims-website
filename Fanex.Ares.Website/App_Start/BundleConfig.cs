@@ -20,8 +20,8 @@ namespace Fanex.Ares.Website.App_Start
             AddNexcelDatePicker(bundles);
             AddClientTemplateRender(bundles);
             AddMonthPicker(bundles);
-            AddKnockout(bundles);
             InvoicePreviewCSS(bundles);
+            LicenseeSettlement(bundles);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Fanex.Ares.Website.App_Start
         /// <param name="bundles">The bundles.</param>
         private static void AddCommon(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/scripts/common").Include(
+            bundles.Add(new ScriptBundle("~/scripts/js/common").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery.form.js",
                 "~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.js",
@@ -40,25 +40,8 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/_Libs/Bootstrap/bootstrap-tooltip.js",
                 "~/Scripts/_Libs/BlockUI/jquery.blockUI.1.33.js",
                 "~/Scripts/_Libs/FormatLibs/NumberFormat/numeral.js",
-                "~/Scripts/NapAres.js",
-                "~/Scripts/NapAres.Helper.js",
-                "~/Scripts/NapAres.Validator.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js"));
-        }
-
-        /// <summary>
-        /// Adds the knockout.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void AddKnockout(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/scripts-bundle/knockout").Include(
-                        "~/Scripts/_Libs/knockout*"));
-            bundles.Add(new StyleBundle("~/scripts/_lib/Tooltip/style").Include(
-                "~/scripts/_lib/Tooltip/tipsy.css"));
-            bundles.Add(new ScriptBundle("~/scripts-bundle/jquery").Include(
-                       "~/scripts/_lib/Tooltip/jquery.tipsy.js"));
         }
 
         /// <summary>
@@ -114,6 +97,12 @@ namespace Fanex.Ares.Website.App_Start
             bundles.Add(new StyleBundle("~/Content/Invoice/InvoicePreviewCss")
                 .Include("~/Content/Invoice/InvoicePreview.css")
                 .Include("~/Content/Report/LicenseeSettlement.css"));
+        }
+
+        private static void LicenseeSettlement(BundleCollection bundles)
+        {
+            bundles.Add(new ScriptBundle("~/Scripts/LicenseeSettlementJs")
+                .Include("~/Scripts/LicenseeSettlement/LicenseeSettlement.js"));
         }
 
         /// <summary>
