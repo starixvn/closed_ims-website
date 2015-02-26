@@ -8,28 +8,16 @@
 <head>
     <meta charset="utf-8" />
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Areas/UserLogin/scripts/lib/msgbox/CSS")
+    @Styles.Render("~/bundles/CommonCss")
     <link rel="shortcut icon" href="~/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!--[if lt IE 9]><script src="~/scripts/_libs/utils/html5shiv.min.js" type="text/javascript"></script><![endif]-->
-    <link href="~/content/jquery-ui/jquery-ui-1.9.1.custom.min.css" rel="stylesheet"
-        type="text/css" />
-    <link href="~/scripts/_Libs/Validation/validationEngine.jquery.css" rel="stylesheet"
-        type="text/css" />
     @RenderSection("Head", false)
-    @if (IsSectionDefined("Styles"))
-    {
-        @RenderSection("Styles")
-    }
-    else
-    {
-        <link href="~/content/base/style.less" rel="stylesheet" type="text/css" />
-    }
 </head>
 <body>
-@if (AppSession.IsShowMenu)
-{ 
-    <header>
+    @if (AppSession.IsShowMenu)
+    { 
+        <header>
         <div class="logo">
             <a href="~/?ref=logo">&nbsp;</a>
         </div>
@@ -48,8 +36,7 @@
               
         </div>
     </header>
-}
-    
+    }
     <section id="headline">
         @RenderSection("Headline", false)
     </section>
@@ -59,12 +46,9 @@
     @Html.Hidden("NapHubRoot", Url.Content("~/"))
 </body>
 </html>
-@Scripts.Render("~/scripts/js/common")
-@Scripts.Render("~/Areas/UserLogin/scripts/JS")
-@Scripts.Render("~/Areas/UserLogin/scripts/lib/msgbox/JS")
+@Scripts.Render("~/bundles/CommonJs")
 @RenderSection("Scripts", false)
 @RenderSection("Foot", false)
-
 <script type="text/javascript">
     window.rootUrl = '@Url.Content("~")';
     window.rootWebPath = '@(Request.Url.GetLeftPart(UriPartial.Authority) + Request.ApplicationPath)';
@@ -74,7 +58,7 @@
     $(".grid-title").css("width", ($(window).width() - 30) + "px");
     $(".content-grid").css("width", ($(window).width() - 30) + "px");
     $(".content-grid").css("margin", "6px 0 0 10px");
-    
+
     $(window).resize(function () {
         var width = $(window).width() - 30; //padding-right: 10 + padding-left: 10
         $("#filter-bar").css("width", width + "px");

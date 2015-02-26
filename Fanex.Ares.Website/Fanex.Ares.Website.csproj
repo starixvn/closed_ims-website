@@ -19,6 +19,7 @@
     <JSLintSkip>|\Scripts\|\Areas\Admin\Scripts\|\Areas\UserLogin\scripts\|\Areas\Admin\Views\Setting\Scripts\|\Areas\|\Junk\JS\</JSLintSkip>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Couchbase.dll</HintPath>
     </Reference>
@@ -94,6 +99,9 @@
     <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Unity.5.0.414.0\lib\net40\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="SPSRemoting, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SPSRemoting.1.0.0\lib\net40\SPSRemoting.dll</HintPath>
     </Reference>
@@ -109,6 +117,10 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -149,9 +161,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.Providers">
       <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.1\lib\net40\System.Web.Providers.dll</HintPath>
     </Reference>
@@ -170,18 +179,15 @@
     <Reference Include="UMControllerLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UMControllerLibrary.1.0.0\lib\net40\UMControllerLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\CssRewriteUrlTransformWrapper.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -241,21 +247,19 @@
     <Content Include="Content\Invoice\InvoicePreview.css" />
     <Content Include="Content\Invoice\Invoice.css" />
     <Content Include="Content\Invoice\InvoicePDF.css" />
+    <Content Include="Content\Libs\MonthPicker\monPickr-0.0.3.min.css" />
     <Content Include="Content\Report\LicenseeSettlement.css" />
     <Content Include="Content\Report\LicenseeSettlementPDF.css" />
-    <Content Include="Areas\UserLogin\scripts\lib\jquery-1.8.0.min.js" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\alert.png" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\btn-close.png" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\confirm.png" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\error.png" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\info.png" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\images\question.png" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.css" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.js" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.min.css" />
-    <Content Include="Areas\UserLogin\scripts\lib\msgbox\msgbox-0.0.1.min.js" />
-    <Content Include="Areas\UserLogin\scripts\Plugin\jquery-1.6.2.js" />
-    <Content Include="Areas\UserLogin\scripts\ReCheckIn.js" />
+    <Content Include="Content\Msgbox\images\alert.png" />
+    <Content Include="Content\Msgbox\images\btn-close.png" />
+    <Content Include="Content\Msgbox\images\confirm.png" />
+    <Content Include="Content\Msgbox\images\error.png" />
+    <Content Include="Content\Msgbox\images\info.png" />
+    <Content Include="Content\Msgbox\images\question.png" />
+    <Content Include="Content\Msgbox\msgbox-0.0.1.css" />
+    <Content Include="Scripts\_Libs\Msgbox\msgbox-0.0.1.js" />
+    <Content Include="Content\Msgbox\msgbox-0.0.1.min.css" />
+    <Content Include="Scripts\_Libs\Msgbox\msgbox-0.0.1.min.js" />
     <Content Include="Areas\UserLogin\themes\Copy of login.css" />
     <Content Include="Areas\UserLogin\themes\img\auth-bg.png" />
     <Content Include="Areas\UserLogin\themes\img\bg.png" />
@@ -307,6 +311,7 @@
     <Content Include="Junk\JS\NapAres.js" />
     <Content Include="Junk\JS\NapAres.Validator.js" />
     <Content Include="Scripts\LicenseeSettlement\LicenseeSettlement.js" />
+    <Content Include="Scripts\ReCheckIn\ReCheckIn.js" />
     <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.js" />
     <Content Include="Scripts\_Libs\BlockUI\jquery.blockUI.1.33.min.js" />
     <Content Include="Scripts\_Libs\Bootstrap\bootstrap-affix.js" />
@@ -322,9 +327,8 @@
     <Content Include="Scripts\_Libs\Bootstrap\bootstrap-tooltip.js" />
     <Content Include="Scripts\_Libs\Bootstrap\bootstrap-transition.js" />
     <Content Include="Scripts\_Libs\Bootstrap\bootstrap-typeahead.js" />
-    <Content Include="Scripts\_Libs\DatePicker\Demo.htm" />
-    <Content Include="Scripts\_Libs\DatePicker\images\icon-calendar.png" />
-    <Content Include="Scripts\_Libs\DatePicker\jquery.nexDatePicker.css" />
+    <Content Include="Content\Libs\DatePicker\images\icon-calendar.png" />
+    <Content Include="Content\Libs\DatePicker\jquery.nexDatePicker.css" />
     <Content Include="Scripts\_Libs\DatePicker\jquery.nexDatePicker.js" />
     <Content Include="Scripts\_Libs\DatePicker\jquery.nexDatePicker.min.js" />
     <Content Include="Scripts\_Libs\FormatLibs\DateTimeFormat\moment.js" />
@@ -356,29 +360,28 @@
     <Content Include="Scripts\_Libs\jQuery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\_Libs\knockout\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\_Libs\knockout\knockout-2.1.0.js" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\bg-demo-docs-param.gif" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\demo-spindown-closed.gif" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\demo-spindown-open.gif" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\dropdown-icon.png" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\icon-left.png" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\icon-right.png" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\spindown-closed.png" />
-    <Content Include="Scripts\_Libs\MonthPicker\images\spindown-open.png" />
-    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.css" />
+    <Content Include="Content\Libs\MonthPicker\images\bg-demo-docs-param.gif" />
+    <Content Include="Content\Libs\MonthPicker\images\demo-spindown-closed.gif" />
+    <Content Include="Content\Libs\MonthPicker\images\demo-spindown-open.gif" />
+    <Content Include="Content\Libs\MonthPicker\images\dropdown-icon.png" />
+    <Content Include="Content\Libs\MonthPicker\images\icon-left.png" />
+    <Content Include="Content\Libs\MonthPicker\images\icon-right.png" />
+    <Content Include="Content\Libs\MonthPicker\images\spindown-closed.png" />
+    <Content Include="Content\Libs\MonthPicker\images\spindown-open.png" />
+    <Content Include="Content\Libs\MonthPicker\monPickr-0.0.3.css" />
     <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.js" />
-    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.min.css" />
     <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.min.js" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\BottomLine.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\FirstNodeSpan.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\MiddleLine.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\NodeSpan.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\PlusMinus.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\sprites.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\TopLine.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\ui-icons_2e83ff_256x240-1.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\ui-icons_2e83ff_256x240-2.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
-    <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiselect.css" />
+    <Content Include="Content\Libs\MultipleSelect\images\BottomLine.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\FirstNodeSpan.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\MiddleLine.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\NodeSpan.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\PlusMinus.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\sprites.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\TopLine.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\ui-icons_2e83ff_256x240-1.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\ui-icons_2e83ff_256x240-2.png" />
+    <Content Include="Content\Libs\MultipleSelect\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Libs\MultipleSelect\jquery.multiselect.css" />
     <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiselect.js" />
     <Content Include="Scripts\_Libs\MultipleSelect\jquery.multiselect.min.js" />
     <Content Include="Scripts\_Libs\MultipleSelect\jquery.nextreeview.css" />
@@ -387,7 +390,7 @@
     <Content Include="Scripts\_Libs\TemplateRender\doT\doT.min.js" />
     <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.js" />
     <Content Include="Scripts\_Libs\Tooltip\jquery.tipsy.min.js" />
-    <Content Include="Scripts\_Libs\Tooltip\tipsy.css" />
+    <Content Include="Content\Libs\Tooltip\tipsy.css" />
     <Content Include="Scripts\_Libs\Utils\jquery.fixBugsBrowser.js" />
     <Content Include="Scripts\_Libs\Utils\jquery.numeric.js" />
     <Content Include="Scripts\_Libs\Utils\Namespace.js" />
@@ -536,7 +539,7 @@
     <Content Include="Content\reset.less" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine-en.js" />
     <Content Include="Scripts\_Libs\Validation\jquery.validationEngine.js" />
-    <Content Include="Scripts\_Libs\Validation\validationEngine.jquery.css" />
+    <Content Include="Content\Validation\validationEngine.jquery.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -581,7 +584,7 @@
     <Content Include="Web.ConnectionString.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3-custom.less" />
+    <Content Include="Content\Libs\MonthPicker\monPickr-0.0.3-custom.less" />
     <Content Include="Content\base\colors.less" />
     <Content Include="Content\base\grid.less" />
     <Content Include="Content\base\jqueryuicustom.less" />
@@ -652,6 +655,8 @@
     <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
     <Folder Include="Scripts\_Libs\BlockUI\img\" />
+    <Folder Include="Scripts\_Libs\MonthPicker\images\" />
+    <Folder Include="Scripts\_Libs\MultipleSelect\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -1,5 +1,6 @@
 namespace Fanex.Ares.Website.App_Start
 {
+    using System.Web.Configuration;
     using System.Web.Optimization;
 
     /// <summary>
@@ -13,24 +14,21 @@ namespace Fanex.Ares.Website.App_Start
         /// <param name="bundles">Bundle Collection.</param>
         public static void RegisterBundles(BundleCollection bundles)
         {
-            AddCommon(bundles);
-            AddNapReCheckin(bundles);
+            CommonBundle(bundles);
             AddNapMessageBox(bundles);
-            AddMultipleSelectPlugin(bundles);
-            AddNexcelDatePicker(bundles);
-            AddClientTemplateRender(bundles);
-            AddMonthPicker(bundles);
             InvoicePreviewCSS(bundles);
-            LicenseeSettlement(bundles);
+            LicenseeSettlementBundle(bundles);
+
+            BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableMinifyJsCss"] == "true";
         }
 
         /// <summary>
         /// Adds the Common.
         /// </summary>
         /// <param name="bundles">The bundles.</param>
-        private static void AddCommon(BundleCollection bundles)
+        private static void CommonBundle(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/scripts/js/common").Include(
+            bundles.Add(new ScriptBundle("~/bundles/CommonJs").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery.form.js",
                 "~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.js",
@@ -41,55 +39,15 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/_Libs/BlockUI/jquery.blockUI.1.33.js",
                 "~/Scripts/_Libs/FormatLibs/NumberFormat/numeral.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
-                "~/Scripts/_Libs/Validation/jquery.validationEngine.js"));
-        }
+                "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
+                "~/Scripts/_Libs/Msgbox/msgbox-0.0.1.js",
+                "~/Scripts/ReCheckIn/ReCheckIn.js"));
 
-        /// <summary>
-        /// Adds the month picker.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void AddMonthPicker(BundleCollection bundles)
-        {
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/MonthPicker/style")
-                .Include("~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.css")
-                .Include("~/Scripts/_Libs/MonthPicker/monPickr-0.0.3-custom.less"));
-            
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/monPickr").Include(
-                      "~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.js"));
-        }
-
-        /// <summary>
-        /// Adds the client template.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void AddClientTemplateRender(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/template").Include(
-                     "~/Scripts/_Libs/TemplateRender/doT/doT.js"));
-        }
-
-        /// <summary>
-        /// Adds the N.e.x.c.e.l date picker.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void AddNexcelDatePicker(BundleCollection bundles)
-        {
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/DatePicker/style").Include(
-             "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.css"));
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/nexDatePicker").Include(
-                      "~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.js"));
-        }
-
-        /// <summary>
-        /// Adds the Multiple Select Plugin.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void AddMultipleSelectPlugin(BundleCollection bundles)
-        {
-            bundles.Add(new StyleBundle("~/Scripts/_Libs/MultipleSelect/style").Include(
-            "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.css"));
-            bundles.Add(new ScriptBundle("~/Scripts/_Libs/multiselect").Include(
-                      "~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js"));
+            bundles.Add(new StyleBundle("~/bundles/CommonCss")
+                .Include("~/Content/jquery-ui/jquery-ui-1.9.1.custom.min.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/Validation/validationEngine.jquery.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/base/style.less", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/Msgbox/msgbox-0.0.1.css", new CssRewriteUrlTransformWrapper()));
         }
 
         private static void InvoicePreviewCSS(BundleCollection bundles)
@@ -99,10 +57,26 @@ namespace Fanex.Ares.Website.App_Start
                 .Include("~/Content/Report/LicenseeSettlement.css"));
         }
 
-        private static void LicenseeSettlement(BundleCollection bundles)
+        /// <summary>
+        /// Licensee Settlement Bundle.
+        /// </summary>
+        /// <param name="bundles">Bundle Collection.</param>
+        private static void LicenseeSettlementBundle(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Scripts/LicenseeSettlementJs")
+            bundles.Add(new ScriptBundle("~/bundles/LicenseeSettlementJs")
+                .Include("~/Scripts/_Libs/MultipleSelect/jquery.multiselect.js")
+                .Include("~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.js")
+                .Include("~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.js")
+                .Include("~/Scripts/_Libs/tooltip/jquery.tipsy.js")
                 .Include("~/Scripts/LicenseeSettlement/LicenseeSettlement.js"));
+
+            bundles.Add(new StyleBundle("~/bundles/LicenseeSettlementCss")
+                .Include("~/Content/Libs/MultipleSelect/jquery.multiselect.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/Libs/DatePicker/jquery.nexDatePicker.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/Libs/MonthPicker/monPickr-0.0.3.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/Libs/MonthPicker/monPickr-0.0.3-custom.less", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/Libs/Tooltip/tipsy.css", new CssRewriteUrlTransformWrapper())
+                .Include("~/Content/Report/LicenseeSettlement.css", new CssRewriteUrlTransformWrapper()));
         }
 
         /// <summary>
@@ -111,20 +85,8 @@ namespace Fanex.Ares.Website.App_Start
         /// <param name="bundles">The bundles.</param>
         private static void AddNapMessageBox(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/lib/msgbox/JS").Include(
-                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.js"));
             bundles.Add(new StyleBundle("~/Areas/UserLogin/scripts/lib/msgbox/CSS").Include(
                 "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"));
-        }
-
-        /// <summary>
-        /// Adds the N.a.p re-check-in.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void AddNapReCheckin(BundleCollection bundles)
-        {
-            bundles.Add(new ScriptBundle("~/Areas/UserLogin/scripts/JS").Include(
-                "~/Areas/UserLogin/scripts/ReCheckIn.js"));
         }
     }
 }

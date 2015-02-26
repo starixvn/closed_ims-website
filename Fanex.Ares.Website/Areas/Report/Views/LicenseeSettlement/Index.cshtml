@@ -10,9 +10,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section Head {
-    @Styles.Render("~/Scripts/_Libs/MultipleSelect/style", "~/Scripts/_Libs/DatePicker/style", "~/Scripts/_Libs/MonthPicker/style")
-    <link rel="stylesheet" type="text/css" href="~/Scripts/_Libs/Tooltip/tipsy.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/Report/LicenseeSettlement.css" />
+    @Styles.Render("~/bundles/LicenseeSettlementCss")
 }
 @section Headline {
     <div class="title">
@@ -110,7 +108,5 @@
     </script>
 }
 @section Foot {
-    @Scripts.Render("~/Scripts/_Libs/multiselect", "~/Scripts/_Libs/nexDatePicker", "~/Scripts/_Libs/monPickr")
-    <script type="text/javascript" src="~/scripts/_libs/tooltip/jquery.tipsy.js"></script>
-    @Scripts.Render("~/Scripts/LicenseeSettlementJs")
+    @Scripts.Render("~/bundles/LicenseeSettlementJs")
 }
