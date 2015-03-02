@@ -191,12 +191,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Areas\Admin\Area_Start\BundleConfig.cs" />
-    <Compile Include="Areas\Admin\Area_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Invoice\Area_Start\BundleConfig.cs" />
-    <Compile Include="Areas\Invoice\Area_Start\RouteConfig.cs" />
-    <Compile Include="Areas\Invoice\InvoiceAreaRegistration.cs" />
     <Compile Include="Areas\Report\Area_Start\BundleConfig.cs" />
     <Compile Include="Areas\Report\Area_Start\RouteConfig.cs" />
     <Compile Include="Areas\Report\ReportAreaRegistration.cs" />
@@ -215,38 +209,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessage.js" />
-    <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageHelper.js" />
-    <Content Include="Areas\Admin\Scripts\BatchMessage\BatchMessageValidateData.js" />
-    <Content Include="Areas\Admin\Scripts\TicketListing.js" />
-    <Content Include="Areas\Admin\Scripts\TicketListingManager.js" />
-    <Content Include="Areas\Admin\Views\Licensee\Scripts\LicenseeManager.js" />
-    <Content Include="Areas\Admin\Views\Licensee\Styles\Licensee.css" />
-    <Content Include="Areas\Admin\Views\Party\Scripts\PartyManager.js" />
-    <Content Include="Areas\Admin\Views\Party\Styles\Party.css" />
-    <Content Include="Areas\Admin\Views\Product\Scripts\ProductManager.js" />
-    <Content Include="Areas\Admin\Views\Product\Styles\Product.css" />
-    <Content Include="Areas\Admin\Views\Setting\Scripts\SettingManager.js" />
-    <Content Include="Areas\Admin\Views\Setting\Styles\Setting.css" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\angular.min.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\inovice.angular.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.filter.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.helper.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\invoice.js" />
-    <Content Include="Areas\Invoice\Views\Invoice\Scripts\JScript1.js" />
     <Content Include="Content\base\img\excel-icon.png" />
     <Content Include="Content\base\img\pdf.png" />
-    <Content Include="Content\Invoice\Images\BCH.png" />
-    <Content Include="Content\Invoice\Images\Boping-logo.png" />
-    <Content Include="Content\Invoice\Images\COZNI-LIMITED.png" />
-    <Content Include="Content\Invoice\Images\LDL.png" />
-    <Content Include="Content\Invoice\Images\Lupine.jpg" />
-    <Content Include="Content\Invoice\Images\sprite-2.png" />
-    <Content Include="Content\Invoice\Images\sprite.png" />
-    <Content Include="Content\Invoice\Images\StarExpress.jpg" />
-    <Content Include="Content\Invoice\InvoicePreview.css" />
-    <Content Include="Content\Invoice\Invoice.css" />
-    <Content Include="Content\Invoice\InvoicePDF.css" />
     <Content Include="Content\Libs\MonthPicker\monPickr-0.0.3.min.css" />
     <Content Include="Areas\Report\Content\LicenseeSettlement.css" />
     <Content Include="Areas\Report\Content\LicenseeSettlementPDF.css" />
@@ -419,45 +383,10 @@
     <Content Include="Content\fonts\BrandonLight.woff" />
     <Content Include="Content\fonts\ProximaNovaBold.woff" />
     <Content Include="Content\fonts\ProximaNovaReg.woff" />
-    <Content Include="Areas\Admin\Styles\BatchMessage.less" />
-    <Content Include="Areas\Admin\Styles\TicketListing.less" />
-    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Admin\Views\Web.config" />
-    <Content Include="Areas\Invoice\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Invoice\Views\Web.config" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Index.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Sportsbook.cshtml" />
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Number Game.cshtml" />
-    <Content Include="Areas\Admin\Views\Party\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Party\_AddNew.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Invoice.cshtml" />
-    <Content Include="Areas\Admin\Views\Party\_PartyLicensee.cshtml" />
-    <Content Include="Areas\Admin\Views\Licensee\_AddNew.cshtml" />
-    <Content Include="Areas\Admin\Views\Licensee\_PartyLicensee.cshtml" />
-    <Content Include="Areas\Admin\Views\Licensee\Index.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Preview.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\BCH\_BCH_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\BHC\_BHC_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\Cozni\_Cozni_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\LUP\_LUP_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_AddNew.cshtml" />
-    <Content Include="Areas\Admin\Views\Product\_PartyLicensee.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_AddNew.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductCharge.cshtml" />
-    <Content Include="Areas\Admin\Views\Setting\_LicenseeProductDiscount.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\LDL\_LDL_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\_Invoice_Angular.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Products\_Virtual Sports.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Products\_Sportsbook.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Products\_Number Game.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Products\_Live Casino.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Products\_BA.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\Star Express\_Star Express_Software-Data Fees.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Index_Angular.cshtml" />
     <Content Include="Content\base\common.less" />
     <Content Include="Content\base\fonts.less" />
     <Content Include="Content\base\style.less" />
@@ -487,10 +416,6 @@
     <Content Include="Areas\UserControl\Views\User\ChangePassword.cshtml" />
     <Content Include="Areas\UserControl\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\UserControl\Views\Web.config" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\FirstRow.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\SignatureView.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\NoSignatureView.cshtml" />
-    <Content Include="Areas\Invoice\Views\Invoice\Templates\Common\CurrencyCheckboxRow.cshtml" />
     <None Include="Areas\UserLogin\themes\fonts\Abel.woff" />
     <None Include="Areas\UserLogin\themes\fonts\OpenSans.woff" />
     <None Include="Areas\UserLogin\themes\fonts\YanoneKaffeesatz.woff" />
@@ -590,17 +515,9 @@
     <Content Include="Areas\Report\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fanex.Ares.Admin\Admin.csproj">
-      <Project>{AE0012D9-DD72-4DC5-A94D-6FFA1C3A259A}</Project>
-      <Name>Admin</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fanex.Ares.Core\_Core.csproj">
       <Project>{AF2E11AA-2A92-47AC-86FA-4D48B0AEB5D7}</Project>
       <Name>_Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Fanex.Ares.Invoices\Invoice.csproj">
-      <Project>{FEA3AA51-57AF-42B8-BBA6-27A5CC4E074F}</Project>
-      <Name>Invoice</Name>
     </ProjectReference>
     <ProjectReference Include="..\Fanex.Ares.Reports\Report.csproj">
       <Project>{FE5FD977-2CF8-4F46-932E-6B8D0D66B6F6}</Project>

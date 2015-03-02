@@ -3,19 +3,12 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.Linq;
     using System.Web;
     using System.Web.Mvc;
     using System.Web.Security;
-    using Fanex.Ares.Admin.Criteria;
-    using Fanex.Ares.Admin.Services.Implement;
-    using Fanex.Ares.Admin.Services.Interface;
-    using Fanex.Ares.Core.Configurations;
-    using Fanex.Ares.Core.Services.Impl;
     using Fanex.Ares.Core.Web;
     using Fanex.Ares.Core.Web.Controllers;
     using Fanex.Common;
-    using Fanex.NAP.Core.Configuration;
     using Fanex.NAP.Core.Criteria.User;
     using Fanex.NAP.Core.Model;
     using Fanex.NAP.Core.Service.Impl;
@@ -33,26 +26,23 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         private IUserService _userService;
         private IMenuItemService _menuItemService;
         private ICurrentSession _currentSession;
-        private IAdminService _adminService;
         #endregion members
 
         #region ctors
 
         public SSOController()
-            : this(null, null, null, null)
+            : this(null, null, null)
         {
         }
 
         public SSOController(
             IUserService userService,
             IMenuItemService menuItemService,
-            ICurrentSession currentSession,
-            IAdminService adminService)
+            ICurrentSession currentSession)
         {
             _userService = userService ?? new UserService();
             _menuItemService = menuItemService ?? new MenuItemService();
             _currentSession = currentSession ?? new CurrentSession();
-            _adminService = adminService ?? new AdminService();
         }
 
         #endregion ctors

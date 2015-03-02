@@ -16,8 +16,6 @@ namespace Fanex.Ares.Website
         {
             CommonBundle(bundles);
             InvoicePreviewCSS(bundles);
-
-            BundleTable.EnableOptimizations = WebConfigurationManager.AppSettings["EnableMinifyJsCss"] == "true";
         }
 
         /// <summary>
