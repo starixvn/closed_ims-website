@@ -96,17 +96,11 @@
 </div>
 <div id="parentContainer" class="content-grid">
 </div>
-@section scripts
-{
-    <script type="text/javascript">
-        var labelFrom = '@Labels.From';
-        var labelTo = '@Labels.To';
-        var today = '@DateTime.Today.ToShortDateString()';
-        var minDate = '@(new DateTime(2012, 06, 1).ToShortDateString())';
-        var maxDate = '@DateTime.Today.AddDays(-1).ToShortDateString()';
-        var notemessage = '@Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage)';
-    </script>
-}
 @section Foot {
     @Scripts.Render("~/bundles/LicenseeSettlementJs")
 }
+@Html.Hidden("labelFrom", Labels.From)
+@Html.Hidden("labelTo", Labels.To)
+@Html.Hidden("today", DateTime.Today.ToShortDateString())
+@Html.Hidden("minDate", new DateTime(2012, 06, 1).ToShortDateString())
+@Html.Hidden("noteMessage", Html.Raw(LicenseeResource.LicenseeSettlementNoteMessage))
