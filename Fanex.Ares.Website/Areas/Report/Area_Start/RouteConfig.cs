@@ -1,11 +1,11 @@
-namespace Fanex.Ares.Website.Areas.Report.Area_Start
+namespace Fanex.Ares.Website.Areas.Report
 {
     using System.Web.Mvc;
 
     /// <summary>
     /// Route Config.
     /// </summary>
-    public class RouteConfig
+    public static class RouteConfig
     {
         /// <summary>
         /// Register Routes.

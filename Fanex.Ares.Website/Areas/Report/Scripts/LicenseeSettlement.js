@@ -1,6 +1,4 @@
-﻿/// <reference path="../../../../../Scripts/NapAres.js" />
-
-var domain;
+﻿var domain;
 
 $(document).ready(function () {
     var formOriginalAction = $('#xlsForm').attr('action');

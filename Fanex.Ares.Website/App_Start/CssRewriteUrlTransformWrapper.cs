@@ -1,4 +1,4 @@
-﻿namespace Fanex.Ares.Website.App_Start
+﻿namespace Fanex.Ares.Website
 {
     using System.Web;
     using System.Web.Optimization;

@@ -1,11 +1,11 @@
-namespace Fanex.Ares.Website.Areas.Invoice.Area_Start
+namespace Fanex.Ares.Website.Areas.Invoice
 {
     using System.Web.Optimization;
 
     /// <summary>
     /// Bundle Config.
     /// </summary>
-    public class BundleConfig
+    public static class BundleConfig
     {
         /// <summary>
         /// Register Bundles.

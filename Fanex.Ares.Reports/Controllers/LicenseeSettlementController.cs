@@ -24,7 +24,7 @@ namespace Fanex.Ares.Report.Controllers
     {
         #region Fields
 
-        private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Content\Report\LicenseeSettlementPDF.css");
+        private static readonly string PdfCssFilePath = HostingEnvironment.MapPath(@"~\Areas\Report\Content\LicenseeSettlementPDF.css");
 
         private string _settlementView = string.Empty;
 

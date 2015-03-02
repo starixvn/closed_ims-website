@@ -1,4 +1,4 @@
-namespace Fanex.Ares.Website.App_Start
+namespace Fanex.Ares.Website
 {
     using System.Web.Configuration;
     using System.Web.Optimization;
@@ -6,7 +6,7 @@ namespace Fanex.Ares.Website.App_Start
     /// <summary>
     /// Bundle Config.
     /// </summary>
-    public class BundleConfig
+    public static class BundleConfig
     {
         /// <summary>
         /// Register Bundles.
@@ -15,7 +15,6 @@ namespace Fanex.Ares.Website.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             CommonBundle(bundles);
-            AddNapMessageBox(bundles);
             InvoicePreviewCSS(bundles);
             LicenseeSettlementBundle(bundles);
 
@@ -28,7 +27,7 @@ namespace Fanex.Ares.Website.App_Start
         /// <param name="bundles">The bundles.</param>
         private static void CommonBundle(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/CommonJs").Include(
+            var scriptsBundle = new ScriptBundle("~/bundles/CommonJs").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery.form.js",
                 "~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.js",
@@ -41,20 +40,23 @@ namespace Fanex.Ares.Website.App_Start
                 "~/Scripts/_Libs/Validation/jquery.validationEngine-en.js",
                 "~/Scripts/_Libs/Validation/jquery.validationEngine.js",
                 "~/Scripts/_Libs/Msgbox/msgbox-0.0.1.js",
-                "~/Scripts/ReCheckIn/ReCheckIn.js"));
+                "~/Scripts/ReCheckIn/ReCheckIn.js");
 
-            bundles.Add(new StyleBundle("~/bundles/CommonCss")
+            var stylesBundle = new StyleBundle("~/bundles/CommonCss")
                 .Include("~/Content/jquery-ui/jquery-ui-1.9.1.custom.min.css", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/Validation/validationEngine.jquery.css", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/base/style.less", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/Msgbox/msgbox-0.0.1.css", new CssRewriteUrlTransformWrapper()));
+                .Include("~/Content/Msgbox/msgbox-0.0.1.css", new CssRewriteUrlTransformWrapper());
+
+            bundles.Add(stylesBundle);
+            bundles.Add(scriptsBundle);
         }
 
         private static void InvoicePreviewCSS(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/Invoice/InvoicePreviewCss")
                 .Include("~/Content/Invoice/InvoicePreview.css")
-                .Include("~/Content/Report/LicenseeSettlement.css"));
+                .Include("~/Areas/Report/Content/LicenseeSettlement.css"));
         }
 
         /// <summary>
@@ -68,7 +70,7 @@ namespace Fanex.Ares.Website.App_Start
                 .Include("~/Scripts/_Libs/DatePicker/jquery.nexDatePicker.js")
                 .Include("~/Scripts/_Libs/MonthPicker/monPickr-0.0.3.js")
                 .Include("~/Scripts/_Libs/tooltip/jquery.tipsy.js")
-                .Include("~/Scripts/LicenseeSettlement/LicenseeSettlement.js"));
+                .Include("~/Areas/Report/Scripts/LicenseeSettlement.js"));
 
             bundles.Add(new StyleBundle("~/bundles/LicenseeSettlementCss")
                 .Include("~/Content/Libs/MultipleSelect/jquery.multiselect.css", new CssRewriteUrlTransformWrapper())
@@ -76,17 +78,7 @@ namespace Fanex.Ares.Website.App_Start
                 .Include("~/Content/Libs/MonthPicker/monPickr-0.0.3.css", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/Libs/MonthPicker/monPickr-0.0.3-custom.less", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/Libs/Tooltip/tipsy.css", new CssRewriteUrlTransformWrapper())
-                .Include("~/Content/Report/LicenseeSettlement.css", new CssRewriteUrlTransformWrapper()));
-        }
-
-        /// <summary>
-        /// Adds the N.a.p message box.
-        /// </summary>
-        /// <param name="bundles">The bundles.</param>
-        private static void AddNapMessageBox(BundleCollection bundles)
-        {
-            bundles.Add(new StyleBundle("~/Areas/UserLogin/scripts/lib/msgbox/CSS").Include(
-                "~/Areas/UserLogin/scripts/lib/msgbox/msgbox-0.0.1.css"));
+                .Include("~/Areas/Report/Content/LicenseeSettlement.css", new CssRewriteUrlTransformWrapper()));
         }
     }
 }
