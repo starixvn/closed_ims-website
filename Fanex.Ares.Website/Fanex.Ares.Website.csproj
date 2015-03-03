@@ -248,7 +248,6 @@
     <Content Include="Scripts\_Libs\Msgbox\msgbox-0.0.1.js" />
     <Content Include="Content\Msgbox\msgbox-0.0.1.min.css" />
     <Content Include="Scripts\_Libs\Msgbox\msgbox-0.0.1.min.js" />
-    <Content Include="Areas\UserLogin\themes\Copy of login.css" />
     <Content Include="Areas\UserLogin\themes\img\auth-bg.png" />
     <Content Include="Areas\UserLogin\themes\img\bg.png" />
     <Content Include="Areas\UserLogin\themes\img\bkg-pat.png" />
@@ -263,7 +262,6 @@
     <Content Include="Areas\UserLogin\themes\img\username.png" />
     <Content Include="Areas\UserLogin\themes\img\warn.png" />
     <Content Include="Areas\UserLogin\themes\img\welcome.png" />
-    <Content Include="Areas\UserLogin\themes\img\welcome2.png" />
     <Content Include="Areas\UserLogin\themes\login.css" />
     <Content Include="Areas\UserLogin\Views\Common\Style\AccessDenied.css" />
     <Content Include="Areas\UserLogin\Views\Common\Style\Images\accessDenied.gif" />
