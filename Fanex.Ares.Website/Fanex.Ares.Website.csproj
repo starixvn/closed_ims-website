@@ -49,8 +49,14 @@
     <Reference Include="BundleTransformer.Less">
       <HintPath>..\packages\BundleTransformer.Less.1.9.46\lib\net40\BundleTransformer.Less.dll</HintPath>
     </Reference>
+    <Reference Include="BundleTransformer.Yui">
+      <HintPath>..\packages\BundleTransformer.Yui.1.9.34\lib\net40\BundleTransformer.Yui.dll</HintPath>
+    </Reference>
     <Reference Include="Couchbase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Couchbase.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET">
+      <HintPath>..\packages\EcmaScript.Net.1.0.1.0\lib\net20\EcmaScript.NET.dll</HintPath>
     </Reference>
     <Reference Include="Enyim.Caching, Version=2.12.0.0, Culture=neutral, PublicKeyToken=81137140da4e57ef, processorArchitecture=MSIL">
       <HintPath>..\packages\Fanex.Caching.1.0.404.95\lib\net40\Enyim.Caching.dll</HintPath>
@@ -196,6 +202,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
+    <Reference Include="Yahoo.Yui.Compressor">
+      <HintPath>..\packages\YUICompressor.NET.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -224,6 +233,7 @@
   <ItemGroup>
     <Content Include="Content\base\img\excel-icon.png" />
     <Content Include="Content\base\img\pdf.png" />
+    <Content Include="Content\base\img\sprite-2.png" />
     <Content Include="Content\Libs\MonthPicker\monPickr-0.0.3.min.css" />
     <Content Include="Areas\Report\Content\LicenseeSettlement.css" />
     <Content Include="Areas\Report\Content\LicenseeSettlementPDF.css" />
@@ -314,7 +324,6 @@
     <Content Include="Content\Libs\MonthPicker\images\spindown-open.png" />
     <Content Include="Content\Libs\MonthPicker\monPickr-0.0.3.css" />
     <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.js" />
-    <Content Include="Scripts\_Libs\MonthPicker\monPickr-0.0.3.min.js" />
     <Content Include="Content\Libs\MultipleSelect\images\BottomLine.png" />
     <Content Include="Content\Libs\MultipleSelect\images\FirstNodeSpan.png" />
     <Content Include="Content\Libs\MultipleSelect\images\MiddleLine.png" />

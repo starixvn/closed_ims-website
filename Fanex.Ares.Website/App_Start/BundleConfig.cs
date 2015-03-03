@@ -33,7 +33,7 @@ namespace Fanex.Ares.Website
         /// <param name="bundles">The bundles.</param>
         private static void CommonBundle(BundleCollection bundles)
         {
-            var commonScriptsBundle = new ScriptBundle("~/bundles/CommonJs").Include(
+            var commonScriptsBundle = new Bundle("~/bundles/CommonJs").Include(
                 "~/Scripts/_Libs/jQuery/jquery-1.8.2.js",
                 "~/Scripts/_Libs/jQuery/jquery.form.js",
                 "~/Scripts/_Libs/jQuery/jquery-ui-1.9.1.js",
@@ -48,14 +48,15 @@ namespace Fanex.Ares.Website
                 "~/Scripts/_Libs/Msgbox/msgbox-0.0.1.js",
                 "~/Scripts/ReCheckIn/ReCheckIn.js");
 
-            var commonStylesBundle = new StyleBundle("~/bundles/CommonCss")
+            commonScriptsBundle.Transforms.Add(_scripsTransformer);
+
+            var commonStylesBundle = new Bundle("~/bundles/CommonCss")
                 .Include("~/Content/jquery-ui/jquery-ui-1.9.1.custom.css", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/Validation/validationEngine.jquery.css", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/base/style.less", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/Msgbox/msgbox-0.0.1.css", new CssRewriteUrlTransformWrapper());
 
             commonStylesBundle.Transforms.Add(_cssTransformer);
-            commonScriptsBundle.Transforms.Add(_scripsTransformer);
 
             bundles.Add(commonStylesBundle);
             bundles.Add(commonScriptsBundle);

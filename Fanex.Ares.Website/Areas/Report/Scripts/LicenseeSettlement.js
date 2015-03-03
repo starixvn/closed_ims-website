@@ -5,13 +5,13 @@ var LicenseeSettlement = (function () {
 
     var btnGenerate = $('#btnGenerate');
     var licenseeFilter = $('#LicenseeId');
-    var domain;
-    var formOriginalAction;
-    var today;
-    var minDate;
-    var labelFrom;
-    var labelTo;
-    var noteMessage;
+    var domain = '';
+    var formOriginalAction = '';
+    var today = '';
+    var minDate = '';
+    var labelFrom = '';
+    var labelTo = '';
+    var noteMessage = '';
 
     var renderGenerateButton = function () {
         btnGenerate.button();
