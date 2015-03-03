@@ -234,6 +234,7 @@
     <Content Include="Content\base\img\excel-icon.png" />
     <Content Include="Content\base\img\pdf.png" />
     <Content Include="Content\base\img\sprite-2.png" />
+    <Content Include="Content\base\style.less" />
     <Content Include="Content\Libs\MonthPicker\monPickr-0.0.3.min.css" />
     <Content Include="Areas\Report\Content\LicenseeSettlement.css" />
     <Content Include="Areas\Report\Content\LicenseeSettlementPDF.css" />
@@ -374,7 +375,6 @@
     <Content Include="Areas\Report\Views\LicenseeSettlement\_Number Game.cshtml" />
     <Content Include="Content\base\common.less" />
     <Content Include="Content\base\fonts.less" />
-    <Content Include="Content\base\style.less" />
     <Content Include="Content\base\themes.less" />
     <Content Include="Content\Validation\validationEngine.jquery.css" />
     <Content Include="Web.config">
@@ -423,6 +423,7 @@
     <Content Include="Content\base\jqueryuicustom.less" />
     <Content Include="Content\fonts\OpenSans.woff" />
     <None Include="CodeAnalysis\FanexRules.ruleset" />
+    <None Include="Content\base\Less1.less" />
     <None Include="Content\fonts\YanoneKaffeesatz.woff" />
     <Content Include="Views\Shared\_Menu.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
@@ -484,8 +485,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\UserControl\Models\" />
-    <Folder Include="Areas\UserControl\Views\Shared\" />
     <Folder Include="Areas\UserLogin\Models\" />
   </ItemGroup>
   <ItemGroup>
