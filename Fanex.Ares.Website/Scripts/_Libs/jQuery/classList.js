@@ -12,12 +12,10 @@
 /*! @source http://purl.eligrey.com/github/classList.js/blob/master/classList.js*/
 
 if (typeof document !== "undefined" && !("classList" in document.createElement("a"))) {
-
     (function (view) {
-
         "use strict";
 
-        var 
+        var
       classListProp = "classList"
     , protoProp = "prototype"
     , elemCtrProto = (view.HTMLElement || view.Element)[protoProp]
@@ -26,7 +24,7 @@ if (typeof document !== "undefined" && !("classList" in document.createElement("
         return this.replace(/^\s+|\s+$/g, "");
     }
     , arrIndexOf = Array[protoProp].indexOf || function (item) {
-        var 
+        var
               i = 0
             , len = this.length
         ;
@@ -59,7 +57,7 @@ if (typeof document !== "undefined" && !("classList" in document.createElement("
         return arrIndexOf.call(classList, token);
     }
     , ClassList = function (elem) {
-        var 
+        var
               trimmedClasses = strTrim.call(elem.className)
             , classes = trimmedClasses ? trimmedClasses.split(/\s+/) : []
             , i = 0
@@ -131,7 +129,5 @@ if (typeof document !== "undefined" && !("classList" in document.createElement("
         } else if (objCtr[protoProp].__defineGetter__) {
             elemCtrProto.__defineGetter__(classListProp, classListGetter);
         }
-
     } (self));
-
 }

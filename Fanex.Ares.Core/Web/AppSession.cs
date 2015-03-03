@@ -1,8 +1,6 @@
 namespace Fanex.Ares.Core.Web
 {
-    using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using Fanex.Ares.Core.DataDomain;
     using Fanex.NAP.Core.Model;
 

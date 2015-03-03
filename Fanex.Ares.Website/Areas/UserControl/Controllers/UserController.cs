@@ -22,10 +22,11 @@ namespace Fanex.Ares.Website.Areas.UserControl.Controllers
     /// User Controller.
     /// </summary>
     public class UserController : BaseController
-    {        
+    {
         private readonly IUserService _userService;
 
-        public UserController() : this(null)
+        public UserController()
+            : this(null)
         {
         }
 
@@ -95,7 +96,7 @@ namespace Fanex.Ares.Website.Areas.UserControl.Controllers
             return View(criteria);
         }
 
-        #endregion
+        #endregion Change Password
 
         #region Profile
 
@@ -166,6 +167,6 @@ namespace Fanex.Ares.Website.Areas.UserControl.Controllers
             return View(criteria);
         }
 
-        #endregion
+        #endregion Profile
     }
 }

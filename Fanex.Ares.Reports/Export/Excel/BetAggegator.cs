@@ -29,7 +29,7 @@
         private const int NoteRow = 14;
         private const int NoInfoRow = 15;
 
-        #endregion
+        #endregion Rows
 
         #region Information and Header Columns
 
@@ -42,7 +42,7 @@
 
         private const int ForexTimeCol = 13;
 
-        #endregion
+        #endregion Information and Header Columns
 
         #region Report Columns
 
@@ -61,13 +61,13 @@
         private const int CurrencyPerUnitCol = 13;
         private const int UnitPerCurrencyCol = 14;
 
-        #endregion
+        #endregion Report Columns
 
         #region Fields
 
         private readonly LicenseeSettlementModel _model;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -81,7 +81,7 @@
             _model = model;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Assign Data
 
@@ -123,7 +123,7 @@
             }
         }
 
-        #endregion
+        #endregion Assign Data
 
         #region Utilities
 
@@ -261,6 +261,6 @@
             row.Cells[ReportDateCol].SetCellValue(reportDate);
         }
 
-        #endregion
+        #endregion Utilities
     }
 }

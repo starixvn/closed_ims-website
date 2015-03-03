@@ -1,5 +1,4 @@
 var Recheckin = function ($) {
-
     return {
         time: null,
         root: null,
@@ -42,9 +41,7 @@ var Recheckin = function ($) {
             index.close();
         }
     }
-
 } (jQuery);
-
 
 $(document).ready(function () {
     Recheckin.init();

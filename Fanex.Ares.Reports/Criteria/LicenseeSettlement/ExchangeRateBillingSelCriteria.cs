@@ -8,30 +8,30 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     /// </summary>
     public class ExchangeRateBillingSelCriteria : CriteriaBase
     {
-        public string Currency 
-        { 
-            get; 
-            set; 
+        public string Currency
+        {
+            get;
+            set;
         }
 
-        public DateTime ExchangeDate 
-        { 
-            get; 
-            set; 
-        }
-
-        [SpParam(Ignored = true)]
-        public int BaseCurrencyId 
-        { 
-            get; 
-            set; 
+        public DateTime ExchangeDate
+        {
+            get;
+            set;
         }
 
         [SpParam(Ignored = true)]
-        public string BaseCurrencyName 
-        { 
-            get; 
-            set; 
+        public int BaseCurrencyId
+        {
+            get;
+            set;
+        }
+
+        [SpParam(Ignored = true)]
+        public string BaseCurrencyName
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -47,9 +47,9 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         /// Check is valid.
         /// </summary>
         /// <returns>Return result.</returns>
-        public override bool IsValid() 
-        { 
-            return true; 
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

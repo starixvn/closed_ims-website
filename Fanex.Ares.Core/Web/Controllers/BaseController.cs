@@ -30,7 +30,7 @@ namespace Fanex.Ares.Core.Web.Controllers
 
         private bool _issiteLogin = NapSettings.Settings.EnableDirectLogin;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -47,7 +47,7 @@ namespace Fanex.Ares.Core.Web.Controllers
             };
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -100,7 +100,7 @@ namespace Fanex.Ares.Core.Web.Controllers
             get { return _hubUrl; }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -122,6 +122,6 @@ namespace Fanex.Ares.Core.Web.Controllers
             };
         }
 
-        #endregion
+        #endregion Methods
     }
 }

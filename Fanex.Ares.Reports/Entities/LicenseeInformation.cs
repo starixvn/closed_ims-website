@@ -5,7 +5,7 @@ namespace Fanex.Ares.Report.Entities
     /// <summary>
     /// Licensee Information.
     /// </summary>
-   [Serializable]
+    [Serializable]
     public class LicenseeInformation
     {
         public DateTime SettlementDate { get; set; }

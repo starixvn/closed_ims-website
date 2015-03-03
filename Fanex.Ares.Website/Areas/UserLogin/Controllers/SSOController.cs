@@ -22,10 +22,12 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
     public class SSOController : BaseController
     {
         #region members
+
         private readonly int _timeExipration = 30;
         private IUserService _userService;
         private IMenuItemService _menuItemService;
         private ICurrentSession _currentSession;
+
         #endregion members
 
         #region ctors
@@ -126,6 +128,7 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
         }
 
         #region utilities
+
         /// <summary>
         /// Create Authenticate Info.
         /// </summary>

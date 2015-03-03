@@ -15,90 +15,90 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
             this.Month = DateTime.Now.Month - 1;
             this.Year = DateTime.Now.Year;
         }
-   
-        public int LicenseeId 
-        { 
-            get; 
-            set; 
+
+        public int LicenseeId
+        {
+            get;
+            set;
         }
 
-        public string LicenseeName 
-        { 
-            get; 
-            set; 
+        public string LicenseeName
+        {
+            get;
+            set;
         }
 
-        public DateTime FromDate 
-        { 
-            get; 
-            set; 
+        public DateTime FromDate
+        {
+            get;
+            set;
         }
 
-        public DateTime ToDate 
-        { 
-            get; 
-            set; 
+        public DateTime ToDate
+        {
+            get;
+            set;
         }
 
-        public int Product 
-        { 
-            get; 
-            set; 
-        }
-
-        [SpParam(Ignored = true)]
-        public string ProductName 
-        { 
-            get; 
-            set; 
-        }
-
-        public int Currency 
-        { 
-            get; 
-            set; 
+        public int Product
+        {
+            get;
+            set;
         }
 
         [SpParam(Ignored = true)]
-        public int BaseCurrency 
-        { 
-            get; 
-            set; 
+        public string ProductName
+        {
+            get;
+            set;
+        }
+
+        public int Currency
+        {
+            get;
+            set;
         }
 
         [SpParam(Ignored = true)]
-        public string BaseCurrencyName 
-        { 
-            get; 
-            set; 
+        public int BaseCurrency
+        {
+            get;
+            set;
         }
 
         [SpParam(Ignored = true)]
-        public int PartyId 
-        { 
-            get; 
-            set; 
+        public string BaseCurrencyName
+        {
+            get;
+            set;
         }
 
         [SpParam(Ignored = true)]
-        public int Month 
-        { 
-            get; 
-            set; 
+        public int PartyId
+        {
+            get;
+            set;
         }
 
         [SpParam(Ignored = true)]
-        public int Year 
-        { 
-            get; 
-            set; 
+        public int Month
+        {
+            get;
+            set;
         }
 
         [SpParam(Ignored = true)]
-        public bool InvoiceReport 
-        { 
-            get; 
-            set; 
+        public int Year
+        {
+            get;
+            set;
+        }
+
+        [SpParam(Ignored = true)]
+        public bool InvoiceReport
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -114,9 +114,9 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         /// Check is valid.
         /// </summary>
         /// <returns>Return result.</returns>
-        public override bool IsValid() 
-        { 
-            return true; 
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

@@ -7,22 +7,22 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     /// </summary>
     public class LicenseeBillingInfoSelCriteria : CriteriaBase
     {
-        public int LicenseeId 
-        { 
-            get; 
-            set; 
+        public int LicenseeId
+        {
+            get;
+            set;
         }
 
-        public int ProductId 
-        { 
-            get; 
-            set; 
+        public int ProductId
+        {
+            get;
+            set;
         }
 
-        public int PartyId 
-        { 
-            get; 
-            set; 
+        public int PartyId
+        {
+            get;
+            set;
         }
 
         public override string GetSettingKey()
@@ -30,9 +30,9 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
             return "IMS_Invoice_LicenseeBillingInfoSel";
         }
 
-        public override bool IsValid() 
-        { 
-            return true; 
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

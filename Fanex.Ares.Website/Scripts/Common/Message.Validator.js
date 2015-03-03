@@ -3,7 +3,6 @@
 }
 
 Message.Validator = (function ($) {
-
     return {
         validateMessageConstraints: function () {
             if ($("#msg-en").val() == "") {

@@ -42,7 +42,7 @@ namespace Fanex.Ares.Core.Extensions
 
             return string.Empty;
         }
-        
+
         /// <summary>
         /// To the short format date.
         /// </summary>
@@ -67,7 +67,7 @@ namespace Fanex.Ares.Core.Extensions
 
             return string.Empty;
         }
-        
+
         /// <summary>
         /// To the long formatting date.
         /// </summary>

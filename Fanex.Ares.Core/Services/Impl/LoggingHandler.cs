@@ -57,6 +57,7 @@ namespace Fanex.Ares.Core.Services.Impl
                 case LogType.Info:
                     LogService.Info(message);
                     break;
+
                 case LogType.Error:
                     LogService.Error(message);
                     break;

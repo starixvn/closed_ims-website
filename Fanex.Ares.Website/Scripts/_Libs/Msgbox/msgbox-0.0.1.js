@@ -11,7 +11,6 @@
 */
 
 (function (window, document, $) {
-
     var str_msgbox = 'msgbox',
         str_msgboxOverlay = 'MsgBoxOverlay',
         agentLtIe9 = $.browser.msie && parseInt($.browser.version, 10) < 9,
@@ -129,10 +128,10 @@
                 });
             }
 
-//            if (_this.options.draggable) {
-//                _this.dragObject = new dragObject($this.attr('id'), $this.attr('id'));
-//                $this.css({ cursor: 'move' });
-//            }
+            //            if (_this.options.draggable) {
+            //                _this.dragObject = new dragObject($this.attr('id'), $this.attr('id'));
+            //                $this.css({ cursor: 'move' });
+            //            }
         },
 
         show: function (msg, options) {
@@ -327,5 +326,4 @@
         if (visisble) this.css('visibility', 'visible');
         else this.css('visibility', 'hidden');
     };
-
 } (window, document, jQuery));

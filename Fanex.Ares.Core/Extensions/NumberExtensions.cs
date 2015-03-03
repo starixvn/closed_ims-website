@@ -1,6 +1,5 @@
 namespace Fanex.Ares.Core.Extensions
 {
-    using System;
     using Fanex.Common;
 
     /// <summary>

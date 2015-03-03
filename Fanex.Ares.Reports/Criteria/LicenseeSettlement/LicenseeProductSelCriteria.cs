@@ -7,10 +7,10 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
     /// </summary>
     public class LicenseeProductSelCriteria : CriteriaBase
     {
-        public int LicenseeId 
-        { 
-            get; 
-            set; 
+        public int LicenseeId
+        {
+            get;
+            set;
         }
 
         /// <summary>
@@ -26,9 +26,9 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         /// Check is valid.
         /// </summary>
         /// <returns>Return result.</returns>
-        public override bool IsValid() 
-        { 
-            return true; 
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

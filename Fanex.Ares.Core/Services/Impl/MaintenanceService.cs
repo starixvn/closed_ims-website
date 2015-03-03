@@ -20,7 +20,7 @@
 
         private UMBusiness _underMaintenanceService;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -36,7 +36,7 @@
             _cache = cache;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -50,7 +50,7 @@
             get { return _cache; }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -87,6 +87,6 @@
             return maintenanceInfo;
         }
 
-        #endregion
+        #endregion Methods
     }
 }

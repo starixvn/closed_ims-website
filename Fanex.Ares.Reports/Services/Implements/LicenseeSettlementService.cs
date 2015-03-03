@@ -35,7 +35,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
         {
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Properties
 
@@ -54,7 +54,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
             get { return GetFileName(); }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -174,9 +174,11 @@ namespace Fanex.Ares.Report.Services.Interfaces
                 case Products.NumberGame:
                     excel = new Sportsbook(templatePath, model);
                     break;
+
                 case Products.BA:
                     excel = new BetAggregator(templatePath, model);
                     break;
+
                 default:
                     excel = new Sportsbook(templatePath, model);
                     break;
@@ -199,7 +201,7 @@ namespace Fanex.Ares.Report.Services.Interfaces
                 toDate.ToAresDayMonthYear());
         }
 
-        #endregion
+        #endregion Methods
 
         #region Utilities
 
@@ -219,9 +221,11 @@ namespace Fanex.Ares.Report.Services.Interfaces
                 case Products.NumberGame:
                     templatePath = TemplatePath.LicenseeBillingForSportsBook;
                     break;
+
                 case Products.BA:
                     templatePath = TemplatePath.LicenseeBillingForBA;
                     break;
+
                 default:
                     templatePath = TemplatePath.LicenseeBillingForSportsBook;
                     break;
@@ -327,9 +331,9 @@ namespace Fanex.Ares.Report.Services.Interfaces
                             Value = Converter.ToString2(r["LicenseeID"]),
                             Text = Converter.ToString2(r["BrandName"])
                         },
-                        Extension = new Dictionary<string, object>() 
-                        { 
-                            { "LicenseeName", Convert.ToString(r["LicenseeName"]) } 
+                        Extension = new Dictionary<string, object>()
+                        {
+                            { "LicenseeName", Convert.ToString(r["LicenseeName"]) }
                         }
                     };
                 };
@@ -450,6 +454,6 @@ namespace Fanex.Ares.Report.Services.Interfaces
                 model.LicenseeInfor.ToDate.ToAresDayMonthYear());
         }
 
-        #endregion
+        #endregion Utilities
     }
 }

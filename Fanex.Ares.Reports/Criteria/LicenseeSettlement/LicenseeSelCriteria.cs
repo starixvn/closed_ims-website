@@ -20,9 +20,9 @@ namespace Fanex.Ares.Report.Criteria.LicenseeSettlement
         /// Check is valid.
         /// </summary>
         /// <returns>Return result.</returns>
-        public override bool IsValid() 
-        { 
-            return true; 
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

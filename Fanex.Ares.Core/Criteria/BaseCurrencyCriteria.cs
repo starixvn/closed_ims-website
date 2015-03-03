@@ -12,9 +12,9 @@ namespace Fanex.Ares.Core.Criteria
             return "IMS_BaseCurrencySel";
         }
 
-        public override bool IsValid() 
-        { 
-            return true; 
+        public override bool IsValid()
+        {
+            return true;
         }
     }
 }

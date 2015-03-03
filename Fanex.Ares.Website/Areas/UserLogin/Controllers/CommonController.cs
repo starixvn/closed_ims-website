@@ -8,11 +8,12 @@ namespace Fanex.Ares.Website.Areas.UserLogin.Controllers
     /// <summary>
     /// Common Controller.
     /// </summary>
-   public class CommonController : Controller
+    public class CommonController : Controller
     {
         private readonly IMaintenanceService _maintenanceService;
 
-        public CommonController() : this(null)
+        public CommonController()
+            : this(null)
         {
         }
 

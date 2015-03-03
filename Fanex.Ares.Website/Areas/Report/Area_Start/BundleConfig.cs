@@ -45,7 +45,7 @@ namespace Fanex.Ares.Website.Areas.Report
                 .Include("~/Content/Libs/MonthPicker/monPickr-0.0.3-custom.less", new CssRewriteUrlTransformWrapper())
                 .Include("~/Content/Libs/Tooltip/tipsy.css", new CssRewriteUrlTransformWrapper())
                 .Include("~/Areas/Report/Content/LicenseeSettlement.css", new CssRewriteUrlTransformWrapper());
-            
+
             stylesBundle.Transforms.Add(_cssTransformer);
             scriptsBundle.Transforms.Add(_scripsTransformer);
 

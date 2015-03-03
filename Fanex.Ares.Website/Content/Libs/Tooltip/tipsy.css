@@ -14,7 +14,7 @@
     text-align: left;
     -moz-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
     -webkit-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
-     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
 }
 
 .tipsy-inner-error
@@ -47,12 +47,7 @@
     width: 0;
     height: 0;
     line-height: 0;
-    border: 5px dashed #FF0000;
-    /*
-    -moz-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
-*/
+    border: 5px dashed #FF0000; /*     -moz-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);     -webkit-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1); */
 }
 
 /* Rules to colour arrows */
@@ -79,12 +74,7 @@
     width: 0;
     height: 0;
     line-height: 0;
-    border: 5px dashed #616161;
-     /*
-    -moz-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
-    -webkit-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);
-*/
+    border: 5px dashed #616161; /*     -moz-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);     -webkit-box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1);     box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.1); */
 }
 
 /* Rules to colour arrows */

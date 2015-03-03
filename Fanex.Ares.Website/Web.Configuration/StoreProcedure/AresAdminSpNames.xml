@@ -35,6 +35,5 @@
     <Setting Key="IMS_LicenseeProductDiscountInfoSel" SpName="IMS_LicenseeProductDiscountInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_ExistedLicenseeInfoSel" SpName="IMS_ExistedLicenseeInfoSel" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
     <Setting Key="IMS_ProductSelByPartyLicensee" SpName="IMS_ProductSelByPartyLicensee" DbName="DBINVOICE.bodb_Invoice.bodbAdminNet" />
-    
   </Function>
 </Functions>

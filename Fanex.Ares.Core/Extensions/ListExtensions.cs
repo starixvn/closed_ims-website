@@ -1,10 +1,7 @@
 namespace Fanex.Ares.Core.Extensions
 {
-    using System;
     using System.Collections.Generic;
-    using System.Reflection;
     using System.Web.Mvc;
-    using Fanex.Common;
 
     /// <summary>
     /// List Extensions.
@@ -22,10 +19,10 @@ namespace Fanex.Ares.Core.Extensions
         /// <param name="selectedValue">Selected Value.</param>
         /// <returns>Return value.</returns>
         public static IEnumerable<SelectListItem> ToSelectListItem<T>(
-            this IEnumerable<T> source, 
-            string valueField, 
-            string textField, 
-            string textPriorField = "", 
+            this IEnumerable<T> source,
+            string valueField,
+            string textField,
+            string textPriorField = "",
             string selectedValue = null)
         {
             foreach (var item in source)

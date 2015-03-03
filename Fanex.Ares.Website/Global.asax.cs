@@ -9,7 +9,7 @@ namespace Fanex.Ares.Website
     using Fanex.Ares.Core.Web.ViewEngine;
     using Fanex.Data.Configuration;
 
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
 
     /// <summary>

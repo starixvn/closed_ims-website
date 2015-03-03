@@ -30,7 +30,7 @@ namespace Fanex.Ares.Report.Controllers
 
         private ILicenseeSettlementService _licenseeSettlementService;
 
-        #endregion
+        #endregion Fields
 
         #region Constructor
 
@@ -44,7 +44,7 @@ namespace Fanex.Ares.Report.Controllers
             _licenseeSettlementService = licenseeSettlementService ?? new LicenseeSettlementService();
         }
 
-        #endregion
+        #endregion Constructor
 
         /// <summary>
         /// The index page.
@@ -153,6 +153,6 @@ namespace Fanex.Ares.Report.Controllers
             return pdfRender.ContentRender();
         }
 
-        #endregion
+        #endregion Utilities
     }
 }

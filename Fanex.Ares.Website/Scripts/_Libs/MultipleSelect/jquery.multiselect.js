@@ -33,7 +33,6 @@
             var numChecked = $(this).next('div.ui-multiselect-options').find('label').not('.ui-multiselect-state-disabled').find('input').filter('[checked]').length;
 
             $(this).find('input').val($.fn.multiSelect.defaults.noneSelectedText);
-
         },
         getUncheckItems: function () {
             var listChecked = $(this).next('div.ui-multiselect-options').find('label:not(.ui-multiselect-state-disabled,.ui-multiselect-group-mark)').find('input:not(:checked)').not("#" + $(this).attr('id') + "HeaderCheckBox");
@@ -113,7 +112,7 @@
             tempHtml.push('<input readonly="readonly" type="text" class="ui-multiselect-state-default" value="' + noneSelectedText + '" title="' + select.title + '" /><span class="ui-multiselect-icon ui-multiselect-icon-triangle-1-s"></span></a>');
             return tempHtml.join('');
         };
-        //render Header 
+        //render Header
         var checkShouldShowGroupOrNo = function () {
             for (var i = 0; i < o.listData.length; i++) {
                 if (typeof o.listData[i].Items !== 'undefined' && o.listData[i].Items.length > 0) {
@@ -322,7 +321,6 @@
             //build footer link
             if (o.showFooter) {
                 $footer.find('a').click(function (e) {
-
                     o.onUpdateResult.call(this);
                     e.preventDefault();
                 });
@@ -337,7 +335,6 @@
                             gravity: 'sw'
                         }
                     );
-
                 }
                 catch (e) { };
             }
@@ -375,7 +372,6 @@
                     if (!$select.hasClass('ui-multiselect-state-disabled')) {
                         $(this).addClass('ui-multiselect-state-hover');
                     };
-
                 },
                 mouseleave: function () {
                     $(this).removeClass('ui-multiselect-state-hover');
@@ -418,14 +414,12 @@
                         }
                         $allLabel.find('input').removeAttr('isCheck');
                         isOpenning = false;
-
                     }
                     UpdateSelected();
                     //$.fn.multiSelect.defaults.onLeave();
                     o.onLeave.call($select);
                 },
                 'open': function (e, closeOthers) {
-
                     // bail if this widget is disabled
                     if ($select.hasClass('ui-multiselect-state-disabled')) {
                         return;
@@ -453,7 +447,7 @@
                     } else {
                         top = (offset.top + $select.outerHeight());
                     }
-                    top += 3; // padding extra 3px to seperate options with multi select div 
+                    top += 3; // padding extra 3px to seperate options with multi select div
 
                     // calculate the width of the options menu
                     if ($.browser.msie) {
@@ -656,5 +650,4 @@
         onOptgroupToggle: function () { }, /* when the optgroup heading is clicked */
         onUpdateResult: function () { }
     };
-
 })(jQuery);

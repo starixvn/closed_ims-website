@@ -28,7 +28,7 @@
 
         private string _cssFilePath;
 
-        #endregion
+        #endregion Fields
 
         #region Constructor
 
@@ -44,7 +44,7 @@
             _stream = new MemoryStream();
         }
 
-        #endregion
+        #endregion Constructor
 
         #region Methods
 
@@ -93,7 +93,7 @@
             }
         }
 
-        #endregion
+        #endregion Methods
 
         #region Utilities
 
@@ -143,6 +143,6 @@
             }
         }
 
-        #endregion
+        #endregion Utilities
     }
 }

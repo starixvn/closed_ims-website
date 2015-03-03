@@ -4,7 +4,6 @@
 // released under the MIT license
 
 (function ($) {
-
     function maybeCall(thing, ctx) {
         return (typeof thing == 'function') ? (thing.call(ctx)) : thing;
     };
@@ -40,7 +39,7 @@
                         }
                         break;
                 }
-                
+
                 $tip[0].className = 'tipsy'; // reset classname in case of dynamic gravity
                 $tip.remove().css({ top: 0, left: 0, visibility: 'hidden', display: 'block' }).prependTo(document.body);
 
@@ -153,7 +152,6 @@
     };
 
     $.fn.tipsy = function (options) {
-
         if (options === true) {
             return this.data('tipsy');
         } else if (typeof options == 'string') {
@@ -204,7 +202,6 @@
         }
 
         return this;
-
     };
 
     $.fn.tipsy.defaults = {
@@ -259,7 +256,7 @@
     * @param prefer (string, e.g. 'n', 'sw', 'w') - the direction to prefer
     *        if there are no viewable region edges effecting the tooltip's
     *        gravity. It will try to vary from this minimally, for example,
-    *        if 'sw' is preferred and an element is near the right viewable 
+    *        if 'sw' is preferred and an element is near the right viewable
     *        region edge, but not the top edge, it will set the gravity for
     *        that element's tooltip to be 'se', preserving the southern
     *        component.
@@ -279,5 +276,4 @@
             return dir.ns + (dir.ew ? dir.ew : '');
         }
     };
-
 })(jQuery);

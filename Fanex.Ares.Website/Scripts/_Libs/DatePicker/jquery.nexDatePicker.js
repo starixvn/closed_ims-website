@@ -2,9 +2,7 @@
 /// <reference path="../jquery-1.8.2.js" />
 /// <reference path="../jquery-ui-1.9.1.js" />
 
-
 (function () {
-
     //// Method expose for user use
     var methods = {
         createNexDatePicker: function (opts) {
@@ -27,7 +25,6 @@
             return dateRange;
         }
     };
-
 
     $.fn.nexDatePicker = function (options) {
         if (methods[options]) {
@@ -179,7 +176,6 @@
              + '</div>'
              );
 
-
             //// Render Second DatePicker Element
             if (options.nexDatePickerType != "single") {
                 html.push(
@@ -190,7 +186,7 @@
                 );
             }
 
-            //// Return Html Joined 
+            //// Return Html Joined
             return html.join('');
         },
         FormatDatePicker: function () {
@@ -298,7 +294,7 @@
                         //$(this).datepicker("option", option == "minDate" ? "maxDate" : "minDate", date)
                     }
                     options.onSelectDatePicker(selectedDate);
-                    me.$dropDownList.val(7);                   
+                    me.$dropDownList.val(7);
                 }
             }
             this.Options.datePickerFormat = $.extend({}, this.Options.datePickerFormat, optionSelect);

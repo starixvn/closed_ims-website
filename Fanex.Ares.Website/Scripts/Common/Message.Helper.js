@@ -3,7 +3,6 @@
 } (jQuery));
 
 Message.Helper = (function ($) {
-
     return {
         displayMoreMsg: function () {
             var symbol = $('#spMoreMsg').html();

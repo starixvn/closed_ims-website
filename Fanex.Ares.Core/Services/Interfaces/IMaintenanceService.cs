@@ -16,13 +16,13 @@
 
         UMBusiness UnderMaintenanceService { get; }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reviewed")]
         MaintenanceInfo GetMaintenanceInfo();
 
-        #endregion
+        #endregion Methods
     }
 }

@@ -31,7 +31,7 @@
         private const int NoteRow = 17;
         private const int NoInfoRow = 18;
 
-        #endregion
+        #endregion Rows
 
         #region Information and Header Columns
 
@@ -47,7 +47,7 @@
         private const int DataLicenseeCol = 8;
         private const int ForexTimeCol = 14;
 
-        #endregion
+        #endregion Information and Header Columns
 
         #region Report Columns
 
@@ -69,14 +69,14 @@
 
         private const int GrossCol = 1;
 
-        #endregion
+        #endregion Report Columns
 
         #region Fields
 
         private const string BasisOfBilling = "15% of Net Win";
         private readonly LicenseeSettlementModel _model;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -90,7 +90,7 @@
             _model = model;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Assign Data
 
@@ -132,7 +132,7 @@
             }
         }
 
-        #endregion
+        #endregion Assign Data
 
         #region Utilities
 
@@ -278,6 +278,6 @@
             row.Cells[ReportDateCol].SetCellValue(reportDate);
         }
 
-        #endregion
+        #endregion Utilities
     }
 }

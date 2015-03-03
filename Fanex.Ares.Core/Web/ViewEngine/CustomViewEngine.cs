@@ -14,7 +14,8 @@ namespace Fanex.Ares.Core.Web.ViewEngine
     /// </summary>
     public class CustomViewEngine : RazorViewEngine
     {
-        public CustomViewEngine() : base()
+        public CustomViewEngine()
+            : base()
         {
             PartialViewLocationFormats = new string[]
                 {

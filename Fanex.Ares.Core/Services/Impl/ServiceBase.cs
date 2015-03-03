@@ -28,7 +28,7 @@ namespace Fanex.Ares.Core.Services.Impl
 
         private readonly ICurrentSession _session;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -40,7 +40,7 @@ namespace Fanex.Ares.Core.Services.Impl
             _session = new CurrentSession();
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -64,7 +64,7 @@ namespace Fanex.Ares.Core.Services.Impl
             get { return _session; }
         }
 
-        #endregion
+        #endregion Properties
 
         /// <summary>
         /// Get Entities.
@@ -119,6 +119,7 @@ namespace Fanex.Ares.Core.Services.Impl
         }
 
         #region Get data for combobox
+
         /// <summary>
         /// Get Base Currency.
         /// </summary>
@@ -149,6 +150,7 @@ namespace Fanex.Ares.Core.Services.Impl
 
             return listProducts;
         }
-        #endregion
+
+        #endregion Get data for combobox
     }
 }

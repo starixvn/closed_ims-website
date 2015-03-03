@@ -4,8 +4,6 @@ namespace Fanex.Ares.Core.Services.Impl
     using Fanex.Ares.Core.Web;
     using Fanex.NAP.Core.Business;
     using Fanex.NAP.Core.Model.ValueObject;
-    using Fanex.NAP.Core.Service.Impl;
-    using Fanex.NAP.Core.Service.Interface;
 
     /// <summary>
     /// Permission Service.

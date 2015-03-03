@@ -20,7 +20,7 @@ namespace Fanex.Ares.Core.Web.Security
 
         private string _mainAction;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -30,7 +30,7 @@ namespace Fanex.Ares.Core.Web.Security
             _mainAction = mainAction;
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Properties
 
@@ -44,7 +44,7 @@ namespace Fanex.Ares.Core.Web.Security
             get { return _mainAction; }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -87,7 +87,7 @@ namespace Fanex.Ares.Core.Web.Security
             base.OnActionExecuting(filterContext);
         }
 
-        #endregion
+        #endregion Methods
 
         #region Utilities
 
@@ -141,6 +141,6 @@ namespace Fanex.Ares.Core.Web.Security
             return privilege;
         }
 
-        #endregion
+        #endregion Utilities
     }
 }
